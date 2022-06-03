@@ -74,7 +74,7 @@ ITEM		COMMENTS
 # - Format for groups:
 #
 #	name,SMILES[,connect index,connect group:connect index[,...]]
-#	  
+#
 #   where the first connect index is the connection point in the current
 #   group and the second in the connection group
 # - Asterix in SMILES denotes a connection point
@@ -89,13 +89,13 @@ ITEM		END
 # Clusters
 #
 # - Format for clusters:
-#	  
+#
 #	name,group,fraction[,mol mass[,mol volume]]
 #
 #   molecular mass and volume are optional and function as an override
 #   for mass calculation by means of a force field file; alternatively
 #   surfaces can be included by using the group keyword 'surface' through
-#	  
+#
 #	name,surface,nx,file name
 #
 #   file name refers to a crystal structure as available in ./lib with
@@ -111,5 +111,3 @@ ITEM		END
 # Comments end
 
 ITEM		END
-
-
