@@ -29,13 +29,13 @@ def package_files(directory):
 extra_files = package_files('pyemc/emc')
 
 setup(
-    name='pyemc',
+    name='emc-pypi',
     version='0.1.0',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     description='Python interface for the Enhanced Monte Carlo (EMC) package',
     keywords=['EMC'],
-    url='https://github.com/kevinshen56714/pyemc',
+    url='https://github.com/kevinshen56714/emc-pypi',
     author='Kevin Shen',
     author_email='kevinshen56714@gmail.com',
     classifiers=[
