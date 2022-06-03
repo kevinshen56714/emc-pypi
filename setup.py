@@ -1,6 +1,7 @@
 import os
 import sys
-from setuptools import setup, find_packages
+
+from setuptools import find_packages, setup
 
 # Read the contents of your README file
 PACKAGE_DIR = os.path.abspath(os.path.dirname(__file__))
@@ -10,11 +11,11 @@ with open(os.path.join(PACKAGE_DIR, 'README.md'), encoding='utf-8') as f:
 
 def get_exclude_bins():
     if sys.platform == 'linux' or sys.platform == 'linux2':
-        emc_exec = 'emc_linux64'
+        pass
     elif sys.platform == 'darwin':
-        emc_exec = 'emc_macos'
+        pass
     elif sys.platform == 'win32':
-        emc_exec = 'emc_win32.exe'
+        pass
 
 
 def package_files(directory):
@@ -29,7 +30,7 @@ extra_files = package_files('pyemc/emc')
 
 setup(
     name='pyemc',
-    version='9.4.4',
+    version='0.1.0',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     description='Python interface for the Enhanced Monte Carlo (EMC) package',
