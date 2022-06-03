@@ -10,19 +10,23 @@ with open(os.path.join(PACKAGE_DIR, 'README.md'), encoding='utf-8') as f:
 
 
 def get_exclude_bins():
+    bins = ['emc_linux64', 'emc_macos', 'emc_win32.exe']
     if sys.platform == 'linux' or sys.platform == 'linux2':
-        pass
+        bins.remove('emc_linux64')
     elif sys.platform == 'darwin':
-        pass
+        bins.remove('emc_macos')
     elif sys.platform == 'win32':
-        pass
+        bins.remove('emc_win32.exe')
+    return bins
 
 
 def package_files(directory):
+    exclude_bins = get_exclude_bins()
     paths = []
     for (path, directories, filenames) in os.walk(directory):
         for filename in filenames:
-            paths.append(os.path.join('..', path, filename))
+            if filename not in exclude_bins:
+                paths.append(os.path.join('..', path, filename))
     return paths
 
 
