@@ -29,7 +29,7 @@ extra_files = package_files('pyemc/emc')
 
 setup(
     name='pyemc',
-    version='9.4.4',
+    version='0.1.0',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     description='Python interface for the Enhanced Monte Carlo (EMC) package',
