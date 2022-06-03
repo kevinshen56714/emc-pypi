@@ -1,0 +1,45 @@
+#
+#  Born topology using guillot.define
+#  converted by field.pl v1.0, May 21, 2016 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.3.9 or higher
+#
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+(?
+  (al+3)
+  (ca+2)
+  (fe+2)
+  (fe+3)
+  (k+)
+  (mg+2)
+  (na+)
+  (o-2)
+  (si+4)
+  (ti+4)
+  (?)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	index	charge	rule
+
+0	?	?	1	0	[DM]
+1	al+3	Al	2	1.4175	[Al+3]
+2	ca+2	Ca	3	0.945	[Ca+2]
+3	fe+2	Fe	4	0.945	[Fe+2]
+4	fe+3	Fe	5	1.4175	[Fe+3]
+5	k+	K	6	0.4725	[K+]
+6	mg+2	Mg	7	0.945	[Mg+2]
+7	na+	Na	8	0.4725	[Na+]
+8	o-2	O	11	-0.945	[O-2]
+9	si+4	Si	9	1.89	[Si+4]
+10	ti+4	Ti	10	1.89	[Ti+4]
+
+ITEM	END

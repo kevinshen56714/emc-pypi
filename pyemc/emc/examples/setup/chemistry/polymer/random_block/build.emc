@@ -1,0 +1,330 @@
+(* EMC: Script *)
+
+(* Created by emc_setup.pl v3.9.0, July 28, 2019
+   on Tue Jul 30 11:53:08 EDT 2019 *)
+
+(* define variables *)
+
+variables	= {
+  seed		-> -1,
+  ntotal	-> 1000,
+  fshape	-> 1,
+  output	-> "block",
+  field		-> "dpd/general",
+  location	-> $root+"field/",
+
+  nav		-> 1,
+  temperature	-> 1,
+  radius	-> 1,
+  nrelax	-> 100,
+  weight_nonbond -> 0.01,
+  weight_bond	-> 0.01,
+  weight_focus	-> 1,
+  cutoff	-> 1,
+  charge_cutoff	-> 3,
+  kappa		-> 1,
+
+  density1	-> 3,
+
+  f_poly	-> 1,
+  f_water	-> 1,
+
+  chem_A	-> "*A*",
+  chem_B	-> "*B*",
+  chem_C	-> "*C*",
+  chem_D	-> "*D*",
+  chem_W	-> "W"
+};
+
+output		= {
+  debug		-> false,
+  exit		-> true,
+  info		-> true,
+  warning	-> true
+};
+
+(* define force field *)
+
+field		= {
+  id		-> dpd/general,
+  mode		-> dpd,
+  name		-> location+field+".prm",
+  compress	-> false
+};
+
+(* define groups *)
+
+groups		= {
+  group		-> {id -> A, depth -> 8, chemistry -> chem_A,
+    terminator	-> true,
+    connects	-> {
+      {source	-> $end1, destination -> {A, $end2}},
+      {source	-> $end2, destination -> {D, $end1}},
+      {source	-> $end2, destination -> {C, $end1}},
+      {source	-> $end2, destination -> {B, $end1}},
+      {source	-> $end2, destination -> {A, $end1}}
+    }
+  },
+  group		-> {id -> B, depth -> 8, chemistry -> chem_B,
+    terminator	-> true,
+    connects	-> {
+      {source	-> $end1, destination -> {A, $end2}},
+      {source	-> $end1, destination -> {B, $end2}},
+      {source	-> $end2, destination -> {D, $end1}},
+      {source	-> $end2, destination -> {C, $end1}},
+      {source	-> $end2, destination -> {B, $end1}}
+    }
+  },
+  group		-> {id -> C, depth -> 8, chemistry -> chem_C,
+    terminator	-> true,
+    connects	-> {
+      {source	-> $end1, destination -> {A, $end2}},
+      {source	-> $end1, destination -> {B, $end2}},
+      {source	-> $end1, destination -> {C, $end2}},
+      {source	-> $end2, destination -> {C, $end1}},
+      {source	-> $end2, destination -> {D, $end1}}
+    }
+  },
+  group		-> {id -> D, depth -> 8, chemistry -> chem_D,
+    terminator	-> true,
+    connects	-> {
+      {source	-> $end1, destination -> {A, $end2}},
+      {source	-> $end1, destination -> {B, $end2}},
+      {source	-> $end1, destination -> {C, $end2}},
+      {source	-> $end1, destination -> {D, $end2}},
+      {source	-> $end2, destination -> {D, $end1}}
+    }
+  },
+  group		-> {id -> W, depth -> 8, chemistry -> chem_W}
+};
+
+field		= {
+  mode		-> apply,
+  check		-> {
+    atomistic	-> true,
+    charge	-> true
+  },
+  debug		-> false
+};
+
+(* determine simulation sizing *)
+
+variables	= {
+
+  (* lengths *)
+
+  lg_A		-> nsites(A),
+  lg_B		-> nsites(B),
+  lg_C		-> nsites(C),
+  lg_D		-> nsites(D),
+  lg_W		-> nsites(W),
+  norm_poly	-> 0.25+0.25+0.25+0.25,
+
+  l_poly	-> 0,
+  l_poly	-> l_poly+(5*(1*lg_A+2*lg_B)/3+5*(1*lg_C+1*lg_D)/2)*0.25/norm_poly,
+  l_poly	-> l_poly+(10*(1*lg_A+2*lg_B)/3+10*(1*lg_C+1*lg_D)/2)*0.25/norm_poly,
+  l_poly	-> l_poly+(10*(1*lg_A+2*lg_B)/3+10*(1*lg_C+1*lg_D)/2)*0.25/norm_poly,
+  l_poly	-> l_poly+(10*(1*lg_A+2*lg_B)/3+10*(1*lg_C+1*lg_D)/2)*0.25/norm_poly,
+  l_water	-> lg_W,
+  norm_water	-> 1,
+
+  (* masses *)
+
+  mg_A		-> mass(A),
+  mg_B		-> mass(B),
+  mg_C		-> mass(C),
+  mg_D		-> mass(D),
+  mg_W		-> mass(W),
+
+  norm_poly	-> 0.25+0.25+0.25+0.25,
+
+  m_poly	-> 0,
+  m_poly	-> m_poly+(5*(1*mg_A+2*mg_B)/3+5*(1*mg_C+1*mg_D)/2)*0.25/norm_poly,
+  m_poly	-> m_poly+(10*(1*mg_A+2*mg_B)/3+10*(1*mg_C+1*mg_D)/2)*0.25/norm_poly,
+  m_poly	-> m_poly+(10*(1*mg_A+2*mg_B)/3+10*(1*mg_C+1*mg_D)/2)*0.25/norm_poly,
+  m_poly	-> m_poly+(10*(1*mg_A+2*mg_B)/3+10*(1*mg_C+1*mg_D)/2)*0.25/norm_poly,
+  m_water	-> mg_W,
+  norm_water	-> 1,
+
+  (* mass fractions *)
+
+  f_poly	-> f_poly*l_poly/m_poly,
+  f_water	-> f_water*l_water/m_water,
+
+  (* normalization *)
+
+  norm		-> f_poly+f_water,
+
+  f_poly	-> f_poly/norm,
+  f_water	-> f_water/norm,
+
+  (* sizing *)
+
+  n_poly	-> int(f_poly*ntotal/l_poly+0.5),
+  n_water	-> int(f_water*ntotal/l_water+0.5),
+
+  tmp_n_poly	-> 0,
+  tmp_n_poly	-> tmp_n_poly+int(0.25*n_poly/norm_poly+0.5),
+  tmp_n_poly	-> tmp_n_poly+int(0.25*n_poly/norm_poly+0.5),
+  tmp_n_poly	-> tmp_n_poly+int(0.25*n_poly/norm_poly+0.5),
+  tmp_n_poly	-> tmp_n_poly+int(0.25*n_poly/norm_poly+0.5),
+  n_poly	-> tmp_n_poly,
+
+  m_poly	-> 0,
+  m_poly	-> m_poly+(5*(1*mg_A+2*mg_B)/3+5*(1*mg_C+1*mg_D)/2)*int(0.25*n_poly/norm_poly+0.5),
+  m_poly	-> m_poly+(10*(1*mg_A+2*mg_B)/3+10*(1*mg_C+1*mg_D)/2)*int(0.25*n_poly/norm_poly+0.5),
+  m_poly	-> m_poly+(10*(1*mg_A+2*mg_B)/3+10*(1*mg_C+1*mg_D)/2)*int(0.25*n_poly/norm_poly+0.5),
+  m_poly	-> m_poly+(10*(1*mg_A+2*mg_B)/3+10*(1*mg_C+1*mg_D)/2)*int(0.25*n_poly/norm_poly+0.5),
+  m_poly	-> m_poly/n_poly,
+
+  l_poly	-> 0,
+  l_poly	-> l_poly+(5*(1*lg_A+2*lg_B)/3+5*(1*lg_C+1*lg_D)/2)*int(0.25*n_poly/norm_poly+0.5),
+  l_poly	-> l_poly+(10*(1*lg_A+2*lg_B)/3+10*(1*lg_C+1*lg_D)/2)*int(0.25*n_poly/norm_poly+0.5),
+  l_poly	-> l_poly+(10*(1*lg_A+2*lg_B)/3+10*(1*lg_C+1*lg_D)/2)*int(0.25*n_poly/norm_poly+0.5),
+  l_poly	-> l_poly+(10*(1*lg_A+2*lg_B)/3+10*(1*lg_C+1*lg_D)/2)*int(0.25*n_poly/norm_poly+0.5),
+  l_poly	-> l_poly/n_poly,
+
+  (* system sizing *)
+
+  ntotal	-> 0,
+  mtotal	-> 0
+};
+
+(* define interactions *)
+
+simulation	= {
+  units		-> {
+    permittivity -> 0.2,
+    seed	-> seed
+  },
+  types		-> {
+    coulomb	-> {
+      charge	-> {active -> true, k -> kappa, cutoff -> charge_cutoff}
+    }
+  }
+};
+
+(* clusters phase 1 *)
+
+clusters	= {
+  polymer	-> {
+    id		-> poly_1, system -> main, type -> random,
+    n		-> int(0.25*n_poly/norm_poly+0.5),
+    groups	-> {{A, B}, {C, D}},
+    weights	-> {{1, 2}, {1, 1}},
+    nrepeat	-> {5, 5}
+  },
+  polymer	-> {
+    id		-> poly_2, system -> main, type -> random,
+    n		-> int(0.25*n_poly/norm_poly+0.5),
+    groups	-> {{A, B}, {C, D}},
+    weights	-> {{1, 2}, {1, 1}},
+    nrepeat	-> {10, 10}
+  },
+  polymer	-> {
+    id		-> poly_3, system -> main, type -> random,
+    n		-> int(0.25*n_poly/norm_poly+0.5),
+    groups	-> {{A, B}, {C, D}},
+    weights	-> {{1, 2}, {1, 1}},
+    nrepeat	-> {10, 10}
+  },
+  polymer	-> {
+    id		-> poly_4, system -> main, type -> random,
+    n		-> int(0.25*n_poly/norm_poly+0.5),
+    groups	-> {{A, B}, {C, D}},
+    weights	-> {{1, 2}, {1, 1}},
+    nrepeat	-> {10, 10}
+  },
+  cluster	-> {
+    id		-> water, system -> main, group -> W, n -> n_water}
+};
+
+field		= {
+  mode		-> apply,
+  check		-> {
+    atomistic	-> true,
+    charge	-> true
+  },
+  debug		-> false
+};
+
+(* build phase 1 *)
+
+variables	= {
+  nphase1	-> ntotal()-ntotal,
+  mphase1	-> mtotal()-mtotal,
+  vphase1	-> nphase1/density1,
+  lbox		-> (vphase1/fshape)^(1/3),
+  lphase1	-> fshape*lbox,
+  lxx		-> lphase1,
+  lyy		-> lbox,
+  lzz		-> lbox,
+  lzy		-> 0,
+  lzx		-> 0,
+  lyx		-> 0,
+  lphase	-> lphase1,
+  ntotal	-> nphase1,
+  mtotal	-> mphase1,
+  vtotal	-> vphase1
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    geometry	-> {xx -> lxx, yy -> lyy, zz -> lzz,
+		    zy -> lzy, zx -> lzx, yx -> lyx},
+    temperature	-> temperature,
+    flag	-> {charge -> true, map -> true, pbc -> true}
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    name	-> "error",
+    order	-> random,
+    cluster	-> {poly_1, poly_2, poly_3, poly_4, water},
+    relax	-> {ncycles -> nrelax, radius -> radius},
+    grow	-> {
+      method	-> energetic,
+      check	-> all,
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000,
+      weight	-> {
+	bonded	-> weight_bond, nonbonded -> weight_nonbond,
+	focus	-> weight_focus}
+    }
+  }
+};
+
+force		= {style -> none, message -> nkt};
+force		= {style -> init, message -> nkt};
+
+(* LAMMPS profile variables *)
+
+variables	= {
+  nl_poly	-> nclusters(clusters -> poly_1),
+  nl_poly	-> nl_poly+nclusters(clusters -> poly_2),
+  nl_poly	-> nl_poly+nclusters(clusters -> poly_3),
+  nl_poly	-> nl_poly+nclusters(clusters -> poly_4),
+  nl_water	-> nclusters(clusters -> water),
+
+  n0_poly	-> 1,
+  n1_poly	-> n0_poly+nl_poly-1,
+  n0_water	-> n1_poly+1,
+  n1_water	-> n0_water+nl_water-1
+};
+
+(* storage *)
+
+put		= {name -> output, compress -> true};
+
+pdb		= {name -> output, compress -> true, forcefield -> dpd,
+		   detect -> false, hexadecimal -> false, unwrap -> 1,
+		   pbc -> true, atom -> index, residue -> index,
+		   segment -> index, rank -> false, vdw -> false, cut -> false,
+		   fixed -> true, rigid -> true, connectivity -> false,
+		   parameters -> false};
+
+lammps		= {name -> output, mode -> put, forcefield -> dpd,
+		   parameters -> true, types -> false, unwrap -> true,
+		   charges -> true, ewald -> true, cross -> true};

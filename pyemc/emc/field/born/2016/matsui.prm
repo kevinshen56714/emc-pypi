@@ -1,0 +1,100 @@
+#
+#  Born interaction parameters using matsui.define
+#  converted by field.pl v1.0, May 21, 2016 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.3.9 or higher
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE	BORN
+FFTYPE	ATOMISTIC
+FFDEPTH	4
+VERSION	Jan 1998
+CREATED	Oct 2019
+LENGTH	ANGSTROM
+ENERGY	KCAL/MOL
+DENSITY	G/CC
+MIX	BERTHELOT
+CUTOFF	10
+NBONDED	0
+PAIR14	EXCLUDE
+ANGLE	ERROR
+TORSION	ERROR
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+1998	101	145	Geophys. Monograph
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	comment
+
+?	1	?	0	0	Dummy
+al+3	26.982	Al	0	3	Aluminium
+ca+2	40.078	Ca	0	2	Calcium
+mg+2	24.305	Mg	0	2	Magnesium
+na+	22.990	Na	0	1	Sodium
+o-2	15.9994	O	0	-2	Oxygen
+si+4	28.085	Si	0	4	Silicon
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE_AUTO
+
+# type	pair	incr	bond	angle	torsion	improper
+
+?	?	?	?	?	?	?
+al+3	al+3	al+3	al+3	al+3	al+3	al+3
+ca+2	ca+2	ca+2	ca+2	ca+2	ca+2	ca+2
+mg+2	mg+2	mg+2	mg+2	mg+2	mg+2	mg+2
+na+	na+	na+	na+	na+	na+	na+
+o-2	o-2	o-2	o-2	o-2	o-2	o-2
+si+4	si+4	si+4	si+4	si+4	si+4	si+4
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	improper
+
+?	?	?	?	?	?	?
+al+3	al+3	al+3	al+3	al+3	al+3	al+3
+ca+2	ca+2	ca+2	ca+2	ca+2	ca+2	ca+2
+mg+2	mg+2	mg+2	mg+2	mg+2	mg+2	mg+2
+na+	na+	na+	na+	na+	na+	na+
+o-2	o-2	o-2	o-2	o-2	o-2	o-2
+si+4	si+4	si+4	si+4	si+4	si+4	si+4
+
+ITEM	END
+
+# Nonbonded parameters
+
+ITEM	NONBOND
+
+# type1	type2	sigma	rho	a	c	d
+
+?	?	0.0	0.0	0.0	0.0	0.0
+al+3	al+3	1.5704	0.068	0.068	324.023	0.0
+ca+2	ca+2	2.3440	0.080	0.080	483.987	0.0
+mg+2	mg+2	1.7880	0.080	0.080	201.698	0.0
+na+	na+	2.3200	0.080	0.080	400.007	0.0
+o-2	o-2	3.6430	0.276	0.276	1962.278	0.0
+si+4	si+4	1.4408	0.046	0.046	580.901	0.0
+
+ITEM	END

@@ -1,0 +1,39 @@
+#!/usr/bin/env emc_setup.pl
+#
+#  script:	polymer.esh
+#  author:	Pieter J. in 't Veld
+#  date:	October 1, 2017
+#  purpose:	Example for polymers using EMC setup chemistry mode
+#
+
+ITEM	OPTIONS
+
+replace		true
+field		charmm/c36a/cgenff
+number		false
+ntotal		1000
+density		0.85
+emc_execute	true
+
+ITEM	END
+
+ITEM	GROUPS
+
+monomer		*CC*,1,monomer:2
+terminator	*C,1,monomer:1,1,monomer:2
+
+ITEM	END
+
+ITEM	CLUSTERS
+
+polymer		alternate,1
+
+ITEM	END
+
+ITEM	POLYMERS
+
+polymer
+1		monomer,10,terminator,2
+
+ITEM	END
+

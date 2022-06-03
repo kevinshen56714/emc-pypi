@@ -1,0 +1,273 @@
+#
+#  CHARMM topology using prot force field files, 
+#  converted by emc_charmm.pl v3.1, June 25, 2020 by Pieter J. in 't Veld,
+#  to be used in conjuction with EMC v9.4.4 or higher,
+#  and created on Thu Jun 25 15:30:53 2020.
+#
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+(?
+  (C)
+  (CA)
+  (CAI)
+  (CAIA)
+  (CAIB)
+  (CAIC)
+  (CC)
+  (CCA)
+  (CCB)
+  (CD)
+  (CDS)
+  (CP1)
+  (CP2)
+  (CP3)
+  (CPH1)
+  (CPH2)
+  (CPT)
+  (CS)
+  (CT1)
+  (CT1A)
+  (CT2)
+  (CT2A)
+  (CT2B)
+  (CT2C)
+  (CT2D)
+  (CT3)
+  (CY)
+  (H)
+  (HA1)
+  (HA2)
+  (HA3)
+  (HB1)
+  (HB2)
+  (HC)
+  (HCA)
+  (HO)
+  (HP)
+  (HR1)
+  (HR2)
+  (HR3)
+  (HR3A)
+  (HS)
+  (N)
+  (NC2)
+  (NH1)
+  (NH2)
+  (NH2A)
+  (NH3)
+  (NP)
+  (NR1)
+  (NR2)
+  (NR3)
+  (NY)
+  (O)
+  (OB)
+  (OC)
+  (OH1)
+  (OS)
+  (S)
+  (SA)
+  (SM)
+  (SS)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	residue	atom	charge	rule
+
+0	?	?	UNK	UNK	0	*
+1	C	C	ALA	C	0	C(=O)(C(C)(H)(N))(N(C)(H))
+2	C	C	ACE	CY	0	C(=O)(C(H)(H)(H))(N(C)(H))
+3	C	C	GLY	C	0	C(=O)(C(H)(H)(N))(N(C)(H))
+4	C	C	ACP	CY	0	C(=O)(C)(^N)
+5	C	C	PRO	C	0	C(=O)(^C)(^N)
+6	C	C	ARG	CZ	0	C(=[N+])(N)(N)
+7	CA	C	PHE	CE1	0	c(:c(:c(:c)(C))(H))(:c(:c(:c)(H))(H))(H)
+8	CA	C	PHE	CZ	0	c(:c(:c(:c)(H))(H))(:c(:c(:c)(H))(H))(H)
+9	CA	C	PHE	CD1	0	c(:c(:c)(C))(:c(:c)(H))(H)
+10	CA	C	PHE	CG	0	c(:c(:c)(H))(:c(:c)(H))(C(C)(H)(H))
+11	CA	C	TYR	CE1	0	c(:c(:c)(H))(:c(:c)(O))(H)
+12	CA	C	-	-	0	c(:c)(:c)(*)
+13	CA	C	TYR	CZ	0	c(:c)(:c)(O)
+14	CAI	C	TRP	CE3	0	c(:c(:c)(:c))(:c(:c)(H))(H)
+15	CAIA	C	TRP	CD1	0	c(:c(:c)(C))(:n(:c)(H))(H)
+16	CAIB	C	TRP	CZ3	0	c(:c(:c(:c)(:c))(H))(:c(:c(:c)(H))(H))(H)
+17	CAIB	C	TRP	CH2	0	c(:c(:c(:c)(:n))(H))(:c(:c(:c)(H))(H))(H)
+18	CAIC	C	TRP	CZ2	0	c(:c(:c)(:n))(:c(:c)(H))(H)
+19	CC	C	ASP	CG	0	C(:O)(:O)(C(C)(H)(H))
+20	CC	C	CT2	C	0	C(=O)(C(C)(H)(N))(N(H)(H))
+21	CCA	C	CTER	C	0	C(:O)(:O)(C(C)(H)(N))
+22	CCB	C	ASN	CG	0	C(=O)(C(C)(H)(H))(N(H)(H))
+23	CD	C	ASPP	CG	0	C(=O)(C(C)(H)(H))(O(H))
+24	CD	C	CNEU	C	0	C(=O)(C(C)(H)(N))(O(H))
+25	CDS	C	CT1	C	0	C(=O)(C(C)(H)(N))(O(C))
+26	CP1	C	PRO	CA	0	^C(C)(H)(^C)(^N)
+27	CP1	C	PROP	CA	0	^C(C)(H)(^C)(^[N+])
+28	CP2	C	PRO	CB	0	^C(H)(H)(^C)(^C)
+29	CP3	C	PRO	CD	0	^C(H)(H)(^C)(^N)
+30	CP3	C	PROP	CD	0	^C(H)(H)(^C)(^[N+])
+31	CPH1	C	HSE	CD2	0	c(:c(:n)(C))(:n(:c)(H))(H)
+32	CPH1	C	HSD	CD2	0	c(:c(:n)(C))(:n(:c))(H)
+33	CPH1	C	HSD	CG	0	c(:c)(:n)(C)
+34	CPH2	C	HSD	CE1	0	c(:n)(:n)(H)
+35	CPT	C	TRP	CD2	0	c(:c)(:c)(:c)
+36	CPT	C	TRP	CE2	0	c(:c)(:c)(:n)
+37	CS	C	CYM	CB	0	C(C)(H)(H)([S-])
+38	CT1	C	ILE	CB	0	C(C)(C)(C)(H)
+39	CT1	C	ALA	CA	0	C(C)(C)(H)(N)
+40	CT1	C	THR	CB	0	C(C)(C)(H)(O)
+41	CT1	C	-	-	0	C(C)(C)(c)(H) C(C)(c)(c)(H) C(c)(c)(c)(H)
+42	CT1A	C	NTER	CA	0	C(C)(C)(H)([N+])
+43	CT2	C	GLU	CG	0	C(C(:O)(:O))(C(C)(H)(H))(H)(H)
+44	CT2	C	GLN	CG	0	C(C(=O)(N))(C(C)(H)(H))(H)(H)
+45	CT2	C	ASN	CB	0	C(C(=O)(N))(C(C)(H)(N))(H)(H)
+46	CT2	C	GLY	CA	0	C(C(=O)(N))(H)(H)(N(C)(H))
+47	CT2	C	NGNE	CA	0	C(C(=O)(N))(H)(H)(N(H)(H))
+48	CT2	C	GLYP	CA	0	C(C(=O)(N))(H)(H)([N+](H)(H)(H))
+49	CT2	C	GLUP	CG	0	C(C(=O)(O))(C(C)(H)(H))(H)(H)
+50	CT2	C	ASPP	CB	0	C(C(=O)(O))(C(C)(H)(N))(H)(H)
+51	CT2	C	HSD	CB	0	C(C(C(=O)(N(C)(H)))(H)(N(C(=O)(C))(H)))(H)(H)(c(:c(:n(:c))(H))(:n(:c(:n)(H))(H)))
+52	CT2	C	GLN	CB	0	C(C(C(=O)(N))(H)(H))(C(C(=O)(N))(H)(N(C)(H)))(H)(H)
+53	CT2	C	LYS	CB	0	C(C(C(=O)(N))(H)(N(C)(H)))(C(C(C)(H)(H))(H)(H))(H)(H)
+54	CT2	C	LEU	CB	0	C(C(C)(C)(H))(C(C)(H)(N))(H)(H)
+55	CT2	C	ILE	CG1	0	C(C(C)(C)(H))(C(H)(H)(H))(H)(H)
+56	CT2	C	LYS	CG	0	C(C(C)(H)(H))(C(C)(H)(H))(H)(H)
+57	CT2	C	ARG	CG	0	C(C(C)(H)(H))(C(H)(H)(N))(H)(H)
+58	CT2	C	LYS	CD	0	C(C(C)(H)(H))(C(H)(H)([N+]))(H)(H)
+59	CT2	C	ARG	CD	0	C(C(C)(H)(H))(H)(H)(N(C)(H))
+60	CT2	C	MET	CB	0	C(C(C)(H)(N))(C(H)(H)(S))(H)(H)
+61	CT2	C	PHE	CB	0	C(C(C)(H)(N))(H)(H)(c(:c)(:c))
+62	CT2	C	ARG	CB	0	C(C)(C)(H)(H)
+63	CT2	C	SER	CB	0	C(C)(H)(H)(O)
+64	CT2	C	CYS	CB	0	C(C)(H)(H)(S)
+65	CT2A	C	ASP	CB	0	C(C(:O)(:O))(C(C)(H)(N))(H)(H)
+66	CT2A	C	GLU	CB	0	C(C(C(:O)(:O))(H)(H))(C(C(=O)(N))(H)(N(C)(H)))(H)(H)
+67	CT2A	C	HSP	CB	0	C(C(C(=O)(N(C)(H)))(H)(N(C(=O)(C))(H)))(H)(H)(c(:c(:n(:c)(H))(H))(:n(:c(:n)(H))(H)))
+68	CT2B	C	HSE	CB	0	C(C(C(=O)(N))(H)(N(C)(H)))(H)(H)(c(:c(:n)(H))(:n(:c)))
+69	CT2C	C	LYS	CE	0	C(C(C)(H)(H))(H)(H)([N+](H)(H)(H))
+70	CT2D	C	LSN	CE	0	C(C(C)(H)(H))(H)(H)(N(H)(H))
+71	CT3	C	ACE	CAY	0	C(C(=O)(N))(H)(H)(H)
+72	CT3	C	ILE	CG2	0	C(C(C)(C)(H))(H)(H)(H)
+73	CT3	C	ILE	CD	0	C(C(C)(H)(H))(H)(H)(H)
+74	CT3	C	ALA	CB	0	C(C(C)(H)(N))(H)(H)(H)
+75	CT3	C	THR	CG2	0	C(C(C)(H)(O))(H)(H)(H)
+76	CT3	C	-	-	0	C(C)(H)(H)(H)
+77	CT3	C	ALAD	CR	0	C(H)(H)(H)(N)
+78	CT3	C	CT1	CT	0	C(H)(H)(H)(O)
+79	CT3	C	MET	CE	0	C(H)(H)(H)(S)
+80	CY	C	TRP	CG	0	c(:c(:c)(:c))(:c(:n)(H))(C(C)(H)(H))
+81	H	H	ALA	HN	0	H(N(C(=O)(C))(C(C)(C)(H)))
+82	H	H	GLY	HN	0	H(N(C(=O)(C))(C(C)(H)(H)))
+83	H	H	ALAD	HR	0	H(N(C(=O)(C))(C(H)(H)(H)))
+84	H	H	ASN	HD21	0	H(N(C(=O)(C))(H))
+85	H	H	NGNE	HT1	0	H(N(C(C(=O)(N))(H)(H))(H))
+86	H	H	NNEU	HT1	0	H(N(C(C)(C)(H))(H))
+87	H	H	ASPP	HD2	0	H(O(C(=O)(C)))
+88	H	H	HSD	HD1	0	H(n)
+89	HA1	H	ILE	HB	0	H(C(C)(C)(C))
+90	HA1	H	THR	HB	0	H(C(C)(C)(O))
+91	HA2	H	PRO	HD1	0	H(C(C(C)(H)(H))(H)(N(C)(C)))
+92	HA2	H	ARG	HD1	0	H(C(C(C)(H)(H))(H)(N(C)(H)))
+93	HA2	H	LSN	HE1	0	H(C(C(C)(H)(H))(H)(N(H)(H)))
+94	HA2	H	PROP	HD1	0	H(C(C(C)(H)(H))(H)([N+](C)(H)(H)))
+95	HA2	H	LYS	HE1	0	H(C(C(C)(H)(H))(H)([N+](H)(H)(H)))
+96	HA2	H	ARG	HB1	0	H(C(C)(C)(H))
+97	HA2	H	SER	HB1	0	H(C(C)(H)(O))
+98	HA2	H	CYS	HB1	0	H(C(C)(H)(S))
+99	HA2	H	CYM	HB1	0	H(C(C)(H)([S-]))
+100	HA2	H	HSD	HB1	0	H(C(C)(H)(c))
+101	HA3	H	ACE	HY1	0	H(C(C)(H)(H))
+102	HA3	H	ALAD	HR1	0	H(C(H)(H)(N))
+103	HA3	H	CT1	HT1	0	H(C(H)(H)(O))
+104	HA3	H	MET	HE1	0	H(C(H)(H)(S))
+105	HB1	H	ALA	HA	0	H(C(C)(C)(N))
+106	HB1	H	NTER	HA	0	H(C(C)(C)([N+]))
+107	HB2	H	GLY	HA1	0	H(C(C(=O)(N))(H)(N(C)(H)))
+108	HB2	H	NGNE	HA1	0	H(C(C(=O)(N))(H)(N(H)(H)))
+109	HB2	H	GLYP	HA1	0	H(C(C(=O)(N))(H)([N+](H)(H)(H)))
+110	HC	H	ARG	HH21	0	H(N(C(=[N+])(N))(H))
+111	HC	H	LSN	HZ1	0	H(N(C(C(C)(H)(H))(H)(H))(H))
+112	HC	H	ARG	HH11	0	H([N+])
+113	HC	H	PROP	HN1	0	H(^[N+])
+114	HCA	H	ARG	HE	0	H(N(C(=[N+])(N))(C(C)(H)(H)))
+115	HO	H	THR	HG1	0	H(O(C(C)(C)(H)))
+116	HO	H	SER	HG1	0	H(O(C(C)(H)(H)))
+117	HO	H	TYR	HH	0	H(O(c))
+118	HP	H	TRP	HD1	0	H(c(:c(:c)(C))(:n(:c)(H)))
+119	HP	H	PHE	HD1	0	H(c(:c)(:c))
+120	HR1	H	HSP	HD2	0	H(c(:c(:n(:c)(H))(C(C)(H)(H)))(:n(:c(:n)(H))(H)))
+121	HR1	H	HSD	HE1	0	H(c(:n(:c)(H))(:n(:c)))
+122	HR2	H	HSP	HE1	0	H(c(:n(:c)(H))(:n(:c)(H)))
+123	HR3	H	HSD	HD2	0	H(c(:c(:n)(C))(:n(:c)))
+124	HR3A	H	HSE	HD2	0	H(c(:c(:n(:c))(C(C)(H)(H)))(:n(:c(:n)(H))(H)))
+125	HS	H	CYS	HG1	0	H(S)
+126	N	N	PRO	N	0	^N(C)(^C)(^C)
+127	NC2	N	ARG	NE	0	N(C(=[N+])(N))(C(C)(H)(H))(H)
+128	NC2	N	ARG	NH2	0	N(C(=[N+])(N))(H)(H)
+129	NC2	N	ARG	NH1	0	[N+](=C)(H)(H)
+130	NH1	N	ALA	N	0	N(C(=O)(C))(C(C)(C)(H))(H)
+131	NH1	N	GLY	N	0	N(C(=O)(C))(C(C)(H)(H))(H)
+132	NH1	N	ALAD	NR	0	N(C(=O)(C))(C(H)(H)(H))(H)
+133	NH2	N	NNEU	N	0	N(C(C)(C)(H))(H)(H)
+134	NH2	N	LSN	NZ	0	N(C(C)(H)(H))(H)(H)
+135	NH2A	N	ASN	ND2	0	N(C(=O)(C))(H)(H)
+136	NH3	N	GLYP	N	0	[N+](C)(H)(H)(H)
+137	NP	N	PROP	N	0	^[N+](H)(H)(^C)(^C)
+138	NR1	N	HSE	NE2	0	n(:c(:c(:n)(C))(H))(:c(:n(:c))(H))(H)
+139	NR1	N	HSD	ND1	0	n(:c(:c(:n)(H))(C(C)(H)(H)))(:c(:n(:c))(H))(H)
+140	NR2	N	HSD	NE2	0	n(:c)(:c)
+141	NR3	N	HSP	NE2	0	n(:c(:c(:n)(C))(H))(:c(:n(:c)(H))(H))(H)
+142	NR3	N	HSP	ND1	0	n(:c(:c(:n)(H))(C(C)(H)(H)))(:c(:n(:c)(H))(H))(H)
+143	NY	N	TRP	NE1	0	n(:c(:c)(:c))(:c(:c)(H))(H)
+144	O	O	ACE	OY	0	O(=C(C)(N))
+145	OB	O	ASPP	OD1	0	O(=C(C)(O))
+146	OC	O	ASP	OD1	0	O(:C)
+147	OH1	O	ASPP	OD2	0	O(C)(H)
+148	OH1	O	TYR	OH	0	O(H)(c)
+149	OS	O	CT1	OT2	0	O(C)(C)
+150	S	S	CYS	SG	0	S(C)(H)
+151	SA	S	MET	SD	0	S(C)(C)
+152	SM	S	DISU	1SG	0	S(C)(S)
+153	SS	S	CYM	SG	0	[S-](C)
+
+ITEM	END
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+ALA	*NC(C)C(*)=O
+ALAD	CC(=O)NC(C(=O)NC)C
+ARG	*NC(CCCNC(N)=[N+])C(*)=O
+ASN	*NC(CC(=O)N)C(*)=O
+ASP	*NC(CC(:O):O)C(*)=O
+CYM	*NC(C[S-])C(*)=O
+CYS	*NC(CS)C(*)=O
+GLN	*NC(CCC(=O)N)C(*)=O
+GLU	*NC(CCC(:O):O)C(*)=O
+GLY	*NCC(*)=O
+HSD	*NC(Cc1cncn1H)C(*)=O
+HSE	*NC(Cc1cn(H)cn1)C(*)=O
+HSP	*NC(Cc1cn(H)cn1H)C(*)=O
+ILE	*NC(C(C)CC)C(*)=O
+LEU	*NC(CC(C)C)C(*)=O
+LYS	*NC(CCCC[N+])C(*)=O
+MET	*NC(CCSC)C(*)=O
+PHE	*NC(Cc1ccccc1)C(*)=O
+PRO	*N1C(CCC1)C(*)=O
+SER	*NC(CO)C(*)=O
+THR	*NC(C(O)C)C(*)=O
+TRP	*NC(Cc2cn(H)c1c2cccc1)C(*)=O
+TYR	*NC(Cc1ccc(O)cc1)C(*)=O
+VAL	*NC(C(C)C)C(*)=O
+
+ITEM	END

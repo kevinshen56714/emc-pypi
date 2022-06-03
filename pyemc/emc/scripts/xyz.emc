@@ -1,0 +1,16 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg1,
+  target	-> ".",
+  unwrap	-> true,
+  pbc		-> true,
+  cut		-> false
+};
+
+get		= {name -> input, work -> target};
+
+xyz 		= {name -> output, unwrap -> unwrap, pbc -> pbc, cut -> cut};
+

@@ -1,0 +1,224 @@
+;;;;;; STEROLS - Last update 22-9-2010
+;;;;;;
+;;;;;; Currently available: CHOLESTEROL, CHOLESTERYL OLEATE, CHOLATE
+
+
+; CHOLESTEROL
+;
+; Please cite: 
+;
+;  S.J. Marrink, A.H. de Vries, T.A. Harroun, J. Katsaras, S.R. Wassall.
+;  Cholesterol shows preference for the interior of polyunsaturated lipid membranes.
+;  JACS, 130:10-11, 2008.
+
+[moleculetype] 	; This topology is stable with an integration timestep of 30 fs.
+; molname 	nrexcl
+  CHOL 		1
+                                                                                
+[atoms]
+; id 	type 	resnr 	residu 	atom 	cgnr 	charge
+  1 	SP1 	1 	CHOL 	ROH 	1 	0
+  2 	SC1 	1 	CHOL 	R1 	2 	0
+  3 	SC3 	1 	CHOL 	R2 	3 	0
+  4 	SC1 	1 	CHOL 	R3 	4 	0
+  5 	SC1 	1 	CHOL 	R4 	5 	0
+  6 	SC1 	1 	CHOL 	R5 	6 	0
+  7 	SC1 	1 	CHOL 	C1 	7 	0
+  8 	C1 	1 	CHOL 	C2 	8 	0
+                                                                                
+[bonds]
+; i j 	funct 	length 	force.c.
+  1 2 	1 	0.242 	20000
+  2 3 	1 	0.260 	20000
+  2 4 	1 	0.341 	20000
+  4 6 	1 	0.213 	20000
+  4 7 	1 	0.544 	20000 
+  5 6 	1 	0.203 	20000
+  6 7 	1 	0.368 	20000
+  7 8 	1 	0.425 	1250
+                                                                                
+[constraints]
+; i j 	funct 	length ; cholesterol frame constraint
+  1 3 	1 	0.493 
+  1 4 	1 	0.604
+  3 4 	1 	0.272
+  3 5 	1 	0.346
+  4 5 	1 	0.294 
+  5 7 	1 	0.406
+                                                                                
+[angles]
+; i j k 	funct 	angle 	force.c.
+  4 7 8 	2 	180.0   25.0
+                                                                                
+[dihedrals]
+; i j k l 	funct 	angle 	force.c.  ; multiple dihedrals work better
+  1 3 5 7 	2 	0.0 	100.0 
+  1 3 5 4 	2 	0.0 	100.0
+  1 4 5 3 	2 	0.0 	100.0
+  4 7 5 3 	2 	0.0 	100.0
+  3 5 7 4 	2 	0.0 	100.0
+  2 1 3 4 	2 	-45.0 	300.0
+  2 4 3 1 	2 	45.0 	300.0
+  6 4 5 7 	2 	-45.0 	300.0
+  6 7 5 4 	2 	45.0 	300.0
+                                                                                
+[exclusions]
+   1 2 3 4 5 6 7
+   2 3 4 5 6 7
+   3 4 5 6 7
+   4 5 6 7
+   5 6 7
+   6 7
+                                                                                
+; CHOLESTERYL OLEATE
+;
+; provided by Timu Vuorela
+; 
+; please cite: 
+; T. Vuorela, A. Catte, P.S. Niemela, A. Hall, M.T. Hyvonen, S.J. Marrink, M. Karttunen, I. Vattulainen
+; Role of lipids in spheroidal high density lipoproteins
+; In preparation, 2010.
+;
+
+[ moleculetype ]
+; molname       nrexcl
+CO                1
+                                                                                
+[ atoms ]
+;id type resnr residu atom cgnr   charge
+ 1   SC1    1   CO     R0   1      0
+ 2   SC1    1   CO     R1   2      0
+ 3   SC3    1   CO     R2   3      0
+ 4   SC1    1   CO     R3   4      0
+ 5   SC1    1   CO     R4   5      0
+ 6   SC1    1   CO     R5   6      0
+ 7   SC1    1   CO     C1   7      0
+ 8   C1     1   CO     C2   8      0
+ 9   Na     1   CO     ES   9      0
+10   C1     1   CO     C3  10      0
+11   C3     1   CO     C4  11      0
+12   C1     1   CO     C5  12      0
+13   C1     1   CO     C6  13      0
+                                                                                
+[bonds]
+;  i     j   funct   length  force.c.
+   1     2    1       0.242   20000
+   2     3    1       0.260   20000
+   2     4    1       0.341   20000
+   4     6    1       0.213   20000
+   4     7    1       0.544   20000    ; does not like to be constraint
+   5     6    1       0.203   20000
+   6     7    1       0.368   20000
+   7     8    1       0.425    1250
+   1     9    1       0.470    1250
+   9    10    1       0.470    1250
+  10    11    1       0.470    1250
+  11    12    1       0.470    1250
+  12    13    1       0.470    1250
+                                                                                
+[constraints]
+;  i     j   funct   length
+   1     3    1       0.493    ; cholesterol frame constraint
+   1     4    1       0.604
+   3     4    1       0.272
+   3     5    1       0.346
+   4     5    1       0.294   
+   5     7    1       0.406
+                                                                                
+[angles]
+;  i     j    k     funct   angle  force.c.
+   4     7    8       2  180.000     25.0
+   1     9   10       2  180.000     25.0
+   9    10   11       2  180.000     25.0
+  10    11   12       2  120.000     45.0
+  11    12   13       2  180.000     25.0
+                                                                                
+[dihedrals]
+;  i     j    k    l   funct   angle  force.c.
+   1     3    5    7       2    0.0    100.0   ; multiple dihedrals work better
+   1     3    5    4       2    0.0    100.0
+   1     4    5    3       2    0.0    100.0
+   4     7    5    3       2    0.0    100.0
+   3     5    7    4       2    0.0    100.0
+   2     1    3    4       2  -45.0    300.0
+   2     4    3    1       2   45.0    300.0
+   6     4    5    7       2  -45.0    300.0
+   6     7    5    4       2   45.0    300.0
+                                                                                
+[exclusions]
+   1     2 3 4 5 6 7
+   2     3 4 5 6 7
+   3     4 5 6 7
+   4     5 6 7
+   5     6 7
+   6     7
+
+
+
+; CHOLATE (3a-7a-12a-trihydroxy-5b-cholanoate)
+;
+; Please cite: 
+;
+;  S.J. Marrink.
+;  Molecular Dynamics Simulations of Cholesterol Nucleation in Mixed Micelles Modelling Human Bile.
+;  Proceedings of Falk Symposium 139, G.A dler et al Eds., Kluwer Academic Publishers, Dordrecht, 
+;  Chapter 13, pp98-105, 2004
+
+[moleculetype] 	; This topology is stable with an integration timestep of 30 fs.
+; molname 	nrexcl
+  CHOA 		1
+                                                                                
+[atoms]
+; id 	type 	resnr 	residu 	atom 	cgnr 	charge
+  1 	SP1 	1 	CHOA 	ROH 	1 	0
+  2 	SC1 	1 	CHOA 	R1 	2 	0
+  3 	SC3 	1 	CHOA 	R2 	3 	0
+  4 	SP1 	1 	CHOA 	RO2 	4 	0
+  5 	SP1 	1 	CHOA 	RO3 	5 	0
+  6 	SC1 	1 	CHOA 	R3 	6 	0
+  7 	SC1 	1 	CHOA 	C1 	7 	0
+  8 	Qa  	1 	CHOA 	OCO 	8 	-1.0
+                                                                                
+[bonds]
+; i j 	funct 	length 	force.c.
+  1 2 	1 	0.242 	20000
+  2 3 	1 	0.260 	20000
+  2 4 	1 	0.341 	20000
+  4 6 	1 	0.213 	20000
+  4 7 	1 	0.544 	20000 
+  5 6 	1 	0.203 	20000
+  6 7 	1 	0.368 	20000
+  7 8 	1 	0.425 	1250
+                                                                                
+[constraints]
+; i j 	funct 	length ; sterol frame constraint
+  1 3 	1 	0.493 
+  1 4 	1 	0.604
+  3 4 	1 	0.272
+  3 5 	1 	0.346
+  4 5 	1 	0.294 
+  5 7 	1 	0.406
+                                                                                
+[angles]
+; i j k 	funct 	angle 	force.c.
+  4 7 8 	2 	180.0   25.0
+                                                                                
+[dihedrals]
+; i j k l 	funct 	angle 	force.c.  ; multiple dihedrals work better
+  1 3 5 7 	2 	0.0 	100.0 
+  1 3 5 4 	2 	0.0 	100.0
+  1 4 5 3 	2 	0.0 	100.0
+  4 7 5 3 	2 	0.0 	100.0
+  3 5 7 4 	2 	0.0 	100.0
+  2 1 3 4 	2 	-45.0 	300.0
+  2 4 3 1 	2 	45.0 	300.0
+  6 4 5 7 	2 	-45.0 	300.0
+  6 7 5 4 	2 	45.0 	300.0
+                                                                                
+[exclusions]
+   1 2 3 4 5 6 7
+   2 3 4 5 6 7
+   3 4 5 6 7
+   4 5 6 7
+   5 6 7
+   6 7

@@ -1,0 +1,60 @@
+#!/usr/bin/env emc_setup.pl
+
+# Options
+
+ITEM	OPTIONS
+
+project		tutorial
+density		0.8
+temperature	298
+ntotal		1000
+shape		1.5
+build_dir	.
+field		opls-ua
+pdb_cut		true
+charge		false
+mass		true
+profile		true
+replace		true
+
+ITEM	END
+
+# Variables defining surface
+
+ITEM	VARIABLES
+
+# following variables redefine counterparts occuring in "lib/diamond_bonded"
+
+diamond_chemistry	"*C(*)(*)*"
+diamond_name		"carbon"
+diamond_atomistic	1
+
+lbond			1.529
+
+ITEM	END
+
+# Groups
+
+ITEM	GROUPS
+
+decane		(C)10
+
+ITEM	END
+
+# Clusters
+
+ITEM	CLUSTERS
+
+decane		decane		1
+surface		import		4	$root+"lib/diamond_bonded"	emc
+
+ITEM	END
+
+# Translation
+
+ITEM	VERBATIM	2
+
+translate	= {delta -> {0.5*geometry(xx), 0, 0}};
+
+ITEM	END
+

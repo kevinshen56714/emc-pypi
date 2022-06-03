@@ -1,0 +1,32 @@
+#!/usr/bin/env emc_setup.pl
+
+# Options
+
+ITEM		OPTIONS
+
+seed		-1
+replace		true
+field		trappe-ua
+density		0.01
+temperature	300
+number		true
+
+nrelax		200
+radius		9.5
+build_center	true
+
+weight		nonbond=0.001, bond=0.001
+record		name="record", frequency=10, inactive=true
+
+emc_depth	6
+
+ITEM		END
+
+# Shorthand notation
+
+ITEM		SHORTHAND
+
+c60		c12c3c4c5c1c6c7c8c2c9c1c3c2c3c4c4c%10c5c5c6c6c7c7c%11c8c9c8c9c1c2c1c2c3c4c3c4c%10c5c5c6c6c7c7c%11c8c8c9c1c1c2c3c2c4c5c6c3c7c8c1c23,1
+
+ITEM		END
+

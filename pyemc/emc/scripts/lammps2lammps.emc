@@ -1,0 +1,21 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg1,
+  traject	-> input,
+  compress	-> false,
+  start		-> "last",
+  end		-> "last",
+  source	-> ".",
+  target	-> "."
+};
+
+get		= {name -> source+"/"+input, work -> target};
+
+traject		= {mode -> get, name -> traject, start -> start, end -> end};
+
+lammps		= {name -> output, mode -> put, forcefield -> auto,
+		   parameters -> true, types -> false, unwrap -> true,
+		   charges -> true, ewald -> true};

@@ -1,0 +1,14 @@
+# short type,full type,M [g/mol],V [nm^3],ncons,charge,nrepeat,comment
+
+E,EO4,176.2120,0.2159,2,0,4,Ethylene oxide monomer (n=4)
+F,EO4t,163.1931,0.2008,1,0,4,Ethylene oxide terminator (n=4)
+K,IPDI,255.3162,0.3034,2,0,1,Isophorone diisocyanate monomer (n=1)
+L,ACA13,272.3466,0.3388,3,0,1,Acetamide branch (n=1)
+M,NYL2,226.318,0.2978,2,0,2,Nylon 6 monomer (n=2)
+N,AN3,159.1902,0.2058,2,0,3,Acrylonitrile monomer (n=3)
+P,PO3,174.2394,0.2255,2,0,3,Propylene oxide monomer (n=3)
+Q,PO3t,161.2205,0.2128,1,0,3,Propylene oxide terminator (n=3)
+S,STY2,208.3024,0.272,2,0,2,Styrene monomer (n=2)
+X,WAT8,144.1216,0.2048,0,0,8,Water (n=8)
+Y,MAI13,96.0653,0.0877,3,0,1,Maleimide (n=1)
+Z,CYA13,126.0513,0.0994,3,0,1,Cyanuric amide (n=1)

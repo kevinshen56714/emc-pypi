@@ -1,0 +1,89 @@
+#
+#  Martini interaction parameters using martini.21338.tmp
+#  converted by emc_martini.pl v2.0, March 21, 2021 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.4.4 or higher
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE	MARTINI
+FFTYPE	COARSE
+FFAPPLY	GROUPS
+VERSION	2011
+CREATED	Mar 2021
+LENGTH	NANOMETER
+ENERGY	KJ/MOL
+DENSITY	G/CC
+MIX	NONE
+NBONDED	1
+INNER	0.9
+CUTOFF	1.2
+PAIR14	OFF
+ANGLE	WARN
+TORSION	IGNORE
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	comment
+
+Q0	72	Q0	2	1	charged
+Qa	72	Qa	2	-1	charged
+Qd	72	Qd	2	1	charged
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	improper
+
+Q0	Q0	Q0	Q0	Q0	Q0	Q0
+Qa	Qa	Qa	Qa	Qa	Qa	Qa
+Qd	Qd	Qd	Qd	Qd	Qd	Qd
+
+ITEM	END
+
+# Nonbonded parameters
+
+ITEM	NONBOND
+
+# type1	type2	sigma	epsilon
+
+Q0	Q0	0.47	3.5
+Q0	Qa	0.47	4.5
+Q0	Qd	0.47	4.5
+Qa	Qa	0.47	5
+Qa	Qd	0.47	5.6
+Qd	Qd	0.47	5
+
+ITEM	END
+
+# Bond wildcard parameters
+
+ITEM	BOND_AUTO
+
+# type1	type2	k	l0
+
+*	*	1250	0.47
+
+ITEM	END
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+CA+	[Qd+2]
+CL-	[Qa-1]
+NA+	[Qd+1]
+NC3+	[Q0+1]
+
+ITEM	END

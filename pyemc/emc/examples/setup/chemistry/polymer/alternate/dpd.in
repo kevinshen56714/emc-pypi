@@ -1,0 +1,116 @@
+# LAMMPS input script for standardized atomistic simulations
+# Created by emc_setup.pl v2.2.12, July 28, 2017 as part of EMC
+# on Fri Aug  4 13:15:27 MDT 2017
+
+# Variable definitions
+
+variable	project		index	"dpd"	# project name
+variable	source		index	.	# data directory
+variable	params		index	.	# parameter directory
+variable	temperature	index	1		# system temperature
+variable	tdamp		index	100.0		# temperature damping
+variable	dielectric	index	0.2		# medium dielectric
+variable	kappa		index	1		# electrostatics kappa
+variable	cutoff		index	1		# standard cutoff
+variable	ghost_cutoff	index	4		# ghost region cutoff
+variable	charge_cutoff	index	3		# charge cutoff
+variable	precision	index	0.1		# kspace precision
+variable	lseed		index	723853		# langevin seed
+variable	vseed		index	1486234		# velocity init seed
+variable	tequil		index	1000		# equilibration time
+variable	trun		index	10000000	# run time
+variable	frestart	index	0		# 0: equil, 1: restart
+variable	dtrestart	index	100000		# delta restart time
+variable	dtdump		index	100000		# delta dump time
+variable	dtthermo	index	1000		# delta thermo time
+variable	timestep	index	0.025		# integration time step
+variable	tfreq		index	10		# profile sampling freq
+variable	nsample		index	1000		# profile conf sampling
+variable	dtime		equal	${tfreq}*${nsample}	# profile dtime
+variable	restart		index	${params}/${project}.restart
+
+if "${frestart} != 0" then &
+"variable	data		index	${restart}" &
+else &
+"variable	data		index	${params}/${project}.data" &
+
+# LAMMPS atomistic input script
+
+echo		screen
+units		lj
+atom_style	hybrid molecular
+
+# Interaction potential definition
+
+pair_style	dpd ${temperature} ${cutoff} ${vseed}
+bond_style	harmonic
+special_bonds	lj/coul 1 1 1
+if "${frestart} != 0" then "read_restart ${data}" else "read_data ${data}"
+include		${params}/${project}.params
+
+# Integration conditions (check)
+
+neighbor	0.3 bin
+comm_modify	mode single vel yes cutoff ${ghost_cutoff}
+neigh_modify	delay 0 every 2 check yes
+timestep	${timestep}
+fix		mom all momentum 100 linear 1 1 1 angular
+
+# Equilibration
+
+thermo		${dtthermo}
+if "${frestart} != 0" then "jump SELF simulate"
+velocity	all create ${temperature} ${vseed} &
+		dist gaussian rot yes mom yes sum yes
+fix		int all nve/limit 0.1
+run		${tequil}
+unfix		int
+write_restart	${project}.restart2
+
+# Simulation
+
+label		simulate
+fix		int all nve
+
+# System sampling: pressure
+
+fix		press all ave/time ${tfreq} ${nsample} ${dtime} &
+		c_thermo_temp &
+		c_thermo_press[1] c_thermo_press[2] c_thermo_press[3] &
+		c_thermo_press[4] c_thermo_press[5] c_thermo_press[6] &
+		file ${project}.pressure
+
+# System sampling: volume
+
+variable	volume equal vol
+variable	hxx equal lx
+variable	hyy equal ly
+variable	hzz equal lz
+variable	hxy equal xy
+variable	hxz equal xz
+variable	hyz equal yz
+
+fix		vol all ave/time ${tfreq} ${nsample} ${dtime} &
+		v_volume v_hxx v_hyy v_hzz v_hyz v_hxz v_hxy &
+		file ${project}.volume
+
+# Cluster sampling: init
+
+variable	in	equal	0
+
+# Cluster sampling: poly
+
+variable	i0	equal	${in}+1
+variable	in	equal	${in}+${nl_poly}
+group		poly	molecule <>	${i0}	${in}
+compute		chunk_poly poly chunk/atom bin/1d x 0.0 0.01 units reduced
+if "${nl_poly} > 0" then &
+"fix		dens_poly poly ave/chunk &
+		${tfreq} ${nsample} ${dtime} chunk_poly &
+		density/mass file poly.density"
+
+# Run conditions
+
+restart		${dtrestart} ${project}.restart1 ${project}.restart2
+dump		1 all custom ${dtdump} ${project}.dump id type x y z
+run		${trun}

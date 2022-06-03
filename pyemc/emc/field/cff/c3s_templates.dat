@@ -1,0 +1,126 @@
+! c3s_templates.dat
+!
+! Template file of potential type assignment templates for the CFF forcefield
+!
+! **************************************************************************
+! *                                                                        *
+! * THIS  PROGRAM  AND ALL SUBROUTINES,  DATA,  AND FILES  USED BY IT      *
+! * ARE PROTECTED BY COPYRIGHT AND HENCE  MAY NOT BE USED, COPIED,         *
+! * MODIFIED, TRANSMITTED, INSPECTED, OR EXECUTED BY ANY MEANS INCLUDING   *
+! * THE  USE OF  ELECTRONIC DATA PROCESSING  EQUIPMENT,  XEROGRAPHY, OR    *
+! * ANY  OTHER  METHODS WITHOUT THE EXPRESS  WRITTEN  PERMISSION OF THE    *
+! * COPYRIGHT HOLDER.                                                      *
+! *                                                                        *
+! * Copyright (C) 2021 BASF SE, All Rights Reserved                        *
+! *                                                                        *
+! **************************************************************************
+!
+! Revision History:
+!       RKM      03/03/2021      Creation of rules
+!       PJV      03/25/2021      Change of rules and precedences to correctly
+!                                distinguish between different types
+
+type: ?
+  ! anything	
+  template: (>*)
+end_type
+
+
+!
+! Silicate in C3S
+!
+
+type: o1si
+   ! single bonded oxygen in charged silicate ion
+   template: [>O[~Si]]
+!   atom_test:1 
+!     formal charge: -2
+!   end_test
+end_type
+
+
+type: si4s
+  ! central silicon
+  template: [>Si(~O)(~O)(~O)(~O)]
+!  atom_test:1 
+!    formal_charge:4
+!  end_test
+end_type 
+
+
+!
+! Silanol group in C3S
+!
+
+type:h1os
+  ! hydrogen bonded to oxygen
+  template: (>H(-O(Si)))
+!  atom_test:2
+!  end_test
+end_type
+
+
+type: o2sl
+  ! oxygen in water
+  template (>O(-Si)(-H))
+end_type 
+
+
+!
+! Hydroxyl ion in C3S
+!
+
+type:h1oh
+  ! hydrogen bonded to oxygen
+  template: (>H(-O))
+!  atom_test:2
+!  end_test
+end_type
+
+
+type: o1ho
+  ! oxygen in hydroxyl ion
+  template (>O(-H))
+end_type 
+
+!
+! Ca ion in C3S 
+! 
+
+type: ca3s
+  ! calcium ion
+  template: [>Ca]
+!  atom_test: 1
+!    formal_charge: 2
+!  end_test
+end_type
+
+
+!
+! Oxide ion in C3S 
+! 
+
+type: oc3s
+  ! oxide ion
+  template: [>O]
+!  atom_test: 1
+!    formal_charge: -2
+!  end_test
+end_type
+
+
+!
+! Precedences
+!
+
+precedence:
+(?
+  (ca3s)
+  (h1oh
+    (h1os) )
+  (oc3s
+    (o1si) (o1ho) (o2sl) )
+  (si4s)
+)
+end_precedence
+

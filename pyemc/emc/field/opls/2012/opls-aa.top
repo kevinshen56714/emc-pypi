@@ -1,0 +1,901 @@
+#
+#  OPLS topology using src/oplsaa.par, src/oplsaa.sb, and opls-aa.define
+#  converted by opls.pl v0.8beta, October 16, 2019 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.3.5 or higher
+#
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+(?
+  (ba+2)
+  (br-)
+  (ca+2)
+  (cs+)
+  (c)
+  (c_5)
+  (c_1)
+  (c_3)
+  (c_4)
+  (c_2)
+  (cg)
+  (c=)
+  (ca)
+  (car)
+  (caw)
+  (ca1)
+  (cb)
+  (ch)
+  (cm)
+  (cm1)
+  (cn)
+  (co)
+  (ct)
+  (ct1)
+  (ct2)
+  (ct3)
+  (ct4)
+  (ctm)
+  (cz)
+  (n)
+  (n_1)
+  (n2)
+  (n3)
+  (na)
+  (nam)
+  (h)
+  (h3)
+  (ha)
+  (har)
+  (haw)
+  (hcm)
+  (hc)
+  (hc1)
+  (hc2)
+  (hc3)
+  (hc4)
+  (ho)
+  (hs)
+  (hw)
+  (cl-)
+  (f)
+  (f_1)
+  (f_2)
+  (f_3)
+  (f-)
+  (i-)
+  (k+)
+  (li+)
+  (mg+2)
+  (na+)
+  (rb+)
+  (sr+2)
+  (ar)
+  (cl)
+  (cl1)
+  (he)
+  (kr)
+  (lp)
+  (lp1)
+  (n=)
+  (ne)
+  (nh4+)
+  (nt)
+  (nz)
+  (o)
+  (o1s)
+  (o2)
+  (oh)
+  (oh1)
+  (oh2)
+  (oh3)
+  (os)
+  (os1)
+  (ow)
+  (ow1)
+  (ow2)
+  (ow3)
+  (ow4)
+  (oy)
+  (oy1)
+  (p)
+  (s)
+  (sh)
+  (sh1)
+  (sy)
+  (sz)
+  (xe)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	index	charge	rule
+
+0	?	?	100	0	[DM]
+1	ar	Ar	103	0	[Ar]
+2	ba+2	Ba	1114	2	[Ba++]
+3	br	Br	730	-0.2	[Br](c(:c)(:c))
+4	br	Br	982	-0.08	[Br](C(=O)(*))
+5	br	Br	975	-0.2	[Br](C)
+6	br-	Br	1102	-1	[Br-]
+7	c	C	280	0.47	C(=O)(C)(H) C(=O)(C)(C) C(=O)(C)(c) C(=O)(c)(c)
+8	c	C	247	0.142	C(=O)(N(H)(H))(N(H)(H))
+9	c	C	990	0.888	C(=O)(N(O(H))(*))(*)
+10	c	C	991	1.003	C(=O)(N(O(H))(*))(c(:c)(:c))
+11	c	C	465	0.51	C(=O)(O(C))(*)
+12	c	C	232	0.565	C(c(:c)(:c))(=O)(H)
+13	c	C	234	0.615	C(c(:c)(:c))(=O)(N(H)(H))
+14	c	C	470	0.635	C(c(:c)(:c))(=O)(O(H)) C(c(:c)(:c))(:O)(:O)
+15	c	C	231	0.7	C(c(:c)(:c))(c(:c)(:c))(=O)
+16	c	C	233	0.585	C(c(:c)(:c))(C)(=O)
+17	c	C	277	0.45	C(C)(=O)(H)
+18	c	C	252	0.42	C(N(C(=O)(*)))(=O)(*)
+19	c	C	471	0.625	C(O(c(:c)(:c)))(=O)(*)
+20	c=	C	178	0	C(=C)(=C) C(=C)(C(=C)(*))C
+21	c=	C	150	-0.115	C(=C)(C(=C)(*))(H)
+22	c=	C	150	0.785	C(=N(C))(=O)
+23	c_1	C	235	0.5	C(=O)(N(H)(*))(*)
+24	c_2	C	271	0.7	C(C)(:O)(:O)
+25	c_3	C	267	0.52	C(C)(=O)(O(H))
+26	c_4	C	465	0.51	C(=O)(O(C))(c(:c)(:c))
+27	c_5	C	271	0.7	C(C(C(C(=O)(OH))))(:O)(:O) C(C(C(C(:O)(:O))))(:O)(:O)
+28	c_5	C	267	0.52	C(C(C(C(=O)(OH))))(=O)(OH) C(C(C(C(:O)(:O))))(=O)(OH)
+29	ca	C	147	0	c(:c)(:c)(:c) c(:c)(:c)(c)
+30	ca	C	729	0.2	c(:c)(:c)([Br])
+31	ca	C	263	0.18	c(:c)(:c)([Cl])
+32	ca	C	260	0.035	c(:c)(:c)(C(#N))
+33	ca	C	1004	-0.0575	c(:c)(:c)(C(c)(H)(H)) c(:c)(:c)(C(c)(C)(H)) c(:c)(:c)(C(c)(C)(C)) c(:c)(:c)(C(n)(H)(H)) c(:c)(:c)(C(n)(C)(H)) c(:c)(:c)(C(n)(C)(C))
+34	ca	C	724	0.15	c(:c)(:c)(C(F)(F)(F))
+35	ca	C	221	-0.055	c(:c)(:c)(C(O(C))(*)(*))
+36	ca	C	221	-0.055	c(:c)(:c)(C(O(H))(*)(*))
+37	ca	C	221	-0.055	c(:c)(:c)(C(O(N))(*)(*))
+38	ca	C	718	0.22	c(:c)(:c)(F)
+39	ca	C	145	-0.115	c(:c)(:c)(H) c(:c)(:c)(C)
+40	ca	C	731	0.1	c(:c)(:c)(I)
+41	ca	C	988	-0.045	c(:c)(:c)(N(C(=O)(*))(C))
+42	ca	C	266	0.085	c(:c)(:c)(N(C(=O)(*))(H))
+43	ca	C	472	0.135	c(:c)(:c)(O(C(=O)(*)))
+44	ca	C	983	0.1	c(:c)(:c)(O(C(F)(F)(F)))
+45	ca	C	199	0.085	c(:c)(:c)(O(C))
+46	ca	C	166	0.15	c(:c)(:c)(O(H))
+47	ca	C	457	-0.14	c(:c)(:c)(OP(~O)(~O)(~O))
+48	ca	C	460	-0.04	c(:c)(:c)(P(~O)(~O)(~O))
+49	ca	C	145	-0.14	c(:c)(:c)(S(=O)(:O)(:O)) c(:c)(:c)(S(=O)(=O)([O-]))
+50	ca	C	147	0.00	c(:c)(:c)(S(=O)(=O)(*))
+51	ca	C	488	0	c(:c)(:c)(S(=O)(=O)(N)) c(:c)(:c)(S(=O)(=O)(C)) c(:c)(:c)(S(=O)(=O)(c))
+52	ca	C	489	0.03	c(:c)(:c)(S(=O)(C))
+53	ca	C	228	0.1025	c(:c)(:c)(S(C))
+54	ca	C	1126	0.135	c([N+](C)(C)(C))(:c)(:c)
+55	ca	C	1128	0.155	c([N+](C)(C)(H))(:c)(:c)
+56	ca	C	727	0.2	c1(F):c(F):c(*):c(*):c(*):c1(*) c1(F):c(*)c(F):c(*):c(*):c1(*) c1(F):c(*):c(*):c(F):c(*):c1(*)
+57	ca	C	720	0.13	c1(F):c(F):c(F):c(F):c(F):c1(F)
+58	ca+2	Ca	1112	2	[Ca++]
+59	ca1	C	302	0.64	[C+](N(*)(*))(N(*)(*))N(*)(*)
+60	car	C	145	-0.09	c(:n(:c)(C))(:n(:c)(C))(H)
+61	caw	C	145	-0.24	c(:n(:c(:n)(H))(C))(:c(:n(:c)(C))(H))(H)
+62	cb	C	501	-0.055	c(c(c)(C))(n(c)(H))(H)
+63	cg	C	500	0.075	c(c(:c)(:c))(c(n)(H))(C(C)(H)(H))
+64	ch	C	120	0.42	C([Cl])([Cl])([Cl])
+65	cl	Cl	123	-0.062	[Cl](C([Cl])([Cl])([Cl]))
+66	cl-	Cl	1101	-1	[Cl-]
+67	cl1	Cl	264	-0.18	[Cl](c(:c)(:c))
+68	cl1	Cl	226	-0.12	[Cl](C(=C)(H)(*))
+69	cl1	Cl	981	-0.08	[Cl](C(=O)(*))
+70	cl1	Cl	970	-0.2	[Cl](C)
+71	cl1	Cl	398	-0.06	[Cl]C([Cl])=C(*)(*)*
+72	cm	C	141	0	C(=C)(*)(*)
+73	cm	C	227	0.005	C(=C)([Cl])(H)(*)
+74	cm	C	142	-0.115	C(=C)(H)(*)
+75	cm	C	143	-0.23	C(=C)(H)(H)
+76	cm	C	399	0.12	C([Cl])([Cl])=C(*)(*)*
+77	cm1	C	397	0.18	C(c1c(=O)n(H)c(=O)n(*)c1(H))(F)(F)(F)
+78	cn	C	502	0.13	c(:c(:c)(c))(:c(:c)(H))(n(c)(H))
+79	co	C	197	0.4	C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(*)(*)
+80	co	C	193	0.3	C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(H)(*)
+81	co	C	189	0.2	C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(H)(H)
+82	co	C	198	0.465	C(O(C(*)(*)(*)))(O(H))(*)(*)
+83	co	C	195	0.365	C(O(C(*)(*)(*)))(O(H))(H)(*)
+84	co	C	191	0.265	C(O(C(*)(*)(*)))(O(H))(H)(H)
+85	cs+	Cs	1110	1	[Cs+]
+86	ct	C	979	0.2	C([Br])(*)(*)(*)
+87	ct	C	978	0.097	C([Br])(H)(*)(*)
+88	ct	C	976	-0.006	C([Br])(H)(H)(*)
+89	ct	C	974	0.2	C([Cl])(*)(*)(*)
+90	ct	C	973	0.097	C([Cl])(H)(*)(*)
+91	ct	C	971	-0.006	C([Cl])(H)(H)(*)
+92	ct	C	1123	0.25	C([N+](C)(C)(C))(C)(C)(C)
+93	ct	C	1122	0.15	C([N+](C)(C)(C))(C)(C)(H)
+94	ct	C	1121	0.05	C([N+](C)(C)(C))(C)(H)(H)
+95	ct	C	1120	-0.05	C([N+](C)(C)(C))(H)(H)(H)
+96	ct	C	945	0.27	C([N+](C)(C)(H))(C)(C)(C)
+97	ct	C	944	0.21	C([N+](C)(C)(H))(C)(C)(H)
+98	ct	C	943	0.15	C([N+](C)(C)(H))(C)(H)(H)
+99	ct	C	942	0.09	C([N+](C)(C)(H))(H)(H)(H)
+100	ct	C	299	0.15	C([N+](H)(H)(H))(C(H)(H)(H))(H)C(=O)OH
+101	ct	C	294	0.31	C([N+](H)(H)(H))(C)(C)(C)
+102	ct	C	293	0.25	C([N+](H)(H)(H))(C)(C)(H)
+103	ct	C	292	0.19	C([N+](H)(H)(H))(C)(H)(H)
+104	ct	C	291	0.13	C([N+](H)(H)(H))(H)(H)(H)
+105	ct	C	307	0.19	C(C(*)(H)(H))(H)(H)N(H)[C+](N(*)(*))N(*)(*)
+106	ct	C	516	0.115	C(c(:c)(:c))(C)(C)(C) C(c(:c)(:c))(c(:c)(:c))(C)(C)
+107	ct	C	515	0.055	C(c(:c)(:c))(C)(C)(H) C(c(:c)(:c))(c(:c)(:c))(C)(H) 
+108	ct	C	149	-0.005	C(c(:c)(:c))(C)(H)(H) C(c(:c)(:c))(c(:c)(:c))(H)(H)
+109	ct	C	148	-0.065	C(c(:c)(:c))(H)(H)(H)
+110	ct	C	220	0.32	C(c(:c)(:c))(OH)(*)(*)
+111	ct	C	219	0.26	C(c(:c)(:c))(OH)(H)(*)
+112	ct	C	218	0.2	C(c(:c)(:c))(OH)(H)(H)
+113	ct	C	276	-0.1	C(C(:O)(:O))(*)(*)(*)
+114	ct	C	969	-0.106	C(C(:O)(:O))([Cl])(H)(H)
+115	ct	C	968	-0.08	C(C(:O)(:O))(F)(H)(H)
+116	ct	C	275	-0.16	C(C(:O)(:O))(H)(*)(*)
+117	ct	C	274	-0.22	C(C(:O)(:O))(H)(H)(*)
+118	ct	C	273	-0.28	C(C(:O)(:O))(H)(H)(H)
+119	ct	C	298	0.09	C(C(:O):O)(H)(H)[N+](H)(H)(H)
+120	ct	C	283	0.04	C(C(=O)(O(H)))(N(H)(H))(C)(H)
+121	ct	C	284	-0.02	C(C(=O)(O(H)))(N(H)(H))(H)(H)
+122	ct	C	259	0.06	C(C(=O)N(*))(C)(C)(C)
+123	ct	C	258	0	C(C(=O)N(*))(H)(C)(C)
+124	ct	C	257	-0.06	C(C(=O)N(*))(H)(H)(C)
+125	ct	C	256	-0.12	C(C(=O)N(*))(H)(H)(H)
+126	ct	C	308	-0.05	C(C(H)(H)C)(H)(H)C(H)(H)N(H)[C+](N(*)(*))N(*)(*)
+127	ct	C	486	-0.18	C(C(N(S(=O)(=O)(C))(H))(H)(H))(H)(H)(H)
+128	ct	C	139	0	C(C)(C)(C)(C)
+129	ct	C	137	-0.06	C(C)(C)(C)(H)
+130	ct	C	175	0.265	C(C)(C)(C)(O(H))
+131	ct	C	136	-0.12	C(C)(C)(H)(H)
+132	ct	C	137	-0.06	C(C)(C)(H)(S(=O)(=O)(*))
+133	ct	C	174	0.205	C(C)(C)(O(H))(H)
+134	ct	C	135	-0.18	C(C)(H)(H)(H)
+135	ct	C	136	-0.12	C(C)(H)(H)(S(=O)(=O)(*))
+136	ct	C	173	0.145	C(C)(O(H))(H)(H)
+137	ct	C	960	0.22	C(F)(C)(C)(C)
+138	ct	C	963	0.12	C(F)(C)(C)(C)
+139	ct	C	959	0.12	C(F)(C)(C)(H)
+140	ct	C	957	0.02	C(F)(C)(H)(H)
+141	ct	C	962	0.24	C(F)(F)(C)(C)
+142	ct	C	961	0.36	C(F)(F)(F)(C)
+143	ct	C	138	-0.24	C(H)(H)(H)(H)
+144	ct	C	135	-0.18	C(H)(H)(H)(S(=O)(=O)(*))
+145	ct	C	297	0.11	C(H)(H)(H)[N+](H)(H)C
+146	ct	C	306	-0.11	C(H)(H)(H)C(H)(H)N(H)[C+](N(*)(*))N(*)(*)
+147	ct	C	305	0.2	C(H)(H)(H)N(H)[C+](N(*)(*))N(*)(*)
+148	ct	C	259	0.389	C(N(=C(=O)))(C)(C)(C)
+149	ct	C	258	0.329	C(N(=C(=O)))(H)(C)(C)
+150	ct	C	257	0.269	C(N(=C(=O)))(H)(H)(C)
+151	ct	C	256	0.209	C(N(=C(=O)))(H)(H)(H)
+152	ct	C	246	0.01	C(N(C(=O)(*))(*))(H)(*)(*)
+153	ct	C	245	-0.05	C(N(C(=O)(*))(*))(H)(H)(*)
+154	ct	C	243	-0.11	C(N(C(=O)(*))(*))(H)(H)(H)
+155	ct	C	259	0.25	C(N(C(=O)(*))(C(=O)(*)))(C)(C)(C)
+156	ct	C	259	0.19	C(N(C(=O)(*))(C(=O)(*)))(H)(C)(C)
+157	ct	C	259	0.13	C(N(C(=O)(*))(C(=O)(*)))(H)(H)(C)
+158	ct	C	230	0.2	C(N(C(=O)(*))(H))(*)(*)(*)
+159	ct	C	229	0.14	C(N(C(=O)(*))(H))(H)(*)(*)
+160	ct	C	242	0.02	C(N(C(=O)(*))(H))(H)(H)(H)
+161	ct	C	244	0.08	C(N(C(=O)(*))H)(H)(H)(*)
+162	ct	C	244	0.15	C(N(C(=O)(O))H)(H)(H)(*)
+163	ct	C	989	0.145	C(N(H)(H))(c(:c)(:c))(H)(H)
+164	ct	C	225	0.2	C(N(H)(H))(C)(*)(*)
+165	ct	C	224	0.14	C(N(H)(H))(C)(*)(H)
+166	ct	C	223	0.08	C(N(H)(H))(C)(H)(H)
+167	ct	C	484	0.39	C(N(S(=O)(=O)(C))(H))(C)(H)(H)
+168	ct	C	482	0.18	C(N(S(=O)(=O)(C))(H))(H)(H)(H)
+169	ct	C	184	0.2	C(O(*))(*)(*)(*)
+170	ct	C	998	0.255	C(O(*))(c(:c)(:c))(*)(*)
+171	ct	C	997	0.225	C(O(*))(c(:c)(:c))(H)(*)
+172	ct	C	997	0.195	C(O(*))(c(:c)(:c))(H)(H)
+173	ct	C	183	0.17	C(O(*))(H)(*)(*)
+174	ct	C	182	0.14	C(O(*))(H)(H)(*)
+175	ct	C	181	0.11	C(O(*))(H)(H)(H)
+176	ct	C	985	0.6	C(O(c(:c)(:c)))(F)(F)(F)
+177	ct	C	468	0.16	C(O(C(=O)(*)))(H)(H)(H)
+178	ct	C	159	0.265	C(O(H))(*)(*)(*)
+179	ct	C	158	0.205	C(O(H))(H)(*)(*)
+180	ct	C	157	0.145	C(O(H))(H)(H)(*)
+181	ct	C	461	-0.47	C(O(P(~O)(~O)(c(:c)(:c))))(H)(H)(H)
+182	ct	C	458	0.32	C(O(P(~O)(~O)(O(c(:c)(:c)))))(H)(H)(H)
+183	ct	C	492	0.25	C(O(S(=O)(*)))(C)(C)(C)
+184	ct	C	491	0.22	C(O(S(=O)(*)))(C)(C)(H)
+185	ct	C	490	0.19	C(O(S(=O)(*)))(C)(H)(H)
+186	ct	C	212	0.2175	C(S(*))(*)(*)(*)
+187	ct	C	211	0.1575	C(S(*))(H)(*)(*)
+188	ct	C	210	0.0975	C(S(*))(H)(H)(*)
+189	ct	C	209	0.0375	C(S(*))(H)(H)(H)
+190	ct	C	476	-0.54	C(S(=O)(=O)(N))(H)(H)(H)
+191	ct	C	499	0.025	C(S(=O)(C))(C)(H)(H) C(S(=O)(C))(c)(H)(H)
+192	ct	C	498	-0.035	C(S(=O)(C))(H)(H)(H) C(S(=O)(c))(H)(H)(H)
+193	ct	C	208	0.18	C(S(H))(*)(*)(*)
+194	ct	C	207	0.12	C(S(H))(H)(*)(*)
+195	ct	C	206	0.06	C(S(H))(H)(H)(*)
+196	ct	C	217	0	C(S(H))(H)(H)(H)
+197	ct	C	216	0.2175	C(S(S))(*)(*)(*)
+198	ct	C	215	0.1575	C(S(S))(H)(*)(*)
+199	ct	C	214	0.0975	C(S(S))(H)(H)(*)
+200	ct	C	213	0.0375	C(S(S))(H)(H)(H)
+201	ct	C	295	0.23	C1(C(=O)(O(H)))(H)C(H)(H)C(H)(H)C(H)(H)N1(C)
+202	ct	C	285	-0.09	C1(C(=O)(O(H)))N(H)C(H)(H)C(H)(H)C1(H)(H)
+203	ct	C	464	0.24	C1(C)(C)C(=O)N(H)C(=O)N(H)C1=O
+204	ct	C	296	0.17	C1N(C)C(C(=O)OH)(H)C(H)(H)C(H)(H)C1(H)(H)
+205	ct1	C	725	0.45	C(c(:c)(:c))(F)(F)(F)
+206	ct1	C	966	0.25	C(c(:c)(:c))(F)(F)(H)
+207	ct1	C	161	0.5323	C(C(O(H))(H)(H))(F)(F)(F)
+208	ct2	C	391	0.01	C(H)(*)(*)c1c(=O)n(H)c(N(H)H)c(H)c1(H)
+209	ct2	C	375	-0.01	C(H)(*)(*)c1c(=O)nc(N(H)H)c(H)c1(H)
+210	ct2	C	373	-0.01	C(H)(*)(*)n1c(=O)n(H)c(=O)c(*)c1(H)
+211	ct2	C	371	-0.01	C(H)(*)(*)n1c(H)nc(*)c1*
+212	ct3	C	396	0.02	C(*)(*)(*)OP(OC(*)(*)*)(=O)=O
+213	ct4	C	964	0.48	C(F)(F)(F)(F)
+214	ct4	C	160	0.1263	C(O(H))(C(F)(F)(F))(H)(H)
+215	ctm	C	139	-0.1125	C(n(:c(:n(:c)(C))(H))(:c(:c)(H)))(c)(H)(H)
+216	ctm	C	139	-0.17	C(n(:c(:n(:c)(C))(H))(:c(:c)(H)))(C)(H)(H)
+217	cz	C	95	0.28	C(#N)(C)
+218	cz	C	261	0.395	C(c(:c)(:c))(#N)
+219	f	F	980	-0.08	F(C(=O)(*))
+220	f	F	726	-0.2	F(C(c(:c)(:c))(F)(F))
+221	f	F	164	-0.2057	F(C(C(O(H))(H)(H))(F)(F))
+222	f	F	956	-0.22	F(C(C)(C)(C)) F(C(C)(C)(H)) F(C(C)(H)(H))
+223	f-	F	1100	-1	[F-]
+224	f_1	F	719	-0.22	F(c(:c)(:c))
+225	f_1	F	728	-0.2	F(c1:c(F):c(*):c(*):c(*):c1(*)) F(c1:c(*):c(F):c(*):c(*):c1(*)) F(c1:c(*):c(*):c(F):c(*):c1(*))
+226	f_1	F	721	-0.13	F(c1c(F)c(F)c(F)c(F)c1(F))
+227	f_2	F	965	-0.12	F(C)
+228	f_3	F	986	-0.15	F(C(O(c(:c)(:c)))(F)(F))
+229	h	H	241	0.3	H(N(C(=O)(*))(*))
+230	h	H	254	0.37	H(N(C(=O)(*))(C(=O)(*)))
+231	h	H	240	0.38	H(N(C(=O)(*))(H))
+232	h	H	250	0.333	H(N(C(=O)(N(H)(H)))(H))
+233	h	H	504	0.42	H(n(c(c)(H))(c(:c)(:c)))
+234	h	H	128	0.34	H(N(H)(H))
+235	h	H	994	0.411	H(N(O(H))(C(=O)(*)))
+236	h	H	481	0.41	H(N(S(=O)(=O)(C))(*))
+237	h	H	479	0.44	H(N(S(=O)(=O)(C))(H))
+238	h3	H	941	0.29	H([N+](C)(C)(C))
+239	h3	H	310	0.31	H([N+](C)(C)(H))
+240	h3	H	290	0.33	H([N+](C)(H)(H))
+241	h3	H	289	0.35	H([N+](H)(H)(H))
+242	h3	H	304	0.44	HN(C)[C+](N(*)(*))N(*)(*)
+243	h3	H	301	0.46	HN(H)[C+](N(*)(*))N(*)(*)
+244	ha	H	146	0.115	H(c(:c)(:c))
+245	har	H	146	0.21	H(c(:n(:c)(C))(:n(:c)(C)))
+246	haw	H	146	0.27	H(c(:n(:c(:n)(H))(C))(:c(:n(:c)(C))(H)))
+247	hc	H	977	0.103	H(C([Br])(*)(*))
+248	hc	H	972	0.103	H(C([Cl])(*)(*))
+249	hc	H	1124	0.1	H(C([N+](C)(C)(C))(H)(H))
+250	hc	H	967	0.15	H(C(c(:c)(:c))(F)(F))
+251	hc	H	165	0.0825	H(C(C(F)(F)(F))(O(H))(H))
+252	hc	H	487	0.06	H(C(C(N(S(=O)(=O)(C))(H))(H)(H))(H)(H))
+253	hc	H	140	0.06	H(C(c)(H)(H)) H(C(c)(C)(H)) H(C(c)(C)(C))
+254	hc	H	958	0.1	H(C(F)(C)(C)) H(C(F)(C)(H))
+255	hc	H	140	0.06	H(C(H)(H)(H)) H(C(C)(H)(H)) H(C(C)(C)(H)) H(C(C)(C)(C))
+256	hc	H	459	0.02	H(C(H)(H)(O(P(~O)(~O)(O(c(:c)(:c))))))
+257	hc	H	485	-0.06	H(C(N(S(=O)(=O)(C))(H))(C)(H))
+258	hc	H	483	0.03	H(C(N(S(=O)(=O)(C))(H))(H)(H))
+259	hc	H	140	0.06	H(C(N)(H)(H)) H(C(N)(C)(H)) H(C(N)(C)(C))
+260	hc	H	185	0.03	H(C(O(*))(*)(*))
+261	hc	H	194	0.1	H(C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(*))
+262	hc	H	190	0.1	H(C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(H))
+263	hc	H	196	0.1	H(C(O(C(*)(*)(*)))(O(H))(*))
+264	hc	H	192	0.1	H(C(O(C(*)(*)(*)))(O(H))(H))
+265	hc	H	176	0.06	H(C(O(H))(*)(*))
+266	hc	H	156	0.04	H(C(O(H))(H)(H))
+267	hc	H	462	0.12	H(C(O(P(~O)(~O)(c(:c)(:c))))(H)(H))
+268	hc	H	477	0.18	H(C(S(=O)(=O)(N))(H)(H))
+269	hc1	H	144	0.115	H(C(=C)(C))
+270	hc2	H	255	0.06	H(C(N(C(=O)(*))(C(=O)(*)))(*)(*)(*))
+271	hc3	H	282	0.06	H(C(C(=O)(*))(*)(*)) H(C(C(:O)(:O))(*)(*))
+272	hc3	H	279	0	H(C(C)(=O))
+273	hc3	H	469	0.03	H(C(O(C(=O)(*))(H)(H)(H)))
+274	hc4	H	392	0.16	HC(*)(*)c1c(=O)n(H)c(N(H)H)c(H)c1(H)
+275	hc4	H	376	0.13	HC(*)(*)c1c(=O)nc(N(H)H)c(H)c1(H)
+276	hc4	H	374	0.14	HC(*)(*)n1c(=O)n(H)c(=O)c(*)c1(H)
+277	hc4	H	372	0.12	HC(*)(*)n1c(H)nc(*)c1*
+278	hcm	H	140	0.18	H(C(n(:c(:c)(H))(:c(:n)(H)))(C)(H)) H(C(n(:c(:c)(H))(:c(:n)(H)))(c)(H))
+279	he	He	101	0	[He]
+280	ho	H	435	0.3	H([O-])
+281	ho	H	155	0.418	H(O(C(*)(*)(*)))
+282	ho	H	168	0.435	H(O(c(:c)(:c)))
+283	ho	H	163	0.4286	H(O(C(C(F)(F)(F))(H)(H)))
+284	ho	H	170	0.435	H(O(C(C(O(H))(*)(*))(*)(*)))
+285	ho	H	172	0.465	H(O(C(C(O(H))(C(O(H))(*))(*)(*))))
+286	ho	H	270	0.45	H(O(C(C)(=O)))
+287	ho	H	188	0.435	H(O(C(O(C(*)(*)(*)))(*)(*)))
+288	ho	H	996	0.435	H(O(N(C(=O)(*))(*)))
+289	hs	H	204	0.155	H(S(*))
+290	hs	H	205	0.235	H(S(H))
+291	hw	H	98	0.241	H([O](H)([LP])([LP]))
+292	hw	H	114	0.52	H([O](H)([LP]))
+293	hw	H	117	0.411	H([OW3F](H))
+294	hw	H	112	0.417	H([OW3P](H))
+295	hw	H	134	0.4238	H(O(H))
+296	i	I	732	-0.1	I(c(:c)(:c))
+297	i-	I	1103	-1	[I-]
+298	k+	K	1108	1	[K+]
+299	kr	Kr	104	0	[Kr]
+300	li+	Li	1106	1	[Li+]
+301	lp	L	115	-1.04	[LP][O](H)(H)
+302	lp1	lp	99	-0.241	[LP][O](H)(H)([LP])
+303	mg+2	Mg	1111	2	[Mg++]
+304	n	N	987	-0.025	N(c(:c)(:c))(C(=O)(*))(C)
+305	n	N	265	-0.385	N(c(:c)(:c))(C(=O)(*))(H)
+306	n	N	251	-0.37	N(C(=O)(*))(C(=O)(*))(C)
+307	n	N	251	-0.49	N(C(=O)(*))(C(=O)(*))(H)
+308	n	N	249	-0.542	N(C(=O)(N(H)(H)))(H)(H)
+309	n	N	993	-0.634	N(O(H))(C(=O)(*))(*)
+310	n	N	480	-0.8	N(S(=O)(=O)(C))(H)(*)
+311	n	N	478	-1	N(S(=O)(=O)(C))(H)(H)
+312	n2	N	303	-0.7	N(C)(H)[C+](N(*)(*))N(*)(*)
+313	n2	N	300	-0.8	N(H)(H)[C+](N(*)(*))N(*)(*)
+314	n3	N	1125	0.115	[N+](c(:c)(:c))(C)(C)(C)
+315	n3	N	1127	0.015	[N+](c(:c)(:c))(C)(C)(H)
+316	n3	N	288	0	[N+](C)(C)(C)(C)
+317	n3	N	940	-0.1	[N+](C)(C)(C)(H)
+318	n3	N	309	-0.2	[N+](C)(C)(H)(H)
+319	n3	N	287	-0.3	[N+](C)(H)(H)(H)
+320	n3	N	286	-0.4	[N+](H)(H)(H)(H)
+321	n=	N	251	-0.724	N(=C(=O))(C)
+322	n_1	N	239	-0.14	N(C(=O)(*))(*)(*)
+323	n_1	N	238	-0.5	N(C(=O)(*))(H)(*)
+324	n_1	N	237	-0.76	N(C(=O)(*))(H)(H)
+325	na	N	503	-0.57	n(c(c)(H))(c(:c)(:c))(H)
+326	na+	Na	1107	1	[Na+]
+327	nam	N	657	0.22	n(:c(:c)(H))(:c(:n)(H))(C(C)(H)(H)) n(:c(:c)(H))(:c(:n)(H))(C(c)(H)(H))
+328	ne	Ne	102	0	[Ne]
+329	nh4+	N	405	1	[NH4+]
+330	nt	N	127	-1.02	N(H)(H)(H)
+331	nz	N	262	-0.43	N(#C(c(:c)(:c)))
+332	nz	N	94	-0.43	N(#C)(C)
+333	o	O	253	-0.45	O(=C(=N(C)))
+334	o	O	278	-0.45	O(=C(C)(H))
+335	o	O	281	-0.47	O(=C(C)(H)) O(=C(C)(C)) O(=C(C)(c)) O(=C(c)(c))
+336	o	O	269	-0.44	O(=C(C)O(H))
+337	o	O	253	-0.42	O(=C(N(C(=O)(*)))(*))
+338	o	O	236	-0.5	O(=C(N(H)(*))(*))
+339	o	O	248	-0.39	O(=C(N(H)(H))(N(H)(H)))
+340	o	O	992	-0.658	O(=C(N(O(H))(*))(*))
+341	o	O	466	-0.43	O(=C(O(C))(*))
+342	o1s	N	311	-0.68	O(=S(:O)(:O)(c(:c)(:c))) O(:S(=O)(:O)(c(:c)(:c))) O(=S(=O)([O-])(c(:c)(:c))) [O-](S(=O)(=O)(c(:c)(:c)))
+343	o2	O	272	-0.8	O(:C(C)(:O))
+344	o2	O	394	-0.66	O=P(*)(*)*
+345	oh	O	154	-0.683	O(C(*)(*)*)(H)
+346	oh	O	995	-0.442	O(H)(N(C(=O)(*))(*))
+347	oh1	O	167	-0.585	O(c(:c)(:c))(H)
+348	oh1	O	162	-0.6351	O(C(C(F)(F)(F))(H)(H))(H)
+349	oh1	O	169	-0.7	O(C(C(O(H))(*)(*))(*)(*))(H)
+350	oh1	O	171	-0.73	O(C(C(O(H))(C(O(H))(*))(*)(*)))(H) O(C(C(O(H))(*)(*))(C(C(O(H))(*)(*))(*)))(H)
+351	oh1	O	187	-0.7	O(C(O(C(*)(*)(*)))(*)(*))(H)
+352	oh2	O	268	-0.53	O(C(C)(=O))(H)
+353	oh3	O	434	-1.3	[O-](H)
+354	os	O	177	-0.17	O(c(:c)(:c))(c(:c)(:c))
+355	os	O	984	-0.25	O(c(:c)(:c))(C(F)(F)(F))
+356	os	O	179	-0.285	O(c(:c)(:c))(C)
+357	os	O	186	-0.4	O(C(O(*))(*)(*))(C)
+358	os	O	180	-0.4	O(C)(C)
+359	os	O	439	-0.865	O(P(~O)(~O)(~O))(P(~O)(~O)(~O))
+360	os1	O	473	-0.215	O(c(:c)(:c))(C(=O)(*))
+361	os1	O	467	-0.33	O(C)(C(=O)(*))
+362	os1	O	395	-0.43	OP(*)(*)*
+363	ow	O	97	0	[O](H)(H)([LP])([LP])
+364	ow1	O	111	-0.834	[OW3P](H)(H)
+365	ow2	O	113	0	[O](H)(H)([LP])
+366	ow3	O	116	-0.822	[OW3F](H)(H)
+367	ow4	O	133	-0.8476	[O](H)(H)
+368	oy	O	475	-0.68	O(=S(C)(=O)(N))
+369	oy	O	494	-0.687	O(=S(C)(C)(=O)) O(=S(C)(c)(=O)) O(=S(c)(c)(=O))
+370	oy1	O	497	-0.42	O(=S(C)(C)) O(=S(C)(c)) O(=S(c)(c))
+371	p	P	393	0.78	P(OC(*)(*)*)(OC(*)(*)*)(=O)=O
+372	rb+	Rb	1109	1	[Rb+]
+373	s	S	202	-0.435	S(*)(*)
+374	s	S	202	1.18	S(c(:c)(:c))(=O)(:O)(:O) S(c(:c)(:c))(=O)(=O)([O-])
+375	s	S	222	-0.32	S(c(:c)(:c))(C)
+376	s	S	203	-0.2175	S(S)(*)
+377	sh	S	200	-0.335	S(H)(*)
+378	sh1	S	201	-0.47	S(H)(H)
+379	sr+2	Sr	1113	2	[Sr++]
+380	sy	S	474	1.48	S(C)(=O)(=O)(N)
+381	sy	S	493	1.374	S(C)(C)(=O)(=O)
+382	sy	S	493	1.374	S(C)(c)(=O)(=O) S(c)(c)(=O)(=O)
+383	sz	S	495	0.245	S(=O)(C)(c)
+384	sz	S	496	0.13	S(=O)(C)(C) S(=O)(c)(c)
+385	xe	Xe	105	0	[Xe]
+
+ITEM	END
+
+# Comments
+
+ITEM	COMMENTS
+
+# id	index	type	comment
+
+0	100	?	DUMMY ATOM
+1	103	ar	Ar - Verlet & Weis,
+2	1114	ba+2	Ba++
+3	730	br	Br bromobenzene
+4	982	br	Br in acyl bromide tentative
+5	975	br	Br in alkyl bromides JPCB 16264 (2004)
+6	1102	br-	Br- correct free energies
+7	280	c	AA C: ketone - for C-alpha use
+8	247	c	C in O=C(NH2)2 Urea
+9	990	c	C in hydroxamic acid jtr 11/98
+10	991	c	C in aromatic hydroxamic aciT
+11	465	c_4	AA C: esters - for R on C=O, use
+12	232	c	C: C=O in benzaldehyde
+13	234	c	C: C=O in benzamide
+14	470	c	Co in benzoic acid
+15	231	c	C: C=O in benzophenone
+16	233	c	C: C=O in acetophenone
+17	277	c	AA C: aldehyde & acyl halide - for C-alpha use
+18	252	c	C(=O) in imide
+19	471	c	Co in methyl benzoate, aryl ester
+20	178	c=	diene =CR-RC=; see 150 also
+21	150	c=	diene =CH-CH=; see 178 also
+22	150	c=	diene =CH-CH=; see 178 also
+23	235	c_1	C: C=O in amide. Acyl R in amides
+24	271	c_5	C in COO- carboxylate
+25	267	c_5	Co in CCOOH carboxylic acid
+26	465	c_4	AA C: esters - for R on C=O, use
+27	271	c_5	C in COO- carboxylate
+28	267	c_5	Co in CCOOH carboxylic acid
+29	147	ca	Naphthalene fusion C (C9)
+30	729	ca	C(Br) bromobenzene
+31	263	ca	C(Cl) chlorobenzene
+32	260	ca	C(CN) benzonitrile
+33	1004	ca	diphenylmethane Cipso
+34	724	ca	C(CF3) trifluoromethylbenzene
+35	221	ca	C(CH2OH) - benzyl alcohols, nitriles
+36	221	ca	C(CH2OH) - benzyl alcohols, nitriles
+37	221	ca	C(CH2OH) - benzyl alcohols, nitriles
+38	718	ca	C(F) fluorobenzene
+39	145	car	Benzene C - 12 site JACS,112,4768-90
+40	731	ca	C(I) iodobenzene - tentative
+41	988	ca	ipso C in N-methyl,N-phenylacetamide
+42	266	ca	ipso C in N-phenylacetamide
+43	472	ca	Cipso phenyl ester
+44	983	ca	C(OCF3): trifluoroanisole
+45	199	ca	C(OMe) anisole
+46	166	ca	C(OH) phenol Use with all
+47	457	ca	Cipso benzyl methylphosphonate
+48	460	ca	Cipso methyl benzylphosphonate
+49	145	car	Benzene C - 12 site JACS,112,4768-90
+50	147	ca	Naphthalene fusion C (C9)
+51	488	ca	benzene C attached to S of sulfonamide
+52	489	ca	benzene C attached to S of alkyl aryl sulfoxide
+53	228	ca	C(SMe) thioanisole
+54	1126	ca	Cipso (ArNR3+)
+55	1128	ca	Cipso (ArNR2H+)
+56	727	ca	C(F) difluorobenzenes
+57	720	ca	C(F) hexafluorobenzene
+58	1112	ca+2	Ca++
+59	302	ca1	C: guanidinium C+
+60	145	car	Benzene C - 12 site JACS,112,4768-90
+61	145	car	Benzene C - 12 site JACS,112,4768-90
+62	501	cb	CD C in TRP
+63	500	cg	CG in TRP
+64	120	ch	CH Chloroform JPC,94,1683 (1990)
+65	123	cl	Cl CCl4
+66	1101	cl-	Cl- sigmas that yield the
+67	264	cl1	Cl chlorobenzene
+68	226	cl1	chloroalkene Cl (ClH-C=) - see also 398
+69	981	cl1	Cl in acyl chloride tentative
+70	970	cl1	Cl in alkyl chlorides repeat of 151
+71	398	cl1	chloroalkene Cl (Cl2-C=) - tentative
+72	141	cm	alkene C (R2-C=) all atom
+73	227	cm	chloroalkene C (ClH-C=)
+74	142	cm	alkene C (RH-C=) all atom
+75	143	cm	alkene C (H2-C=) all atom
+76	399	cm	chloroalkene C (Cl2-C=) - tentaive
+77	397	cm1	F3C-C5 thymine; trifluorothymine
+78	502	cn	CE C in TRP
+79	197	co	C(C2O2): acetal OCRRO
+80	193	co	C(HCO2): acetal OCHRO
+81	189	co	C(H2O2): acetal OCH2O
+82	198	co	C(C2O2): hemiacetal OCRROH
+83	195	co	C(HCO2): hemiacetal OCHROH
+84	191	co	C(H2O2): hemiacetal OCH2OH
+85	1110	cs+	Cs+
+86	979	ct	R3CBr   tentative
+87	978	ct	R2CHBr   tentative
+88	976	ct	RCH2Br   
+89	974	ct	R3CCl   tentative
+90	973	ct	R2CHCl   tentative
+91	971	ct	RCH2Cl   152
+92	1123	ct	C in R3CNR3+
+93	1122	ct	C in R2CHNR3+
+94	1121	ct	C in RCH2NR3+ WLJ
+95	1120	ct	C in CH3NR3+ July 2005
+96	945	ct	C in R3CNHR2+
+97	944	ct	C in R2CHNHR2+
+98	943	ct	C in RCH2NHR2+
+99	942	ct	C in CH3NHR2+
+100	299	ct	AA C-alpha in Ala zwitterion
+101	294	ct	C in R3CNH3+
+102	293	ct	C in R2CHNH3+ & CA in N-term Ala, etc.
+103	292	ct	C in RCH2NH3+ & CA in N-term Gly
+104	291	ct	C in CH3NH3+
+105	307	ct	C: CH2(D), ARG, ethylguanidinium
+106	516	ct	all-atom C: C, t-butyl benzene
+107	515	ct	all-atom C: CH, isopropyl benzene
+108	149	ct	all-atom C: CH2, ethyl benzene
+109	148	ct	all-atom C: CH3, toluene
+110	220	ct	C in CR2OH - benzyl alcohols
+111	219	ct	C in CHROH - benzyl alcohols
+112	218	ct	C in CH2OH - benzyl alcohols
+113	276	ct	C: C, carboxylate ion
+114	969	ct	ClCH2COO- chloroacetate 
+115	968	ct	FCH2COO- fluoroacetate tentative
+116	275	ct	C: CH, carboxylate ion
+117	274	ct	C: CH2, carboxylate ion
+118	273	ct	C: CH3, carboxylate ion
+119	298	ct	AA C-alpha in Gly zwitterion
+120	283	ct	AA C-alpha on C-terminal ALA
+121	284	ct	AA C-alpha on C-terminal GLY
+122	259	ct	C in R3C imide
+123	258	ct	C in R2CH imide
+124	257	ct	C in RCH2 imide
+125	256	ct	C in CH3 imide
+126	308	ct	C: CH2(G), ARG
+127	486	ct	beta CH3 of N-ethyl sulfonamide
+128	139	ctm	C all-atom C: alkanes
+129	137	ct	CH all-atom C: alkanes FROM HERE ON
+130	175	ct	C(R2OH): 
+131	136	ct	CH2 all-atom C: alkanes PARAMETERS
+132	137	ct	CH all-atom C: alkanes FROM HERE ON
+133	174	ct	C(HROH): 
+134	135	ct	CH3 all-atom C: alkanes ALL-ATOM
+135	136	ct	CH2 all-atom C: alkanes PARAMETERS
+136	173	ct	C(H2OH): 
+137	960	ct	R3CF   tentative
+138	963	ct	CF perfluoroalkanes A, 105, 4118
+139	959	ct	R2CHF   tentative
+140	957	ct	RCH2F   tentative
+141	962	ct	CF2 perfluoroalkanes A, 105, 4118
+142	961	ct	CF3 perfluoroalkanes JPC A, 105, 4118
+143	138	ct	CH4 all-atom C: methane
+144	135	ct	CH3 all-atom C: alkanes ALL-ATOM
+145	297	ct	CT in CH3NH2+R
+146	306	ct	C: CH3, ethylguanidinium
+147	305	ct	C: CH3, methylguanidinium
+148	259	ct	C in R3C imide
+149	258	ct	C in R2CH imide
+150	257	ct	C in RCH2 imide
+151	256	ct	C in CH3 imide
+152	246	ct	C on N: tertiary N-CHR2 amide (Pro Calpha)
+153	245	ct	C on N: tertiary N-CH2R amide (Pro Cdelta)
+154	243	ct	C on N: tertiary N-Me amide
+155	259	ct	C in R3C imide
+156	259	ct	C in R3C imide
+157	259	ct	C in R3C imide
+158	230	ct	C on N: secondary N-CR3 amide
+159	229	ct	C on N: secondary N-CHR2 amide
+160	242	ct	C on N: secondary N-Me amide
+161	244	ct	C on N: secondary N-CH2R amide
+162	244	ct	C on N: secondary N-CH2R amide
+163	989	ct	C in CH2NR2 - benzyl amines; C(CH2NH2) is #221
+164	225	ct	C in R3CNH2 and Aib CA
+165	224	ct	C in R2CHNH2 and Ala CA
+166	223	ct	C in RCH2NH2 and Gly CA (See 900 for amines)
+167	484	ct	alpha CH2-N of sulfonamide
+168	482	ct	alpha CH3-N of sulfonamide
+169	184	ct	C(OR): t-Bu ether
+170	998	ct	C in CRROR - benzyl ethers; C(CRROR) is #221
+171	997	ct	C in CHROR - benzyl ethers; C(CHROR) is #221
+172	997	ct	C in CHROR - benzyl ethers; C(CHROR) is #221
+173	183	ct	C(HOR): i-Pr ether
+174	182	ct	C(H2OR): ethyl ether
+175	181	ct	C(H3OR): methyl ether
+176	985	ct	C in CF3: trifluoroanisole
+177	468	ct	methoxy C in esters - see also 490-492
+178	159	ct	all-atom C: C, alcohols
+179	158	ct	all-atom C: CH, alcohols
+180	157	ct	all-atom C: CH3 & CH2, alcohols
+181	461	ct	C(P)  
+182	458	ct	C(O)  
+183	492	ct	C(OS) t-bu ester
+184	491	ct	C(HOS) i-pr ester
+185	490	ct	C(H2OS) ethyl ester
+186	212	ct	all-atom C: C, sulfides
+187	211	ct	all-atom C: CH, sulfides
+188	210	ct	all-atom C: CH2, sulfides
+189	209	ct	all-atom C: CH3, sulfides
+190	476	ct	CH3 attached to S of sulfonamide
+191	499	ct	CH2 all-atom C: sulfoxide
+192	498	ct	CH3 all-atom C: sulfoxide
+193	208	ct	all-atom C: C, thiols
+194	207	ct	all-atom C: CH, thiols
+195	206	ct	all-atom C: CH2, thiols
+196	217	ct	all-atom C: CH3, methanethiol
+197	216	ct	all-atom C: C, disulfides
+198	215	ct	all-atom C: CH, disulfides
+199	214	ct	all-atom C: CH2, disulfides
+200	213	ct	all-atom C: CH3, disulfides
+201	295	ct	AA:C-alpha in N-term PRO
+202	285	ct	AA C-alpha on C-terminal PRO
+203	464	ct	C6(R2) of barbiturate
+204	296	ct	AA:C-delta in N-term PRO
+205	725	ct1	CF3 
+206	966	ct1	CF2H difluoromethylbenzene
+207	161	ct1	CF3 
+208	391	ct2	1-Me CytH+ C-N1
+209	375	ct2	1-Me Cytosine C-N1
+210	373	ct2	1-Me U or T C-N1
+211	371	ct2	9-Me A or G C-N9
+212	396	ct3	C in CH3  for AA
+213	964	ct4	CF4 A, 105, 4118
+214	160	ct4	CH2 Trifluoroethanol
+215	139	ctm	C all-atom C: alkanes
+216	139	ctm	C all-atom C: alkanes
+217	95	cz	C IN CH3CN Mol.Phys.,63,547 (1988)
+218	261	cz	C(N) benzonitrile
+219	980	f	F in acyl fluoride tentative
+220	726	f	F 
+221	164	f	F 
+222	956	f	F in monoalkyl fluorides tentative
+223	1100	f-	F- 1100-1114 provide
+224	719	f_1	F fluorobenzene
+225	728	f_1	F difluorobenzenes
+226	721	f_1	F hexafluorobenzene
+227	965	f_2	F F in perfluoroalkanes A, 105, 4118
+228	986	f_3	F: trifluoroanisole
+229	241	h	H on N: secondary amide
+230	254	h	H(N) in imide
+231	240	h	H on N: primary amide see 1035-1045
+232	250	h	H in O=C(NH2)2 Urea
+233	504	h	H on NE in TRP
+234	128	h	Ammonia
+235	994	h	HN in hydroxamic acid
+236	481	h	H on N: secondary sulfonamide
+237	479	h	H on N: primary sulfonamide
+238	941	h3	H (R3NH+)
+239	310	h3	H (R2NH2+)
+240	290	h3	H (RNH3+)  1120-1130, 309-310
+241	289	h3	H (NH4+)  see also 940-945,
+242	304	h3	H: guanidinium NHR
+243	301	h3	H: guanidinium NH2
+244	146	har	Benzene H - 12 site JACS,112,4768-90
+245	146	har	Benzene H - 12 site JACS,112,4768-90
+246	146	har	Benzene H - 12 site JACS,112,4768-90
+247	977	hc	H in RCHBr 
+248	972	hc	H in RCHCl 153
+249	1124	hc	H in CH3NR3+
+250	967	hc	H in CF2H 
+251	165	hc	H 
+252	487	hc	H of beta CH3 of N-ethyl sulfonamide
+253	140	hcm	H all-atom H: alkanes
+254	958	hc	H in RCHF tentative
+255	140	hcm	H all-atom H: alkanes
+256	459	hc	H(CO)  
+257	485	hc	H of alpha CH2-N of sulfonamide
+258	483	hc	H of alpha CH3-N of sulfonamide
+259	140	hcm	H all-atom H: alkanes
+260	185	hc	H(COR): alpha H ether
+261	194	hc	H(CHO2): acetal OCHRO
+262	190	hc	H(CHO2): acetal OCH2O
+263	196	hc	H(C2O2): hemiacetal OCHROH
+264	192	hc	H(CHO2): hemiacetal OCH2OH
+265	176	hc	H(CXOH): 
+266	156	hc	all-atom H(C): methanol
+267	462	hc	H(CP)  
+268	477	hc	H of Me attached to S of sulfonamide
+269	144	hc1	alkene H (H-C=) all atom
+270	255	hc2	H(C) in formimide
+271	282	hc3	AA H on C-alpha in ketone & aldehyde & acyl halide
+272	279	hc3	AA H-alpha in aldehyde & formamide
+273	469	hc3	alkoxy H's in esters
+274	392	hc4	1-Me CytH+ H-CN1
+275	376	hc4	1-Me Cytosine H-CN1
+276	374	hc4	1-Me U or T H-CN1
+277	372	hc4	9-Me A or G H-CN9
+278	140	hcm	H all-atom H: alkanes
+279	101	he	Helium -  
+280	435	ho	H in OH- JACS 108, 2517 (86)
+281	155	ho	all-atom H(O): mono alcohols
+282	168	ho	H phenol 145 & 146
+283	163	ho	HO 
+284	170	ho	H(O): diols
+285	172	ho	H(O): triols
+286	270	ho	H in CCOOH
+287	188	ho	H(O): hemiacetal
+288	996	ho	HO in hydroxamic acid
+289	204	hs	all-atom H(S): thiols (mod 11/99)
+290	205	hs	H IN H2S JPC,90,6379 (1986)
+291	98	hw	H TIP5P Water 
+292	114	hw	H TIP4P Water JCP,79,926 (1983)
+293	117	hw	H TIP3F Water unpublished
+294	112	hw	H TIP3P Water JCP,79,926 (1983)
+295	134	hw	H SPC/E Water
+296	732	i	I iodobenzene - tentative
+297	1103	i-	I- of hydration for
+298	1108	k+	K+ 400-414.
+299	104	kr	Kr - Mol.Phys.,24,1013 (1972)
+300	1106	li+	Li+ The epsilons are
+301	115	lp	M TIP4P Water JCP,79,926 (1983)
+302	99	lp1	M TIP5P Water 
+303	1111	mg+2	Mg++
+304	987	n	N: N-methyl,N-phenylacetamide
+305	265	n	N: N-phenylacetamide
+306	251	n=	N in imide
+307	251	n=	N in imide
+308	249	n	N in O=C(NH2)2 Urea 33, 323 (93)
+309	993	n	N in hydroxamic acid
+310	480	n	N secondary amide of sulfonamide
+311	478	n	N: primary amide of sulfonamide
+312	303	n2	N: guanidinium NHR
+313	300	n2	N: guanidinium NH2
+314	1125	n3	N (ArNR3+) Anilinium Ion
+315	1127	n3	N (ArNR2H+)
+316	288	n3	N (R4N+)  Ammonium Ions
+317	940	n3	N (R3NH+)
+318	309	n3	N (R2NH2+)
+319	287	n3	N (RNH3+) JPC,90,2174 (1986)
+320	286	n3	N (NH4+) JPC,90,2174 (1986)
+321	251	n=	N in imide
+322	239	n_1	N: tertiary amide NEW TERT AMIDE PARAMETERS:
+323	238	n_1	N: secondary amide 279 for formyl H.
+324	237	n_1	N: primary amide. alkane parameters.
+325	503	na	NE in TRP
+326	1107	na+	Na+ unchanged from
+327	657	nam	N1 in 1-methylimidazole
+328	102	ne	Neon - Hirschfelder (Wiley,1954)
+329	405	nh4+	NH4+ K Jensen
+330	127	nt	Ammonia - OPLS-AA
+331	262	nz	N benzonitrile
+332	94	nz	N IN CH3CN Mol.Phys.,63,547 (1988)
+333	253	o	O in imide
+334	278	o	AA O: aldehyde & acyl halide - 135-139
+335	281	o	AA O: ketone - 135-139
+336	269	o	Oc in CCOOH neutral; use 135-140
+337	253	o	O in imide
+338	236	o	O: C=O in amide. is neutral - use
+339	248	o	O in O=C(NH2)2 Urea Isr. J. Chem
+340	992	o	O in hydroxamic acid
+341	466	o	AA =O: esters ketone params (see 280-282)
+342	311	o1s	DAP N1 Diamino-
+343	272	o2	O: O in COO- carboxylate
+344	394	o2	O(=)  OPLS UA
+345	154	oh	all-atom O: mono alcohols
+346	995	oh	OH in hydroxamic acid
+347	167	oh1	O phenol atom C, H
+348	162	oh1	OH 
+349	169	oh1	O: diols
+350	171	oh1	O: triols
+351	187	oh1	O(H): hemiacetal
+352	268	oh2	Oh in CCOOH R in RCOOH is
+353	434	oh3	O in OH- Hyroxide O-H = 0.953 A
+354	177	os	diphenyl ether
+355	984	os	O: trifluoroanisole
+356	179	os	O: anisole
+357	186	os	O: acetal ether O
+358	180	os	O: dialkyl ether
+359	439	os	O-(POn)2 in GTP (JT-R 4/4/05)
+360	473	os1	AA -OR phenyl ester
+361	467	os1	AA -OR: ester -
+362	395	os1	O(-)  see 440
+363	97	ow	O TIP5P Water unpublished
+364	111	ow1	O TIP3P Water JCP,79,926 (1983)
+365	113	ow2	O TIP4P Water JCP,79,926 (1983)
+366	116	ow3	O TIP3F Water flexible model,
+367	133	ow4	O SPC/E Water
+368	475	oy	O in sulfonamide
+369	494	oy	O in sulfone
+370	497	oy1	sulfoxide - all atom
+371	393	p	P dimethylphosphate anion
+372	1109	rb+	Rb+
+373	202	s	all-atom S: sulfides
+374	202	s	all-atom S: sulfides
+375	222	s	S in thioanisoles
+376	203	s	all-atom S: disulfides
+377	200	sh	all-atom S: thiols (mod 11/99)
+378	201	sh1	S IN H2S JPC,90,6379 (1986)
+379	1113	sr+2	Sr++
+380	474	sy	S in sulfonamide
+381	493	sy	S in sulfone
+382	493	sy	S in sulfone
+383	495	sz	alkyl aryl sulfoxide - all atom
+384	496	sz	sulfoxide - all atom
+385	105	xe	Xe - Mol.Phys.,24,1013 (1972)
+
+ITEM	END

@@ -1,0 +1,922 @@
+v9.4.4
+
+Date     Description
+------------------------------------------------------------------------------
+20180724 - Change over to new version; see emc_setup.pl for changes to
+	   EMC Setup
+20181013 - Corrected SMILES interpretation of mixed (de)protonated acids within
+	   one molecule (bug 20180824)
+	 - Forced -emc_execute=false in EMC Setup environment mode
+	 - Adapted FieldApplyRules() to reflect different connected charges
+	 - Adapted MovesEndbridge() to allow for amorphous melts and include
+	   nmin and nmax options for allowed chain length interval
+	 - Changed port behavior for fields with possibly uncharged systems
+20190201 - Added targeted typing of groups when using multiple force fields
+	   within the same force field family
+	 - Adapted EMC Setup to reflect EMC multifield changes
+	 - Changed moves->displace default to coupled
+20190413 - Added patches and residue wildcard to correctly type PEG by adapting
+	   ./fields/charmm/c36a/ethers.define
+	 - Changed FFAPPLY to GROUPS for ./fields/charmm/c36a/water_ions.define
+	 - Adapted ./core/field/apply/rules.c to keep zero charge for already
+	   typed sites by adding charge to struct field_flag
+	 - Added OPLS-AA N+ parameters and rules
+	 - Added include and exclude options to struct focus, keeping backwards
+	   compatibility
+	 - Reconfigured patch interpretation for CHARMM to improve force field
+	   source conversion
+	 - Added multifield selection for groups
+	 - Repaired incorrect behavior of seed initialization for random number
+	   generator
+	 - Added interaction sampling based on focus selections
+	 - Added option switch for coulomb flag used in pair functions of
+	   force field families born, cff, charmm, coulomb, gromacs, martini,
+	   opls, and trappe; switch is needed for stable MC execution
+	 - Fixed instability issue with saving multiple compressed files
+	 - Checked and fixed memory usage with valgrind
+20190425 - Fixed connectivity issues with polymers consisting of only 
+	   terminators
+	 - Added group.branch designations while building imported groups
+	 - Improved typing of branched groups when using increments, thus
+	   aiding import of static structures
+20190701 - Added flag field to script->pdb
+	 - Repaired segname to cluster conversion of imported pdb's
+	 - Altered creation of atom name index for pdb's
+	 - Added moves and types script keywords
+	 - Added cluster move
+	 - Web publication
+20190801 - Fixed bug in TraPPE force field read functions
+	 - Added error trap for inconsistent links when reading in ring
+	   structures
+	 - Corrected ring identification and crystal
+	 - Corrected behavior of crystal, avoiding crashes based on incorrect
+	   list allocation
+	 - Web publication
+20191220 - Miscellaneous
+	 - Fixed issues with missing mass definitions when writing PDB
+	 - Corrected typing of large ring structures using ring depth correctly
+20200131 - Repaired periodic disconnection in crystalline supercells
+20200217 - Added multi-field option to cff field
+	 - Centralized field family nbonded definition
+20200228 - Fixed output of bonded contributions based on active field
+20200301 - Added and tested zlib for GZIP compression
+	 - Overhauled file handling by centralization in format module
+	 - Fixed *()n* branch notations in chemistry definitions for groups
+20200408 - Fixed erroneous entries in types enumeration paragraph of exported
+	   LAMMPS data file
+	 - Updated CHARMM field interpretation
+20200427 - Added spline_n module for n x n splines
+	 - Added type sorting to support correct CHARMM PSF output
+	 - Fixed memory leak in cluster move
+	 - Added bond increments to CHARMM field
+20200516 - Corrected increment determination and assignment of group sites with
+	   branches
+	 - Added wildcards to increment interpretation
+	 - Corrected construct/destruct imbalance in ListCommonRead()
+	 - Cleaned up memory usage of ScriptClustersPolymer()
+	 - Added formal charge interpretation for imported structures
+20200609 - Corrected behavior of port/insight export
+	 - Corrected run.sh for running of multiple jobs on local host
+	 - Partial creation of polymer module: storage before changing 
+	   ListDestruct() to ListDestructRec()
+20200630 - Updated SMILES interpretion of imported structures by adaptation of
+	   ChemistryBondPhosphorus(), ChemistryBondSulfur(), and
+	   ChemistrySmilesSetCharge()
+	 - Corrected sporadic SEGV occurence while importing PDB
+	 - Improved single ion interpretation in CHARMM
+	 - Passed memcheck
+20200801 - Web publication
+20200927 - Corrected oxygen and sulfur interpretation of imported structures
+	 - Added polymer distributions to groups to enable the use of 
+	   prepolymers as monomers
+20210324 - Added export of SMILES of all existing clusters
+	 - Added JSON format for all exports
+20210401 - Fixed mixed use of standard clusters and polymers of prepolymers
+	 - Fixed imports of percolating crystal structures
+	 - Improved dendrimeric random polymer sequencing routines
+	 - Added progress indication for sequence and cluster construction
+	 - Fixed reading of groups with field specific information
+	 - Fixed missing rule warnings for additive fields
+	 - Corrected SPC/E water entries in OPLS and TraPPE fields
+	 - Fixed recognition of corrupt CMAP entries in CHARMM field files
+	 - Added ethers and alcohols to CHARMM CGENFF
+	 - Passed memcheck
+20210530 - Added group connectivity and cluster range to PDB as REMARK
+	 - Updated CHARMM CGENFF to include general ether, ester, aromatic, and
+	   amine contributions
+	 - Generalized TraPPE-UA by adding bond increments for partial charge
+	   designation
+	 - Added bond and angle types to LAMMPS .params file
+	 - Updated script/traject.c to append either .dump or .traject when
+	   missing
+	 - Corrected SEGV for certain polymer build cases
+	 - Corrected initialization of group terminator list
+	 - Fixed polymer copy routine to reflect polymer name correctly
+	 - Changes units DPD pair interaction constant a to energy instead
+	   of force
+	 - Improved missing bond increment reporting
+	 - Excluded field region from field detection
+	 - Refined formatted output
+20210704 - Added [oH] and [OH] as SMILES possibilities
+	 - Dealt with doubling occurrences in pair14 in rings for port LAMMPS
+	 - Fixed ClusterReassign() to correctly create supercrystal structures
+	 - Added split scripting command to control the partitioning of
+	   built clusters at either side of the box
+	 - Excluded all angle contributions for sites with 6 connection with
+	   angles larger than 160 degrees
+	 - Added amides, ammonias, and carbamates to CHARMM CGENFF
+20210801 - Web publication
+	 - Inclusion of EMC GUI for VMD
+20210820 - Bug fixes
+         - Corrected PDB import
+         - Increased group connectivity to 1024
+         - Release VMD EMC GUI v1.5.1 (see ./vmd/)
+
+
+v9.4.3
+
+Date     Description
+------------------------------------------------------------------------------
+20171205 - Change over to new version
+20180423 - Corrected typing behavior of CHARMM force fields when using multiple
+	   force fields
+	 - Corrected behavior of PDB import for VMD generated structures
+	   including PSF through correct treatment of crosslinks through
+	   cystine
+	 - Added expansion on maximum number of rings by addition of a bit
+	   structure
+	 - Checked correct memory allocation by means of valgrind
+	 - Introduced barostat coupling options to EMC setup; using NPT for
+	   atomistic and Berendsen for DPD simulations
+	 - Added PDB output control to EMC setup when generating last frames
+	   during execution of analysis scripts
+	 - Fixed incorrect behavior for importing LAMMPS trajectories with
+	   negative tilt factors
+	 - Corrected MapDot() for treatment of off-diagonals
+	 - Corrected IOOpen() and IOClose() for reading gzipped files by adding
+	   PID to temporary file name
+	 - Corrected deformation behavior during run
+	 - Adapted EMC script analysis to allow for user defined analysis
+	   scripts; note, that resulting analyze, build, and run scripts are
+	   not backwards compatible
+	 - Added free volume analysis in the form of cavity size distributions
+	 - Fixed an issue with polymer terminators for polycondensates through
+	   adaptation of initialization during application of field increments
+	 - Corrected mass transcription for multibranched polymers
+	 - Tightened mass interpretation for FocusMass() as used by scripting
+	   function mtotal()
+	 - Removed terminators from block and alternating copolymer
+	   connectivity check
+	 - Added charge transfer to SMILES when importing coarse-grained
+	   structures
+	 - Corrected issue with reading of multiple force fields
+	 - Added volume sampling for determination of read structure density
+	   through scripting function vtotal()
+	 - Added Monte Carlo control to EMC setup (-emc_run)
+	 - Refined behavior of traject command for recognizing various
+	   extensions
+	 - Added scaling of length option for lammps, pdb, and xyz scripting
+	   commands
+	 - Added colloidal options to EMC setup and colloidal force field to
+	   EMC
+	 - Rearranged force field designation for fields and ports
+	 - Adapted CHARMM interpretation of impropers
+20180619 - Corrected PDB memory issue regarding connectivity xrefs
+	 - Corrected PDB recording
+	 - Adapted growth module to reflect correct stereo chemistry of sugars
+	 - Added packing of multiple executables per node by EMC setup for use
+	   with node exclusive queueing sytems (-queue_ppn)
+	 - Added setting memory per core for queueing system resource
+	   management (-queue_memory)
+	 - Rewrote run.sh to include Slurm sbatch options; no adaptation of
+	   myjobs.pl for Slurm yet
+	 - Fixed energetic issue for building stereo chemistry
+20180701 - Fixed EMC cavity size sampling output
+	 - Fixed EMC setup link to field module
+	 - Corrected reading of PDB/PSF
+	 - Corrected run.sh -file behavior (needed for LAMMPS restart)
+	 - Corrected depth passing to groups by ported input
+20180724 - Corrected left and right isomers (BOND_ISOMER) in grow.c
+	 - Close and switch to new version
+
+
+v9.4.2
+
+Date     Description
+------------------------------------------------------------------------------
+20170601 - Change over to new version
+	 - Added geometry() function to ./core/parse.c
+	 - Added functionality to ClusterUnwrap(), reflecting different
+	   unwrapping modes
+	 - Added a new force field region/lj in ./core/types/region/lj.c for
+	   simulating pairwise regions as used during builds around structures
+	 - Added periodic option to ./script/translate
+	 - Added ClusterCut() and ListCompare()
+	 - Changed EMC script read to literal interpretation of variables
+	 - Added environment mode for looping over variables in EMC setup
+	   scripts, supporting high performance computing
+	 - Added queue chain options to EMC setup
+	 - Grouped options in EMC setup
+20170614 - Added PDB read, using PDB and PSF
+	 - Added group initialization based on group tags, allowing for
+	   recognition of repeat units in polymers, when properly specified
+	 - Improved EMC setup environment functionality
+20170615 - Cleaned up structure interpretation in EMC setup
+	 - Added :d or :double mode to environment loop variables
+20170622 - Excluded DPD nonbond wildcard entry when -auto=false
+20170624 - Addition of -options export to GUI
+20170701 - Improved behavior when importing structures
+20170711 - Added EMC environment testing mode
+20170717 - Added -cut=repulsive for transfering purely repulsive
+	   potentials to LAMMPS
+	 - Repaired behavior of SDK potentials when ported to LAMMPS
+20170718 - Added -number for interpreting cluster fractions as number of 
+	   molecules
+	 - Fixed an issue with empty additional variables as offered to
+	   emc_write_variables()
+20170721 - Added -replace_build flag for ignoring existing .data files
+	   during build script execution; can alo be invoked by adding
+	   -replace flag to ./build/.sh script
+	 - Added use of -build flag in conjunction with ./run/.sh scripts,
+	   allowing for invoking LAMMPS executing after EMC build; uses
+	   queueing system chains
+20170822 - Fixed SEGV caused by typing of coarse-grained force fields resulting
+	   from incorrect deactivation of equivalences in
+	   FieldCopiesDeactivate()
+20171105 - Switched interpretation of atomistic SMILES containing elements from
+	   needing square brackets to needing none, e.g. C[Cl] now can be
+	   expressed as CCl
+	 - Allowing for zero repeat units in complex polymers
+	 - Adapted EMC setup to reflect the use of zero repeat units
+	 - Reworked EMC setup to allow for field definition in .esh by adding
+	   an EMCField package
+	 - Fixed EMC ports to reflect the choice of nbonded in pairwise
+	   interactions
+	 - Upgraded EMC group and cluster recognition of imported crystalline
+	   structures
+	 - Added expert mode to EMC setup to circumvent particular error
+	   checking of polymer defitinions
+	 - Added triclinic treatment of simulation boxes to EMC setup
+	 - Added crystal option to EMC setup for imported crystalline
+	   structures
+	 - Added ITEM FIELD to EMC setup for definition of general force fields
+	   by means of modules/EMCField.pl
+	 - Added ITEM PARAMETERS and REFERENCES to EMC setup for direct
+	   definition of DPD force fields
+	 - Added ITEM LAMMPS to EMC setup for verbatim LAMMPS scripting, to
+	   be inserted after equilibration
+20171125 - Fixed problem with early exits when using comments in EMC scripts
+	 - Added PDB import of united atom structures (use lower case in 
+	   element field when indicating aromatics)
+	 - Introduced PDB crystal option to EMC script for importing crystal
+	   structures
+20171204 - Fixed chain and restart options for EMC setup scripts by adapting
+	   emc_setup.pl and run.sh
+
+
+v9.4.1
+
+Date     Description
+------------------------------------------------------------------------------
+20160905 - Change over to new version
+20161006 - Addition of typing by multiple fields as needed by charmm
+	 - Moved storage of io function to ListCommonRead() and
+	   ListCommonWrite()
+	 - Added fields to simulation->constants to allow for field ids
+	 - Generalized force field application routines for assorted fields
+	 - Corrected wildcard recognition for torsions (e.g. CHARMM)
+	 - Added fixed width for atom index in PDB file
+	 - Added recording options during the build process
+	 - Added general module template to ./core
+	 - Added general list template to ./core/field
+	 - Generalized ./core/field apply and parameters as template for use
+	   with various force fields
+20161105 - Generalized ./core/field rule as template for use with various
+	   force fields
+	 - Added ./core/field/list/{bond, cross, wildcard}
+	 - Integrated bond recognition into FieldInit()
+	 - Changed behavior insight->crystal flag by treating all crystal
+	   connections in .mdf as regular connections
+	 - Added ./core/{field,port/lammps,types}/colloid force field
+	 - Fixed bug in ./core/moves/endbridge
+	 - Addition of environment mode to emc_setup.pl to allow for
+	   parameter studies using either LSF or PBS queueing systems
+20161220 - Fixed OPLS-UA typing rules to correctly type PET
+	 - Corrected wildcard behavior for angles
+	 - Broadened PSF type to six characters
+	 - Corrected behavior of ListCommonWrite()
+	 - Addition of environment definitions to EMC manual
+	 - Addition of environment shear setup example to EMC manual
+	 - Corrected torsion transcription to multi harmonics for OPLS, TraPPE,
+	   and GROMACS force fields
+	 - Corrected OPLS-UA rules to reflect correct typing of PET
+20161031 - Added environment mode for generation of project directory structure
+	   and parallel run scripts to emc_setup.pl
+20170103 - Fixed ScriptGroupsGroupAppend()
+	 - Fixed behavior of reading literal constants (11BPN is not translated
+	   to a number with value 11)
+	 - Fixed usage of TIP models with OPLS
+20170312 - Added type SHAKE capabilities to emc_setup.pl and emc
+	 - Improved InsightII port
+	 - Fixed interpretation of cff rules using allowed and disallowed tests
+	 - Fixed issue with skipping of absent types for cff force fields
+	 - Fixed issue with use of nclusters() and ntotal() in ./core/parse.c
+	 - Fixed issue with absent atom names in PDB and PSF
+	 - Swapped first two improper atoms in PSF for NAMD compatibility
+	 - Checked for memory leaks
+
+
+v9.3.9
+
+Date     Description
+------------------------------------------------------------------------------
+20150901 - Change over to new version
+20151009 - Added terminator specification to polymer definition in
+	   ./core/script/clusters/polymer.c
+	 - Added test for like polymer in _ClusterSites() for down hydrogen,
+	   which is needed for grafted structures
+	 - Added FieldRuleListOrder() to FieldRuleInterpret() to ensure
+	   correct rule order during interpretation
+	 - Added esters to OPLS-UA
+20151211 - Repaired interconnected ring treatments in martini.pl
+	 - Changed LAMMPS DPD defaults in emc_setup.pl
+	 - Extended emc_setup.pl to allow for dendrimers
+	 - Added dendrimer extension to polymer construction
+	 - Corrected mass assignment of terminator groups during polymer
+	   construction
+	 - Created correct treatment of block and alternate copolymers
+	 - Removed double entries when building additional clusters during
+	   polymer construction (i.e. counterions etc. using *[A+]*.[B-])
+	 - Corrected crash when building multiphase systems by resetting
+	   sectors and images when reallocating sites
+	 - Corrected LAMMPS CHARMM dihedral output, including parameter file
+	   entries
+20160118 - Added ./field/charmm/c36a including CGENFF
+	 - Direct translate of CHARMM prot and cgenff files from src directory
+	 - Added cgenff.define to allow for deviations from automatic translate
+20160125 - Corrected bond sampling to use bonded instead of cluster lists
+	 - Updated TraPPE-UA, OPLS-UA, and OPLS-AA force fields
+	 - Improved charmm.pl mass recognition, topology file interpretation
+	 - Debugged sampling capabilities by updating ./core/samples/{bond.c,
+	   distance.c, gr.c, gyration.c}
+	 - Added ListCommonIOGet() to ./core/{focus.c, region.c} to allow for
+	   recursive use 
+	 - Updated ./port/lammps/charmm to reflect correct torsion treatment
+	 - Changed ./core/script/traject to use put, get, and sample; changed
+	   default of 'scale' to false
+20160217 - Repaired interpretation of charmm/c36a/cgenff interpretation to
+	   correctly type ring members
+	 - Repaired typing of fluorides in opls/2015/opls-aa
+	 - Added an increment flag to emc_setup.pl to bypass missing increments
+	   in CFF force fields
+	 - Switched to hexadecimal representation of residue field in PSF
+	 - Improved ring recognition for structures consisting of
+	   interconnected rings of different sizes
+20160404 - Added FieldCopy() to ./script/crystal
+	 - Resolved quote issues with string command line variables
+	 - Adapted ./scripts/emc_setup.pl to include surfaces
+	 - Changed ./core/script/{flag.c, retype.c} to exclude non-built sites
+	   when ranges are defined
+	 - Corrected auto angle interpretations of cff force fields
+	 - Corrected behavior of repeated additions to chemistries, i.e.
+	   charged polymer ([A-])10(.[B-])10 with 10 monomer units A and 10
+	   counter ions B
+	 - Added REPLICAS, NONBONDS, BONDS, and ANGLES paragraphs to
+	   chemistry.csv file syntax
+	 - Corrected sequence interpretation of source and destination in
+	   ./core/script/retype
+	 - Added focus to ./core/script/retype
+20160509 - Added script option to sample scripting command
+	 - Added recognition of compressed files ending with .gz in get, put,
+	   traject, lammps, pdb, and xyz scripting commands
+	 - Refined ./core/script/retype to allow for retyping of non-build
+	   clusters; corrected reading of retype->n
+	 - Corrected script line count for files with both 0x0d and 0x0a at eol
+	 - Adapted ClusterSites() to allow for proper head-tail crossing to
+	   counteract cluster wrapping issues
+	 - Made GroupsBuildClusterBased() more robust to allow for better
+	   SMILES recognition
+	 - Fixed a bug in ChemistryRings() by introducing 
+	   CHEMISTRY_RING_MINDEPTH to force proper ring recognition in case of
+	   alternative SMILES
+	 - Added types to charmm/c36/cgenff to account for polystyrene
+20160704 - Fixed SMILES interpretation of E/Z isomers
+	 - Fixed angle refinement Monte Carlo scheme in ./core/grow.c
+	 - Fixed recognition of 'all' keyword for simulation->types->shake
+	 - Fixed focus selection for parse functions nclusters(), ntotal(),
+	   and mtotal()
+	 - Added Born potential including force field typing and LAMMPS
+	   parsing
+	 - Adapted emc_setup.pl to correctly interpret neutralizing ions when
+	   added to monomers used in polymers, thus fixing issues with profile
+	   definitions for LAMMPS input scripts
+	 - Adapted emc_setup.pl to allow for mixed use of tabs and spaces in
+	   chemistry.csv
+	 - Corrected shift interpretation in ./core/types/charmm/pair.c; 
+	   potentials are shifted when the repulsive is selected or 
+	   inner >= cutoff and shift is set to true
+	 - Tested ensemble correctness by a rudimentary interpretation
+	 - Fixed a SEGV issue while copying in ./core/script/clusters/groups.c
+	 - Fixed missing terminator for alternate and block (co)polymers
+	 - Added options interpretation to emc_setup.pl chemistry file
+	 - Adapted emc_setup.pl to allow for use as an interpreter
+	 - Generalized interpretation of DATA_NCOEFS for force field porting
+	 - Fixed porting of DPD torsions to LAMMPS
+20160819 - Fixed FieldRuleIndexCopy() (crystal issue)
+	 - Fixed behavior of SiteConnectClean()
+	 - Updated manual to include emc_setup.pl examples
+	 - Fixed LAMMPS input script generated by emc_setup.pl for -lammps=new
+	 - Corrected opls/2012/opls-ua rules for imides and esters
+	 - Added charmm/c36a/cgenff missing bonded contributions for (poly)
+	   propylene oxide
+
+v9.3.8
+
+Date     Description
+------------------------------------------------------------------------------
+20141008 - Change over to new version
+	 - Corrected automated force field recognition for ./core/script/pdb.c
+	   and ./core/script/lammps.c
+	 - Corrected ./core/field/rule.c to parse wildcard recognition to rule
+	   testing; needed for correct recognition of charged substituents
+	 - Updated ./core/script/clusters/polymer.c and ./core/field/apply/*
+	   to reflect multiple types and partial charges at branch points and
+	   directly neighboring sites by adapting group representations
+20141019 - Added SDK (Shinoda-DeVane-Klein) force field plugs for typing and
+	   generation of initial configurations for available ports
+	 - Added and tested an SDK example to ./examples/setup/atom/sdk
+20141107 - Fixed a bug in ./scripts/martini.pl related to creating correct
+	   SMILES for templates that contain rings
+	 - Disallowed 2-membered rings by adapting ChemistryRings() in
+	   ./core/chemistry/ring.c
+	 - Added -msd flag to ./scripts/atom_setup.pl and
+	   ./scripts/dpd_setup.pl to add MSD calculation to resulting LAMMPS
+	   input scripts
+	 - Added -profile flag to ./scripts/atom_setup.pl to add density
+	   profile calculation to result LAMMPS input scripts
+	 - Debugged FieldApplyIncrements() in ./core/field/apply/increments.c
+	   to improve charge assignments at group sites next to branch sites
+20141214 - Adapted iteration error message in ./core/script/clusters/polymer.c
+	   to read "exceeded niterations for polymer ..."
+20150102 - Added mass() and nsites() functions to ./core/parse.c for use in
+	   EMC scripts
+	 - Added ./scrips/emc_setup.pl as replacement for atom_setup.pl and
+	   dpd_setup.pl
+	 - Updated PCFF force field files
+	 - Updated ./field/opls/2012/{opls.pl, oplsaa.define}
+	 - Passed functionality test with ./examples/field/opls/aa/{octane.emc,
+	   ethanol.emc, acetic_acid.emc, benzene.emc, ethyl_benzoate.emc}
+	 - Updated FieldRuleListSort() to include new recursive rule_order()
+	   during sort to reflect correct rule ordering (wildcards last)
+	 - Added ./core/samples/{list.hh, script.hh} templates to generalize
+	   sampling routines
+	 - Added template functionality to ./core/samples/cavity.c
+	 - Added ./core/samples/{gr.c, gyration.c} for radial distribution and
+	   radius of gyration sampling
+	 - Debugged ./core/samples/cavity.c to include family->active flag
+	   for activating energy calculations; 
+	 - Reworked ./core/script/sample.c to include sampling template
+	   functionality
+	 - Passed functionality test with ./examples/sample/cavity/build.emc
+	 - Passed functionality test with ./examples/sample/gyration/sample.emc
+	 - Passed valgrind test for new sampling functionalities
+20150110 - Updated version including documentation
+20150205 - Moved ./field/opls/2012/opls.pl to ./scripts/opls.pl
+	 - Updated and added opls-aa force field definitions
+	 - Moved ./field/opls/2012/{oplsaa, oplsua} to 
+	   ./field/opls/2012/{opls-aa, opls-ua}
+	 - Updated opls examples and ./script/emc_setup.pl to reflect change
+	 - Added alcohols based on sugars to CHARMM force field
+	 - Added ./field/trappe/2014/trappe-ua.define
+20150308 - Updated ./core/type.hh to correct initialization order in TypeInit()
+	   by placing TypeXRefInit() at end
+	 - Deleted coefficients in general porting of data in 
+	   ./core/types/charmm/torsion.c due to variable memory use for coeffs
+	 - Removed memory leaks associated with the CHARMM force field
+	 - Cleaned up sulfate and phosphate recognition in SMILES to allow for
+	   RO:S(:O)(:O)(:O) == ROS(=O)(=O)[O-] and ROP(:O)(:O)OR ==
+	   ROP(=O)([O-])OR (analoguous to R(:O)(:O) == R(=O)[O-])
+	 - Updated BASF force field to represent sulphates and phosphates
+	   correctly
+	 - Added basf as cff field to emc_setup.pl (-field=basf)
+	 - Corrected multiphase interpretation by emc_setup.pl
+	 - Corrected ./scripts/charmm.pl to reflect all aromatic bonds as
+	   partial
+	 - Adapted ./field/charmmm/c32b1/all27_prot_lipid.define to reflect
+	   sulfates correctly
+	 - Passed ./examples/field/charmm/amino_acids/run.sh test
+	 - Passed ./examples/examples/multiphase/surfactant/setup.sh test
+	 - Started addition of Insight port for reading .car and .mdf
+20150324 - Streamlined SMILES interpretation by altering site layout for
+	   rings and repetitions through "()n"
+	 - Added link identifier to ./core/chemistry/ring.h
+	 - Altered bit representation for rings to allow for more than 64 rings
+	   per group: bits are reused when rings do not overlap
+	 - Debugged ./core/chemistry/{bond, link, ring, smiles} for correctly
+	   representing graphenes
+	 - Tested smiles with ./examples/test/smiles/build.emc: passed cluster
+	   test, which uses ChemistryFromList() (needed for import ports, e.g.
+	   ./core/port/insight.c)
+	 - Created new recursive ClusterBuild() to create correct cluster
+	   extremes and ring linkage recognition
+	 - Added a swapped array to avoid double swapping in SitesSort()
+	 - Adapted ./core/port/insight.c to reflect new ClusterBuild()
+	 - Added ./core/group/build.c and ./core/groups/build.c; the latter
+	   switches to single-site groups when no suitable cluster-based
+	   group can be found
+	 - Passed ~/work/emc/port/insight/test/{6-propyl-dodecane, benzene,
+	   branched, dodecane, ethO, gypsum, octane, rings, talc,
+	   triphenylene} tests
+20150511 - Correction of port/insight.c to box angle interpretion
+	 - Addition of grow->include to allow for a grow->exclude counterpart
+	 - Correction to GroupInit() to correctly interpret counter ions by
+	   debugging group->additions interpretation
+	 - Addition of atomistic field to insight port to allow for import of
+	   united atom configurations
+	 - Debugged ./core/script/crystal.c to repair box geometry errors
+	 - Expanded ./core/script/translate.c selection options
+20150520 - Reworked ./scripts/emc_setup.pl to include polymer definitions
+	 - Modified ./core/script/clusters/polymer.c to reflect new
+	   emc_setup.pl functionalities
+	 - Added description of new functionality to manual
+	 - Added a polymer example to ./examples/setup/polymer/
+20150603 - Changed ./core/script/groups/polymer.c such, that 'head' and 'tail'
+	   are displayed in the output when using head/tail identifiers
+	 - Corrected OPLS-AA to include all hydrocarbon parameters for SP3
+	   carbons (ct) next to aromatic carbons (ca) to deal with styrenics
+	 - Repaired OPLS-UA to correctly interpret acrylics
+	 - Added -communicate to ./scripts/emc_setup.pl to cover change from
+	   communicate to comm_modify keyword in newest versions of LAMMPS
+	 - Corrected behavior of selections in ./core/focus.c by increasing
+	   format->target before calling ListCommonRead()
+20150727 - Corrected SMILES ring interpretation to correctly reflect POSS
+	 - Added zeolites to TraPPE force field
+	 - Repaired crash in OPLS-AA ethanol/water typing
+	 - Repaired moves/reptate.c to include targets in separate list
+	 - Added fractional extensions for polymers in emc_setup.pl (needed for
+	   multi-monomer polymers)
+	 - Repaired reading field files through FieldRead() by debugging
+	   FormatCount(), thus correctly counting the number of elements
+	 - Added functionality to ./core/script/clusters/polymer.c to
+	   include fractional multi-monomer polymers
+20150805 - Published version, which includes tutorial examples for the
+	   LAMMPS workshop
+20150813 - Published version, which includes alterations to allow for use under
+	   Windows
+	 - Small changes to emc_setup.pl to avoid inclusion of carriage
+	   returns in resulting build.emc files
+
+v9.3.7
+
+Date     Description
+------------------------------------------------------------------------------
+20131106 - Change over to new version
+	 - First version of CHARMM available
+	 - Changes to rule interpretations needed for CHARMM support
+	 - Addition of debug flag to field scripting command
+20131206 - Fixed problem with aromatic rings being part of branches by adapting
+	   looped sites in ChemistryRingRecurse() to SITE_NCONNECTS and
+	   switching to reverse loop in ChemistryNConnects() (20131113)
+	 - Added EZ isomers to chemistry.c (standard SMILES) and grow.c
+	   (20131201)
+20140103 - Enhanced ./core/script/clusters/polymer.c to construct complex
+	   monomer connectivity correctly (iterative loop for filtering out
+	   failed sequences)
+	 - Added pair15 to types/table to represent Kremer coarse-grained
+	   polystyrene
+	 - Adapted port/lammps to facilitate exporting types/table, including
+	   pair15 in bond representations in .data and .params and exporting
+	   all tables to .table output
+20140111 - Added dendrimer interpretation to ./core/script/groups/polymer.c
+	   for creating dendritic networks
+20140203 - Added detection of alternate mass types for group ends with multiple
+	   branch points
+	 - Should add a xref table on branches for which connection corresponds
+	   to which connected group (needed for types transcription)
+	 - Forced shift for repulsive type option to avoid compact builds
+	 - Added shift for all pair types (including spline-based types)
+	 - Added target to ./core/moves/endbridge.c to preserve chemical
+	   topology integrity
+	 - Version sent to MIT
+20140328 - Fixed problem with aromatic ring detection when using Kekule
+	   representation in SMILES
+	 - Added auto equivalence rule to BASF force field for c3az
+	 - Fixed size and copy of element in ./core/mass.c
+	 - Added target to ./core/script/cut.c and ./core/script/remove.c to
+	   preserve chemical topology integrity
+	 - Added an adaptive roots.nmesh to SplineInverseRec() in
+	   ./core/spline.c to accomodate for inverses of soft angle terms
+	 - Fixed bug in ./core/variables.c: updated dest->max_var in all
+	   occurrences of dest->var reallocation
+	 - Fixed bug in SystemsCount(): added a boundary to
+	   ++ientry[isystem-system][isite->mass] as a result of undefined site
+	   masses resulting from using templates in ./core/script/clusters
+	   definitions
+	 - Fixed bug in ScriptBuildSelect(): cleaned up skip when connected
+	   to include a test on deleted and build site flags; continuation
+	   commences, allowing for the site to be retried at a later occassion
+	 - Added improper option to ScriptField()
+	 - Added improper flag and 'empty' constant to ./core/field/flag
+	 - Rewrote ./core/field force fields to interpret improper flag and
+	   'empty' option
+	 - CFF force field always operates as if 'error' option is set for
+	   angle, torsion, and improper flags
+	 - Added partial wildcards to bond interpretation by ./core/field/opls
+	 - Moved global operator functions in ./core/list/common to list_common
+	   structure
+	 - Added ./core/script/groups/delete to delete a specific group site
+	 - Added mass and nonbond wildcard interpretation to ./core/field
+	 - Added ./core/field/dpd to allow for a coarse-grained tabulation
+	   of DPD parameters
+	 - Added c* auto interpretation of bonded ct to ./scripts/opls.pl for
+	   OPLSUA
+	 - Added ions to ./field/opls/2012/oplsua
+	 - Added CHARMM to LAMMPS port in ./core/port/lammps/charmm.c
+	 - Added pcff field to ./field/pcff -> still needs rule fine tuning
+	 - Debugged polymer build in ./core/script/clusters/polymer.c
+	 - Added error check in ChemistryRings() (./core/chemistry/ring.c)
+	 - Made name interpretation in ./core/script/field.c consistent
+	   to be {parameters, topology} for all force fields
+20140528 - Added cff field recognition to ./core/script/field.c in case
+	   order of names is reversed
+	 - Added active flag to all type families
+	 - Tightened up wildcard recognition during application of force
+	   fields through ./core/field/*/apply.c
+	 - Added TypesDestruct() to FieldApply() to erase existing types
+	 - Added 'auto' option to port forcefield flag, supported by
+	   ScriptPDB() and ScriptLammps() through TypesFamiliesDetect()
+	 - Fixed problem with angle_style in ./core/port/lammps/dpd.c
+	 - Added rule to OPLS-UA topology to satisfy polypropyleneoxide
+	 - Added backslash interpretation to ./core/format.c and 
+	   ./core/variable.c to allow for = characters in type constants in
+	   input script
+20140616 - Fixed PortLammpsCharmmBondsPut() to output correct types for bonded
+	   paragraphs
+	 - Added multi-phase interpretation to ./scripts/dpd_setup.pl
+	 - Tightened command line molecule interpretation for
+	   ./scripts/dpd_setup.pl
+	 - Updated ./scripts/dpd_setup.pl to correctly interpret cut off and
+	   mass adaptations
+	 - Fixed E/Z interpretation in ./core/{chemistry.c, variable.c, grow.c}
+	 - Added chain length delimiters to ./core/moves/{endbridge.c,
+	   reptate.c}
+20140923 - Adapted ./core/field/cff such, that spurreous extra types in rules
+	   are neglected
+	 - Corrected FieldRuleFlagCompare() for honoring both source and
+	   destination 'any' bonds
+	 - Corrected ./core/field/dpd/parameters.c to exclude transcription of
+	   'X' types to '*' types
+	 - Removed erroneous double variable evaluation from script
+	   interpretation
+	 - Corrected conversion of literal variable names containing '"' to
+	   increase name length by 1 for each occurence
+	 - Corrected script variable interpretation to allow for correct
+	   sequence interpretation by adding a format->transfer flag in
+	   conjunction with adaptation of VariableRead()
+	 - Corrected interpretation of triple bonds, avoiding a '#' being seen
+	   as a comment
+	 - Corrected ./scripts/insight2lammps.pl to correctly represent
+	   molecule numbers as stated in .car/.mdf
+	 - Updated ./script/dpdsetup.pl to use force field files for parameter
+	   interpretation in light of creating a data bank
+
+v9.3.6
+
+Date     Description
+------------------------------------------------------------------------------
+20130504 - Change over to new version
+	 - Improved InverseTorsionDefine() to reflect correct 1-4 distance
+	 - Update of ./scripts/atom_setup.pl
+	 - Added ./core/system_flag.c to include control over geometry mapping
+	   and charge requirements
+	 - Added group->charges flag to reflect handling of partial charge
+	   assignment for SMILES sites
+	 - Added CHARMM typing in ./core/field/charmm
+	 - Added ./scripts/charmm.pl for converting CHARMM .prm and .rtf format
+	   into EMC .prm and .top format
+	 - Adapted ./core/types/charmm/urray.h and ./core/types/bond.hh to
+	   reflect three-site dependence of urray contribution
+	 - Reworked ./core/command_line.c by deleting unnecessary options and
+	   including better command line variable definitions
+	 - Inclusion of $arg# as internal variable, where # E [0, 1, ...] to
+	   capture command line arguments
+20130601 - Added a catch for non-defined parameters in ./core/type.hh
+	   TypeExtreme()
+	 - Updated group recognition and LAMMPS import routines
+20130629 - Added martini force field (types, field, port)
+	 - Streamlined porting routines
+	 - Fixed internal issues for torsions with delta != 0
+20130704 - Fixed issues with OPLS bond and angle parameter interpretations
+	 - Fixed issues with CHARMM bonded parameter interpretations
+	 - Corrected CHARMM and OPLS LAMMPS port
+	 - Adjusted manual to reflect force field representation as given in
+	   literature
+	 - Added keywords 'head' and 'tail' to scripting group interpretation
+20130715 - Corrected index interpretation for cyclic SMILES in
+	   ./core/chemistry.c, i.e. indices can be reused once a loop has
+	   been closed
+	 - Corrected ring interpretation to correctly assign ring bits as
+	   needed by ./core/grow.c
+	 - Corrected mistake in interpretation of type->nbonded (use minimum
+	   instead of maximum)
+	 - Corrected problems with importing LAMMPS files with multiple use of
+	   same bonded coefficients, i.e. when two bonds each containing
+	   different mass types use the same LAMMPS bond type (should result
+	   in addition of new bond type)
+20130809 - Added error upon application of field without defining it first
+	 - Cleaned up memory assignment during mixing rule application
+	 - Fixed bug when reloading field by adding type data merge 
+	   capabilities upon reading parameters
+	 - Corrected behavior of 'variables' scripting command
+	 - Fixed bug for pair calculations of undefined but activated force
+	   fields by adding a return when xref == NULL
+	 - Fixed bug in ./core/chemistry.c when using repeating sequences with
+	   parenthesis, e.g. "(NCC(=O))3"; corrected connectivity (not to last) 
+	 - Cleaned up alpha carbon representations in PDB output
+20130826 - Fixed issues with the cff force field implementation for bond_angle,
+	   end_bond_torsion, angle_torsion, and angle-angle energies by
+	   aligning EMC, LAMMPS and Materials Studio results
+20130921 - Created .vmd output when exporting PDB format, thus transfering EMC
+	   radii to a VMD readable TCL format
+	 - Adapted growth of statistical copolymers such, that the number of 
+	   contributing groups entered through nrepeat are distributed
+	   correctly over the copolymer (./core/script/clusters/polymer.c)
+	 - Added the option of repeat units doubling as both repeat and
+	   terminator for coarse-grained simulations (./core/group.c and
+	   ./core/script/groups/group.c)
+	 - Increased the maximum number of terminators to 32
+	 - Upgraded MARTINI .prm format to be more self-consistent
+
+v9.3.5
+
+Date     Description
+------------------------------------------------------------------------------
+20121112 - Adapted charge on sites in groups; involved corrections to
+	   ./core/field/apply/increments.c and ./core/script/groups/group.c
+	 - Corrected site flag issues in ./core/cluster.c stemming from 
+	   junction issues by rewriting ClusterChange()
+	 - Version shipped to MIT
+20121117 - Increased charge limit in SystemsCheck()
+	 - Repaired recognition of deprotonated acids
+	 - Improved determination of inverse angles in InverseAngleInit()
+20121211 - Intermediate version for archiving purposes only
+20121219 - Inclusion of OPLS force field typing: changes to core/types,
+	   core/field, and core/port
+	 - Creation of internal EMC .prm format for OPLS interpretation
+	 - Adaptation of types->atomistic indicator to include none, united,
+	   and full as keywords
+	 - Creation of FieldApplyGroupsCharge() to generalize charge
+	   assignments
+	 - Addition of templates to field and .prm format
+	 - Inclusion of templates to group and cluster assignments in scripting
+20130210 - Correction of SitesBackbone() to exclude torsion contributions in
+	   triangular structures
+	 - Inclusion of ./scripts/martini.pl to translate GROMACS .itp format
+	   to EMC .prm format; see field scripting in EMC manual
+	 - Addition of ./core/samples/cavity.c: working prototype
+	 - Addition of ./core/solver modules broyden.c, newton.c, and
+	   line_search.c to be used in conjunction with
+	   ./core/samples/cavity.c: still in testing phase
+20130310 - ./core/solver module tested for both broyden and newton with
+	   line_search.c
+	 - ./core/sample/cavity.c delivers correct cavities for fcc and bcc
+	 - Both stable and instable cavities are identified
+	 - Addition of sampling capabilities to ./core/script/traject.c
+	 - Addition of ./core/script/sample command with cavity subcommand
+	 - Addition of ./core/script/export command with profile and sample
+	   subcommands; used for exporting analysis results in both .m and .csv
+	   formats
+20130316 - Addition of SMILES functionality to allow for repetition of 
+	   chemical sequences
+	 - Updated documentation to reflect cavity, export, sample, SMILES,
+	   and traject changes
+	 - Addition of $root constant to indicate the EMC root directory
+20130320 - Added SplineMoment() to ./core/spline.c
+	 - Added pair14 to struct types_functions in ./core/types/registry.h
+	 - Changed TypeTypesRegistry() in ./core/type.hh to include pair14
+	   functions
+	 - Activated TYPE_INVERSE in ./core/types/charmm/pair14.c and
+	   ./core/types/opls/pair14.c
+	 - Updated InverseTorsion() in ./core/types/inverse/torsion.c to
+	   include pair14 interactions
+
+v9.3.4	
+
+Date     Description
+------------------------------------------------------------------------------
+20111204 - Updated and checked examples
+	 - Updated manual (still in progress)
+	 - Updated standard and multi stencil implementation
+	 - Corrected coarse/lj disparate size interactions
+20120611 - Repaired issues related to underestimating junction lists in
+	   ./core/cluster.c
+	 - Updated bonded interaction
+	 - Rewrote ForceBondedLists() and dependent functions
+	 - Deleted all redundant representations from ./core/force/bonded.c
+	 - Corrected TypeTrigToPow() to reflect correct derivatives; corrected
+	   ./core/types/cff/torsion.c, ./core/types/charmm/torsion.c, and
+	   ./core/types/standard/torsion.c accordingly
+	 - ./core/moves/diffuse.c needs to be revisted (double bonds etc.
+	   appear when checking ForceBondedIntegrity())
+	 - Added recognition of a leading "~" as the user's home directory in
+	   f_open() in ./core/format.c.
+	 - multi stencil implementation has unresolved issues
+20120715 - Corrected line reporting for errors by adapting read and write
+	   routines in ./core/script.c, ./core/variables.c and
+	   ./core/variable.c
+	 - Corrected ClusterUnwrap()
+	 - Corrected ./core/port/lammps/dpd.c to reflect charge parameters
+	   correctly
+	 - Added Deem rebridging; correct porting is yet inconclusive
+20120731 - Version for Juropa
+20120808 - Added 'name' to ./core/build/select.c to capture intermediate state
+	 - Added 'mode' to ./core/region.c to reflect hard and soft regions for
+	   use with ./core/grow.c (hard: full exclusion; soft: exclusion for 
+	   first cluster site only)
+	 - Perfected ./core/grow.c for growing of atomistic representations
+	 - Monte Carlo relaxation of angles and torsions with high tension
+	 - Random pick of first backbone site for cluster off-backbone torsion
+	   insertion
+	 - Tested atomistic builds with polyethylene, dimethoxyethane,
+	   polyethyleneoxide, and benzene at liquid densities (see
+	   ./examples/field)
+20120826 - Corrected pair cutoff implementation in field/apply
+	 - Corrected improper calculations to represent correct lists for 
+	   single site force calculations in force/bonded; tested with
+	   acrylic acid and benzyl cyclohexane
+	 - Corrected torsional picks to 1) first site on backbone, and 2) sub-
+	   sequent sites based on non-backbone site 4
+	 - Application of torsion relaxation MC algorithm for distinct
+	   cases only
+	 - Made changes to ./core/cluster.c to reflect correct execution of
+	   branched semi-crystalline polyethylene problems
+20121102 - Adapted grow.c to include tetraeder treatment of side connections
+	   in GrowSideConnect(), needed for atomistic treatment
+	 - Adaptation of migrate.c to reflect tetraeder treatment
+	 - Cleaning up of field.c and dependents using memcheck
+	 - version increase to v9.3.5 to align with MIT
+
+
+v9.3.3	 Correct force field typing, multi-threading, working builder
+
+Date     Description
+------------------------------------------------------------------------------
+20100801
+20100826
+20100828
+20100830
+20101124
+20101221
+20110227 - Working version without multi-threading
+	 - Recursive bonded interaction force calc without list optimization
+20110313 - Working version with multi-threading
+	 - Optimized bonded interactions -> ./core/force/bonded.c
+	 - Bonded calculations completely outside threads
+20110315 - Intermediate version
+20110326 - Intermediate version (partial bonded in threads)
+20110327 - Working version with optimized multi-threading
+	 - Optimization by partial bonded calculations in threads
+	 - Cleaned up thread representation (through simulation->threads only)
+20110403 - Cleaned up small bugs
+	 - Uses #include "core/header.h" in all header files
+20110408 - Replaced #include "core/header.h" by needed module header files in
+	   all header files
+20110928 - Correct force field typing, multi-threading, working builder
+
+
+v9.3.2	 Start addition of force field typing
+
+Date     Description
+------------------------------------------------------------------------------
+20100510 - Addition of rules
+20100524 - Addition of field, working rule import
+	 - Fixed reading literal constants
+20100624 - Start addition of force field typing
+
+
+v9.3.1	 Addition of build principle
+
+Date     Description
+------------------------------------------------------------------------------
+20100418 - Addition of build principle
+
+
+v9.2
+
+Date     Description
+------------------------------------------------------------------------------
+20080620
+20080626
+20080725
+20081024
+20081128 - Working sector and link neighbor lists, list does not function
+	 - Changing storage to allow for list neighbor list
+20081130 - Working sector and link neighbor lists, list does not function
+	 - Generalized pair functions, Ewald not adapted
+20081202 - Working sector and link neighbor lists, list does not function
+	 - Generalized pair functions, Ewald not adapted
+	 - Changed verlet to allow for uncoupled lists
+20090223
+20090312 - Working sector, link, list, and pair neighbor lists
+	 - Pre-release version
+

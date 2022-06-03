@@ -1,0 +1,39 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "default",
+  output	-> "default",
+  traject	-> input,
+  targter	-> "",
+  binsize	-> 1,
+  start		-> 0,
+  end		-> -1,
+  frequency	-> 1
+};
+
+get		= {name -> input, work -> target};
+
+sample		= {
+  gyration	-> {
+    frequency	-> 1,
+    active	-> true,
+    binsize	-> binsize
+  }
+};
+
+traject		= {
+  mode		-> sample,
+  name		-> traject,
+  start		-> start,
+  end		-> end,
+  frequency	-> frequency
+}; 
+
+force		= {style -> init, message -> raw};
+
+export		= {
+  sample	-> {name -> output, type -> gyration, style -> math},
+  sample	-> {name -> output, type -> gyration, style -> csv}
+};
+
+

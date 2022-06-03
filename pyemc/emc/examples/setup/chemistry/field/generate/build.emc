@@ -1,0 +1,193 @@
+(* EMC: Script *)
+
+(* Created by emc_setup.pl v3.6.0, July 8, 2018
+   on Sun Jul  8 12:15:11 EDT 2018 *)
+
+(* define variables *)
+
+variables	= {
+  seed		-> -1,
+  ntotal	-> 10000,
+  fshape	-> 1,
+  output	-> "field",
+  field		-> "field",
+  location	-> "./",
+
+  nav		-> 1,
+  temperature	-> 1,
+  radius	-> 5,
+  nrelax	-> 100,
+  weight_nonbond -> 0.0001,
+  weight_bond	-> 0.0001,
+  weight_focus	-> 1,
+  cutoff	-> 2.5,
+
+  density1	-> 0.7,
+
+  f_lj		-> 512,
+
+  chem_lj	-> "([lj])4"
+};
+
+output		= {
+  debug		-> false,
+  exit		-> true,
+  info		-> true,
+  warning	-> true
+};
+
+(* define force field *)
+
+field		= {
+  id		-> field,
+  mode		-> standard,
+  name		-> location+field+".prm",
+  compress	-> false
+};
+
+(* define groups *)
+
+groups		= {
+  group		-> {id -> lj, depth -> 8, chemistry -> chem_lj}
+};
+
+field		= {
+  mode		-> apply,
+  check		-> true,
+  debug		-> false
+};
+
+simulation	= {
+  types		-> {
+    standard	-> {
+      pair	-> {active -> true, mode -> repulsive, cutoff -> cutoff}
+    }
+  }
+};
+
+(* determine simulation sizing *)
+
+variables	= {
+
+  (* lengths *)
+
+  lg_lj		-> nsites(lj),
+  l_lj		-> lg_lj,
+  norm_lj	-> 1,
+
+  (* masses *)
+
+  mg_lj		-> mass(lj),
+
+  m_lj		-> mg_lj,
+  norm_lj	-> 1,
+
+
+  (* sizing *)
+
+  n_lj		-> f_lj,
+
+  (* system sizing *)
+
+  ntotal	-> 0,
+  mtotal	-> 0
+};
+
+(* define interactions *)
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  }
+};
+
+(* clusters phase 1 *)
+
+clusters	= {
+  cluster	-> {
+    id		-> lj, system -> main, group -> lj, n -> n_lj}
+};
+
+(* build phase 1 *)
+
+variables	= {
+  nphase1	-> ntotal()-ntotal,
+  mphase1	-> mtotal()-mtotal,
+  vphase1	-> nphase1/density1,
+  lbox		-> (vphase1/fshape)^(1/3),
+  lphase1	-> fshape*lbox,
+  lxx		-> lphase1,
+  lyy		-> lbox,
+  lzz		-> lbox,
+  lzy		-> 0,
+  lzx		-> 0,
+  lyx		-> 0,
+  lphase	-> lphase1,
+  ntotal	-> nphase1,
+  mtotal	-> mphase1,
+  vtotal	-> vphase1
+};
+
+field		= {
+  mode		-> apply,
+  check		-> true,
+  debug		-> false
+};
+
+simulation	= {
+  types		-> {
+    standard	-> {
+      pair	-> {active -> true, mode -> repulsive, cutoff -> cutoff}
+    }
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    geometry	-> {xx -> lxx, yy -> lyy, zz -> lzz,
+		    zy -> lzy, zx -> lzx, yx -> lyx},
+    temperature	-> temperature,
+    flag	-> {charge -> true, map -> true, pbc -> true}
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    name	-> "error",
+    cluster	-> {lj},
+    relax	-> {ncycles -> nrelax, radius -> radius},
+    grow	-> {
+      method	-> energetic,
+      check	-> all,
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000,
+      weight	-> {
+	bonded	-> weight_bond, nonbonded -> weight_nonbond,
+	focus	-> weight_focus}
+    }
+  }
+};
+
+force		= {style -> none, message -> nkt};
+force		= {style -> init, message -> nkt};
+
+(* LAMMPS profile variables *)
+
+variables	= {
+  nl_lj		-> nclusters(clusters -> lj)
+};
+
+(* storage *)
+
+put		= {name -> output, compress -> true};
+
+pdb		= {name -> output, forcefield -> standard, detect -> false,
+		   hexadecimal -> false, unwrap -> true, pbc -> true,
+		   atom -> index, residue -> index, segment -> index,
+		   vdw -> false, cut -> false, fixed -> true, rigid -> true,
+		   connectivity -> false, parameters -> false};
+
+lammps		= {name -> output, mode -> put, forcefield -> standard,
+		   parameters -> true, types -> false, unwrap -> true,
+		   charges -> false, ewald -> false};

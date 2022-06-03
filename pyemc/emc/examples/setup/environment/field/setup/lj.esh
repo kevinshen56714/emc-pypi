@@ -1,0 +1,163 @@
+#!/usr/bin/env emc_setup.pl
+#
+#  script:	lj.esh
+#  author:	Pieter J. in 't Veld
+#  date:	June 23, 2018
+#  purpose:	Demonstration of user-defined force field
+#
+
+ITEM	ENVIRONMENT	
+
+project		lj
+replace		true
+name_testdir	lj
+queue_build	default
+queue_run	default
+queue_analyze	default
+#queue_ppn	40
+ncores		8
+trun		-
+
+ITEM	END
+
+#
+# Setup loops for simulations
+#
+
+ITEM	LOOPS
+
+stage		branched
+nbranches	2	4	6
+epsilon		0.9	1.0	1.1
+
+ITEM	END	# LOOPS
+
+#
+# Project stage branched
+#
+
+ITEM	STAGE	branched
+
+# Set script template
+
+ITEM	TEMPLATE
+
+# Command line options
+
+ITEM	OPTIONS
+
+replace		true
+ntotal		10000
+tequil		100000
+density		0.7
+temperature	1.0
+field_type	standard
+field_name	lj
+field_location	.
+replace		true
+
+ITEM	END
+
+# Chemistry
+
+ITEM	GROUPS
+
+A		*a*,1,A:2,1,B:2,1,B:3,2,B:1
+B		*b(*)*,1,A:2,2,A:1,3,A:1
+T		*t,1,A:1,1,B:1,1,B:2,1,B:3
+S		s
+
+ITEM	END
+
+ITEM	CLUSTERS
+
+solvent		S,80
+polymer		random,20
+
+ITEM	END
+
+ITEM	POLYMERS
+
+polymer
+100		A,10,B,@{NBRANCHES},T,2+@{NBRANCHES}
+
+ITEM	END
+
+#
+# LJ Force Field
+#
+
+ITEM	FIELD
+
+# Definitions
+
+ITEM	DEFINE
+
+FFNAME	STANDARD
+FFTYPE	COARSE
+LENGTH	REDUCED
+ENERGY	REDUCED
+DENSITY	REDUCED
+MIX	BERTHELOT
+CUTOFF	2.5
+NBONDED	2
+ANGLE	ERROR
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	comment
+
+a	1	A	0	0	LJ type A
+b	1	B	0	0	LJ type B
+s	1	S	0	0	LJ type S
+t	1	T	0	0	LJ type T
+
+ITEM	END
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+# type1	type2	sigma	eps
+
+*	*	1	@{EPSILON}
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+*	*	100	1
+	
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+*	a	*	20	180
+*	b	*	20	120
+
+ITEM	END
+
+# Torsion parameters
+
+ITEM	TORSION
+
+# type1	type2	type3	type3	k	n	delta	[...]
+
+ITEM	END
+
+ITEM	END	# FIELD
+
+ITEM	END	# TEMPLATE
+

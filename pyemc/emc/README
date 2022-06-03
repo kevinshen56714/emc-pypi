@@ -1,0 +1,81 @@
+EMC: Enhanced Monte Carlo
+-------------------------
+
+Features
+--------
+
+- Multi-system/multi-node parallel design
+- Supports non-orthogonal geometries
+- Highly optimized force field calculations
+- Highly modular programmatic approach enables easy customizability
+- Central parser enables high backwards compatibility of input and output
+  structures
+
+Current Capabilities
+--------------------
+
+- Scripting front end in builder, which includes access to crystal build
+  routines, PDB, LAMMPS, and InsightII imports and/or exports, etc.
+- Multiple force fields (see below):
+  - Atomistic:		born, cff, charmm, gromacs, opls, trappe
+  - Coarse-grained:	colloid, dpd, martini, mie, sdk
+  - Tabulated:		spline, table
+- Includes complex polymer builder
+- Dynamic memory allocation based on user input and limited only by 
+  available memory
+- Measurables: statistics, profiles and distributions of energies, virial 
+  tensors, mass, order parameters
+- Available ensembles: NVT, multi-node parallel tempering, polydisperse
+  sampling using concerted rotation and endbridging
+- Uses ZLib v1.2.11 for compression;
+  ZLib (C) 1995-2017 Jean-loup Gailly and Mark Adler
+
+Installation
+------------
+
+EMC works as a stand alone.  Add both ./bin and ./scripts to your PATH settings
+to make EMC work appropriately.  The EMC_ROOT environment variable can be used
+to identify the EMC root directory, i.e. the location in which EMC was
+installed.  This EMC_ROOT variable is used to define the internal $root system
+variable.  Perl is assumed to be available and in your path for correct
+functioning of EMC Setup.
+
+Directory Structure
+-------------------
+
+- bin		contains the EMC executable
+- docs		project documentation
+  - emc.pdf	main documentation file, generated from ../texinfo docs
+- examples	examples directory holding various building examples
+  - build	advanced examples of using EMC
+  - setup	various examples on how to use EMC Setup; very useful for
+		beginners
+  - tutorial	examples used for the LAMMPS Users' Workshop
+- field		location of various included force fields
+  atomistic: (typing through rules)
+  - charmm	CHARMM as described by MacKerel et al.
+  - opls	OPLS as described by Jorgensen et al.
+  - pcff	PCFF polymer force field; reasonably extensive
+  - trappe	TraPPe as described by Siepmann et al.
+  coarse-grained: (typing by user)
+  - dpd		rudimentary DPD force field definition (Groot et al.)
+  - martini	MARTINI as described by Marrink et al.
+  - sdk		SDK as described by Shinoda et al.
+  - polystyrene	Polystyrene description by Spyriouni et al.
+- lib		builder input files
+- scripts	various useful scripts including emc_setup.pl
+- vmd		EMC GUI package for EMC
+  
+
+Make Files
+----------
+
+Sources can be compiled from either the main directory or from each of their
+consecutive directories.  Use 'make help' in the main directory for
+instructions.  Archives of the distribution are made by executing 
+'make archive' in the main directory.  Archives can subsequently be copied to
+other machines by 'make archive/machine'.  'make' in source directories
+compiles the chosen source.  Tests are provided in the source/test directories.
+These tests also function as examples.  Executing 'make' in modules/core
+creates all the header files needed for compilation.
+

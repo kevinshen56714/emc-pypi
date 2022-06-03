@@ -1,0 +1,288 @@
+!BIOSYM FORCEFIELD          1
+
+#define         ffapply         groups 
+
+#version        c3s.frc         1.0     02-March-2020
+
+#define cff91
+
+!Ver Ref                Function             Label
+!--- ---    ------------------------------   ------
+ 1.0  1     atom_types                       cff91
+ 1.0  1     equivalence                      cff91
+ 1.0  1     auto_equivalence                 cff91_auto
+ 1.0  1     bond_increments                  cff91_auto
+ 1.0  1     quadratic_bond                   cff91_auto
+ 1.0  1     quartic_bond                     cff91
+ 1.0  1     quadratic_angle                  cff91_auto
+ 1.0  1     quartic_angle                    cff91
+ 1.0  1     torsion_1                        cff91_auto
+ 1.0  1     torsion_3                        cff91
+ 1.0  1     wilson_out_of_plane              cff91  cff91_auto
+ 1.0  1     nonbond(9-6)                     cff91
+ 1.0  1     bond-bond                        cff91
+ 1.0  1     bond-bond_1_3                    cff91
+ 1.0  1     bond-angle                       cff91
+ 1.0  1     angle-angle                      cff91
+ 1.0  1     end_bond-torsion_3               cff91
+ 1.0  1     middle_bond-torsion_3            cff91
+ 1.0  1     angle-torsion_3                  cff91 
+ 1.0  1     angle-angle-torsion_1            cff91 
+ 1.0  1     torsion-torsion_1                cff91
+ 1.0  1     nonbond_cross(morse-dispersion)  cff91 
+
+
+#atom_types           cff91     +charges
+
+> Atom type definitions 
+> Standard atomic weights (1991) are taken from CRC(1995), pages 1-7.
+
+!Ver Ref  Type     Mass      Element   connection  Charges       Comment
+!--- ---  -----  ----------  -------   ----------  -------  ---------------------------
+ 1.0  2   ca3s    40.08000     Ca          0        +1.50     Calcium ion in tricalcium silicate
+ 1.0  2   oc3s    15.99940      O          0        -1.50     Oxide ion in tricalcium silicate
+ 1.0  2   o1si    15.99940      O          1         0.00     Oxygen atom in silicate ion of tricalcium silicate
+ 1.0  2   si4s    28.08600     Si          4         0.00     Silicon atom in silicate ion in tricalcium silicate
+ 1.0  2   h1os     1.00797      H          1         0.00     Hydrogen bonded to oxygen in silicate (silanol group) 
+ 1.0  2   h1oh     1.00797      H          1         0.00     Hydrogen bonded to oxygen in hydroxyl group
+ 1.0  2   o2sl    15.99940      O          2         0.00     Oxygen bonded to hydrogen in water (silanol group)
+ 1.0  2   o1ho    15.99940      O          1         0.00     Oxygen bonded to hydrogen in hydroxyl group 
+
+
+#equivalence          cff91
+
+!                      Equivalences
+!       ------------------------------------------
+!Ver Ref  Type   NonB   Bond   Angle  Torsion  OOP
+!--- ---  -----  -----  -----  -----  -------  -----
+ 1.0  1   ca3s   ca3s   ca3s   ca3s   ca3s     ca3s 
+ 1.0  1   o1si   o1si   o1si   o1si   o1si     o1si 
+ 1.0  1   oc3s   oc3s   oc3s   oc3s   oc3s     oc3s 
+ 1.0  1   si4s   si4s   si4s   si4s   si4s     si4s 
+ 1.0  1   h1os   h1os   h1os   h1os   h1os     h1os 
+ 1.0  1   h1oh   h1oh   h1oh   h1oh   h1oh     h1oh 
+ 1.0  1   o2sl   o2sl   o2sl   o2sl   o2sl     o2sl 
+ 1.0  1   o1ho   o1ho   o1ho   o1ho   o1ho     o1ho 
+
+
+#auto_equivalence     cff91_auto
+
+!                      Equivalences
+!       ------------------------------------------
+!Ver  Ref   Type  NonB Bond   Bond     Angle    Angle     Torsion   Torsion      OOP      OOP
+!                       Inct           End atom Apex atom End Atoms Center Atoms End Atom Center Atom
+!---- ---   ----  ---- ------ ----  ---------- --------- --------- -----------  -------- -----------
+ 1.0   1    ca3s  ca3s  ca3s  ca3s_ ca3s_      ca3s_     ca3s_     ca3s_        ca3s_    ca3s_
+ 1.0   1    o1si  o1si  o1si  o1si_ o1si_      o1si_     o1si_     o1si_        o1si_    o1si_
+ 1.0   1    oc3s  oc3s  oc3s  oc3s_ oc3s_      oc3s_     oc3s_     oc3s_        oc3s_    oc3s_
+ 1.0   1    si4s  si4s  si4s  si4s_ si4s_      si4s_     si4s_     si4s_        si4s_    si4s_
+ 1.0   1    o2sl  o2sl  o2sl  o2sl_ o2sl_      o2sl_     o2sl_     o2sl_        o2sl_    o2sl_
+ 1.0   1    o1ho  o1ho  o1ho  o1ho_ o1ho_      o1ho_     o1ho_     o1ho_        o1ho_    o1ho_
+ 1.0   1    h1oh  h1oh  h1oh  h1oh_ h1oh_      h1oh_     h1oh_     h1oh_        h1oh_    h1oh_
+ 1.0   1    h1os  h1os  h1os  h1os_ h1os_      h1os_     h1os_     h1os_        h1os_    h1os_
+
+
+#bond_increments      cff91_auto
+
+!Ver Ref    I     J     DeltaIJ   DeltaJI
+!--- ---  ----- -----   -------   -------
+ 1.0  2   h1oh   o1ho    0.30      -1.05
+ 1.0  2   si4s   o1si    0.25      -1.00
+ 1.0  2   si4s   o2sl    0.25      -0.325
+ 1.0  2   h1os   o2sl    0.40      -0.325
+
+
+#quadratic_bond       cff91_auto
+
+> E = K2 * (R - R0)^2
+
+!Ver Ref    I      J       R0          K2
+!--- ---  -----  -----  -------     --------
+ 1.0  2   si4s_  o1si_    1.68      250.0000
+ 1.0  2   h1oh_  o1ho_    0.929     495.0000
+ 1.0  2   h1os_  o2sl_    0.929     495.0000
+
+
+#quartic_bond         cff91
+
+> E = K2 * (R - R0)^2  +  K3 * (R - R0)^3  +  K4 * (R - R0)^4
+
+!Ver Ref    I     J       R0         K2          K3          K4
+!--- ---  ----- -----  -------    --------    --------    --------
+
+
+#quadratic_angle      cff91_auto
+
+> E = K2 * (Theta - Theta0)^2
+
+!Ver Ref    I     J     K      Theta0       K2
+!--- ---  ----- ----- -----   --------   -------
+ 1.0  2   o1si_ si4s_ o1si_      109.5   160.0000
+ 1.0  2   o1si_ si4s_ o2sl_      109.5   160.0000
+ 1.0  2   si4s_ o2sl_ h1os_      115.0    50.0000
+
+
+#quartic_angle        cff91
+
+> Delta = Theta - Theta0
+> E = K2 * Delta^2  +  K3 * Delta^3  +  K4 * Delta^4
+
+!Ver Ref    I     J     K      Theta0       K2         K3         K4
+!--- ---  ----- ----- -----   --------   --------   --------   -------- 
+
+
+#torsion_1            cff91_auto
+
+> E = Kphi * [ 1 + cos(n*Phi - Phi0) ]
+
+!Ver Ref    I     J     K      L         KPhi      n     Phi0
+!--- ---  ----- ----- -----  -----     --------   ---  ---------
+ 1.0   2  *     si4s_ o1si_   *         0.0000     1     0.0000 
+ 1.0   2  *     si4s_ o2sl_   *         0.0000	   1     0.0000 
+
+
+#torsion_3            cff91
+
+> E = SUM(n=1,3) { V(n) * [ 1 - cos(n*Phi) ] }
+
+!Ver Ref    I     J     K     L       V(1)    Phi1(0)    V(2)    Phi2(0)    V(3)    Phi3(0)
+!--- ---  ----- ----- ----- -----   --------  -------  --------  -------  --------  -------
+
+
+#wilson_out_of_plane  cff91
+
+> E = K * (Chi - Chi0)^2
+
+!Ver Ref    I     J     K     L       KChi      Chi0
+!--- ---  ----- ----- ----- -----   --------  ---------
+
+
+#wilson_out_of_plane  cff91_auto
+
+> E = K * (Chi - Chi0)^2
+
+!Ver Ref    I     J     K     L       KChi      Chi0
+!--- ---  ----- ----- ----- -----   --------  ---------
+
+
+#nonbond(9-6)         cff91
+
+> E = eps(ij) [2(r(ij)*/r(ij))**9 - 3(r(ij)*/r(ij))**6]
+> where    r(ij) = [(r(i)**6 + r(j)**6))/2]**(1/6)
+>
+>        eps(ij) = 2 sqrt(eps(i) * eps(j)) *
+>                   r(i)^3 * r(j)^3/[r(i)^6 + r(j)^6]
+
+@type r-eps
+@combination sixth-power
+
+!Ver Ref    I          r             eps
+!--- ---  -----   -------------  -----------
+ 1.0  2   h1oh           1.0980       0.0130 
+ 1.0  2   h1os           1.0980       0.0130 
+ 1.0  2   o2sl           3.6000       0.1200 
+ 1.0  2   o1ho           3.6000       0.1200 
+ 1.0  2   ca3s           3.7000       0.2400
+ 1.0  2   si4s           4.8000       0.4000
+ 1.0  2   o1si           3.4000       0.0600
+ 1.0  2   oc3s           3.8000       0.0600
+
+
+#bond-bond            cff91
+
+> E = K(b,b') * (R - R0) * (R' - R0')
+
+!Ver Ref    I     J     K      K(b,b')
+!--- ---  ----- ----- -----   --------
+ 1.0  2   o1si  si4s  o1si      0.0000
+ 1.0  2   o1si  si4s  o2sl      0.0000
+ 1.0  2   si4s	o2sl  h1os	0.0000
+
+
+#bond-bond_1_3        cff91
+
+> E = K(b,b') * (R - R0) * (R' - R0')
+
+!Ver Ref    I     J     K     L      K(b,b')
+!--- ---  ----- ----- ----- -----   --------
+
+
+#bond-angle           cff91
+
+> E = K * (R - R0) * (Theta - Theta0)
+
+!Ver Ref    I     J     K     K(b,theta)  K(b',theta)
+!--- ---  ----- ----- -----   ----------  -----------
+
+
+#angle-angle          cff91
+
+> E = K * (Theta - Theta0) * (Theta' - Theta0')
+
+!Ver Ref    I     J     K     L     K(theta,theta')
+!--- ---  ----- ----- ----- -----   ---------------
+
+
+#end_bond-torsion_3   cff91
+
+> E = (R - R0) * SUM { V(n) * cos[n*phi] }
+
+!                                                  LEFT                                RIGHT
+!                                      -----------------------------       -----------------------------
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------       -------    -------    -------
+
+
+#middle_bond-torsion_3 cff91
+
+> E = (R - R0) * 
+>      { F(1) * cos(phi)  +  F(2) * cos(2 * phi)  +  F(3) * cos(3 * phi) }
+
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------
+
+
+#angle-torsion_3      cff91
+
+> E = (Theta - Theta0) * 
+>      { F(1) * cos(phi)  +  F(2) * cos(2 * phi)  +  F(3) * cos(3 * phi) }
+
+!                                                  LEFT                               RIGHT
+!                                      -----------------------------       -----------------------------
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------       -------    -------    -------
+
+
+#angle-angle-torsion_1 cff91
+
+>  E = K * (Theta - Theta0) * (Theta' - Theta0') * (Phi - Phi1(0))
+
+!Ver Ref    I     J     K     L     K(Ang,Ang,Tor)
+!--- ---  ----- ----- ----- -----   --------------
+
+
+#torsion-torsion_1    cff91
+
+> E = F * cos(phi) * cos(phi') }
+
+!Ver Ref    I     J     K     L     M     K(Phi,Phi')
+!--- ---  ----- ----- ----- ----- -----   -----------
+
+
+#nonbond_cross(morse-dispersion)        cff91
+
+!Ver  Ref     I     J          eps        r0           y          c6          rspl
+!---- ---    ----  ----    ---------   ---------   ---------   ---------   ---------
+
+
+#reference 1
+@Author PJV
+@Date 01-February-2020
+created template from COMPASS
+
+#reference 2
+@Author RKM, PJV, HH
+@Date 02-March-2021 
+Added Ca3SiO5 parameters 
+
+#end

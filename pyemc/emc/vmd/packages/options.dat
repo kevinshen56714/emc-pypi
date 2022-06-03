@@ -1,0 +1,122 @@
+analyze_last false {Toggle inclusion of the last trajectory frame during analysis.}
+analyze_skip 0 {Set the number of initial frames to skip during analysis.}
+analyze_window 1 {Set the number of frames over which to apply a window averaging during analysis.}
+angle 5,180 {Set DPD angle constants (k, {theta0);} can also be used to provide additional angle table entries through {-angle=type1,type2,type3,k,theta0;} can also be used to set force field handling for angle {typing;} valid options are ignore, complete, warn, empty, and error.}
+auto false {Include wildcard mass entry in generated DPD .prm force field {file;} options are true or false.}
+bond 20,1 {Set DPD bond constants (k, {l0);} can also be used to provide additional bond table entries through -bond=type1,type2,k,l0.}
+build build {Set build script name.}
+build_dir ../build {Set location of build directory for LAMMPS script.}
+center false {Place first site at the {origin;} options are true or false.}
+charge true {Indicator for occurence of charges in chemistry.csv.}
+charge_cut 9.5 {Set pairwise charge interaction cut off.}
+chemistry chemistry {Set chemistry input file {name;} extension .csv is implied.}
+chunk true {Use chunk approach for computing profiles and samples in LAMMPS {script;} options are true or false.}
+communicate false {Use communicate keyword instead of comm_modify in LAMMPS input {script;} used with DPD simulations for backwards compatibility with older versions of {LAMMPS;} options are true or false.}
+core -1 {Set particle core {diameter;} used with Born potentials.}
+cross false {Include nonbond cross terms in LAMMPS params {file;} default depends on chosen force {field;} options are true or false.}
+cut 9.5 {Set pairwise interaction {cutoff;} options are either definite positive numbers or {repulsive;} the latter transfers the the parameters for a purely repulsive cut and shift potential to LAMMPS}
+debug - {Turn debugging information {on;} options are true or false.}
+density {{1[,...]}} {Set simulation {density;} density of separate phases can be entered through separating values for each phase by {commas;} units and default depend on chosen force field type.}
+depth auto {Set the depth with which rings - as defined in groups - are recursively {assigned;} options are either auto or values larger than 2.}
+dielectric {0.2 or 1} {Set dielectric constant of {medium;} default depends on chosen force field.}
+direction x {Set direction in which phases in setup scripts with multiple phases are {build;} valid options are x, y, or z.}
+dtdump 100000 {Frequency with which LAMMPS adds to trajectory files.}
+dtrestart 100000 {Frequency with which LAMMPS writes restart files.}
+dtthermo 1000 {Frequency with which LAMMPS generates thermodynamical output.}
+emc true {Create EMC build script (.emc {file);} options are true or false.}
+environment false {Interpret EMC shell script (.esh) as an environment {script;} options are true and false.}
+ewald true {Switch the electrostatics long-range treatment through Ewald summations on or {off;} default depends on the chosen force {field;} options are true or false.}
+execute - {Execute the EMC build script as created by the setup {script;} options false or - do not {execute;} option true allows EMC setup decide which EMC version to use, based on operating system, host option, and {path;} any other option value is interpreted as the location and name of the EMC version to use.}
+extension .esh {Set the extension of environment {scripts;} extensions are derived from given environment scripts, when not defined.}
+extra - {Create copies of existing nonbond {interactions;} format is destination:source:offset, where offset defines the DPD offset of the new interaction constant compared to the original (depreciated, replaced by replica)}
+field opls {Set force field type and name based on root {location;} more general access to EMC provided force fields uses the type option below.}
+field_angle - {Set error handling for typing of {angles;} valid options are complete, empty, error, ignore, and warn.}
+field_bond - {Set error handling for typing of {bonds;} valid options are complete, empty, error, ignore, and warn.}
+field_debug false {Set debug option, showing individual typing {steps;} valid options are true and false.}
+field_error true {Exit upon error (set to false when debugging a force field).}
+field_group - {Set field group option for applying force fields to groups as defined by their TEMPLATE section.}
+field_improper - {Set error handling for typing of {impropers;} valid options are complete, empty, error, ignore, and warn.}
+field_increment - {Set error handling for typing of bond {increments;} valid options are complete, empty, error, ignore, and warn.}
+field_location - {Provide force field {location;} intended for expert {use;} use field_type for EMC provided force fields.}
+field_name - {Provide force field {name;} intended for expert use: use field_type for EMC provided force fields.}
+field_torsion - {Set error handling for typing of {torsions;} valid options are complete, empty, error, ignore, and warn.}
+field_type opls {Provide force field {type;} invoking this option will automatically set field, field_location, and field_name options.}
+focus - {List of clusters to focus on.}
+grace 0.9999 {User provided grace for building procedure.}
+help - {Display script help.}
+hexadecimal false {Set hexadecimal output in PDB files.}
+host - {Set host on which to run EMC and LAMMPS.}
+improper - {Set force field handling for improper {typing;} valid options are ignore, complete, warn, empty, and error.}
+increment - {Set force field handling for increment {typing;} valid options are ignore, complete, warn, empty, and error.}
+info - {Turn on information during setup script execution.}
+inner - {Set inner {cutoff;} use and default depend of chosen force field.}
+kappa {1 or 4} {Set long range electrostatics Ewald summation {kappa;} default depends on chosen force field.}
+lammps true {create LAMMPS input script (.in file) or set lammps version using year, e.g. -lammps=2014 (new versions start at 2015) or keywords old or {new;} alters the settings for -communicate and {-chunk;} default is new.}
+mass false {Assume mass fractions in chemistry.csv input file.}
+mol true {Assume mol fractions in chemistry.csv input file.}
+momentum {100,1,1,1, angular} {Control zeroing of linear and angular momentum during LAMMPS {execution;} order of entries (separated by commas only!): N,xflag,yflag,zflag,flag (see LAMMPS) {manual;} flag is omitted in the LAMMPS input script when the keyword none is used.}
+msd false {Add mean square displacement analysis to LAMMPS {output;} options are true or false.}
+name_analyze - {Set the name of job analysis {scripts;} analysis scripts are stored in {./analyze/;} takes the base name of the chemistry script when omitted.}
+name_build - {Set the name of job build {scripts;} build scripts are stored in {./build/;} takes the base name of the chemistry script when omitted.}
+name_run - {Set the name of job run {scripts;} run scripts are stored in {./run/;} takes the base name of the chemistry script when omitted.}
+name_scripts - {Simultaneously set analysis, build and run script names.}
+nchains - {Set the number of chains to be used for executing LAMMPS {jobs;} allows for having the next job wait on the previous (currently only with LSF).}
+ncores - {Set the number of cores for execution of LAMMPS jobs.}
+nparallel auto {Set the number of repeat units in the direction parallel to a surface defined in the chemistry {file;} values larger than 1 override the auto setting.}
+nrelax 100 {Alter the number of relaxation cycles used during the EMC building process.}
+nsample 1000 {Number of configurations used for averaging during execution of LAMMPS analysis routines.}
+ntotal 10000 {Total number of created clusters or molecules.}
+number false {Interpret column 3 of SHORTHAND or CLUSTERS as the number of desired {clusters;} this number is an integer (@pxref\{Chemistry File).}
+omit false {Omit fractions from chemistry {file;} options are true or false.}
+pair 25,1,4.5 {Set DPD pair constants (a, r, gamma).}
+parameters parameters {Alternative parameter file {name;} the extension .csv is implied.}
+params true {Create force field parameter file {(.prm);} currently only for {DPD;} options are true or false.}
+pdb_atom index {Set atom name behavior in PDB and PSF {output;} options are detect, index, and series.}
+pdb_connect false {Add connectivity to {PDB;} options are true or false.}
+pdb_cut false {Cut bonds in PSF output, which span the simulation {box;} options are true or true.}
+pdb_fixed true {exclude flagged fixed sites when unwrapping {clusters;} options are true or true.}
+pdb_rigid true {exclude flagged rigid sites when unwrapping {clusters;} options are true or true.}
+pdb_residue index {Set residue name behavior in PDB and PSF {output;} options are detect, index, and series.}
+pdb_segment index {Set segment name behavior in PDB and PSF {output;} options are detect, index, and series.}
+pdb_vdw true {Add Van der Waals representation to the VDW script created by {EMC;} options are true and false.}
+phases - {Sets which clusters to assign to each {phase;} each phase is separated by a {+-sign;} default assigns all clusters to phase 1}
+precision 0.001 {Provide LAMMPS kspace long range Ewald summation precision.}
+prefix false {Set project name as prefix to LAMMPS output files.}
+pressure false {Set the system pressure and invoke an NPT ensemble.}
+profile false {Generate density and/or pressure profiles of all clusters while executing {LAMMPS;} options are density or pressure, followed by true or false, separated by a {colon;} options are separated by a comma.}
+project - {Set the project {name;} derived from setup script name when not given.}
+queue_analyze default {Set the queue used in analysis {scripts;} option default indicates the use of queue, which is set as system {default;} option local will sequentially execute all jobs on local machine.}
+queue_build default {Set the queue used in build {scripts;} option default indicates the use of queue, which is set as system {default;} option local will sequentially execute all jobs on local machine.}
+queue_run default {Set the queue used in run {scripts;} option default indicates the use of queue, which is set as system {default;} option local will sequentially execute all jobs on local machine.}
+quiet - {Supress all output generated by this setup script.}
+radius 5 {Alter the radius of the spherical volume in which already built sites are {relaxed;} used during the EMC building process.}
+record ,1,false {Defines the record entry in the build paragraph, which records the build process by outputting a set of PDB's and {PSF's;} three values are entered: the root name, the frequency with which the relaxation process is written in each separate PDB, and whether to add inactive entries to PDBs (denoted by positions (0,0,0))}
+references references {Provide an alternative name for the references {file;} the extension .csv is implied.}
+region_epsilon 0.1 {Set epsilon for excluded regions when importing {structures;} the given value is expected to be {positive;} other are ignored.}
+region_sigma 1 {Set sigma for excluded regions when importing {structures;} the given value is expected to be {positive;} other are ignored.}
+replace - {Replace or overwrite all written files.}
+replica - {Create copies of existing nonbond {interactions;} format is destination:source:offset, where offset defines the DPD offset of the new interaction constant compared to the original.}
+restart false,.. {Create LAMMPS restart scripts in chemistry file {mode;} this option allows setting an alternative data directory using in job run scripts, from which the most recent restart file will be used as a starting {point;} job run scripts will always try to restart -- also when this option is set to false -- from the specified data directory, creating a new serial directory by adding 1 to the current highest {serial;} serial numbers start at 00 and currently have a maximum of 99.}
+rlength - {Provide a reference {length;} used when selecting non-dimensional force fields.}
+rmass - {Provide a reference {mass;} used when selecting non-dimensional force fields.}
+rtype - {Provide a reference {type;} used when selecting non-dimensional force fields.}
+sample {energy:false, pressure:true, volume:false} {Set sampling sections in LAMMPS input script for averaging of energy for itemized energetic contributions, pressure for the pressure tensor, or volume for the volume {tensor;} toggling options are either true or false.}
+seed -1 {Provide initial random {seed;} a -1 seed will invoke the use of the number of seconds since January 1, 1970 as an initial seed.}
+shake - {Set types for which each bond connected to it will have the SHAKE algorithm applied to.}
+shake_iterations 20 {Set the maximum number of iterations used during SHAKE.}
+shake_output never {Set the output frequency with which SHAKE statistics are written to the LAMMPS log {file;} options are integer numbers larger than 0 and never, which is equivalent to numbers smaller than 1.}
+shake_tolerance 0.0001 {Set the SHAKE tolerance, which defines a successful SHAKE.}
+shape 1 {Provide the desired shape of the simulation {box;} the shape factor refers to the relative fration of lx/ly.}
+shear false {Add shear paragraph to LAMMPS input {script;} options are true or false.}
+suffix {_\$\{HOSTNAME} {Set EMC and LAMMPS suffix.}
+temperature {300 or 1} {Provide the simulation {temperature;} atomistic and dimensionless force fields use 300 K and 1 respectively as default.}
+tequil 1000 {Set the LAMMPS equilibration time}
+tfreq 10 {Number of time steps skipped before adding a configuration to an average as sampled in LAMMPS input scripts.}
+time_analyze 00:30:00 {Set the desired wall time for analysis scripts.}
+time_build 00:10:00 {Set the desired wall time for build scripts.}
+time_run 24:00:00 {Set the desired wall time for run scripts.}
+timestep {} {Provides the LAMMPS MD time step.}
+torsion - {Set force field handling for torsion {typing;} valid options are ignore, complete, warn, empty, and error.}
+trun 10000000 {Set LAMMPS run {time;} setting trun to - avoids its addition to job run scripts, thus not overriding different settings in subsequent chemistry files.}
+volume false {Assume volume fractions in chemistry.csv {file;} options are true or false.}
+warn true {Control output of warning {information;} options are true or false.}

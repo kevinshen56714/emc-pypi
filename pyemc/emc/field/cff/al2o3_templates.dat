@@ -1,0 +1,90 @@
+! al2o3_templates.dat
+!
+! Template file of potential type assignment templates for the CFF forcefield
+!
+! **************************************************************************
+! *                                                                        *
+! * THIS  PROGRAM  AND ALL SUBROUTINES,  DATA,  AND FILES  USED BY IT      *
+! * ARE PROTECTED BY COPYRIGHT AND HENCE  MAY NOT BE USED, COPIED,         *
+! * MODIFIED, TRANSMITTED, INSPECTED, OR EXECUTED BY ANY MEANS INCLUDING   *
+! * THE  USE OF  ELECTRONIC DATA PROCESSING  EQUIPMENT,  XEROGRAPHY, OR    *
+! * ANY  OTHER  METHODS WITHOUT THE EXPRESS  WRITTEN  PERMISSION OF THE    *
+! * COPYRIGHT HOLDER.                                                      *
+! *                                                                        *
+! * Copyright (C) 2020 BASF SE, All Rights Reserved                        *
+! *                                                                        *
+! **************************************************************************
+!
+! Revision History:
+!       PJV      04/29/2020      Aluminium oxide surface
+
+type: ?
+  ! anything	
+  template: (>*)
+end_type
+
+!
+! Aluminium
+!
+
+type: al4o
+  ! surface hydrogen
+  template: [>Al(-O)(-O)(-O)(-O)]
+end_type
+
+type: al6o
+  ! surface hydrogen
+  template: [>Al(-O)(-O)(-O)(-O)(-O)(-O)]
+end_type
+
+!
+! Hydrogen
+!
+
+type: h1al
+  ! surface hydrogen
+  template: [>H(-O(-Al))]
+end_type
+
+!
+! Oxygen
+!
+
+type: o1al
+  ! surface oxygen
+  template: [>O(-Al)]
+  atom_test:1
+    formal_charge:-1
+  end_test
+end_type
+
+type: o2al
+  ! surface oxygen
+  template: [>O(-Al)(-H)]
+end_type
+
+type: o4al
+  ! surface oxygen
+  template: [>O(-Al)(-Al)(-Al)(-Al)]
+end_type
+
+type: o4al
+  ! surface oxygen
+  template: [>O(-Al)(-Al)(-Al)(-H)]
+end_type
+
+!
+! Precedences
+!
+
+precedence:
+(?
+  (al4o)
+  (al6o)
+  (h1al)
+  (o1al)
+  (o2al)
+  (o4al)
+)
+end_precedence
+

@@ -1,0 +1,132 @@
+Branching Example
+-----------------
+
+This example demonstrates the concept of including a force field definition in
+a chemistry template.  EMC Setup provides the FIELD section for this option.
+The idea is to study the influence of branching.  To this extend, the number
+of branch points and the Lennard-Jones (LJ) interaction constant epsilon is
+varied.  The work directory WORKDIR is defined by
+
+  ${EMC_ROOT}/examples/setup/environment/field
+
+later referred to by ${WORKDIR}.  The user is advised to maintain a
+standardized directory structure when using the environment mode of EMC Setup.
+This means, that EMC Setup environment .esh files are stored in
+${WORKDIR}/setup.  Execution of the setup files should occur in ${WORKDIR} and
+not in ${WORKDIR}/setup.  Once executed in ${WORKDIR}, EMC Setup creates
+directories 'analyze', 'build', 'chemistry', 'run', and optionally 'test' in
+${WORKDIR}.  A typical convention for setup files is to name them by date,
+followed by a serial number, e.g. 2018070100 means, that the setup file was
+created on July 1, 2018 and is the first of the series of files created on that
+date.
+
+
+Environment
+-----------
+
+All sections outside the TEMPLATE section define the environment and is
+considered to be the environment mode of EMC Setup.  This includes the ENVIRONMENT and LOOPS sections as well as the STAGE designator.  The
+ENVIRONMENT section defines the project name, queue settings, and high 
+performance computing (HPC) cluster architecture parameters.  Additionally,
+the name of a test directory can be defined by the option 'name_testdir' (see
+the 'Execution' section below).
+
+
+Loops
+-----
+
+Loop variables are defined in the LOOPS section.  Variables 'stage' and 'trial'
+are reserved keywords.  The former indicates the stage of a project, e.g. one
+likes to study branched and linear structures.  This could be devided in a 
+'branched' stage and a 'linear' stage.  Here, only the 'branched' variety is
+considered.  Furthermore, the number of branches is indicated by 'nbranches'
+and the settings for the LJ interaction constant by 'epsilon'.  These variables
+are later referred to in the TEMPLATE section by @{NBRANCHES} and @{EPSILON}
+respectively.
+
+
+Template
+--------
+
+The TEMPLATE section contains the definition of one simulation, here referred
+to as the chemistry mode of EMC Setup.  In this chemistry template, one can
+use variables as defined in the LOOPS section of the environment.  A template
+should at least contain an OPTIONS, GROUPS, and CLUSTERS section to fully
+define the simulation setup.  Here, an additional POLYMERS section has been
+added to control the definition of the to be studied branched oligomers.
+Since polymers are requested, connectivity has to be defined in the GROUPS
+section.  This connectivity is referred to with the '*' character.  The
+numbers after the chemical definition through a SMILES refer to the occurence
+of the '*' character in the SMILES, e.g. the definition of group A
+
+  *a*,1,A:2,1,B:2,1,B:3,2,B:1
+
+means, that the first '*' in '*a*' connects to the second of group A and the
+second and third of group B.  The second star in '*a*' connects the first of
+group B.
+
+The CLUSTERS section defines the molecule and the amount of each contributor,
+i.e. the solvent is defined by group S and has an 80% occurence.  The polymer
+is defined as a random copolymer and has a 20% occurence.
+
+The POLYMERS paragraph holds all definitions of polymers as referred to in the
+CLUSTERS paragraph.  Here, only the polymer 'polymer' exists with 10 repeat
+units of monomer A as defined by group A, and a variable amount of monomer B
+and terminator T.  The amount is defined by @{NBRANCHES} which refers to
+'nbranches' in the LOOPS section.
+
+The FIELD section defines the user-provided force fields and contains
+subsections related to the subsequent parameter definitions.  Mandatory
+subsections are MASS, NONBOND, and -- in case of connectivity -- BOND.
+Additionally, in the case of this example angle terms are also defined in the
+ANGLE subsection.  No torsions were needed.   Wildcards in the form of '*' are
+allowed in all but the MASS section.  In the case of the latter, each type
+can only contain one '*' character, which has to be at the end of the type.
+Note that the variable definition of the LJ epsilon is taken care of by
+@{EPSILON} in the NONBOND subsection.
+
+
+Execution
+---------
+
+Creation of the simulation environment occurs in ${WORKDIR} through
+
+  ./setup/2018070100.esh
+
+or, when the above is not executable or emc_setup.pl is not in your path,
+
+  ${EMC_ROOT}/scripts/emc_setup.pl setup/2018070100.esh
+
+Though the latter being possible, the user is adviced to add both 'bin' and
+'scripts' directory to their path, e.g.
+
+  export PATH=${EMC_ROOT}/bin:${EMC_ROOT}/scripts:${PATH}
+
+Once executed, several bash scripts are generated in directories 'analyze',
+'build', and 'run' with name '2018070100.sh'. Subsequently, the provided test
+directory name appears as a subdirectory of ${WORKDIR}/test/, in which the
+script 'setup.sh' is created.  Execution of the latter creates an instance of
+the first occurence of each loop variable, i.e. for STAGE=branched,
+NBRANCHES=2, and EPSILON=0.9. This test directory serves the purpose of testing
+the validity of the TEMPLATE section without having to submit to a queueing
+system. 
+
+Before summitting, an option which you would need to set is queue_ppn (procs or
+cores per node), since it is unknow how many cores can run on one of your
+nodes.  EMC will pack single core build jobs together on a node if it knows the
+ppn.  Similarly, you can set the memory per core with queue_memory.
+
+Submission to a queueing system occurs though ./build/2018070100.sh, followed
+by ./run/2018070100.sh once all builds as spawned by the former have finished.
+Chaining of builds and runs is also possible by executing the run script with
+build mode included, i.e.
+
+  ./run/2018070100.sh -build
+
+The provided test directory name appears as a subdirectory of ${WORKDIR}/test/,
+in which the script 'setup.sh' is created.  Execution of the latter creates an
+instance of the first occurence of each loop variable, i.e. for STAGE=branched,
+NBRANCHES=2, and EPSILON=0.9. This test directory serves the purpose of testing
+the validity of the TEMPLATE section without having to submit to a queueing
+system. 
+

@@ -1,0 +1,89 @@
+#!/usr/bin/env emc_setup.pl
+#
+#  script:	environment.esh
+#  author:	Pieter J. in 't Veld
+#  date:	October 1, 2017
+#  purpose:	Example for using EMC setup environment mode
+#
+
+ITEM	OPTIONS
+
+project		dpd
+replace		true
+environment	true
+queue_build	default
+queue_run	default
+queue_analyze	default
+time_build	00:20:00
+time_run	24:00:00
+time_analyze	00:20:00
+analyze_window	10
+ncores		8
+
+ITEM	END
+
+ITEM	LOOPS
+
+stage		00
+trial		00
+
+ITEM	END
+
+#
+#	STAGE	00
+#
+
+ITEM	STAGE	00
+
+ITEM	TEMPLATE	# TEMPLATE
+
+ITEM	OPTIONS
+
+replace		true
+ntotal		100000
+field		charmm
+mass		true
+dtdump		10000
+shape		1
+emc_execute	true
+
+ITEM	END
+
+ITEM	GROUPS
+
+@GROUPS
+
+ITEM	END
+
+ITEM	CLUSTERS
+
+@CLUSTERS
+
+ITEM	END
+
+ITEM	POLYMERS
+
+@POLYMERS
+
+ITEM	END
+
+ITEM	END		# TEMPLATE END
+
+#
+#	TRIAL	00
+#
+
+ITEM	TRIAL	00
+
+ITEM	GROUPS
+
+ITEM	END
+
+ITEM	CLUSTERS
+
+ITEM	END
+
+ITEM	POLYMERS
+
+ITEM	END
+

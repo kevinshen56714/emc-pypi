@@ -1,0 +1,93 @@
+! caso4_templates.dat
+!
+! Template file of potential type assignment templates for the CFF forcefield
+!
+! **************************************************************************
+! *                                                                        *
+! * THIS  PROGRAM  AND ALL SUBROUTINES,  DATA,  AND FILES  USED BY IT      *
+! * ARE PROTECTED BY COPYRIGHT AND HENCE  MAY NOT BE USED, COPIED,         *
+! * MODIFIED, TRANSMITTED, INSPECTED, OR EXECUTED BY ANY MEANS INCLUDING   *
+! * THE  USE OF  ELECTRONIC DATA PROCESSING  EQUIPMENT,  XEROGRAPHY, OR    *
+! * ANY  OTHER  METHODS WITHOUT THE EXPRESS  WRITTEN  PERMISSION OF THE    *
+! * COPYRIGHT HOLDER.                                                      *
+! *                                                                        *
+! * Copyright (C) 2020 BASF SE, All Rights Reserved                        *
+! *                                                                        *
+! **************************************************************************
+!
+! Revision History:
+!       PJV      07/09/2020      Creation of template
+
+type: ?
+  ! anything	
+  template: (>*)
+end_type
+
+
+!
+! Gypsum sulfate
+!
+
+type: o1sg
+   ! single bonded oxygen in charged sulfate ion
+   template: [>O[~S]]
+!   atom_test:1 
+!     formal charge: -2
+!   end_test
+end_type
+
+
+type: s4og
+  ! central sulfur
+  template: [>S(~O)(~O)(~O)(~O)]
+!  atom_test:1 
+!    formal_charge:6
+!  end_test
+end_type 
+
+
+!
+! Gypsum crystalline water
+!
+
+type:h1og
+  ! hydrogen bonded to oxygen
+  template: (>H(-O))
+!  atom_test:2
+!  end_test
+end_type
+
+
+type: o2hg
+  ! oxygen in water
+  template (>O(-H)(-H))
+end_type 
+
+
+!
+! Gypsum calcium
+! 
+
+type: ca+g
+  ! calcium ion
+  template: [>Ca]
+!  atom_test: 1
+!    formal_charge: 2
+!  end_test
+end_type
+
+
+!
+! Precedences
+!
+
+precedence:
+(?
+  (o1sg)
+  (s4og)
+  (h1og)
+  (o2hg)
+  (ca+g)
+)
+end_precedence
+

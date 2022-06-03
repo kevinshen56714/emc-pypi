@@ -1,0 +1,41 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "default",
+  output	-> "default",
+  traject	-> input,
+  target	-> "",
+  binsize	-> 1,
+  cutoff	-> 1,
+  start		-> 0,
+  end		-> -1,
+  frequency	-> 1
+};
+
+get		= {name -> input, work -> target};
+
+sample		= {
+  gr		-> {
+    frequency	-> 1,
+    active	-> true,
+    binsize	-> binsize,
+    cutoff	-> cutoff
+  }
+};
+
+traject		= {
+  mode		-> sample,
+  name		-> traject,
+  start		-> start,
+  end		-> end,
+  frequency	-> frequency
+}; 
+
+force		= {style -> init, message -> raw};
+
+export		= {
+  sample	-> {name -> output, type -> gr, style -> math},
+  sample	-> {name -> output, type -> gr, style -> csv}
+};
+
+

@@ -1,0 +1,16 @@
+(* EMC: Script *)
+
+variables	= {
+  name		-> "trappe-ua"
+};
+
+field		= {
+  mode		-> trappe,
+  name		-> {name+".prm", name+".top"}
+};
+
+field		= {
+  mode		-> put,
+  name		-> name
+};
+

@@ -1,0 +1,91 @@
+! sio2_templates.dat
+!
+! Template file of potential type assignment templates for the CFF forcefield
+!
+! **************************************************************************
+! *                                                                        *
+! * THIS  PROGRAM  AND ALL SUBROUTINES,  DATA,  AND FILES  USED BY IT      *
+! * ARE PROTECTED BY COPYRIGHT AND HENCE  MAY NOT BE USED, COPIED,         *
+! * MODIFIED, TRANSMITTED, INSPECTED, OR EXECUTED BY ANY MEANS INCLUDING   *
+! * THE  USE OF  ELECTRONIC DATA PROCESSING  EQUIPMENT,  XEROGRAPHY, OR    *
+! * ANY  OTHER  METHODS WITHOUT THE EXPRESS  WRITTEN  PERMISSION OF THE    *
+! * COPYRIGHT HOLDER.                                                      *
+! *                                                                        *
+! * Copyright (C) 2020 BASF SE, All Rights Reserved                        *
+! *                                                                        *
+! **************************************************************************
+!
+! Revision History:
+!       PJV      05/03/2020      Silicon oxide surface
+
+type: ?
+  ! anything	
+  template: (>*)
+end_type
+
+!
+! Hydrogen
+!
+
+type: h1si
+  ! central silicon
+  template: [>H(-O(-Si))]
+  atom_test:1 
+    formal_charge:0
+  end_test
+end_type
+
+!
+! Oxygen
+!
+
+type: o1si
+  ! central silicon
+  template: [>O(-Si)]
+  atom_test:1 
+    formal_charge:-1
+  end_test
+end_type
+
+type: o2sh
+  ! central silicon
+  template: [>O(-Si)(-H)]
+! atom_test:1 
+!   formal_charge:0
+! end_test
+end_type
+
+type: o2si
+  ! central silicon
+  template: [>O(-Si)(-Si)]
+! atom_test:1 
+!   formal_charge:0
+! end_test
+end_type
+
+!
+! Silica
+!
+
+type: si4o
+  ! central silicon
+  template: [>Si(-O)(-O)(-O)(-O)]
+! atom_test:1 
+!   formal_charge:0
+! end_test
+end_type
+
+!
+! Precedences
+!
+
+precedence:
+(?
+  (h1si)
+  (o2sh)
+  (o2si)
+  (o1si)
+  (si4o)
+)
+end_precedence
+

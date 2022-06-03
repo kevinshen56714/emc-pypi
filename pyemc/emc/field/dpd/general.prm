@@ -1,0 +1,82 @@
+#
+#  DPD interaction parameters
+#  to be used in conjuction with EMC v9.3.7 or higher
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE	DPD
+FFTYPE	COARSE
+VERSION	V0.1beta
+CREATED	Mar 2014
+MIX	NONE
+DENSITY	REDUCED
+ENERGY	REDUCED
+LENGTH	REDUCED
+NBONDED	0
+CUTOFF	1.0
+GAMMA	4.5
+DEFAULT	25.0
+ANGLE	IGNORE
+TORSION	IGNORE
+IMPROP	IGNORE
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	name	ncons	charge	comment
+
+*	1	*	2	0	anything
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	bond	angle	torsion	improper
+
+ITEM	END
+
+# Nonbonded parameters
+
+ITEM	NONBOND_AUTO
+
+# type1	type2	a	cutoff	gamma
+
+*	*	25	1	4.5
+
+ITEM	END
+
+# Bond wildcard parameters
+
+ITEM	BOND_AUTO
+
+# type1	type2	k	l0
+
+*	*	20	1
+
+ITEM	END
+
+# Angle wildcard parameters
+
+ITEM	ANGLE_AUTO
+
+# type1	type2	type3	k	theta0
+
+#*	*	*	4	180
+
+ITEM	END
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+ITEM	END

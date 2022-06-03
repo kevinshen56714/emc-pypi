@@ -1,0 +1,76 @@
+#!/usr/bin/env emc_setup.pl
+#
+# Chemistry file new style
+#
+#    file:	chemistry.esh
+#    author:	Pieter J. in 't Veld
+#    date:	May 19, 2015
+#    purpose:	Chemical input for emc_setup.pl
+#
+#    notes:
+#    	- Create a simulation with water, salt and polyethylene
+#    	- Commas and tabs can be used interchangebly
+#    	- Demarcation 
+#	- Format for groups:
+#
+#	    name, SMILES[, connect index, connect group:connect index[, ...]]
+#	  
+#	  where the first connect index is the connection point in the current
+#	  group and the second in the connection group
+#    	- Asterix in SMILES denotes a connection point
+#	- Format for clusters:
+#	  
+#	    name,group,fraction[,mol mass[,mol volume]]
+#
+#	  molecular mass and volume are optional and function as an override
+#	  for mass calculation by means of a force field file
+#	- Format for polymers
+#
+#	    line 1: name
+#	    line 2: fraction,group[:group[=weight:...]],nrepeat[,...]
+#
+#	  fraction in line 1 can be a mol, mass or volume fraction, as is the 
+#	  case for clusters, fraction in line 2 always represents a mol
+#	  fraction
+#
+#	  note: need to include terminators for correct mass calculation
+#
+
+# Options
+
+ITEM	OPTIONS
+
+field		opls-ua
+ntotal		5000
+mass		true
+replace		true
+
+ITEM	END
+
+# Groups
+
+ITEM	GROUPS
+
+ethyl		*CC*,1,ethyl:2,1,propyl:2
+propyl		*CC(C)*,1,propyl:2,1,ethyl:2
+methyl		*C,1,ethyl:1,1,ethyl:2,1,propyl:1,1,propyl:2
+
+ITEM	END
+
+# Clusters
+
+ITEM	CLUSTERS
+
+poly		random	100
+
+ITEM	END
+
+# Polymers
+
+ITEM	POLYMERS
+
+poly
+100		ethyl:propyl=1:3,6,methyl,2
+
+ITEM	END
+

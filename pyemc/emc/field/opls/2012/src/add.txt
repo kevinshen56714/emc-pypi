@@ -1,0 +1,65 @@
+One could ostensibly add types and entries through opls-ua.{top|prm}, but I normally use opls-aa.define, which is a front-end for defining rules and extra types.  With respect to OPLS:
+
+OPLS_ROOT=$EMC_ROOT/field/opls/2012
+	
+This directory contains a convert.sh script, which converts both UA and AA force fields using data in $OPLS_ROOT/src.  These files use numbers as indices, which are referred to in the .define files, e.g. extra entries for isocyanates:
+
+ITEM	EXTRA
+
+# index	basis	type	charge	
+
+150.1	c=	c=	0.785	# RCNCO through similarities; pjv 20170203
+251.2	n=	n=	-0.724	# ditto
+253.1	o	o	-0.45	# ditto
+256.1	ct	ct	0.209	# OCN-CH3
+257.1	ct	ct	0.269	# OCN-CH2-R
+258.1	ct	ct	0.329	# OCN-CH-R
+259.1	ct	ct	0.389	# OCN-C-R
+
+ITEM	END
+
+For instance, carbon in C=N=O is based on an existing type c= with index entry 150 from $OPLS_ROOT/src/oplsaa.par, 
+
+150 06 C=   -0.115     3.550     0.076     diene =CH-CH=; see 178 also
+
+but has a new partial charge of 0.785.  The .1 in 150.1 makes sure, that the new index is unique.  This new index is referred to under a new rule for C=N=O, i.e.
+
+ITEM	RULES
+
+# Isocyanates
+
+150.1	C(=N(C))(=O)
+251.2	N(=C(=O))(C)
+253.1	O(=C(=N(C)))
+256.1	C(N(=C(=O)))(H)(H)(H)
+257.1	C(N(=C(=O)))(H)(H)(C)
+258.1	C(N(=C(=O)))(H)(C)(C)
+259.1	C(N(=C(=O)))(C)(C)(C)
+
+ITEM	END
+
+New types can also be defined, but are always based on existing types,
+
+ITEM	EXTRA
+
+237	n	n_1	-	63	65
+238	n	n_1	-
+239	n	n_1	-
+
+ITEM	END
+
+The type n_1 assures the specific use of dihedral entries 63 and 65.  All types have the have an entry in the MASSES paragraph,
+
+ITEM	MASSES
+
+c=	12.0110	C	3	0	C in dialkenes
+ct	12.0110	C	3	0	SP3 carbon
+n	14.0067	N	3	0	N in imides and ureas
+n_1	14.0067	N	3	0	N in amides
+n=	14.0067	N	2	0	N in cyanates
+o	15.9994	O	1	0	SP2 oxygen in acids, ketones, esters
+	
+ITEM	END
+
+Indices are used to access parameter entries in $OPLS_ROOT/src/oplsaa.par.
+

@@ -1,0 +1,287 @@
+!BIOSYM FORCEFIELD          1
+
+#define  	ffapply   	groups
+
+#version	zno.frc     	1.0	05-February-2020
+
+
+#define cff91
+
+!Ver Ref		Function	     Label
+!--- ---    ------------------------------   ------
+ 1.0  1     atom_types                       cff91
+ 1.0  1     equivalence                      cff91
+ 1.0  1     auto_equivalence                 cff91_auto
+ 1.0  1     bond_increments                  cff91_auto
+ 1.0  1     quadratic_bond                   cff91_auto
+ 1.0  1     quartic_bond                     cff91
+ 1.0  1     quadratic_angle                  cff91_auto
+ 1.0  1     quartic_angle                    cff91
+ 1.0  1     torsion_1                        cff91_auto
+ 1.0  1     torsion_3                        cff91
+ 1.0  1     wilson_out_of_plane              cff91  cff91_auto
+ 1.0  1     nonbond(9-6)                     cff91
+ 1.0  1     bond-bond                        cff91
+ 1.0  1     bond-bond_1_3                    cff91
+ 1.0  1     bond-angle                       cff91
+ 1.0  1     angle-angle                      cff91
+ 1.0  1     end_bond-torsion_3               cff91
+ 1.0  1     middle_bond-torsion_3            cff91
+ 1.0  1     angle-torsion_3                  cff91
+ 1.0  1     angle-angle-torsion_1            cff91
+ 1.0  1     torsion-torsion_1                cff91
+ 1.0  1     nonbond_cross(morse-dispersion)  cff91
+
+
+#atom_types           cff91     +charges
+
+> Atom type definitions 
+> Standard atomic weights (1991) are taken from CRC(1995), pages 1-7.
+
+!Ver Ref  Type     Mass      Element   connection  Charges       Comment
+!--- ---  -----  ----------  -------   ----------  -------  ---------------------------
+ 1.0  2   h1zn     1.00797      H          1         0.0      Hydrogen in zinc oxide surface
+ 1.0  2   o1zn    15.99940      O          1         0.0      Oxygen in zinc oxide surface (deprotonated)
+ 1.0  2   o2zn    15.99940      O          2         0.0      Oxygen in zinc oxide surface (protonated)
+ 1.0  2   o4zh    15.99940      O          4         0.0      Oxygen in zinc oxide surface (protonated)
+ 1.0  2   o4zn    15.99940      O          4         0.0      Oxygen in bulk zinc oxide 
+ 1.0  2   zn2o    65.39000     Zn          4         0.0      Zinc in zinc oxide surface
+ 1.0  2   zn4o    65.39000     Zn          4         0.0      Zinc in bulk zinc oxide
+ 1.0  2   zn4s    65.39000     Zn          4         0.0      Zinc in zinc oxide surface
+
+
+#equivalence          cff91
+
+!                      Equivalences
+!       ------------------------------------------
+!Ver Ref  Type   NonB   Bond   Angle  Torsion  OOP
+!--- ---  -----  -----  -----  -----  -------  -----
+ 1.0  1   X      X      X      X      X        X
+
+
+#auto_equivalence     cff91_auto
+
+!                      Equivalences
+!       ------------------------------------------
+!Ver  Ref   Type  NonB Bond   Bond     Angle    Angle     Torsion   Torsion      OOP      OOP
+!                       Inct           End atom Apex atom End Atoms Center Atoms End Atom Center Atom
+!---- ---   ----  ---- ------ ----  ---------- --------- --------- -----------  -------- -----------
+ 1.0   2    h1zn  h1zn h1zn   h1zn_ h1zn_      h1zn_     h1zn_     h1zn_        h1zn_    h1zn_
+ 1.0   2    o1zn  o1zn o1zn   o1zn_ o1zn_      o1zn_     o1zn_     o1zn_        o1zn_    o1zn_
+ 1.0   2    o2zn  o2zn o2zn   o2zn_ o2zn_      o2zn_     o2zn_     o2zn_        o2zn_    o2zn_
+ 1.0   2    o4zn  o4zn o4zn   o4zn_ o4zn_      o4zn_     o4zn_     o4zn_        o4zn_    o4zn_
+ 1.0   2    o4zh  o4zn o4zh   o4zn_ o4zn_      o4zn_     o4zn_     o4zn_        o4zn_    o4zn_
+ 1.0   2    zn2o  zn4o zn2o   zn4o_ zn4o_      zn4o_     zn4o_     zn4o_        zn4o_    zn4o_
+ 1.0   2    zn4o  zn4o zn4o   zn4o_ zn4o_      zn4o_     zn4o_     zn4o_        zn4o_    zn4o_
+ 1.0   2    zn4s  zn4o zn4s   zn4o_ zn4o_      zn4o_     zn4o_     zn4o_        zn4o_    zn4o_
+
+
+#bond_increments      cff91_auto
+
+!Ver Ref    I     J     DeltaIJ   DeltaJI
+!--- ---  ----- -----   -------   -------
+ 1.0  2   h1zn  o2zn     0.4000  -0.4000
+ 1.0  2   h1zn  o4zh     0.4000  -0.4000
+ 1.0  2   o1zn  zn4o    -1.0000   0.0000
+ 1.0  2   o2zn  zn2o    -0.3300   0.3300
+ 1.0  2   o2zn  zn4s    -0.3300   0.3300
+ 1.0  2   o4zh  zn4o    -0.1550   0.1550
+ 1.0  2   o4zn  zn2o    -0.2250   0.2250
+ 1.0  2   o4zn  zn4o    -0.2250   0.2250
+ 1.0  2   o4zn  zn4s    -0.1665   0.1665 
+
+
+#quadratic_bond       cff91_auto
+
+> E = K2 * (R - R0)^2
+
+!Ver Ref    I     J       R0         K2
+!--- ---  ----- -----  -------    --------
+ 1.0  2   h1zn_ o2zn_   0.9290    495.0000
+ 1.0  2   h1zn_ o4zn_   0.9290    495.0000
+ 1.0  2   o1zn_ zn4o_   2.0900    383.0000
+ 1.0  2   o2zn_ zn4o_   2.0900    383.0000
+ 1.0  2   o4zn_ zn4o_   2.0900    383.0000
+
+
+#quartic_bond         cff91
+
+> E = K2 * (R - R0)^2  +  K3 * (R - R0)^3  +  K4 * (R - R0)^4
+
+!Ver Ref    I     J       R0         K2          K3          K4
+!--- ---  ----- -----  -------    --------    --------    --------
+
+
+#quadratic_angle      cff91_auto
+
+> E = K2 * (Theta - Theta0)^2
+
+!Ver Ref    I     J     K      Theta0       K2
+!--- ---  ----- ----- -----   --------   -------
+ 1.0  2   *     o2zn_ *       111.5000   150.0000   
+ 1.0  2   *     o4zn_ *       111.5000   150.0000   
+ 1.0  2   *     zn4o_ *       111.5000   150.0000   
+
+
+#quartic_angle        cff91
+
+> Delta = Theta - Theta0
+> E = K2 * Delta^2  +  K3 * Delta^3  +  K4 * Delta^4
+
+!Ver Ref    I     J     K      Theta0       K2         K3         K4
+!--- ---  ----- ----- -----   --------   --------   --------   --------
+
+
+#torsion_1            cff91_auto
+
+> E = Kphi * [ 1 + cos(n*Phi - Phi0) ]
+
+!Ver Ref    I     J     K     L       KPhi     n     Phi0
+!--- ---  ----- ----- ----- -----   --------  ---  ---------
+ 1.0  2   *     o2zn_ zn4o_ *         0.0000    1     0.0000
+ 1.0  2   *     o4zn_ zn4o_ *         0.0000    1     0.0000
+
+
+#torsion_3            cff91
+
+> E = SUM(n=1,3) { V(n) * [ 1 - cos(n*Phi) ] }
+
+!Ver Ref    I     J     K     L       V(1)    Phi1(0)    V(2)    Phi2(0)    V(3)    Phi3(0)
+!--- ---  ----- ----- ----- -----   --------  -------  --------  -------  --------  -------
+
+
+#wilson_out_of_plane  cff91
+
+> E = K * (Chi - Chi0)^2
+
+!Ver Ref    I     J     K     L       KChi      Chi0
+!--- ---  ----- ----- ----- -----   --------  ---------
+
+
+#wilson_out_of_plane  cff91_auto
+
+> E = K * (Chi - Chi0)^2
+
+!Ver Ref    I     J     K     L       KChi      Chi0
+!--- ---  ----- ----- ----- -----   --------  ---------
+
+
+#nonbond(9-6)         cff91
+
+> E = eps(ij) [2(r(ij)*/r(ij))**9 - 3(r(ij)*/r(ij))**6]
+> where    r(ij) = [(r(i)**6 + r(j)**6))/2]**(1/6)
+>
+>        eps(ij) = 2 sqrt(eps(i) * eps(j)) *
+>                   r(i)^3 * r(j)^3/[r(i)^6 + r(j)^6]
+
+@type r-eps
+@combination sixth-power
+
+!Ver Ref    I          r             eps
+!--- ---  -----   -------------  -----------
+ 1.0  2   h1zn           1.0980      0.01300
+ 1.0  2   o1zn           3.4000      0.18000 
+ 1.0  2   o2zn           3.6000      0.12000 
+ 1.0  2   o4zh           3.8000      0.06000 
+ 1.0  2   o4zn           3.8000      0.06000 
+ 1.0  2   zn2o           2.0000      0.18000
+ 1.0  2   zn4o           2.0000      0.18000
+ 1.0  2   zn4s           2.0000      0.18000
+
+
+#bond-bond            cff91
+
+> E = K(b,b') * (R - R0) * (R' - R0')
+
+!Ver Ref    I     J     K      K(b,b')
+!--- ---  ----- ----- -----   --------
+ 
+
+#bond-bond_1_3        cff91
+
+> E = K(b,b') * (R - R0) * (R' - R0')
+
+!Ver Ref    I     J     K     L      K(b,b')
+!--- ---  ----- ----- ----- -----   --------
+
+
+#bond-angle           cff91
+
+> E = K * (R - R0) * (Theta - Theta0)
+
+!Ver Ref    I     J     K     K(b,theta)  K(b',theta)
+!--- ---  ----- ----- -----   ----------  -----------
+
+
+#angle-angle          cff91
+
+> E = K * (Theta - Theta0) * (Theta' - Theta0')
+
+!Ver Ref    I     J     K     L     K(theta,theta')
+!--- ---  ----- ----- ----- -----   ---------------
+
+
+#end_bond-torsion_3   cff91
+
+> E = (R - R0) * SUM { V(n) * cos[n*phi] }
+
+!                                                  LEFT                                RIGHT
+!                                      -----------------------------       -----------------------------
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------       -------    -------    -------
+
+
+#middle_bond-torsion_3 cff91
+
+> E = (R - R0) * 
+>      { F(1) * cos(phi)  +  F(2) * cos(2 * phi)  +  F(3) * cos(3 * phi) }
+
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------
+
+
+
+#angle-torsion_3      cff91
+
+> E = (Theta - Theta0) * 
+>      { F(1) * cos(phi)  +  F(2) * cos(2 * phi)  +  F(3) * cos(3 * phi) }
+
+!                                                  LEFT                               RIGHT
+!                                      -----------------------------       -----------------------------
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------       -------    -------    -------
+
+
+#angle-angle-torsion_1 cff91
+
+>  E = K * (Theta - Theta0) * (Theta' - Theta0') * (Phi - Phi1(0))
+
+!Ver Ref    I     J     K     L     K(Ang,Ang,Tor)
+!--- ---  ----- ----- ----- -----   --------------
+
+
+#torsion-torsion_1    cff91
+
+> E = F * cos(phi) * cos(phi') }
+
+!Ver Ref    I     J     K     L     M     K(Phi,Phi')
+!--- ---  ----- ----- ----- ----- -----   -----------
+
+
+#nonbond_cross(morse-dispersion)        cff91
+
+!Ver  Ref     I     J          eps        r0           y          c6          rspl
+!---- ---    ----  ----    ---------   ---------   ---------   ---------   ---------
+
+
+#reference 1
+@Author PJV
+@Date 01-February-2020
+Created template from COMPASS
+
+#reference 2
+@Author PJV
+@Date 05-February-2020
+Added ZnO parameters
+
+#end

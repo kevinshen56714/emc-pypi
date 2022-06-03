@@ -1,0 +1,115 @@
+#
+#  Born interaction parameters using guillot.define
+#  converted by field.pl v1.0, May 21, 2016 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.3.9 or higher
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE	BORN
+FFTYPE	ATOMISTIC
+FFDEPTH	4
+VERSION	Jan 2008
+CREATED	Oct 2019
+LENGTH	ANGSTROM
+ENERGY	KCAL/MOL
+DENSITY	G/CC
+MIX	BERTHELOT
+CUTOFF	10.5
+NBONDED	0
+PAIR14	EXCLUDE
+ANGLE	ERROR
+TORSION	ERROR
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+2008	71	1249	Geochim. Cosmochim. Acta
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	comment
+
+?	1	?	0	0	Dummy
+al+3	26.982	Al	0	3	Aluminium
+ca+2	40.078	Ca	0	2	Calcium
+fe+2	55.845	Fe	0	2	Iron +2
+fe+3	55.845	Fe	0	3	Iron +3
+k+	39.098	K	0	1	Potassium
+mg+2	24.305	Mg	0	2	Magnesium
+na+	22.990	Na	0	1	Sodium
+o-2	15.9994	O	0	-2	Oxygen
+si+4	28.085	Si	0	4	Silicon
+ti+4	47.867	Ti	0	4	Titanium
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE_AUTO
+
+# type	pair	incr	bond	angle	torsion	improper
+
+?	?	?	?	?	?	?
+al+3	al+3	al+3	al+3	al+3	al+3	al+3
+ca+2	ca+2	ca+2	ca+2	ca+2	ca+2	ca+2
+fe+2	fe+2	fe+2	fe+2	fe+2	fe+2	fe+2
+fe+3	fe+3	fe+3	fe+3	fe+3	fe+3	fe+3
+k+	k+	k+	k+	k+	k+	k+
+mg+2	mg+2	mg+2	mg+2	mg+2	mg+2	mg+2
+na+	na+	na+	na+	na+	na+	na+
+o-2	o-2	o-2	o-2	o-2	o-2	o-2
+si+4	si+4	si+4	si+4	si+4	si+4	si+4
+ti+4	ti+4	ti+4	ti+4	ti+4	ti+4	ti+4
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	improper
+
+?	?	?	?	?	?	?
+al+3	al+3	al+3	al+3	al+3	al+3	al+3
+ca+2	ca+2	ca+2	ca+2	ca+2	ca+2	ca+2
+fe+2	fe+2	fe+2	fe+2	fe+2	fe+2	fe+2
+fe+3	fe+3	fe+3	fe+3	fe+3	fe+3	fe+3
+k+	k+	k+	k+	k+	k+	k+
+mg+2	mg+2	mg+2	mg+2	mg+2	mg+2	mg+2
+na+	na+	na+	na+	na+	na+	na+
+o-2	o-2	o-2	o-2	o-2	o-2	o-2
+si+4	si+4	si+4	si+4	si+4	si+4	si+4
+ti+4	ti+4	ti+4	ti+4	ti+4	ti+4	ti+4
+
+ITEM	END
+
+# Nonbonded parameters
+
+ITEM	NONBOND
+
+# type1	type2	sigma	rho	a	c	d
+
+?	?	0.0	0.0	0.0	0.0	0.0
+al+3	al+3	2.60707	0.172	0.172	797.385	0.0
+ca+2	ca+2	2.99388	0.178	0.178	974.534	0.0
+fe+2	fe+2	2.71208	0.190	0.190	0.0	0.0
+k+	k+	3.51191	0.290	0.290	0.0	0.0
+mg+2	mg+2	2.71588	0.178	0.178	629.116	0.0
+na+	na+	2.82334	0.170	0.170	0.0	0.0
+o-2	o-2	3.59702	0.265	0.265	1962.278	0.0
+si+4	si+4	2.54225	0.161	0.161	1067.655	0.0
+ti+4	ti+4	2.79218	0.178	0.178	1067.655	0.0
+
+ITEM	END

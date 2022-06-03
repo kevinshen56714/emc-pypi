@@ -1,0 +1,21 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  name		-> "surface"
+};
+
+get		= {
+  name		-> name,
+  compress	-> true
+};
+
+traject		= {
+  mode		-> read,
+  scale		-> false,
+  name		-> name+".dump"
+};
+
+pdb		= {name -> name+"_trj", forcefield -> auto, detect -> false,
+		   unwrap -> true, pbc -> true, cut -> true};
+

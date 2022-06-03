@@ -1,0 +1,292 @@
+#
+#  Martini interaction parameters using martini.21346.tmp
+#  converted by emc_martini.pl v2.0, March 21, 2021 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.4.4 or higher
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE	MARTINI
+FFTYPE	COARSE
+FFAPPLY	GROUPS
+VERSION	2011
+CREATED	Mar 2021
+LENGTH	NANOMETER
+ENERGY	KJ/MOL
+DENSITY	G/CC
+MIX	NONE
+NBONDED	1
+INNER	0.9
+CUTOFF	1.2
+PAIR14	OFF
+ANGLE	WARN
+TORSION	IGNORE
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	comment
+
+C1	72	C1	2	0	apolar
+C11	72	C1	2	0	apolar
+C2	72	C2	2	0	apolar
+C3	72	C3	2	0	apolar
+C31	72	C3	2	0	apolar
+C4	72	C4	2	0	apolar
+C5	72	C5	2	0	apolar
+N0	72	N0	2	0	intermediate
+Na	72	Na	2	0	intermediate
+Na1	72	Na	2	0	intermediate
+Na2	72	Na	2	0	intermediate
+Nd	72	Nd	2	0	intermediate
+Nda	72	Nda	2	0	intermediate
+P1	72	P1	2	0	polar
+P2	72	P2	2	0	polar
+P3	72	P3	2	0	polar
+P5	72	P5	2	0	polar
+SC1	54	SC1	2	0	ring apolar
+SC4	54	SC4	2	0	ring apolar
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	improper
+
+C1	C1	C1	C1	C1	C1	C1
+C11	C1	C1	C11	C11	C11	C11
+C2	C2	C2	C2	C2	C2	C2
+C3	C3	C3	C3	C3	C3	C3
+C31	C3	C3	C31	C31	C31	C31
+C4	C4	C4	C4	C4	C4	C4
+C5	C5	C5	C5	C5	C5	C5
+N0	N0	N0	N0	N0	N0	N0
+Na	Na	Na	Na	Na	Na	Na
+Na1	Na	Na	Na1	Na1	Na1	Na1
+Na2	Na	Na	Na2	Na2	Na2	Na2
+Nd	Nd	Nd	Nd	Nd	Nd	Nd
+Nda	Nda	Nda	Nda	Nda	Nda	Nda
+P1	P1	P1	P1	P1	P1	P1
+P2	P2	P2	P2	P2	P2	P2
+P3	P3	P3	P3	P3	P3	P3
+P5	P5	P5	P5	P5	P5	P5
+SC1	SC1	SC1	SC1	SC1	SC1	SC1
+SC4	SC4	SC4	SC4	SC4	SC4	SC4
+
+ITEM	END
+
+# Nonbonded parameters
+
+ITEM	NONBOND
+
+# type1	type2	sigma	epsilon
+
+C1	C1	0.47	3.5
+C1	C2	0.47	3.5
+C1	C3	0.47	3.5
+C1	C4	0.47	3.1
+C1	C5	0.47	3.1
+C1	N0	0.47	2.7
+C1	Na	0.47	2.7
+C1	Nd	0.47	2.7
+C1	Nda	0.47	2.7
+C1	P1	0.47	2.7
+C1	P2	0.47	2.3
+C1	P3	0.47	2.3
+C1	P5	0.47	2
+C1	SC1	0.47	3.5
+C1	SC4	0.47	3.1
+C2	C2	0.47	3.5
+C2	C3	0.47	3.5
+C2	C4	0.47	3.1
+C2	C5	0.47	3.1
+C2	N0	0.47	3.1
+C2	Na	0.47	2.7
+C2	Nd	0.47	2.7
+C2	Nda	0.47	2.7
+C2	P1	0.47	3.1
+C2	P2	0.47	2.7
+C2	P3	0.47	2.7
+C2	P5	0.47	2.3
+C2	SC1	0.47	3.5
+C2	SC4	0.47	3.1
+C3	C3	0.47	3.5
+C3	C4	0.47	3.5
+C3	C5	0.47	3.5
+C3	N0	0.47	3.5
+C3	Na	0.47	2.7
+C3	Nd	0.47	2.7
+C3	Nda	0.47	2.7
+C3	P1	0.47	3.5
+C3	P2	0.47	3.1
+C3	P3	0.47	3.1
+C3	P5	0.47	2.7
+C3	SC1	0.47	3.5
+C3	SC4	0.47	3.5
+C4	C4	0.47	3.5
+C4	C5	0.47	3.5
+C4	N0	0.47	3.5
+C4	Na	0.47	3.1
+C4	Nd	0.47	3.1
+C4	Nda	0.47	3.1
+C4	P1	0.47	3.5
+C4	P2	0.47	3.5
+C4	P3	0.47	3.1
+C4	P5	0.47	2.7
+C4	SC1	0.47	3.1
+C4	SC4	0.47	3.5
+C5	C5	0.47	3.5
+C5	N0	0.47	3.5
+C5	Na	0.47	3.5
+C5	Nd	0.47	3.5
+C5	Nda	0.47	3.5
+C5	P1	0.47	3.5
+C5	P2	0.47	3.5
+C5	P3	0.47	3.5
+C5	P5	0.47	3.1
+C5	SC1	0.47	3.1
+C5	SC4	0.47	3.5
+N0	N0	0.47	3.5
+N0	Na	0.47	3.5
+N0	Nd	0.47	3.5
+N0	Nda	0.47	3.5
+N0	P1	0.47	4
+N0	P2	0.47	4
+N0	P3	0.47	3.5
+N0	P5	0.47	3.5
+N0	SC1	0.47	2.7
+N0	SC4	0.47	3.5
+Na	Na	0.47	4
+Na	Nd	0.47	4.5
+Na	Nda	0.47	4.5
+Na	P1	0.47	4.5
+Na	P2	0.47	4.5
+Na	P3	0.47	4.5
+Na	P5	0.47	5
+Na	SC1	0.47	2.7
+Na	SC4	0.47	3.1
+Nd	Nd	0.47	4
+Nd	Nda	0.47	4.5
+Nd	P1	0.47	4.5
+Nd	P2	0.47	4.5
+Nd	P3	0.47	4.5
+Nd	P5	0.47	5
+Nd	SC1	0.47	2.7
+Nd	SC4	0.47	3.1
+Nda	Nda	0.47	4.5
+Nda	P1	0.47	4.5
+Nda	P2	0.47	4.5
+Nda	P3	0.47	4.5
+Nda	P5	0.47	5
+Nda	SC1	0.47	2.7
+Nda	SC4	0.47	3.1
+P1	P1	0.47	4.5
+P1	P2	0.47	4.5
+P1	P3	0.47	4.5
+P1	P5	0.47	5.6
+P1	SC1	0.47	2.7
+P1	SC4	0.47	3.5
+P2	P2	0.47	4.5
+P2	P3	0.47	4.5
+P2	P5	0.47	5.6
+P2	SC1	0.47	2.3
+P2	SC4	0.47	3.5
+P3	P3	0.47	5
+P3	P5	0.47	5.6
+P3	SC1	0.47	2.3
+P3	SC4	0.47	3.1
+P5	P5	0.47	5.6
+P5	SC1	0.47	2
+P5	SC4	0.47	2.7
+SC1	SC1	0.43	2.625
+SC1	SC4	0.43	2.325
+SC4	SC4	0.43	2.625
+
+ITEM	END
+
+# Bond wildcard parameters
+
+ITEM	BOND_AUTO
+
+# type1	type2	k	l0
+
+*	*	1250	0.47
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+C1	C1	1250	0.47
+C1	C3	1250	0.47
+C1	Na	1250	0.47
+C1	P1	1250	0.47
+SC1	SC1	5000	0.3
+SC4	SC4	20000	0.27
+
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+C1	C1	C1	25	180
+C1	C1	C3	25	180
+C1	C1	C31	25	180
+C1	C3	C1	45	120
+C1	C31	C1	45	180
+C1	Na	C11	25	180
+C1	Na1	C11	25	180
+C1	Na2	C11	25	180
+C3	C1	Na	25	180
+C3	C1	Na1	25	180
+C3	C1	Na2	25	180
+Na	C11	Na1	25	60
+Na	C11	Na2	25	130
+Na1	C11	Na2	25	130
+
+ITEM	END
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+ACE	[P5]
+ACH	[P3]
+BENZ	[SC4][SC4][SC4]
+BOL	[Nda]
+BUT	[C1]
+CHEX	[SC1][SC1][SC1]
+CLF	[C4]
+DEC	[C1][C1][C1]
+EOL	[P2]
+ETH	[N0]
+HD	[C1][C1][C1][C1]
+MES	[C5]
+OCO	[P1][C1]
+OCT	[C1][C1]
+OD	[C1][C1][C1][C1][C1]
+ODE	[C1][C1][C3][C1][C1]
+ODT	[C1][C31][C1][C1][C1]
+PAM	[Nd]
+POL	[P1]
+PON	[Na]
+POP	[C2]
+PRX	[C3]
+TO	[C11]([Na1][C1][C3][C1][C1])([Na2][C1][C3][C1][C1])[Na][C1][C3][C1][C1]
+
+ITEM	END

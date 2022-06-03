@@ -1,0 +1,66 @@
+#
+#  STANDARD interaction parameters 
+#  converted by emc_setup.pl v3.6.0, July 8, 2018 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.4.3 or higher
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE	STANDARD
+FFTYPE	COARSE
+FFDEPTH	1
+VERSION	1.0
+CREATED	2018-07-08
+LENGTH	REDUCED
+ENERGY	REDUCED
+DENSITY	REDUCED
+MIX	BERTHELOT
+CUTOFF	2.5
+NBONDED	1
+ANGLE	IGNORE
+TORSION	IGNORE
+IMPROP	IGNORE
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	comment
+
+*	1	*	2	0	*
+
+ITEM	END
+
+# Nonbond wildcard parameters
+
+ITEM	NONBOND_AUTO
+
+# type1	type2	epsilon	sigma
+
+*	*	1	1
+
+ITEM	END
+
+# Bond wildcard parameters
+
+ITEM	BOND_AUTO
+
+# type1	type2	k	l0
+
+*	*	20	1
+
+ITEM	END
+
+# Angle wildcard parameters
+
+ITEM	ANGLE_AUTO
+
+# type1	type2	type3	k	theta0
+
+*	*	*	4	180
+
+ITEM	END

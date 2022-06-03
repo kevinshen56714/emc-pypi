@@ -1,0 +1,16 @@
+# Chemistry file old style
+#
+#    file:	chemistry.esh
+#    author:	Pieter J. in 't Veld
+#    date:	March 18, 2015
+#    purpose:	Chemical input for emc_setup.pl
+#
+#    notes:
+#	- Create a simulation with 80% m/m water and 20% m/m ethanol
+#
+
+# molecule id,smiles string,fraction[,mol mass,mol vol]
+
+ethanol,CCO,20
+water,O,80
+

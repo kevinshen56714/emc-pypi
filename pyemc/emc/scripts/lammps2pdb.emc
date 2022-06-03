@@ -1,0 +1,42 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg1,
+  traject	-> input,
+  compress	-> false,
+  start		-> 0,
+  end		-> "last",
+  frequency	-> 1,
+  cut		-> false,
+  pbc		-> true,
+  vdw		-> false,
+  rank		-> false,
+  unwrap	-> true,
+  source	-> ".",
+  target	-> "."
+};
+
+files		= {
+  delete	-> {output+".vmd", output+".pdb", output+".pdb.gz",
+		    output+".psf", output+".psf.gz"}
+};
+
+get		= {name -> source+"/"+input, work -> target};
+
+sample		= {
+  script	-> {
+    active	-> true,
+    frequency	-> 1,
+    script	-> {
+      pdb 	-> {name -> output, compress -> compress, mode -> append,
+		    unwrap -> unwrap, vdw -> vdw, cut -> cut, rank -> rank, 
+		    pbc -> pbc}
+    }
+  }
+};
+
+traject		= {mode -> sample, name -> traject,
+		   start -> start, end -> end, frequency -> frequency};
+

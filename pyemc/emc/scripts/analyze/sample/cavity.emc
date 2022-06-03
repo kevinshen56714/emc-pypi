@@ -1,0 +1,48 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "default",
+  output	-> "default",
+  traject	-> input,
+  target	-> "",
+  record	-> "",
+  binsize	-> 0.01,
+  niterations	-> 1000,
+  ntrials	-> 200,
+  start		-> 0,
+  end		-> -1,
+  frequency	-> 1,
+  zero		-> true
+};
+
+get		= {name -> input, work -> target};
+
+sample		= {
+  cavity	-> {
+    frequency	-> 1,
+    active	-> true,
+    solver	-> newton,
+    record	-> record,
+    binsize	-> binsize,
+    ninserts	-> ninserts,
+    niterations	-> niterations,
+    zero	-> eval(zero)
+  }
+};
+
+traject		= {
+  mode		-> sample,
+  name		-> traject,
+  start		-> start,
+  end		-> end,
+  frequency	-> frequency
+}; 
+
+force		= {style -> init, message -> raw};
+
+export		= {
+  sample	-> {name -> output, type -> cavity, style -> math},
+  sample	-> {name -> output, type -> cavity, style -> csv}
+};
+
+

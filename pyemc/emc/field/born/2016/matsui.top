@@ -1,0 +1,37 @@
+#
+#  Born topology using matsui.define
+#  converted by field.pl v1.0, May 21, 2016 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.3.9 or higher
+#
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+(?
+  (al+3)
+  (ca+2)
+  (mg+2)
+  (na+)
+  (o-2)
+  (si+4)
+  (?)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	index	charge	rule
+
+0	?	?	1	0	[DM]
+1	al+3	Al	2	1.4175	[Al+3]
+2	ca+2	Ca	3	0.945	[Ca+2]
+3	mg+2	Mg	4	0.945	[Mg+2]
+4	na+	Na	5	0.4725	[Na+]
+5	o-2	O	7	-0.945	[O-2]
+6	si+4	Si	6	1.890	[Si+4]
+
+ITEM	END

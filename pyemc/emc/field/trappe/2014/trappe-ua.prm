@@ -1,0 +1,670 @@
+#
+#  TraPPE interaction parameters using trappe-ua.define
+#  converted by trappe.pl v1.2, May 25, 2021 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.4.4 or higher
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE	TRAPPE
+FFTYPE	UNITED
+FFDEPTH	4
+FFINDEX	TYPES
+VERSION	Oct
+CREATED	Jun 2021
+LENGTH	ANGSTROM
+ENERGY	KELVIN
+DENSITY	G/CC
+MIX	BERTHELOT
+CUTOFF	14
+NBONDED	3
+PAIR14	EXCLUDE
+ANGLE	ERROR
+TORSION	ERROR
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+1998	102	2569	J. Phys. Chem. B
+1999	103	4508	J. Phys. Chem. B
+1999	103	5370	J. Phys. Chem. B
+2000	104	2391	J. Phys. Chem. B
+2000	104	8008	J. Phys. Chem. B
+2001	105	3093	J. Phys. Chem. B
+2002	954	181	J. Chromatogr. A
+2004	108	17596	J. Phys. Chem. B
+2005	109	18974	J. Phys. Chem. B
+2005	109	24100	J. Phys. Chem. B
+2006	240	46	Fluid Phase Equil.
+2007	111	10790	J. Phys. Chem. B
+2008	274	44	Fluid Phase Equil.
+2009	113	6415	J. Phys. Chem. B
+2012	116	11234	J. Phys. Chem. B
+2013	117	24375	J. Phys. Chem. B
+2013	117	273	J. Phys. Chem. B
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	comment
+
+?	1	?	0	0	Dummy
+ar	39.948	Ar	0	0	Argon
+ba+2	137.327	Ba	0	2	Ba2+ cation
+br-	79.904	Br	0	-1	Br- ion
+c1n	12.011	C	2	0	C (SP) in nitriles
+c3	12.011	C	3	0	C (SP2) isobutene
+c3h	13.0189	C	2	0	CH (SP2) 2-alkene
+c3h2	14.0268	C	1	0	CH2 (SP2) 1-alkene
+c3ho	13.0189	C	2	0	CH (SP2) in aldehydes
+c3mo	12.011	C	3	0	C (SP2) in amides or urethanes
+c3o	12.011	C	3	0	C (SP2) in ketones
+c3oa	12.011	C	3	0	C (SP2) in acids
+c3oe	12.011	C	3	0	C (SP2) in esters
+c4	12.011	C	4	0	C (SP3) in neopentane
+c4h	13.0189	C	3	0	CH (SP3) in isobutane or isopropanol
+c4h2	14.0268	C	2	0	CH2 (SP3) in alkanes
+c4h3	15.0347	C	1	0	CH3 methyl
+c4h4	16.0426	C	0	0	CH4 methane
+c4ho	13.0189	C	3	0	CH (SP3) in secondary ether
+c4o	12.011	C	4	0	C (SP3) in ternary ether
+c4oe	12.011	C	4	0	C (SP3) in ethylene oxide ether
+ca+2	40.078	C	0	2	Ca2+ ion
+cac	12.011	C	3	0	C (aromatic) alkylbenzene
+caca	12.011	C	3	0	C (aromatic) naphtalene
+cah	13.0189	C	2	0	C (aromatic) benzene
+cam	13.0189	C	2	0	C (aromatic) benzene with lone pairs
+can	13.0189	C	2	0	C (aromatic) in pyridine
+can2	13.0189	C	2	0	C (aromatic) in pyrimidine
+cano	12.011	C	3	0	C (aromatic) attached to nitro
+cl-	34.453	Cl	0	-1	Cl- ion
+cs+	132.905	Cs	0	1	Cs+ ion
+f-	18.998	F	0	-1	F- ion
+he	4.0026	He	0	0	Helium
+hn	1.0079	H	1	0	H in amine -NH
+ho	1.0079	H	1	0	H in acid and alcohol -OH
+hs	1.0079	H	1	0	H in -SH
+hsi	1.0079	H	1	0	H in -SiH
+hw	1.0079	H	1	0	H in water
+i-	126.904	I	0	-1	I- ion
+k+	39.098	K	0	1	K+ cation
+kr	83.80	Kr	0	0	Krypton
+li+	6.941	Li	0	1	Li+ cation
+m	1.0000	M	1	0	lone pair
+mg+2	24.305	Mg	0	2	Mg2+ cation
+n3	14.0067	N	3	0	N (SP3) in amines without connected H
+n3h	14.0067	N	3	0	N (SP3) in amines with 1 connected H
+n3h2	14.0067	N	3	0	N (SP3) in amines with 2 connected H
+n3mh	14.0067	N	3	0	N (SP3) in amides with 1 connected H
+n3mh2	14.0067	N	3	0	N (SP3) in amides with 2 connected H
+na	14.0067	N	2	0	N (aromatic)
+na+	22.990	Na	0	1	Na+ cation
+nc	14.0067	N	2	0	N (SP) in nitriles
+ne	20.180	Ne	0	0	Neon
+nh4+	18.0383	N	0	1	Ammonium ion
+no	14.0067	N	3	0	N (SP) in nitro
+o	15.9994	O	1	0	O in =O of acids and formamide
+o2z	15.9994	O	2	0	O in zeolites
+oh	15.9994	O	2	0	O in -OH of alcohols
+oha	15.9994	O	2	0	O in -OH of acids
+on	15.9994	O	1	0	O in nitro
+os	15.9994	O	2	0	O in ethers
+ose	15.9994	O	2	0	O in ethylene oxide ethers
+ow	15.9994	O	4	0	O in water
+rb+	85.468	Rb	0	1	Rb+ cation
+sa	32.066	S	2	0	S (aromatic) in thiophene
+sc	32.066	S	2	0	S attached to C in sulfide
+sh	32.066	S	2	0	S in thiols
+si4z	28.0855	Si	4	0	Si in zeolites
+sr+2	87.62	S	0	2	Sr2+ cation
+ss	32.066	S	2	0	S attached to C and S in disulfide
+xe	131.29	Xe	0	0	Xenon
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE_AUTO
+
+# type	pair	incr	bond	angle	torsion	improper
+
+?	?	?	?	?	?	?
+ar	ar	ar	ar	ar	ar	ar
+ba+2	ba+2	ba+2	ba+2	ba+2	ba+2	ba+2
+br-	br-	br-	br-	br-	br-	br-
+c1n	c1n	c1n	c1n	c1n	c1n	c1n
+c3	c3	c3	c3	c3	c3	c3
+c3h	c3h	c3h	c3h	c3h	c3h	c3h
+c3h2	c3h2	c3h2	c3h2	c3h2	c3h2	c3h2
+c3ho	c3ho	c3ho	c3ho	c3o	c3o	c3o
+c3mo	c3mo	c3mo	c3mo	c3o	c3o	c3o
+c3o	c3o	c3o	c3o	c3o	c3o	c3o
+c3oa	c3o	c3oa	c3o	c3o	c3o	c3o
+c3oe	c3oe	c3oe	c3o	c3oe	c3oe	c3o
+c4	c4	c4	c4	c4	c4	c4
+c4h	c4h	c4h	c4h	c4h	c4h	c4h
+c4h2	c4h2	c4h2	c4h2	c4h2	c4h2	c4h2
+c4h3	c4h3	c4h3	c4h3	c4h3	c4h3	c4h3
+c4h4	c4h4	c4h4	c4h4	c4h4	c4h4	c4h4
+c4ho	c4ho	c4ho	c4h	c4h	c4h	c4h
+c4o	c4o	c4o	c4o	c4o	c4o	c4o
+c4oe	c4oe	c4oe	c4oe	c4oe	c4oe	c4oe
+ca+2	ca+2	ca+2	ca+2	ca+2	ca+2	ca+2
+cac	cac	cac	cac	cac	cac	cac
+caca	caca	caca	caca	caca	caca	caca
+cah	cah	cah	cah	cah	cah	cah
+cam	cam	cam	cam	cam	cam	cam
+can	can	can	can	can	can	can
+can2	can2	can2	can2	can2	can2	can2
+cano	cano	cano	cano	cano	cano	cano
+cl-	cl-	cl-	cl-	cl-	cl-	cl-
+cs+	cs+	cs+	cs+	cs+	cs+	cs+
+f-	f-	f-	f-	f-	f-	f-
+he	he	he	he	he	he	he	 
+hn	hn	hn	hn	hn	hn	hn
+ho	ho	ho	ho	ho	ho	ho
+hs	hs	hs	hs	hs	hs	hs
+hsi	hsi	hsi	hsi	hsi	hsi	hsi
+hw	hw	hw	hw	hw	hw	hw
+i-	i-	i-	i-	i-	i-	i-
+k+	k+	k+	k+	k+	k+	k+
+kr	kr	kr	kr	kr	kr	kr
+li+	li+	li+	li+	li+	li+	li+
+m	m	m	m	m	m	m
+mg+2	mg+2	mg+2	mg+2	mg+2	mg+2	mg+2
+n3	n3	n3	n3	n3	n3	n3
+n3h	n3h	n3h	n3h	n3h	n3h	n3h
+n3h2	n3h2	n3h2	n3h2	n3h2	n3h2	n3h2
+n3mh	n3h	n3mh	n3mh	n3mh	n3mh	n3mh
+n3mh2	n3h2	n3mh2	n3mh	n3mh	n3mh	n3mh
+na	na	na	na	na	na	na
+na+	na+	na+	na+	na+	na+	na+
+nc	nc	nc	nc	nc	nc	nc
+ne	ne	ne	ne	ne	ne	ne
+nh4+	nh4+	nh4+	nh4+	nh4+	nh4+	nh4+
+no	no	no	no	no	no	no
+o	o	o	o	o	o	o
+o2z	o2z	o2z	o2z	o2z	o2z	o2z
+oh	oh	oh	oh	oh	oh	oh
+on	on	on	on	on	on	on
+os	os	os	os	os	os	os
+ose	ose	ose	os	ose	ose	os
+ow	ow	ow	ow	ow	ow	ow
+rb+	rb+	rb+	rb+	rb+	rb+	rb+
+sa	sa	sa	sa	sa	sa	sa
+sc	sc	sc	sc	sc	sc	sc
+sh	sh	sh	sh	sh	sh	sh
+si4z	si4z	si4z	si4z	si4z	si4z	si4z
+sr+2	sr+2	sr+2	sr+2	sr+2	sr+2	sr+2
+ss	ss	ss	ss	ss	ss	ss
+xe	xe	xe	xe	xe	xe	xe
+
+ITEM	END
+
+# Typing equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	improper
+
+?	?	?	?	?	?	?
+ar	ar	ar	ar	ar	ar	ar
+ba+2	ba+2	ba+2	ba+2	ba+2	ba+2	ba+2
+br-	br-	br-	br-	br-	br-	br-
+c1n	c1n	c1n	c1n	c1n	c1n	c1n
+c3	c3	c3	c3	c3	c3	c3
+c3h	c3h	c3h	c3h	c3h	c3h	c3h
+c3h2	c3h2	c3h2	c3h2	c3h2	c3h2	c3h2
+c3ho	c3ho	c3ho	c3ho	c3o	c3o	c3o
+c3mo	c3mo	c3mo	c3mo	c3o	c3o	c3o
+c3o	c3o	c3o	c3o	c3o	c3o	c3o
+c3oa	c3o	c3oa	c3o	c3o	c3o	c3o
+c3oe	c3oe	c3oe	c3o	c3oe	c3oe	c3o
+c4	c4	c4	c4	c4	c4	c4
+c4h	c4h	c4h	c4h	c4h	c4h	c4h
+c4h2	c4h2	c4h2	c4h2	c4h2	c4h2	c4h2
+c4h3	c4h3	c4h3	c4h3	c4h3	c4h3	c4h3
+c4h4	c4h4	c4h4	c4h4	c4h4	c4h4	c4h4
+c4ho	c4ho	c4ho	c4h	c4h	c4h	c4h
+c4o	c4o	c4o	c4o	c4o	c4o	c4o
+c4oe	c4oe	c4oe	c4oe	c4oe	c4oe	c4oe
+ca+2	ca+2	ca+2	ca+2	ca+2	ca+2	ca+2
+cac	cac	cac	cac	cac	cac	cac
+caca	caca	caca	caca	caca	caca	caca
+cah	cah	cah	cah	cah	cah	cah
+cam	cam	cam	cam	cam	cam	cam
+can	can	can	can	can	can	can
+can2	can2	can2	can2	can2	can2	can2
+cano	cano	cano	cano	cano	cano	cano
+cl-	cl-	cl-	cl-	cl-	cl-	cl-
+cs+	cs+	cs+	cs+	cs+	cs+	cs+
+f-	f-	f-	f-	f-	f-	f-
+he	he	he	he	he	he	he	 
+hn	hn	hn	hn	hn	hn	hn
+ho	ho	ho	ho	ho	ho	ho
+hs	hs	hs	hs	hs	hs	hs
+hsi	hsi	hsi	hsi	hsi	hsi	hsi
+hw	hw	hw	hw	hw	hw	hw
+i-	i-	i-	i-	i-	i-	i-
+k+	k+	k+	k+	k+	k+	k+
+kr	kr	kr	kr	kr	kr	kr
+li+	li+	li+	li+	li+	li+	li+
+m	m	m	m	m	m	m
+mg+2	mg+2	mg+2	mg+2	mg+2	mg+2	mg+2
+n3	n3	n3	n3	n3	n3	n3
+n3h	n3h	n3h	n3h	n3h	n3h	n3h
+n3h2	n3h2	n3h2	n3h2	n3h2	n3h2	n3h2
+n3mh	n3h	n3mh	n3mh	n3mh	n3mh	n3mh
+n3mh2	n3h2	n3mh2	n3mh	n3mh	n3mh	n3mh
+na	na	na	na	na	na	na
+na+	na+	na+	na+	na+	na+	na+
+nc	nc	nc	nc	nc	nc	nc
+ne	ne	ne	ne	ne	ne	ne
+nh4+	nh4+	nh4+	nh4+	nh4+	nh4+	nh4+
+no	no	no	no	no	no	no
+o	o	o	o	o	o	o
+o2z	o2z	o2z	o2z	o2z	o2z	o2z
+oh	oh	oh	oh	oh	oh	oh
+on	on	on	on	on	on	on
+os	os	os	os	os	os	os
+ose	ose	ose	os	ose	ose	os
+ow	ow	ow	ow	ow	ow	ow
+rb+	rb+	rb+	rb+	rb+	rb+	rb+
+sa	sa	sa	sa	sa	sa	sa
+sc	sc	sc	sc	sc	sc	sc
+sh	sh	sh	sh	sh	sh	sh
+si4z	si4z	si4z	si4z	si4z	si4z	si4z
+sr+2	sr+2	sr+2	sr+2	sr+2	sr+2	sr+2
+ss	ss	ss	ss	ss	ss	ss
+xe	xe	xe	xe	xe	xe	xe
+
+ITEM	END
+
+# Increment parameters
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+c*	c*	0	0
+c1n	c4*	0	0
+c1n	nc	0.129	-0.129
+c3*	os	0.25	-0.25
+c3ho	c4*	0.043	-0.043
+c3ho	o	0.482	-0.482
+c3mo	c4*	0	0
+c3mo	n3*	0	0
+c3mo	o	0.424	-0.424
+c3mo	os	0.15	-0.15
+c3o	c4*	0	0
+c3o	o	0.424	-0.424
+c3oa	c4*	-0.08	0.08
+c3oa	o	0.5	-0.5
+c3oa	oh	0.13	-0.13
+c3oe	c4*	0	0
+c3oe	o	0.4	-0.4
+c3oe	os	0	0
+c4*	c4oe	0	0
+c4*	n3*	0.18	-0.18
+c4*	nc	0.269	-0.269
+c4*	no	0.14	-0.14
+c4*	oh	0.265	-0.265
+c4*	os	0.25	-0.25
+c4*	sc	0.15	-0.15
+c4*	sh	0.171	-0.171
+c4*	si4z	-0.228	0.228
+c4*	ss	0.177	-0.177
+c4oe	ose	0.21	-0.21
+ca*	can	0	0
+ca*	cano	0	0
+cac	os	0.25	-0.25
+can	na	0.33	-0.33 
+cano	no	0.14	-0.14
+hn	n3h	0.385	-0.385
+hn	n3h2	0.356	-0.356
+hn	n3mh	0.432	-0.432
+hn	n3mh2	0.4	-0.4
+ho	oh	0.435	-0.435
+hs	sh	0.206	-0.206
+hsi	si4z	-0.212	0.212
+hw	ow	0.4238	-0.4238
+no	on	0.48	-0.48
+o2z	si4z	-0.375	0.375
+ss	ss	0	0
+
+ITEM	END
+
+# Nonbonded parameters
+
+ITEM	NONBOND
+
+# type1	type2	sigma	epsilon
+
+?	?	0	0
+ar	ar	3.401	116.69
+ba+2	ba+2	3.81661	23.496
+br-	br-	4.28	354.211
+c	c	3.65	5
+c1n	c1n	3.55	60
+c3	c3	3.85	20
+c3h	c3h	3.71	47
+c3h2	c3h2	3.675	85
+c3ho	c3ho	3.52	54
+c3mo	c3mo	3.72	34
+c3o	c3o	3.82	40
+c3oe	c3oe	3.82	40
+c4	c4	6.4	0.5
+c4h	c4h	4.65	10
+c4h2	c4h2	3.95	46
+c4h3	c4h3	3.75	98
+c4h4	c4h4	3.73	148
+c4ho	c4ho	4.33	10
+c4o	c4o	5.8	0.5
+c4oe	c4oe	3.6	98
+ca+2	ca+2	2.41203	224.329
+cac	cac	3.88	21
+caca	caca	3.7	30
+cah	cah	3.695	50.5
+cam	cam	3.74	48
+can	can	3.74	48
+can2	can2	3.90	47
+cano	cano	4.5	15
+cl-	cl-	4.02	354.211
+cs+	cs+	6.2	0.2516
+f-	f-	3.05	354.211
+he	he	2.556	9.978
+hn	hn	1.01	0
+ho	ho	0.945	0
+hs	hs	1.336	0
+hsi	hsi	1.48	0
+hw	hw	0.9572	0
+i-	i-	4.81	354.211
+k+	k+	5.17	0.2494
+kr	kr	3.624	158.148
+li+	li+	2.87	0.2516
+m	m	0	0
+mg+2	mg+2	1.64447	436.55
+n3	n3	3.78	12
+n3h	n3h	3.52	58
+n3h2	n3h2	3.34	111
+na	na	3.45	28
+na+	na+	4.07	0.2494
+nc	nc	2.95	60
+ne	ne	2.78	34.4234
+nh4+	nh4+	5.34	0.2494
+no	no	3.31	40
+o	o	3.05	79
+o2z	o2z	3.30	53
+oh	oh	3.02	93
+on	on	2.9	80
+os	os	2.8	55
+ose	ose	3.1	29
+ow	ow	3.16556	78.1973	# 77.5274
+rb+	rb+	5.6	0.2494
+sa	sa	3.6	180
+sc	sc	3.58	199
+sh	sh	3.62	232
+si4z	si4z	2.3	22
+sr+2	sr+2	3.10269	58.9817
+ss	ss	3.72	165
+xe	xe	3.935	217.9
+
+ITEM	END
+
+# Bond wildcard parameters
+
+ITEM	BOND_AUTO
+
+# type1	type2	k	l0
+
+c*	c3ho	316022	1.52
+c*	c3mo	316022	1.52
+c*	c3o	316022	1.52
+c*	c4*	261674	1.54
+c*	no	377414	1.49
+c*	oh	388485	1.43
+c*	os	322060	1.41
+c*	s*	223400	1.82
+c3*	c3*	533412	1.33
+c3mo	n3*	493155	1.335
+c4*	n3*	339170	1.448
+c4*	si4z	188204	1.86	# OPLS	si,ct
+ca*	ca*	472019	1.40
+ca*	n3*	339170	1.449
+ca*	na	429759	1.40
+ca*	no	402575	1.46
+ca*	sa	251610	1.71
+hn	n3*	436794	1.01
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+c1n	nc	223429	1.448
+c3ho	o	573670	1.217
+c3mo	o	573670	1.229
+c3mo	os	215378	1.327
+c3o	o	573670	1.20
+c3o	os	215378	1.344
+c4oe	c4oe	437000	1.466
+c4oe	os	388485	1.431
+cam	m	600000	1.40
+ho	oh	556560	0.945
+hs	sh	275764	1.34
+hsi	si4z	167069	1.48	# OPLS	si,h
+hw	ow	603863	1.00
+m	m	600000	0.785
+no	on	322060	1.225
+o2z	si4z	376408	1.64	# OPLS	si,os
+oh	si4z	376408	1.64	# OPLS	si,oh
+os	si4z	376408	1.64	# OPLS	si,os
+
+ITEM	END
+
+# Angle wildcard parameters
+
+ITEM	ANGLE_AUTO
+
+# type1	type2	type3	k	theta0
+
+c*	c3	c*	70420	119.7
+c*	c3	c3*	70420	119.7
+c*	c3h	c3*	70420	119.7
+c*	c3o*	c*	62500	117.2
+c*	c3o*	n3*	28300	117.2
+c*	c3o*	o	62500	121.4
+c*	c4	c*	62500	109.47
+c*	c4*	cn	31250	114
+c*	c4*	n3*	28300	109.5
+c*	c4*	no	31724	111.1
+c*	c4*	oh	50400	109.47
+c*	c4*	os	50300	112
+c*	c4*	s*	62500	114
+c*	c4h	c*	62500	112
+c*	c4h2	c*	62500	114
+c*	c4o	c*	62500	109.47
+c*	ca*	ca*	70450	120
+c*	ca*	na*	70450	120
+c*	cn	nc	151000	180
+c*	n3*	c*	25178	109.5
+c*	n3*	hn	31250	112.9
+c*	no	on	40284	111.5
+c*	oh	ho	55400	108.5
+c*	os	c*	60400	112
+c*	os	c3*	83534	116.9	# OPLS	c,os,c3
+c*	sc	c*	45550	99
+c*	sc	sc	45550	103
+c*	sh	hs	33830	96
+c3*	c3h	os	70420	119.7
+c3*	c3o*	o	62500	125
+c3*	c3o*	os	70600	110
+c3*	os	c4*	62500	115
+c4*	c3o*	oh	70450	108	# OPLS	c2,c,oh
+c4*	c3o*	os	70600	110
+c4*	c4*	si*	60386	112.0	# OPLS	ct,ct,si
+c4*	os	si4z	40258	130.0	# OPLS	ct,os,si
+c4*	si4z	o2z	60386	100.0	# OPLS	ct,si,os
+ca*	ca*	ca*	63410	120
+ca*	ca*	n*	70450	120	# OPLS	ca,ca,n
+ca*	ca*	no	85550	120
+ca*	ca*	o*	70450	120
+ca*	ca*	sa	70460	111.5
+ca*	na	ca*	70450	120
+ca*	sa	ca*	74480	92.2
+hn	n3*	hn	21955	106.4
+n3*	c3*	o	80515	122.9	# OPLS	n,c,o
+n3*	c3*	os	81521	111.4	# OPLS	n,c,os
+o	c3*	os	62500	125
+o	c3o*	oh	80515	121	# OPLS	o,c,oh
+
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c4oe	c4oe	ose	50300	59.19
+c4oe	ose	c4oe	60400	61.62
+cahs	cahs	cahs	70460	112.4
+cam	cam	m	85550	60
+cam	m	cam	151000	180
+cam	m	m	151000	180
+hsi	si4z	o2z	35225	110.5	# OPLS	h,si,os
+hw	ow	hw	75490	109.47
+o2z	si4z	o2z	60386	110.0	# OPLS	os,si,os
+o2z	si4z	os	60386	110.0	# OPLS	os,si,os
+on	no	on	40284	125
+os	si4z	os	60386	110.0	# OPLS	os,si,os
+si4z	o2z	si4z	20129	145.0	# OPLS	si,os,si
+
+ITEM	END
+
+# Torsion wildcard parameters
+
+ITEM	TORSION_AUTO
+
+# type1	type2	type3	type4	k	n	delta	[...]	[index]
+
+*	ca*	ca*	*	0	0	0	0	1	0	1560.07	2	0	0	3	0
+*	ca*	n3*	*	0	0	0	0	1	0	528.38	2	0	0	3	0	# 20170220 OPLS
+*	ca*	na*	*	0	0	0	0	1	0	1560.07	2	0	0	3	0
+c*	c*	c3o*	o	2035.58	0	0	-736.9	1	0	57.84	2	0	-293.23	3	0
+c*	c*	os	c*	0	0	0	725.35	1	0	-163.75	2	0	558.20	3	0
+c*	c3h	c3h	c*	0	0	0	125	1	0	6450	2	0	-125	3	0
+c*	c3o*	c4h2	c*	-17.26	0	0	752.6	1	0	14.89	2	0	282.1	3	0
+c*	c4	c4	c*	0	0	0	355.03	1	0	-68.19	2	0	791.32	3	0	# 20180725 based on internal analogon c* c4h2 c4h2 c*
+c*	c4	c4h2	c*	0	0	0	0	1	0	0	2	0	461.29	3	0
+c*	c4	oh	ho	0	0	0	0	1	0	0	2	0	163.56	3	0
+c*	c4*	c3o*	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+c*	c4*	c3o*	o	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+c*	c4*	c3o*	os	953.5	0	0	-481	1	0	-150	2	0	115	3	0	0.57	4	0	-0.08	5	0	0.01	6	0
+c*	c4*	c4*	hc	0	0	0	0	1	0	0	2	0	854	3	180
+c*	c4*	c4h	c*	-251.06	0	0	428.73	1	0	-111.85	2	0	441.27	3	0
+c*	c4*	c4h	oh	-251.06	0	0	250.31	1	0	-97.09	2	0	419.88	3	0	# 20170220 based on internal analogon c* c4h2 c4h2 c* vs c4* c4h2 c4h2 os
+c*	c4*	c4h	os	-251.06	0	0	250.31	1	0	-97.09	2	0	419.88	3	0	# 20170220 based on internal analogon c* c4h2 c4h2 c* vs c4* c4h2 c4h2 os
+c*	c4*	c4h	s*	-251.06	0	0	428.73	1	0	-111.85	2	0	441.27	3	0
+c*	c4*	ca*	ca*	0	0	0
+c*	c4*	n3*	c4*	6443.6	0	0	-2188	1	0	-1381	2	0	-890	3	0	-329	4	0	-137	5	0	-52.6	6	0
+c*	c4*	no	on	127.09	0	0	-41.4	1	0	14.5	2	0	-19.1	3	0	-8.03	4	0	-2.91	5	0	-0.95	6	0
+c*	c4*	sc	c*	0	0	0	367.6	1	0	-270.18	2	0	581.64	3	0
+c*	c4h	c4*	oh	-251.06	0	0	250.31	1	0	-97.09	2	0	419.88	3	0	# 20170220 based on internal analogon c* c4h2 c4h2 c* vs c4* c4h2 c4h2 os
+c*	c4h	c4*	os	-251.06	0	0	250.31	1	0	-97.09	2	0	419.88	3	0	# 20170220 based on internal analogon c* c4h2 c4h2 c* vs c4* c4h2 c4h2 os
+c*	c4h	c4*	s*	-251.06	0	0	428.73	1	0	-111.85	2	0	441.27	3	0
+c*	c4h	ca	ca*	0	0	0	0	1	0	167	2	300	0	3	0
+c*	c4h	can	na*	0	0	0	0	1	0	167	2	300	0	3	0
+c*	c4h	oh	ho	215.96	0	0	197.33	1	0	31.46	2	0	-173.92	3	0
+c*	c4h	sh	hs	0	0	0	0	1	0	0	2	0	400	3	0
+c*	c4h2	c3h	c3*	688.5	0	0	86.36	1	0	-109.77	2	0	-282.24	3	0
+c*	c4h2	c3o*	o	2035.58	0	0	-736.9	1	0	57.84	2	0	-293.23	3	0
+c*	c4h2	c4	s*	0	0	0	0	1	0	0	2	0	461.29	3	0
+c*	c4h2	c4h2	c*	0	0	0	355.03	1	0	-68.19	2	0	791.32	3	0
+c*	c4h2	c4h2	oh	0	0	0	176.62	1	0	-53.34	2	0	769.93	3	0
+c*	c4h2	c4h2	os	0	0	0	176.62	1	0	-53.34	2	0	769.93	3	0
+c*	c4h2	ca	ca*	0	0	0	0	1	0	131	2	0	0	3	0
+c*	c4h2	can	na*	0	0	0	0	1	0	131	2	0	0	3	0
+c*	c4h2	n3*	c*	0	0	0	0	1	0	116.25	2	0	0	3	0	# 20170219 OPLS
+c*	c4h2	oh	ho	0	0	0	209.82	1	0	-29.17	2	0	187.93	3	0
+c*	c4h2	os	c*	0	0	0	725..35	1	0	-163.75	2	0	558.20	3	0
+c*	c4h2	sh	hs	52.88	0	0	-52.05	1	0	18.46	2	0	306.36	3	0
+c*	n3*	c3o*	o	0	0	0	0	1	0	1532	2	0	0	3	0	# 20170219 OPLS
+c*	n3*	c3o*	os	0	0	0	578.7	1	0	1532	2	0	0	3	0	# 20170219 OPLS
+c*	sc	sc	c*	1763.9	0	0	398	1	0	-2181.6	2	0	505.25	3	0
+c3*	c3*	c3*	c3*	0	0	0	531.57	1	0	1239.35	2	0	460.04	3	0	-196.38	4	0
+c3*	c3*	c3h	c4*	1861	0	0	-349.97	1	0	1048.7	2	0	-580.54	3	0	-117.92	4	0
+c3*	c3*	c3o*	c4*	1861	0	0	-349.97	1	0	1048.7	2	0	-580.54	3	0	-117.92	4	0
+c3*	c3*	c3o*	o	99.8	0	0	-47.91	1	0	773.13	2	0	-1.99	3	0
+c3*	c3*	c3o*	os	0	0	0	47.91	1	0	773.13	2	0	1.99	3	0
+c3*	c3o*	os	c4*	0	0	0	417.41	1	0	1373.14	2	0	30.19	3	0
+c3*	os	c3o*	o	4716	0	0	2194	1	0	2059	2	0	-153.4	3	0
+c3*	os	c4*	c4*	2213.17	0	0	-751.83	1	0	538.95	2	0	-22.1	3	0	51.27	4	0
+c3h	os	c3o*	c4*	-14.48	0	0	993.1	1	0	520.7	2	0	-138.5	3	0
+c4*	c*	n3*	hn	352.2	0	0	47.8	1	0	-105	2	0	-105	3	0
+c4*	c3*	c3o*	o	513.2	0	0	-149.3	1	0	-164.38	2	0	24.12	3	0	-28.45	4	0
+c4*	c3*	c3o*	os	262.84	0	0	149.3	1	0	-164.38	2	0	-24.12	3	0	-28.45	4	0
+c4*	c3o*	oh*	ho	0	0	0	377.42	1	0	1383.85	2	0	0	3	0	# 20210601 OPLS
+c4*	c4*	c3o*	oh*	0	0	0	251.61	1	0	137.38	2	0	113.22	3	0	# 20210601 OPLS
+c4*	c4*	c4*	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0
+c4*	n3*	c4*	hc	357.78	0	0	-37	1	0	-4.69	2	0	-142	3	0
+c4*	os	c3o*	n3*	0	0	0	417.41	1	0	1373.14	2	0	30.19	3	0	# 20170218 internal analogon c3* c3o* os c4*
+c4*	os	c3o*	o	895.2	0	0	-417.41	1	0	1373.14	2	0	-30.19	3	0	# 20170218 internal analogon
+ca*	ca*	ca*	m	0	0	0	0	1	0	1560.07	2	0	0	3	0
+ca*	ca*	m	m	0	0	0	0	1	0	1560.07	2	0	0	3	0
+hc	c4*	c3o*	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+hc	c4*	c3o*	o	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+hc	c4*	c3o*	os	953.5	0	0	-481	1	0	-150	2	0	115	3	0	0.57	4	0	-0.08	5	0	0.01	6	0
+hc	c4*	c4*	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0
+hc	c4*	c4*	no	454.32	0	0	-219	1	0	-63.7	2	0	4.98	3	0	-8.19	4	0	-2.63	5	0	-0.78	6	0
+hc	c4*	n3*	hn	422.74	0	0	-109	1	0	-12.5	2	0	-102	3	0
+hc	c4*	no	on	260.72	0	0	-40.8	1	0	-80.4	2	0	-41.	3	0	-16.	4	0	-5.44	5	0	-1.68	6	0
+hn	n3*	c3o*	o	1119	0	0	-163	1	0	629	2	0	0	3	0	# 20170219 OPLS
+hn	n3*	c3o*	os	793	0	0	163	1	0	629	2	0	0	3	0	# 20170219 OPLS
+ho	oh*	c3o*	o	0	0	0	0	1	0	1383.85	2	0	0	3	0	# 20210601 OPLS
+n3*	c4*	c4*	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	# 20210525 internal analogon
+n3*	c4*	c4*	o*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	# 20170220 internal analogon
+oh	c4h	c4*	os	252.18	0	0	73.69	1	0	-295.37	2	0	656.42	3	0	# 20170220 based on internal analogon c* c4h2 c4h2 c* vs os c4h2 c4h2 os
+os	c4*	c4h	os	252.18	0	0	73.69	1	0	-295.37	2	0	656.42	3	0	# 20170220 based on internal analogon c* c4h2 c4h2 c* vs os c4h2 c4h2 os
+
+ITEM	END
+
+# Torsion parameters
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]	[index]
+
+oh	c4h2	c4h2	oh	503.24	0	0	0	1	0	-251.62	2	0	1006.47	3	0
+oh	c4h2	c4h2	os	503.24	0	0	0	1	0	-251.62	2	0	1006.47	3	0
+os	c4h2	c4h2	os	503.24	0	0	0	1	0	-251.62	2	0	1006.47	3	0
+
+ITEM	END
+
+# Improper wildcard parameters
+
+ITEM	IMPROPER_AUTO
+
+# type1	type2	type3	type4	k	psi0
+
+c3*	c3	c3	*	-8050	0
+c3*	c3	c3h	*	-8050	0
+c3*	c3h	c3h	*	-8050	0
+cac	*	*	*	2215	0
+caca	*	*	*	2215	0
+cah	*	*	*	2215	0
+
+ITEM	END

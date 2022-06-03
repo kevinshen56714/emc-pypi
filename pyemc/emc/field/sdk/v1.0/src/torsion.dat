@@ -1,0 +1,5 @@
+#	type1	type2	type3	type4	k	n	delta	ref
+torsion	*	BER	BER	*	60	1	180	3
+torsion	*	PHR	BER	*	60	1	180	3
+torsion	*	PHR	XYR	*	60	1	180	3
+torsion	*	XYR	BER	*	60	1	180	3

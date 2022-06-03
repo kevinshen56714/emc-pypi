@@ -1,0 +1,188 @@
+#
+#  CHARMM topology using na force field files, 
+#  converted by emc_charmm.pl v3.1, June 25, 2020 by Pieter J. in 't Veld,
+#  to be used in conjuction with EMC v9.4.4 or higher,
+#  and created on Thu Jun 25 15:30:52 2020.
+#
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+(?
+  (CN1)
+  (CN1B)
+  (CN1G)
+  (CN1T)
+  (CN1U)
+  (CN2)
+  (CN2A)
+  (CN2C)
+  (CN3)
+  (CN3T)
+  (CN4)
+  (CN4G)
+  (CN5)
+  (CN5G)
+  (CN7)
+  (CN7B)
+  (CN8)
+  (CN8B)
+  (CN9)
+  (CN9P)
+  (CN9T)
+  (HN1)
+  (HN1A)
+  (HN1C)
+  (HN2)
+  (HN3)
+  (HN3A)
+  (HN3B)
+  (HN3C)
+  (HN3G)
+  (HN3U)
+  (HN4)
+  (HN5)
+  (HN7)
+  (HN8)
+  (HN9)
+  (NN1)
+  (NN2)
+  (NN2B)
+  (NN2G)
+  (NN2T)
+  (NN2U)
+  (NN2Y)
+  (NN3)
+  (NN3A)
+  (NN3G)
+  (NN4)
+  (ON1)
+  (ON1C)
+  (ON2)
+  (ON2A)
+  (ON3)
+  (ON4)
+  (ON5)
+  (ON6)
+  (ON6B)
+  (P)
+  (P2)
+  (PA)
+  (PB)
+  (PC)
+  (PD)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	residue	atom	charge	rule
+
+0	?	?	UNK	UNK	0	*
+1	CN1	C	THY	C4	0	c(:c(:c)(C))(:n(:c)(H))(=O)
+2	CN1	C	CYT	C2	0	c(:n(:c)(C))(:n(:c))(=O)
+3	CN1B	C	URA	C4	0	c(:c(:c)(H))(:n(:c)(H))(=O)
+4	CN1G	C	GUA	C6	0	c(:c(:c)(:n))(:n(:c)(H))(=O)
+5	CN1T	C	THY	C2	0	c(:n(:c(:c(:c)(C))(=O))(H))(:n(:c(:c(:c)(C))(H))(C(C(C)(H)(O))(H)(O(C))))(=O)
+6	CN1U	C	URA	C2	0	c(:n(:c(:c(:c)(H))(=O))(H))(:n(:c(:c(:c)(H))(H))(C(C(C)(H)(O))(H)(O(C))))(=O)
+7	CN2	C	GUA	C2	0	c(:n)(:n)(N)
+8	CN2A	C	ADE	C6	0	c(:c(:c)(:n))(:n(:c))(N(H)(H))
+9	CN2C	C	CYT	C4	0	c(:c(:c)(H))(:n(:c))(N(H)(H))
+10	CN3	C	CYT	C5	0	c(:c)(:c)(H)
+11	CN3	C	CYT	C6	0	c(:c)(:n)(H)
+12	CN3T	C	THY	C5	0	c(:c)(:c)(C)
+13	CN4	C	ADE	C8	0	c(:n(:c(:c(:c)(:n))(:n(:c)))(C(C(C)(H)(O))(H)(O(C))))(:n(:c(:c(:n)(:n))(:c(:n)(N))))(H)
+14	CN4	C	ADE	C2	0	c(:n(:c))(:n(:c))(H)
+15	CN4G	C	GUA	C8	0	c(:n(:c(:c(:c)(:n))(:n(:c)))(C(C(C)(H)(O))(H)(O(C))))(:n(:c(:c(:n)(:n))(:c(:n)(=O))))(H)
+16	CN5	C	ADE	C5	0	c(:c(:n)(:n))(:c(:n)(N))(:n(:c))
+17	CN5	C	ADE	C4	0	c(:c)(:n)(:n)
+18	CN5G	C	GUA	C5	0	c(:c(:n)(:n))(:c(:n)(=O))(:n(:c))
+19	CN7	C	3TER	C3'	0	C(C(C)(H)(O))(C(C)(H)(O))(H)(O(H))
+20	CN7	C	3PHO	C3'	0	C(C(C)(H)(O))(C(C)(H)(O))(H)(O([P-]))
+21	CN7	C	ADE	C4'	0	C(C(C)(H)(O))(C(H)(H)(O))(H)(O(C))
+22	CN7	C	DEO5	C4'	0	C(C(C)(H)([O-]))(C(H)(H)(O))(H)(O(C))
+23	CN7B	C	ADE	C2'	0	C(C(C)(H)(O))(C(H)(O)(n))(H)(O(H))
+24	CN7B	C	ADE	C1'	0	C(C)(H)(O)(n)
+25	CN8	C	DEO5	C2'	0	C(C)(C)(H)(H)
+26	CN8B	C	5PHO	C5'	0	C(C)(H)(H)(O)
+27	CN9	C	5MET	C5'	0	C(C)(H)(H)(H)
+28	CN9	C	5POM	C5T	0	C(H)(H)(H)(O(P))
+29	CN9P	C	3POM	C3T	0	C(H)(H)(H)(O([P-]))
+30	CN9T	C	THY	C5M	0	C(H)(H)(H)(c)
+31	HN1	H	GUA	H21	0	H(N(H)(c(:n)(:n)))
+32	HN1A	H	ADE	H61	0	H(N(H)(c(:c(:c)(:n))(:n(:c))))
+33	HN1C	H	CYT	H41	0	H(N(H)(c(:c(:c)(H))(:n(:c))))
+34	HN2	H	GUA	H1	0	H(n)
+35	HN3	H	CYT	H6	0	H(c(:c(:c(:n)(N))(H))(:n(:c(:n)(=O))(C(C)(H)(O))))
+36	HN3	H	THY	H6	0	H(c(:c(:c)(C))(:n(:c)(C)))
+37	HN3	H	ADE	H8	0	H(c(:n(:c(:c(:c)(:n))(:n(:c)))(C(C(C)(H)(O))(H)(O(C))))(:n(:c(:c(:n)(:n))(:c(:n)(N)))))
+38	HN3A	H	ADE	H2	0	H(c(:n(:c))(:n(:c)))
+39	HN3B	H	URA	H6	0	H(c(:c(:c(:n)(=O))(H))(:n(:c(:n)(=O))(C(C)(H)(O))))
+40	HN3C	H	CYT	H5	0	H(c(:c(:n)(H))(:c(:n)(N)))
+41	HN3G	H	GUA	H8	0	H(c(:n(:c(:c(:c)(:n))(:n(:c)))(C(C(C)(H)(O))(H)(O(C))))(:n(:c(:c(:n)(:n))(:c(:n)(=O)))))
+42	HN3U	H	URA	H5	0	H(c(:c(:n)(=O))(:c(:n)(H)))
+43	HN4	H	5PHO	H5T	0	H(O(P))
+44	HN4	H	3PHO	H3T	0	H(O([P-]))
+45	HN5	H	3TER	H3T	0	H(O(C))
+46	HN7	H	3PHO	H3'	0	H(C(C)(C)(O))
+47	HN7	H	ADE	H1'	0	H(C(C)(O)(n))
+48	HN8	H	DEO5	H2'	0	H(C(C)(C)(H))
+49	HN8	H	5PHO	H5'	0	H(C(C)(H)(O))
+50	HN9	H	5MET	H5'	0	H(C(C)(H)(H))
+51	HN9	H	3POM	H3T1	0	H(C(H)(H)(O))
+52	HN9	H	THY	H51	0	H(C(H)(H)(c))
+53	NN1	N	ADE	N6	0	N(H)(H)(c)
+54	NN2	N	ADE	N9	0	n(:c(:c(:c(:n)(N))(:n(:c)))(:n(:c(:n)(H))))(:c(:n(:c(:c)(:c)))(H))(C(C(C(C)(H)(O))(H)(O(H)))(H)(O(C(C)(C)(H))))
+55	NN2	N	CYT	N1	0	n(:c(:c(:c)(H))(H))(:c(:n(:c))(=O))(C(C(C)(H)(O))(H)(O(C)))
+56	NN2B	N	GUA	N9	0	n(:c(:c(:c(:n)(=O))(:n(:c)))(:n(:c(:n)(N))))(:c(:n(:c(:c)(:c)))(H))(C(C(C(C)(H)(O))(H)(O(H)))(H)(O(C(C)(C)(H))))
+57	NN2B	N	URA	N1	0	n(:c(:c(:c)(H))(H))(:c(:n(:c)(H))(=O))(C(C(C)(H)(O))(H)(O(C)))
+58	NN2G	N	GUA	N1	0	n(:c(:c)(=O))(:c(:n)(N))(H)
+59	NN2T	N	THY	N3	0	n(:c(:c(:c)(C))(=O))(:c(:n(:c)(C))(=O))(H)
+60	NN2U	N	URA	N3	0	n(:c(:c(:c)(H))(=O))(:c(:n(:c)(C))(=O))(H)
+61	NN2Y	N	THY	N1	0	n(:c(:c(:c)(C))(H))(:c(:n(:c)(H))(=O))(C(C(C)(H)(O))(H)(O(C)))
+62	NN3	N	CYT	N3	0	n(:c(:c)(N))(:c(:n)(=O))
+63	NN3A	N	ADE	N3	0	n(:c(:c)(:n))(:c(:n)(H))
+64	NN3A	N	ADE	N1	0	n(:c(:c)(N))(:c(:n)(H))
+65	NN3G	N	GUA	N3	0	n(:c(:c)(:n))(:c(:n)(N))
+66	NN4	N	ADE	N7	0	n(:c(:c)(:c))(:c(:n)(H))
+67	ON1	O	GUA	O6	0	O(=c(:c)(:n))
+68	ON1	O	THY	O2	0	O(=c(:n(:c)(C))(:n(:c)(H)))
+69	ON1C	O	CYT	O2	0	O(=c(:n(:c)(C))(:n(:c)))
+70	ON2	O	3PHO	O3'	0	O(C(C)(C)(H))([P-](O)([O-])([O-]))
+71	ON2	O	ADE	O5'	0	O(C(C)(H)(H))([P-](O)([O-])([O-]))
+72	ON2	O	3POM	O3T	0	O(C(H)(H)(H))([P-](O)([O-])([O-]))
+73	ON2	O	5PHO	O5'	0	O(C)(P)
+74	ON2A	O	3PO3	O3'	0	O(C(C)(C)(H))([P-]([O-])([O-])([O-]))
+75	ON3	O	5PHO	O1P	0	[O-](P)
+76	ON3	O	3PHO	O1P3	0	[O-]([P-])
+77	ON4	O	5PHO	O5T	0	O(H)(P)
+78	ON4	O	3PHO	O3T	0	O(H)([P-])
+79	ON5	O	3TER	O3'	0	O(C)(H)
+80	ON6	O	DEO5	O4'	0	O(C(C(C)(H)(H))(H)(n(:c)(:c)))(C(C(C)(H)([O-]))(C(H)(H)(O))(H))
+81	ON6B	O	ADE	O4'	0	O(C(C(C)(H)(O))(C(H)(H)(O))(H))(C(C(C)(H)(O))(H)(n(:c)(:c)))
+82	P	P	3POM	P3	0	[P-](O(C))(O(C))([O-])([O-])
+83	P2	P	DEOX	P	0	[P-](O(C(C)(H)(H)))([O-])([O-])([O-])
+84	PA	P	3PHO	P3	0	[P-](O(C))(O(H))([O-])([O-])
+85	PB	P	3PO3	P3	0	[P-](O(C(C)(C)(H)))([O-])([O-])([O-])
+86	PC	P	5PHO	P	0	P(O(C))(O(H))([O-])([O-])([O-])
+87	PD	P	5POM	P	0	P(O(C))(O(C))([O-])([O-])([O-])
+
+ITEM	END
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+ADE	*[P-]([O-])(OCC3C(O(*))C(O)C(O3)n2c1c(nc2)c(N)ncn1)[O-]
+CYT	*[P-]([O-])(OCC2C(O(*))C(O)C(O2)n1c(=O)nc(N)cc1)[O-]
+GUA	*[P-]([O-])(OCC3C(O(*))C(O)C(O3)n2c1c(nc2)c(=O)n(H)c(n1)N)[O-]
+THY	*[P-]([O-])(OCC2C(O(*))C(O)C(O2)n1c(=O)n(H)c(=O)c(c1)C)[O-]
+URA	*[P-]([O-])(OCC2C(O(*))C(O)C(O2)n1c(=O)n(H)c(=O)cc1)[O-]
+
+ITEM	END

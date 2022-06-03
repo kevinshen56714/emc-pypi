@@ -1,0 +1,1060 @@
+;;;;;; A VARIETY OF OTHER MOLECULES, COMPATIBLE WITH MARTINI V2.x
+;
+; Last modified: 20-1-2010
+;
+;
+; currently available:
+;
+;;;;; VOLTAGE SENSITIVE DYES 
+
+
+; This file contains all voltage sensitive dye topologies used in 
+; "Location, Tilt, and Binding: A Molecular Dynamics Study of Voltage-Sensitive Dyes in Biomembranes"
+; M.J. Hinner, S.J. Marrink, A.H. de Vries, J. Phys. Chem. B, 113:15807-15819, 2009
+; The numbering used here corresponds to the numbering used in the publication
+; The alternative representations of the dyes 3 and 5 are named "ALT3" and "ALT5".
+;
+; For questions related to the DYES, contact: marlon.hinner@epfl.ch
+;
+; DYE1 Di-4-ASPBS 
+; DYE2 Di-4-ASPiHP2 
+; DYE3 Di-4-ASPiHA2 
+; ALT3 Di-4-ASPiHA2 alternative representation (P2)
+; DYE4 Di-12P-ASPBS
+; DYE5 Di-12A-ASPBS
+; ALT5 Di-12A-ASPBS alternative representation (P2)
+; DYE6 Di-0-ASPBS
+; DYE7 Di-8-ASPBS
+; DYE8 Di-12-ASPBS
+
+
+
+;;;;;;Di-4-ASPBS Naive (Dye 1)
+
+[ moleculetype]
+; molname       nrexcl
+DYE1              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   Qa    1     DYE1    SO3    1    -1
+2   C1    1     DYE1    C    2    0
+3   SQ0    1     DYE1    RN    3    +1
+4   SC4    1     DYE1    R1    4    0
+5   SC4    1     DYE1    R2    5    0
+6   SC4    1     DYE1    R3    6    0
+7   SC4    1     DYE1    R4    7    0
+8   SC4    1     DYE1    R5    8    0
+9   SNa    1     DYE1    NR2    9    0
+10   C1    1     DYE1    C1A    10    0
+11   C1    1     DYE1    C1B    11    0
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; Qa - C1
+   2     3    1       0.47   1250 ; C1 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   1     2    3       2   180.000    25.0; Qa - C1 - SQ0 
+   2     3    4       2   150.000    25.0; C1 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C1 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    6       2   150.000    25.0; SQ0 - SC4 - SC4 
+   4     5    6       2   150.000    25.0; SC4 - SC4 - SC4 
+   5     6    7       2   150.000    25.0; SC4 - SC4 - SC4 
+   5     6    8       2   150.000    25.0; SC4 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    9       2   150.000    25.0; SC4 - SC4 - SNa 
+   7     8    9       2   150.000    25.0; SC4 - SC4 - SNa 
+   8     9    10       2   120.000    25.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    25.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    25.0; C1 - SNa - C1 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8
+
+
+
+;;;;;;Di-4-ASPBiHP2 (Dye 2)
+
+[ moleculetype]
+; molname       nrexcl
+DYE2              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   C2    1     DYE2    CHE    1    0
+2   C2    1     DYE2    C    2    0
+3   SQ0    1     DYE2    RN    3    +1
+4   SC4    1     DYE2    R1    4    0
+5   SC4    1     DYE2    R2    5    0
+6   SC4    1     DYE2    R3    6    0
+7   SC4    1     DYE2    R4    7    0
+8   SC4    1     DYE2    R5    8    0
+9   SNa    1     DYE2    NR2    9    0
+10   C1    1     DYE2    C1A    10    0
+11   C1    1     DYE2    C1B    11    0
+12   Qa    1     DYE2    PO4    12    -1 
+13   Qa    1     DYE2    PO4    13    -1  
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; C2 - C2
+   1     12    1       0.47   1250 ; C2 - Qa
+   1     13    1       0.47   1250 ; C2 - Qa
+   2     3    1       0.47   1250 ; C2 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   2     1    12       2   120.000    25.0; C2 - C2 - Qa 
+   2     1    13       2   120.000    25.0; C2 - C2 - Qa 
+   1     2    3       2   180.000    25.0; C2 - C2 - SQ0 
+   12     1    13       2   120.000    25.0; Qa - C2 - Qa 
+   2     3    4       2   150.000    25.0; C2 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C2 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   
+
+
+
+;;;;;;Di-4-ASPBiHA2 Naive (Dye 3)
+
+[ moleculetype]
+; molname       nrexcl
+DYE3              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   P4    1     DYE3    CA2    1    0
+2   C2    1     DYE3    C    2    0
+3   SQ0    1     DYE3    RN    3    +1
+4   SC4    1     DYE3    R1    4    0
+5   SC4    1     DYE3    R2    5    0
+6   SC4    1     DYE3    R3    6    0
+7   SC4    1     DYE3    R4    7    0
+8   SC4    1     DYE3    R5    8    0
+9   SNa    1     DYE3    NR2    9    0
+10   C1    1     DYE3    C1A    10    0
+11   C1    1     DYE3    C1B    11    0
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; P4 - C2
+   2     3    1       0.47   1250 ; C2 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   1     2    3       2   180.000    25.0; P4 - C2 - SQ0 
+   2     3    4       2   150.000    25.0; C2 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C2 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    6       2   150.000    25.0; SQ0 - SC4 - SC4 
+   4     5    6       2   150.000    25.0; SC4 - SC4 - SC4 
+   5     6    7       2   150.000    25.0; SC4 - SC4 - SC4 
+   5     6    8       2   150.000    25.0; SC4 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    9       2   150.000    25.0; SC4 - SC4 - SNa 
+   7     8    9       2   150.000    25.0; SC4 - SC4 - SNa 
+   8     9    10       2   120.000    25.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    25.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    25.0; C1 - SNa - C1 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   
+
+
+
+;;;;;;Di-4-ASPBiHA2 alternative with P2 as OH (Dye 3 alternative)
+
+[ moleculetype]
+; molname       nrexcl
+ALT3              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   C2    1     ALT3    CHE    1    0
+2   C2    1     ALT3    C    2    0
+3   SQ0    1     ALT3    RN    3    +1
+4   SC4    1     ALT3    R1    4    0
+5   SC4    1     ALT3    R2    5    0
+6   SC4    1     ALT3    R3    6    0
+7   SC4    1     ALT3    R4    7    0
+8   SC4    1     ALT3    R5    8    0
+9   SNa    1     ALT3    NR2    9    0
+10   C1    1     ALT3    C1A    10    0
+11   C1    1     ALT3    C1B    11    0
+12   P2    1     ALT3    OH1    12    0 
+13   P2    1     ALT3    OH2    13    0  
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; C2 - C2
+   1     12    1       0.37   1250 ; C2 - Qa
+   1     13    1       0.37   1250 ; C2 - Qa
+   2     3    1       0.47   1250 ; C2 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   2     1    12       2   120.000    25.0; C2 - C2 - Qa 
+   2     1    13       2   120.000    25.0; C2 - C2 - Qa 
+   1     2    3       2   180.000    25.0; C2 - C2 - SQ0 
+   12     1    13       2   120.000    25.0; Qa - C2 - Qa 
+   2     3    4       2   150.000    25.0; C2 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C2 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   
+
+
+
+;;;;;;Di-12P-ASPBS (Dye 4)
+
+[ moleculetype]
+; molname       nrexcl
+DYE4              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   Qa    1     DYE4    SO3    1    -1
+2   C1    1     DYE4    C    2    0
+3   SQ0    1     DYE4    RN    3    +1
+4   SC4    1     DYE4    R1    4    0
+5   SC4    1     DYE4    R2    5    0
+6   SC4    1     DYE4    R3    6    0
+7   SC4    1     DYE4    R4    7    0
+8   SC4    1     DYE4    R5    8    0
+9   SNa    1     DYE4    NR2    9    0
+10   C1    1     DYE4    C1A    10    0
+11   C1    1     DYE4    C1B    11    0
+12   C1    1     DYE4    C2A    12    0
+13   C1    1     DYE4    C2B    13    0
+14   C1    1     DYE4    C3A    14    0
+15   C1    1     DYE4    C3B    15    0
+16   Qa    1     DYE4    PO4    16    -1 
+17   Qa    1     DYE4    PO4    17    -1 
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; Qa - C1
+   2     3    1       0.47   1250 ; C1 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+   10     12    1       0.47   1250 ; C1 - C1
+   11     13    1       0.47   1250 ; C1 - C1
+   12     14    1       0.47   1250 ; C1 - C1
+   13     15    1       0.47   1250 ; C1 - C1
+   14     16    1       0.47   1250 ; C1 - Qa
+   15     17    1       0.47   1250 ; C1 - Qa
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   1     2    3       2   180.000    25.0; Qa - C1 - SQ0 
+   2     3    4       2   150.000    25.0; C1 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C1 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+   9     10    12       2   180.000    25.0; SNa - C1 - C1 
+   9     11    13       2   180.000    25.0; SNa - C1 - C1 
+   10     12    14       2   180.000    25.0; C1 - C1 - C1 
+   11     13    15       2   180.000    25.0; C1 - C1 - C1 
+   12     14    16       2   180.000    25.0; C1 - C1 - Qa 
+   13     15    17       2   180.000    25.0; C1 - C1 - Qa 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   
+
+
+
+;;;;;;Di-12A-ASPBS Naive (Dye 5)
+
+[ moleculetype]
+; molname       nrexcl
+DYE5              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   Qa    1     DYE5    SO3    1    -1
+2   C1    1     DYE5    C    2    0
+3   SQ0    1     DYE5    RN    3    +1
+4   SC4    1     DYE5    R1    4    0
+5   SC4    1     DYE5    R2    5    0
+6   SC4    1     DYE5    R3    6    0
+7   SC4    1     DYE5    R4    7    0
+8   SC4    1     DYE5    R5    8    0
+9   SNa    1     DYE5    NR2    9    0
+10   C1    1     DYE5    C1A    10    0
+11   C1    1     DYE5    C1B    11    0
+12   C1    1     DYE5    C2A    12    0
+13   C1    1     DYE5    C2B    13    0
+14   Nda    1     DYE5    OHA    14    0
+15   Nda    1     DYE5    OHB    15    0
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; Qa - C1
+   2     3    1       0.47   1250 ; C1 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+   10     12    1       0.47   1250 ; C1 - C1
+   11     13    1       0.47   1250 ; C1 - C1
+   12     14    1       0.47   1250 ; C1 - Nda
+   13     15    1       0.47   1250 ; C1 - Nda
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   1     2    3       2   180.000    25.0; Qa - C1 - SQ0 
+   2     3    4       2   150.000    25.0; C1 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C1 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+   9     10    12       2   180.000    25.0; SNa - C1 - C1 
+   9     11    13       2   180.000    25.0; SNa - C1 - C1 
+   10     12    14       2   180.000    25.0; C1 - C1 - Nda 
+   11     13    15       2   180.000    25.0; C1 - C1 - Nda 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   
+
+
+
+;;;;;;Di-12A-ASPBS alternative with P2 for alcohol (Dye 5 alternative)
+
+[ moleculetype]
+; molname       nrexcl
+ALT5              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   Qa    1     ALT5    SO3    1    -1
+2   C1    1     ALT5    C    2    0
+3   SQ0    1     ALT5    RN    3    +1
+4   SC4    1     ALT5    R1    4    0
+5   SC4    1     ALT5    R2    5    0
+6   SC4    1     ALT5    R3    6    0
+7   SC4    1     ALT5    R4    7    0
+8   SC4    1     ALT5    R5    8    0
+9   SNa    1     ALT5    NR2    9    0
+10   C1    1     ALT5    C1A    10    0
+11   C1    1     ALT5    C1B    11    0
+12   C1    1     ALT5    C2A    12    0
+13   C1    1     ALT5    C2B    13    0
+14   C1    1     ALT5    C3A    14    0
+15   C1    1     ALT5    C3B    15    0
+16   P2    1     ALT5    OH1    16    0 
+17   P2    1     ALT5    OH2    17    0 
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; Qa - C1
+   2     3    1       0.47   1250 ; C1 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+   10     12    1       0.47   1250 ; C1 - C1
+   11     13    1       0.47   1250 ; C1 - C1
+   12     14    1       0.47   1250 ; C1 - C1
+   13     15    1       0.47   1250 ; C1 - C1
+   14     16    1       0.37   1250 ; C1 - Qa
+   15     17    1       0.37   1250 ; C1 - Qa
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   1     2    3       2   180.000    25.0; Qa - C1 - SQ0 
+   2     3    4       2   150.000    25.0; C1 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C1 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+   9     10    12       2   180.000    25.0; SNa - C1 - C1 
+   9     11    13       2   180.000    25.0; SNa - C1 - C1 
+   10     12    14       2   180.000    25.0; C1 - C1 - C1 
+   11     13    15       2   180.000    25.0; C1 - C1 - C1 
+   12     14    16       2   180.000    25.0; C1 - C1 - Qa 
+   13     15    17       2   180.000    25.0; C1 - C1 - Qa 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   
+
+
+
+;;;;;;Di-0-ASPBS (Dye 6)
+
+[ moleculetype]
+; molname       nrexcl
+DYE6              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   Qa    1     DYE6    SO3    1    -1
+2   C1    1     DYE6    C    2    0
+3   SQ0    1     DYE6    RN    3    +1
+4   SC4    1     DYE6    R1    4    0
+5   SC4    1     DYE6    R2    5    0
+6   SC4    1     DYE6    R3    6    0
+7   SC4    1     DYE6    R4    7    0
+8   SC4    1     DYE6    R5    8    0
+9   SNa    1     DYE6    NR2    9    0
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; Qa - C1
+   2     3    1       0.47   1250 ; C1 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   1     2    3       2   180.000    25.0; Qa - C1 - SQ0 
+   2     3    4       2   150.000    25.0; C1 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C1 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   
+
+
+
+;;;;;;Di-8-ASPBS Naive (Dye 7)
+
+[ moleculetype]
+; molname       nrexcl
+DYE7              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   Qa    1     DYE7    SO3    1    -1
+2   C1    1     DYE7    C    2    0
+3   SQ0    1     DYE7    RN    3    +1
+4   SC4    1     DYE7    R1    4    0
+5   SC4    1     DYE7    R2    5    0
+6   SC4    1     DYE7    R3    6    0
+7   SC4    1     DYE7    R4    7    0
+8   SC4    1     DYE7    R5    8    0
+9   SNa    1     DYE7    NR2    9    0
+10   C1    1     DYE7    C1A    10    0
+11   C1    1     DYE7    C1B    11    0
+12   C1    1     DYE7    C2A    12    0
+13   C1    1     DYE7    C2B    13    0
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; Qa - C1
+   2     3    1       0.47   1250 ; C1 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+   10     12    1       0.47   1250 ; C1 - C1
+   11     13    1       0.47   1250 ; C1 - C1
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   1     2    3       2   180.000    25.0; Qa - C1 - SQ0 
+   2     3    4       2   150.000    25.0; C1 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C1 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+   9     10    12       2   180.000    25.0; SNa - C1 - C1 
+   9     11    13       2   180.000    25.0; SNa - C1 - C1 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   
+
+
+
+;;;;;;Di-12-ASPBS (Dye 8)
+
+[ moleculetype]
+; molname       nrexcl
+DYE8              1
+
+[atoms]
+;id type resnr redidu atom cgnr   charge
+1   Qa    1     DYE8    SO3    1    -1
+2   C1    1     DYE8    C    2    0
+3   SQ0    1     DYE8    RN    3    +1
+4   SC4    1     DYE8    R1    4    0
+5   SC4    1     DYE8    R2    5    0
+6   SC4    1     DYE8    R3    6    0
+7   SC4    1     DYE8    R4    7    0
+8   SC4    1     DYE8    R5    8    0
+9   SNa    1     DYE8    NR2    9    0
+10   C1    1     DYE8    C1A    10    0
+11   C1    1     DYE8    C1B    11    0
+12   C1    1     DYE8    C2A    12    0
+13   C1    1     DYE8    C2B    13    0
+14   C1    1     DYE8    C3A    14    0
+15   C1    1     DYE8    C3B    15    0
+
+
+[bonds]
+;  i     j   funct   length  force.c
+   1     2    1       0.47   1250 ; Qa - C1
+   2     3    1       0.47   1250 ; C1 - SQ0
+   5     6    1       0.47   1250 ; SC4 - SC4
+   8     9    1       0.47   1250 ; SC4 - SNa
+   9     10    1       0.47   1250 ; SNa - C1
+   9     11    1       0.47   1250 ; SNa - C1
+   10     12    1       0.47   1250 ; C1 - C1
+   11     13    1       0.47   1250 ; C1 - C1
+   12     14    1       0.47   1250 ; C1 - C1
+   13     15    1       0.47   1250 ; C1 - C1
+;
+; nonstandard bonds
+;
+  5     6    1       0.59   5000.000 ; SC4 - SC4
+  8     9    1       0.37   2500.000 ; SC4 - SNa
+  4     6    1       0.55   1250.000 ; SC4 - SC4
+  5     7    1       0.55   1250.000 ; SC4 - SC4
+
+
+[constraints]
+;  i     j   funct   length
+   3     4    1       0.27 ; SQ0 - SC4
+   3     5    1       0.27 ; SQ0 - SC4
+   4     5    1       0.27 ; SC4 - SC4
+   6     7    1       0.27 ; SC4 - SC4
+   6     8    1       0.27 ; SC4 - SC4
+   7     8    1       0.27 ; SC4 - SC4
+;
+; extra constraints
+;
+
+
+[angles]
+;  i   j    k    funct   angle  force.c
+   1     2    3       2   180.000    25.0; Qa - C1 - SQ0 
+   2     3    4       2   150.000    25.0; C1 - SQ0 - SC4 
+   2     3    5       2   150.000    25.0; C1 - SQ0 - SC4 
+   4     3    5       2   60.000    25.0; SC4 - SQ0 - SC4 
+   3     4    5       2   60.000    25.0; SQ0 - SC4 - SC4 
+   3     5    4       2   60.000    25.0; SQ0 - SC4 - SC4 
+   7     6    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     7    8       2   60.000    25.0; SC4 - SC4 - SC4 
+   6     8    7       2   60.000    25.0; SC4 - SC4 - SC4 
+   9     10    12       2   180.000    25.0; SNa - C1 - C1 
+   9     11    13       2   180.000    25.0; SNa - C1 - C1 
+   10     12    14       2   180.000    25.0; C1 - C1 - Nda 
+   11     13    15       2   180.000    25.0; C1 - C1 - Nda 
+;
+; nonstandard angles
+;
+   3     5    6       2   135.000    200.0; SQ0 - SC4 - SC4 
+   4     5    6       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    7       2   75.000    250.0; SC4 - SC4 - SC4 
+   5     6    8       2   135.000    200.0; SC4 - SC4 - SC4 
+   8     9    10       2   120.000    60.0; SC4 - SNa - C1 
+   8     9    11       2   120.000    60.0; SC4 - SNa - C1 
+   10     9    11       2   120.000    60.0; C1 - SNa - C1 
+   7     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+   6     8    9       2   150.000    250.0; SC4 - SC4 - SNa 
+
+
+[dihedrals]
+;  i     j    k    l   funct   phi0  cp mult
+;
+;non-standard dihedrals
+;
+   4     5    7   6    2   0.000  25.0    
+   3     5    8   6    2   0.000  25.0    
+   4     7    8   6    2   0.000  25.0    
+   6     5    3   4    2   0.000  25.0    
+
+
+[exclusions]
+4  6 7 8   
+3  6 7 8   
+5  6 7 8   

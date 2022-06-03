@@ -1,0 +1,90 @@
+#!/usr/bin/env emc_setup.pl
+#
+#  script:	field.esh
+#  author:	Pieter J. in 't Veld
+#  date:	September 24, 2017, March 12, 2018
+#  purpose:	Generate a general Lennard-Jones force field, where mass = 1, 
+#  		sigma = 1, and epsilon = 1 for all nonbonded interaction types;
+#  		all bond lengths use a harmonic spring with k = 20 and l0 = 1;
+#  		all bond angles use a harmonic spring with k = 4 and
+#  		theta0 = 180
+#
+
+ITEM	OPTIONS
+
+replace		true
+field_type	standard
+field_name	field
+field_location	.
+build_dir	.
+charge		false
+number		true
+density		0.7
+temperature	1
+#emc_execute	true	# used to directly execute EMC after executing script
+
+ITEM	END
+
+ITEM	SHORTHAND
+
+lj		([lj])4,512		# create 512 molecules of 4 beads
+
+ITEM	END
+
+ITEM	FIELD		# FIELD
+
+ITEM	DEFINE
+
+ffname		standard		# use the standard force field
+cutoff		2.5			# set the nonbonded cutoff to 2.5 sigma
+nbonded		1			# exclude 1-2 interactions from nonbond
+
+ITEM	END
+
+ITEM	MASSES
+
+# type	mass	element	ncons	charge	comment
+
+*	1	*	2	0	*
+
+ITEM	END
+
+ITEM	NONBOND
+
+# sigma in [-]
+# epsilon in [-]
+
+# type1	type2	sigma	eps
+
+*	*	1	1
+
+ITEM	END
+
+ITEM	BOND
+
+# 0.5*k*(l-l0)^2 
+#
+# k in [1/A^2]
+# l0 in [-]
+
+# type1	type2	k	l0
+
+*	*	20	1
+
+ITEM	END
+
+ITEM	ANGLE
+
+# 0.5*k*(theta-theta0)^2 
+#
+# k in [1/rad^2]
+# theta0 in [degree]
+
+# type1	type2	type3	k	theta0
+
+*	*	*	4	180
+
+ITEM	END
+
+ITEM	END		# FIELD
+

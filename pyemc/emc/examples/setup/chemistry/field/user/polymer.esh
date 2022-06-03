@@ -1,0 +1,135 @@
+#!/usr/bin/env emc_setup.pl
+#
+#  file:	polymer.esh
+#  author:	Pieter J. in 't Veld
+#  date:	August 3, 2018
+#  purpose:	Example for user-defined force fields using standard force
+#    		field
+#
+#  notes:
+#    - Creation of a polyethylene melt using Paul-Yoon-Smith force field
+#      definitions at rho = 0.85 g/cc and T = 300 K
+#    - Creates a field with name 'polymer' in build directory
+#    - Will execute EMC when path is set correctly
+#
+
+ITEM	OPTIONS
+
+replace		true
+field_type	standard
+field_name	polymer
+field_reduced	false
+field_location	.
+density		0.85
+temperature	300
+pressure	1
+ntotal		10000
+emc_execute	true
+
+ITEM	END
+
+# Groups
+
+ITEM	GROUPS
+
+#ethyl		*CC*,1,ethyl:2
+#methyl		*C,1,ethyl:1,1,ethyl:2
+ethyl		*CC*,1,ethyl:2,2,propyl:1
+propyl		*C(C)C*,1,propyl:2,2,ethyl:1
+methyl		*C,1,ethyl:1,1,ethyl:2,1,propyl:1,1,propyl:2
+
+ITEM	END
+
+# Clusters
+
+ITEM	CLUSTERS
+
+poly		alternate	100
+
+ITEM	END
+
+# Polymers
+
+ITEM	POLYMERS
+
+poly
+#100		ethyl,50,methyl,2
+100		ethyl:propyl=19:1,50,methyl,2
+#100		ethyl,38,propyl,2,methyl,2
+
+ITEM	END
+
+# Field (Paul-Yoon-Smith adaptation)
+
+ITEM	FIELD
+
+ITEM	DEFINE
+
+ffname		standard
+fftype		united
+length		angstrom
+energy		kcal/mol
+density		g/cc
+cutoff		10
+nbonded		3
+angle		error
+torsion		error
+
+ITEM	END
+
+ITEM	MASSES
+
+# type	mass	element	ncons	charge	comment
+
+ch	13.0189	C	3	0	CH (SP3) in alkanes
+ch2	14.0268	C	2	0	CH2 (SP3) in alkanes
+ch3	15.0347	C	1	0	CH3 methyl
+
+ITEM	END
+
+ITEM	RULES
+
+# type	charge	rule(s)
+
+ch	0	C(*)(*)(*)
+ch2	0	C(*)(*)
+ch3	0	C(*)
+
+ITEM	END
+
+ITEM	NONBOND
+
+# type1	type2	sigma	eps
+
+ch	ch	4.00904	0.01944
+ch2	ch2	4.00904	0.09344
+ch3	ch3	4.00904	0.22644
+
+ITEM	END
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+*	*	634	1.53
+
+ITEM	END
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+*	*	*	120	110
+
+ITEM	END
+
+ITEM	TORSION
+
+# type1	type2	type3	type3	k	n	delta	[...]
+
+*	*	*	*	0.8	1	0	-0.4335	2	180	1.62	3	0
+
+ITEM	END
+
+ITEM	END
+

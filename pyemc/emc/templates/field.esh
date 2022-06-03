@@ -1,0 +1,77 @@
+#!/usr/bin/env emc_setup.pl
+#
+#  script:	field.esh
+#  author:	Pieter J. in 't Veld
+#  date:	October 1, 2017
+#  purpose:	Example for using EMC Setup with a user field definition
+#
+
+ITEM	OPTIONS
+
+replace		true
+field_id	standard
+field_type	standard
+field_name	field
+field_location	.
+build_dir	.
+charge		false
+number		true
+density		0.7
+temperature	1
+units		reduced
+emc_execute	true
+
+ITEM	END
+
+ITEM	SHORTHAND
+
+lj		([lj])4,256*8/4
+
+ITEM	END
+
+#
+# Generic LJ force field definition
+#
+
+ITEM	FIELD		# FIELD
+
+ITEM	DEFINE		# DEFINE
+
+ffmode		standard
+
+ITEM	END
+
+ITEM	MASS		# MASS
+
+# type	mass	name	ncons	charge	comment
+
+*	1	*	2	0	anything
+
+ITEM	END
+
+ITEM	NONBOND		# NONBOND
+
+# type1	type2	sigma	epsilon
+
+*	*	1	1
+
+ITEM	END
+
+ITEM	BOND		# BOND
+
+# type1	type2	k	l0
+
+*	*	20	1
+
+ITEM	END
+
+ITEM	ANGLE		# ANGLE
+
+# type1	type2	type3	k	theta0
+
+*	*	*	4	180
+
+ITEM	END
+
+ITEM	END		# FIELD
+

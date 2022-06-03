@@ -1,0 +1,57 @@
+#!/usr/bin/env emc_setup.pl
+
+ITEM	OPTIONS
+
+replace		true
+field_type	standard
+field_name	field
+field_location	.
+build_dir	.
+charge		false
+number		true
+density		0.7
+temperature	1
+emc_execute	true
+
+ITEM	END
+
+ITEM	SHORTHAND
+
+lj		([lj])4,256*8/4
+
+ITEM	END
+
+ITEM	FIELD		# FIELD
+
+ITEM	DEFINE
+
+ffname		standard
+
+ITEM	END
+
+ITEM	MASSES
+
+*	1	*	2	0	*
+
+ITEM	END
+
+ITEM	NONBOND
+
+*	*	1	1
+
+ITEM	END
+
+ITEM	BOND
+
+*	*	20	1
+
+ITEM	END
+
+ITEM	ANGLE
+
+*	*	*	4	180
+
+ITEM	END
+
+ITEM	END		# FIELD
+

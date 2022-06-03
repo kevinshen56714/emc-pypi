@@ -1,0 +1,42 @@
+#!/usr/bin/env emc_setup.pl
+
+# Options
+
+ITEM	OPTIONS
+
+seed 		-1
+field		opls-aa
+charge		true
+ntotal		1000
+mass 		true
+replace		true
+profile		true
+temperature	300
+phases		water + gas vapor
+density		0.998
+shape		1
+build_dir	.
+debug		-
+
+ITEM	END
+
+# Groups
+
+ITEM	GROUPS
+
+water		[O](H)(H)		# SPC/E
+#water		[OW3F](H)(H)		# TIP3F
+#water		[OW3P](H)(H)		# TIP3P
+#water		[O](H)(H)([LP])		# TIP4P
+#water		[O](H)(H)([LP])([LP])	# TIP5P
+
+ITEM	END
+
+# clusters
+
+ITEM CLUSTERS
+
+water		water	1
+
+ITEM	END
+

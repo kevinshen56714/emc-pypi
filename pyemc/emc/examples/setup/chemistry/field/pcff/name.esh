@@ -1,0 +1,115 @@
+#!/usr/bin/env emc_setup.pl
+#
+#    file:	solution.esh
+#    author:	Pieter J. in 't Veld
+#    date:	August 15, 2016
+#    purpose:	Chemical input for emc_setup.pl
+#
+#    notes:
+#    	- Create a simulation with 80% m/m water and 20% m/m alcohol
+#    	- Alternative to chemistry.esh file, containing an OPTIONS section,
+#    	  to be used with emc_setup.pl v1.5 and up
+#    	- Allowed separators are commas and tabs, which can be used
+#    	  interchangebly
+#	- Call with
+#
+#		emc_setup.pl solution
+#
+#	  or (for MacOS or Linux)
+#
+#	  	./solution.esh
+#
+#	  creates build.emc and solution.in
+#
+
+# Options
+#
+# - Format for options:
+#
+#	option,value[,...]
+#
+#   options create a self-contained way of setting up a simulation
+# - Replace exisiting scripts
+# - Add mass profiles to LAMMPS input script
+# - Create a simulation with a target number of 1000 particles
+# - Use resulting density of 1 g/cc
+# - Use PCFF as force field
+
+ITEM		OPTIONS
+
+replace		true
+mass		true
+ntotal		1000
+density		1
+field		pcff
+build_dir	.
+
+ITEM		END
+
+# Shorthand
+#
+# - Format for shorthand:
+#
+#	name,SMILES,fraction[,mol mass[,mol volume]]
+#
+#   shorthand provides a quick way of constructing a chemistry file
+
+ITEM		SHORTHAND
+
+water		O,80
+alcohol		CCO,20
+
+ITEM		END
+
+# Alternative formal way for defining a simulation uses GROUPS and CLUSTERS.
+# Swapping the SHORTHAND section out with the sections below results in an
+# equivalent simulation definition.
+
+# Comments beginning
+
+ITEM		COMMENTS
+
+# Groups
+#
+# - Format for groups:
+#
+#	name,SMILES[,connect index,connect group:connect index[,...]]
+#	  
+#   where the first connect index is the connection point in the current
+#   group and the second in the connection group
+# - Asterix in SMILES denotes a connection point
+
+ITEM		GROUPS
+
+water		O
+alcohol		CCO
+
+ITEM		END
+
+# Clusters
+#
+# - Format for clusters:
+#	  
+#	name,group,fraction[,mol mass[,mol volume]]
+#
+#   molecular mass and volume are optional and function as an override
+#   for mass calculation by means of a force field file; alternatively
+#   surfaces can be included by using the group keyword 'surface' through
+#	  
+#	name,surface,nx,file name
+#
+#   file name refers to a crystal structure as available in ./lib with
+#   nx repeat units in the x direction
+
+ITEM		CLUSTERS
+
+water		water,80
+alcohol		alcohol,20
+
+ITEM		END
+
+# Comments end
+
+ITEM		END
+
+

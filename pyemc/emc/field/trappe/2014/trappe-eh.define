@@ -1,0 +1,487 @@
+#
+#  file:	trappe.define
+#  author:	Pieter J. in 't Veld
+#  date:	August 3, 2014
+#  purpose:	TraPPe force field
+#  version:	0.1beta
+#
+#  rule keys:
+#  	~	any bond
+#	-	single bond
+#	:	partial bond
+#	=	double bond
+#	#	triple bond
+#	X	any halogen
+#	*	wildcard, specified number of bonds
+#	?	wildcard, unspecified number of bonds
+#	[..]	unspecified number of connecting atoms
+#
+#  template keys:
+#  	.	skipped index
+#
+#  Empty lines are skipped
+#  The specified type represents the numerical TraPPe assignment
+#
+#  notes:
+#    20140803	- Creation date, v0.1beta
+#    		- Missing vibrational constants are taken from OPLS-UA
+#
+
+# Definitions
+
+ITEM	DEFINE
+
+FFMODE	TRAPPE
+FFTYPE	UNITED
+FFDEPTH	4
+VERSION	Oct 2013
+LENGTH	ANGSTROM
+ENERGY	KELVIN
+DENSITY	G/CC
+MIX	BERTHELOT
+CUTOFF	14
+NBONDED	3
+PAIR14	INCLUDE
+ANGLE	ERROR
+TORSION	ERROR
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+1998	102	2569	J. Phys. Chem. B
+1999	103	4508	J. Phys. Chem. B
+1999	103	5307	J. Phys. Chem. B
+2000	104	2391	J. Phys. Chem. B
+2000	104	8008	J. Phys. Chem. B
+2001	105	3093	J. Phys. Chem. B
+2002	954	181	J. Chromatogr. A
+2004	108	17596	J. Phys. Chem. B
+2005	109	18974	J. Phys. Chem. B
+2005	109	24100	J. Phys. Chem. B
+2007	111	10790	J. Phys. Chem. B
+2008	274	274	Fluid Phase Equil.
+2009	113	6415	J. Phys. Chem. B
+2012	116	11234	J. Phys. Chem. B
+2013	117	273	J. Phys. Chem. B
+2013	117	24375	J. Phys. Chem. B
+
+ITEM	END
+
+# Masses
+
+ITEM	MASSES
+
+# type	mass	element	ncons	charge	comment
+
+ar	39.948	Ar	0	0	Argon
+ba+2	137.327	Ba	0	2	Ba2+ cation
+br-	79.904	Br	0	-1	Br- ion
+c	12.011	C	4	0	C generic
+c2	12.011	C	3	0	C (SP2) isobutene
+c2o	12.011	C	3	0	C (SP2) in ketones
+c2mo	12.011	C	3	0	C (SP2) in amides
+c2h	13.0189	C	2	0	CH (SP2) 2-alkene
+c2ho	13.0189	C	2	0	CH (SP2) in aldehydes
+c2h2	14.0268	C	1	0	CH2 (SP2) 1-alkene
+cac	12.011	C	3	0	C (aromatic) alkylbenzene
+caca	12.011	C	3	0	C (aromatic) naphtalene
+cah	13.0189	C	2	0	C (aromatic) benzene
+cam	13.0189	C	2	0	C (aromatic) benzene with lone pairs
+c3	12.011	C	4	0	C (SP3) in neopentane
+c3o	12.011	C	4	0	C (SP3) in ternary ether
+c3h	13.0189	C	3	0	CH (SP3) in isobutane or isopropanol
+c3ho	13.0189	C	3	0	CH (SP3) in secondary ether
+c3h2	14.0268	C	2	0	CH2 (SP3) in alkanes
+c3h3	15.0347	C	1	0	CH3 methyl
+c3h4	16.0426	C	0	0	CH4 methane
+ca+2	40.078	C	0	2	Ca2+ ion
+cl	34.453	Cl	1	0	Cl in methylenechloride
+cl-	34.453	Cl	0	-1	Cl- ion
+cs+	132.905	Cs	0	1	Cs+ ion
+f	18.998	F	1	0	F in CF
+f-	18.998	F	0	-1	F- ion
+h	1.0079	H	1	0	H
+hn	1.0079	H	1	0	H in amine -NH
+ho	1.0079	H	1	0	H in acid and alcohol -OH
+hs	1.0079	H	1	0	H in -SH
+hw	1.0079	H	1	0	H in water
+he	4.0026	He	0	0	Helium
+i-	126.904	I	0	-1	I- ion
+k+	39.098	K	0	1	K+ cation
+kr	83.80	Kr	0	0	Krypton
+li+	6.941	Li	0	1	Li+ cation
+m	1.0000	M	1	0	lone pair
+mg+2	24.305	Mg	0	2	Mg2+ cation
+n	14.0067	N	3	0	N
+n3h0	14.0067	N	3	0	N (SP3) in amines without connected H
+n3h1	14.0067	N	3	0	N (SP3) in amines with 1 connected H
+n3h2	14.0067	N	3	0	N (SP3) in amines with 2 connected H
+n3mh	14.0067	N	3	0	N (SP3) in amides with 1 connected H
+na+	22.990	Na	0	1	Na+ cation
+ne	20.180	O	0	0	Neon
+o	15.9994	O	1	0	O in =O of acids and formamide
+oh	15.9994	O	2	0	O in -OH of alcohols
+os	15.9994	O	2	0	O in ethers
+ow	15.9994	O	4	0	O in water
+rb+	85.468	Rb	0	1	Rb+ cation
+s	32.066	S	2	0	S attached to C or S
+sh	32.066	S	2	0	S in hydrogen sulfide
+sr+2	87.62	S	0	2	Sr2+ cation
+sz	32.066	S	3	0	S in dimethylsulfoxide
+xe	131.29	Xe	0	0	Xenon
+
+ITEM	END
+
+# Precedences
+
+ITEM	PRECEDENCE
+(?
+  (ar)
+  (ba+2)
+  (br-)
+  (ca+2)
+  (cs+)
+  (c
+    (c2)
+    (c2o)
+    (c2mo)
+    (c2h)
+    (c2ho)
+    (c2h2)
+    (cac)
+    (caca)
+    (cah)
+    (c3)
+    (c3o)
+    (c3h)
+    (c3ho)
+    (c3h2)
+    (c3h3)
+    (c3h4)
+  )
+  (ca+2)
+  (cl
+    (cl-)
+  )
+  (cs+)
+  (f	
+    (f-)
+  )
+  (he)
+  (h
+    (hn)
+    (ho)
+    (hs)
+    (hw)
+  )
+  (i-)
+  (k+)
+  (kr)
+  (li+)
+  (lp)
+  (mg+2)
+  (n
+    (n3h0)
+    (n3h1)
+    (n3h2)
+    (n3mh)
+  )
+  (na+)
+  (ne)
+  (o
+    (oh)
+    (os)
+    (ow)
+  )
+  (rb+)
+  (s
+    (sh)
+    (sz)
+  )
+  (sr+2)
+  (xe)
+)
+
+ITEM	END
+
+# Typing rules
+
+ITEM	RULES
+
+# type	charge	rule(s)
+
+# United-atom force field connectivity
+
+# Alkanes
+
+c3	0	C(C)(C)(C)(C)
+c3h	0	C(C)(C)(C)(H)
+c3h2	0	C(C)(C)(H)(H)
+c3h3	0	C(C)(H)(H)(H)
+c3h4	0	C(H)(H)(H)(H)
+
+# Alkenes
+
+c2	0	C(=C)(C)(C)
+c2h	0	C(=C)(C)(H)
+c2h2	0	C(=C)(H)(H)
+
+# Aromatics
+
+cac	0	c(:c)(:c)(C)
+caca	0	c(:c)(:c)(:c)
+cah	0	c(:c)(:c)(H)
+cam	0	c(M)(:c)(:c)(H) c(:c(M)(:c)(H))(:c)(H)
+m	2.42	M(M)(c(:c)(:c)(H))
+m	-1.21	M(M(c(:c)(:c)(H)))
+
+# Alcohols
+
+c3o	0.265	C(O(H))(C)(C)(C)
+c3ho	0.265	C(O(H))(C)(C)(H)
+c3h2	0.265	C(O(H))(C)(H)(H)
+c3h3	0.265	C(O(H))(H)(H)(H)
+oh	-0.7	O(C)(H)
+ho	0.435	H(O(C))
+
+# Ethers
+
+c3o	0.25	C(O(C))(C)(C)(C)
+c3ho	0.25	C(O(C))(C)(C)(H)
+c3h2	0.25	C(O(C))(C)(H)(H)
+c3h3	0.25	C(O(C))(H)(H)(H)
+os	-0.5	O(C)(C)
+
+# Ketones and aldehydes
+
+o	-0.424	O(=C(C)(C)) O(=C(C)(H))
+o	-0.482	O(=C(H)(H))
+c3	-0.043	C(C(=O)(H)(H))(C)(C)(C)
+c3h	-0.043	C(C(=O)(H)(H))(C)(C)(H)
+c3h2	-0.043	C(C(=O)(H)(H))(C)(H)(H)
+c3h3	-0.043	C(C(=O)(H)(H))(H)(H)(H)
+c2o	0.424	C(=O)(C)(C) C(=O)(H)(H)
+c2ho	0.525	C(=O)(C)(H)
+
+# Amines
+
+c	0.18	C(N(C)(C))(C)(C)(C) C(N(C)(C))(C)(C)(H) C(N(C)(C))(C)(H)(H) C(N(C)(C))(H)(H)(H)
+c	0.18	C(N(C)(H))(C)(C)(C) C(N(C)(H))(C)(C)(H) C(N(C)(H))(C)(H)(H) C(N(C)(H))(H)(H)(H)
+c	0.18	C(N(H)(H))(C)(C)(C) C(N(H)(H))(C)(C)(H) C(N(H)(H))(C)(H)(H) C(N(H)(H))(H)(H)(H)
+n3h0	-0.54	N(C)(C)(C)
+n3h1	-0.745	N(C)(C)(H)
+n3h2	-0.892	N(C)(H)(H)
+hn	0.356	H(N(C)(C))
+hn	0.385	H(N(C)(H))
+
+# Amides
+
+n3mh	-0.8	N(C(=O))(C)(H)
+hn	0.4	H(N(C=O)(C))
+c2mo	0.424	C(=O)(N)(C)
+o	-0.424	O(=C(N)(C))
+
+# Ions
+
+f-	-1	[F-]
+cl-	-1	[Cl-]
+br-	-1	[Br-]
+i-	-1	[I-]
+li+	1	[Li+]
+na+	1	[Na+]
+k+	1	[K+]
+rb+	1	[Rb+]
+cs+	1	[Cs+]
+mg+2	2	[Mg++]
+ca+2	2	[Ca++]
+sr+2	2	[Sr++]
+ba+2	2	[Ba++]
+
+ITEM	END
+
+# Typing templates
+
+ITEM	TEMPLATES
+
+# name	template
+
+BENZ	c1ccccc1
+
+ITEM	END
+
+# Equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	bonded
+
+c	c	c
+c2	c2	c2
+c2o	c2o	c2o
+c2h	c2h	c2h
+c2ho	c2ho	c2ho
+c2h2	c2h2	c2h2
+cac	cac	cac
+caca	caca	caca
+cah	cah	cah
+c3	c3	c3
+c3o	c3o	c3o
+c3h	c3h	c3h
+c3ho	c3ho	c3ho
+c3h2	c3h2	c3h2
+c3h3	c3h3	c3h3
+c3h4	c3h4	c3h4
+hn	hn	hn
+ho	ho	ho
+o	o	o
+oh	oh	oh
+os	os	os
+n	n	n
+n3h0	n3h0	n3h0
+n3h1	n3h1	n3h1
+n3h2	n3h2	n3h2
+n3mh	n3mh	n3mh
+
+ITEM	END
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+# sigma in [A]
+# epsilon in [K]
+
+# type1	type2	sigma	eps
+
+c	c	3.65	5
+c2	c2	3.85	20
+c2o	c2o	3.82	40
+c2h	c2h	3.73	47	
+c2ho	c2ho	3.52	54	
+c2h2	c2h2	3.675	85
+c2mo	c2mo	3.72	34
+c3	c3	6.4	0.5
+c3o	c3o	5.8	0.5
+c3h	c3h	4.68	10
+c3ho	c3ho	4.33	10
+c3h2	c3h2	3.95	46
+c3h3	c3h3	3.75	98
+c3h4	c3h4	3.73	148
+cac	cac	3.88	21
+caca	caca	3.7	30
+cah	cah	3.695	50.5
+cahm	cahm	3.74	48
+hn	hn	0	0
+ho	ho	0	0
+m	m	0	0
+o	o	3.05	79
+oh	oh	3.02	93
+os	os	2.8	55
+n3h0	n3h0	3.78	12
+n3h1	n3h1	3.52	58
+n3h2	n3h2	3.34	111
+n3mh	n3mh	3.34	111
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# k in [K/A^2]
+# l in [A]
+
+# type1	type2	k	l0
+
+c2*	c2*	533400	1.33
+c2o	o	573700	1.229
+c2ho	o	573700	1.217
+ca*	ca*	472000	1.40
+cam	m	600000	1.40
+m	m	600000	0.785
+c3*	c*	269700	1.54
+c*	oh	388500	1.43
+c*	os	322100	1.41
+c*	c2o	319100	1.52
+c*	c2ho	319100	1.52
+oh	ho	556600	0.945
+	
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# k in [K/rad^2]
+# theta in [degree]
+
+# type1	type2	type3	k	theta0
+
+c*	c2	c*	70400	119.7	
+c*	c3	c*	62500	109.47
+c*	c3h	c*	62500	112
+c*	c3h2	c*	62500	114
+c*	c*	oh	50400	109.47
+c*	c*	os	50300	112
+c*	os	c*	60400	112
+c*	c2o	c*	62500	117.2
+c*	c2o	o	62500	121.4
+c*	c2ho	o	62500	121.4
+c*	oh	ho	55400	108.5
+c2*	c2	c*	70420	119.7	
+c2*	c2h	c*	70420	119.7	
+ca*	ca*	c2*	85550	120
+ca*	ca*	ca*	85550	120
+cam	cam	m	85550	60
+cam	m	cam	85550	180
+cam	m	m	85550	180
+
+ITEM	END
+
+# Torsion parameters
+
+ITEM	TORSION
+
+# k in [K]
+
+# type1	type2	type3	type3	k	n	delta	[...]
+
+c*	c*	c2o	o	2035.58	0	0	-736.9	1	0	57.84	2	0	-293.23	3	0
+c*	c*	c2ho	o	2035.58	0	0	-736.9	1	0	57.84	2	0	-293.23	3	0
+c*	c*	os	c*	0	0	0	725.35	1	0	-163.75	2	0	558.20	3	0
+c*	c3	c3h2	c*	0	0	0	0	1	0	0	2	0	461.29	3	0
+c*	c3	oh	ho	0	0	0	0	1	0	0	2	0	163.56	3	0
+c*	c3h	c3h	c*	-251.06	0	0	428.73	1	0	-111.85	2	0	441.27	3	0
+c*	c3h	c3h2	c*	-251.06	0	0	428.73	1	0	-111.85	2	0	441.27	3	0
+c*	c3h	oh	ho	215.96	0	0	197.33	1	0	31.46	2	0	-173.92	3	0
+c*	c3h2	c3h2	c*	0	0	0	355.03	1	0	-68.19	2	0	791.32	3	0
+c*	c3h2	c3h2	oh	0	0	0	176.62	1	0	-53.34	2	0	769.93	3	0
+c*	c3h2	c3h2	os	0	0	0	176.62	1	0	-53.34	2	0	769.93	3	0
+c*	c3h2	oh	ho	0	0	0	209.82	1	0	-29.17	2	0	187.93	3	0
+c*	c3h2	c2h	c2*	688.5	0	0	86.36	1	0	-109.77	2	0	-282.24	3	0
+c*	c2h	c2h	c*	0	0	0	127	1	0	6540	2	0	-127	3	0
+ca*	c3*	c3h2	c*	0	0	0	0	1	0	131	2	180	0	3	0
+ca*	c3*	c2h	c*	0	0	0	0	1	0	167	2	300	0	3	0
+ca*	ca*	ca*	ca*	0	0	0	0	1	0	1560.07	2	180	0	3	0
+m	ca*	ca*	ca*	0	0	0	0	1	0	1560.07	2	180	0	3	0
+m	m	ca*	ca*	0	0	0	0	1	0	1560.07	2	180	0	3	0
+oh	c3h2	c3h2	oh	503.24	0	0	0	1	0	-251.62	2	0	1006.47	3	0
+os	c3h2	c3h2	os	503.24	0	0	0	1	0	-251.62	2	0	1006.47	3	0
+
+ITEM	END
+
+# Improper parameters
+
+ITEM	IMPROPER
+
+# type1	type2	type3	type4	k	psi0
+
+c*	c2*	c2*	c*	-8050	0
+
+ITEM	END
+

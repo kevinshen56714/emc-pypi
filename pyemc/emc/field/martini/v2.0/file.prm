@@ -1,0 +1,26 @@
+#
+#  Martini interaction parameters using file.itp
+#  converted by martini.pl v1.1, August 1, 2013 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.3.6 or higher
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE	MARTINI
+FFTYPE	COARSE
+VERSION	2011
+CREATED	Aug 2013
+LENGTH	NANOMETER
+ENERGY	KJ/MOL
+DENSITY	G/CC
+MIX	NONE
+NBONDED	1
+INNER	0.9
+CUTOFF	1.2
+PAIR14	OFF
+ANGLE	WARN
+TORSION	IGNORE
+
+ITEM	END

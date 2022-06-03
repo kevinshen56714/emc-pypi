@@ -1,0 +1,157 @@
+#
+#  file:	field.define
+#  author:	Pieter J. in 't Veld
+#  date:	May 21, 2016
+#  purpose:	Force field template
+#  version:	0.1beta
+#
+#  rule keys:
+#  	~	any bond
+#	-	single bond
+#	:	partial bond
+#	=	double bond
+#	#	triple bond
+#	X	any halogen
+#	*	wildcard, specified number of bonds
+#	?	wildcard, unspecified number of bonds
+#	[..]	unspecified number of connecting atoms
+#
+#  template keys:
+#  	.	skipped index
+#
+#  Empty lines are skipped
+#
+#  notes:
+#    20160521	- Creation date, v0.1beta
+#
+
+# Definitions
+
+ITEM	DEFINE
+
+FFNAME	FIELD
+FFTYPE	ATOMISTIC
+FFDEPTH	4
+VERSION	May 2016
+LENGTH	ANGSTROM
+ENERGY	KJ/MOL
+DENSITY	G/CC
+MIX	NONE
+CUTOFF	14
+NBONDED	0
+PAIR14	EXCLUDE
+ANGLE	ERROR
+TORSION	ERROR
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+ITEM	END
+
+# Masses
+
+ITEM	MASSES
+
+# type	mass	element	ncons	charge	comment
+
+?	1	?	0	0	Dummy
+
+ITEM	END
+
+# Precedences
+
+ITEM	PRECEDENCE
+(?
+  ()
+)
+
+ITEM	END
+
+# Typing rules
+
+ITEM	RULES
+
+# type	charge	rule(s)
+
+# United-atom force field connectivity
+
+# Dummy
+
+?	0	[DM]
+
+ITEM	END
+
+# Equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	bonded
+
+?	?	?
+
+ITEM	END
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+# sigma in [A]
+# epsilon in [ENERGY]
+
+# type1	type2	sigma	eps
+
+?	?	0	0
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# 0.5*k*(l-l0)^2 
+#
+# k in [ENERGY/A^2]
+# l0 in [A]
+
+# type1	type2	k	l0
+	
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# 0.5*k*(theta-theta0)^2 
+#
+# k in [ENERGY/rad^2]
+# theta0 in [degree]
+
+# type1	type2	type3	k	theta0
+
+
+ITEM	END
+
+# Torsion parameters
+
+ITEM	TORSION
+
+# k in [ENERGY]
+
+# type1	type2	type3	type3	k	n	delta	[...]
+
+
+ITEM	END
+
+# Improper parameters
+
+ITEM	IMPROPER
+
+# type1	type2	type3	type4	k	psi0
+
+ITEM	END
+

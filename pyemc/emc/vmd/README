@@ -1,0 +1,16 @@
+EMC: VMD Extensions
+-------------------
+
+EMC offers a plug-in for VMD as a graphical front end to EMC setup.  This
+graphical interface is not exhaustive and therefore does not offer all the
+possibilities that EMC setup offers.  It is suggested to set the environment
+variable EMC_ROOT to the root directory of the active EMC version.  With this
+environment variable, packages can be automatically included during VMD start
+up by adding the following line to the users' ~/.vmdrc
+
+  source $::env(EMC_ROOT)/vmd/packages.tcl
+
+Replace $::env(EMC_ROOT) by an absolute path, if an independent depency is not
+wanted.  Unfortunately, this solution does not apply to the Microsoft Windows
+environment.
+

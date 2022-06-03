@@ -1,0 +1,107 @@
+#!/usr/bin/env emc_setup.pl
+
+#
+# Zero shear simulation
+#
+
+ITEM	OPTIONS
+
+project		pure
+replace		true
+environment	true
+name_analyze	date00
+name_build	date00
+name_run	date00
+queue_build	default
+queue_analyze	default
+shear		true, true
+restart		false
+ncores		8
+trun		-
+
+ITEM	END
+
+ITEM	LOOPS
+
+stage		pure
+trial		c-06	c-07	c-08	c-09	c-10	&
+		c-11	c-12	c-13	c-14	c-15
+shear		0.00e0
+copy		1
+
+ITEM	END
+
+#
+# Subsequent shear simulation
+#
+
+ITEM	OPTIONS
+
+name_build	-
+name_run	date10
+name_analyze	date10
+restart		true, ../../0.00e0
+
+ITEM	END
+
+ITEM	LOOPS
+
+shear		1.00e-4, 1.00e-5, 1.00e-6
+
+ITEM	END
+
+#
+# Project stage pure
+#
+
+ITEM	STAGE	pure
+
+# Set script template
+
+ITEM	TEMPLATE
+
+# Command line options
+
+ITEM	OPTIONS
+
+replace		true
+field		opls-ua
+ntotal		10000
+tequil		100000
+density		0.85
+pressure	1.0
+temperature	300
+shear		@SHEAR,erate
+replace		true
+field_increment	empty
+
+ITEM	END
+
+# Chemistry
+
+ITEM	SHORTHAND
+
+molecule	@STRUCTURE,1
+
+ITEM	END
+
+ITEM	END	# TEMPLATE
+
+# Set structures
+
+ITEM	STRUCTURES
+
+c-06		(C)6
+c-07		(C)7
+c-08		(C)8
+c-09		(C)9
+c-10		(C)10
+c-11		(C)11
+c-12		(C)12
+c-13		(C)13
+c-14		(C)14
+c-15		(C)15
+c-16		(C)16
+
+ITEM	END
+

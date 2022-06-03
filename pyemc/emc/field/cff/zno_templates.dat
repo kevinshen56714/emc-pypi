@@ -1,0 +1,112 @@
+! zno_templates.dat
+!
+! Template file of potential type assignment templates for the CFF forcefield
+!
+! **************************************************************************
+! *                                                                        *
+! * THIS  PROGRAM  AND ALL SUBROUTINES,  DATA,  AND FILES  USED BY IT      *
+! * ARE PROTECTED BY COPYRIGHT AND HENCE  MAY NOT BE USED, COPIED,         *
+! * MODIFIED, TRANSMITTED, INSPECTED, OR EXECUTED BY ANY MEANS INCLUDING   *
+! * THE  USE OF  ELECTRONIC DATA PROCESSING  EQUIPMENT,  XEROGRAPHY, OR    *
+! * ANY  OTHER  METHODS WITHOUT THE EXPRESS  WRITTEN  PERMISSION OF THE    *
+! * COPYRIGHT HOLDER.                                                      *
+! *                                                                        *
+! * Copyright (C) 2020 BASF SE, All Rights Reserved                        *
+! *                                                                        *
+! **************************************************************************
+!
+! Revision History:
+!       PJV      02/05/2020      Zinc oxide surface
+
+type: ?
+  ! anything	
+  template: (>*)
+end_type
+
+!
+! Hydrogen
+!
+
+type: h1zn
+  ! surface hydrogen
+  template: [>H(-O(-Zn))]
+end_type
+
+!
+! Oxygen
+!
+
+type: o1zn
+  ! surface oxygen
+  template: [>O(-Zn)]
+  atom_test:1
+    formal_charge:-1
+  end_test
+end_type
+
+type: o2zn
+  ! surface oxygen
+  template: [>O(-Zn)(-H)]
+end_type
+
+type: o4zh
+  ! surface oxygen
+  template: [>O(-Zn)(-Zn)(-Zn)(-H))
+! atom_test:1
+!   formal_charge:-2
+! end_test
+end_type
+
+type: o4zn
+  ! central oxygen
+  template: [>O(-Zn)(-Zn)(-Zn)(-Zn))
+! atom_test:1
+!   formal_charge:-2
+! end_test
+end_type
+
+!
+! Zinc
+!
+
+type: zn2o
+  ! surface zinc
+  template: [>Zn(-O)(-O)]
+!  atom_test:1
+!    formal_charge:2
+!  end_test
+end_type
+
+type: zn4o
+  ! central zinc
+  template: [>Zn(-O)(-O)(-O)(-O)]
+!  atom_test:1
+!    formal_charge:2
+!  end_test
+end_type
+
+type: zn4s
+  ! surface zinc
+  template: [>Zn(-O(-H))(-O)(-O)(-O)]
+!  atom_test:1
+!    formal_charge:2
+!  end_test
+end_type
+
+!
+! Precedences
+!
+
+precedence:
+(?
+  (h1zn)
+  (o1zn)
+  (o2zn)
+  (o4zh)
+  (o4zn)
+  (zn2o)
+  (zn4s)
+  (zn4o)
+)
+end_precedence
+

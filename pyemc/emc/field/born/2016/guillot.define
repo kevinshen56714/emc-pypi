@@ -1,0 +1,216 @@
+#
+#  file:	guillot.define
+#  author:	Pieter J. in 't Veld
+#  date:	May 21, 2016
+#  purpose:	Metal oxide force field (KNCMFATS)
+#  version:	0.1beta
+#
+#  rule keys:
+#  	~	any bond
+#	-	single bond
+#	:	partial bond
+#	=	double bond
+#	#	triple bond
+#	X	any halogen
+#	*	wildcard, specified number of bonds
+#	?	wildcard, unspecified number of bonds
+#	[..]	unspecified number of connecting atoms
+#
+#  template keys:
+#  	.	skipped index
+#
+#  Empty lines are skipped
+#
+#  notes:
+#    20160521	- Creation date, v0.1beta
+#
+
+# Definitions
+
+ITEM	DEFINE
+
+FFNAME	BORN
+FFTYPE	ATOMISTIC
+FFDEPTH	4
+VERSION	Jan 2008
+LENGTH	ANGSTROM
+ENERGY	KCAL/MOL
+DENSITY	G/CC
+MIX	BERTHELOT
+INNER	1.0
+CUTOFF	10.5
+NBONDED	0
+PAIR14	EXCLUDE
+ANGLE	ERROR
+TORSION	ERROR
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+2008	71	1249	Geochim. Cosmochim. Acta
+
+ITEM	END
+
+# Masses
+
+ITEM	MASSES
+
+# type	mass	element	ncons	charge	comment
+
+?	1	?	0	0	Dummy
+al+3	26.982	Al	0	3	Aluminium
+ca+2	40.078	Ca	0	2	Calcium
+fe+2	55.845	Fe	0	2	Iron +2
+fe+3	55.845	Fe	0	3	Iron +3
+k+	39.098	K	0	1	Potassium
+mg+2	24.305	Mg	0	2	Magnesium
+na+	22.990	Na	0	1	Sodium
+o-2	15.9994	O	0	-2	Oxygen
+si+4	28.085	Si	0	4	Silicon
+ti+4	47.867	Ti	0	4	Titanium
+
+ITEM	END
+
+# Precedences
+
+ITEM	PRECEDENCE
+(?
+  (al+3)
+  (ca+2)
+  (fe+2)
+  (fe+3)
+  (k+)
+  (mg+2)
+  (na+)
+  (o-2)
+  (si+4)
+  (ti+4)
+)
+
+ITEM	END
+
+# Typing rules
+
+ITEM	RULES
+
+# type	charge	rule(s)
+
+# Dummy
+
+?	0	[DM]
+
+# Metals
+
+al+3	1.4175	[Al+3]
+ca+2	0.945	[Ca+2]
+fe+2	0.945	[Fe+2]
+fe+3	1.4175	[Fe+3]
+k+	0.4725	[K+]
+mg+2	0.945	[Mg+2]
+na+	0.4725	[Na+]
+si+4	1.89	[Si+4]
+ti+4	1.89	[Ti+4]
+
+# Counter ions
+
+o-2	-0.945	[O-2]
+
+
+ITEM	END
+
+# Equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	bonded
+
+?	?	?
+al+3	al+3	al+3
+ca+2	ca+2	ca+2
+fe+2	fe+2	fe+2
+fe+3	fe+3	fe+3
+k+	k+	k+
+mg+2	mg+2	mg+2
+na+	na+	na+
+o-2	o-2	o-2
+si+4	si+4	si+4
+ti+4	ti+4	ti+4
+
+ITEM	END
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+# sigma in [A]
+# rho in [A]
+# a in [ENERGY]
+# c in [ENERGY/A^6]
+# d in [ENERGY/A^8]
+
+# type1	type2	sigma	rho	a	c	d
+
+?	?	0.0	0.0	0.0	0.0	0.0
+al+3	al+3	2.60707	0.172	0.172	797.385	0.0
+ca+2	ca+2	2.99388	0.178	0.178	974.534	0.0
+fe+2	fe+2	2.71208	0.190	0.190	0.0	0.0
+k+	k+	3.51191	0.290	0.290	0.0	0.0
+mg+2	mg+2	2.71588	0.178	0.178	629.116	0.0
+na+	na+	2.82334	0.170	0.170	0.0	0.0
+o-2	o-2	3.59702	0.265	0.265	1962.278	0.0
+si+4	si+4	2.54225	0.161	0.161	1067.655	0.0
+ti+4	ti+4	2.79218	0.178	0.178	1067.655	0.0
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# 0.5*k*(l-l0)^2 
+#
+# k in [ENERGY/A^2]
+# l0 in [A]
+
+# type1	type2	k	l0
+	
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# 0.5*k*(theta-theta0)^2 
+#
+# k in [ENERGY/rad^2]
+# theta0 in [degree]
+
+# type1	type2	type3	k	theta0
+
+
+ITEM	END
+
+# Torsion parameters
+
+ITEM	TORSION
+
+# k in [ENERGY]
+
+# type1	type2	type3	type3	k	n	delta	[...]
+
+
+ITEM	END
+
+# Improper parameters
+
+ITEM	IMPROPER
+
+# type1	type2	type3	type4	k	psi0
+
+ITEM	END
+

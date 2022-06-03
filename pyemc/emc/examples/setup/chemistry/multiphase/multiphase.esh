@@ -1,0 +1,28 @@
+#!/usr/bin/env emc_setup.pl
+
+# Options
+
+ITEM	OPTIONS
+
+ntotal		5000
+temperature	300
+density		1,0.8,0.8
+phases		water + sds + oil
+field		charmm/c32b1/all27_prot_lipid
+mass		true
+profile		true
+replace		true
+build_dir	.
+
+ITEM	END
+
+# Shorthand
+
+ITEM	SHORTHAND
+
+water		O,0.4
+oil		(C)8,0.4
+sds		CCCCCCCCCCCCO:S(:O)(:O):O.[Na+],0.2
+
+ITEM	END
+

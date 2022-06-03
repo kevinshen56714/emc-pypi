@@ -1,0 +1,327 @@
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/aminoacids.itp" for reading
+Info: opening "aminoacids.prm" for writing
+Info: assigning new mass P51 for molecule ILE
+Info: assigning new mass P52 for molecule MET
+Info: assigning new mass P53 for molecule PRO
+Info: assigning new mass P54 for molecule GLU
+Info: assigning new mass P55 for molecule THR
+Info: assigning new mass P56 for molecule SER
+Info: assigning new mass P57 for molecule PHE
+Info: assigning new mass P58 for molecule TYR
+Info: assigning new mass P59 for molecule TRP
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/cholesterol.itp" for reading
+Info: opening "cholesterol.prm" for writing
+Info: assigning new mass SC11 for molecule CHOL
+Info: assigning new mass SC12 for molecule CHOL
+Info: assigning new mass SC13 for molecule CHOL
+Info: assigning new mass SC14 for molecule CHOL
+Info: assigning new mass SC15 for molecule CO
+Info: assigning new mass SC16 for molecule CO
+Info: assigning new mass SC17 for molecule CO
+Info: assigning new mass SC18 for molecule CO
+Info: assigning new mass SC19 for molecule CO
+Info: assigning new mass SC110 for molecule CHOA
+Info: assigning new mass SP11 for molecule CHOA
+Info: assigning new mass SC111 for molecule CHOA
+Info: assigning new mass SP12 for molecule CHOA
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/ions.itp" for reading
+Info: opening "ions.prm" for writing
+Info: writing headers
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/lipids.itp" for reading
+Info: opening "lipids.prm" for writing
+Info: assigning new mass C41 for molecule DUPC
+Info: assigning new mass C42 for molecule DUPC
+Info: assigning new mass Qa1 for molecule DOPG
+Info: assigning new mass Qa2 for molecule DOPG
+Info: assigning new mass Qa3 for molecule POPG
+Info: assigning new mass P51 for molecule DOPS
+Info: assigning new mass Qa4 for molecule DOPS
+Info: assigning new mass P52 for molecule POPS
+Info: assigning new mass Qa5 for molecule POPS
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/martini.itp" for reading
+Info: opening "martini.prm" for writing
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing nonbonded
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/other.itp" for reading
+Info: opening "other.prm" for writing
+Info: assigning new mass SC41 for molecule DYE1
+Info: assigning new mass SC42 for molecule DYE1
+Info: assigning new mass SC43 for molecule DYE1
+Info: assigning new mass SC44 for molecule DYE1
+Info: assigning new mass SC45 for molecule DYE1
+Info: assigning new mass SNa1 for molecule DYE1
+Info: assigning new mass SQ01 for molecule DYE1
+Info: assigning new mass C11 for molecule DYE1
+Info: assigning new mass C12 for molecule DYE1
+Info: assigning new mass SC46 for molecule DYE2
+Info: assigning new mass SC47 for molecule DYE2
+Info: assigning new mass SC48 for molecule DYE2
+Info: assigning new mass SC49 for molecule DYE2
+Info: assigning new mass SC410 for molecule DYE2
+Info: assigning new mass SNa2 for molecule DYE2
+Info: assigning new mass SC411 for molecule DYE2
+Info: assigning new mass SC412 for molecule DYE3
+Info: assigning new mass SC413 for molecule DYE3
+Info: assigning new mass SC414 for molecule DYE3
+Info: assigning new mass SC415 for molecule DYE3
+Info: assigning new mass SC416 for molecule DYE3
+Info: assigning new mass SNa3 for molecule DYE3
+Info: assigning new mass SQ02 for molecule DYE3
+Info: assigning new mass C13 for molecule DYE3
+Info: assigning new mass C14 for molecule DYE3
+Info: assigning new mass SC417 for molecule ALT3
+Info: assigning new mass SC418 for molecule ALT3
+Info: assigning new mass SC419 for molecule ALT3
+Info: assigning new mass SC420 for molecule ALT3
+Info: assigning new mass SC421 for molecule ALT3
+Info: assigning new mass SNa4 for molecule ALT3
+Info: assigning new mass SC422 for molecule ALT3
+Info: assigning new mass SC423 for molecule DYE4
+Info: assigning new mass SC424 for molecule DYE4
+Info: assigning new mass SC425 for molecule DYE4
+Info: assigning new mass SC426 for molecule DYE4
+Info: assigning new mass SC427 for molecule DYE4
+Info: assigning new mass SNa5 for molecule DYE4
+Info: assigning new mass SC428 for molecule DYE5
+Info: assigning new mass SC429 for molecule DYE5
+Info: assigning new mass SC430 for molecule DYE5
+Info: assigning new mass SC431 for molecule DYE5
+Info: assigning new mass SC432 for molecule DYE5
+Info: assigning new mass SNa6 for molecule DYE5
+Info: assigning new mass SC433 for molecule ALT5
+Info: assigning new mass SC434 for molecule ALT5
+Info: assigning new mass SC435 for molecule ALT5
+Info: assigning new mass SC436 for molecule ALT5
+Info: assigning new mass SC437 for molecule ALT5
+Info: assigning new mass SNa7 for molecule ALT5
+Info: assigning new mass SC438 for molecule DYE6
+Info: assigning new mass SC439 for molecule DYE6
+Info: assigning new mass SC440 for molecule DYE6
+Info: assigning new mass SC441 for molecule DYE6
+Info: assigning new mass SC442 for molecule DYE6
+Info: assigning new mass SNa8 for molecule DYE6
+Info: assigning new mass SC443 for molecule DYE7
+Info: assigning new mass SC444 for molecule DYE7
+Info: assigning new mass SC445 for molecule DYE7
+Info: assigning new mass SC446 for molecule DYE7
+Info: assigning new mass SC447 for molecule DYE7
+Info: assigning new mass SNa9 for molecule DYE7
+Info: assigning new mass SC448 for molecule DYE8
+Info: assigning new mass SC449 for molecule DYE8
+Info: assigning new mass SC450 for molecule DYE8
+Info: assigning new mass SC451 for molecule DYE8
+Info: assigning new mass SC452 for molecule DYE8
+Info: assigning new mass SNa10 for molecule DYE8
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/polymers.itp" for reading
+Info: opening "polymers.prm" for writing
+Info: assigning new mass SN01 for molecule PEO
+Info: assigning new mass SN02 for molecule PEO
+Info: assigning new mass SN03 for molecule PEO
+Info: assigning new mass SN04 for molecule PEO
+Info: assigning new mass SN05 for molecule PEO
+Info: assigning new mass SN06 for molecule PEO
+Info: assigning new mass SN07 for molecule PEO
+Info: assigning new mass SN08 for molecule PEO
+Info: assigning new mass SN09 for molecule PEO
+Info: assigning new mass SN010 for molecule PEO
+Info: assigning new mass SN011 for molecule PEO
+Info: assigning new mass SN012 for molecule PEO
+Info: assigning new mass SN013 for molecule PEO
+Info: assigning new mass SN014 for molecule PEO
+Info: assigning new mass SN015 for molecule PEO
+Info: assigning new mass SN016 for molecule PEO
+Info: assigning new mass SN017 for molecule PEO
+Info: assigning new mass SN018 for molecule PEO
+Info: assigning new mass SN019 for molecule PEO
+Info: assigning new mass SN020 for molecule PEO
+Info: assigning new mass SN021 for molecule PEO
+Info: assigning new mass SN022 for molecule PEO
+Info: assigning new mass SN023 for molecule PEO
+Info: assigning new mass SN024 for molecule PEO
+Info: assigning new mass SN025 for molecule PEO
+Info: assigning new mass SN026 for molecule PEO
+Info: assigning new mass SN027 for molecule PEO
+Info: assigning new mass SN028 for molecule PEO
+Info: assigning new mass SN029 for molecule PEO
+Info: assigning new mass SN030 for molecule PEO
+Info: assigning new mass SN031 for molecule PEO
+Info: assigning new mass SN032 for molecule PEL
+Info: assigning new mass SN033 for molecule PEL
+Info: assigning new mass SN034 for molecule PEL
+Info: assigning new mass SN035 for molecule PEL
+Info: assigning new mass SN036 for molecule PEL
+Info: assigning new mass SN037 for molecule PEL
+Info: assigning new mass SN038 for molecule PEL
+Info: assigning new mass SN039 for molecule PEL
+Info: assigning new mass SN040 for molecule PEL
+Info: assigning new mass SN041 for molecule PEL
+Info: assigning new mass SN042 for molecule PEL
+Info: assigning new mass SN043 for molecule PEL
+Info: assigning new mass SN044 for molecule PEL
+Info: assigning new mass SN045 for molecule PEL
+Info: assigning new mass SN046 for molecule PEL
+Info: assigning new mass SN047 for molecule PEL
+Info: assigning new mass SN048 for molecule PEL
+Info: assigning new mass SN049 for molecule PEL
+Info: assigning new mass SN050 for molecule PEL
+Info: assigning new mass SN051 for molecule PEL
+Info: assigning new mass SN052 for molecule PEL
+Info: assigning new mass SN053 for molecule PEL
+Info: assigning new mass SN054 for molecule PEL
+Info: assigning new mass SN055 for molecule PEL
+Info: assigning new mass SN056 for molecule PEL
+Info: assigning new mass SN057 for molecule PEL
+Info: assigning new mass SN058 for molecule PEL
+Info: assigning new mass SN059 for molecule PEL
+Info: assigning new mass SN060 for molecule PEL
+Info: assigning new mass SN061 for molecule PEL
+Info: assigning new mass SN062 for molecule PEL
+Info: assigning new mass SN063 for molecule PEL
+Info: assigning new mass SN064 for molecule PEL
+Info: assigning new mass SN065 for molecule PEL
+Info: assigning new mass SN066 for molecule PEL
+Info: assigning new mass SN067 for molecule PEL
+Info: assigning new mass SN068 for molecule PEL
+Info: assigning new mass SN069 for molecule PEL
+Info: assigning new mass SN070 for molecule PEL
+Info: assigning new mass SN071 for molecule PEL
+Info: assigning new mass SN072 for molecule PEL
+Info: assigning new mass SN073 for molecule PEL
+Info: assigning new mass SN074 for molecule PEL
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/solvents.itp" for reading
+Info: opening "solvents.prm" for writing
+Info: assigning new mass C11 for molecule ODT
+Info: assigning new mass Na1 for molecule TO
+Info: assigning new mass Na2 for molecule TO
+Info: assigning new mass Na3 for molecule TO
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/sugars.itp" for reading
+Info: opening "sugars.prm" for writing
+Info: assigning new mass P11 for molecule GLUC
+Info: assigning new mass P41 for molecule GLUC
+Info: assigning new mass P21 for molecule SUCR
+Info: assigning new mass P12 for molecule SUCR
+Info: assigning new mass P22 for molecule MALT
+Info: assigning new mass P13 for molecule CELL
+Info: assigning new mass P23 for molecule CELL
+Info: assigning new mass P24 for molecule CELL
+Info: assigning new mass P25 for molecule KOJI
+Info: assigning new mass P26 for molecule KOJI
+Info: assigning new mass P27 for molecule SOPH
+Info: assigning new mass P28 for molecule SOPH
+Info: assigning new mass P29 for molecule NIGE
+Info: assigning new mass P210 for molecule NIGE
+Info: assigning new mass P14 for molecule LAMI
+Info: assigning new mass P211 for molecule LAMI
+Info: assigning new mass P212 for molecule LAMI
+Info: assigning new mass P213 for molecule TREH
+Info: assigning new mass P214 for molecule Maltoheptaose
+Info: assigning new mass P215 for molecule Maltoheptaose
+Info: assigning new mass P216 for molecule Maltoheptaose
+Info: assigning new mass P217 for molecule Maltoheptaose
+Info: assigning new mass P218 for molecule Maltoheptaose
+Info: assigning new mass P219 for molecule Maltoheptaose
+Info: assigning new mass P220 for molecule Maltoheptaose
+Info: assigning new mass P221 for molecule Laminaraheptabiose
+Info: assigning new mass P222 for molecule Laminaraheptabiose
+Info: assigning new mass P223 for molecule Laminaraheptabiose
+Info: assigning new mass P224 for molecule Laminaraheptabiose
+Info: assigning new mass P225 for molecule Laminaraheptabiose
+Info: assigning new mass P226 for molecule Laminaraheptabiose
+Info: assigning new mass P227 for molecule Laminaraheptabiose
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/surfactants.itp" for reading
+Info: opening "surfactants.prm" for writing
+Info: assigning new mass Qa1 for molecule SDS
+Info: assigning new mass C11 for molecule SDS
+Info: assigning new mass C12 for molecule SDS
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+
+Martini conversion v1.1, August 1, 2013, (c) Pieter J. in 't Veld
+
+Info: opening "src/xemium.itp" for reading
+Info: opening "xemium.prm" for writing
+Info: assigning new mass SC41 for molecule XEM
+Info: assigning new mass SC42 for molecule XEM
+Info: assigning new mass SC43 for molecule XEM
+Info: assigning new mass SC44 for molecule XEM
+Info: assigning new mass SC45 for molecule XEM
+Info: assigning new mass SC46 for molecule XEM
+Info: writing headers
+Info: writing masses
+Info: writing equivalences
+Info: writing bonded
+Info: writing templates
+

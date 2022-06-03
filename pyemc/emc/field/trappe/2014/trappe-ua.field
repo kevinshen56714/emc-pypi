@@ -1,0 +1,2585 @@
+(*EMC: Field *)
+
+(*EMC v9.4.4, build May 28 2021 09:12:33, date Tue Jun  1 07:46:09 2021 *)
+
+(* Flags *)
+
+flags = {
+  family -> trappe, atomistic -> united, apply -> all, index -> types, depth
+  -> 4, strict -> true, shake -> none, check -> false, charge -> nonzero, 
+  pair14 -> ignore, angle -> error, torsion -> error, improper -> ignore, cmap
+  -> ignore, increment -> error, group -> warn, rule -> error};
+
+(* Spline *)
+
+spline = {
+  order -> 4, depth -> 8, nfunctions -> 50, cutoff -> 0.0001, temperature ->
+  298.15, niterations -> 100};
+
+(* Units *)
+
+units = {
+  type -> atomistic, mass -> 1, length -> 1, angstrom -> 1, angle ->
+  57.2957795131, energy -> 1, kb -> 0.00329983365201, nav -> 0.6022141179, 
+  charge -> 1, permittivity -> 0.000239645217054, dielectric -> 1, beta ->
+  1.68780475671, seed -> 0, reduced -> false};
+
+(* Constants *)
+
+types = {
+  sites -> {*, ?, ar, ba+2, br-, c, c*, c1n, c3, c3*, c3h, c3h2, c3ho, c3mo, 
+    c3o, c3o*, c3oa, c3oe, c4, c4*, c4h, c4h2, c4h3, c4h4, c4ho, c4o, c4oe, 
+    ca, ca*, ca+2, cac, caca, cah, cahs, cam, can, can2, cano, cl-, cn, cs+, 
+    f-, hc, he, hn, ho, hs, hsi, hw, i-, k+, kr, li+, m, mg+2, n*, n3, n3*, 
+    n3h, n3h2, n3mh, n3mh2, na, na*, na+, nc, ne, nh4+, no, o, o*, o2z, oh, 
+    oh*, oha, on, os, ose, ow, rb+, s*, sa, sc, sh, si*, si4z, sr+2, ss, xe}};
+
+(* Index *)
+
+index = {type -> ?, 
+  list -> {
+    {type -> ar},
+    {type -> ba+2},
+    {type -> br-},
+    {type -> ca+2},
+    {type -> cs+},
+    {type -> c1n},
+    {type -> c3},
+    {type -> c3mo},
+    {type -> c3oa},
+    {type -> c3oe},
+    {type -> c3o},
+    {type -> c3h},
+    {type -> c3ho},
+    {type -> c3h2},
+    {type -> cac},
+    {type -> caca},
+    {type -> cah},
+    {type -> can},
+    {type -> can2},
+    {type -> cano},
+    {type -> cam},
+    {type -> c4},
+    {type -> c4oe},
+    {type -> c4o},
+    {type -> c4h},
+    {type -> c4ho},
+    {type -> c4h2},
+    {type -> c4h3},
+    {type -> c4h4},
+    {type -> ca+2},
+    {type -> cl-},
+    {type -> cs+},
+    {type -> f-},
+    {type -> he},
+    {type -> hn},
+    {type -> ho},
+    {type -> hs},
+    {type -> hsi},
+    {type -> hw},
+    {type -> i-},
+    {type -> k+},
+    {type -> kr},
+    {type -> li+},
+    {type -> m},
+    {type -> mg+2},
+    {type -> n3},
+    {type -> n3mh2},
+    {type -> n3mh},
+    {type -> n3h2},
+    {type -> n3h},
+    {type -> nh4+},
+    {type -> na},
+    {type -> nc},
+    {type -> no},
+    {type -> na+},
+    {type -> ne},
+    {type -> o},
+    {type -> oh},
+    {type -> on},
+    {type -> ose},
+    {type -> os},
+    {type -> o2z},
+    {type -> ow},
+    {type -> rb+},
+    {type -> sh},
+    {type -> sc},
+    {type -> ss},
+    {type -> sa},
+    {type -> si4z},
+    {type -> sr+2},
+    {type -> xe},
+    {type -> ?},
+    {type -> oha}}};
+
+(* Rules *)
+
+rules = {
+  {id -> 0, type -> ?, reference -> 1, element -> "Dm"}, 
+  {id -> 1, type -> ar, reference -> 2, element -> "Ar"}, 
+  {id -> 2, type -> ba+2, reference -> 167, charge -> 2, element -> "Ba", test
+    -> {charge -> 2}}, 
+  {id -> 3, type -> br-, reference -> 157, charge -> -1, element -> "Br", test
+    -> {charge -> -1}}, 
+  {id -> 4, type -> c1n, reference -> 95, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> triple}}}}}, 
+  {id -> 5, type -> c3, reference -> 14, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 6, type -> c3, reference -> 42, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> double}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "C", test -> {flag -> {bond -> single}}}, 
+            {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 7, type -> c3h, reference -> 15, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 8, type -> c3h, reference -> 43, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> double}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "C", test -> {flag -> {bond -> single}}}, 
+            {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 9, type -> c3h2, reference -> 16, element -> "C", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}}}, 
+  {id -> 10, type -> c3ho, reference -> 65, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 11, type -> c3mo, reference -> 97, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 15, type -> c3mo, reference -> 109, element -> "C", 
+    connect -> {
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+                include}}}, 
+          {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 13, type -> c3mo, reference -> 108, element -> "C", 
+    connect -> {
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+                include}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 14, type -> c3mo, reference -> 109, element -> "C", 
+    connect -> {
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 12, type -> c3mo, reference -> 108, element -> "C", 
+    connect -> {
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 16, type -> c3o, reference -> 63, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 17, type -> c3o, reference -> 64, element -> "C", 
+    connect -> {
+      {element -> "O", test -> {flag -> {bond -> double}}}, 
+      {element -> "*", test -> {flag -> {bond -> single}}}, 
+      {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 18, type -> c3oa, reference -> 30, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 19, type -> c3oe, reference -> 44, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}}}, 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 28, type -> c4, reference -> 91, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "N", test -> {flag -> {bond -> triple}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 23, type -> c4, reference -> 59, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> double}}}, 
+          {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 22, type -> c4, reference -> 55, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "O", test -> {flag -> {bond -> double}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 20, type -> c4, reference -> 9, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 30, type -> c4, reference -> 115, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}, 
+            connect -> {
+              {element -> "O", test -> {flag -> {bond -> double}}}, 
+              {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+          {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 29, type -> c4, reference -> 98, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}, 
+            connect -> 
+            {element -> "O", test -> {flag -> {bond -> double}}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 24, type -> c4, reference -> 66, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "C", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 25, type -> c4, reference -> 70, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 27, type -> c4, reference -> 85, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> partial}}}, 
+          {element -> "O", test -> {flag -> {bond -> partial}}}}}}}, 
+  {id -> 26, type -> c4, reference -> 74, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "H", test -> {flag -> {bond -> single}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 21, type -> c4, reference -> 45, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "C", test -> {flag -> {bond -> single}}}, 
+            {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 32, type -> c4, reference -> 130, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 33, type -> c4, reference -> 135, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "S", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 31, type -> c4, reference -> 124, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 34, type -> c4, reference -> 140, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "Si", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 43, type -> c4h, reference -> 92, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "N", test -> {flag -> {bond -> triple}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 38, type -> c4h, reference -> 60, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> double}}}, 
+          {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 37, type -> c4h, reference -> 56, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "O", test -> {flag -> {bond -> double}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 35, type -> c4h, reference -> 10, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 45, type -> c4h, reference -> 116, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}, 
+            connect -> {
+              {element -> "O", test -> {flag -> {bond -> double}}}, 
+              {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+          {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 44, type -> c4h, reference -> 99, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}, 
+            connect -> 
+            {element -> "O", test -> {flag -> {bond -> double}}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 39, type -> c4h, reference -> 67, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "C", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 40, type -> c4h, reference -> 71, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 42, type -> c4h, reference -> 86, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> partial}}}, 
+          {element -> "O", test -> {flag -> {bond -> partial}}}}}}}, 
+  {id -> 41, type -> c4h, reference -> 75, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "H", test -> {flag -> {bond -> single}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 36, type -> c4h, reference -> 46, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "C", test -> {flag -> {bond -> single}}}, 
+            {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 47, type -> c4h, reference -> 131, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 48, type -> c4h, reference -> 136, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "S", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 46, type -> c4h, reference -> 125, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 49, type -> c4h, reference -> 141, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "Si", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 51, type -> c4h2, reference -> 17, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}}}}, 
+  {id -> 63, type -> c4h2, reference -> 93, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "N", test -> {flag -> {bond -> triple}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 58, type -> c4h2, reference -> 61, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> double}}}, 
+          {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 57, type -> c4h2, reference -> 57, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "O", test -> {flag -> {bond -> double}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 50, type -> c4h2, reference -> 11, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 67, type -> c4h2, reference -> 117, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}, 
+            connect -> {
+              {element -> "O", test -> {flag -> {bond -> double}}}, 
+              {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+          {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 64, type -> c4h2, reference -> 100, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}, 
+            connect -> 
+            {element -> "O", test -> {flag -> {bond -> double}}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 59, type -> c4h2, reference -> 68, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "C", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 60, type -> c4h2, reference -> 72, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 62, type -> c4h2, reference -> 87, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> partial}}}, 
+          {element -> "O", test -> {flag -> {bond -> partial}}}}}}}, 
+  {id -> 61, type -> c4h2, reference -> 76, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "H", test -> {flag -> {bond -> single}}}, 
+          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 56, type -> c4h2, reference -> 47, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "C", test -> {flag -> {bond -> single}}}, 
+            {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 66, type -> c4h2, reference -> 106, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "N", test -> {flag -> {bond -> single}}, 
+              connect -> {
+                {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+                      include}}}, 
+                {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+            {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 65, type -> c4h2, reference -> 106, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "N", test -> {flag -> {bond -> single}}, 
+              connect -> {
+                {element -> "C", test -> {flag -> {bond -> single}}}, 
+                {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+            {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 53, type -> c4h2, reference -> 36, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 52, type -> c4h2, reference -> 26, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 54, type -> c4h2, reference -> 36, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 69, type -> c4h2, reference -> 132, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 70, type -> c4h2, reference -> 137, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "S", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 68, type -> c4h2, reference -> 126, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 71, type -> c4h2, reference -> 142, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "Si", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 55, type -> c4h2, reference -> 38, element -> "C", 
+    connect -> {
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 82, type -> c4h3, reference -> 94, element -> "C", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "N", test -> {flag -> {bond -> triple}}}}}, 
+  {id -> 77, type -> c4h3, reference -> 62, element -> "C", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "O", test -> {flag -> {bond -> double}}}, 
+        {element -> "*", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 76, type -> c4h3, reference -> 58, element -> "C", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+  {id -> 72, type -> c4h3, reference -> 12, element -> "C", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> single}}}}, 
+  {id -> 84, type -> c4h3, reference -> 118, element -> "C", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "O", test -> {flag -> {bond -> double}}}, 
+            {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+        {element -> "*", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 83, type -> c4h3, reference -> 101, element -> "C", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> 
+          {element -> "O", test -> {flag -> {bond -> double}}}}, 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 78, type -> c4h3, reference -> 69, element -> "C", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 79, type -> c4h3, reference -> 73, element -> "C", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 81, type -> c4h3, reference -> 88, element -> "C", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "O", test -> {flag -> {bond -> partial}}}, 
+        {element -> "O", test -> {flag -> {bond -> partial}}}}}}, 
+  {id -> 80, type -> c4h3, reference -> 77, element -> "C", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "H", test -> {flag -> {bond -> single}}}, 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 75, type -> c4h3, reference -> 48, element -> "C", 
+    connect -> 
+    {element -> "O", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "O", test -> {flag -> {bond -> double}}}}}}}, 
+  {id -> 74, type -> c4h3, reference -> 37, element -> "C", 
+    connect -> 
+    {element -> "O", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 73, type -> c4h3, reference -> 27, element -> "C", 
+    connect -> 
+    {element -> "O", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 86, type -> c4h3, reference -> 133, element -> "C", 
+    connect -> 
+    {element -> "S", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 87, type -> c4h3, reference -> 138, element -> "C", 
+    connect -> 
+    {element -> "S", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "S", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 85, type -> c4h3, reference -> 127, element -> "C", 
+    connect -> 
+    {element -> "S", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 88, type -> c4h3, reference -> 143, element -> "C", 
+    connect -> 
+    {element -> "Si", test -> {flag -> {bond -> single}}}}, 
+  {id -> 89, type -> c4h4, reference -> 13, element -> "C"}, 
+  {id -> 91, type -> c4ho, reference -> 35, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 90, type -> c4ho, reference -> 25, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 93, type -> c4o, reference -> 34, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 92, type -> c4o, reference -> 24, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 94, type -> c4oe, reference -> 33, element -> "C", test -> {flag -> {
+        ring -> any}}, 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 95, type -> ca+2, reference -> 165, charge -> 2, element -> "Ca", 
+    test -> {charge -> 2}}, 
+  {id -> 96, type -> cac, reference -> 18, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 100, type -> cac, reference -> 114, element -> "C", test -> {flag ->
+      {ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}, 
+            connect -> {
+              {element -> "O", test -> {flag -> {bond -> double}}}, 
+              {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+          {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 99, type -> cac, reference -> 78, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 98, type -> cac, reference -> 49, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "C", test -> {flag -> {bond -> single}}}, 
+            {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 97, type -> cac, reference -> 39, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 101, type -> caca, reference -> 19, element -> "C", test -> {flag ->
+      {ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}}}, 
+  {id -> 102, type -> cah, reference -> 20, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}}}, 
+  {id -> 104, type -> cam, reference -> 21, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+                include}}}, 
+          {element -> "M", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}}}, 
+  {id -> 103, type -> cam, reference -> 21, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "M", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 106, type -> can, reference -> 120, element -> "C", test -> {flag ->
+      {ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}}}, 
+  {id -> 105, type -> can, reference -> 119, element -> "C", test -> {flag ->
+      {ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}}}, 
+  {id -> 107, type -> can2, reference -> 121, element -> "C", test -> {flag ->
+      {ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}}}, 
+  {id -> 108, type -> cano, reference -> 84, element -> "C", test -> {flag ->
+      {ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "N", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> partial}}}, 
+          {element -> "O", test -> {flag -> {bond -> partial}}}}}}}, 
+  {id -> 109, type -> cl-, reference -> 156, charge -> -1, element -> "Cl", 
+    test -> {charge -> -1}}, 
+  {id -> 110, type -> cs+, reference -> 163, charge -> 1, element -> "Cs", 
+    test -> {charge -> 1}}, 
+  {id -> 111, type -> f-, reference -> 155, charge -> -1, element -> "F", test
+    -> {charge -> -1}}, 
+  {id -> 112, type -> he, reference -> 3, element -> "He"}, 
+  {id -> 117, type -> hn, reference -> 113, element -> "H", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+              include}}}, 
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "O", test -> {flag -> {bond -> double}}}, 
+            {element -> "O", test -> {flag -> {bond -> single}}}}}}}}, 
+  {id -> 116, type -> hn, reference -> 113, element -> "H", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "O", test -> {flag -> {bond -> double}}}, 
+            {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 115, type -> hn, reference -> 102, element -> "H", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}, 
+          connect -> 
+          {element -> "O", test -> {flag -> {bond -> double}}}}, 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 113, type -> hn, reference -> 82, element -> "H", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 114, type -> hn, reference -> 83, element -> "H", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> single}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 118, type -> ho, reference -> 29, element -> "H", 
+    connect -> 
+    {element -> "O", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 119, type -> hs, reference -> 129, element -> "H", 
+    connect -> 
+    {element -> "S", test -> {flag -> {bond -> single}}}}, 
+  {id -> 120, type -> hsi, reference -> 144, element -> "H", 
+    connect -> 
+    {element -> "Si", test -> {flag -> {bond -> single}}}}, 
+  {id -> 121, type -> hw, reference -> 8, element -> "H", 
+    connect -> 
+    {element -> "O", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 122, type -> i-, reference -> 158, charge -> -1, element -> "I", test
+    -> {charge -> -1}}, 
+  {id -> 123, type -> k+, reference -> 161, charge -> 1, element -> "K", test
+    -> {charge -> 1}}, 
+  {id -> 124, type -> kr, reference -> 4, element -> "Kr"}, 
+  {id -> 125, type -> li+, reference -> 159, charge -> 1, element -> "Li", 
+    test -> {charge -> 1}}, 
+  {id -> 126, type -> m, reference -> 22, charge -> 2.42, element -> "M", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+                include}}}, 
+          {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+                include}}}}}, 
+      {element -> "M", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 127, type -> m, reference -> 23, charge -> -1.21, element -> "M", 
+    connect -> 
+    {element -> "M", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+                include}}}, 
+          {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+                include}}}}}}}, 
+  {id -> 128, type -> mg+2, reference -> 164, charge -> 2, element -> "Mg", 
+    test -> {charge -> 2}}, 
+  {id -> 132, type -> n3, reference -> 112, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> double}}}, 
+          {element -> "O", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 131, type -> n3, reference -> 112, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> double}}}, 
+          {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 130, type -> n3, reference -> 112, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> double}}}, 
+          {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 129, type -> n3, reference -> 79, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 133, type -> n3h, reference -> 80, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 134, type -> n3h2, reference -> 81, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 137, type -> n3mh, reference -> 111, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> double}}}, 
+          {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 136, type -> n3mh, reference -> 111, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "O", test -> {flag -> {bond -> double}}}, 
+          {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 135, type -> n3mh, reference -> 103, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "O", test -> {flag -> {bond -> double}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 138, type -> n3mh2, reference -> 104, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "O", test -> {flag -> {bond -> double}}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 139, type -> na, reference -> 122, element -> "N", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}}}, 
+  {id -> 140, type -> na+, reference -> 160, charge -> 1, element -> "Na", 
+    test -> {charge -> 1}}, 
+  {id -> 141, type -> nc, reference -> 96, element -> "N", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> triple}}}}, 
+  {id -> 142, type -> ne, reference -> 5, element -> "Ne"}, 
+  {id -> 143, type -> nh4+, reference -> 168, charge -> 1, element -> "N", 
+    test -> {charge -> 1}, 
+    connect -> {
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 145, type -> no, reference -> 89, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+            include}}}, 
+      {element -> "O", test -> {flag -> {bond -> partial}}}, 
+      {element -> "O", test -> {flag -> {bond -> partial}}}}}, 
+  {id -> 144, type -> no, reference -> 89, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> partial}}}, 
+      {element -> "O", test -> {flag -> {bond -> partial}}}}}, 
+  {id -> 148, type -> o, reference -> 52, element -> "O", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 151, type -> o, reference -> 105, element -> "O", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "N", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 147, type -> o, reference -> 50, element -> "O", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "O", test -> {flag -> {bond -> single}}, 
+          connect -> 
+          {element -> "C", test -> {flag -> {bond -> single}}}}}}}, 
+  {id -> 146, type -> o, reference -> 31, element -> "O", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "O", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 149, type -> o, reference -> 53, element -> "O", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}, 
+      connect -> 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 153, type -> o, reference -> 110, element -> "O", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}, 
+      connect -> {
+        {element -> "N", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+                  include}}}, 
+            {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+        {element -> "O", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 152, type -> o, reference -> 110, element -> "O", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}, 
+      connect -> {
+        {element -> "N", test -> {flag -> {bond -> single}}, 
+          connect -> {
+            {element -> "C", test -> {flag -> {bond -> single}}}, 
+            {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+        {element -> "O", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 150, type -> o, reference -> 54, element -> "O", 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> double}}}}, 
+  {id -> 154, type -> o2z, reference -> 145, element -> "O", 
+    connect -> {
+      {element -> "Si", test -> {flag -> {bond -> single}}}, 
+      {element -> "Si", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 155, type -> oh, reference -> 28, element -> "O", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 156, type -> oha, reference -> 32, element -> "O", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "O", test -> {flag -> {bond -> double}}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 158, type -> on, reference -> 90, element -> "O", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> partial}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+              include}}}, 
+        {element -> "O", test -> {flag -> {bond -> partial}}}}}}, 
+  {id -> 157, type -> on, reference -> 90, element -> "O", 
+    connect -> 
+    {element -> "N", test -> {flag -> {bond -> partial}}, 
+      connect -> {
+        {element -> "C", test -> {flag -> {bond -> single}}}, 
+        {element -> "O", test -> {flag -> {bond -> partial}}}}}}, 
+  {id -> 160, type -> os, reference -> 51, element -> "O", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 162, type -> os, reference -> 107, element -> "O", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "N", test -> {flag -> {bond -> single}}, 
+            connect -> {
+              {element -> "C", test -> {flag -> {bond -> single, aromatic ->
+                    include}}}, 
+              {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+          {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 161, type -> os, reference -> 107, element -> "O", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "N", test -> {flag -> {bond -> single}}, 
+            connect -> {
+              {element -> "C", test -> {flag -> {bond -> single}}}, 
+              {element -> "*", test -> {flag -> {bond -> single}}}}}, 
+          {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 159, type -> os, reference -> 41, element -> "O", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 163, type -> ose, reference -> 40, element -> "O", test -> {flag -> {
+        ring -> any}}, 
+    connect -> 
+    {element -> "C", test -> {flag -> {bond -> single}}, 
+      connect -> 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 164, type -> ow, reference -> 7, element -> "O", 
+    connect -> {
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 165, type -> rb+, reference -> 162, charge -> 1, element -> "Rb", 
+    test -> {charge -> 1}}, 
+  {id -> 166, type -> sa, reference -> 123, element -> "S", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}, 
+      {element -> "S", test -> {flag -> {bond -> partial, aromatic ->
+            include}}}}}, 
+  {id -> 167, type -> sc, reference -> 134, element -> "S", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 168, type -> sh, reference -> 128, element -> "S", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 169, type -> si4z, reference -> 146, element -> "Si", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 170, type -> si4z, reference -> 147, element -> "Si", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 171, type -> si4z, reference -> 148, element -> "Si", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 172, type -> si4z, reference -> 149, element -> "Si", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 177, type -> si4z, reference -> 154, element -> "Si", 
+    connect -> {
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 176, type -> si4z, reference -> 153, element -> "Si", 
+    connect -> {
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 175, type -> si4z, reference -> 152, element -> "Si", 
+    connect -> {
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 174, type -> si4z, reference -> 151, element -> "Si", 
+    connect -> {
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 173, type -> si4z, reference -> 150, element -> "Si", 
+    connect -> {
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 178, type -> sr+2, reference -> 166, charge -> 2, element -> "Sr", 
+    test -> {charge -> 2}}, 
+  {id -> 179, type -> ss, reference -> 139, element -> "S", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 180, type -> xe, reference -> 6, element -> "Xe"}};
+
+(* Masses *)
+
+masses = {
+  {id -> ?, index -> 1, mass -> 1, element -> "?", nconnects -> 0, charge ->
+    0, comment -> "Dummy"},
+  {id -> ar, index -> 2, mass -> 39.948, element -> "Ar", nconnects -> 0, 
+    charge -> 0, comment -> "Argon"},
+  {id -> ba+2, index -> 3, mass -> 137.327, element -> "Ba", nconnects -> 0, 
+    charge -> 2, comment -> "Ba2+ cation"},
+  {id -> br-, index -> 4, mass -> 79.904, element -> "Br", nconnects -> 0, 
+    charge -> -1, comment -> "Br- ion"},
+  {id -> c1n, index -> 5, mass -> 12.011, element -> "C", nconnects -> 2, 
+    charge -> 0, comment -> "C (SP) in nitriles"},
+  {id -> c3, index -> 6, mass -> 12.011, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "C (SP2) isobutene"},
+  {id -> c3h, index -> 7, mass -> 13.0189, element -> "C", nconnects -> 2, 
+    charge -> 0, comment -> "CH (SP2) 2-alkene"},
+  {id -> c3h2, index -> 8, mass -> 14.0268, element -> "C", nconnects -> 1, 
+    charge -> 0, comment -> "CH2 (SP2) 1-alkene"},
+  {id -> c3ho, index -> 9, mass -> 13.0189, element -> "C", nconnects -> 2, 
+    charge -> 0, comment -> "CH (SP2) in aldehydes"},
+  {id -> c3mo, index -> 10, mass -> 12.011, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "C (SP2) in amides or urethanes"},
+  {id -> c3o, index -> 11, mass -> 12.011, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "C (SP2) in ketones"},
+  {id -> c3oa, index -> 12, mass -> 12.011, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "C (SP2) in acids"},
+  {id -> c3oe, index -> 13, mass -> 12.011, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "C (SP2) in esters"},
+  {id -> c4, index -> 14, mass -> 12.011, element -> "C", nconnects -> 4, 
+    charge -> 0, comment -> "C (SP3) in neopentane"},
+  {id -> c4h, index -> 15, mass -> 13.0189, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "CH (SP3) in isobutane or isopropanol"},
+  {id -> c4h2, index -> 16, mass -> 14.0268, element -> "C", nconnects -> 2, 
+    charge -> 0, comment -> "CH2 (SP3) in alkanes"},
+  {id -> c4h3, index -> 17, mass -> 15.0347, element -> "C", nconnects -> 1, 
+    charge -> 0, comment -> "CH3 methyl"},
+  {id -> c4h4, index -> 18, mass -> 16.0426, element -> "C", nconnects -> 0, 
+    charge -> 0, comment -> "CH4 methane"},
+  {id -> c4ho, index -> 19, mass -> 13.0189, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "CH (SP3) in secondary ether"},
+  {id -> c4o, index -> 20, mass -> 12.011, element -> "C", nconnects -> 4, 
+    charge -> 0, comment -> "C (SP3) in ternary ether"},
+  {id -> c4oe, index -> 21, mass -> 12.011, element -> "C", nconnects -> 4, 
+    charge -> 0, comment -> "C (SP3) in ethylene oxide ether"},
+  {id -> ca+2, index -> 22, mass -> 40.078, element -> "C", nconnects -> 0, 
+    charge -> 2, comment -> "Ca2+ ion"},
+  {id -> cac, index -> 23, mass -> 12.011, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "C (aromatic) alkylbenzene"},
+  {id -> caca, index -> 24, mass -> 12.011, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "C (aromatic) naphtalene"},
+  {id -> cah, index -> 25, mass -> 13.0189, element -> "C", nconnects -> 2, 
+    charge -> 0, comment -> "C (aromatic) benzene"},
+  {id -> cam, index -> 26, mass -> 13.0189, element -> "C", nconnects -> 2, 
+    charge -> 0, comment -> "C (aromatic) benzene with lone pairs"},
+  {id -> can, index -> 27, mass -> 13.0189, element -> "C", nconnects -> 2, 
+    charge -> 0, comment -> "C (aromatic) in pyridine"},
+  {id -> can2, index -> 28, mass -> 13.0189, element -> "C", nconnects -> 2, 
+    charge -> 0, comment -> "C (aromatic) in pyrimidine"},
+  {id -> cano, index -> 29, mass -> 12.011, element -> "C", nconnects -> 3, 
+    charge -> 0, comment -> "C (aromatic) attached to nitro"},
+  {id -> cl-, index -> 30, mass -> 34.453, element -> "Cl", nconnects -> 0, 
+    charge -> -1, comment -> "Cl- ion"},
+  {id -> cs+, index -> 31, mass -> 132.905, element -> "Cs", nconnects -> 0, 
+    charge -> 1, comment -> "Cs+ ion"},
+  {id -> f-, index -> 32, mass -> 18.998, element -> "F", nconnects -> 0, 
+    charge -> -1, comment -> "F- ion"},
+  {id -> he, index -> 33, mass -> 4.0026, element -> "He", nconnects -> 0, 
+    charge -> 0, comment -> "Helium"},
+  {id -> hn, index -> 34, mass -> 1.0079, element -> "H", nconnects -> 1, 
+    charge -> 0, comment -> "H in amine -NH"},
+  {id -> ho, index -> 35, mass -> 1.0079, element -> "H", nconnects -> 1, 
+    charge -> 0, comment -> "H in acid and alcohol -OH"},
+  {id -> hs, index -> 36, mass -> 1.0079, element -> "H", nconnects -> 1, 
+    charge -> 0, comment -> "H in -SH"},
+  {id -> hsi, index -> 37, mass -> 1.0079, element -> "H", nconnects -> 1, 
+    charge -> 0, comment -> "H in -SiH"},
+  {id -> hw, index -> 38, mass -> 1.0079, element -> "H", nconnects -> 1, 
+    charge -> 0, comment -> "H in water"},
+  {id -> i-, index -> 39, mass -> 126.904, element -> "I", nconnects -> 0, 
+    charge -> -1, comment -> "I- ion"},
+  {id -> k+, index -> 40, mass -> 39.098, element -> "K", nconnects -> 0, 
+    charge -> 1, comment -> "K+ cation"},
+  {id -> kr, index -> 41, mass -> 83.8, element -> "Kr", nconnects -> 0, 
+    charge -> 0, comment -> "Krypton"},
+  {id -> li+, index -> 42, mass -> 6.941, element -> "Li", nconnects -> 0, 
+    charge -> 1, comment -> "Li+ cation"},
+  {id -> m, index -> 43, mass -> 1, element -> "M", nconnects -> 1, charge ->
+    0, comment -> "lone pair"},
+  {id -> mg+2, index -> 44, mass -> 24.305, element -> "Mg", nconnects -> 0, 
+    charge -> 2, comment -> "Mg2+ cation"},
+  {id -> n3, index -> 45, mass -> 14.0067, element -> "N", nconnects -> 3, 
+    charge -> 0, comment -> "N (SP3) in amines without connected H"},
+  {id -> n3h, index -> 46, mass -> 14.0067, element -> "N", nconnects -> 3, 
+    charge -> 0, comment -> "N (SP3) in amines with 1 connected H"},
+  {id -> n3h2, index -> 47, mass -> 14.0067, element -> "N", nconnects -> 3, 
+    charge -> 0, comment -> "N (SP3) in amines with 2 connected H"},
+  {id -> n3mh, index -> 48, mass -> 14.0067, element -> "N", nconnects -> 3, 
+    charge -> 0, comment -> "N (SP3) in amides with 1 connected H"},
+  {id -> n3mh2, index -> 49, mass -> 14.0067, element -> "N", nconnects -> 3, 
+    charge -> 0, comment -> "N (SP3) in amides with 2 connected H"},
+  {id -> na, index -> 50, mass -> 14.0067, element -> "N", nconnects -> 2, 
+    charge -> 0, comment -> "N (aromatic)"},
+  {id -> na+, index -> 51, mass -> 22.99, element -> "Na", nconnects -> 0, 
+    charge -> 1, comment -> "Na+ cation"},
+  {id -> nc, index -> 52, mass -> 14.0067, element -> "N", nconnects -> 2, 
+    charge -> 0, comment -> "N (SP) in nitriles"},
+  {id -> ne, index -> 53, mass -> 20.18, element -> "Ne", nconnects -> 0, 
+    charge -> 0, comment -> "Neon"},
+  {id -> nh4+, index -> 54, mass -> 18.0383, element -> "N", nconnects -> 0, 
+    charge -> 1, comment -> "Ammonium ion"},
+  {id -> no, index -> 55, mass -> 14.0067, element -> "N", nconnects -> 3, 
+    charge -> 0, comment -> "N (SP) in nitro"},
+  {id -> o, index -> 56, mass -> 15.9994, element -> "O", nconnects -> 1, 
+    charge -> 0, comment -> "O in =O of acids and formamide"},
+  {id -> o2z, index -> 57, mass -> 15.9994, element -> "O", nconnects -> 2, 
+    charge -> 0, comment -> "O in zeolites"},
+  {id -> oh, index -> 58, mass -> 15.9994, element -> "O", nconnects -> 2, 
+    charge -> 0, comment -> "O in -OH of alcohols"},
+  {id -> oha, index -> 59, mass -> 15.9994, element -> "O", nconnects -> 2, 
+    charge -> 0, comment -> "O in -OH of acids"},
+  {id -> on, index -> 60, mass -> 15.9994, element -> "O", nconnects -> 1, 
+    charge -> 0, comment -> "O in nitro"},
+  {id -> os, index -> 61, mass -> 15.9994, element -> "O", nconnects -> 2, 
+    charge -> 0, comment -> "O in ethers"},
+  {id -> ose, index -> 62, mass -> 15.9994, element -> "O", nconnects -> 2, 
+    charge -> 0, comment -> "O in ethylene oxide ethers"},
+  {id -> ow, index -> 63, mass -> 15.9994, element -> "O", nconnects -> 4, 
+    charge -> 0, comment -> "O in water"},
+  {id -> rb+, index -> 64, mass -> 85.468, element -> "Rb", nconnects -> 0, 
+    charge -> 1, comment -> "Rb+ cation"},
+  {id -> sa, index -> 65, mass -> 32.066, element -> "S", nconnects -> 2, 
+    charge -> 0, comment -> "S (aromatic) in thiophene"},
+  {id -> sc, index -> 66, mass -> 32.066, element -> "S", nconnects -> 2, 
+    charge -> 0, comment -> "S attached to C in sulfide"},
+  {id -> sh, index -> 67, mass -> 32.066, element -> "S", nconnects -> 2, 
+    charge -> 0, comment -> "S in thiols"},
+  {id -> si4z, index -> 68, mass -> 28.0855, element -> "Si", nconnects -> 4, 
+    charge -> 0, comment -> "Si in zeolites"},
+  {id -> sr+2, index -> 69, mass -> 87.62, element -> "S", nconnects -> 0, 
+    charge -> 2, comment -> "Sr2+ cation"},
+  {id -> ss, index -> 70, mass -> 32.066, element -> "S", nconnects -> 2, 
+    charge -> 0, comment -> "S attached to C and S in disulfide"},
+  {id -> xe, index -> 71, mass -> 131.29, element -> "Xe", nconnects -> 0, 
+    charge -> 0, comment -> "Xenon"}};
+
+(* Increments *)
+
+increments = {
+  {i0 -> c*, i1 -> c*, delta -> {0, 0}},
+  {i0 -> c1n, i1 -> c4*, delta -> {0, 0}},
+  {i0 -> c1n, i1 -> nc, delta -> {0.129, -0.129}},
+  {i0 -> c3*, i1 -> os, delta -> {0.25, -0.25}},
+  {i0 -> c3ho, i1 -> c4*, delta -> {0.043, -0.043}},
+  {i0 -> c3ho, i1 -> o, delta -> {0.482, -0.482}},
+  {i0 -> c3mo, i1 -> c4*, delta -> {0, 0}},
+  {i0 -> c3mo, i1 -> n3*, delta -> {0, 0}},
+  {i0 -> c3mo, i1 -> o, delta -> {0.424, -0.424}},
+  {i0 -> c3mo, i1 -> os, delta -> {0.15, -0.15}},
+  {i0 -> c3o, i1 -> c4*, delta -> {0, 0}},
+  {i0 -> c3o, i1 -> o, delta -> {0.424, -0.424}},
+  {i0 -> c3oa, i1 -> c4*, delta -> {-0.08, 0.08}},
+  {i0 -> c3oa, i1 -> o, delta -> {0.5, -0.5}},
+  {i0 -> c3oa, i1 -> oh, delta -> {0.13, -0.13}},
+  {i0 -> c3oe, i1 -> c4*, delta -> {0, 0}},
+  {i0 -> c3oe, i1 -> o, delta -> {0.4, -0.4}},
+  {i0 -> c3oe, i1 -> os, delta -> {0, 0}},
+  {i0 -> c4*, i1 -> c4oe, delta -> {0, 0}},
+  {i0 -> c4*, i1 -> n3*, delta -> {0.18, -0.18}},
+  {i0 -> c4*, i1 -> nc, delta -> {0.269, -0.269}},
+  {i0 -> c4*, i1 -> no, delta -> {0.14, -0.14}},
+  {i0 -> c4*, i1 -> oh, delta -> {0.265, -0.265}},
+  {i0 -> c4*, i1 -> os, delta -> {0.25, -0.25}},
+  {i0 -> c4*, i1 -> sc, delta -> {0.15, -0.15}},
+  {i0 -> c4*, i1 -> sh, delta -> {0.171, -0.171}},
+  {i0 -> c4*, i1 -> si4z, delta -> {-0.228, 0.228}},
+  {i0 -> c4*, i1 -> ss, delta -> {0.177, -0.177}},
+  {i0 -> c4oe, i1 -> ose, delta -> {0.21, -0.21}},
+  {i0 -> ca*, i1 -> can, delta -> {0, 0}},
+  {i0 -> ca*, i1 -> cano, delta -> {0, 0}},
+  {i0 -> cac, i1 -> os, delta -> {0.25, -0.25}},
+  {i0 -> can, i1 -> na, delta -> {0.33, -0.33}},
+  {i0 -> cano, i1 -> no, delta -> {0.14, -0.14}},
+  {i0 -> hn, i1 -> n3h, delta -> {0.385, -0.385}},
+  {i0 -> hn, i1 -> n3h2, delta -> {0.356, -0.356}},
+  {i0 -> hn, i1 -> n3mh, delta -> {0.432, -0.432}},
+  {i0 -> hn, i1 -> n3mh2, delta -> {0.4, -0.4}},
+  {i0 -> ho, i1 -> oh, delta -> {0.435, -0.435}},
+  {i0 -> hs, i1 -> sh, delta -> {0.206, -0.206}},
+  {i0 -> hsi, i1 -> si4z, delta -> {-0.212, 0.212}},
+  {i0 -> hw, i1 -> ow, delta -> {0.4238, -0.4238}},
+  {i0 -> no, i1 -> on, delta -> {0.48, -0.48}},
+  {i0 -> o2z, i1 -> si4z, delta -> {-0.375, 0.375}},
+  {i0 -> ss, i1 -> ss, delta -> {0, 0}}};
+
+(* Parameters *)
+
+general = {
+  equivalences -> {
+    {type -> ?, pair -> ?, bond -> ?, angle -> ?, torsion -> ?, improper -> ?},
+    {type -> ar, pair -> ar, bond -> ar, angle -> ar, torsion -> ar, improper
+      -> ar},
+    {type -> ba+2, pair -> ba+2, bond -> ba+2, angle -> ba+2, torsion -> ba+2,
+      improper -> ba+2},
+    {type -> br-, pair -> br-, bond -> br-, angle -> br-, torsion -> br-, 
+      improper -> br-},
+    {type -> c1n, pair -> c1n, bond -> c1n, angle -> c1n, torsion -> c1n, 
+      improper -> c1n},
+    {type -> c3, pair -> c3, bond -> c3, angle -> c3, torsion -> c3, improper
+      -> c3},
+    {type -> c3h, pair -> c3h, bond -> c3h, angle -> c3h, torsion -> c3h, 
+      improper -> c3h},
+    {type -> c3h2, pair -> c3h2, bond -> c3h2, angle -> c3h2, torsion -> c3h2,
+      improper -> c3h2},
+    {type -> c3ho, pair -> c3ho, bond -> c3ho, angle -> c3o, torsion -> c3o, 
+      improper -> c3o},
+    {type -> c3mo, pair -> c3mo, bond -> c3mo, angle -> c3o, torsion -> c3o, 
+      improper -> c3o},
+    {type -> c3o, pair -> c3o, bond -> c3o, angle -> c3o, torsion -> c3o, 
+      improper -> c3o},
+    {type -> c3oa, pair -> c3o, increment -> c3oa, bond -> c3o, angle -> c3o, 
+      torsion -> c3o, improper -> c3o},
+    {type -> c3oe, pair -> c3oe, bond -> c3o, angle -> c3oe, torsion -> c3oe, 
+      improper -> c3o},
+    {type -> c4, pair -> c4, bond -> c4, angle -> c4, torsion -> c4, improper
+      -> c4},
+    {type -> c4h, pair -> c4h, bond -> c4h, angle -> c4h, torsion -> c4h, 
+      improper -> c4h},
+    {type -> c4h2, pair -> c4h2, bond -> c4h2, angle -> c4h2, torsion -> c4h2,
+      improper -> c4h2},
+    {type -> c4h3, pair -> c4h3, bond -> c4h3, angle -> c4h3, torsion -> c4h3,
+      improper -> c4h3},
+    {type -> c4h4, pair -> c4h4, bond -> c4h4, angle -> c4h4, torsion -> c4h4,
+      improper -> c4h4},
+    {type -> c4ho, pair -> c4ho, bond -> c4h, angle -> c4h, torsion -> c4h, 
+      improper -> c4h},
+    {type -> c4o, pair -> c4o, bond -> c4o, angle -> c4o, torsion -> c4o, 
+      improper -> c4o},
+    {type -> c4oe, pair -> c4oe, bond -> c4oe, angle -> c4oe, torsion -> c4oe,
+      improper -> c4oe},
+    {type -> ca+2, pair -> ca+2, bond -> ca+2, angle -> ca+2, torsion -> ca+2,
+      improper -> ca+2},
+    {type -> cac, pair -> cac, bond -> cac, angle -> cac, torsion -> cac, 
+      improper -> cac},
+    {type -> caca, pair -> caca, bond -> caca, angle -> caca, torsion -> caca,
+      improper -> caca},
+    {type -> cah, pair -> cah, bond -> cah, angle -> cah, torsion -> cah, 
+      improper -> cah},
+    {type -> cam, pair -> cam, bond -> cam, angle -> cam, torsion -> cam, 
+      improper -> cam},
+    {type -> can, pair -> can, bond -> can, angle -> can, torsion -> can, 
+      improper -> can},
+    {type -> can2, pair -> can2, bond -> can2, angle -> can2, torsion -> can2,
+      improper -> can2},
+    {type -> cano, pair -> cano, bond -> cano, angle -> cano, torsion -> cano,
+      improper -> cano},
+    {type -> cl-, pair -> cl-, bond -> cl-, angle -> cl-, torsion -> cl-, 
+      improper -> cl-},
+    {type -> cs+, pair -> cs+, bond -> cs+, angle -> cs+, torsion -> cs+, 
+      improper -> cs+},
+    {type -> f-, pair -> f-, bond -> f-, angle -> f-, torsion -> f-, improper
+      -> f-},
+    {type -> he, pair -> he, bond -> he, angle -> he, torsion -> he, improper
+      -> he},
+    {type -> hn, pair -> hn, bond -> hn, angle -> hn, torsion -> hn, improper
+      -> hn},
+    {type -> ho, pair -> ho, bond -> ho, angle -> ho, torsion -> ho, improper
+      -> ho},
+    {type -> hs, pair -> hs, bond -> hs, angle -> hs, torsion -> hs, improper
+      -> hs},
+    {type -> hsi, pair -> hsi, bond -> hsi, angle -> hsi, torsion -> hsi, 
+      improper -> hsi},
+    {type -> hw, pair -> hw, bond -> hw, angle -> hw, torsion -> hw, improper
+      -> hw},
+    {type -> i-, pair -> i-, bond -> i-, angle -> i-, torsion -> i-, improper
+      -> i-},
+    {type -> k+, pair -> k+, bond -> k+, angle -> k+, torsion -> k+, improper
+      -> k+},
+    {type -> kr, pair -> kr, bond -> kr, angle -> kr, torsion -> kr, improper
+      -> kr},
+    {type -> li+, pair -> li+, bond -> li+, angle -> li+, torsion -> li+, 
+      improper -> li+},
+    {type -> m, pair -> m, bond -> m, angle -> m, torsion -> m, improper -> m},
+    {type -> mg+2, pair -> mg+2, bond -> mg+2, angle -> mg+2, torsion -> mg+2,
+      improper -> mg+2},
+    {type -> n3, pair -> n3, bond -> n3, angle -> n3, torsion -> n3, improper
+      -> n3},
+    {type -> n3h, pair -> n3h, bond -> n3h, angle -> n3h, torsion -> n3h, 
+      improper -> n3h},
+    {type -> n3h2, pair -> n3h2, bond -> n3h2, angle -> n3h2, torsion -> n3h2,
+      improper -> n3h2},
+    {type -> n3mh, pair -> n3h, increment -> n3mh, bond -> n3mh, angle ->
+      n3mh, torsion -> n3mh, improper -> n3mh},
+    {type -> n3mh2, pair -> n3h2, increment -> n3mh2, bond -> n3mh, angle ->
+      n3mh, torsion -> n3mh, improper -> n3mh},
+    {type -> na, pair -> na, bond -> na, angle -> na, torsion -> na, improper
+      -> na},
+    {type -> na+, pair -> na+, bond -> na+, angle -> na+, torsion -> na+, 
+      improper -> na+},
+    {type -> nc, pair -> nc, bond -> nc, angle -> nc, torsion -> nc, improper
+      -> nc},
+    {type -> ne, pair -> ne, bond -> ne, angle -> ne, torsion -> ne, improper
+      -> ne},
+    {type -> nh4+, pair -> nh4+, bond -> nh4+, angle -> nh4+, torsion -> nh4+,
+      improper -> nh4+},
+    {type -> no, pair -> no, bond -> no, angle -> no, torsion -> no, improper
+      -> no},
+    {type -> o, pair -> o, bond -> o, angle -> o, torsion -> o, improper -> o},
+    {type -> o2z, pair -> o2z, bond -> o2z, angle -> o2z, torsion -> o2z, 
+      improper -> o2z},
+    {type -> oh, pair -> oh, bond -> oh, angle -> oh, torsion -> oh, improper
+      -> oh},
+    {type -> on, pair -> on, bond -> on, angle -> on, torsion -> on, improper
+      -> on},
+    {type -> os, pair -> os, bond -> os, angle -> os, torsion -> os, improper
+      -> os},
+    {type -> ose, pair -> ose, bond -> os, angle -> ose, torsion -> ose, 
+      improper -> os},
+    {type -> ow, pair -> ow, bond -> ow, angle -> ow, torsion -> ow, improper
+      -> ow},
+    {type -> rb+, pair -> rb+, bond -> rb+, angle -> rb+, torsion -> rb+, 
+      improper -> rb+},
+    {type -> sa, pair -> sa, bond -> sa, angle -> sa, torsion -> sa, improper
+      -> sa},
+    {type -> sc, pair -> sc, bond -> sc, angle -> sc, torsion -> sc, improper
+      -> sc},
+    {type -> sh, pair -> sh, bond -> sh, angle -> sh, torsion -> sh, improper
+      -> sh},
+    {type -> si4z, pair -> si4z, bond -> si4z, angle -> si4z, torsion -> si4z,
+      improper -> si4z},
+    {type -> sr+2, pair -> sr+2, bond -> sr+2, angle -> sr+2, torsion -> sr+2,
+      improper -> sr+2},
+    {type -> ss, pair -> ss, bond -> ss, angle -> ss, torsion -> ss, improper
+      -> ss},
+    {type -> xe, pair -> xe, bond -> xe, angle -> xe, torsion -> xe, improper
+      -> xe}}, 
+  angle -> {active -> true, n -> 49, data -> {
+      {i0 -> c*, i1 -> c3, i2 -> c*, k -> 139.93907553, theta -> 119.7}, 
+      {i0 -> c*, i1 -> c3, i2 -> c3*, k -> 139.93907553, theta -> 119.7}, 
+      {i0 -> c*, i1 -> c3h, i2 -> c3*, k -> 139.93907553, theta -> 119.7}, 
+      {i0 -> c*, i1 -> c3o*, i2 -> c*, k -> 124.200400748, theta -> 117.2}, 
+      {i0 -> c*, i1 -> c3o*, i2 -> n3*, k -> 56.2379414585, theta -> 117.2}, 
+      {i0 -> c*, i1 -> c3o*, i2 -> o, k -> 124.200400748, theta -> 121.4}, 
+      {i0 -> c*, i1 -> c4, i2 -> c*, k -> 124.200400748, theta -> 109.47}, 
+      {i0 -> c*, i1 -> c4*, i2 -> cn, k -> 62.1002003738, theta -> 114}, 
+      {i0 -> c*, i1 -> c4*, i2 -> n3*, k -> 56.2379414585, theta -> 109.5}, 
+      {i0 -> c*, i1 -> c4*, i2 -> no, k -> 63.042136213, theta -> 111.1}, 
+      {i0 -> c*, i1 -> c4*, i2 -> oh, k -> 100.155203163, theta -> 109.47}, 
+      {i0 -> c*, i1 -> c4*, i2 -> os, k -> 99.9564825216, theta -> 112}, 
+      {i0 -> c*, i1 -> c4*, i2 -> s*, k -> 124.200400748, theta -> 114}, 
+      {i0 -> c*, i1 -> c4h, i2 -> c*, k -> 124.200400748, theta -> 112}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> c*, k -> 124.200400748, theta -> 114}, 
+      {i0 -> c*, i1 -> c4o, i2 -> c*, k -> 124.200400748, theta -> 109.47}, 
+      {i0 -> c*, i1 -> ca*, i2 -> ca*, k -> 139.998691723, theta -> 120}, 
+      {i0 -> c*, i1 -> ca*, i2 -> na*, k -> 139.998691723, theta -> 120}, 
+      {i0 -> c*, i1 -> cn, i2 -> nc, k -> 300.068168206, theta -> 180}, 
+      {i0 -> c*, i1 -> n3*, i2 -> c*, k -> 50.0338830403, theta -> 109.5}, 
+      {i0 -> c*, i1 -> n3*, i2 -> hn, k -> 62.1002003738, theta -> 112.9}, 
+      {i0 -> c*, i1 -> no, i2 -> on, k -> 80.0526230994, theta -> 111.5}, 
+      {i0 -> c*, i1 -> oh, i2 -> ho, k -> 110.091235223, theta -> 108.5}, 
+      {i0 -> c*, i1 -> os, i2 -> c*, k -> 120.027267282, theta -> 112}, 
+      {i0 -> c*, i1 -> os, i2 -> c3*, k -> 165.999300417, theta -> 116.9}, 
+      {i0 -> c*, i1 -> sc, i2 -> c*, k -> 90.5172520648, theta -> 99}, 
+      {i0 -> c*, i1 -> sc, i2 -> sc, k -> 90.5172520648, theta -> 103}, 
+      {i0 -> c*, i1 -> sh, i2 -> hs, k -> 67.2271929166, theta -> 96}, 
+      {i0 -> c3*, i1 -> c3h, i2 -> os, k -> 139.93907553, theta -> 119.7}, 
+      {i0 -> c3*, i1 -> c3o*, i2 -> o, k -> 124.200400748, theta -> 125}, 
+      {i0 -> c3*, i1 -> c3o*, i2 -> os, k -> 140.296772684, theta -> 110}, 
+      {i0 -> c3*, i1 -> os, i2 -> c4*, k -> 124.200400748, theta -> 115}, 
+      {i0 -> c4*, i1 -> c3o*, i2 -> oh, k -> 139.998691723, theta -> 108}, 
+      {i0 -> c4*, i1 -> c3o*, i2 -> os, k -> 140.296772684, theta -> 110}, 
+      {i0 -> c4*, i1 -> c4*, i2 -> si*, k -> 119.999446393, theta -> 112}, 
+      {i0 -> c4*, i1 -> os, i2 -> si4z, k -> 80.0009557327, theta -> 130}, 
+      {i0 -> c4*, i1 -> si4z, i2 -> o2z, k -> 119.999446393, theta -> 100}, 
+      {i0 -> ca*, i1 -> ca*, i2 -> ca*, k -> 126.008758582, theta -> 120}, 
+      {i0 -> ca*, i1 -> ca*, i2 -> n*, k -> 139.998691723, theta -> 120}, 
+      {i0 -> ca*, i1 -> ca*, i2 -> no, k -> 170.005508543, theta -> 120}, 
+      {i0 -> ca*, i1 -> ca*, i2 -> o*, k -> 139.998691723, theta -> 120}, 
+      {i0 -> ca*, i1 -> ca*, i2 -> sa, k -> 140.018563787, theta -> 111.5}, 
+      {i0 -> ca*, i1 -> na, i2 -> ca*, k -> 139.998691723, theta -> 120}, 
+      {i0 -> ca*, i1 -> sa, i2 -> ca*, k -> 148.007133563, theta -> 92.2}, 
+      {i0 -> hn, i1 -> n3*, i2 -> hn, k -> 43.6291167746, theta -> 106.4}, 
+      {i0 -> n3*, i1 -> c3*, i2 -> o, k -> 159.999924259, theta -> 122.9}, 
+      {i0 -> n3*, i1 -> c3*, i2 -> os, k -> 161.999053909, theta -> 111.4}, 
+      {i0 -> o, i1 -> c3*, i2 -> os, k -> 124.200400748, theta -> 125}, 
+      {i0 -> o, i1 -> c3o*, i2 -> oh, k -> 159.999924259, theta -> 121}}}, 
+  bond -> {active -> true, n -> 18, data -> {
+      {i0 -> c*, i1 -> c3ho, k -> 628.000944721, l -> 1.52}, 
+      {i0 -> c*, i1 -> c3mo, k -> 628.000944721, l -> 1.52}, 
+      {i0 -> c*, i1 -> c3o, k -> 628.000944721, l -> 1.52}, 
+      {i0 -> c*, i1 -> c4*, k -> 520.000250643, l -> 1.54}, 
+      {i0 -> c*, i1 -> no, k -> 749.999520764, l -> 1.49}, 
+      {i0 -> c*, i1 -> oh, k -> 771.99988295, l -> 1.43}, 
+      {i0 -> c*, i1 -> os, k -> 639.999697036, l -> 1.41}, 
+      {i0 -> c*, i1 -> s*, k -> 443.941912432, l -> 1.82}, 
+      {i0 -> c3*, i1 -> c3*, k -> 1059.99974662, l -> 1.33}, 
+      {i0 -> c3mo, i1 -> n3*, k -> 980.00077809, l -> 1.335}, 
+      {i0 -> c4*, i1 -> n3*, k -> 674.000798745, l -> 1.448}, 
+      {i0 -> c4*, i1 -> si4z, k -> 374.000195557, l -> 1.86}, 
+      {i0 -> ca*, i1 -> ca*, k -> 937.999183367, l -> 1.4}, 
+      {i0 -> ca*, i1 -> n3*, k -> 674.000798745, l -> 1.449}, 
+      {i0 -> ca*, i1 -> na, k -> 854.019840398, l -> 1.4}, 
+      {i0 -> ca*, i1 -> no, k -> 799.999621295, l -> 1.46}, 
+      {i0 -> ca*, i1 -> sa, k -> 500.001005313, l -> 1.71}, 
+      {i0 -> hn, i1 -> n3*, k -> 867.999837506, l -> 1.01}}}, 
+  improper -> {active -> true, n -> 6, data -> {
+      {i0 -> c3*, i1 -> *, i2 -> c3, i3 -> c3, k -> -15.9970116163, psi -> 0}, 
+      {i0 -> c3*, i1 -> *, i2 -> c3, i3 -> c3h, k -> -15.9970116163, psi ->
+        0}, 
+      {i0 -> c3*, i1 -> *, i2 -> c3h, i3 -> c3h, k -> -15.9970116163, psi ->
+        0}, 
+      {i0 -> cac, i1 -> *, i2 -> *, i3 -> *, k -> 4.40166220249, psi -> 0}, 
+      {i0 -> caca, i1 -> *, i2 -> *, i3 -> *, k -> 4.40166220249, psi -> 0}, 
+      {i0 -> cah, i1 -> *, i2 -> *, i3 -> *, k -> 4.40166220249, psi -> 0}}}, 
+  torsion -> {active -> true, n -> 78, data -> {
+      {i0 -> *, i1 -> ca*, i2 -> ca*, i3 -> *, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 3.10018110711, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> *, i1 -> ca*, i2 -> n3*, i3 -> *, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 1.05000012395, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> *, i1 -> ca*, i2 -> na*, i3 -> *, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 3.10018110711, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c*, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 4.04511762806, n -> 0, delta -> 0}, 
+          {k -> -1.46437240497, n -> 1, delta -> 0}, 
+          {k -> 0.114940018868, n -> 2, delta -> 0}, 
+          {k -> -0.582708536179, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c*, i2 -> os, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 1.44142017092, n -> 1, delta -> 0}, 
+          {k -> -0.325405049959, n -> 2, delta -> 0}, 
+          {k -> 1.10925861916, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c3h, i2 -> c3h, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.248400801495, n -> 1, delta -> 0}, 
+          {k -> 12.8174813571, n -> 2, delta -> 0}, 
+          {k -> -0.248400801495, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c3o*, i2 -> c4h2, i3 -> c*, coefficients -> {
+          {k -> -0.0342991826704, n -> 0, delta -> 0}, 
+          {k -> 1.49557154564, n -> 1, delta -> 0}, 
+          {k -> 0.0295895034741, n -> 2, delta -> 0}, 
+          {k -> 0.560590928814, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4, i2 -> c4, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.705517892438, n -> 1, delta -> 0}, 
+          {k -> -0.135507605232, n -> 2, delta -> 0}, 
+          {k -> 1.57251617791, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4, i2 -> c4h2, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0, n -> 2, delta -> 0}, 
+          {k -> 0.916678445773, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4, i2 -> oh, i3 -> ho, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0, n -> 2, delta -> 0}, 
+          {k -> 0.32502748074, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> c3o*, i3 -> n3*, coefficients -> {
+          {k -> 0.439848267223, n -> 0, delta -> 0}, 
+          {k -> 0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> -0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 0.439848267223, n -> 0, delta -> 0}, 
+          {k -> 0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> -0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> c3o*, i3 -> os, coefficients -> {
+          {k -> 1.8948013138, n -> 0, delta -> 0}, 
+          {k -> -0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> 0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> c4*, i3 -> hc, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0, n -> 2, delta -> 0}, 
+          {k -> 1.69707427581, n -> 3, delta -> 180}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> c4h, i3 -> c*, coefficients -> {
+          {k -> -0.498908041787, n -> 0, delta -> 0}, 
+          {k -> 0.851975005, n -> 1, delta -> 0}, 
+          {k -> -0.222269037178, n -> 2, delta -> 0}, 
+          {k -> 0.876894573406, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> c4h, i3 -> oh, coefficients -> {
+          {k -> -0.498908041787, n -> 0, delta -> 0}, 
+          {k -> 0.497417636978, n -> 1, delta -> 0}, 
+          {k -> -0.192937870537, n -> 2, delta -> 0}, 
+          {k -> 0.834388228254, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> c4h, i3 -> os, coefficients -> {
+          {k -> -0.498908041787, n -> 0, delta -> 0}, 
+          {k -> 0.497417636978, n -> 1, delta -> 0}, 
+          {k -> -0.192937870537, n -> 2, delta -> 0}, 
+          {k -> 0.834388228254, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> c4h, i3 -> s*, coefficients -> {
+          {k -> -0.498908041787, n -> 0, delta -> 0}, 
+          {k -> 0.851975005, n -> 1, delta -> 0}, 
+          {k -> -0.222269037178, n -> 2, delta -> 0}, 
+          {k -> 0.876894573406, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> ca*, i3 -> ca*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> n3*, i3 -> c4*, coefficients -> {
+          {k -> 12.8047632361, n -> 0, delta -> 0}, 
+          {k -> -4.34800762937, n -> 1, delta -> 0}, 
+          {k -> -2.74433205492, n -> 2, delta -> 0}, 
+          {k -> -1.76861370664, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> no, i3 -> on, coefficients -> {
+          {k -> 0.252554062896, n -> 0, delta -> 0}, 
+          {k -> -0.0822703454552, n -> 1, delta -> 0}, 
+          {k -> 0.0288144929734, n -> 2, delta -> 0}, 
+          {k -> -0.0379556424684, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4*, i2 -> sc, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.730497077037, n -> 1, delta -> 0}, 
+          {k -> -0.536903428383, n -> 2, delta -> 0}, 
+          {k -> 1.15583873745, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h, i2 -> c4*, i3 -> oh, coefficients -> {
+          {k -> -0.498908041787, n -> 0, delta -> 0}, 
+          {k -> 0.497417636978, n -> 1, delta -> 0}, 
+          {k -> -0.192937870537, n -> 2, delta -> 0}, 
+          {k -> 0.834388228254, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h, i2 -> c4*, i3 -> os, coefficients -> {
+          {k -> -0.498908041787, n -> 0, delta -> 0}, 
+          {k -> 0.497417636978, n -> 1, delta -> 0}, 
+          {k -> -0.192937870537, n -> 2, delta -> 0}, 
+          {k -> 0.834388228254, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h, i2 -> c4*, i3 -> s*, coefficients -> {
+          {k -> -0.498908041787, n -> 0, delta -> 0}, 
+          {k -> 0.851975005, n -> 1, delta -> 0}, 
+          {k -> -0.222269037178, n -> 2, delta -> 0}, 
+          {k -> 0.876894573406, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h, i2 -> ca, i3 -> ca*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0.331863470797, n -> 2, delta -> 300}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h, i2 -> can, i3 -> na*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0.331863470797, n -> 2, delta -> 300}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h, i2 -> oh, i3 -> ho, coefficients -> {
+          {k -> 0.429157096727, n -> 0, delta -> 0}, 
+          {k -> 0.392135441272, n -> 1, delta -> 0}, 
+          {k -> 0.0625175137203, n -> 2, delta -> 0}, 
+          {k -> -0.345614939168, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h, i2 -> sh, i3 -> hs, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0, n -> 2, delta -> 0}, 
+          {k -> 0.794882564784, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> c3h, i3 -> c3*, coefficients -> {
+          {k -> 1.36819161463, n -> 0, delta -> 0}, 
+          {k -> 0.171615145737, n -> 1, delta -> 0}, 
+          {k -> -0.218135647841, n -> 2, delta -> 0}, 
+          {k -> -0.560869137712, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 4.04511762806, n -> 0, delta -> 0}, 
+          {k -> -1.46437240497, n -> 1, delta -> 0}, 
+          {k -> 0.114940018868, n -> 2, delta -> 0}, 
+          {k -> -0.582708536179, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> c4, i3 -> s*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0, n -> 2, delta -> 0}, 
+          {k -> 0.916678445773, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> c4h2, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.705517892438, n -> 1, delta -> 0}, 
+          {k -> -0.135507605232, n -> 2, delta -> 0}, 
+          {k -> 1.57251617791, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> c4h2, i3 -> oh, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.35098039648, n -> 1, delta -> 0}, 
+          {k -> -0.105997590014, n -> 2, delta -> 0}, 
+          {k -> 1.53000983276, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> c4h2, i3 -> os, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.35098039648, n -> 1, delta -> 0}, 
+          {k -> -0.105997590014, n -> 2, delta -> 0}, 
+          {k -> 1.53000983276, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> ca, i3 -> ca*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0.260324039967, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> can, i3 -> na*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0.260324039967, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> n3*, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 0.23101274539, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> oh, i3 -> ho, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.416955649358, n -> 1, delta -> 0}, 
+          {k -> -0.0579668110369, n -> 2, delta -> 0}, 
+          {k -> 0.373455701, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> os, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 1.44072464867, n -> 1, delta -> 0}, 
+          {k -> -0.325405049959, n -> 2, delta -> 0}, 
+          {k -> 1.10925861916, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c4h2, i2 -> sh, i3 -> hs, coefficients -> {
+          {k -> 0.105083475064, n -> 0, delta -> 0}, 
+          {k -> -0.103434093743, n -> 1, delta -> 0}, 
+          {k -> 0.0366838303648, n -> 2, delta -> 0}, 
+          {k -> 0.608800556368, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> n3*, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 3.04440022312, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> n3*, i2 -> c3o*, i3 -> os, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 1.1499963506, n -> 1, delta -> 0}, 
+          {k -> 3.04440022312, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> sc, i2 -> sc, i3 -> c*, coefficients -> {
+          {k -> 3.50523339006, n -> 0, delta -> 0}, 
+          {k -> 0.79090815196, n -> 1, delta -> 0}, 
+          {k -> -4.33528950833, n -> 2, delta -> 0}, 
+          {k -> 1.00403603964, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> c3*, i2 -> c3*, i3 -> c3*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 1.05633931241, n -> 1, delta -> 0}, 
+          {k -> 2.46284426666, n -> 2, delta -> 0}, 
+          {k -> 0.914194437758, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> c3*, i2 -> c3h, i3 -> c4*, coefficients -> {
+          {k -> 3.69819113266, n -> 0, delta -> 0}, 
+          {k -> -0.695462627994, n -> 1, delta -> 0}, 
+          {k -> 2.08398336422, n -> 2, delta -> 0}, 
+          {k -> -1.1536528104, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> c3*, i2 -> c3o*, i3 -> c4*, coefficients -> {
+          {k -> 3.69819113266, n -> 0, delta -> 0}, 
+          {k -> -0.695462627994, n -> 1, delta -> 0}, 
+          {k -> 2.08398336422, n -> 2, delta -> 0}, 
+          {k -> -1.1536528104, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> c3*, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 0.198323199914, n -> 0, delta -> 0}, 
+          {k -> -0.095207059197, n -> 1, delta -> 0}, 
+          {k -> 1.53636889328, n -> 2, delta -> 0}, 
+          {k -> -0.0039545407598, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> c3*, i2 -> c3o*, i3 -> os, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.095207059197, n -> 1, delta -> 0}, 
+          {k -> 1.53636889328, n -> 2, delta -> 0}, 
+          {k -> 0.0039545407598, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> c3o*, i2 -> os, i3 -> c4*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.829479828416, n -> 1, delta -> 0}, 
+          {k -> 2.72871261252, n -> 2, delta -> 0}, 
+          {k -> 0.0599937615771, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> os, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 9.37166543881, n -> 0, delta -> 0}, 
+          {k -> 4.35993086784, n -> 1, delta -> 0}, 
+          {k -> 4.09165800223, n -> 2, delta -> 0}, 
+          {k -> -0.304837463595, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> os, i2 -> c4*, i3 -> c4*, coefficients -> {
+          {k -> 4.39802561476, n -> 0, delta -> 0}, 
+          {k -> -1.4940413967, n -> 1, delta -> 0}, 
+          {k -> 1.07100489573, n -> 2, delta -> 0}, 
+          {k -> -0.0439172617043, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3h, i1 -> os, i2 -> c3o*, i3 -> c4*, coefficients -> {
+          {k -> -0.0287747488452, n -> 0, delta -> 0}, 
+          {k -> 1.97349468772, n -> 1, delta -> 0}, 
+          {k -> 1.03473837871, n -> 2, delta -> 0}, 
+          {k -> -0.275228088057, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> c*, i2 -> n3*, i3 -> hn, coefficients -> {
+          {k -> 0.699894098292, n -> 0, delta -> 0}, 
+          {k -> 0.0949884664917, n -> 1, delta -> 0}, 
+          {k -> -0.208656673256, n -> 2, delta -> 0}, 
+          {k -> -0.208656673256, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> c3*, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 1.01983433062, n -> 0, delta -> 0}, 
+          {k -> -0.296689917306, n -> 1, delta -> 0}, 
+          {k -> -0.326656989998, n -> 2, delta -> 0}, 
+          {k -> 0.0479314186565, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> c3*, i2 -> c3o*, i3 -> os, coefficients -> {
+          {k -> 0.52231733332, n -> 0, delta -> 0}, 
+          {k -> 0.296689917306, n -> 1, delta -> 0}, 
+          {k -> -0.326656989998, n -> 2, delta -> 0}, 
+          {k -> -0.0479314186565, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> c3o*, i2 -> oh*, i3 -> ho, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.750011444002, n -> 1, delta -> 0}, 
+          {k -> 2.74999559319, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> c4*, i2 -> c3o*, i3 -> oh*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.500001005313, n -> 1, delta -> 0}, 
+          {k -> 0.273002416875, n -> 2, delta -> 0}, 
+          {k -> 0.224991509962, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> c4*, i2 -> c4*, i3 -> n3*, coefficients -> {
+          {k -> 0.439848267223, n -> 0, delta -> 0}, 
+          {k -> 0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> -0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> n3*, i2 -> c4*, i3 -> hc, coefficients -> {
+          {k -> 0.710982710071, n -> 0, delta -> 0}, 
+          {k -> -0.0735266372425, n -> 1, delta -> 0}, 
+          {k -> -0.00931999807209, n -> 2, delta -> 0}, 
+          {k -> -0.282183310498, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> os, i2 -> c3o*, i3 -> n3*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.829479828416, n -> 1, delta -> 0}, 
+          {k -> 2.72871261252, n -> 2, delta -> 0}, 
+          {k -> 0.0599937615771, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c4*, i1 -> os, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 1.77894717999, n -> 0, delta -> 0}, 
+          {k -> -0.829479828416, n -> 1, delta -> 0}, 
+          {k -> 2.72871261252, n -> 2, delta -> 0}, 
+          {k -> -0.0599937615771, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> ca*, i1 -> ca*, i2 -> ca*, i3 -> m, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 3.10018110711, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> ca*, i1 -> ca*, i2 -> m, i3 -> m, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 3.10018110711, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hc, i1 -> c4*, i2 -> c3o*, i3 -> n3*, coefficients -> {
+          {k -> 0.439848267223, n -> 0, delta -> 0}, 
+          {k -> 0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> -0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hc, i1 -> c4*, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 0.439848267223, n -> 0, delta -> 0}, 
+          {k -> 0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> -0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hc, i1 -> c4*, i2 -> c3o*, i3 -> os, coefficients -> {
+          {k -> 1.8948013138, n -> 0, delta -> 0}, 
+          {k -> -0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> 0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hc, i1 -> c4*, i2 -> c4*, i3 -> n3*, coefficients -> {
+          {k -> 0.439848267223, n -> 0, delta -> 0}, 
+          {k -> 0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> -0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hc, i1 -> c4*, i2 -> c4*, i3 -> no, coefficients -> {
+          {k -> 0.902827617082, n -> 0, delta -> 0}, 
+          {k -> -0.435198204219, n -> 1, delta -> 0}, 
+          {k -> -0.126585048442, n -> 2, delta -> 0}, 
+          {k -> 0.00989628793156, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hc, i1 -> c4*, i2 -> n3*, i3 -> hn, coefficients -> {
+          {k -> 0.840071638592, n -> 0, delta -> 0}, 
+          {k -> -0.216605498904, n -> 1, delta -> 0}, 
+          {k -> -0.0248400801495, n -> 2, delta -> 0}, 
+          {k -> -0.20269505402, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hc, i1 -> c4*, i2 -> no, i3 -> on, coefficients -> {
+          {k -> 0.518104455726, n -> 0, delta -> 0}, 
+          {k -> -0.081078021608, n -> 1, delta -> 0}, 
+          {k -> -0.159771395522, n -> 2, delta -> 0}, 
+          {k -> -0.0814754628904, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hn, i1 -> n3*, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 2.22368397498, n -> 0, delta -> 0}, 
+          {k -> -0.32391464515, n -> 1, delta -> 0}, 
+          {k -> 1.24995283312, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> hn, i1 -> n3*, i2 -> c3o*, i3 -> os, coefficients -> {
+          {k -> 1.57585468468, n -> 0, delta -> 0}, 
+          {k -> 0.32391464515, n -> 1, delta -> 0}, 
+          {k -> 1.24995283312, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> ho, i1 -> oh*, i2 -> c3o*, i3 -> o, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> 2.74999559319, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> n3*, i1 -> c4*, i2 -> c4*, i3 -> n3*, coefficients -> {
+          {k -> 0.439848267223, n -> 0, delta -> 0}, 
+          {k -> 0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> -0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> n3*, i1 -> c4*, i2 -> c4*, i3 -> o*, coefficients -> {
+          {k -> 0.439848267223, n -> 0, delta -> 0}, 
+          {k -> 0.955846284153, n -> 1, delta -> 0}, 
+          {k -> -0.298080961794, n -> 2, delta -> 0}, 
+          {k -> -0.228528737375, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> oh, i1 -> c4h, i2 -> c4*, i3 -> os, coefficients -> {
+          {k -> 0.501133712968, n -> 0, delta -> 0}, 
+          {k -> 0.146437240497, n -> 1, delta -> 0}, 
+          {k -> -0.586961157901, n -> 2, delta -> 0}, 
+          {k -> 1.30444203294, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> os, i1 -> c4*, i2 -> c4h, i3 -> os, coefficients -> {
+          {k -> 0.501133712968, n -> 0, delta -> 0}, 
+          {k -> 0.146437240497, n -> 1, delta -> 0}, 
+          {k -> -0.586961157901, n -> 2, delta -> 0}, 
+          {k -> 1.30444203294, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}}}};
+
+(* Parameters *)
+
+specific = {
+  equivalences -> {
+    {type -> ?, pair -> ?, bond -> ?, angle -> ?, torsion -> ?, improper -> ?},
+    {type -> ar, pair -> ar, bond -> ar, angle -> ar, torsion -> ar, improper
+      -> ar},
+    {type -> ba+2, pair -> ba+2, bond -> ba+2, angle -> ba+2, torsion -> ba+2,
+      improper -> ba+2},
+    {type -> br-, pair -> br-, bond -> br-, angle -> br-, torsion -> br-, 
+      improper -> br-},
+    {type -> c1n, pair -> c1n, bond -> c1n, angle -> c1n, torsion -> c1n, 
+      improper -> c1n},
+    {type -> c3, pair -> c3, bond -> c3, angle -> c3, torsion -> c3, improper
+      -> c3},
+    {type -> c3h, pair -> c3h, bond -> c3h, angle -> c3h, torsion -> c3h, 
+      improper -> c3h},
+    {type -> c3h2, pair -> c3h2, bond -> c3h2, angle -> c3h2, torsion -> c3h2,
+      improper -> c3h2},
+    {type -> c3ho, pair -> c3ho, bond -> c3ho, angle -> c3o, torsion -> c3o, 
+      improper -> c3o},
+    {type -> c3mo, pair -> c3mo, bond -> c3mo, angle -> c3o, torsion -> c3o, 
+      improper -> c3o},
+    {type -> c3o, pair -> c3o, bond -> c3o, angle -> c3o, torsion -> c3o, 
+      improper -> c3o},
+    {type -> c3oa, pair -> c3o, increment -> c3oa, bond -> c3o, angle -> c3o, 
+      torsion -> c3o, improper -> c3o},
+    {type -> c3oe, pair -> c3oe, bond -> c3o, angle -> c3oe, torsion -> c3oe, 
+      improper -> c3o},
+    {type -> c4, pair -> c4, bond -> c4, angle -> c4, torsion -> c4, improper
+      -> c4},
+    {type -> c4h, pair -> c4h, bond -> c4h, angle -> c4h, torsion -> c4h, 
+      improper -> c4h},
+    {type -> c4h2, pair -> c4h2, bond -> c4h2, angle -> c4h2, torsion -> c4h2,
+      improper -> c4h2},
+    {type -> c4h3, pair -> c4h3, bond -> c4h3, angle -> c4h3, torsion -> c4h3,
+      improper -> c4h3},
+    {type -> c4h4, pair -> c4h4, bond -> c4h4, angle -> c4h4, torsion -> c4h4,
+      improper -> c4h4},
+    {type -> c4ho, pair -> c4ho, bond -> c4h, angle -> c4h, torsion -> c4h, 
+      improper -> c4h},
+    {type -> c4o, pair -> c4o, bond -> c4o, angle -> c4o, torsion -> c4o, 
+      improper -> c4o},
+    {type -> c4oe, pair -> c4oe, bond -> c4oe, angle -> c4oe, torsion -> c4oe,
+      improper -> c4oe},
+    {type -> ca+2, pair -> ca+2, bond -> ca+2, angle -> ca+2, torsion -> ca+2,
+      improper -> ca+2},
+    {type -> cac, pair -> cac, bond -> cac, angle -> cac, torsion -> cac, 
+      improper -> cac},
+    {type -> caca, pair -> caca, bond -> caca, angle -> caca, torsion -> caca,
+      improper -> caca},
+    {type -> cah, pair -> cah, bond -> cah, angle -> cah, torsion -> cah, 
+      improper -> cah},
+    {type -> cam, pair -> cam, bond -> cam, angle -> cam, torsion -> cam, 
+      improper -> cam},
+    {type -> can, pair -> can, bond -> can, angle -> can, torsion -> can, 
+      improper -> can},
+    {type -> can2, pair -> can2, bond -> can2, angle -> can2, torsion -> can2,
+      improper -> can2},
+    {type -> cano, pair -> cano, bond -> cano, angle -> cano, torsion -> cano,
+      improper -> cano},
+    {type -> cl-, pair -> cl-, bond -> cl-, angle -> cl-, torsion -> cl-, 
+      improper -> cl-},
+    {type -> cs+, pair -> cs+, bond -> cs+, angle -> cs+, torsion -> cs+, 
+      improper -> cs+},
+    {type -> f-, pair -> f-, bond -> f-, angle -> f-, torsion -> f-, improper
+      -> f-},
+    {type -> he, pair -> he, bond -> he, angle -> he, torsion -> he, improper
+      -> he},
+    {type -> hn, pair -> hn, bond -> hn, angle -> hn, torsion -> hn, improper
+      -> hn},
+    {type -> ho, pair -> ho, bond -> ho, angle -> ho, torsion -> ho, improper
+      -> ho},
+    {type -> hs, pair -> hs, bond -> hs, angle -> hs, torsion -> hs, improper
+      -> hs},
+    {type -> hsi, pair -> hsi, bond -> hsi, angle -> hsi, torsion -> hsi, 
+      improper -> hsi},
+    {type -> hw, pair -> hw, bond -> hw, angle -> hw, torsion -> hw, improper
+      -> hw},
+    {type -> i-, pair -> i-, bond -> i-, angle -> i-, torsion -> i-, improper
+      -> i-},
+    {type -> k+, pair -> k+, bond -> k+, angle -> k+, torsion -> k+, improper
+      -> k+},
+    {type -> kr, pair -> kr, bond -> kr, angle -> kr, torsion -> kr, improper
+      -> kr},
+    {type -> li+, pair -> li+, bond -> li+, angle -> li+, torsion -> li+, 
+      improper -> li+},
+    {type -> m, pair -> m, bond -> m, angle -> m, torsion -> m, improper -> m},
+    {type -> mg+2, pair -> mg+2, bond -> mg+2, angle -> mg+2, torsion -> mg+2,
+      improper -> mg+2},
+    {type -> n3, pair -> n3, bond -> n3, angle -> n3, torsion -> n3, improper
+      -> n3},
+    {type -> n3h, pair -> n3h, bond -> n3h, angle -> n3h, torsion -> n3h, 
+      improper -> n3h},
+    {type -> n3h2, pair -> n3h2, bond -> n3h2, angle -> n3h2, torsion -> n3h2,
+      improper -> n3h2},
+    {type -> n3mh, pair -> n3h, increment -> n3mh, bond -> n3mh, angle ->
+      n3mh, torsion -> n3mh, improper -> n3mh},
+    {type -> n3mh2, pair -> n3h2, increment -> n3mh2, bond -> n3mh, angle ->
+      n3mh, torsion -> n3mh, improper -> n3mh},
+    {type -> na, pair -> na, bond -> na, angle -> na, torsion -> na, improper
+      -> na},
+    {type -> na+, pair -> na+, bond -> na+, angle -> na+, torsion -> na+, 
+      improper -> na+},
+    {type -> nc, pair -> nc, bond -> nc, angle -> nc, torsion -> nc, improper
+      -> nc},
+    {type -> ne, pair -> ne, bond -> ne, angle -> ne, torsion -> ne, improper
+      -> ne},
+    {type -> nh4+, pair -> nh4+, bond -> nh4+, angle -> nh4+, torsion -> nh4+,
+      improper -> nh4+},
+    {type -> no, pair -> no, bond -> no, angle -> no, torsion -> no, improper
+      -> no},
+    {type -> o, pair -> o, bond -> o, angle -> o, torsion -> o, improper -> o},
+    {type -> o2z, pair -> o2z, bond -> o2z, angle -> o2z, torsion -> o2z, 
+      improper -> o2z},
+    {type -> oh, pair -> oh, bond -> oh, angle -> oh, torsion -> oh, improper
+      -> oh},
+    {type -> on, pair -> on, bond -> on, angle -> on, torsion -> on, improper
+      -> on},
+    {type -> os, pair -> os, bond -> os, angle -> os, torsion -> os, improper
+      -> os},
+    {type -> ose, pair -> ose, bond -> os, angle -> ose, torsion -> ose, 
+      improper -> os},
+    {type -> ow, pair -> ow, bond -> ow, angle -> ow, torsion -> ow, improper
+      -> ow},
+    {type -> rb+, pair -> rb+, bond -> rb+, angle -> rb+, torsion -> rb+, 
+      improper -> rb+},
+    {type -> sa, pair -> sa, bond -> sa, angle -> sa, torsion -> sa, improper
+      -> sa},
+    {type -> sc, pair -> sc, bond -> sc, angle -> sc, torsion -> sc, improper
+      -> sc},
+    {type -> sh, pair -> sh, bond -> sh, angle -> sh, torsion -> sh, improper
+      -> sh},
+    {type -> si4z, pair -> si4z, bond -> si4z, angle -> si4z, torsion -> si4z,
+      improper -> si4z},
+    {type -> sr+2, pair -> sr+2, bond -> sr+2, angle -> sr+2, torsion -> sr+2,
+      improper -> sr+2},
+    {type -> ss, pair -> ss, bond -> ss, angle -> ss, torsion -> ss, improper
+      -> ss},
+    {type -> xe, pair -> xe, bond -> xe, angle -> xe, torsion -> xe, improper
+      -> xe}}, 
+  angle -> {active -> true, n -> 13, data -> {
+      {i0 -> c4oe, i1 -> c4oe, i2 -> ose, k -> 99.9564825216, theta -> 59.19}, 
+      {i0 -> c4oe, i1 -> ose, i2 -> c4oe, k -> 120.027267282, theta -> 61.62}, 
+      {i0 -> cahs, i1 -> cahs, i2 -> cahs, k -> 140.018563787, theta ->
+        112.4}, 
+      {i0 -> cam, i1 -> cam, i2 -> m, k -> 170.005508543, theta -> 60}, 
+      {i0 -> cam, i1 -> m, i2 -> cam, k -> 300.068168206, theta -> 180}, 
+      {i0 -> cam, i1 -> m, i2 -> m, k -> 300.068168206, theta -> 180}, 
+      {i0 -> hsi, i1 -> si4z, i2 -> o2z, k -> 69.9993458613, theta -> 110.5}, 
+      {i0 -> hw, i1 -> ow, i2 -> hw, k -> 150.014212039, theta -> 109.47}, 
+      {i0 -> o2z, i1 -> si4z, i2 -> o2z, k -> 119.999446393, theta -> 110}, 
+      {i0 -> o2z, i1 -> si4z, i2 -> os, k -> 119.999446393, theta -> 110}, 
+      {i0 -> on, i1 -> no, i2 -> on, k -> 80.0526230994, theta -> 125}, 
+      {i0 -> os, i1 -> si4z, i2 -> os, k -> 119.999446393, theta -> 110}, 
+      {i0 -> si4z, i1 -> o2z, i2 -> si4z, k -> 40.0004778664, theta -> 145}}},
+        
+  bond -> {active -> true, n -> 18, data -> {
+      {i0 -> c1n, i1 -> nc, k -> 443.999541418, l -> 1.448}, 
+      {i0 -> c3ho, i1 -> o, k -> 1140.00070235, l -> 1.217}, 
+      {i0 -> c3mo, i1 -> o, k -> 1140.00070235, l -> 1.229}, 
+      {i0 -> c3mo, i1 -> os, k -> 428.000542595, l -> 1.327}, 
+      {i0 -> c3o, i1 -> o, k -> 1140.00070235, l -> 1.2}, 
+      {i0 -> c3o, i1 -> os, k -> 428.000542595, l -> 1.344}, 
+      {i0 -> c4oe, i1 -> c4oe, k -> 868.409202027, l -> 1.466}, 
+      {i0 -> c4oe, i1 -> os, k -> 771.99988295, l -> 1.431}, 
+      {i0 -> cam, i1 -> m, k -> 1192.32384718, l -> 1.4}, 
+      {i0 -> ho, i1 -> oh, k -> 1105.99960064, l -> 0.945}, 
+      {i0 -> hs, i1 -> sh, k -> 547.999988988, l -> 1.34}, 
+      {i0 -> hsi, i1 -> si4z, k -> 332.00058804, l -> 1.48}, 
+      {i0 -> hw, i1 -> ow, k -> 1200.00042555, l -> 1}, 
+      {i0 -> m, i1 -> m, k -> 1192.32384718, l -> 0.785}, 
+      {i0 -> no, i1 -> on, k -> 639.999697036, l -> 1.225}, 
+      {i0 -> o2z, i1 -> si4z, k -> 748.000391113, l -> 1.64}, 
+      {i0 -> oh, i1 -> si4z, k -> 748.000391113, l -> 1.64}, 
+      {i0 -> os, i1 -> si4z, k -> 748.000391113, l -> 1.64}}}, 
+  pair -> {active -> true, mix -> berthelot, shift -> false, nbonded -> 3, 
+    mode -> global, coulomb -> none, cutoff -> 14, n -> 68, data -> {
+      {i0 -> ?, i1 -> ?, epsilon -> 0, sigma -> 0}, 
+      {i0 -> ar, i1 -> ar, epsilon -> 0.231887116212, sigma -> 3.401}, 
+      {i0 -> ba+2, i1 -> ba+2, epsilon -> 0.0466914018554, sigma -> 3.81661}, 
+      {i0 -> br-, i1 -> br-, epsilon -> 0.703890370387, sigma -> 4.28}, 
+      {i0 -> c, i1 -> c, epsilon -> 0.0099360320598, sigma -> 3.65}, 
+      {i0 -> c1n, i1 -> c1n, epsilon -> 0.119232384718, sigma -> 3.55}, 
+      {i0 -> c3, i1 -> c3, epsilon -> 0.0397441282392, sigma -> 3.85}, 
+      {i0 -> c3h, i1 -> c3h, epsilon -> 0.0933987013621, sigma -> 3.71}, 
+      {i0 -> c3h2, i1 -> c3h2, epsilon -> 0.168912545017, sigma -> 3.675}, 
+      {i0 -> c3ho, i1 -> c3ho, epsilon -> 0.107309146246, sigma -> 3.52}, 
+      {i0 -> c3mo, i1 -> c3mo, epsilon -> 0.0675650180067, sigma -> 3.72}, 
+      {i0 -> c3o, i1 -> c3o, epsilon -> 0.0794882564784, sigma -> 3.82}, 
+      {i0 -> c3oe, i1 -> c3oe, epsilon -> 0.0794882564784, sigma -> 3.82}, 
+      {i0 -> c4, i1 -> c4, epsilon -> 0.00099360320598, sigma -> 6.4}, 
+      {i0 -> c4h, i1 -> c4h, epsilon -> 0.0198720641196, sigma -> 4.65}, 
+      {i0 -> c4h2, i1 -> c4h2, epsilon -> 0.0914114949502, sigma -> 3.95}, 
+      {i0 -> c4h3, i1 -> c4h3, epsilon -> 0.194746228372, sigma -> 3.75}, 
+      {i0 -> c4h4, i1 -> c4h4, epsilon -> 0.29410654897, sigma -> 3.73}, 
+      {i0 -> c4ho, i1 -> c4ho, epsilon -> 0.0198720641196, sigma -> 4.33}, 
+      {i0 -> c4o, i1 -> c4o, epsilon -> 0.00099360320598, sigma -> 5.8}, 
+      {i0 -> c4oe, i1 -> c4oe, epsilon -> 0.194746228372, sigma -> 3.6}, 
+      {i0 -> ca+2, i1 -> ca+2, epsilon -> 0.445788027189, sigma -> 2.41203}, 
+      {i0 -> cac, i1 -> cac, epsilon -> 0.0417313346512, sigma -> 3.88}, 
+      {i0 -> caca, i1 -> caca, epsilon -> 0.0596161923588, sigma -> 3.7}, 
+      {i0 -> cah, i1 -> cah, epsilon -> 0.100353923804, sigma -> 3.695}, 
+      {i0 -> cam, i1 -> cam, epsilon -> 0.0953859077741, sigma -> 3.74}, 
+      {i0 -> can, i1 -> can, epsilon -> 0.0953859077741, sigma -> 3.74}, 
+      {i0 -> can2, i1 -> can2, epsilon -> 0.0933987013621, sigma -> 3.9}, 
+      {i0 -> cano, i1 -> cano, epsilon -> 0.0298080961794, sigma -> 4.5}, 
+      {i0 -> cl-, i1 -> cl-, epsilon -> 0.703890370387, sigma -> 4.02}, 
+      {i0 -> cs+, i1 -> cs+, epsilon -> 0.000499981133249, sigma -> 6.2}, 
+      {i0 -> f-, i1 -> f-, epsilon -> 0.703890370387, sigma -> 3.05}, 
+      {i0 -> he, i1 -> he, epsilon -> 0.0198283455785, sigma -> 2.556}, 
+      {i0 -> hn, i1 -> hn, epsilon -> 0, sigma -> 1.01}, 
+      {i0 -> ho, i1 -> ho, epsilon -> 0, sigma -> 0.945}, 
+      {i0 -> hs, i1 -> hs, epsilon -> 0, sigma -> 1.336}, 
+      {i0 -> hsi, i1 -> hsi, epsilon -> 0, sigma -> 1.48}, 
+      {i0 -> hw, i1 -> hw, epsilon -> 0, sigma -> 0.9572}, 
+      {i0 -> i-, i1 -> i-, epsilon -> 0.703890370387, sigma -> 4.81}, 
+      {i0 -> k+, i1 -> k+, epsilon -> 0.000495609279143, sigma -> 5.17}, 
+      {i0 -> kr, i1 -> kr, epsilon -> 0.314272719639, sigma -> 3.624}, 
+      {i0 -> li+, i1 -> li+, epsilon -> 0.000499981133249, sigma -> 2.87}, 
+      {i0 -> m, i1 -> m, epsilon -> 0, sigma -> 0}, 
+      {i0 -> mg+2, i1 -> mg+2, epsilon -> 0.867514959141, sigma -> 1.64447}, 
+      {i0 -> n3, i1 -> n3, epsilon -> 0.0238464769435, sigma -> 3.78}, 
+      {i0 -> n3h, i1 -> n3h, epsilon -> 0.115257971894, sigma -> 3.52}, 
+      {i0 -> n3h2, i1 -> n3h2, epsilon -> 0.220579911728, sigma -> 3.34}, 
+      {i0 -> na, i1 -> na, epsilon -> 0.0556417795349, sigma -> 3.45}, 
+      {i0 -> na+, i1 -> na+, epsilon -> 0.000495609279143, sigma -> 4.07}, 
+      {i0 -> nc, i1 -> nc, epsilon -> 0.119232384718, sigma -> 2.95}, 
+      {i0 -> ne, i1 -> ne, epsilon -> 0.0684064012015, sigma -> 2.78}, 
+      {i0 -> nh4+, i1 -> nh4+, epsilon -> 0.000495609279143, sigma -> 5.34}, 
+      {i0 -> no, i1 -> no, epsilon -> 0.0794882564784, sigma -> 3.31}, 
+      {i0 -> o, i1 -> o, epsilon -> 0.156989306545, sigma -> 3.05}, 
+      {i0 -> o2z, i1 -> o2z, epsilon -> 0.105321939834, sigma -> 3.3}, 
+      {i0 -> oh, i1 -> oh, epsilon -> 0.184810196312, sigma -> 3.02}, 
+      {i0 -> on, i1 -> on, epsilon -> 0.158976512957, sigma -> 2.9}, 
+      {i0 -> os, i1 -> os, epsilon -> 0.109296352658, sigma -> 2.8}, 
+      {i0 -> ose, i1 -> ose, epsilon -> 0.0576289859469, sigma -> 3.1}, 
+      {i0 -> ow, i1 -> ow, epsilon -> 0.155394175958, sigma -> 3.16556}, 
+      {i0 -> rb+, i1 -> rb+, epsilon -> 0.000495609279143, sigma -> 5.6}, 
+      {i0 -> sa, i1 -> sa, epsilon -> 0.357697154153, sigma -> 3.6}, 
+      {i0 -> sc, i1 -> sc, epsilon -> 0.39545407598, sigma -> 3.58}, 
+      {i0 -> sh, i1 -> sh, epsilon -> 0.461031887575, sigma -> 3.62}, 
+      {i0 -> si4z, i1 -> si4z, epsilon -> 0.0437185410631, sigma -> 2.3}, 
+      {i0 -> sr+2, i1 -> sr+2, epsilon -> 0.117208812428, sigma -> 3.10269}, 
+      {i0 -> ss, i1 -> ss, epsilon -> 0.327889057973, sigma -> 3.72}, 
+      {i0 -> xe, i1 -> xe, epsilon -> 0.433012277166, sigma -> 3.935}}}, 
+  torsion -> {active -> true, n -> 3, data -> {
+      {i0 -> oh, i1 -> c4h2, i2 -> c4h2, i3 -> oh, coefficients -> {
+          {k -> 1.00004175476, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> -0.500020877378, n -> 2, delta -> 0}, 
+          {k -> 2.00006363745, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> oh, i1 -> c4h2, i2 -> c4h2, i3 -> os, coefficients -> {
+          {k -> 1.00004175476, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> -0.500020877378, n -> 2, delta -> 0}, 
+          {k -> 2.00006363745, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> os, i1 -> c4h2, i2 -> c4h2, i3 -> os, coefficients -> {
+          {k -> 1.00004175476, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 1, delta -> 0}, 
+          {k -> -0.500020877378, n -> 2, delta -> 0}, 
+          {k -> 2.00006363745, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}}}};
+

@@ -1,0 +1,830 @@
+#
+#  file:	trappe.define
+#  author:	Pieter J. in 't Veld
+#  date:	August 3, 2014
+#  purpose:	TraPPe force field
+#  version:	0.1beta
+#
+#  rule keys:
+#  	~	any bond
+#	-	single bond
+#	:	partial bond
+#	=	double bond
+#	#	triple bond
+#	X	any halogen
+#	*	wildcard, specified number of bonds
+#	?	wildcard, unspecified number of bonds
+#	[..]	unspecified number of connecting atoms
+#
+#  template keys:
+#  	.	skipped index
+#
+#  Empty lines are skipped
+#  The specified type represents the numerical TraPPe assignment
+#
+#  notes:
+#    20140803	- Creation date, v0.1beta
+#    		- Missing vibrational constants are taken from OPLS-UA
+#    20150202	- Addition of alcohols, nitrous compounds, sulfurous compounds
+#
+
+# Definitions
+
+ITEM	DEFINE
+
+FFNAME	TRAPPE
+FFTYPE	UNITED
+FFDEPTH	4
+VERSION	Oct 2013
+LENGTH	ANGSTROM
+ENERGY	KELVIN
+DENSITY	G/CC
+MIX	BERTHELOT
+CUTOFF	14
+NBONDED	3
+PAIR14	EXCLUDE
+ANGLE	ERROR
+TORSION	ERROR
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+1998	102	2569	J. Phys. Chem. B
+1999	103	4508	J. Phys. Chem. B
+1999	103	5370	J. Phys. Chem. B
+2000	104	2391	J. Phys. Chem. B
+2000	104	8008	J. Phys. Chem. B
+2001	105	3093	J. Phys. Chem. B
+2002	954	181	J. Chromatogr. A
+2004	108	17596	J. Phys. Chem. B
+2005	109	18974	J. Phys. Chem. B
+2005	109	24100	J. Phys. Chem. B
+2007	111	10790	J. Phys. Chem. B
+2008	274	44	Fluid Phase Equil.
+2009	113	6415	J. Phys. Chem. B
+2012	116	11234	J. Phys. Chem. B
+2013	117	273	J. Phys. Chem. B
+2013	117	24375	J. Phys. Chem. B
+
+ITEM	END
+
+# Masses
+
+ITEM	MASSES
+
+# type	mass	element	ncons	charge	comment
+
+?	1	?	0	0	Dummy
+ar	39.948	Ar	0	0	Argon
+ba+2	137.327	Ba	0	2	Ba2+ cation
+br-	79.904	Br	0	-1	Br- ion
+c1n	12.011	C	2	0	C (SP) in nitriles
+c3	12.011	C	3	0	C (SP2) isobutene
+c3o	12.011	C	3	0	C (SP2) in ketones
+c3oe	12.011	C	3	0	C (SP2) in esters
+c3mo	12.011	C	3	0	C (SP2) in amides or urethanes
+c3h	13.0189	C	2	0	CH (SP2) 2-alkene
+c3ho	13.0189	C	2	0	CH (SP2) in aldehydes
+c3h2	14.0268	C	1	0	CH2 (SP2) 1-alkene
+c4	12.011	C	4	0	C (SP3) in neopentane
+c4h	13.0189	C	3	0	CH (SP3) in isobutane or isopropanol
+c4ho	13.0189	C	3	0	CH (SP3) in secondary ether
+c4h2	14.0268	C	2	0	CH2 (SP3) in alkanes
+c4h3	15.0347	C	1	0	CH3 methyl
+c4h4	16.0426	C	0	0	CH4 methane
+c4o	12.011	C	4	0	C (SP3) in ternary ether
+c4oe	12.011	C	4	0	C (SP3) in ethylene oxide ether
+cac	12.011	C	3	0	C (aromatic) alkylbenzene
+caca	12.011	C	3	0	C (aromatic) naphtalene
+cah	13.0189	C	2	0	C (aromatic) benzene
+cahs	13.0189	C	2	0	C (aromatic) thiophene
+can	13.0189	C	2	0	C (aromatic) in pyridine
+can2	13.0189	C	2	0	C (aromatic) in pyrimidine
+cano	12.011	C	3	0	C (aromatic) attached to nitro
+cam	13.0189	C	2	0	C (aromatic) benzene with lone pairs
+ca+2	40.078	C	0	2	Ca2+ ion
+#cl	34.453	Cl	1	0	Cl in methylenechloride
+cl-	34.453	Cl	0	-1	Cl- ion
+cs+	132.905	Cs	0	1	Cs+ ion
+#f	18.998	F	1	0	F in CF
+f-	18.998	F	0	-1	F- ion
+#hc	1.0079	H	1	0	H attached to C
+hn	1.0079	H	1	0	H in amine -NH
+ho	1.0079	H	1	0	H in acid and alcohol -OH
+hs	1.0079	H	1	0	H in -SH
+hsi	1.0079	H	1	0	H in -SiH
+hw	1.0079	H	1	0	H in water
+he	4.0026	He	0	0	Helium
+i-	126.904	I	0	-1	I- ion
+k+	39.098	K	0	1	K+ cation
+kr	83.80	Kr	0	0	Krypton
+li+	6.941	Li	0	1	Li+ cation
+m	1.0000	M	1	0	lone pair
+mg+2	24.305	Mg	0	2	Mg2+ cation
+na	14.0067	N	2	0	N (aromatic)
+n3	14.0067	N	3	0	N (SP3) in amines without connected H
+n3h	14.0067	N	3	0	N (SP3) in amines with 1 connected H
+n3h2	14.0067	N	3	0	N (SP3) in amines with 2 connected H
+n3mh	14.0067	N	3	0	N (SP3) in amides with 1 connected H
+nc	14.0067	N	2	0	N (SP) in nitriles
+no	14.0067	N	3	0	N (SP) in nitro
+na+	22.990	Na	0	1	Na+ cation
+ne	20.180	Ne	0	0	Neon
+o	15.9994	O	1	0	O in =O of acids and formamide
+oh	15.9994	O	2	0	O in -OH of alcohols
+on	15.9994	O	1	0	O in nitro
+ose	15.9994	O	2	0	O in ethylene oxide ethers
+os	15.9994	O	2	0	O in ethers
+ow	15.9994	O	4	0	O in water
+o2z	15.9994	O	2	0	O in zeolites
+rb+	85.468	Rb	0	1	Rb+ cation
+sa	32.066	S	2	0	S (aromatic) in thiophene
+sc	32.066	S	2	0	S attached to C in sulfide
+ss	32.066	S	2	0	S attached to C and S in disulfide
+sh	32.066	S	2	0	S in thiols
+si4z	28.0855	Si	4	0	Si in zeolites
+sr+2	87.62	S	0	2	Sr2+ cation
+#sz	32.066	S	3	0	S in dimethylsulfoxide
+xe	131.29	Xe	0	0	Xenon
+
+ITEM	END
+
+# Precedences
+
+ITEM	PRECEDENCE
+(?
+  (ar)
+  (ba+2)
+  (br-)
+  (ca+2)
+  (cs+)
+  (c1n)
+  (c3)
+  (c3mo)
+  (c3oe)
+  (c3o)
+  (c3h)
+  (c3ho)
+  (c3h2)
+  (cac)
+  (caca)
+  (cah)
+  (cahs)
+  (can)
+  (can2)
+  (cano)
+  (cam)
+  (c4)
+  (c4oe)
+  (c4o)
+  (c4h)
+  (c4ho)
+  (c4h2)
+  (c4h3)
+  (c4h4)
+  (ca+2)
+#  (cl)
+  (cl-)
+  (cs+)
+#  (f)
+  (f-)
+  (he)
+#  (hc)
+  (hn)
+  (ho)
+  (hs)
+  (hsi)
+  (hw)
+  (i-)
+  (k+)
+  (kr)
+  (li+)
+  (m)
+  (mg+2)
+  (n3)
+  (n3mh)
+  (n3h2)
+  (n3h)
+  (na)
+  (nc)
+  (no)
+  (na+)
+  (ne)
+  (o)
+  (oh)
+  (on)
+  (ose)
+  (os)
+  (o2z)
+  (ow)
+  (rb+)
+  (sh)
+  (sc)
+  (ss)
+  (sa)
+  (si4z)
+  (sr+2)
+  (xe)
+)
+
+ITEM	END
+
+# Typing rules
+
+ITEM	RULES
+
+# type	charge	rule(s)
+
+# United-atom force field connectivity
+
+# Dummy
+
+?	0	[DM]
+
+# Noble gases
+
+ar	0	[Ar]
+he	0	[He]
+kr	0	[Kr]
+ne	0	[Ne]
+xe	0	[Xe]
+
+# Water
+
+ow	-0.8476	O(H)(H)
+hw	0.4238	H(O(H))
+
+# Alkanes
+
+c4	0	C(C)(C)(C)(C)
+c4h	0	C(C)(C)(C)
+c4h2	0	C(C)(C)
+c4h3	0	C(C)
+c4h4	0	C
+
+# Alkenes
+
+c3	0	C(=C)(C)(C)
+c3h	0	C(=C)(C)
+c3h2	0	C(=C)
+
+# Aromatics
+
+c4h2	0	C(c)(c)
+cac	0	c(:c)(:c)(C)
+caca	0	c(:c)(:c)(:c)
+cah	0	c(:c)(:c)
+cam	0	c(M)(:c)(:c) c(:c(M)(:c))(:c)
+m	2.42	M(M)(c(:c)(:c))
+m	-1.21	M(M(c(:c)(:c)))
+
+# Alcohols
+
+c4o	0.265	C(O(H))(C)(C)(C)
+c4ho	0.265	C(O(H))(C)(C)
+c4h2	0.265	C(O(H))(C)
+c4h3	0.265	C(O(H))
+oh	-0.7	O(C)(H)
+ho	0.435	H(O(C))
+
+# Ethers
+
+c4oe	0.21	C1OC1
+c4o	0.25	C(O(C))(C)(C)(C)
+c4ho	0.25	C(O(C))(C)(C)
+c4h2	0.25	C(O(C))(C)
+c4h3	0.25	C(O(C))
+c4h2	0.5	C(O)(O)
+ose	-0.42	O1CC1
+os	-0.5	O(C)(C)
+
+# Esters
+
+c4h3	0.05	C(C(=O)O(C))
+c3oe	0.55	C(=O)(C)(O(C))
+o	-0.45	O(=C(C)(O(C)))
+os	-0.40	O(C(=O)(C))(C)
+c4h3	0.25	C(O(C(=O)(C)))
+c4h2	0.25	C(O(C(=O)(C)))(C)
+c4h	0.25	C(O(C(=O)(C)))(C)(C)
+c3h	0.25	C(O(C(=O)(C)))(=C)
+c3	0.25	C(O(C(=O)(C)))(=C)(C)
+
+# Ketones and aldehydes
+
+o	-0.424	O(=C(C)(C))
+o	-0.482	O(=C(C))
+o	-0.424	O(=C)
+c4	-0.043	C(C(=O))(C)(C)(C)
+c4h	-0.043	C(C(=O))(C)(C)
+c4h2	-0.043	C(C(=O))(C)
+c4h3	-0.043	C(C(=O))
+c4	0	C(C(=O)(*))(C)(C)(C)
+c4h	0	C(C(=O)(*))(C)(C)
+c4h2	0	C(C(=O)(*))(C)
+c4h3	0	C(C(=O)(*))
+c3o	0.424	C(=O)(C)(C)
+c3o	0.424	C(=O)(*)(*)
+c3ho	0.525	C(=O)(C)
+
+# Amines
+
+c4	0.18	C(N(C)(C))(C)(C)(C)
+c4h	0.18	C(N(C)(C))(C)(C)
+c4h2	0.18	C(N(C)(C))(C)
+c4h3	0.18	C(N(C)(C))
+c4	0.18	C(N(C)(H))(C)(C)(C)
+c4h	0.18	C(N(C)(H))(C)(C)
+c4h2	0.18	C(N(C)(H))(C)
+c4h3	0.18	C(N(C)(H))
+c4	0.18	C(N(H)(H))(C)(C)(C)
+c4h	0.18	C(N(H)(H))(C)(C)
+c4h2	0.18	C(N(H)(H))(C)
+c4h3	0.18	C(N(H)(H))
+n3	-0.54	N(C)(C)(C)
+n3h	-0.745	N(C)(C)(H)
+n3h2	-0.892	N(C)(H)(H)
+hn	0.356	H(N(C)(C))
+hn	0.385	H(N(C)(H))
+
+# Nitro compounds
+
+cano	0.14	c(N(:O)(:O))(:c)(:c)
+c4	0.14	C(N(:O)(:O))(C)(C)
+c4h	0.14	C(N(:O)(:O))(C)(C)
+c4h2	0.14	C(N(:O)(:O))(C)
+c4h3	0.14	C(N(:O)(:O))
+no	0.82	N(C) N(c)
+on	-0.48	O(:N(:O)(C)) O(:N(:O)(c))
+
+# Nitriles
+
+c4	0.269	C(C(#N))(C)(C)(C)
+c4h	0.269	C(C(#N))(C)(C)
+c4h2	0.269	C(C(#N))(C)
+c4h3	0.269	C(C(#N))
+c1n	0.129	C(#N)(C)
+nc	-0.398	N(#C)
+
+# Amides
+
+n3mh	-0.8	N(C(=O))(C)(H)
+hn	0.4	H(N(C=O)(C))
+c3mo	0.424	C(=O)(N)(C)
+o	-0.424	O(=C(N)(C))
+
+# Urethane
+
+c4h2	0.25	C(C)(O(C(=O)N(C)(H))) C(C)(O(C(=O)N(c)(H)))
+os	-0.4	O(C)(C(=O)N(C)(H)) O(C)(C(=O)N(c)(H))
+c3mo	0.6	C(=O)(O)(N(C)(H)) C(=O)(O)(N(c)(H))
+o	-0.45	O(=C(N(C)(H))(O)) O(=C(N(c)(H))(O))
+n3mh	-0.58	N(C(=O)O)(C)(H) N(C(=O)O)(c)(H)
+n3mh	-0.36	N(C(=O)O)(C)(C) N(C(=O)O)(C)(c) N(C(=O)O)(c)(c)
+hn	0.4	H(N(C(=O)O)(C)) H(N(C(=O)O)(c))
+cac	0.18	c(:c)(:c)(N(C(=O)O)(*))
+c4	0.18	C(N(C(=O)O)(*))(C)(C)(C)
+c4h	0.18	C(N(C(=O)O)(*))(C)(C)
+c4h2	0.18	C(N(C(=O)O)(*))(C)
+c4h3	0.18	C(N(C(=O)O)(*))
+
+# Aromatic nitrogen
+
+can	0.33	c(:n)(:c)
+can2	0.66	c(:n)(:n)
+na	-0.66	n(:c)(:c)
+
+# Thiols
+
+c4	0.171	C(S(H))(C)(C)(C)
+c4h	0.171	C(S(H))(C)(C)
+c4h2	0.171	C(S(H))(C)
+c4h3	0.171	C(S(H))
+sh	-0.377	S(C)(H)
+hs	0.206	H(S)
+
+# Sulfides
+
+c4	0.15	C(S(C))(C)(C)(C)
+c4h	0.15	C(S(C))(C)(C)
+c4h2	0.15	C(S(C))(C)
+c4h3	0.15	C(S(C))
+sc	-0.3	S(C)(C)
+
+# Disulfides
+
+c4	0.177	C(S(S))(C)(C)(C)
+c4h	0.177	C(S(S))(C)(C)
+c4h2	0.177	C(S(S))(C)
+c4h3	0.177	C(S(S))
+ss	-0.177	S(C)(S)	
+
+# Thiols
+
+cahs	0	c(:c)(:s) c(:c(:s))(:c)
+sa	0	s(:c)(:s)
+
+# Zeolites
+
+c4	-0.228	C(Si)
+c4	-0.228	C(Si)(C)
+c4	-0.228	C(Si)(C)(C)
+c4	-0.228	C(Si)(C)(C)(C)
+hsi	-0.212	H(Si)
+o2z	-0.75	O(Si)(Si)
+si4z	0.912	Si(C)(C)(C)(C)
+si4z	1.059	Si(C)(C)(C)(O)
+si4z	1.206 	Si(C)(C)(O)(O)
+si4z	1.353	Si(C)(O)(O)(O)
+si4z	0.848	Si(H)(H)(H)(H)
+si4z	1.011	Si(H)(H)(H)(O)
+si4z	1.174	Si(H)(H)(O)(O)
+si4z	1.337	Si(H)(O)(O)(O)
+si4z	1.5	Si(O)(O)(O)(O)
+
+# Ions
+
+f-	-1	[F-]
+cl-	-1	[Cl-]
+br-	-1	[Br-]
+i-	-1	[I-]
+li+	1	[Li+]
+na+	1	[Na+]
+k+	1	[K+]
+rb+	1	[Rb+]
+cs+	1	[Cs+]
+mg+2	2	[Mg++]
+ca+2	2	[Ca++]
+sr+2	2	[Sr++]
+ba+2	2	[Ba++]
+
+ITEM	END
+
+# Typing templates
+
+ITEM	TEMPLATES
+
+# name	template
+
+#BENZ	c1ccccc1
+
+ITEM	END
+
+# Equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	bonded
+
+?	?	?
+ar	ar	ar
+ba+2	ba+2	ba+2
+br-	br-	br-
+c1n	c1n	c1n
+c3	c3	c3
+c3o	c3o	c3o
+c3oe	c3oe	c3o
+c3h	c3h	c3h
+c3h2	c3h2	c3h2
+c3ho	c3ho	c3ho
+c3mo	c3mo	c3mo
+c4	c4	c4
+c4h	c4h	c4h
+c4ho	c4ho	c4ho
+c4h2	c4h2	c4h2
+c4h3	c4h3	c4h3
+c4h4	c4h4	c4h4
+c4o	c4o	c4o
+c4oe	c4oe	c4oe
+ca+2	ca+2	ca+2
+cac	cac	cac
+caca	caca	caca
+cah	cah	cah
+cahs	cahs	cahs
+cam	cam	cam
+can	can	can
+can2	can2	can2
+cano	cano	cano
+cl-	cl-	cl-
+cs+	cs+	cs+
+f-	f-	f-
+#hc	hc	hc
+he	he	he
+hn	hn	hn
+ho	ho	ho
+hs	hs	hs
+hsi	hsi	hsi
+hw	hw	hw
+i-	i-	i-
+k+	k+	k+
+kr	kr	kr
+li+	li+	li+
+m	m	m
+mg+2	mg+2	mg+2
+n3	n3	n3
+n3h	n3h	n3h
+n3h2	n3h2	n3h2
+n3mh	n3mh	n3mh
+na	na	na
+na+	na+	na+
+nc	nc	nc
+ne	ne	ne
+no	no	no
+o	o	o
+oh	oh	oh
+on	on	on
+os	os	os
+ose	ose	os
+ow	ow	ow
+o2z	o2z	o2z
+rb+	rb+	rb+
+sa	sa	sa
+sc	sc	sc
+sh	sh	sh
+sr+2	sr+2	sr+2
+ss	ss	ss
+si4z	si4z	si4z
+xe	xe	xe
+
+ITEM	END
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+# sigma in [A]
+# epsilon in [K]
+
+# type1	type2	sigma	eps
+
+?	?	0	0
+ar	ar	3.401	117.7
+ba+2	ba+2	3.81661	23.7
+br-	br-	4.28	357.3
+c	c	3.65	5
+c1n	c1n	3.55	60
+c3	c3	3.85	20
+c3o	c3o	3.82	40
+c3oe	c3oe	3.90	41
+c3h	c3h	3.73	47	
+c3ho	c3ho	3.52	54	
+c3h2	c3h2	3.675	85
+c3mo	c3mo	3.72	34
+c4	c4	6.4	0.5
+c4o	c4o	5.8	0.5
+c4oe	c4oe	3.6	98
+c4h	c4h	4.65	10
+c4ho	c4ho	4.33	10
+c4h2	c4h2	3.95	46
+c4h3	c4h3	3.75	98
+c4h4	c4h4	3.73	148
+cac	cac	3.88	21
+caca	caca	3.7	30
+cah	cah	3.695	50.5
+cahm	cahm	3.74	48
+cahs	cahs	3.69	50.5
+can	can	3.74	48
+can2	can2	3.90	47
+cano	cano	4.5	15
+ca+2	ca+2	2.41203	226.289
+cl-	cl-	4.02	357.3
+cs+	cs+	6.2	0.2516
+f-	f-	3.05	357.3
+i-	i-	4.81	357.3
+he	he	2.556	10.1
+hn	hn	1.01	0
+ho	ho	0.945	0
+hs	hs	1.336	0
+hsi	hsi	1.48	0
+hw	hw	0.9572	0
+k+	k+	5.17	0.2516
+kr	kr	3.624	159.5
+li+	li+	2.87	0.2516
+mg+2	mg+2	1.64447	440.36
+na+	na+	4.07	0.2516
+m	m	0	0
+o	o	3.05	79
+oh	oh	3.02	93
+on	on	2.9	80
+os	os	2.8	55
+ose	ose	3.1	29
+ow	ow	3.16556	78.1973
+o2z	o2z	3.30	53
+n3	n3	3.78	12
+n3h	n3h	3.52	58
+n3h2	n3h2	3.34	111
+n3mh	n3mh	3.34	111
+na	na	3.45	28
+nc	nc	2.95	60
+no	no	3.31	40
+ne	ne	2.78	34.7
+rb+	rb+	5.6	0.2516
+sa	sa	3.6	180
+sc	sc	3.58	199
+sh	sh	3.62	232
+sr+2	sr+2	3.10269	59.4969
+ss	ss	3.72	165
+si4z	si4z	2.3	22
+xe	xe	3.935	217.9
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# 0.5*k*(l-l0)^2 
+#
+# k in [K/A^2]
+# l0 in [A]
+
+# type1	type2	k	l0
+
+c*	c3o	316022	1.52
+c*	c3ho	316022	1.52
+c*	c3mo	316022	1.52
+c*	no	377414	1.49
+c*	oh	388485	1.43
+c*	os	322060	1.41
+c*	s*	223400	1.82
+c1n	nc	223429	1.448
+c3*	c3*	533412	1.33
+c3o	o	573670	1.229
+c3ho	o	573670	1.217
+c3mo	o	573670	1.229
+c3mo	os	215378	1.327
+c3mo	n3*	493155	1.335
+c4*	c*	261674	1.54
+c4*	n3*	339170	1.448
+c4oe	c4oe	437000	1.466
+c4oe	os	388485	1.431
+ca*	ca*	472019	1.40
+ca*	sa	251610	1.71
+ca*	na	429759	1.40
+ca*	no	402575	1.46
+cam	m	600000	1.40
+ca*	n3*	339170	1.449
+hn	n3*	436794	1.01
+hs	sh	275764	1.34
+hw	ow	603863	1.00
+m	m	600000	0.785
+on	no	322060	1.225
+oh	ho	556560	0.945
+si4z	os	376408	1.64	# OPLS	si,os
+si4z	o2z	376408	1.64	# OPLS	si,os
+si4z	oh	376408	1.64	# OPLS	si,oh
+si4z	c4*	188204	1.86	# OPLS	si,ct
+si4z	hsi	167069	1.48	# OPLS	si,h
+	
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# 0.5*k*(theta-theta0)^2 
+#
+# k in [K/rad^2]
+# theta0 in [degree]
+
+# type1	type2	type3	k	theta0
+
+c*	c3	c*	70420	119.7	
+c*	c3o	c*	62500	117.2
+c*	c3o	o	62500	121.4
+c*	c3ho	o	62500	121.4
+c*	c3mo	o	62500	121.4
+c*	c4*	cn	31250	114
+c*	c4*	no	31724	111.1
+c*	c4*	oh	50400	109.47
+c*	c4*	os	50300	112
+c*	c4*	s*	62500	114
+c*	c4*	n3*	28300	109.5
+c*	c4	c*	62500	109.47
+c*	c4h	c*	62500	112
+c*	c4h2	c*	62500	114
+c*	cn	nc	151000	180
+c*	n3*	hn	31250	112.9
+c*	n3*	c*	25178	109.5
+c*	no	on	40284	111.5
+c*	os	c*	60400	112
+c*	os	c3*	83534	116.9	# OPLS	c,os,c3
+c*	oh	ho	55400	108.5
+c*	sc	c*	45550	99
+c*	sc	sc	45550	103
+c*	sh	hs	33830	96
+c3*	c3	c*	70420	119.7	
+c3*	c3h	c*	70420	119.7	
+c3*	c3h	os	70420	119.7	
+c3*	c3o	o	62500	125
+c3*	c3o	os	70600	110
+c3*	os	c4*	62500	115
+c4*	c3o	os	70600	110
+c4oe	c4oe	ose	50300	59.19
+c4oe	ose	c4oe	60400	61.62
+ca*	ca*	c*	70450	120
+ca*	ca*	ca*	63410	120
+ca*	ca*	n3*	70451	120	# OPLS	ca,ca,n
+ca*	ca*	no	85550	120
+ca*	ca*	sa	70460	111.5
+ca*	sa	ca*	74480	92.2
+cahs	cahs	cahs	70460	112.4
+cam	cam	m	85550	60
+cam	m	cam	151000	180
+cam	m	m	151000	180
+hn	n3*	hn	21955	106.4
+hw	ow	hw	75490	109.54
+on	no	on	40284	125
+o	c3*	os	62500	125
+n3*	c3*	o	80515	122.9	# OPLS	n,c,o
+n3*	c3*	os	81521	111.4	# OPLS	n,c,os
+si4z	o2z	si4z	20129	145.0	# OPLS	si,os,si
+c4*	os	si4z	40258	130.0	# OPLS	ct,os,si
+c4*	si4z	o2z	60386	100.0	# OPLS	ct,si,os
+c4*	c4*	si*	60386	112.0	# OPLS	ct,ct,si
+os	si4z	os	60386	110.0	# OPLS	os,si,os
+os	si4z	o2z	60386	110.0	# OPLS	os,si,os
+o2z	si4z	o2z	60386	110.0	# OPLS	os,si,os
+hsi	si4z	o2z	35225	110.5	# OPLS	h,si,os
+
+ITEM	END
+
+# Torsion parameters
+
+ITEM	TORSION
+
+# k in [K]
+
+# type1	type2	type3	type3	k	n	delta	[...]
+
+c*	c4h2	sh	hs	52.88	0	0	-52.05	1	0	18.46	2	0	306.36	3	0
+c*	c4*	sc	c4*	0	0	0	367.6	1	0	-270.18	2	0	581.64	3	0
+c*	sc	sc	c*	1763.9	0	0	398	1	0	-2181.6	2	0	505.25	3	0
+c*	c4h2	c4h	s*	-251.06	0	0	428.73	1	0	-111.85	2	0	441.27	3	0
+c*	c4h2	c4	s*	0	0	0	0	1	0	0	2	0	461.29	3	0
+c4h3	c4h	sh	hs	0	0	0	0	1	0	0	2	0	400	3	0
+c*	c*	c3o	o	2035.58	0	0	-736.9	1	0	57.84	2	0	-293.23	3	0
+c*	c*	c3ho	o	2035.58	0	0	-736.9	1	0	57.84	2	0	-293.23	3	0
+c*	c*	c3mo	o	2035.58	0	0	-736.9	1	0	57.84	2	0	-293.23	3	0
+c*	c*	os	c*	0	0	0	725.35	1	0	-163.75	2	0	558.20	3	0
+c*	c4	c4h2	c*	0	0	0	0	1	0	0	2	0	461.29	3	0
+c*	c4	oh	ho	0	0	0	0	1	0	0	2	0	163.56	3	0
+c*	c4h	c4h	c*	-251.06	0	0	428.73	1	0	-111.85	2	0	441.27	3	0
+c*	c4h	c4h2	c*	-251.06	0	0	428.73	1	0	-111.85	2	0	441.27	3	0
+c*	c4h	oh	ho	215.96	0	0	197.33	1	0	31.46	2	0	-173.92	3	0
+c*	c4h2	c4h2	c*	0	0	0	355.03	1	0	-68.19	2	0	791.32	3	0
+c*	c4h2	c4h2	oh	0	0	0	176.62	1	0	-53.34	2	0	769.93	3	0
+c*	c4h2	c4h2	os	0	0	0	176.62	1	0	-53.34	2	0	769.93	3	0
+c*	c4h2	oh	ho	0	0	0	209.82	1	0	-29.17	2	0	187.93	3	0
+c*	c4h2	c3h	c3*	688.5	0	0	86.36	1	0	-109.77	2	0	-282.24	3	0
+c*	c3h	c3h	c*	0	0	0	127	1	0	6540	2	0	-127	3	0
+c3*	c3*	c3o	o	823.03	0	0	-47.91	1	0	-773.13	2	0	1.99	3	0	
+c3*	c3*	c3o	os	823.03	0	0	47.91	1	0	-773.13	2	0	-1.99	3	0
+c3*	c3*	os	c4*	895.2	0	0	417.41	1	0	1373.14	2	0	30.19	3	0
+c3*	os	c4*	c4*	665.84	0	0	-751.83	1	0	538.95	2	0	-22.1	3	0	51.27	4	0	
+c3*	os	c3o	o	4716	0	0	2194	1	0	2059	2	0	-153.4	3	0
+c3h	os	c3o	c4*	-14.48	0	0	993.1	1	0	520.7	2	0	-138.5	3	0
+c4*	os	c3o	o	1820.74	0	0	-417.41	1	0	-1373.14	2	0	-30.19	3	0
+c4*	os	c3o	c*	1820.74	0	0	417.41	1	0	-1373.14	2	0	30.19	3	0
+ca*	c4*	c4h2	c*	0	0	0	0	1	0	131	2	180	0	3	0
+ca*	c4*	c3h	c*	0	0	0	0	1	0	167	2	300	0	3	0
+ca*	ca*	ca*	ca*	0	0	0	0	1	0	1560.07	2	180	0	3	0
+m	ca*	ca*	ca*	0	0	0	0	1	0	1560.07	2	180	0	3	0
+m	m	ca*	ca*	0	0	0	0	1	0	1560.07	2	180	0	3	0
+oh	c4h2	c4h2	oh	503.24	0	0	0	1	0	-251.62	2	0	1006.47	3	0
+os	c3o	c3*	c3*	436.47	0	0	49.4025	1	0	386.565	2	0	0.4975	3	0
+os	c4h2	c4h2	os	503.24	0	0	0	1	0	-251.62	2	0	1006.47	3	0
+os	c4h2	c4h2	oh	503.24	0	0	0	1	0	-251.62	2	0	1006.47	3	0
+c*	c4*	no	on	127.09	0	0	-41.4	1	0	14.5	2	0	-19.1	3	0	-8.03	4	0	-2.91	5	0	-0.95	6	0
+hc	c4*	c4*	c*	0	0	0	0	1	0	0	2	0	854	3	180
+hc	c4*	c4*	no	454.32	0	0	-219	1	0	-63.7	2	0	4.98	3	0	-8.19	4	0	-2.63	5	0	-0.78	6	0
+hc	c4*	c4*	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+hc	c4*	n3*	hn	422.74	0	0	-109	1	0	-12.5	2	0	-102	3	0	-0.21	4	0	-0.03	5	0
+hc	c4*	n3*	c4*	357.78	0	0	-37	1	0	-4.69	2	0	-142	3	0	-0.1	4	0	0.01	5	0
+hc	c4*	no	on	260.72	0	0	-40.8	1	0	-80.4	2	0	-41.	3	0	-16.	4	0	-5.44	5	0	-1.68	6	0
+c4*	c*	n3*	hn	352.2	0	0	47.8	1	0	-105	2	0	-105	3	0
+c4*	n3*	c4*	c*	6443.6	0	0	-2188	1	0	-1381	2	0	-890	3	0	-329	4	0	-137	5	0	-52.6	6	0
+c4*	c4*	c4*	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+c*	c4*	c3mo	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+hc	c4*	c3mo	n3*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+c*	c4*	c3mo	o	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+hc	c4*	c3mo	o	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
+hn	n3*	c3mo	o	1119	0	0	-163	1	0	629	2	0	0	3	0
+
+ITEM	END
+
+# Improper parameters
+
+ITEM	IMPROPER
+
+# type1	type2	type3	type4	k	psi0
+
+c*	c3*	c3*	c*	-8050	0
+
+ITEM	END
+
