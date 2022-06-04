@@ -9,24 +9,11 @@ with open(os.path.join(PACKAGE_DIR, 'README.md'), encoding='utf-8') as f:
     LONG_DESCRIPTION = f.read()
 
 
-def get_exclude_bins():
-    bins = ['emc_linux64', 'emc_macos', 'emc_win32.exe']
-    if sys.platform == 'linux' or sys.platform == 'linux2':
-        bins.remove('emc_linux64')
-    elif sys.platform == 'darwin':
-        bins.remove('emc_macos')
-    elif sys.platform == 'win32':
-        bins.remove('emc_win32.exe')
-    return bins
-
-
 def package_files(directory):
-    exclude_bins = get_exclude_bins()
     paths = []
     for (path, directories, filenames) in os.walk(directory):
         for filename in filenames:
-            if filename not in exclude_bins:
-                paths.append(os.path.join('..', path, filename))
+            paths.append(os.path.join('..', path, filename))
     return paths
 
 
@@ -34,7 +21,7 @@ extra_files = package_files('pyemc/emc')
 
 setup(
     name='emc-pypi',
-    version='0.1.1',
+    version='0.1.2',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     description='Python interface for the Enhanced Monte Carlo (EMC) package',
@@ -48,4 +35,4 @@ setup(
     ],
     packages=find_packages(),
     package_data={'': extra_files},
-    zip_safe=True)
+    zip_safe=False)
