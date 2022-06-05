@@ -10,15 +10,19 @@ This module is a thin Python wrapper library of the [EMC](http://montecarlo.sour
 
 The package works out of the box without pre-installation of EMC or any configuration. Please open an issue if you find something missing or not working as expected.
 
+## About EMC
+EMC creates input structures from SMILES strings and LAMMPS input files for particle simulations. Supported force fields are
+- Atomistic: Born, COMPASS, PCFF, CHARMM, OPLS, TraPPE
+- Coarse-grained: DPD, Martini, SDK
+
+In any publication of scientific results based in part or completely on the use of EMC, please cite the original paper: 
+P.J. in 't Veld and G.C. Rutledge, Macromolecules 2003, 36, 7358 [[link](https://pubs.acs.org/doi/full/10.1021/ma0346658)] [[pdf](https://pubs.acs.org/doi/pdf/10.1021/ma0346658)]
+
 ## Installation
 
 ```bash
 pip install emc-pypi
 ```
-## About [EMC](http://montecarlo.sourceforge.net/)
-EMC creates input structures from SMILES strings and LAMMPS input files for particle simulations. Supported force fields are
-- Atomistic: Born, COMPASS, PCFF, CHARMM, OPLS, TraPPE
-- Coarse-grained: DPD, Martini, SDK
 
 ## Usage
 
@@ -31,6 +35,4 @@ pyemc.setup('your-setup-file.esh')
 # Run the emc executable
 pyemc.build('build.emc')
 ```
-## Citation
-In any publication of scientific results based in part or completely on the use of EMC, please include the original paper: 
-P.J. in 't Veld and G.C. Rutledge, Macromolecules 2003, 36, 7358 [[link](https://pubs.acs.org/doi/full/10.1021/ma0346658)] [[pdf](https://pubs.acs.org/doi/pdf/10.1021/ma0346658)]
+
