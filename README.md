@@ -1,19 +1,24 @@
 # Enhanced Monte Carlo (EMC) Python Interface
-
-This Python module is a thin layer around the [EMC](http://montecarlo.sourceforge.net/emc/Welcome.html) package that allows you to use EMC with ease.
-
-The package should work out of the box without any configuration as the pre-compiled EMC executable files are included. Please open an issue if you find something missing or not working as expected.
-
 [![PyPI version shields.io](https://img.shields.io/pypi/v/emc-pypi.svg?style=for-the-badge&logo=PyPI&logoColor=blue)](https://pypi.python.org/pypi/emc-pypi/)
 [![PyPI download month](https://img.shields.io/pypi/dm/emc-pypi.svg?style=for-the-badge&logo=PyPI)](https://pypi.python.org/pypi/emc-pypi/)
 [![PyPI download day](https://img.shields.io/pypi/dd/emc-pypi.svg?style=for-the-badge&logo=PyPI)](https://pypi.python.org/pypi/emc-pypi/)
+
+This module is a thin Python wrapper library of the [EMC](http://montecarlo.sourceforge.net/emc/Welcome.html) package that allows you to use all EMC functionalities with Python interface. 
+
+- See the [example input files](https://github.com/kevinshen56714/emc-pypi/tree/main/pyemc/emc/examples/setup) on how to prepare EMC input (.esh) files.
+- See the [docs](https://github.com/kevinshen56714/emc-pypi/blob/main/pyemc/emc/docs/emc.pdf) to understand more about EMC.
+
+The package works out of the box without pre-installation of EMC or any configuration. Please open an issue if you find something missing or not working as expected.
 
 ## Installation
 
 ```bash
 pip install emc-pypi
 ```
-
+## About [EMC](http://montecarlo.sourceforge.net/)
+EMC creates input structures from SMILES strings and LAMMPS input files for particle simulations. Supported force fields are
+- Atomistic: Born, COMPASS, PCFF, CHARMM, OPLS, TraPPE
+- Coarse-grained: DPD, Martini, SDK
 
 ## Usage
 
@@ -26,3 +31,6 @@ pyemc.setup('your-setup-file.esh')
 # Run the emc executable
 pyemc.build('build.emc')
 ```
+## Citation
+In any publication of scientific results based in part or completely on the use of EMC, please include the original paper: 
+P.J. in 't Veld and G.C. Rutledge, Macromolecules 2003, 36, 7358 [[link](https://pubs.acs.org/doi/full/10.1021/ma0346658)] [[pdf](https://pubs.acs.org/doi/pdf/10.1021/ma0346658)]
