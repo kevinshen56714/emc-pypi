@@ -38,7 +38,7 @@ def _get_path() -> str:
     return os.path.dirname(__file__)
 
 
-def setup(esh_file: str):
+def setup(esh_file: str, *args):
     '''Method to run emc_setup.pl of EMC
 
     Attributes:
@@ -50,7 +50,10 @@ def setup(esh_file: str):
     emc_setup_file = os.path.join(_get_path(), 'emc', 'scripts',
                                   'emc_setup.pl')
 
-    subprocess.run(['perl', str(emc_setup_file), esh_file])
+    command = ['perl', str(emc_setup_file), esh_file]
+    for arg in args:
+        command.append(arg)
+    subprocess.run(command)
 
 
 def build(build_file: str):
@@ -62,7 +65,6 @@ def build(build_file: str):
     Returns:
         None
     '''
-    emc_exec = _get_exec()
-    emc_bin_file = os.path.join(_get_path(), 'emc', 'bin', emc_exec)
+    emc_bin_file = os.path.join(_get_path(), 'emc', 'bin', _get_exec())
 
     subprocess.run([str(emc_bin_file), build_file])
