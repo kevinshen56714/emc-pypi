@@ -2,7 +2,7 @@ exclude: "^pyemc/emc/"
 
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.1.0
+    rev: v4.2.0
     hooks:
       - id: trailing-whitespace
       - id: check-added-large-files
@@ -34,7 +34,7 @@ repos:
       - id: isort
 
   - repo: https://github.com/pre-commit/mirrors-yapf
-    rev: ''
+    rev: 'v0.32.0'
     hooks:
     -   id: yapf
         # https://github.com/pre-commit/mirrors-yapf/issues/15
