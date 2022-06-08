@@ -2,7 +2,6 @@
 
 [![PyPI version shields.io](https://img.shields.io/pypi/v/emc-pypi.svg?style=for-the-badge&logo=PyPI&logoColor=blue)](https://pypi.python.org/pypi/emc-pypi/)
 [![PyPI download month](https://img.shields.io/pypi/dm/emc-pypi.svg?style=for-the-badge&logo=PyPI)](https://pypi.python.org/pypi/emc-pypi/)
-[![PyPI download day](https://img.shields.io/pypi/dd/emc-pypi.svg?style=for-the-badge&logo=PyPI)](https://pypi.python.org/pypi/emc-pypi/)
 
 This module is a thin Python wrapper library of the [EMC](http://montecarlo.sourceforge.net/emc/Welcome.html) package that allows you to use all EMC functionalities with Python interface.
 
