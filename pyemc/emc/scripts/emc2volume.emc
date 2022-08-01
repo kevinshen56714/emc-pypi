@@ -1,0 +1,43 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg0,
+  select	-> "{mode -> 0}",
+  traject	-> input,
+  compress	-> false,
+  unwrap	-> true,
+  vdw		-> false,
+  frequency	-> 1e2,
+  ntrials	-> 1e4,
+  binsize	-> 0.1,
+  style		-> "math",
+  source	-> ".",
+  target	-> ".",
+  frequency	-> 1
+};
+
+get		= {name -> source+"/"+input};
+
+sample		= {
+  volume	-> {
+    id		-> 0,
+    active	-> true,
+    frequency	-> frequency,
+    ntrials	-> ntrials,
+    binsize	-> binsize,
+    select	-> select
+  }
+};
+
+traject		= {mode -> sample, name -> traject};
+
+export		= {
+  sample	-> {
+    name	-> target+"/"+output+"_volume",
+    type	-> volume,
+    style	-> style
+  }
+};
+

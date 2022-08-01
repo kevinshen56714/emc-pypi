@@ -5,11 +5,12 @@
 #  date:	July 5, September 10, 2013, February 10, 2014,
 #		April 16, 2014, March 14, 23, May 8, July 3, 17, 2017,
 #		December 2, 19, 2017, February 24, May 26, 31, July 5,
-#		October 29, 2018, August 17, 2019, May 23, 2020.
+#		October 29, 2018, August 17, 2019, May 23, 2020, April 4,
+#		2022.
 #  purpose:	execute job in LSF, PBS, or Slurm queues or directly on local
 #		host; part of EMC work flow
 #
-#  Copyright (c) 2004-2020 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License v3 as stated in LICENSE file in EMC
 #  root directory
 #
@@ -35,15 +36,16 @@
 #    20190817	Added -account to allow for charging accounts and -user to
 #		allow for queue-specific settings not covered by run.sh
 #    20200523	Corrected behavior for running local jobs
+#    20220404	New version: 3.4
+#		Added -modules for loading modules during execution
 #
 
 # Variables
 
-version=3.2.4;
-date="May 23, 2020";
+version=3.4;
+date="April 4, 2022";
 script=$(basename "$0");
 subscript=;
-perl=/usr/bin/perl;
 walltime=;
 account=none;
 starttime=now;
@@ -110,6 +112,10 @@ quote() {
 }
 
 
+split() {
+  perl -e 'print(join(" ", split(@ARGV[0], @ARGV[1])));' "$@";
+}
+
 calc() {
   perl -e 'print(eval(@ARGV[0]));' "$@";
 }
@@ -129,6 +135,26 @@ local_which() {
 }
 
 
+set_modules() {
+  local module;
+  local args;
+  local arg;
+
+  for args in $@; do
+    for module in $(split "," ${args}); do
+      arg=($(split "=" ${module}));
+      if [ ${#arg[@]} == 2 ]; then
+	echo "module ${arg[0]} ${arg[1]}";
+	module ${arg[0]} ${arg[1]};
+      else
+	echo "module load ${module}";
+	module load ${module};
+      fi;
+    done;
+  done;
+}
+
+
 system_queue() {
   if [ "$(local_which bsub)" != "" ]; then echo lsf;
   elif [ "$(local_which qsub)" != "" ]; then echo pbs;
@@ -137,7 +163,7 @@ system_queue() {
 
 
 set_time() {
-  $perl -e '
+  perl -e '
     $nargs = scalar(@arg = split(":", @ARGV[1]));
     $max = @ARGV[0]; $digit = $nargs ? 0 : 24;
     while (scalar(@arg)<$max) {
@@ -171,6 +197,7 @@ script_help() {
   echo -e "  -local\texecute arguments locally";
   echo -e "  -memory\tset memory per core in gb (PBS only) [${memory}]";
   echo -e "  -mode\t\tset processor assignment mode (PBS only) [${mode}]";
+  echo -e "  -modules\tset modules to load";
   echo -e "  -n\t\tset number of processors; includes threads";
   echo -e "  -nodes\tset nodes subset to run on (LSF only) []";
   echo -e "  -nthreads\tset number of threads per node (PBS only) [${nthreads}]";
@@ -228,6 +255,7 @@ run_init() {
       -local)		system=${local};;
       -memory)		shift; memory=$1;;
       -mode)		shift; mode=$(int $1);;
+      -modules)		shift; commands+=(-modules "$1"); set_modules "$1";;
       -n)		shift; nprocs=$(int $1);;
       -nodes)		shift; nodes=$(int $1);;
       -nthreads)	shift; nthreads=$(int $1);;
@@ -280,7 +308,7 @@ run_init() {
 # LSF submission
 
 lsf_nodes() {
-  $perl -e '
+  perl -e '
     @arg = split(" ", (split("\n", `bmgroup`))[2]);
     shift(@arg);
     foreach (@arg) {
@@ -307,8 +335,6 @@ lsf_run() {
 
   export nprocs;
 
-  if [ "${HOST}" == "turing" ]; then
-    resource="cu[type=host:pref=maxavail:balance]"; fi;
   if [ "${starttime}" != "now" -a "${starttime}" != "" ]; then
     options="${options} -b $(set_time 2 ${starttime})"; fi;
   if [ "${walltime}" != "" ]; then
@@ -346,7 +372,7 @@ lsf_run() {
 # PBS submission
 
 set_nodes() {
-  $perl -e '
+  perl -e '
     $n=$ARGV[0]; $ppn=$ARGV[1];
     printf "%d\n", int(($n+($n%$ppn ? $ppn : 0))/$ppn);
   ' $@;
@@ -481,12 +507,14 @@ sub_init() {
   single=0;
   input="";
   output="";
+  modules=();
 
   while [ "$1" != "" ]; do
     case "$1" in
       -file)	shift; file="$(nosingle "$1")";;
       -input)	shift; input="$1";;
       -join)	shift; join=$(flag $1);;
+      -modules)	shift; modules+=($(split "," "$1"));;
       -n)	shift; nprocs=$1;;
       -output)	shift; output="$1";;
       -single)	single=1;;
@@ -521,11 +549,11 @@ sub_init() {
     esac;
     shift;
   done;
-
 }
 
 
 sub_execute() {
+  set_modules "${modules[@]}";
 
   if [ "${system}" != "${local}" ]; then
     echo "PATH=${PATH}";
@@ -541,6 +569,10 @@ sub_execute() {
 
   if [ "${single}" != "1" ]; then
     if [ "${system}" == "pbs" ]; then
+      if [ "${nprocs}" != "" ]; then
+	commands=(mpiexec -n ${nprocs} ${commands[@]});
+      fi;
+    elif [ "${system}" == "slurm" ]; then
       if [ "${nprocs}" != "" ]; then
 	commands=(mpiexec -n ${nprocs} ${commands[@]});
       fi;
@@ -580,16 +612,13 @@ sub_execute() {
 # General
 
 execute() {
-  if [ "$1" != "-submit" ]; then 
-    run_init "$@";
-  fi;
-  
   echo -e "### ${script} v${version} started at $(date) ###\n";
   
   if [ "$1" == "-submit" ]; then
     sub_init "$@";
     sub_execute;
   else
+    run_init "$@";
     if [ "${system}" == "lsf" ]; then
       lsf_run ${commands[@]};
     elif [ "${system}" == "pbs" ]; then

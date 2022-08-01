@@ -5,7 +5,7 @@
 #  date:	June 22, 27, July 23, 2018, March 2, 18, 2019.
 #  purpose:	Copying of templates as available in the template directory
 #
-#  Copyright (c) 2004-2019 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

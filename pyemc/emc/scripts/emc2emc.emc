@@ -1,0 +1,20 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg1,
+  traject	-> input,
+  compress	-> false,
+  unwrap	-> true,
+  parameters	-> true,
+  types		-> false,
+  shake		-> "auto",
+  source	-> ".",
+  target	-> "."
+};
+
+get		= {name -> source+"/"+input};
+
+put		= {name -> output};
+

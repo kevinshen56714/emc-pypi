@@ -1,8 +1,9 @@
+#EMC/FIELD/CHARMM/v36.1
 #
 #  CHARMM topology using na force field files, 
-#  converted by emc_charmm.pl v3.1, June 25, 2020 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl v3.3, April 1, 2021 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Thu Jun 25 15:30:52 2020.
+#  and created on Fri Mar 18 14:25:16 2022.
 #
 
 # Rule precedences

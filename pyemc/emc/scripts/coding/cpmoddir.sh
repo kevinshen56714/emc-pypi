@@ -5,7 +5,7 @@
 #  date:	March 10, 2006, April 14, 2007, September 30, 2010.
 #  purpose:	copy module directories; part of EMC distribution
 #
-#  Copyright (c) 2004-2019 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

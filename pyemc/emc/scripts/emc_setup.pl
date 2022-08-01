@@ -16,7 +16,7 @@
 #  		and coarse-grained [[multi-]interface] simulations; part of
 #  		EMC distribution
 #
-#  Copyright (c) 2004-2021 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -482,6 +482,46 @@
 #    20210723	Added rudimentary math for ITEM MASSES
 #    20210729	Changed variable replacement order
 #    20210801	Web publication
+#    20211006	Changed -phases interpretation: unused clusters are assigned
+#    		to the first empty phase; remaining empty phases cause an
+#    		error
+#    20211029	Added -lammps_error to control restart upon error
+#    		Added -[no]error to resulting run shell scripts
+#    		Added -[no]debug to resulting analyze, build, and run shell
+#    		scripts
+#    20211129	New version: 4.1.1
+#    		Updated behavior for defining polymers; to further 'include', 
+#    		polymers can be defined before clusters when in expert mode
+#    		Changed bash script global loop variable names to all caps
+#    20220107	Fixed issue with bash script variable names
+#    20220112	Fixed issues with with paired loop variables in bash scripts
+#    		Added permutations to loop variables with extensions :2, :3,
+#    		and :4
+#    20220118	Updated split_data() and get_data() routines
+#    		Added new get_data_quick() routine for reading parameters
+#    20220131	New version: 4.1.2
+#		Added gauss as force field; defaults set similar to dpd
+#    		Added the use of the C preprocessor
+#    20220203	Adapted -shake interpretation
+#    20220207	Fixed polymer type setting for included polymers
+#    20220216	Ironed out preprocessing issues with line extenders & and \
+#    		Refined error on missing polymer definitions
+#    20220223	Added rmax to -cutoff for use with gauss field
+#    20220224	Correction to parameter interpretation
+#    		Preprocessing only when specifically set under environment
+#    		Updated default coarse-graining coulombic parameters
+#    		Gaussian bond constants set to k=5 and l=0
+#    20220316	Added type=system to import of structures
+#    20220324	Corrected use of sequences in loops
+#    20220330	New version: 4.1.3
+#    		Added $::EMC::Lammps{newer_version} to use neighbor list style
+#    		multi/old for versions newer that 2020 through option -lammps
+#    		Updated option -modules to [command=]module and inclusion into
+#    		run.sh
+#    		Improved packing mechanism of multiple jobs on one node
+#    20220407	Importing DPD references through get_data_quick()
+#    20220727	Added map keyword to cluster import
+#    20220801	Web publication
 #    		
 #  file formats:
 #    parameters	column1	column2		column3		...
@@ -539,6 +579,7 @@
 
 use Cwd;
 use Data::Dumper; # use as print(Dumper($var)) where $var can be a pointer to complex variables
+use IPC::Open3;
 use File::Basename;
 use File::Find;
 use File::Path;
@@ -546,7 +587,11 @@ use Time::Piece;
 
 # Module initialization
 
-use lib $::EMC::Modules{dir} = dirname($0)."/modules";
+if (-d dirname($0)."/modules") {
+  use lib $::EMC::Modules{dir} = dirname($0)."/modules";
+} else {
+  use lib $::EMC::Modules{dir} = $ENV{EMC_ROOT}."/scripts/modules";
+}
 opendir(DIR, $::EMC::Modules{dir});
 foreach(readdir(DIR)) { 
   require $_ if (substr($_,-3) eq ".pm" && -f "$::EMC::Modules{dir}/$_" ); }
@@ -558,10 +603,10 @@ use strict;
 
 $::EMC::OSType = $^O;
 
-$::EMC::Year = "2021";
+$::EMC::Year = "2022";
 $::EMC::Copyright = "2004-$::EMC::Year";
-$::EMC::Version = "4.1";
-$::EMC::Date = "August 1, $::EMC::Year";
+$::EMC::Version = "4.1.3";
+$::EMC::Date = "April 7, $::EMC::Year";
 $::EMC::EMCVersion = "9.4.4";
 $::EMC::pi = 3.14159265358979323846264338327950288;
 {
@@ -572,7 +617,7 @@ $::EMC::pi = 3.14159265358979323846264338327950288;
 
   # $::EMC::EMCVersion  
   
-  $::EMC::EMCVersion = (split("\n", `$emc -version`))[0] if (!$win && -e $emc);
+  $::EMC::EMCVersion = (split(" ", `$emc -version`))[2] if (!$win && -e $emc);
 
   # $::EMC::Root
   
@@ -634,6 +679,15 @@ $::EMC::pi = 3.14159265358979323846264338327950288;
 	type	=> "distance",
 	queue	=> "\${queue}",
 	walltime => "\${walltime}"
+      }
+    },
+    interaction	=> {			# Interaction energy profiles
+      active	=> 0,
+      queue	=> 0,
+      script	=> "harvest.sh",
+      options	=> {
+	type	=> "interaction",
+	copy	=> 1
       }
     },
     energy	=> {			# Energy tensor post processing
@@ -747,7 +801,8 @@ $::EMC::Core = -1;
   inner		=> -1,
   outer		=> -1,
   pair		=> -1,
-  repulsive	=> 0
+  repulsive	=> 0,
+  rmax		=> -1
 );
 
 # D
@@ -765,6 +820,19 @@ $::EMC::Core = -1;
   zz		=> 1,
   ignore	=> []
 );
+$::EMC::Delete = {
+  default	=> {
+    phase	=> 1,
+    fraction	=> 1,
+    thickness	=> 1,
+    type	=> "relative",
+    mode	=> "include",
+    sites	=> "all",
+    groups	=> "all",
+    clusters	=> "all"
+  },
+  phases	=> []
+};
 $::EMC::Density = "";
 $::EMC::Dielectric = -1;
 %::EMC::Direction = (
@@ -819,6 +887,7 @@ $::EMC::Dielectric = -1;
   HOST		=> $ENV{HOST},
   host		=> ""
 );
+@::EMC::EXT = (".csv", ".esh");
 
 # F
 
@@ -849,6 +918,7 @@ $::EMC::Dielectric = -1;
   omit		=> 0,
   pair		=> 1,
   percolate	=> 0,
+  preprocess	=> 0,
   reduced	=> -1,
   rules		=> 0,
   shake		=> -1,
@@ -918,6 +988,7 @@ $::EMC::Dielectric = -1;
   focus		=> 1,
   formal	=> 1,
   guess		=> -1,
+  map		=> 0,
   mode		=> "",
   name		=> "",
   ncells	=> "1:auto:auto",
@@ -954,6 +1025,7 @@ $::EMC::Kappa = -1;
   dtthermo	=> 1000,
   dtdump	=> 100000,
   dtrestart	=> 100000,
+  error		=> 0,
   momentum_flag	=> 1, 
   momentum	=> [100,1,1,1,"angular"],
   multi		=> 0,
@@ -970,11 +1042,13 @@ $::EMC::Kappa = -1;
   trun		=> 10000000,
   trun_flag	=> 0,
   version	=> 2018, 
+  version_pass	=> 0,
   new_version	=> 2015,
+  newer_version	=> 2021,
   write		=> 1,
   stage		=> [
     "header", "variables", "interaction", "equilibration", "simulation",
-    "integration", "sampling", "intermediate", "run"
+    "integration", "integrator", "sampling", "intermediate", "run"
   ],
   spot		=> {
     head	=> 0,
@@ -992,6 +1066,7 @@ $::EMC::Kappa = -1;
     equilibration => \&write_lammps_equilibration,
     simulation	=> \&write_lammps_simulation,
     integration	=> \&write_lammps_integrator,
+    integrator	=> \&write_lammps_integrator,
     sampling	=> \&write_lammps_sample,
     intermediate => \&write_lammps_intermediate,
     run		=> \&write_lammps_footer
@@ -1002,6 +1077,11 @@ $::EMC::Kappa = -1;
   field		=> $::EMC::FieldList{location},
   include	=> $::EMC::Include{location}
 );
+$::EMC::LoopVariables = {
+  active	=> [],
+  expanded	=> [],
+  vars		=> []
+};
 
 # M
 
@@ -1051,10 +1131,9 @@ $::EMC::NTotal = 10000;
 
 # P
 
-%::EMC::PairConstants = (
-  a		=> 25,
-  r		=> 1,
-  gamma		=> 4.5
+%::EMC::PairConstantsDefault = (
+  dpd		=> {a => 25, r => 1, gamma => 4.5, cutoff => 1, flag => "dpd"},
+  gauss		=> {a => 1, d => 0.4, r0 => 0, cutoff => 2.8, flag => "gauss"}
 );
 %::EMC::Parameters = (
   flag		=> 0,
@@ -1196,17 +1275,19 @@ $::EMC::Shape = "";
   ramp		=> 100000,
   rate		=> ""
 );
-%::EMC::Split = (
-  phase		=> 1,
-  thickness	=> 1,
-  fraction	=> 0.5,
-  type		=> "relative",
-  mode		=> "random",
-  sites		=> "all",
-  groups	=> "all",
-  clusters	=> "all"
-);
-$::EMC::Splits = ();
+$::EMC::Split = {
+  default	=> {
+    phase	=> 1,
+    thickness	=> 1,
+    fraction	=> 0.5,
+    type	=> "relative",
+    mode	=> "random",
+    sites	=> "all",
+    groups	=> "all",
+    clusters	=> "all"
+  },
+  phases	=> []
+};
 %::EMC::System = (
   id		=> "main",
   charge	=> 1,
@@ -1443,7 +1524,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     default	=> $::EMC::BinSize,
     gui		=> ["real", "chemistry", "lammps", "advanced"]},
   bond		=> {
-    comment	=> "set DPD bond constants k,l",
+    comment	=> "set bond constants k,l",
     default	=> $::EMC::BondConstants,
     gui		=> ["list", "chemistry", "field", "advanced", "general"]},
   build		=> {
@@ -1453,7 +1534,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   build_center	=> {
     comment	=> "insert first site at the box center",
     default	=> boolean($::EMC::Build{center}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   build_dir	=> {
     comment	=> "set build directory for LAMMPS script",
     default	=> $::EMC::Build{dir},
@@ -1461,11 +1542,11 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   build_order	=> {
     comment	=> "set build order of clusters",
     default	=> $::EMC::Build{order},
-    gui		=> ["string", "chemistry", "emc", "advanced"]},
+    gui		=> ["string", "chemistry", "emc", "ignore"]},
   build_origin	=> {
     comment	=> "set build order of clusters",
     default	=> list($::EMC::Build{origin}),
-    gui		=> ["string", "chemistry", "emc", "advanced"]},
+    gui		=> ["string", "chemistry", "emc", "ignore"]},
   build_replace	=> {
     comment	=> "replace already existing build results",
     default	=> boolean($::EMC::Build{replace}),
@@ -1524,6 +1605,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     comment	=> "deform system from given density",
     default	=> list(\%::EMC::Deform, "integer"),
     gui		=> ["boolean", "environment", "top", "ignore"]},
+  delete	=> {
+    comment	=> "sets which clusters to delete; each deletion is separated by a +-sign; default assigns no clusters to delete",
+    default	=> list($::EMC::Split->{default}, "string"),
+    gui		=> ["list", "chemistry", "emc", "ignore"]},
   density	=> {
     comment	=> "set simulation density in g/cc for each phase",
     default	=> $::EMC::Density,
@@ -1558,7 +1643,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   emc_depth	=> {
     comment	=> "set ring recognition depth in groups paragraph",
     default	=> $::EMC::EMC{depth},
-    gui		=> ["integer", "chemistry", "emc", "advanced"]},
+    gui		=> ["integer", "chemistry", "emc", "ignore"]},
   emc_export	=> {
     comment	=> "set EMC section to export",
     default	=> list($::EMC::EMC{export}, "string"),
@@ -1625,7 +1710,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   field		=> {
     comment	=> "set force field type and name based on root location",
     default	=> "",
-    gui		=> ["list", "chemistry", "top", "standard", "born,basf,charmm,compass,dpd,martini,opls,pcff,sdk,trappe"]},
+    gui		=> ["list", "chemistry", "top", "standard", "born,basf,charmm,compass,dpd,gauss,martini,opls,pcff,sdk,trappe"]},
   field_angle	=> {
     comment	=> "set angle field option (see below)",
     default	=> "-",
@@ -1730,7 +1815,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   hexadecimal	=> {
     comment	=> "set hexadecimal index output in PDB",
     default	=> boolean($::EMC::Flag{hexadecimal}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   host		=> {
     comment	=> "set host on which to run EMC and LAMMPS",
     default	=> $::EMC::ENV{HOST},
@@ -1749,19 +1834,19 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   insight	=> {
     comment	=> "create InsightII CAR and MDF output",
     default	=> boolean($::EMC::Insight{write}),
-    gui		=> ["string", "chemistry", "emc", "advanced"]},
+    gui		=> ["string", "chemistry", "emc", "ignore"]},
   insight_compress => {
     comment	=> "set InsightII CAR and MDF compression",
     default	=> boolean($::EMC::Insight{compress}),
-    gui		=> ["option", "chemistry", "emc", "advanced"]},
+    gui		=> ["option", "chemistry", "emc", "ignore"]},
   insight_pbc	=> {
     comment	=> "apply periodic boundary conditions",
     default	=> boolean($::EMC::Insight{pbc}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   insight_unwrap => {
     comment	=> "apply unwrapping",
     default	=> boolean($::EMC::Insight{unwrap}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
 
   # K
 
@@ -1784,6 +1869,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     comment	=> "set LAMMPS nve/limit distance",
     default	=> $::EMC::Lammps{dlimit},
     gui		=> ["real", "chemistry", "lammps", "advanced"]},
+  lammps_error	=> {
+    comment	=> "restart LAMMPS only upon previous error",
+    default	=> boolean($::EMC::Lammps{error}),
+    gui		=> ["real", "chemistry", "lammps", "advanced"]},
   lammps_pdamp	=> {
     comment	=> "set LAMMPS barostat damping constant",
     default	=> $::EMC::Lammps{pdamp},
@@ -1795,7 +1884,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   location	=> {
     comment	=> "prepend paths for various file locations",
     default	=> list(\%::EMC::Location, "array"),
-    gui		=> ["string", "chemistry", "emc", "advanced"]},
+    gui		=> ["list", "chemistry", "emc", "advanced"]},
 
   # M
 
@@ -1808,7 +1897,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     default	=> $::EMC::Queue{memory},
     gui		=> ["string", "environment", "top", "ignore"]},
   modules	=> {
-    comment	=> "swap modules to use in format old=new",
+    comment	=> "manipulate runtime modules in format [command=]module",
     default	=> "", # @::EMC::Modules,
     gui		=> ["string", "environment", "top", "ignore"]},
   mol		=> {
@@ -1822,7 +1911,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   moves_cluster	=> {
     comment	=> "define cluster move settings used to optimize build",
     default	=> list($::EMC::Moves{cluster}, "string"),
-    gui		=> ["string", "chemistry", "emc", "advanced"]},
+    gui		=> ["list", "chemistry", "emc", "advanced"]},
   msd		=> {
     comment	=> "set LAMMPS mean square displacement output",
     default	=> $::EMC::Sample{msd}!=2 ? boolean($::EMC::Sample{msd}):"average",
@@ -1904,11 +1993,11 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     default	=> "",
     gui		=> ["string", "chemistry", "top", "ignore"]},
   nchains	=> {
-    comment	=> "set number of chains for execution of LAMMPS jobs",
+    comment	=> "set number of chains for execution of MD jobs",
     default	=> "",
     gui		=> ["integer", "chemistry", "lammps", "standard"]},
   ncores	=> {
-    comment	=> "set number of cores for execution of LAMMPS jobs",
+    comment	=> "set number of cores for execution of MD jobs",
     default	=> $::EMC::Queue{ncores},
     gui		=> ["integer", "environment", "lammps", "standard"]},
   ncorespernode	=> {
@@ -1922,7 +2011,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   nparallel	=> {
     comment	=> "set number of surface parallel repeat unit cells",
     default	=> "auto",
-    gui		=> ["integer", "chemistry", "emc", "advanced"]},
+    gui		=> ["integer", "chemistry", "emc", "ignore"]},
   norestart	=> {
     comment	=> "control possibility of restarting when rerunning",
     default	=> boolean($::EMC::Flag{norestart}),
@@ -1966,7 +2055,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   # P
 
   pair		=> {
-    comment	=> "set DPD pair constants",
+    comment	=> "set pair constant defaults",
     default	=> list(\%::EMC::PairConstants, "real"),
     gui		=> ["list", "chemistry", "field", "advanced", "dpd"]},
   parameters	=> {
@@ -1992,11 +2081,11 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   pdb_connect	=> {
     comment	=> "add connectivity information",
     default	=> boolean($::EMC::PDB{connect}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   pdb_cut	=> {
     comment	=> "cut bonds spanning simulation box",
     default	=> boolean($::EMC::PDB{cut}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   pdb_extend	=> {
     comment	=> "use extended format for PSF",
     default	=> boolean($::EMC::PDB{extend}),
@@ -2004,19 +2093,19 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   pdb_fixed	=> {
     comment	=> "do not unwrap fixed sites",
     default	=> boolean($::EMC::PDB{fixed}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   pdb_parameters => {
     comment	=> "generate NAMD parameter file",
     default	=> boolean($::EMC::PDB{parameters}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   pdb_pbc	=> {
     comment	=> "apply periodic boundary conditions",
     default	=> boolean($::EMC::PDB{pbc}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   pdb_rank	=> {
     comment	=> "apply rank evaluation for coarse-grained output",
     default	=> boolean($::EMC::PDB{rank}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   pdb_residue	=> {
     comment	=> "set residue name behavior",
     default	=> $::EMC::PDB{residue},
@@ -2024,7 +2113,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   pdb_rigid	=> {
     comment	=> "do not unwrap rigid sites",
     default	=> boolean($::EMC::PDB{rigid}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   pdb_segment	=> {
     comment	=> "set segment name behavior",
     default	=> $::EMC::PDB{segment},
@@ -2036,7 +2125,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   pdb_vdw	=> {
     comment	=> "add Van der Waals representation",
     default	=> boolean($::EMC::PDB{vdw}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   percolate	=> {
     comment	=> "import percolating InsightII structure",
     default	=> boolean($::EMC::Flag{percolate}),
@@ -2045,6 +2134,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     comment	=> "sets which clusters to assign to each phase; each phase is separated by a +-sign; default assigns all clusters to phase 1",
     default	=> "all",
     gui		=> ["list", "chemistry", "top", "standard"]},
+  preprocess	=> {
+    comment	=> "use gcc to preprocess the input script",
+    default	=> boolean($::EMC::Flag{preprocess}),
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   polymer	=> {
     comment	=> "default polymer settings for groups",
     default	=> list(\%::EMC::PolymerFlag, "string"),
@@ -2100,7 +2193,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     default	=> $::EMC::Queue{memory},
     gui		=> ["string", "environment", "top", "advanced"]},
   queue_ncores	=> {
-    comment	=> "set number of cores for execution of LAMMPS jobs",
+    comment	=> "set number of cores for execution of MD jobs",
     default	=> $::EMC::Queue{ncores},
     gui		=> ["integer", "environment", "lammps", "standard"]},
   queue_run	=> {
@@ -2158,6 +2251,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     comment	=> "set reference length",
     default	=> strref($::EMC::Reference{length}),
     gui		=> ["real", "chemistry", "field", "advanced", "dpd"]},
+  rmax		=> {
+    comment	=> "set maximum build cutoff radius",
+    default	=> $::EMC::CutOff{rmax},
+    gui		=> ["real", "chemistry", "emc", "standard"]},
   rmass		=> {
     comment	=> "set reference mass",
     default	=> strref($::EMC::Reference{mass}),
@@ -2215,7 +2312,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["real", "chemistry", "lammps", "advanced"]},
   split		=> {
     comment	=> "sets which clusters to partition; each split is separated by a +-sign; default assigns no clusters to split",
-    default	=> list(\%::EMC::Split, "string"),
+    default	=> list($::EMC::Split->{default}, "string"),
     gui		=> ["list", "chemistry", "emc", "advanced"]},
   suffix	=> {
     comment	=> "set EMC and LAMMPS suffix",
@@ -2228,23 +2325,23 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   system_charge	=> {
     comment	=> "check for charge neutrality after build",
     default	=> boolean($::EMC::System{charge}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   system_geometry => {
     comment	=> "check geometry sizing upon building",
     default	=> boolean($::EMC::System{geometry}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   system_id	=> {
     comment	=> "check for charge neutrality after build",
     default	=> $::EMC::System{id},
-    gui		=> ["string", "chemistry", "emc", "advanced"]},
+    gui		=> ["string", "chemistry", "emc", "ignore"]},
   system_map	=> {
     comment	=> "map system box before build",
     default	=> boolean($::EMC::System{map}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   system_pbc	=> {
     comment	=> "apply periodic boundary conditions after build",
     default	=> boolean($::EMC::System{pbc}),
-    gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+    gui		=> ["boolean", "chemistry", "emc", "ignore"]},
 
   # T
 
@@ -2328,7 +2425,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   weight	=> {
     comment	=> "set build relaxation energetic weights",
     default	=> list($::EMC::Build{weight}, "real"),
-    gui		=> ["string", "chemistry", "emc", "standard"]},
+    gui		=> ["list", "chemistry", "emc", "standard"]},
   width		=> {
     comment	=> "use double width in scripts",
     default	=> boolean($::EMC::Flag{width}),
@@ -2353,7 +2450,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   "Shears are defined in terms of erate; values < 0 turns shear off",
   "Inner and outer cut offs are interpreted as fractions for colloidal force fields",
   "Valid field options are: ignore, complete, warn, empty, or error",
-  "A '+' sign demarcates clusters of each phase"
+  "A '+' sign demarcates clusters for each phase; remaining clusters are assigned to the first empty phase"
 );
 }
 
@@ -2410,7 +2507,8 @@ sub set_variables {
   $::EMC::EMC{suffix} = (split("\n", $::EMC::EMC{suffix}))[0];
   $::EMC::Units{type} = (
     $::EMC::Field{type} eq "colloid" ? "real" :
-    $::EMC::Field{type} eq "dpd" ? "lj" : "real") if ($::EMC::Units{type}<0);
+    $::EMC::Field{type} eq "dpd" ? "lj" : 
+    $::EMC::Field{type} eq "gauss" ? "lj" : "real") if ($::EMC::Units{type}<0);
   $::EMC::Lammps{skin} = (
     $::EMC::Units{type} eq "cgs" ? 0.1 :
     $::EMC::Units{type} eq "lj" ? 0.3 :
@@ -2428,6 +2526,7 @@ sub set_variables {
     $::EMC::Field{type} eq "cff" ? 9.5 :
     $::EMC::Field{type} eq "colloid" ? 500.0 :
     $::EMC::Field{type} eq "charmm" ? 12.0 :
+    $::EMC::Field{type} eq "gauss" ? 7.0 :
     $::EMC::Field{type} eq "opls" ? 9.5 :
     $::EMC::Field{type} eq "born" ? 10.5 :
     $::EMC::Field{type} eq "martini" ? 12.0 :
@@ -2445,7 +2544,11 @@ sub set_variables {
   $::EMC::Core = (
     $::EMC::Field{type} eq "born" ? 1.0 : -1) if ($::EMC::Core<0);
   $::EMC::CutOff{ghost} = (
-    $::EMC::Field{type} eq "dpd" ? 4.0 : -1) if ($::EMC::CutOff{ghost}<0);
+    $::EMC::Field{type} eq "dpd" ? 4.0 :
+    $::EMC::Field{type} eq "gauss" ? 4.0 : -1) if ($::EMC::CutOff{ghost}<0);
+  $::EMC::CutOff{rmax} = (
+    $::EMC::Field{type} eq "dpd" ? 1.0 :
+    $::EMC::Field{type} eq "gauss" ? 1.5 : -1) if ($::EMC::CutOff{rmax}<0);
   $::EMC::Flag{atomistic} = (
     $::EMC::Field{type} eq "born" ? 1 :
     $::EMC::Field{type} eq "cff" ? 1 :
@@ -2460,6 +2563,7 @@ sub set_variables {
     $::EMC::Field{type} eq "dpd" ? 1 :
     $::EMC::Field{type} eq "cff" ? 1 :
     $::EMC::Field{type} eq "charmm" ? 1 :
+    $::EMC::Field{type} eq "gauss" ? 1 :
     $::EMC::Field{type} eq "opls" ? 1 :
     $::EMC::Field{type} eq "born" ? 1 :
     $::EMC::Field{type} eq "martini" ? 0 :
@@ -2471,26 +2575,33 @@ sub set_variables {
       defined($::EMC::Shake{flag}) ? flag($::EMC::Shake{flag}) :
       0 : 0) if ($::EMC::Flag{shake}<0);
   $::EMC::Build{radius} = (
-    $::EMC::Field{type} eq "dpd" ? 1.0 : 5.0) if ($::EMC::Build{radius}<0);
+    $::EMC::Field{type} eq "dpd" ? 1.0 :
+    $::EMC::Field{type} eq "gauss" ? 1.5 : 5.0) if ($::EMC::Build{radius}<0);
   foreach (keys(%{$::EMC::Build{weight}})) {
     if (${$::EMC::Build{weight}}{$_}<0) {
       ${$::EMC::Build{weight}}{$_} = (
-	$::EMC::Field{type} eq "dpd" ? 0.01 : 0.0001);
+	$::EMC::Field{type} eq "dpd" ? 0.01 :
+	$::EMC::Field{type} eq "gauss" ? 0.01 : 0.0001);
     }
   }
-  $::EMC::BondConstants = 
-    "25,1" if ($::EMC::Field{dpd}&&($::EMC::Flag{bond}<0));
+  $::EMC::BondConstants = (
+    $::EMC::Field{type} eq "dpd" ? "25,1" : 
+    $::EMC::Field{type} eq "gauss" ? "5,0" : undef) if ($::EMC::Flag{bond}<0);
   $::EMC::Dielectric = (
-    $::EMC::Field{type} eq "dpd" ? 0.2 : 
+    $::EMC::Field{type} eq "dpd" ? 0.5 : 
+    $::EMC::Field{type} eq "gauss" ? 0.5 : 
     $::EMC::Field{type} eq "martini" ? 15 : 1.0) if ($::EMC::Dielectric<0);
   $::EMC::Precision = (
-    $::EMC::Field{type} eq "dpd" ? 0.1 : 0.001) if ($::EMC::Precision<0);
+    $::EMC::Field{type} eq "dpd" ? 0.1 :
+    $::EMC::Field{type} eq "gauss" ? 0.1 : 0.001) if ($::EMC::Precision<0);
   $::EMC::Flag{cross} = (
-    $::EMC::Field{type} eq "dpd" ? 1 :
     $::EMC::Field{type} eq "born" ? 1 :
+    $::EMC::Field{type} eq "dpd" ? 1 :
+    $::EMC::Field{type} eq "gauss" ? 1 :
     $::EMC::Field{type} eq "martini" ? 1 : 0) if ($::EMC::Flag{cross}<0);
   $::EMC::Timestep = (
     $::EMC::Field{type} eq "dpd" ? 0.025 :
+    $::EMC::Field{type} eq "gauss" ? 0.025 :
     $::EMC::Field{type} eq "standard" ? 0.005 :
     $::EMC::Field{type} eq "charmm" ? 2 :
     $::EMC::Field{type} eq "opls" ? 2 : 1) if ($::EMC::Timestep<0);
@@ -2499,22 +2610,30 @@ sub set_variables {
   $::EMC::NAMD{dtcoulomb} = int($::EMC::NAMD{dtcoulomb});
   $::EMC::NAMD{dtcoulomb} = 1 if ($::EMC::NAMD{dtcoulomb}<1);
   $::EMC::CutOff{charge} = (
-    $::EMC::Field{type} eq "dpd" ? 3.0 : $::EMC::CutOff{pair}) if ($::EMC::CutOff{charge}<0);
+    $::EMC::Field{type} eq "dpd" ? 3.0 : 
+    $::EMC::Field{type} eq "gauss" ? 3.0 : 
+    $::EMC::CutOff{pair}) if ($::EMC::CutOff{charge}<0);
   $::EMC::Kappa = (
-    $::EMC::Field{type} eq "dpd" ? 1.0 : 4.0) if ($::EMC::Kappa<0);
+    $::EMC::Field{type} eq "dpd" ? 0.656 : 
+    $::EMC::Field{type} eq "gauss" ? 0.656 : 4.0) if ($::EMC::Kappa<0);
   $::EMC::Reference{volume} = (
-    $::EMC::Field{type} eq "dpd" ? 0.1 : -1) if ($::EMC::Reference{volume}<0);
+    $::EMC::Field{type} eq "dpd" ? 0.1 :
+    $::EMC::Field{type} eq "gauss" ? 0.1 : -1) if ($::EMC::Reference{volume}<0);
   $::EMC::Reference{flag} = (
-    $::EMC::Field{type} eq "dpd" ? 0 : 1);
+    $::EMC::Field{type} eq "dpd" ? 0 :
+    $::EMC::Field{type} eq "gauss" ? 0 : 1);
   $::EMC::Flag{ewald} = (
     $::EMC::Flag{charge}<0 ? 0 : $::EMC::Flag{charge}) if ($::EMC::Flag{ewald}<0);
   $::EMC::Flag{mass_entry} = (
     $::EMC::Field{type} eq "dpd" ? 1 : 
+    $::EMC::Field{type} eq "gauss" ? 1 : 
     $::EMC::Field{type} eq "martini" ? 1 : 0) if ($::EMC::Flag{mass_entry}<0);
   $::EMC::Flag{dpd} = (
-    $::EMC::Field{type} eq "dpd" ? 1 : 0);
+    $::EMC::Field{type} eq "dpd" ? 1 :
+    $::EMC::Field{type} eq "gauss" ? 1 : 0);
   $::EMC::Tighten = (
-    $::EMC::Field{type} eq "dpd" ? 1.0 : 3.0) if ($::EMC::Tighten<0);
+    $::EMC::Field{type} eq "dpd" ? 1.0 : 
+    $::EMC::Field{type} eq "gauss" ? 1.0 : 3.0) if ($::EMC::Tighten<0);
   if ($::EMC::Lammps{write}>0) {
     $::EMC::Lammps{version} = $::EMC::Lammps{new_version} if ($::EMC::Lammps{write}>1);
     $::EMC::Lammps{version} = $::EMC::Lammps{write} if ($::EMC::Lammps{write}>2000);
@@ -2531,19 +2650,26 @@ sub set_variables {
     $::EMC::EMC{executable} = $::EMC::EMC{execute};
   }
   $::EMC::Lammps{pdamp} = (
-    $::EMC::Field{type} eq "dpd" ? 10 : 1000);
+    $::EMC::Field{type} eq "dpd" ? 10 :
+    $::EMC::Field{type} eq "gauss" ? 10 : 1000);
   $::EMC::NChains = -1 if ($::EMC::NChains<2);
   $::EMC::Flag{ewald} = 0 if ($::EMC::Flag{charge}==0);
   $::EMC::NPhases = scalar(@::EMC::Phases);
   $::EMC::Flag{reduced} = (
     $::EMC::Field{type} eq "dpd" ? 1 :
+    $::EMC::Field{type} eq "gauss" ? 1 :
     $::EMC::Field{type} eq "standard" ? 1 :
     0) if ($::EMC::Flag{reduced}<0);
   $::EMC::Shape = $::EMC::ShapeDefault[$::EMC::NPhases>1 ? 1 : 0] if ($::EMC::Shape eq "");
-  $::EMC::Density = $::EMC::Field{type} eq "dpd" ? 3.0 : 1.0 if ($::EMC::Density eq "");
-  $::EMC::NAv = $::EMC::Flag{reduced} ? 1.0 : 0.6022141179 if ($::EMC::NAv eq "");
-  $::EMC::Temperature = $::EMC::Flag{reduced} ? 1.0 : 300.0 if ($::EMC::Temperature eq "");
-  $::EMC::Script{name} = (split($::EMC::Script{extension}, $::EMC::Script{name}))[0];
+  $::EMC::Density = (
+    $::EMC::Field{type} eq "dpd" ? 3.0 : 
+    $::EMC::Field{type} eq "gauss" ? 1.0 : 1.0) if ($::EMC::Density eq "");
+  $::EMC::NAv = (
+    $::EMC::Flag{reduced} ? 1.0 : 0.6022141179) if ($::EMC::NAv eq "");
+  $::EMC::Temperature = (
+    $::EMC::Flag{reduced} ? 1.0 : 300.0) if ($::EMC::Temperature eq "");
+  $::EMC::Script{name} = (
+    split($::EMC::Script{extension}, $::EMC::Script{name}))[0];
   $::EMC::System{charge} = (
     $::EMC::FieldFlag{charge} &= $::EMC::System{charge});
   
@@ -2669,6 +2795,13 @@ sub update_fields {
   $::EMC::FieldList{location} = [@locations];
   $::EMC::FieldList{name} = [sort(@names)];
   $::EMC::FieldList{id} = {%ids};
+  if (%::EMC::PairConstants ?
+	    $::EMC::Flag{pair_type} ne $::EMC::Field{type} : 1) {
+    %::EMC::PairConstants = 
+      defined($::EMC::PairConstantsDefault{$::EMC::Field{type}}) ?
+      %{$::EMC::PairConstantsDefault{$::EMC::Field{type}}} : ();
+      $::EMC::Flag{pair_type} = $::EMC::Field{type};
+  }
 }
 
 
@@ -2750,7 +2883,7 @@ sub set_pdb_flag {
 sub field_type {
   my $name = shift(@_);
   my $add = shift(@_);
-  my $stream = fopen($name, "r");
+  my $stream = EMC::IO::open($name, "r");
   my $define = 0;
   my @arg = split("\.", (split($^O eq "MSWin32" ? "\\\\" : "/", $name))[-1]); pop(@arg);
   my $type = join("\.", @arg);
@@ -2762,13 +2895,15 @@ sub field_type {
     return "cff" if (uc(join(" ", @arg)) eq "!BIOSYM FORCEFIELD 1");
     if (@arg[0] eq "ITEM") {
       $read = 1 if (@arg[1] eq "DEFINE");
-      $read = 0 if (@arg[1] eq "END");
+      last if (@arg[1] eq "END");
       next;
     }
     next if (!$read);
-    next if (@arg[0] ne "FFMODE" && @arg[0] ne "FFNAME");
-    $type = lc(@arg[1]);
-    last;
+    if (@arg[0] eq "FFMODE" || @arg[0] eq "FFNAME") {
+      $type = lc(@arg[1]);
+    } elsif (@arg[0] eq "CUTOFF") {
+      $::EMC::CutOff{pair} = eval(@arg[1]);
+    }
   }
   return $type;
 }
@@ -2856,12 +2991,16 @@ sub set_field {
 	  next if (! -d "$dir");
 	  foreach (@extension) {
 	    $ext = $_;
-	    foreach (sort(ffind($dir."/", "*.$ext"))) {
-	      next if (m/\/src\//);
-	      my $index = index($_, $field.$add); 
-	      next if ($index<0);
-	      $field = field_type($name = $_, $add);
-	      last;
+	    foreach ("", ".gz") {
+	      my $compress = $_;
+	      foreach (sort(ffind($dir."/", "*.$ext$compress"))) {
+		next if (m/\/src\//);
+		my $index = index($_, $field.$add); 
+		next if ($index<0);
+		$field = field_type($name = $_, $add);
+		last;
+	      }
+	      last if ($name ne "");
 	    }
 	    last if ($name ne "");
 	  }
@@ -3016,11 +3155,13 @@ sub set_list_polymer {
 }
 
 
-sub set_list_split {
+sub set_list_oper {
   my $line = shift(@_);
-  my %split = %::EMC::Split;
+  my $oper = shift(@_);	
+  my $phases = $oper->{phases};
+  my $default = $oper->{default};
   my $first = 1;
-  my $phase = $split{phase};
+  my $phase = $default->{phase};
   my %allowed = (
     mode => {distance => 1, random => 1},
     type => {absolute => 1, relative => 1}
@@ -3028,10 +3169,10 @@ sub set_list_split {
   my @args = @_;
 
   if (scalar(@args)==1) {
-    @args = split(" ", @args[0]);
+    @args = oper(" ", @args[0]);
   }
-
-  #tprint(__LINE__.":", @args);
+  $oper = {};
+  %{$oper} = %{$default};
   foreach (@args) {
     my $i = index($_, "=");
     my $key = $i<0 ? $_ : substr($_,0,$i);
@@ -3040,44 +3181,43 @@ sub set_list_split {
 
     if ($i<0) {
       error_line($line, "missing equal sign\n") if ($key ne "+");
-    } elsif (!defined($split{$key})) {
-      error_line($line, "illegal split keyword '$key'\n");
+    } elsif (!defined($oper->{$key})) {
+      error_line($line, "illegal oper keyword '$key'\n");
     }
     foreach (@arg) { 
       $_ =~ s/^"+|"+$//g;
       if ($_ eq "all") { $all = 1; last; }
     }
-    #tprint(__LINE__.":", $key, @arg);
     if ($key eq "phase" || $key eq "+") {
       if (!$first) {
-       	@::EMC::Splits[$phase] = [] if (!defined(@::EMC::Splits[$phase]));
-	push(@{@::EMC::Splits[$phase]}, \%split);
+       	$phases->[$phase] = [] if (!defined($phases->[$phase]));
+	push(@{$phases->[$phase]}, $oper);
       }
-      %split = %::EMC::Split;
-      $split{phase} = $phase = eval(@arg[0]);
+      $oper = {};
+      %{$oper} = %{$default};
+      $oper->{phase} = $phase = eval(@arg[0]);
     } elsif ($key eq "clusters") {
-      $split{clusters} = $all ? "all" : [@arg];
+      $oper->{clusters} = $all ? "all" : [@arg];
     } elsif ($key eq "groups") {
-      $split{groups} = $all ? "all" : [@arg];
+      $oper->{groups} = $all ? "all" : [@arg];
     } elsif ($key eq "sites") {
-      $split{sites} = $all ? "all" : [@arg];
+      $oper->{sites} = $all ? "all" : [@arg];
     } elsif ($key eq "fraction") {
-      $split{fraction} = @arg[0];
+      $oper->{fraction} = @arg[0];
     } elsif ($key eq "thickness") {
-      $split{thickness} = @arg[0];
+      $oper->{thickness} = @arg[0];
     } else {
       if (!defined(${$allowed{$key}}{@arg[0]})) {
 	error_line($line, "illegal option for keyword '$key'\n");
       }
-      $split{$key} = @arg[0];
+      $oper->{$key} = @arg[0];
     }
     $first = 0;
   }
   if (!$first) {
-    @::EMC::Splits[$phase] = [] if (!defined(@::EMC::Splits[$phase]));
-    push(@{@::EMC::Splits[$phase]}, \%split);
+    $phases->[$phase] = [] if (!defined($phases->[$phase]));
+    push(@{$phases->[$phase]}, $oper);
   }
-  #print(__LINE__.": ", Dumper(\@::EMC::Splits));
 }
 
 
@@ -3171,7 +3311,7 @@ sub set_port {
 }
 
 
-sub my_eval {
+sub my_eval {	# => EMC::Math::eval
   my $string;
   my $first = 1;
   my $error = 0;
@@ -3232,8 +3372,6 @@ sub options {
       my_eval($_));
   }
   my $n = scalar(@string);
-
-  tdebug(__LINE__.":", @arg[0]);
 
   if (!defined($::EMC::Commands{@arg[0]})) { return 1; }
 
@@ -3312,6 +3450,7 @@ sub options {
   elsif ($arg[0] eq "debug") { $::EMC::Flag{debug} = flag($string[0]); }
   elsif ($arg[0] eq "deform") {
     set_list($line, \%::EMC::Deform, "string", "xx", [], @string); }
+  elsif ($arg[0] eq "delete") { set_list_oper($line, $::EMC::Delete, @string); }
   elsif ($arg[0] eq "density") {
     $::EMC::Density = $value[0]; @::EMC::Densities = @value; }
   elsif ($arg[0] eq "dielectric") { $::EMC::Dielectric = $value[0]; }
@@ -3488,6 +3627,8 @@ sub options {
       $::EMC::Lammps{write} = $::EMC::Lammps{new_version}-1; }
     elsif ($string[0] eq "new") {
       $::EMC::Lammps{write} = $::EMC::Lammps{new_version}; }
+    elsif ($string[0] eq "newer") {
+      $::EMC::Lammps{write} = $::EMC::Lammps{newer_version}; }
     elsif ($value[0]>2000) {
       $::EMC::Lammps{write} = $value[0]; }
     else {
@@ -3496,6 +3637,8 @@ sub options {
     $::EMC::Lammps{cutoff} = $::EMC::CutOff{repulsive} = flag($value[0]); }
   elsif ($arg[0] eq "lammps_dlimit") {
     $::EMC::Lammps{dlimit} = $value[0]; }
+  elsif ($arg[0] eq "lammps_error") {
+    $::EMC::Lammps{error} = flag($value[0]); }
   elsif ($arg[0] eq "lammps_pdamp") {
     $::EMC::Lammps{pdamp} = $value[0]; }
   elsif ($arg[0] eq "lammps_tdamp") {
@@ -3515,9 +3658,12 @@ sub options {
     foreach (@string) {
       my @arg = split("=");
       foreach (@arg) { $_ =~ s/^\s+|\s+$//g; }	# remove space from start/end
-      if (scalar(@arg)!=2) { error_line($line, "expecting module old=new\n"); }
-      push(@::EMC::Modules, "unload=@arg[0]") if (scalar(@arg)>1);
-      push(@::EMC::Modules, "load=@arg[-1]");
+      if (scalar(@arg)>2) { error_line($line, "expecting [command=]module\n"); }
+      if (scalar(@arg)>1) {
+	push(@::EMC::Modules, "@arg[0]=@arg[1]");
+      } else {
+	push(@::EMC::Modules, "load=@arg[0]");
+      }
     }
   }
   elsif ($arg[0] eq "mol") { 
@@ -3633,7 +3779,7 @@ sub options {
     my @phase;
     foreach (@string) {
       if ($_ eq "+") {
-       	push(@::EMC::Phases, [@phase]) if (scalar(@phase)); @phase = ();
+       	push(@::EMC::Phases, [@phase]); @phase = ();
       }
       elsif (index($_, "\+")>=0) {
 	my $first = 1;
@@ -3653,6 +3799,9 @@ sub options {
       @::EMC::Phases= ();
     }
     $::EMC::NPhases = scalar(@::EMC::Phases);
+  }
+  elsif ($arg[0] eq "preprocess") {
+    $::EMC::Flag{preprocess} = flag($string[0]);
   }
   elsif ($arg[0] eq "polymer") {
     set_list_polymer($line, \%::EMC::PolymerFlag, @string);
@@ -3806,7 +3955,7 @@ sub options {
 	error_line($line, "incorrect number of types for shake mode '$type'\n");
       }
       if ($type eq "active") {
-	$::EMC::Shake{flag} = flag($string[0]); 
+	$::EMC::Shake{flag} = flag($arg[0]); 
       } else {
 	if (!defined($::EMC::Shake{$type})) { $::EMC::Shake{$type} = []; }
 	@arg = reverse(@arg) if (@arg[-1] lt @arg[0]);
@@ -3825,7 +3974,7 @@ sub options {
     $::EMC::Shear{mode} = $string[1] if ($string[1] ne ""); 
     $::EMC::Shear{ramp} = @value[2] if ($string[2] ne ""); }
   elsif ($arg[0] eq "skin") { $::EMC::Lammps{skin} = $value[0]; }
-  elsif ($arg[0] eq "split") { set_list_split($line, @string); }
+  elsif ($arg[0] eq "split") { set_list_oper($line, $::EMC::Split, @string); }
   elsif ($arg[0] eq "suffix") { $::EMC::EMC{suffix} = $string[0]; }
   elsif ($arg[0] eq "system") { 
     set_list($line, \%::EMC::System, "boolean", "", ["id"], @string); }
@@ -3950,11 +4099,13 @@ sub initialize {
   }
   push(@::EMC::Phases, \@phase) if (scalar(@phase));
   header() if ($::EMC::Flag{info});
-  foreach ($ext, ".csv") {
-    $ext = $_;
-    $::EMC::Script{name} = $chemistry if (-e $chemistry.$ext);
-    $::EMC::Script{name} = my_strip($::EMC::Script{name}, $ext);
-    last if (-e $::EMC::Script{name}.$ext);
+  if ($::EMC::Script{name} ne "-") {
+    foreach ($ext, @::EMC::EXT) {
+      $ext = $_;
+      $::EMC::Script{name} = $chemistry if (-e $chemistry.$ext);
+      $::EMC::Script{name} = my_strip($::EMC::Script{name}, $ext);
+      last if (-e $::EMC::Script{name}.$ext);
+    }
   }
   read_script(
     $::EMC::Script{name}, [$ext, $::EMC::Script{suffix}.$ext], \@warning);
@@ -3976,12 +4127,12 @@ sub initialize {
   info("direction = %s\n", $::EMC::Direction{x});
   info("shape = %s\n", $::EMC::Shape);
   $ext = $::EMC::Script{extension};
-  $::EMC::Reference{name} = (split(".csv", $::EMC::Reference{name}))[0];
+  $::EMC::Reference{name} = strip_ext($::EMC::Reference{name});
   read_references(
-    $::EMC::Reference{name}, [".csv", $::EMC::Reference{suffix}.$ext]);
-  $::EMC::Parameters{name} = (split(".csv", $::EMC::Parameters{name}))[0];
+    $::EMC::Reference{name}, [@::EMC::EXT, $::EMC::Reference{suffix}.$ext]);
+  $::EMC::Parameters{name} = strip_ext($::EMC::Parameters{name});
   read_parameters(
-    $::EMC::Parameters{name}, [".csv", $::EMC::Parameters{suffix}.$ext]);
+    $::EMC::Parameters{name}, [@::EMC::EXT, $::EMC::Parameters{suffix}.$ext]);
   set_densities();
   set_fields();
   update_fields() if (!%::EMC::Fields);
@@ -3998,6 +4149,17 @@ sub initialize {
 
 
 # general routines
+
+sub strip_ext {
+  my $name = @_[0];
+
+  foreach (@::EMC::EXT) {
+    $name = (split($_, @_[0]))[0];
+    return $name if ($name ne @_[0]);
+  }
+  return $name;
+}
+
 
 sub flag_unwrap {
   my %allowed = (clusters => 1, sites => 1);
@@ -4127,55 +4289,55 @@ sub text_line {
 }
 
 
-sub info {
+sub info {	# -> EMC::Message::info
   printf("Info: ".shift(@_), @_) if ($::EMC::Flag{info});
 }
 
 
-sub debug {
+sub debug {	# -> EMC::Message::debug
   printf("Debug: ".shift(@_), @_) if ($::EMC::Flag{debug});
 }
 
 
-sub tdebug {
+sub tdebug {	# -> EMC::Message::tdebug
   print(join("\t", "Debug:", @_), "\n") if ($::EMC::Flag{debug});
 }
 
 
-sub warning {
+sub warning {	# -> EMC::Message::warning
   printf("Warning: ".shift(@_), @_) if ($::EMC::Flag{warn});
 }
 
 
-sub message {
+sub message {	# -> EMC::Message::message
   printf("Message: ".shift(@_), @_) if ($::EMC::Flag{info});
 }
 
 
-sub error {
+sub error {	# -> EMC::Message::error
   printf("Error: ".shift(@_), @_);
   printf("\n");
   exit(-1);
 }
 
 
-sub expert {
+sub expert {	# -> EMC::Message::expert
   if ($::EMC::Flag{expert}) { warning(@_); }
   else { error(@_); }
 }
 
 
-sub error_line {
+sub error_line {	# -> EMC::Message::error_line
   error(text_line(@_));
 }
 
 
-sub expert_line {
+sub expert_line {	# -> EMC::Message::expert_line
   expert(text_line(@_));
 }
 
 
-sub tprint {
+sub tprint {	# -> EMC::Message::tprint
   print(join("\t", @_), "\n");
 }
 
@@ -4183,11 +4345,11 @@ sub tprint {
 sub my_warn {
   my ( $file, $line ) = ( caller )[1,2];
   $file = scalar reverse(reverse($file) =~ m{^(.*?)[\\/]});
-  warn ("$file:$line ", @_);
+  warning("$file:$line ", @_);
 }
 
 
-sub my_strip {
+sub my_strip {	# -> EMC::Message::my_strip
   my $sep = $::EMC::OSType eq "MSWin32" ? "\\" : "/";
   return dirname(@_).$sep.basename(@_);
 }
@@ -4195,14 +4357,14 @@ sub my_strip {
 
 # i/o routines
 
-sub fexpand {
+sub fexpand {	# -> EMC::IO::expand
   return @_[0] if (substr(@_[0],0,1) ne "~");
   return $ENV{HOME}.substr(@_[0],1) if (substr(@_[0],1,1) eq "/");
   return $ENV{HOME}."/../".substr(@_[0],1);
 }
 
 
-sub fexist {
+sub fexist {	# -> EMC::IO::exist
   my $name = fexpand(shift(@_));
 
   return 1 if (-f $name);
@@ -4211,7 +4373,7 @@ sub fexist {
 }
 
 
-sub flocate {
+sub flocate {	# -> EMC::IO::locate
   my $name = shift(@_);
   my @ext = ("", shift(@_));
 
@@ -4226,7 +4388,7 @@ sub flocate {
 }
 
 
-sub ffind {
+sub ffind {	# -> EMC::IO::find
   my $dir = shift(@_);
   my $pattern = shift(@_);
   my @dirs;
@@ -4241,12 +4403,12 @@ sub ffind {
 }
 
 
-sub fopen {
+sub fopen {	# -> EMC::IO::open
   my $name = fexpand(shift(@_));
   my $mode = shift(@_);
   my @ext = @_;
   my $stream;
-  
+
   if ($mode eq "r") {
     open($stream, "<$name");
     if (!scalar(stat($stream))) {
@@ -4286,23 +4448,30 @@ sub check_exist {
 
 
 sub split_data {
-  my @arg = split("\t", @_[0]);
-  my @result = split(",", @arg[0]);
+  my $s = trim(@_[0]);
+  my @arg = split(",", $s);
+  my @result = ();
+  my @i = map({index(@arg[0],$_)} (":", "="));
 
-  @result = scalar(split(":", @result[0]))>1 ? (shift(@arg)) : ();
-  foreach(@arg) { 
+  if (@i[0]>=0 && @i[0]<@i[1]) {
+    @arg = split(" ", $s);
+    push(@result, @arg[0]);
+    $s = substr($s,length(@arg[0]));
+  }
+  foreach (split("\t", $s)) {
     foreach (split(",", $_)) { 
-      push(@result, $_);
+      $_ =~ s/^\s+|\s+$//g;
+      foreach ($_ =~ /(".+"|\S+)/g) {
+	push(@result, $_);
+      }
     }
   }
-  @result = split(" ", @_[0]) if (scalar(@result)==1);
-  foreach (@result) { 
-    $_ = trim($_);
-  }
-  @arg = split(" ", @result[0]);
-  if (scalar(@arg)>1) {
-    shift(@result);
-    unshift(@result, @arg);
+  if (substr(@result[0],0,1) ne "\"") {
+    @arg = split(" ", @result[0]);
+    if (scalar(@arg)>1) {
+      shift(@result);
+      unshift(@result, @arg);
+    }
   }
   push (@result, ",") if (substr(@_[0],-1,1) eq ",");
   @arg = (); 
@@ -4314,20 +4483,90 @@ sub split_data {
 }
 
 
+sub preprocess_data {
+  my $data = shift(@_);
+  my $command = "gcc -x c -E -o - -";
+  my %allow = (if => 1, elif => 1, else => 1, define => 1, endif => 1);
+  my ($child_in, $child_out, $child_err);
+  my $pid = open3($child_in, $child_out, $child_err, $command);
+
+  if (!$pid) {
+    warning("could not open gcc for preprocessing\n");
+    return $data;
+  }
+  my $result = [];
+  my $last = 1;
+  my $line = 0;
+  my @stored;
+
+  # pipe into gcc
+
+  foreach (@{$data}) {
+    my $s = $_->{verbatim}; $s =~ s/&\n/\\\n/g; $s =~ s/\\\n/ /g;
+    my $l = $_->{line};
+    my @a = split(" ", $s);
+
+    @stored[$l] = $_;
+    for (my $i=$last+1; $i<$l; ++$i) {
+      print($child_in "\n");
+    }
+    $s = "" if (substr($s,0,1) eq "#" && !defined($allow{substr(@a[0],1)}));
+    print($child_in "$s\n");
+    $last = $l+($s =~ tr/\n//);
+  }
+  close($child_in);
+
+  # collect from pipe
+
+  foreach (<$child_out>) {
+    chomp();
+    if (substr($_,0,1) eq "#") {
+      $line = (split(" "))[1]-1;
+      next;
+    } else {
+      ++$line;
+    }
+    if ($_ =~ m/\<stdin\>/) {
+      error($_);
+    }
+    next if ($_ eq "");
+    my $h = @stored[$line];
+    my $d = $_;
+    my $v = $h->{verbatim}; $v =~ s/&\n/\n/g; $v =~ s/\\\n/\n/g;
+    my $sd = $h->{data};
+    if (join(" ", split(" ", $v)) ne join(" ", split(" ", $d))) {
+      push(
+	@{$result}, {line => $line, verbatim => $d, data => [split_data($d)]});
+    } else {
+      push(
+	@{$result}, {line => $line, verbatim => $h->{verbatim}, data => $sd});
+    }
+  }
+
+  # close resources
+
+  close($child_out);
+  return $result;
+}
+
+
 sub get_data {
   my $stream = shift(@_);
   my $data = shift(@_);
   my $comment = shift(@_) ? 0 : 1;
+  my $preprocess = $::EMC::Flag{environment} ? 0 : $::EMC::Flag{preprocess};
   my $ncomment = 0;
   my $line = 0;
   my $verbatim;
+  my $first;
   my @last;
   my @a;
   my $i;
 
+  $comment = 0 if ($preprocess);
   @{$data} = ();
   foreach(<$stream>) {
-    chop();
+    chomp();
     my @arg = split("\r");
     ++$line if (!scalar(@arg));
     foreach(@arg) {
@@ -4369,20 +4608,51 @@ sub get_data {
 	@a = split_data($_); next if (!scalar(@a));
       }
       if (substr(@a[-1],-1) eq "&" || substr(@a[-1],-1) eq "\\") {
-	if (scalar(@a[-1])==1) {
-	  pop(@a);
+	if (length(@a[-1])==1) {
+	  delete(@a[-1]);
        	}
 	else { 
 	  @a[-1] = substr(@a[-1],0,length(@a[-1])-1);
        	}
 	@a[-1] = trim(@a[-1]);
+	$first = $line if (!defined($first));
 	push(@last, @a); next;
       }
-      push(@{$data}, [join("\t", $line, @last, @a), $verbatim]); @last = ();
-      $verbatim = "";
+      push(@{$data}, {
+	  line => defined($first) ? $first : $line,
+	  verbatim => $verbatim, data => [@last, @a]});
+      undef($verbatim);
+      undef($first);
+      undef(@last)
     }
   }
+  #foreach (@{$data}) { EMC::Message::spot(join("\t", "$_); }
+  $data = preprocess_data($data) if ($preprocess);
   $::EMC::Flag{comment} = $ncomment;
+  return $data;
+}
+
+
+sub get_data_quick {
+  my $stream = shift(@_);
+  my $data = shift(@_);
+  my $line = 0;
+  my $verbatim;
+
+  @{$data} = ();
+  foreach(<$stream>) {
+    chomp();
+    my @arg = split("\r");
+    ++$line if (!scalar(@arg));
+    foreach(@arg) {
+      ++$line;
+      chomp();
+
+      my @a = split("\t");
+      @a = split(",") if (scalar(@a)<2);
+      push(@{$data}, {line => $line, verbatim => $_, data => [@a]})
+    }
+  }
   return $data;
 }
 
@@ -4614,7 +4884,7 @@ sub cluster_flag {
     $::EMC::ClusterFlag{mass} = $mass ne "" ? 1 : 0;
     $::EMC::ClusterFlag{volume} = $volume ne "" ? 1 : 0;
     $::EMC::ClusterFlag{first} = 0;
-  } else {
+  } elsif ($name ne "vacuum") {
     if (($mass ne "" ? 1 : 0)^$::EMC::ClusterFlag{mass}) {
       error_line($line, "inconsistent mass entry for cluster '$name'\n");
     }
@@ -4792,7 +5062,9 @@ sub read_script {
   my %types = (
     polymer => ["alternate", "block", "random"],
     import => ["import"],
-    surface => ["surface"]);
+    surface => ["surface"],
+    vacuum => ["vacuum"]
+  );
   my $line_last = 0;
   my $line_mode = 0;
   my $loop_pair = "";
@@ -4841,20 +5113,21 @@ sub read_script {
     last if (!scalar(@io));
 
     my $s = shift(@{${@io[0]}{data}});			# select line
-    my @data = split("\t", @{$s}[0]);
-    my $verbatim = @{$s}[1];
-    my $line = shift(@data);
-    my @arg;
-
+    my $line = $s->{line};
+    my $verbatim = $s->{verbatim};
+    my @arg = @{$s->{data}};
+      
     $::EMC::Flag{source} = ${@io[0]}{name};
 
-    foreach(@data) {
-      if (scalar(split("="))>1) { 
-	push(@arg, $_);
-      } else {
-	push(@arg, $_ =~ /(".+"|\S+)/g);
-      }
-    }
+#    my @data = @{$s->{data}};
+#    my @arg;
+#    foreach(@data) {
+#      if (scalar(split("="))>1) { 
+#    	push(@arg, $_);
+#      } else {
+#    	push(@arg, $_ =~ /(".+"|\S+)/g);
+#      }
+#    }
     @previous = @current; @current = @arg;
 
     if (@arg[0] eq "ITEM") {				# interpret item
@@ -4942,7 +5215,7 @@ sub read_script {
 	  error("'$command' section not allowed in environment mode\n");
 	}
 	if (!$level && $mode!=1) {
-	  @{$::EMC::Verbatim{$command}} = ();
+	  $::EMC::Verbatim{$command} = [];
 	  $env_trial = @arg[2] if (@arg[2] ne "");
 	}
 	next if ($mode == 18 || $mode == 19);
@@ -4968,7 +5241,7 @@ sub read_script {
 	  
 	    my $nstructures = 0;
 	    foreach (@{$::EMC::Verbatim{structures}}) {
-	      ++$nstructures if (substr(@{$_}[0],0,1) ne "#");
+	      ++$nstructures if (substr($_->{verbatim},0,1) ne "#");
 	    }
 	    if (scalar(@{$::EMC::Trials{$env_stage}})>$nstructures) {
 	      error(
@@ -4978,15 +5251,15 @@ sub read_script {
 	    foreach (@{$::EMC::Trials{$env_stage}}) { $trials{$_} = 1; }
 	    my $nargs = 1;
 	    foreach (@{$::EMC::Verbatim{structures}}) {
-	      my $n = scalar(split_data(@{$_}[0]));
+	      my $n = scalar(split_data($_->{verbatim}));
 	      $nargs = 2 if ($n>$nargs);
 	    }
 	    my $i = 0;
 	    mkdir($command) if (! -e $command);
 	    mkdir("$command/$env_stage") if (! -e "$command/$env_stage");
 	    foreach (@{$::EMC::Verbatim{structures}}) {
-	      my $verbatim = @{$_}[0];
-	      my $line = @{$_}[1];
+	      my $verbatim = $_->{verbatim};
+	      my $line = $_->{line};
 	      next if (substr($verbatim,0,1) eq "#");
 	      my @arg = split_data($verbatim);
 	      my $structure;
@@ -5134,17 +5407,22 @@ sub read_script {
 
     if ($env_flag) {
       next if ($env_options && @current[0] eq "project");
+      my $fappend = 0;
       if ($command eq "structures") {
-       	if (substr($verbatim,0,1) ne "#") {
-	  push(@{$::EMC::Verbatim{$command}}, [$verbatim, $line]);
-	}
+       	$fappend = 1 if (substr($verbatim,0,1) ne "#");
       } elsif ($command eq "field") {
 	$verbatim = "\n$verbatim" if ($line_last && $line-$line_last>1);
-	push(@{$::EMC::Verbatim{$command}}, [$verbatim, $line]);
+	$fappend = 1;
       } else {
 	next if (!$level);
 	$verbatim = "\n$verbatim" if ($line_last && $line-$line_last>1);
-	push(@{$::EMC::Verbatim{$command}}, $verbatim);
+	$fappend = 1;
+      }
+      if ($fappend) {
+	push(
+	  @{$::EMC::Verbatim{$command}},
+	  {line => $line,
+	    verbatim => $verbatim, data => [split_data($verbatim)]});
       }
       if (@current[0] eq "ITEM") {
 	$env_options = @current[1] eq "OPTIONS" ? 1 : 0;
@@ -5298,7 +5576,8 @@ sub read_script {
 	my @order = (
 	  "ncells", "name", "mode", "type", "flag", "density", "focus",
 	  "tighten", "ntrials", "periodic", "field", "exclude", "depth",
-	  "percolate", "unwrap", "guess", "charges", "formal", "translate"
+	  "percolate", "unwrap", "guess", "charges", "formal", "translate",
+	  "map"
 	);
 	my %allowed = (
 	  charges => {charges => 1},
@@ -5318,12 +5597,14 @@ sub read_script {
 	  tighten => {tighten => 1},
 	  percolate => {percolate => 1},
 	  translate => {translate => 1},
-	  type => {crystal => 1, surface => 1, line => 1, structure => 1},
-	  unwrap => {unwrap => 1}
+	  type => {
+	    crystal => 1, surface => 1, line => 1, structure => 1, system => 1},
+	  unwrap => {unwrap => 1},
+	  map => {map => 1}
 	);
 	my @ncells = split(":", $flag{ncells});
 	my $i = 0;
-
+	
 	$flag{density} = "number" if ($::EMC::Field{type} eq "dpd");
 	foreach (@arg) {
 	  my @a = split("=");
@@ -5372,7 +5653,6 @@ sub read_script {
 	  $flag{mode} = $mode{$suffix};
 	}
 
-	my $type = $flag{type};
 	my @field = ();
 	foreach (split(":", $flag{field})) {
 	  push(@field, field_id($line, $_)); }
@@ -5381,10 +5661,14 @@ sub read_script {
 	    $flag{type} eq "crystal" ? (1, 1, 1) :
 	    $flag{type} eq "surface" ? (0, 1, 1) :
 	    $flag{type} eq "tube" ? (0, 0, 1) :
-	    $flag{type} eq "structure" ? (0, 0, 0) : (0, 0, 0);
+	    $flag{type} eq "structure" ? (0, 0, 0) :
+	    $flag{type} eq "system" ? (1, 1, 1) : (0, 0, 0);
 	
 	undef(%::EMC::Import);				# allow only one!!!
 
+	if ($flag{type} eq "system" || $flag{type} eq "structure") {
+	  $flag{unwrap} = 1;
+	}
 	foreach (keys(%flag)) {
 	  if ($_ eq "ncells") {
 	    my @n = @ncells;
@@ -5397,6 +5681,7 @@ sub read_script {
 	      @n[1] = @m[$index{$::EMC::Direction{y}}];
 	      @n[2] = @m[$index{$::EMC::Direction{z}}];
 	    } else {
+	      EMC::Message::spot("{", join(", ", @m), "}\n");
 	      error_line($line, "ncells can only have 1 or 3 entries\n");
 	    }
 	  } elsif ($_ eq "ntrials") {
@@ -5449,7 +5734,7 @@ sub read_script {
 	}
 
       } else {
-	
+
 	my $poly = defined($flag{polymer}{$group});
 	my $fraction = shift(@arg);
 	my $mass = shift(@arg);
@@ -5461,7 +5746,8 @@ sub read_script {
 	if ($mass ne "" && !$::EMC::Flag{mass_entry}) {
 	  error("no cluster mass entry allowed for field '$::EMC::Field{type}'\n"); }
 	if ($poly ? 0 : !defined($::EMC::Group{$group})) {
-	  error("undefined group \'$group\' in line $line of input\n"); }
+	  expert_line($line, "undefined group \'$group\'\n");
+	}
 	#if ($poly ? 0 : scalar(@{${$::EMC::Group{$group}}{connect}})) {
 	#error("cannot use group \'$group\' for polymers in line $line of input\n"); }
 	if (!$::EMC::ProfileFlag{density} ? 0 : defined($::EMC::Profile{$name})) {
@@ -5482,6 +5768,13 @@ sub read_script {
 	  } else {
 	    $::EMC::Polymer{$name}[0] = [(1, [(1)], [($group)], [(1)])];
 	  }
+	} else {
+	  $::EMC::Polymers{$name} = $::EMC::XRef{$name};
+	  if ($poly) {
+	    foreach (@{$::EMC::Polymer{$name}}) {
+	      $_->[4] = $group;
+	    }
+	  }
 	}
       }
     
@@ -5501,14 +5794,17 @@ sub read_script {
 	$polymer{$name}{options} = {%flag};
 	$ipoly = 0;
 	if (!defined($polymer{$name}{type})) {
-	  expert_line($line, "undefined polymer \'$name\'\n");
-	  $ipoly = -1;
+	  error_line($line, "undefined polymer \'$name\'\n") if (!$::EMC::Flag{expert});
+	  #$ipoly = -1;
 	} elsif (!$polymer{$name}{type}) {
 	  expert_line($line, "\'$name\' is not a polymer\n");
 	  $ipoly = -1;
 	}
 	if (!$ipoly) {
-	  $::EMC::Polymers{$polymer_name = $name} = $::EMC::XRef{$name};
+	  if (defined($::EMC::XRef{$name})) {
+	    $::EMC::Polymers{$name} = $::EMC::XRef{$name};
+	  }
+	  $polymer_name = $name;
 	} 
       } elsif ($ipoly>=0) {				# subsequent lines
 	my $fraction = shift(@arg);
@@ -5594,7 +5890,7 @@ sub read_script {
 		@last[0] eq "tail" ? 1 :
 		@last[0] ? 1 : 0 if (@last[0] ne "");
 	$::EMC::Variables{type} = $type;
-	push(@{$::EMC::Variables{data}}, [@arg]);
+	push(@{$::EMC::Variables{data}}, [split(" ", $verbatim)]);
       }
     
     } elsif ($mode==8) {
@@ -5702,6 +5998,7 @@ sub read_script {
 	my $flag = (@f[1] eq "p" || @f[1] eq "pair" || @f[1] eq "paired") ? 1 : 0;
 	my $hide = (@f[1] eq "h" || @f[1] eq "hide" || @f[1] eq "hidden") ? 1 : 0;
 	my $double = (@f[1] eq "d" || @f[1] eq "double" || @f[1] eq "doubled") ? 1 : 0;
+	my $permutation = (@f[1] eq "2" || @f[1] eq "3" || @f[1] eq "4") ? 1 : 0;
 	my $list = (@f[1] eq "l" || @f[1] eq "list") ? 1 : 0;
 	my $name = @f[0];
 
@@ -5721,8 +6018,12 @@ sub read_script {
 	
 	$variable = join(":", @f);
 	if (scalar(@f)>1) {
-	  error_line($line, "too many modes for '$name'\n") if (scalar(@f)>2);
-	  error_line($line, "unknown mode '@f[1]'\n") if (!($flag||$double||$list));
+	  if ($permutation ? scalar(@f)>3 : scalar(@f)>2) {
+	    error_line($line, "too many modes for '$name'\n");
+	  }
+	  if (!($flag||$double||$list|$permutation)) {
+	    error_line($line, "unknown mode '@f[1]'\n");
+	  }
 	}
 	if ($nloop_pairing<0 || !$flag) {
 	  $nloop_pairing = scalar(@arg);
@@ -5732,7 +6033,7 @@ sub read_script {
 	  error_line($line, "unequal pair '$loop_pair' and '@f[0]'\n");
 	}
 	my $changed = 0;
-	foreach (@::EMC::LoopVariables) {
+	foreach (@{$::EMC::LoopVariables->{active}}) {
 	  my @f = split(":");
 	  next if (@f[0] ne $name);
 	  next if ($flag^(scalar(@f)>1 ? 1 : 0) ? 0 : 1);
@@ -5744,7 +6045,7 @@ sub read_script {
 	my $v = (split(":", $variable))[0];
 	$variable = $v if (defined($loop_check{$v}));
        	if (!(defined($::EMC::Loop{$variable}) || $changed)) {
-	  push(@::EMC::LoopVariables, $variable);
+	  push(@{$::EMC::LoopVariables->{active}}, $variable);
 	}
 	foreach (@arg) {
 	  my $s = $_;
@@ -5792,7 +6093,8 @@ sub read_script {
 	  $loop_stage = @arg[0];
 	} elsif ($variable eq "trial") {
 	  if ($loop_stage eq "") {
-	    error("set stage before trial in line $line of input\n"); }
+	    error("set stage before trial in line $line of input\n");
+	  }
 	  @{$::EMC::Trials{$loop_stage}} = 
 				$double ? @arg : list_unique($line, @arg);
 	    #list_unique($line, @{$::EMC::Trials{$loop_stage}}, @arg);
@@ -5889,13 +6191,17 @@ sub read_script {
       $flag{$command} = 1;
       if (!$env_flag) {
 	$verbatim = "\n$verbatim" if ($line_last && $line-$line_last>1);
-	push(@{$::EMC::Verbatim{$command}}, [$verbatim, $line]);
+	push(
+	  @{$::EMC::Verbatim{$command}},
+	  {line => $line,
+	    verbatim => $verbatim, data => [split_data($verbatim)]});
 	$line_last = $line;
       }
     }
   }
   error("missing 'ITEM END'\n") if ($::EMC::Flag{environment}&&($level>0));
-  check_validity($stream) if (!$::EMC::Flag{environment});
+  check_validity() if (!$::EMC::Flag{environment});
+  create_loop_variables_expansion() if ($::EMC::Flag{environment});
   create_environment() if ($::EMC::Flag{environment});
   $::EMC::Flag{source} = "";
 }
@@ -5925,10 +6231,11 @@ sub check_loop {
 }
 
 
-sub check_validity {
-  my $stream = shift(@_);
+# validity check
 
-  # validity check
+sub check_validity {
+
+  # check connectivity
 
   check_group_connectivity();
 
@@ -5936,11 +6243,24 @@ sub check_validity {
     error("mol masses need to be defined for set force field type\n");
   }
   
-  my %clusters; foreach (@::EMC::Clusters) { $clusters{$_} = -1; }
+  my %clusters; 
   my $nphases = scalar(@::EMC::Phases);
   my @phases = ();
   my $iphase = 0;
   
+  # check clusters
+
+  foreach (@::EMC::Clusters) {
+    my $poly = defined($::EMC::Polymer{$_}) ? $::EMC::Polymer{$_} : undef;
+
+    if (ref($poly) ne "ARRAY") {
+      error("missing polymer definition for cluster '$_'\n");
+    }
+    $clusters{$_} = -1;
+  }
+
+  # check phases
+
   foreach (@::EMC::Phases) {
     ++$iphase; foreach (@$_) {
       if (defined $clusters{$_}) {
@@ -5966,16 +6286,34 @@ sub check_validity {
 #    error("undefined polymer \'$_\' in clusters paragraph\n");
 #  }
   
-  @::EMC::Phases = (); 
+  my @rest;
+  my $iempty = -1;
   
+  foreach (@::EMC::Clusters) {				# add remains at empty
+    push(@rest, $_) if ($clusters{$_}<1);
+  }
+  
+  # check phases
+
+  for ($iphase=0; $iphase<$nphases; ++$iphase) {
+    next if (defined(@phases[$iphase]));
+    if (!scalar(@rest)) {
+      error("empty phase definition\n");
+    } elsif ($iempty>=0) {
+      error("multiple empty phase definitions\n");
+    }
+    $iempty = $iphase;
+  }
+  if (scalar(@rest)) {
+    $phases[$iempty<0 ? $nphases : $iempty] = [@rest];
+  }
+
+  $iphase = 0;
+  @::EMC::Phases = (); 
   @::EMC::ClusterSampling = 
     defined($::EMC::Import{name}) ? ($::EMC::Import{name}) : ();
-  foreach (@::EMC::Clusters) {				# add remains after end
-    push(@{$phases[$nphases]}, $_) if ($clusters{$_}<1);
-  }
-  $iphase = 0;
   foreach (@phases) { 
-    if (defined($_) && scalar(@$_)>0) {
+    if (defined($_) && scalar(@{$_})>0) {
       push(@::EMC::Phases, $_);
       info("phase%d = {%s}\n", ++$iphase, join(", ", @$_));
       push(@::EMC::ClusterSampling, @$_);
@@ -5984,7 +6322,6 @@ sub check_validity {
   $::EMC::NPhases = scalar(@::EMC::Phases);
   $::EMC::Shape = 
     $::EMC::ShapeDefault[$::EMC::NPhases>1 ? 1 : 0] if ($::EMC::Shape eq "");
-  close($stream);
 }
 
 
@@ -6085,7 +6422,8 @@ sub read_references {
   my $data;
   my $i;
 
-  return if (!fexist($name, @{$suffix}) && !defined($::EMC::Verbatim{references}));
+  return if (!fexist($name, @{$suffix}) && 
+	     !defined($::EMC::Verbatim{references}));
   $::EMC::Reference{flag} = 1;
   if (defined($::EMC::Verbatim{references})) {
     $data = $::EMC::Verbatim{references};
@@ -6093,14 +6431,15 @@ sub read_references {
   } else {
     ($stream, $name) = fopen($name, "r", @{$suffix});
     info("reading references from \"%s\"\n", $name);
-    $data = get_data($stream, \@input, 0);
+    $data = get_data_quick($stream, \@input, 0);
   }
   foreach (keys(%{$::EMC::Reference{data}})) {
     $exist{$_} = 1;
   }
   foreach (@{$data}) {
-    my @arg = split("\t", @{$_}[0]);
-    my $line = shift(@arg) if (scalar($stream));
+    my @arg = @{$_->{data}};
+    my $line = $_->{line};
+
     @arg = split(",", @arg[0]) if (scalar(@arg)<2);
     if ((scalar(@arg)<8)||(scalar(@arg)>9)) {
       error("incorrect number of entries in line $line of input\n");
@@ -6251,7 +6590,6 @@ sub read_parameters {
   my $error = 0;
   my $first = 1;
   my $stream;
-  my @input;
   my %sites;
   my $i;
   my $j;
@@ -6303,17 +6641,24 @@ sub read_parameters {
     } else {
       ($stream, $name) = fopen($name, "r", @{$suffix});
       info("reading parameters from \"%s\"\n", $name);
-      $data = get_data($stream, \@input, 0);
+      $data = get_data_quick($stream);
     }
-    info("assuming %s parameters\n", $::EMC::Flag{chi} ? "chi" : "dpd");
+    if ($::EMC::Field{type} eq "dpd") {
+      info("assuming %s parameters\n", $::EMC::Flag{chi} ? "chi" : "dpd");
+    }
     foreach (@{$data}) {
-      my @arg = split("\t", @{$_}[0]);
-      @arg = split(",", @{$_}[0]) if (scalar(@arg)<2);
-      my $line = shift(@arg) if (scalar($stream));
+      my @arg = @{$_->{data}};
+      my $line = $_->{line};
+      
+      if (scalar(@arg)<3) {
+	error_line($line, "expecting at least 3 arguments\n");
+      }
       next if (substr(@arg[0],0,1) eq "#");
-      next if (@arg[0] eq "");
+      next if (!scalar(@arg));
       if ($first) {
-	$first = 0; shift(@arg); shift(@arg);
+	$first = 0; 
+	shift(@arg) if (@arg[0] eq "");
+	shift(@arg) if (@arg[0] eq "");
 	@::EMC::Temperatures = @arg;
 	next;
       }
@@ -6525,7 +6870,6 @@ sub read_parameters {
   $::EMC::Field{name} = $::EMC::Field{id} = $::EMC::Project{name};
   $::EMC::Field{location} = "./";
   $::EMC::Parameters{flag} = 1;
-  $::EMC::Field{type} = "dpd";
   update_fields("reset");
 }
 
@@ -6562,7 +6906,7 @@ sub write_emc {
   foreach (@::EMC::Phases) {
     write_emc_phase($stream, ++$iphase, @$_);
   }
-  printf($stream "\n") if (write_emc_verbatim($stream, "build", $iphase+1));
+  printf($stream "\n") if (write_emc_verbatim($stream, "build", $iphase+1, 0));
   write_emc_run($stream);
   write_emc_profile($stream);
   write_emc_focus($stream);
@@ -6759,6 +7103,11 @@ sub write_emc_variables_polymer {
   my $int = shift(@_);
   my $skip = shift(@_);
   my $i = shift(@_);
+
+  if (ref($poly) ne "ARRAY") {
+    EMC::Message::spot("caller = ", join(":", (caller)[1,2]), "\n");
+    error("missing polymer definition for cluster '$name'\n")
+  }
   my $npolys = scalar(@{$poly});
 
   if (scalar(@{$poly})>1 ? 0 :				# regular clusters
@@ -6857,12 +7206,14 @@ sub write_emc_variables_sizing {
   my $n;
   
   foreach (@::EMC::Clusters) {
-    if (!defined($::EMC::Polymer{$_})) {
+    my $poly = $::EMC::Polymer{$_};
+
+    if (ref($poly) ne "ARRAY") {
       error("missing polymer definition for cluster '$_'\n");
     }
-    my $poly = $::EMC::Polymer{$_};
-    last if (($flag_polymer = scalar(@{$poly})>1 ? 1 :
-			      scalar(@{@{@{$poly}[0]}[1]})>1 ? 1 : 0));
+    if (scalar(@{$poly})>1 ? 1 : scalar(@{@{@{$poly}[0]}[1]})>1 ? 1 : 0) {
+      $flag_polymer = 1;
+    }
   }
 	
   # lengths
@@ -7235,6 +7586,7 @@ sub write_emc_interaction {
 	      $::EMC::Import{type} eq "surface" &&
 	      $::EMC::FieldFlags{ncalls}>1) ? 1 : 0;
   my $ptr = $::EMC::Build{cluster};
+  my $rmax = $::EMC::CutOff{rmax};
 
   return if ($field_exclude && !$flag);
   
@@ -7252,7 +7604,11 @@ sub write_emc_interaction {
       printf($stream "%s\n", 
 	format_output(0, "core core, cutoff -> cutoff}", 20, 2));
     } else {
-      printf($stream "%s\n", 
+      printf($stream "%s\n",
+	$mode eq "repulsive" ?
+	$rmax<=0 ?
+	format_output(0, "pair {active -> true, mode -> $mode}", 4, 2) :
+	format_output(0, "pair {active -> true, mode -> $mode, rmax -> $rmax}", 4, 2) :
 	format_output(0, "pair {active -> true, mode -> $mode, cutoff -> cutoff}", 4, 2));
     }
     printf($stream "%s", format_output(0, "}", 2, 2));
@@ -7373,8 +7729,9 @@ sub write_emc_import {
       "pdb\t\t= {name -> import, mode -> get, detect -> true, ".
       "depth -> $::EMC::Import{depth},\n");
     printf($stream 
-      "\t\t   crystal -> %s, flag -> {charge -> %s}$field};\n",
-      boolean($::EMC::Import{crystal}), boolean($::EMC::System{charge}));
+      "\t\t   crystal -> %s, flag -> {charge -> %s}, map -> %s$field};\n",
+      boolean($::EMC::Import{crystal}), boolean($::EMC::System{charge}),
+      boolean($::EMC::Import{map}));
   }
   if (defined($::EMC::Import{tighten})) {			# tighten
     my @geometry = ("infinite", "infinite", "infinite");
@@ -7517,6 +7874,20 @@ sub write_emc_import_variables {
     push(@volume,
       "vtotal vsites(ntrials -> $::EMC::Import{ntrials})");
 
+  } elsif ($::EMC::Import{type} eq "system") {			# system
+
+    push(@variables,
+      $::EMC::Import{ny} ne "auto" ?
+	"n$y $::EMC::Import{ny}" :
+      $::EMC::ImportNParallel ? 
+	"n$y $::EMC::ImportNParallel" : 
+	"n$y n$x",
+      $::EMC::Import{nz} ne "auto" ?
+	"n$z $::EMC::Import{nz}" :
+	"n$z n$x");
+    push(@volume,
+      "vtotal vtotal()");
+    
   } elsif ($::EMC::Import{type} eq "line") {			# line
 
     error("line not supported yet (line %s)\n", __LINE__);
@@ -7530,6 +7901,8 @@ sub write_emc_import_variables {
   printf($stream "(* import sizing *)\n\n");
   write_emc_variables($stream, @variables);
   
+  my @flags = ();
+  my $flag = $::EMC::Import{flag};
   my %index = (x => 0, y => 1, z => 2);
   my @periodic = ("true", "true", "true");
   if ($::EMC::Import{type} eq "surface") {
@@ -7539,6 +7912,9 @@ sub write_emc_import_variables {
     @periodic[$index{$x}] = "true";
   } elsif ($::EMC::Import{type} eq "structure") {
     @periodic = ("false", "false", "false");
+  } elsif ($::EMC::Import{type} eq "system") {
+    @periodic = ("true", "true", "true");
+    $flag = "mobile";
   }
   {
     my $extra;
@@ -7561,8 +7937,7 @@ sub write_emc_import_variables {
       "crystal\t\t= {n -> {nx, ny, nz}, periodic -> {%s}%s};\n\n",
       join(", ", @periodic), $extra);
   }
-  my @flags = ();
-  push(@flags, $::EMC::Import{flag}) if ($::EMC::Import{flag} ne "mobile");
+  push(@flags, $flag) if ($flag ne "mobile");
   push(@flags, "focus") if ($::EMC::Import{focus});
   if (scalar(@flags)) {
     my $flags = join(", ", @flags);
@@ -7652,11 +8027,15 @@ sub write_emc_phase {
   my $mode = defined($::EMC::Import{name}) ? 
 	     ($::EMC::Import{type} eq "structure" ? ($phase<2 ? 2 : 1) : 1) :
 	     ($phase>1 ? 1 : 0);
-  my $fsplit = $phase ? defined(@::EMC::Splits[$phase-1]) ? 1 : 0 : 0;
+  my $delete = $::EMC::Delete->{phases};
+  my $fdelete = $phase ? defined($delete->[$phase]) ? 1 : 0 : 0;
+  my $split = $::EMC::Split->{phases};
+  my $fsplit = $phase ? defined($split->[$phase]) ? 1 : 0 : 0;
 
   printf($stream "(* clusters %s *)\n\n", $phase>0 ? "phase $phase" : "system");
+  write_emc_delete($stream, $phase) if ($fdelete);
+  write_emc_split($stream, $phase) if ($fsplit);
   printf($stream "\n") if (write_emc_verbatim($stream, "build", $phase, 0));
-  write_emc_split($stream, $phase-1) if ($fsplit);
   write_emc_clusters($stream, @clusters);
   write_emc_field_apply($stream);
   printf($stream "\n") if (write_emc_verbatim($stream, "build", $phase, 1));
@@ -7750,8 +8129,9 @@ sub write_emc_clusters {
     if (!defined($::EMC::Polymers{$_})) {
       next if (!defined($::EMC::Polymer{$_}));
       my $group = @{${$::EMC::Polymer{$_}[$ipoly]}[2]}[0];
+      #$group = ${$::EMC::Group{$group}}{id};
       printf($stream "%s\n", format_output(0, "cluster {", 2, 2));
-      printf($stream "%s", format_output($n, "id $_, system -> $::EMC::System{id}, group -> ${$::EMC::Group{$group}}{id}, n -> n_$_}", 4, 2));
+      printf($stream "%s", format_output($n, "id $_, system -> $::EMC::System{id}, group -> $group, n -> n_$_}", 4, 2));
     } else {
       write_emc_polymers($stream, "cluster", $_, $n);
     }
@@ -7767,22 +8147,18 @@ sub write_emc_verbatim {
   my $sub = shift(@_);
   my $n = 0;
 
-  if ($phase ne "") {
+  if ($index eq "build") {
     my $ptr = $::EMC::Verbatim{$index}[$phase>=0 ? $phase : 0];
     if (defined($ptr)) {
-      if ($index eq "build") {
-	foreach(@{@{$ptr}[$sub]}) {
-	  printf($stream "%s\n", $_); ++$n;
-	}
-      } else {
-	foreach(@{$ptr}) {
-	  printf($stream "%s\n", $_); ++$n;
-	}
+      foreach(@{@{$ptr}[$sub]}) {
+	printf($stream "%s\n", $_);
+	++$n;
       }
     }
   } else {
     foreach(@{$::EMC::Verbatim{$index}}) {
-      printf($stream "%s\n", $_); ++$n;
+      printf($stream "%s\n", $_->{verbatim});
+      ++$n;
     }
   }
   return $n;
@@ -7839,7 +8215,8 @@ sub write_emc_build {
   my $n = scalar (@clusters)-1;
   my $i = 0;
   my $lx = $phase ? "2*fshape" : "fshape";
-  my $fsplit = $phase ? defined(@::EMC::Splits[$phase-1]) ? 1 : 0 : 0;
+  my $split = $::EMC::Split->{phases};
+  my $fsplit = $phase ? defined($split->[$phase-1]) ? 1 : 0 : 0;
   my @flags;
 
   foreach (sort(keys(%::EMC::System))) {
@@ -7927,14 +8304,90 @@ sub write_emc_build {
 }
 
 
+sub write_emc_delete {
+  my $stream = shift(@_);
+  my $phase = shift(@_);
+  my $direction = $::EMC::Direction{x};
+  my @clusters = $phase ? create_clusters(@{@::EMC::Phases[$phase-1]}) : ();
+  my $delete = $::EMC::Delete->{phases};
+  my $unwrap = 1;
+
+  foreach (@{$delete->[$phase]}) {
+    my $hash = $_;
+    my @focus = ();
+    my $thickness = $hash->{thickness};
+    my @center = (
+      $direction eq "x" ? "0.5" : "0.0",
+      $direction eq "y" ? "0.5" : "0.0",
+      $direction eq "z" ? "0.5" : "0.0"
+    );
+    my @h = (
+      $direction eq "x" ? $thickness : "infinite",
+      $direction eq "y" ? $thickness : "infinite",
+      $direction eq "z" ? $thickness : "infinite",
+      "0.0", "0.0", "0.0"
+    );
+
+    if ($hash->{type} eq "absolute") {
+      if ($direction eq "x") {
+	@center = ("0.5*lxx", "0.0", "0.0");
+      } elsif ($direction eq "y") {
+	@center = ("0.5*lyx", "0.5*lyy", "0.0");
+      } elsif ($direction eq "z") {
+	@center = ("0.5*lzx", "0.5*lzy", "0.5*lzz");
+      }
+    }
+    
+    printf($stream "delete\t\t= {\n");
+    #printf($stream format_output(1, "system ".$::EMC::System{id}, 2, 2));
+    #printf($stream format_output(1, "direction ".$direction, 2, 2));
+    printf($stream format_output(1, "mode ".$hash->{mode}, 2, 2));
+    printf($stream format_output(1, "unwrap ".boolean($unwrap), 2, 2));
+    printf($stream format_output(1, "fraction ".$hash->{fraction}, 2, 2));
+    $unwrap = 0;
+    
+    foreach ("sites", "groups", "clusters") {
+      if ($hash->{$_} ne "all") {
+	push(@focus, {$_ => $hash->{$_}});
+      }
+    }
+    if (scalar(@focus)) {
+      my $i;
+      my $n = scalar(@focus)-1;
+
+      printf($stream format_output(0, "focus {", 2, 2));
+      printf($stream "\n");
+      for ($i=0; $i<=$n; ++$i) {
+	my $select = @focus[$i];
+	my $key = (keys(%{$select}))[0];
+
+	printf($stream format_output($i<$n, "$key {".join(", ", @{$select->{$key}})."}", 4, 2));
+	printf($stream "\n") if ($i==$n);
+      }
+      printf($stream format_output(1, "}", 2, 2));
+    }
+    printf($stream format_output(0, "outside {", 2, 2));
+    printf($stream "\n");
+    printf($stream format_output(1, "shape cuboid", 4, 2));
+    printf($stream format_output(1, "type ".$hash->{type}, 4, 2));
+    printf($stream format_output(1, "center {".join(", ", @center)."}", 4, 2));
+    printf($stream format_output(0, "h {".join(", ", @h)."}", 4, 2));
+    printf($stream "\n");
+    printf($stream format_output(0, "}", 2, 2));
+    printf($stream "\n};\n\n");
+  }
+}
+
+
 sub write_emc_split {
   my $stream = shift(@_);
   my $phase = shift(@_);
   my $direction = $::EMC::Direction{x};
   my @clusters = $phase ? create_clusters(@{@::EMC::Phases[$phase-1]}) : ();
+  my $split = $::EMC::Split->{phases};
   my $unwrap = 1;
 
-  foreach (@{$::EMC::Splits[$phase]}) {
+  foreach (@{$split->[$phase]}) {
     my $hash = $_;
     my @focus = ();
     my $thickness = $hash->{thickness};
@@ -8354,6 +8807,7 @@ sub write_lammps {
   my $verbatim = $::EMC::Verbatim{lammps};
 
   foreach (@{$::EMC::Lammps{stage}}) {
+    next if ($_ eq "integration");		# backwards compatibility
     write_lammps_verbatim($stream, $_, "head");
     $write{$_}->($stream);
     write_lammps_verbatim($stream, $_, "tail");
@@ -8504,6 +8958,8 @@ sub write_lammps_interaction {
 		     "lj/gromacs $icut $cut") :
       ($::EMC::Flag{charge} ? "lj/cut/coul/$long $cut $ccut" : "lj/cut $cut"));
 
+  my $neighbor = ($::EMC::Lammps{version}<$::EMC::Lammps{newer_version} ? "multi" : "multi/old");
+
   printf($stream "%s",
 "# Interaction potential definition
 
@@ -8521,7 +8977,7 @@ include		\${params}/\${project}.params
 
 # Integration conditions (check)
 ".($::EMC::Field{type} eq "dpd" ? "
-neighbor	$::EMC::Lammps{skin} multi
+neighbor	$::EMC::Lammps{skin} $neighbor
 ".($::EMC::Lammps{communicate} ? "communicate	" : "comm_modify	mode ").
 		"single vel yes cutoff \${ghost_cutoff}
 neigh_modify	delay 0 every 2 check yes" : "")."
@@ -8534,10 +8990,10 @@ timestep	\${timestep}\n".
   join(" ", "fix\t\tmom all momentum",
     shift(@momentum), "linear", @momentum) : "")
 .($::EMC::Field{type} eq "colloid" ? "
-neighbor	$::EMC::Lammps{skin} multi
+neighbor	$::EMC::Lammps{skin} $neighbor
 neigh_modify	delay 0 every 1 check yes
 neigh_modify	include all
-comm_modify	mode multi vel yes" : "")."
+comm_modify	mode $neighbor vel yes" : "")."
 
 ");
 }
@@ -8581,12 +9037,10 @@ label		simulate
 }
 
 
-sub write_lammps_integrator {
-  my $stream = shift(@_);
-  my $shear_mode = $::EMC::Shear{mode} eq "" ? "erate" : $::EMC::Shear{mode};
-  my $shake = "";
+sub write_lammps_shake {
+  my $shake = undef;
   
-  if (defined($::EMC::Shake{flag})&&!$::EMC::Shake{flag}) {
+  if (defined($::EMC::Shake{flag}) ? $::EMC::Shake{flag} ? 0 : 1 : 0) {
     $shake = "shake all shake ";
     $shake .= "$::EMC::Shake{tolerance} $::EMC::Shake{iterations} $::EMC::Shake{output}";
     my $index = 1;
@@ -8616,6 +9070,14 @@ sub write_lammps_integrator {
     }
     $shake = "\nfix\t\t$shake";
   }
+  return $shake;
+}
+
+
+sub write_lammps_integrator {
+  my $stream = shift(@_);
+  my $shear_mode = $::EMC::Shear{mode} eq "" ? "erate" : $::EMC::Shear{mode};
+  my $shake = write_lammps_shake();
 
   printf($stream "%s",
 "# Integrator
@@ -9282,16 +9744,53 @@ sub write_job_indent {
     my $n = 80*($::EMC::Flag{width}+1)*int(($indent+10)/
 					  (80*($::EMC::Flag{width}+1))+1);
     my $npars = 0;
+    my $first = 1;
     my $s = "";
+    my @words = split(" ", $arg);
 
-    foreach (split(" ", $arg)) {
-      my $tmp = $s.(length($s) ? " $_" : $_);
-      if ($indent+length($tmp)+1<=$n-2) { $s = $tmp; next; }
-      my_job_print($stream, $indent+2*$npars, $s." \\");
-      $npars += ($s =~ tr/\(//)-($s =~ tr/\)//);
-      $s = $_;
+    if (scalar(@words)>1) {
+      foreach (@words) {
+	my $tmp = $s.(length($s) ? " $_" : $_);
+	if ($indent+length($tmp)+1<=$n-2) { $s = $tmp; next; }
+	my_job_print($stream, $indent+2*$npars, $s." \\");
+	$npars += ($s =~ tr/\(//)-($s =~ tr/\)//)+$first;
+	$first = 0;
+	$s = $_;
+      }
+    } else {
+      $s = @words[0];
     }
     my_job_print($stream, $indent+2*$npars, $s) if (length($s));
+  }
+}
+
+
+sub write_job_loop {
+  my $stream = shift(@_);
+  my $indent = shift(@_);
+  my $index = shift(@_);
+  my $NAME = shift(@_);
+  my $name = shift(@_);
+  my $paired = shift(@_);
+  my $dim = shift(@_);
+  my $first = shift(@_);
+
+  for (my $i=0; $i<$dim; ++$i) {
+    my $list = $first ? 
+      "\${$NAME"."s[\$i_$name]}" :
+      "\$(replace_vars \"\${$NAME"."s[\${i_$paired"."[$i]}]}\" \"\${values[\@]}\")";
+    my $VAR = $NAME.($dim<2 ? "" : "_".($i+1));
+
+    write_job_indent($stream,
+      ${$indent}++, "for $VAR in $list; do");
+    if (${$index}) {
+      write_job_indent($stream,
+	${$indent}, "values=(\${values[@]:0:${$index}} \"\$$VAR\");");
+    } else {
+      write_job_indent($stream,
+	${$indent}, "values=(\"\$".uc($_)."\");");
+    }
+    ++${$index};
   }
 }
 
@@ -9303,12 +9802,14 @@ sub write_job_loops {
   my $text = shift(@_);
   my $indent0 = $indent;
   my %pairing = ();
-  my @previous = ();
   my @vars = ();
   my $nchains = $::EMC::NChains;
-  
+  my @unset = ();
+  my $first = 1;
+  my $copy = 0;
+
   $nchains = 1 if ($nchains<1);
-  job_loops_pairing(\%pairing, \@vars);
+  job_loop_pairing(\%pairing, \@vars);
   if ($type eq "run") {
     write_job_indent(
       $stream, $indent++,
@@ -9320,42 +9821,59 @@ sub write_job_loops {
       $stream, $indent++, 
 	"for iserial in \$(create_copies \${nserials}); do");
     write_job_indent(
-      $stream, $indent, "jobids=();");
+      $stream, $indent, "JOB_IDS=();");
   }
+  my $index = 0;
   foreach (@vars) {					# create loops
     my @arg = split(":");
     my $name = @arg[0];
+    my $NAME = uc($name);
+    my $perm = 1;
+    my $dim = 1;
     my @pairs;
 
     if ($name eq "copy") {
       write_job_indent(
 	$stream, $indent++, 
-	  "for copy in \$(zero 2 \$(create_copies \${copys[0]})); do");
+	  "for $NAME in \$(zero 2 \$(create_copies \${$NAME"."s[0]})); do");
+      push(@unset, 0);
+      $copy = 1;
     } else {
-      @pairs = @{$pairing{$name}};
+      $dim = $pairing{$name}->{dim};
+      $perm = $pairing{$name}->{perm};
+      @pairs = @{$pairing{$name}->{list}};
       write_job_indent(
-	$stream, $indent++, "for i_$name in \${!$name"."s[@]}; do");
-      my $list = scalar(@previous) ? 
-	"\$(replace \${$name"."s[\$i_$name]} ".join(" ", @previous).")" :
-	"\${$name"."s[\$i_$name]}";
-      write_job_indent(
-	$stream, $indent++, "for $name in \$(create_list $list); do");
-      push(@previous, "\@".uc($name), "\${$name}");
+	$stream, $indent, "COPY=\"\";") if ($first && !$copy);
+      if ($dim>1) {
+	write_job_indent(
+	  $stream, $indent++, "for v_$name in \$(permutations $perm \${#$NAME"."s[@]}); do");
+	write_job_indent(
+	  $stream, $indent, "i_$name=(\$(split \$v_$name \":\"));");
+      } else {
+	write_job_indent(
+	  $stream, $indent++, "for i_$name in \${!$NAME"."s[@]}; do");
+      }
+      push(@unset, 0);
+      write_job_loop(
+	$stream, \$indent, \$index, $NAME, $name, $name, $dim, $first);
+      push(@unset, 1);
     }
+    my $paired = $name;
     foreach (@pairs) {
+      my $name = $_;
+      my $NAME = uc($name);
       my $names = "l_$_"."s";
       if ($_ eq "copy") {
 	write_job_indent($stream, $indent++,
-	  "for copy in \$(zero 2 \$(create_copies \${copys[\$i_$name]})); do");
+	  "for $NAME in \$(zero 2 \$(create_copies \${$NAME"."s[\$i_$name]})); do");
+	push(@unset, 0);
       } else {
-	my $list = scalar(@previous) ? 
-	  "\$(replace \${$_"."s[\$i_$name]} ".join(" ", @previous).")" :
-	  "\${$_"."s[\$i_$name]}";
-	write_job_indent(
-	  $stream, $indent++, "for $_ in \$(create_list $list); do");	
+	write_job_loop(
+	  $stream, \$indent, \$index, $NAME, $name, $paired, $dim, $first);
+	push(@unset, 1);
       }
-      push(@previous, "\@".uc($_), "\${$_}");
     }
+    $first = 0;
   }
 
   write_job_indent($stream, $indent, $text);		# write text
@@ -9365,7 +9883,7 @@ sub write_job_loops {
     write_job_indent($stream, --$indent, "done;");
   }
   write_job_indent($stream, $indent,
-    "pack_exec;\necho;\nlast_jobids=(\"\${jobids[@]}\");");
+    "pack_exec;\necho;\nLAST_JOB_IDS=(\"\${JOB_IDS[@]}\");");
   write_job_indent($stream, --$indent, "done;") if ($type eq "run");
   write_job_indent($stream, --$indent, "done;") if ($type eq "run");
 }
@@ -9374,9 +9892,11 @@ sub write_job_loops {
 sub write_job_func_test {
   my $stream = shift(@_);
   my $options = "\n    -project \"$::Project{directory}$::EMC::Project{name}\" \\";
+  my $preprocess = $::EMC::Flag{enviroment} ? 0 : $::EMC::Flag{preprocess};
+  my $lammps = $::EMC::Lammps{write}>1 ? "\n    -lammps=$::EMC::Lammps{version} \\" : "";
  
   printf($stream "\nsub submit {\n");
-  foreach (@::EMC::LoopVariables) {
+  foreach (@{$::EMC::LoopVariables->{active}}) {
     my $var = (split(":"))[0];
     $options .= "\n    -$var \"\${$var}\" \\";
     printf($stream 
@@ -9385,39 +9905,99 @@ sub write_job_func_test {
   printf($stream "
   run \"\${chemistry}/scripts/$::EMC::Project{script}.sh\" \\$options
     $::EMC::Project{name};
-  run emc_setup.pl \\
+  run emc_setup.pl \\$lammps
+    -preprocess=$preprocess \\
     -project=$::EMC::Project{name} \\
-    -workdir=\${home} \\
+    -workdir=\"\${WORKDIR}\" \\
     $::EMC::Project{name}$::EMC::Script{extension};
 }\n\n");
 }
 
 
-sub job_loops_pairing {					# setup pairing
+sub job_loop_pairing {					# setup pairing
   my $pairing = shift(@_);
   my $vars = shift(@_);
+  my $index = shift(@_);
   my $last = "";
   my $fcopy = 0;
   my $i = 0;
 
-  foreach (@::EMC::LoopVariables) {
+  foreach (@{$::EMC::LoopVariables->{active}}) {
     my @arg = split(":");
-    my $name = @arg[0];
-    my $fpair = @arg[1] eq "p" || @arg[1] eq "pair" ? 1 : 0;
-    my $fhide = @arg[1] eq "h" || @arg[1] eq "hide" ? 1 : 0;
+    my $name = shift(@arg);
+    my $fpair = @arg[0] eq "p" || @arg[0] eq "pair" ? 1 : 0;
+    my $fhide = @arg[0] eq "h" || @arg[0] eq "hide" ? 1 : 0;
+    my $dim = @arg[0] eq "2" ? 2 : @arg[0] eq "3" ? 3 : @arg[0] eq "4" ? 4 : 1;
     
     if (($fpair || $fhide) && $i>0) {
-      push(@{$pairing->{$last}}, $name);
+      push(@{$pairing->{$last}->{list}}, $name);
+      push(@{$pairing->{$last}->{hide}}, $fhide);
     } elsif ($name eq "copy") {
+      push(@{$index}, $name) if (defined($index));
       $fcopy = 1;
     } else {
+      push(@{$index}, $name) if (defined($index));
       push(@{$vars}, $name);
-      @{$pairing->{$name}} = ();
+      $pairing->{$name}->{dim} = $dim;
+      $pairing->{$name}->{perm} = join(":", @arg);
+      @{$pairing->{$name}->{list}} = ();
+      @{$pairing->{$name}->{hide}} = ();
       $last = $name;
     }
     ++$i;
   }
   unshift(@{$vars}, "copy") if ($fcopy);
+}
+
+
+sub create_loop_variables_expansion {
+  my $pairing = {};
+  my $index = [];
+  my $vars = [];
+
+  job_loop_pairing($pairing, $vars, $index);
+
+  $::EMC::LoopVariables->{expand} = [];
+  foreach (@{$index}) {
+    my $name = $_;
+    my $def = defined($pairing->{$name}) ? 1 : 0;
+    my $dim = $def ? $pairing->{$name}->{dim} : 1;
+   
+    for (my $i=1; $i<=$dim; ++$i) {
+      push(@{$::EMC::LoopVariables->{expand}}, $name.($dim>1 ? "_".$i:""));
+    }
+    next if (!$def);
+
+    my $list = $pairing->{$name}->{list};
+    my $hide = $pairing->{$name}->{hide};
+    
+    for (my $i=0; $i<scalar(@{$list}); ++$i) {
+      next if ($hide->[$i]);
+      my $p = $list->[$i];
+      for (my $j=1; $j<=$dim; ++$j) {
+	push(@{$::EMC::LoopVariables->{expand}}, $p.($dim>1 ? "_".$j : ""));
+      }
+    }
+  }
+
+  $::EMC::LoopVariables->{vars} = [];
+  foreach (@{$vars}) {
+    next if (!defined($pairing->{$_}));
+
+    my $name = $_;
+    my $list = $pairing->{$name}->{list};
+    my $dim = $pairing->{$name}->{dim};
+   
+    for (my $i=1; $i<=$dim; ++$i) {
+      push(@{$::EMC::LoopVariables->{vars}}, $name.($dim>1 ? "_".$i:""));
+    }
+    foreach (@{$list}) {
+      for (my $i=1; $i<=$dim; ++$i) {
+	push(@{$::EMC::LoopVariables->{vars}}, $_.($dim>1 ? "_".$i : ""));
+      }
+    }
+  }
+  push(@{$::EMC::LoopVariables->{vars}}, "copy") if ($vars->[0] eq "copy");
 }
 
 
@@ -9427,7 +10007,7 @@ sub write_job_dir {
  
   foreach (@_) { 
     my @arg = split(":");
-    my $name = @arg[0];
+    my $name = uc(@arg[0]);
     my $fhide = @arg[1] eq "h" || @arg[1] eq "hide" ? 1 : 0;
     if ($name eq "copy") {
       $flag = 1;
@@ -9446,29 +10026,34 @@ sub write_job_func {
   my $stream = shift(@_);
   my $type = shift(@_);
   my $text = shift(@_);
-  my @vars = $type eq "run" ? split(" ", "dir serial iserial nserials ichoice restart frestart") :
-	     $type eq "analyze" ? split(" ", "dir last") : ();
+  my @vars = $type eq "run" ? 
+    split(" ", "dir serial iserial nserials ichoice restart frestart values") :
+    split(" ", "dir last values");
   my $i;
+  my @replacements;
 
   if ($type eq "test") {
     return;
   }
 
-  foreach (@::EMC::LoopVariables) {
+  foreach (@{$::EMC::LoopVariables->{active}}) {
     my @arg = split(":");
     my $name = @arg[0];
-    my $fpair = @arg[1] eq "p" || @arg[1] eq "pair" ? 1 : 0;
+    my $fpair = 
+      @arg[1] eq "p" || @arg[1] eq "pair" ||
+      @arg[1] eq "h" || @arg[1] eq "hide" ? 1 : 0;
+    my $fperm = 
+      @arg[1] eq "2" || @arg[1] eq "3" || @arg[1] eq "4" ? 1 : 0;
 
     push(@vars, "i_$name") if (!$fpair && $name ne "copy");
-    push(@vars, $name);
+    push(@vars, "v_$name") if ($fperm && $name ne "copy");
     ++$i;
   }
 
-  printf($stream 
+  printf($stream "\nsubmit() {\n");
+  write_job_indent($stream, 1, join(" ", "local", sort(@vars)).";");
+  printf($stream
 "
-submit() {
-  local ".join(" ", sort(@vars)).";
-
   printf \"### started at \$(date)\\n\\n\";
 ");
   write_job_loops($stream, $type, 1, $text);
@@ -9476,16 +10061,77 @@ submit() {
 }
 
 
+sub write_job_permutations {
+  my $stream = shift(@_);
+  my $type = shift(@_);
+
+  printf($stream 
+"
+permutations() {
+  perl -e '
+    \@a = split(\":\", \@ARGV[0]);
+    \$dim = shift(\@a);
+    \$s = shift(\@a);
+    \$n = \@ARGV[1];
+    \$hash = {};
+    \$i = [];
+    
+    \$s %= \$n if (defined(\$s));
+    for (\$k=0; \$k<\$dim; ++\$k) { push(\@{\$i}, 0); }
+    for (\$k=0; \$k<\$dim; ) {
+      my \@f;
+      foreach (\@{\$i}) { \@f[\$_] = 1; }
+      if (defined(\$s) ? defined(\@f[\$s]) : 1) {
+	my \@r = reverse(\@{\$i});
+	my \@index = map({join(\":\", \@{\$_})} (\$i, \\\@r));
+	++\$hash->{\@index[defined(\$hash->{\@index[0]}) ? 0 : 1]};
+      }
+      \$k = 0; foreach (\@{\$i}) {
+	last if (++\$_<\$n);
+	\$_ = 0;
+	++\$k;
+      }
+    }
+    print(join(\" \", sort(keys(\%{\$hash}))), \"\\n\");
+  ' -- \$1 \$2;
+}
+");
+}
+
+
+sub write_job_replace_vars {
+  my $stream = shift(@_);
+  my @replacements = 
+    map({'"@{'.uc((split(":"))[0]).'}"'} @{$::EMC::LoopVariables->{vars}});
+  my $result = 
+    shift(@_) eq "test" ? "\"\${result}\"" : "\"\$(create_list \"\${result}\")\"";
+
+  printf($stream "\nreplace_vars() {\n");
+  write_job_indent($stream, 1, "local var=(".join(" ", @replacements).");");
+  print($stream "
+  local result=\"\$1\"; shift;
+  local value=(\"\$@\");
+  local i;
+
+  for i in \${!value[@]}; do
+    result=\$(replace \"\${result}\" \"\${var[\$i]}\" \"\${value[\$i]}\");
+  done;
+  echo $result;
+}
+");
+}
+
 sub write_job_stage {
   my $command = shift(@_);
   my $name = shift(@_);
+  my $preprocess = $::EMC::Flag{preprocess} ? " -preprocess" : "";
   my $date = date;
-  chop($date);
 
+  chop($date);
   info("creating chemistry \"$name\"\n");
   my $stream = fopen($name, "w");
   chmod(0755, $stream);
-  printf($stream "#!/usr/bin/env emc_setup.pl
+  printf($stream "#!/usr/bin/env emc_setup.pl$preprocess
 #
 #  script:	$name
 #  author:  	$::EMC::Script v$::EMC::Version, $::EMC::Date
@@ -9533,6 +10179,7 @@ sub write_job_header {
 sub write_job_functions {
   my $stream = shift(@_);
   my $type = shift(@_);
+  my $preprocess = $::EMC::Flag{enviroment} ? 0 : $::EMC::Flag{preprocess};
 
   # GENERAL
 
@@ -9546,13 +10193,16 @@ script=\$(basename \"\$0\");
 # functions
 
 run() {
-  echo \"\$@\"; \"\$@\";  }
+  echo \"\$@\"; \"\$@\"; }
 
 first() {
   echo \"\$1\"; }
 
 shft() {
   shift; echo \"\$@\"; }
+
+pop() {
+  local a=(\$\@); echo \"\${a[\@]:0:\${#a[\@]}-1}\"; }
 
 calc() {
   perl -e 'print(eval(\$ARGV[0]));' -- \$@; } 
@@ -9568,7 +10218,10 @@ zero() {
 }
 
 split() {
-  echo \$1 | awk '{split(\$0,a,\"'\$2'\"); print a['\$3']}'; }
+  perl -e '
+    \@a = split(\@ARGV[1], \@ARGV[0]);
+    print(defined(\@ARGV[2]) ? \@a[\@ARGV[2]] : join(\" \", \@a));
+  ' -- \$@; }
 
 join() {
   perl -e 'print(join(\",\", \@ARGV).\"\\n\");' -- \$@; }
@@ -9622,7 +10275,7 @@ create_list() {
 }
 
 create_copies() {
-  local list=(\$(perl -e \'print(join(\" \", split(\":\", \@ARGV[0])))\' -- \$1));
+  local list=(\$(split \$1 \":\"));
 
   if [ \"\${list[0]}\" == \"s\" -o \"\${list[0]}\" == \"seq\" ]; then
     echo \$(seq -w \${list[1]} \${list[3]} \${list[2]});
@@ -9634,20 +10287,24 @@ create_copies() {
 #tmp=1;
 run_sh() {
   local output;
-  local line=(-memory \${memorypercore} -ppn \${ncorespernode});
+  local line=(-memory \${MEMORY_PER_CORE} -ppn \${NCORES_PER_NODE});
 
-  if [ \"\${queue_account}\" != \"\" ]; then
-    line+=(-account \${queue_account});
+  if [ \"\${QUEUE_ACCOUNT}\" != \"\" ]; then
+    line+=(-account \${QUEUE_ACCOUNT});
   fi;
-  if [ \"\${queue_user}\" != \"\" ]; then
-    line+=(\${queue_user});
+  if [ \"\${QUEUE_USER}\" != \"\" ]; then
+    line+=(\${QUEUE_USER});
+  fi;
+  if [ \"\${MODULES}\" != \"\" ]; then
+    line+=(-modules \"\${MODULES}\");
   fi;
   line+=(\$@);
   echo \"run.sh \${line[@]}\"; 
-  #jobid=\$tmp; tmp=\$((tmp+1)); echo \${jobid}; return;
+  #JOB_ID=\$tmp; tmp=\$((tmp+1)); echo \${JOB_ID}; return;
+  if [ \"\${fsubmit}\" != 1 ]; then JOB_ID=-1; return; fi;
   while IFS= read -r; do output+=(\"\$REPLY\"); done < <(run.sh \${line[@]});
   printf \"%%s\\n\" \"\${output[@]}\";
-  jobid=\$(perl -e '
+  JOB_ID=\$(perl -e '
     \$a = (split(\" \", \@ARGV[0]))[-1];
     \$a =~ s/[<|>]//g; 
     print(\$a);\' -- \"\${output[3]}\");
@@ -9682,25 +10339,25 @@ run_check() {
 wait_id() {
   local id;
 
-  jobid=0;
-  if [ \${#last_jobids[@]} -gt 0 ]; then
-    jobid=\"\${last_jobids[0]}\";				# determine dependence
-    last_jobids=(\${last_jobids[@]:1});
-    if [ \${#waitids[@]} -gt 0 ]; then
-      for id in \${waitids[@]}; do
-	if [ \"\${jobid}\" == \"\${id}\" ]; then return; fi;
+  JOB_ID=0;
+  if [ \${#LAST_JOB_IDS[@]} -gt 0 ]; then
+    JOB_ID=\"\${LAST_JOB_IDS[0]}\";			# determine dependence
+    LAST_JOB_IDS=(\${LAST_JOB_IDS[@]:1});
+    if [ \${#WAIT_IDS[@]} -gt 0 ]; then
+      for id in \${WAIT_IDS[@]}; do
+	if [ \"\${JOB_ID}\" == \"\${id}\" ]; then return; fi;
       done;
     fi;
-    if [ \"\${jobid}\" != \"-1\" -a \"\${jobid}\" != \"0\" ]; then
-      if [ \"\${waitids}\" == \"\" ]; then waitids=\"\${jobid}\";
-      else waitids=\"\${waitids}:\${jobid}\"; fi;
+    if [ \"\${JOB_ID}\" != \"-1\" -a \"\${JOB_ID}\" != \"0\" ]; then
+      if [ \"\${WAIT_IDS}\" == \"\" ]; then WAIT_IDS=\"\${JOB_ID}\";
+      else WAIT_IDS=\"\${WAIT_IDS}:\${JOB_ID}\"; fi;
     fi;
   fi;
 }
 
 pack_file() {
-  local dir=\"\${home}/\${pack_dir}\";
-  echo \$(perl -e \'printf(\"%%s/%%04d%%s\", \@ARGV);\' -- \"\${dir}\" \${npack[0]} \$1);
+  local dir=\"\${WORKDIR}/\${PACK_DIR}\";
+  echo \$(perl -e \'printf(\"%%s/%%04d%%s\", \@ARGV);\' -- \"\${dir}\" \${NPACK[0]} \$1);
 }
 
 pack_exec() {
@@ -9709,35 +10366,35 @@ pack_exec() {
   local dir=\"\$(dirname \"\${file}\")\";
  
   file=\$(basename \"\${file}\");
-  if [ \${npack[1]} -lt 1 ]; then return; fi;		# skip on empty
-  if [ \"\${waitids}\" != \"\" ]; then wait=\" -wait \${waitids}\"; fi;
-  if [ \${fpack} == 1 ]; then				# based on scripts
+  if [ \${NPACK[1]} -lt 1 ]; then return; fi;		# skip on empty
+  if [ \"\${WAIT_IDS}\" != \"\" ]; then wait=\" -wait \${WAIT_IDS}\"; fi;
+  if [ \${FLAG_PACK} == 1 ]; then			# based on scripts
     run pushd \"\${dir}\";
     chmod +x \"\${file}.sh\";
     printf \"\\n  wait;\\n\\n\" >>\"\${file}.sh\";
     printf 'elif [ \"\$1\" == \"job\" ]; then\\n\\n' >>\"\${file}.sh\";
-    if [ \"\${queue}\" == \"local\" ]; then
-      printf \"  echo \${jobid};\\n\\n\" >>\"\${file}.sh\";
+    if [ \"\${QUEUE}\" == \"local\" ]; then
+      printf \"  echo \${JOB_ID};\\n\\n\" >>\"\${file}.sh\";
       printf \"fi;\\n\\n\" >>\"\${file}.sh\";
     fi;
     run_sh \\
-      -n \${ncorespernode} -single \${wait} \\
-      -walltime \${walltime} -starttime \${starttime} -queue \${queue} \\
+      -n \${NCORES_PER_NODE} -single \${wait} \\
+      -walltime \${WALLTIME} -starttime \${START_TIME} -queue \${QUEUE} \\
       -project \${file} -output \${file}.log ./\${file}.sh run;
-    if [ \"\${queue}\" != \"local\" ]; then
-      printf \"  echo \${jobid};\\n\\n\" >>\"\${file}.sh\";
+    if [ \"\${QUEUE}\" != \"local\" ]; then
+      printf \"  echo \${JOB_ID};\\n\\n\" >>\"\${file}.sh\";
       printf \"fi;\\n\\n\" >>\"\${file}.sh\";
     fi;
     run popd;
   else
     run_sh \${wait} \"\$@\";				# direct execution
   fi;
-  for i in \${!jobids[@]}; do
-    if [ \"\${jobids[\$i]}\" == \"-1\" ]; then jobids[\$i]=\${jobid}; fi;
+  for i in \${!JOB_IDS[@]}; do
+    if [ \"\${JOB_IDS[\$i]}\" == \"-1\" ]; then JOB_IDS[\$i]=\${JOB_ID}; fi;
   done;
-  npack[0]=\$(calc \"\${npack[0]}+1\");
-  npack[1]=0;
-  waitids=();
+  NPACK[0]=\$(calc \"\${NPACK[0]}+1\");
+  NPACK[1]=0;
+  WAIT_IDS=();
 }
 
 pack_header() {
@@ -9749,39 +10406,50 @@ pack_header() {
 run_pack() {
   local command=\$1; shift;				# should be -n
   local n=\$1; shift; 					# ncores to run with
-  local file=\"\$(pack_file)\";
   local dir=\"\$(dirname \"\${file}\")\";
+  local line=(-system local);
+  local file;
+
+  if [ \"\${MODULES}\" != \"\" ]; then
+    line+=(-modules \"\${MODULES}\");
+  fi;
 
   if [ \${command} != \"-n\" ]; then
     echo \"panic: first argument of run_pack != '-n'\"; echo; exit;
   fi;
   wait_id;
-  jobids+=(-1);						# future dependence
+  JOB_IDS+=(-1);					# future dependence
 
-  fpack=0;						# set fpack
-  if [ \"\${ncorespernode}\" != \"default\" ]; then
-    if [ \${n} -lt \${ncorespernode} ]; then fpack=1; fi;
+  FLAG_PACK=0;						# set FLAG_PACK
+  if [ \"\${NCORES_PER_NODE}\" != \"default\" ]; then
+    if [ \${n} -lt \${NCORES_PER_NODE} ]; then 
+      FLAG_PACK=1;
+      if [ ! -e \"\${WORKDIR}/\${PACK_DIR}\" ]; then 
+	mkdir -p \"\${WORKDIR}/\${PACK_DIR}\";
+      fi;
+    fi;
   fi;
   
-  if [ \${fpack} == 1 ]; then				# execute packing
+  if [ \${FLAG_PACK} == 1 ]; then			# execute packing
+    file=\"\$(pack_file)\";
     echo \"run_pack.sh -n \$n \$@\"; 
     if [ ! -e \"\${file}.sh\" ]; then pack_header >\"\${file}.sh\"; fi;
     echo >>\"\${file}.sh\";
     echo \"  run cd \\\"\$(pwd)\\\"\" >>\"\${file}.sh\";
-    echo \"  run run.sh -n \$n -system local \$@ &\" >>\"\${file}.sh\";
+    echo \"  run run.sh -n \$n \${line[@]} \$@ &\" >>\"\${file}.sh\";
     echo \"\$(pwd)\" >>\"\${file}.dirs\";
-    npack[1]=\$(calc \"\${npack[1]}+\${n}\");
-    if [ \"\$(calc \"\${npack[1]}+\${n}\")\" -gt \"\${ncorespernode}\" ]; then
+    NPACK[1]=\$(calc \"\${NPACK[1]}+\${n}\");
+    if [ \"\$(calc \"\${NPACK[1]}+\${n}\")\" -gt \"\${NCORES_PER_NODE}\" ]; then
       pack_exec;
     fi;
   else
-    npack[1]=1;						# direct execution
+    NPACK[1]=1;						# direct execution
     pack_exec -n \$n \"\$@\";
   fi;
 }
 
 run_null() {
-  jobids+=(0);						# no dependence
+  JOB_IDS+=(0);						# no dependence
 }
 ");
   }
@@ -9823,7 +10491,7 @@ replace() {
     \$v .= \"}\" if (\$v ne \"\");
     \$r .= (defined(\$h{\$v}) ? \$h{\$v} : \$v);
     print(\$r);
-  \' -- \$@;
+  \' -- \"\$@\";
 }
 ");
 
@@ -9847,6 +10515,7 @@ help() {
   echo \"  -[no]replace\tcontrol replacement of exiting results\";
   echo \"  -skip\t\tset number of entries to skip [\${skip}]\";
   echo \"  -source\tset data source directory [\${source}]\";
+  echo \"  -[no]submit\tcontrol job submission\";
   echo \"  -window\tset averaging window [\${window}]\";
   echo;
   exit;
@@ -9855,6 +10524,7 @@ help() {
 run_init() {
   femc=0;
   fpdb=1;
+  fsubmit=1;
   farchive=$::EMC::Analyze{archive};
   fdata=$::EMC::Analyze{data};
   freplace=$::EMC::Analyze{replace};
@@ -9868,6 +10538,8 @@ run_init() {
       -noarchive) farchive=0;;
       -data) fdata=1;;
       -nodata) fdata=0;;
+      -submit) fsubmit=1;;
+      -nsubmit) fsubmit=0;;
       -emc) femc=1;;
       -noemc) femc=0;;
       -pdb) fpdb=1;;
@@ -9886,15 +10558,15 @@ run_init() {
 run_analyze() {
   local script=\"\$1\"; shift;
 
-  if [ \"\$(basename \${script})\" == \"\${script}\" ]; then
-    if [ -e \"\${root}/scripts/analyze/\${script}\" ]; then
-      script=\"\${root}/scripts/analyze/\${script}\";
-    elif [ -e \"\${root}/scripts/analyze/\${script}.sh\" ]; then
-      script=\"\${root}/scripts/analyze/\${script}.sh\";
-    elif [ -e \"\${home}/chemistry/analyze/\${script}\" ]; then
-      script=\"\${home}/chemistry/analyze/\${script}\";
-    elif [ -e \"\${home}/chemistry/analyze/\${script}.sh\" ]; then
-      script=\"\${home}/chemistry/analyze/\${script}.sh\";".
+  if [ \"\$(basename \${script})\" == \"\${script}\" -a ! -e \"\${script}\" ]; then
+    if [ -e \"\${ROOT}/scripts/analyze/\${script}\" ]; then
+      script=\"\${ROOT}/scripts/analyze/\${script}\";
+    elif [ -e \"\${ROOT}/scripts/analyze/\${script}.sh\" ]; then
+      script=\"\${ROOT}/scripts/analyze/\${script}.sh\";
+    elif [ -e \"\${WORKDIR}/chemistry/analyze/\${script}\" ]; then
+      script=\"\${WORKDIR}/chemistry/analyze/\${script}\";
+    elif [ -e \"\${WORKDIR}/chemistry/analyze/\${script}.sh\" ]; then
+      script=\"\${WORKDIR}/chemistry/analyze/\${script}.sh\";".
 ($::EMC::Analyze{user} ne "" ? "
     if [ -e \"$::EMC::Analyze{user}/\${script}\" ]; then
       script=\"$::EMC::Analyze{user}/\${script}\";
@@ -9909,6 +10581,8 @@ analyze() {
   local dir=\"\$1\"; shift;
   local target=\"\$1\"; shift;
   local archive=\"\$1\"; shift;
+  local main=\$(dirname \"\${dir}\");
+  local home=\$(pwd);
 
 ");
     foreach (sort(keys(%{$::EMC::Analyze{scripts}}))) {
@@ -9917,10 +10591,11 @@ analyze() {
 
       next if (!${$hash}{active});
       
+      my $copy = defined($hash->{options}->{copy}) ? $hash->{options}->{copy}:0;
       my $script = ${$hash}{script};
       my %options = (
 	archive => "\${archive}",
-	dir	=> "\${dir}",
+	dir	=> $copy ? "\${main}" : "\${dir}",
 	replace => "\${freplace}",
 	skip	=> "\${skip}".($key eq "green-kubo" ? "+1" : ""),
 	target	=> "\${target}",
@@ -9931,13 +10606,21 @@ analyze() {
       my $option;
 
       foreach (keys(%{${$hash}{options}})) {
-	$options{$_} = ${${$hash}{options}}{$_};
+	$options{$_} = ${${$hash}{options}}{$_} if ($_ ne "copy");
       }
       foreach (sort(keys(%options))) {
 	$line .= " -$_ \"$options{$_}\"";
       }
       $option = " \\\n  $::EMC::Project{name}";
-      write_job_indent($stream, 1, $lines.$line.$option);
+      if ($copy) {
+	write_job_indent($stream, 1, "if \[ \"\${COPY}\" != \"\" -a \$(calc \${COPY}) == 0 \]; then");
+	write_job_indent($stream, 2, "cd ..;");
+	write_job_indent($stream, 2, $lines.$line.$option);
+	write_job_indent($stream, 2, "cd \${home};");
+	write_job_indent($stream, 1, "fi;");
+      } else {
+	write_job_indent($stream, 1, $lines.$line.$option);
+      }
     }
     printf($stream "}\n");
   }
@@ -9949,11 +10632,12 @@ analyze() {
     my $options = "\n      -project \"$::EMC::Project{directory}$::EMC::Project{name}\" \\";
     my $values = "";
    
-    foreach(@::EMC::LoopVariables) {
+    foreach(@{$::EMC::LoopVariables->{vars}}) {
       my $var = (split(":"))[0];
-      $values .= "\n  local $var=\"\$1\"; shift;";
-      $options .= "\n      -$var \"\${$var}\" \\";
+      $options .= "\n      -$var \"\${".uc($var)."}\" \\";
     }
+   
+    my $lammps = $::EMC::Lammps{write}>1 ? "\n      -lammps=$::EMC::Lammps{version} \\" : "";
     
     printf($stream
 "
@@ -9965,34 +10649,35 @@ run_emc() {
     run mkdir -p \${dir};
   fi;
 
-  if [ -e \${dir}/$::EMC::Project{name}.data -a \${freplace} = 0 ]; then
-    printf \"# $::EMC::Project{name}.data already exists -> skipped\\n\\n\";
+  if [ -e \${dir}/$::EMC::Project{name}.emc.gz -a \${freplace} = 0 ]; then
+    printf \"# $::EMC::Project{name}.emc.gz already exists -> skipped\\n\\n\";
     run_null;
     return;
   fi;
 
   run cd \${dir};
-  run \"\${chemistry}/scripts/$::EMC::Project{script}.sh\" \\$options
+  run \"\${CHEMISTRY}/scripts/$::EMC::Project{script}.sh\" \\$options
     $::EMC::Project{name};
   run \\
-    emc_setup.pl \\
+    emc_setup.pl \\$lammps
+      -preprocess=$preprocess \\
       -project=$::EMC::Project{name} \\
-      -workdir=\${home} \\
+      -workdir=\"\${WORKDIR}\" \\
       -emc_execute=false \\
       $::EMC::Project{name}$::EMC::Script{extension};
   
   if [ \${femc} = 1 ]; then
-    walltime=\${build_walltime};
+    WALLTIME=\${BUILD_WALLTIME};
     run_pack -n 1 \\
-      -walltime \${build_walltime} -starttime \${starttime} -queue \${queue} \\
+      -walltime \${BUILD_WALLTIME} -starttime \${START_TIME} -queue \${QUEUE} \\
       -project $::EMC::Project{name} -output build.out \\
-      emc_\${HOST} -seed=\${seed} build.emc
-    seed=\$(calc \${seed}+1);
+      emc_\${HOST} -seed=\${SEED} build.emc
+    SEED=\$(calc \${SEED}+1);
   else
     run_null;
   fi;
 
-  run cd \"\${home}\";
+  run cd \"\${WORKDIR}\";
   echo;
 }
 ");
@@ -10008,6 +10693,7 @@ help() {
   echo \"  -help\t\tthis message\";
   echo \"  -[no]emc\tcontrol execution of EMC\";
   echo \"  -[no]replace\tcontrol replacement of emc and lammps scripts\";
+  echo \"  -[no]submit\tcontrol job submission\";
   echo;
   exit;
 }
@@ -10016,9 +10702,12 @@ help() {
 run_init() {
   femc=1;
   fbuild=1;
+  fsubmit=1;
   freplace=$::EMC::Build{replace};
   while [ \"\$1\" != \"\" ]; do
     case \"\$1\" in
+      -submit) fsubmit=1;;
+      -nosubmit) fsubmit=0;;
       -emc) femc=1;;
       -noemc) femc=0;;
       -replace) freplace=1;;
@@ -10041,7 +10730,7 @@ run_init() {
       "    restart=\$(first \$(ls -1t $restart_name));\n".
       "    if [ ! -e \"\${restart}\" ]; then\n".
       "      printf \"# $restart_name does not exist -> skipped\\n\\n\";\n".
-      "      run cd \$home;\n".
+      "      run cd \${WORKDIR};\n".
       "      return;\n".
       "    fi;\n".
       "    restart=\"-file \\\"'ls -1td $restart_name'\\\"\";" : "";
@@ -10059,8 +10748,10 @@ help() {
   echo \"  -help\t\tthis message\";
   echo \"  -[no]build\tcontrol inclusion of building initial structures\";
   echo \"  -[no]emc\tcontrol execution of EMC\";
+  echo \"  -[no]error\tcontrol restart mode upon error\";
   echo \"  -[no]replace\tcontrol replacement of emc and lammps scripts\";
   echo \"  -[no]restart\tcontrol restarting already run MD simulations\";
+  echo \"  -[no]submit\tcontrol job submission\";
   echo;
   exit;
 }
@@ -10068,14 +10759,20 @@ help() {
 run_init() {
   fbuild=0;
   femc=1;
-  freplace=$::EMC::Build{replace};
+  fsubmit=1;
+  ferror=$::EMC::Lammps{error};
   fnorestart=$::EMC::Flag{norestart};
+  freplace=$::EMC::Build{replace};
   while [ \"\$1\" != \"\" ]; do
     case \"\$1\" in
       -build) fbuild=1;;
       -nobuild) fbuild=0;;
+      -submit) fsubmit=1;;
+      -nosubmit) fsubmit=0;;
       -emc) femc=1;;
       -noemc) femc=0;;
+      -error) ferror=1;;
+      -noerror) ferror=0;;
       -replace) freplace=1; fnorestart=1;;
       -noreplace) freplace=0; fnorestart=0;;
       -restart) fnorestart=0;;
@@ -10093,7 +10790,8 @@ run_lammps() {
   local dir=\"\$1\"; shift;
   local frestart=\"\$1\"; shift;
   local ncores=\"\$1\"; shift;
-  local output restart wait;
+  local restart_dir=\"".($::EMC::Lammps{restart} ? "$::EMC::Lammps{restart_dir}" : "..")."\";
+  local output restart wait file;
   
   printf \"### \${dir}\\n\\n\";
   if [ ! -e \${dir} ]; then
@@ -10126,17 +10824,28 @@ run_lammps() {
 	return;
       fi;
     else
-      restart=\"-file \'../*/*.restart?\'\";".
+      restart=\"-file \'\${restart_dir}/*/*.restart?\'\";".
       $restart_file."
+      if [ \${ferror} == 1 ]; then
+	if [ -e \"\$(first \${restart_dir}/*/$::EMC::Project{name}.out)\" ]; then
+	  file=\$(first \$(ls -1t \${restart_dir}/*/$::EMC::Project{name}.out));
+	  if [ \"\$(grep ERROR \${file})\" != \"\" ]; then
+	    run_null;
+	    return;
+	  fi;
+	else
+	  frestart=0;
+	fi;
+      fi;
     fi;
   fi;
 
   run cd \${dir};
-  run cp ".($::EMC::Lammps{restart} ? "$::EMC::Lammps{restart_dir}/" : "")."../build/$::EMC::Project{name}.in .;
+  run cp \${restart_dir}/build/$::EMC::Project{name}.in .;
   set -f;
-  walltime=\${run_walltime};
+  WALLTIME=\${RUN_WALLTIME};
   run_pack -n \${ncores} \"\${restart}\" \\
-    -walltime \${run_walltime} -starttime \${starttime} -queue \${queue} \\
+    -walltime \${RUN_WALLTIME} -starttime \${START_TIME} -queue \${QUEUE} \\
     -input $::EMC::Project{name}.in -output $::EMC::Project{name}.out \\
     -project $::EMC::Project{name} \\
       lmp_\${HOST} -nocite \\
@@ -10144,47 +10853,67 @@ run_lammps() {
 	$run_line.$shear_line."
 	-var frestart \${frestart} \\
 	-var restart \@FILE \\
-	-var lseed \$(substr \${seed} -8) \\
-	-var vseed \$(substr \$(calc \"\${seed}+1\") -8);
+	-var lseed \$(substr \${SEED} -8) \\
+	-var vseed \$(substr \$(calc \"\${SEED}+1\") -8);
   set +f;
 
-  seed=\$(calc \${seed}+2);
-  run cd \"\${home}\";
+  SEED=\$(calc \${SEED}+2);
+  run cd \"\${WORKDIR}\";
   echo;
 }
 ");
   }
 
+  write_job_permutations($stream, $type);
+  write_job_replace_vars($stream, $type);
+
   # TEST
 
   if ($type eq "test") {
-    my $replace;
+    my $dim = 1;
+    my $fpair = 0;
+    my $first = 1;
     my $options = "\n    -project \"$::EMC::Project{directory}$::EMC::Project{name}\" \\";
-   
+  
     printf($stream "\n# functions\n\n");
-    printf($stream "run() {\n  echo \"\$@\"; \$@; }\n\n");
-    printf($stream "submit() {\n");
-    foreach (@::EMC::LoopVariables) {
-      my $var = (split(":"))[0];
+    printf($stream "run() {\n  echo \"\$@\"; \"\$@\"; }\n\n");
+    printf($stream "submit() {\n  local values=();\n");
+    foreach (@{$::EMC::LoopVariables->{active}}) {
+      my @v = (split(":"));
+      my $fpair =
+	@v[1] eq "p" || @v[1] eq "pair" ||
+	@v[1] eq "h" || @v[1] eq "hide" ? 1 : 0;
       my @a = split(":", @{$::EMC::Loop{$_}}[0]);
       my $value = @a[0] eq "s" || @a[0] eq "seq" ? @a[1] : @a[0];
-      $options .= "\n    -$var \"\${$var}\" \\";
-      if ($replace ne "") {
-	printf($stream 
-	  "  local $var=\"\$(replace \"$value\" $replace)\";\n");
-	$replace .= " ";
-      } else {
-	printf($stream 
-	  "  local $var=\"$value\";\n");
+
+      $value = "00" if (@v[0] eq "copy"); 
+
+      $dim =
+	@v[1] eq "2" || @v[1] eq "3" || @v[1] eq "4" ? @v[1] : 
+	$fpair ? $dim : 1;
+
+      for (my $i=1; $i<=$dim; ++$i) {
+	my $var = $dim>1 ? @v[0]."_".$i : @v[0];
+
+	$options .= "\n    -$var \"\${$var}\" \\";
+	if ($first) {
+	  printf($stream "  local $var=\"$value\"; ");
+	  $first = 0;
+	} else {
+	  printf($stream 
+	    "  local $var=\"\$(replace_vars '$value' \"\${values[\@]}\")\"; ");
+	}
+	printf($stream "values+=(\"\$$var\");\n");
       }
-      $replace .= "@\{".uc($var)."} \"\$$var\"";
     }
+    my $lammps = $::EMC::Lammps{write}>1 ? "\n    -lammps=$::EMC::Lammps{version} \\" : "";
     printf($stream "
-  run \"\${chemistry}/scripts/$::EMC::Project{script}.sh\" \\$options
+  run \"\${CHEMISTRY}/scripts/$::EMC::Project{script}.sh\" \\$options
     $::EMC::Project{name};
-  run emc_setup.pl \\
+  run emc_setup.pl \\$lammps
+    -preprocess=$preprocess \\
     -project=$::EMC::Project{name} \\
-    -workdir=\${home} \\
+    -workdir=\"\${WORKDIR}\" \\
     $::EMC::Project{name}$::EMC::Script{extension};
 }\n\n");
   }
@@ -10197,9 +10926,9 @@ sub write_job_submit {
   my @loop_variables;
   my @loop_values;
 
-  foreach (@::EMC::LoopVariables) { 
+  foreach (@{$::EMC::LoopVariables->{active}}) { 
     push(@loop_variables, (split(":"))[0]);
-    push(@loop_values, "\${".(split(":"))[0]."}");
+    push(@loop_values, "\${".uc((split(":"))[0])."}");
   }
 
   if ($type eq "analyze") {
@@ -10207,7 +10936,7 @@ sub write_job_submit {
     # ANALYZE
 
     write_job_func($stream, $type,
-"dir=\"data".write_job_dir(@::EMC::LoopVariables)."\";
+"dir=\"data".write_job_dir(@{$::EMC::LoopVariables->{expand}})."\";
 printf \"# \${dir}\\n\\n\";
 if [ ! -e \"\${dir}\" ]; then
   printf \"# no such directory -> skipped\\n\\n\";
@@ -10221,27 +10950,26 @@ if [ -e \"build/$::EMC::Project{name}.params\" ]; then
     cp -p \"build/$::EMC::Project{name}.params\" \"\${target}/\${dir}/build\";
   fi;
 fi;
-run cd \"\${home}\";
+run cd \"\${WORKDIR}\";
 echo;
 "); 
 
   } elsif ($type eq "build") {
 
     # BUILD
- 
+
     write_job_func($stream, $type,
-      "run_emc \\\n".
-      "  data".write_job_dir(@::EMC::LoopVariables)."/build \\\n".
-      "  @loop_values;");
+      "dir=\"data".write_job_dir(@{$::EMC::LoopVariables->{expand}})."\";\n".
+      "run_emc \"\${dir}/build\";");
   
   } elsif ($type eq "run") {
 
     # RUN
 
     write_job_func($stream, $type,
-"serial=0;
+"dir=\"data".write_job_dir(@{$::EMC::LoopVariables->{expand}})."\";
+serial=0;
 frestart=0;
-dir=data".write_job_dir(@::EMC::LoopVariables).";
 
 restart=\"\$(first \$dir/*/*.restart?)\";
 if [ \${fnorestart} != 1 -a -e \"\${restart}\" ]; then
@@ -10252,15 +10980,14 @@ fi;
 
 case \$ichoice in 
   0)  if [ \${frestart} != 1 ]; then
-	run_emc \\
-	  \${dir}/build @loop_values;
+	run_emc \"\${dir}/build\";
       else
 	run_null;
       fi;;
   1)  serial=\$(calc \"\${serial}+\${iserial}\");
       if [ \${iserial} -gt 0 ]; then frestart=1; fi;
       run_lammps \\
-	\"\${dir}/\$(zero 2 \${serial})\" \${frestart} \${ncores};;
+	\"\${dir}/\$(zero 2 \${serial})\" \${frestart} \${NCORES};;
 esac
 ");
   } elsif ($type eq "test") {
@@ -10315,7 +11042,7 @@ sub write_job_footer {
     run tar -zvcf \${data} -T \${select};
   fi;
   rm -f \${files};
-  cd \"\${home}\";
+  cd \"\${WORKDIR}\";
 }\n
 ");
     $header =" 
@@ -10326,11 +11053,11 @@ sub write_job_footer {
   mkdir -p exchange/data;
   data=exchange/data/\$(basename \${files}).tgz;
   
-  target=\"\${home}\";
+  target=\"\${WORKDIR}\";
   if [ \"\${source}\" != \"\" ]; then
-    data=\"\${home}/\${data}\";
+    data=\"\${WORKDIR}/\${data}\";
     cd \"\${source}\";
-    home=\"\$(pwd)\";
+    WORKDIR=\"\$(pwd)\";
   fi;
   
   cutoff=$::EMC::CutOff{pair};
@@ -10344,9 +11071,9 @@ sub write_job_footer {
 "# main
 $host
   cd \"$::EMC::WorkDir\";
-  root=\"\$(dirname \$(which emc_\${HOST}))/..\";
-  home=\"\$(pwd)\";
-  chemistry=\"\${home}/chemistry\";
+  ROOT=\"\$(dirname \$(which emc_\${HOST}))/..\";
+  WORKDIR=\"\$(pwd)\";
+  CHEMISTRY=\"\${WORKDIR}/chemistry\";
   cd \"test/$::EMC::RunName{$type}\";
 
   submit;
@@ -10354,7 +11081,7 @@ $host
     return;
   }
 
-  $trailer = "\n  stage=generic;" if (!defined($::EMC::Loop{stage}));
+  $trailer = "\n  STAGE=generic;" if (!defined($::EMC::Loop{stage}));
   
   $host = "\n  HOST=\"$::EMC::ENV{host}\";" if ($::EMC::ENV{host} ne "");
 
@@ -10370,49 +11097,47 @@ $host
     }
   }
 
+  $trailer .= "\n  MODULES=\"".join(",", @::EMC::Modules)."\";";
+
   printf($stream "%s",
 "# main
 $host
-  root=\"\$(dirname \$(which emc_\${HOST}))/..\";
+  ROOT=\"\$(dirname \$(which emc_\${HOST}))/..\";
 
   cd \"$::EMC::WorkDir\";
-  home=\"$::EMC::WorkDir\";
-  log=\"\${home}/$type/\$(basename \$0 .sh).log\";
-  chemistry=\"\${home}/chemistry\";
+  WORKDIR=\"$::EMC::WorkDir\";
+  LOG_FILE=\"\${WORKDIR}/$type/\$(basename \$0 .sh).log\";
+  CHEMISTRY=\"\${WORKDIR}/chemistry\";
 $header
-  queue=$::EMC::Queue{$type};
-  queue_account=\"".queue_entry($::EMC::Queue{account})."\";
-  queue_user=\"".queue_entry($::EMC::Queue{user})."\";
-  starttime=\"now\";
+  QUEUE=$::EMC::Queue{$type};
+  QUEUE_ACCOUNT=\"".queue_entry($::EMC::Queue{account})."\";
+  QUEUE_USER=\"".queue_entry($::EMC::Queue{user})."\";
+  START_TIME=\"now\";
 ".($type eq "analyze" ? "
-  walltime=$::EMC::RunTime{analyze};" : "
-  build_walltime=$::EMC::RunTime{build};
-  run_walltime=$::EMC::RunTime{run};")."
-  seed=\$(date +%s);
-  ncorespernode=$::EMC::Queue{ppn};
-  memorypercore=$::EMC::Queue{memory};
-  ncores=".($type eq "run" ? $::EMC::Queue{ncores} : 1).";$trailer
+  WALLTIME=$::EMC::RunTime{analyze};" : "
+  BUILD_WALLTIME=$::EMC::RunTime{build};
+  RUN_WALLTIME=$::EMC::RunTime{run};")."
+  SEED=\$(date +%s);
+  NCORES_PER_NODE=$::EMC::Queue{ppn};
+  MEMORY_PER_CORE=$::EMC::Queue{memory};
+  NCORES=".($type eq "run" ? $::EMC::Queue{ncores} : 1).";$trailer
 
-  fpack=0;
-  waitids=();
-  npack=(0 0);
-  if [ \${ncorespernode} != \"default\" ]; then
-    if [ \${ncores} -lt \${ncorespernode} ]; then fpack=1;
-    elif [ \${fbuild} == 1 -a \${femc} == 1 ]; then fpack=1; fi
-    if [ \${fpack} = 1 ]; then
-      pack_dir=\"$type/\$(basename \${script} .sh)\";
-      if [ -e \"\${pack_dir}\" ]; then run_check \${pack_dir}; fi;
-      mkdir -p \${pack_dir};
-    fi;
-  fi;
+  FLAG_PACK=0;
+  WAIT_IDS=();
+  NPACK=(0 0);
+  PACK_DIR=\"$type/\$(basename \${script} .sh)\";
+  if [ -e \"\${PACK_DIR}\" ]; then run_check \${PACK_DIR}; fi;
 
 ");
 
-  foreach (@::EMC::LoopVariables) {
-    printf($stream "  ".(split(":"))[0]."s=(".join(" ", @{$::EMC::Loop{$_}}).");\n")
+  foreach (@{$::EMC::LoopVariables->{active}}) {
+    my @vars;
+    foreach (@{$::EMC::Loop{$_}}) { push(@vars, split(", ", $_)); }
+    @vars = map({"'$_'"} @vars);
+    printf($stream "  ".uc((split(":"))[0])."s=(".join(" ", @vars).");\n")
   }
   
-  printf($stream "\n  submit 2>&1 | tee \"\${log}\";\n");
+  printf($stream "\n  submit 2>&1 | tee \"\${LOG_FILE}\";\n");
   printf($stream "\n  archive;\n") if ($type eq "analyze");
   printf($stream "\n");
 }
@@ -10428,7 +11153,7 @@ sub write_job_create {
   my $cases;
   my $loops;
 
-  foreach (@::EMC::LoopVariables) {			# loop vars
+  foreach (@{$::EMC::LoopVariables->{vars}}) {	# loop vars
     next if ($_ eq "trial");
     next if ($_ eq "stage");
     my $var = (split(":"))[0];
@@ -10442,7 +11167,7 @@ sub write_job_create {
       
       $replacements .= 
 	"\n  replace \"\@".uc(shift(@var))."\" \"".
-	join(", ", @var)."\";";
+	join(" ", @var)."\";";
     }
     $replacements .= $loops;
   } elsif (!$::EMC::Flag{expert}) {
@@ -10523,7 +11248,7 @@ replace() {
   home=\$(pwd);
   project=\"$::EMC::Project{directory}$::EMC::Project{name}\";
   cd \$(dirname \$0)/$root;
-  init \$@;
+  init \"\$@\";
   create;
 ");
 }
@@ -10532,9 +11257,11 @@ replace() {
 # field file
 
 sub write_field {
+
   return if (!$::EMC::Field{write});
 
   my $name = shift(@_);
+  my %allowed = (dpd => 1, gauss => 1);
 
   if ((-e "$name.prm")&&!$::EMC::Replace{flag}) {
     warning("\"$name.prm\" exists; use -replace flag to overwrite\n");
@@ -10548,7 +11275,7 @@ sub write_field {
     return;
   }
 
-  return if (!($::EMC::Parameters{flag} && $::EMC::Field{type} eq "dpd"));
+  return if (!($::EMC::Parameters{flag} && defined($allowed{$::EMC::Field{type}})));
 
   my $stream = fopen("$name.prm", "w");
 
@@ -10564,12 +11291,18 @@ sub write_field {
 
 sub write_field_header {
   my $stream = shift(@_);
-  my $date = date;
-  chop($date);
+  my $date = date; chop($date);
+  my $t = Time::Piece::localtime();
+  my $dpd = $::EMC::Field{type} eq "dpd" ? 1 : 0; 
+  my $gauss = $::EMC::Field{type} eq "gauss" ? 1 : 0; 
+  my $extra =
+    $dpd ?  "\nGAMMA\t\t$::EMC::PairConstants{gamma}" : 
+    $gauss ? "\nDIAMETER\t$::EMC::PairConstants{d}".
+	     "\nR0\t\t$::EMC::PairConstants{r0}" : "";
 
   printf($stream
 "#
-#  DPD interaction parameters
+#  ".uc($::EMC::Field{type})." interaction parameters
 #  to be used in conjuction with EMC v$::EMC::EMCVersion or higher
 #  created by $::EMC::Script v$::EMC::Version, $::EMC::Date
 #  on $date
@@ -10579,21 +11312,20 @@ sub write_field_header {
 
 ITEM	DEFINE
 
-FFMODE	DPD
-FFTYPE	COARSE
-VERSION	V$::EMC::Version
-CREATED	".`date +%d-%m-%Y`.
-"MIX	NONE
-DENSITY	REDUCED
-ENERGY	REDUCED
-LENGTH	REDUCED
-NBONDED	$::EMC::FieldFlag{nbonded}
-CUTOFF	$::EMC::PairConstants{r}
-GAMMA	$::EMC::PairConstants{gamma}
-DEFAULT	$::EMC::PairConstants{a}
-ANGLE	".(%::EMC::Angles ? "WARN" : "IGNORE")."
-TORSION	".(%::EMC::Torsions ? "WARN" : "IGNORE")."
-IMPROP	".(%::EMC::Impropers ? "WARN" : "IGNORE")."
+FFMODE		".uc($::EMC::Field{type})."
+FFTYPE		COARSE
+VERSION		V$::EMC::Version
+CREATED		".$t->dmy()."
+MIX		NONE
+DENSITY		REDUCED
+ENERGY		REDUCED
+LENGTH		REDUCED
+NBONDED		$::EMC::FieldFlag{nbonded}
+CUTOFF		$::EMC::PairConstants{cutoff}
+DEFAULT		$::EMC::PairConstants{a}".$extra."
+ANGLE		".(%::EMC::Angles ? "WARN" : "IGNORE")."
+TORSION		".(%::EMC::Torsions ? "WARN" : "IGNORE")."
+IMPROP		".(%::EMC::Impropers ? "WARN" : "IGNORE")."
 
 ITEM	END
 
@@ -10687,7 +11419,10 @@ sub write_field_item {
     nonbond => \%::EMC::Nonbonds, bond => \%::EMC::Bonds, angle => \%::EMC::Angles,
     torsion => \%::EMC::Torsions, improper => \%::EMC::Impropers);
   my %header = (
-    nonbond => "type1\ttype2\ta\tcutoff\tgamma",
+    nonbond => "type1\ttype2\t".(
+      $::EMC::Field{type} eq "dpd" ? "a\tcutoff\tgamma" :
+      $::EMC::Field{type} eq "gauss" ? "a\td\tr0\tcutoff" : "epsilon\tsigma"
+    ),
     bond => "type1\ttype2\tk\tl0",
     angle => "type1\ttype2\ttype3\tk\ttheta0",
     torsion => "type1\ttype2\ttype3\ttype4\tk\tn\tdelta\t[...]",

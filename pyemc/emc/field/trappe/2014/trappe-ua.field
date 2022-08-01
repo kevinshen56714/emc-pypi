@@ -1,6 +1,6 @@
-(*EMC: Field *)
+(* EMC: Field *)
 
-(*EMC v9.4.4, build May 28 2021 09:12:33, date Tue Jun  1 07:46:09 2021 *)
+(* EMC v9.4.4, build Nov  4 2021 19:39:59, date Sun Nov 14 10:42:14 2021 *)
 
 (* Flags *)
 
@@ -117,9 +117,9 @@ index = {type -> ?,
 rules = {
   {id -> 0, type -> ?, reference -> 1, element -> "Dm"}, 
   {id -> 1, type -> ar, reference -> 2, element -> "Ar"}, 
-  {id -> 2, type -> ba+2, reference -> 167, charge -> 2, element -> "Ba", test
+  {id -> 2, type -> ba+2, reference -> 162, charge -> 2, element -> "Ba", test
     -> {charge -> 2}}, 
-  {id -> 3, type -> br-, reference -> 157, charge -> -1, element -> "Br", test
+  {id -> 3, type -> br-, reference -> 152, charge -> -1, element -> "Br", test
     -> {charge -> -1}}, 
   {id -> 4, type -> c1n, reference -> 95, element -> "C", 
     connect -> {
@@ -165,7 +165,7 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "N", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> double}}}}}, 
-  {id -> 15, type -> c3mo, reference -> 109, element -> "C", 
+  {id -> 15, type -> c3mo, reference -> 104, element -> "C", 
     connect -> {
       {element -> "N", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -174,7 +174,7 @@ rules = {
           {element -> "C", test -> {flag -> {bond -> single}}}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> double}}}}}, 
-  {id -> 13, type -> c3mo, reference -> 108, element -> "C", 
+  {id -> 13, type -> c3mo, reference -> 103, element -> "C", 
     connect -> {
       {element -> "N", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -183,7 +183,7 @@ rules = {
           {element -> "H", test -> {flag -> {bond -> single}}}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> double}}}}}, 
-  {id -> 14, type -> c3mo, reference -> 109, element -> "C", 
+  {id -> 14, type -> c3mo, reference -> 104, element -> "C", 
     connect -> {
       {element -> "N", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -191,7 +191,7 @@ rules = {
           {element -> "C", test -> {flag -> {bond -> single}}}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> double}}}}}, 
-  {id -> 12, type -> c3mo, reference -> 108, element -> "C", 
+  {id -> 12, type -> c3mo, reference -> 103, element -> "C", 
     connect -> {
       {element -> "N", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -252,7 +252,7 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 30, type -> c4, reference -> 115, element -> "C", 
+  {id -> 29, type -> c4, reference -> 110, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -264,17 +264,6 @@ rules = {
               {element -> "O", test -> {flag -> {bond -> double}}}, 
               {element -> "O", test -> {flag -> {bond -> single}}}}}, 
           {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 29, type -> c4, reference -> 98, element -> "C", 
-    connect -> {
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "N", test -> {flag -> {bond -> single}}, 
-        connect -> {
-          {element -> "C", test -> {flag -> {bond -> single}}, 
-            connect -> 
-            {element -> "O", test -> {flag -> {bond -> double}}}}, 
-          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
   {id -> 24, type -> c4, reference -> 66, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -322,6 +311,14 @@ rules = {
           connect -> {
             {element -> "C", test -> {flag -> {bond -> single}}}, 
             {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
+  {id -> 31, type -> c4, reference -> 125, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
   {id -> 32, type -> c4, reference -> 130, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -329,37 +326,29 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "S", test -> {flag -> {bond -> single}}, 
         connect -> 
-        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
+        {element -> "S", test -> {flag -> {bond -> single}}}}}}, 
+  {id -> 30, type -> c4, reference -> 119, element -> "C", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "S", test -> {flag -> {bond -> single}}, 
+        connect -> 
+        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
   {id -> 33, type -> c4, reference -> 135, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "S", test -> {flag -> {bond -> single}}, 
-        connect -> 
-        {element -> "S", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 31, type -> c4, reference -> 124, element -> "C", 
-    connect -> {
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "S", test -> {flag -> {bond -> single}}, 
-        connect -> 
-        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 34, type -> c4, reference -> 140, element -> "C", 
-    connect -> {
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "Si", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 43, type -> c4h, reference -> 92, element -> "C", 
+  {id -> 42, type -> c4h, reference -> 92, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "N", test -> {flag -> {bond -> triple}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 38, type -> c4h, reference -> 60, element -> "C", 
+  {id -> 37, type -> c4h, reference -> 60, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -367,19 +356,19 @@ rules = {
           {element -> "*", test -> {flag -> {bond -> single}}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 37, type -> c4h, reference -> 56, element -> "C", 
+  {id -> 36, type -> c4h, reference -> 56, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "O", test -> {flag -> {bond -> double}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 35, type -> c4h, reference -> 10, element -> "C", 
+  {id -> 34, type -> c4h, reference -> 10, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 45, type -> c4h, reference -> 116, element -> "C", 
+  {id -> 43, type -> c4h, reference -> 111, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -390,17 +379,7 @@ rules = {
               {element -> "O", test -> {flag -> {bond -> double}}}, 
               {element -> "O", test -> {flag -> {bond -> single}}}}}, 
           {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 44, type -> c4h, reference -> 99, element -> "C", 
-    connect -> {
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "N", test -> {flag -> {bond -> single}}, 
-        connect -> {
-          {element -> "C", test -> {flag -> {bond -> single}}, 
-            connect -> 
-            {element -> "O", test -> {flag -> {bond -> double}}}}, 
-          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 39, type -> c4h, reference -> 67, element -> "C", 
+  {id -> 38, type -> c4h, reference -> 67, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -408,7 +387,7 @@ rules = {
         connect -> {
           {element -> "C", test -> {flag -> {bond -> single}}}, 
           {element -> "C", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 40, type -> c4h, reference -> 71, element -> "C", 
+  {id -> 39, type -> c4h, reference -> 71, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -416,7 +395,7 @@ rules = {
         connect -> {
           {element -> "C", test -> {flag -> {bond -> single}}}, 
           {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 42, type -> c4h, reference -> 86, element -> "C", 
+  {id -> 41, type -> c4h, reference -> 86, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -424,7 +403,7 @@ rules = {
         connect -> {
           {element -> "O", test -> {flag -> {bond -> partial}}}, 
           {element -> "O", test -> {flag -> {bond -> partial}}}}}}}, 
-  {id -> 41, type -> c4h, reference -> 75, element -> "C", 
+  {id -> 40, type -> c4h, reference -> 75, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -432,7 +411,7 @@ rules = {
         connect -> {
           {element -> "H", test -> {flag -> {bond -> single}}}, 
           {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 36, type -> c4h, reference -> 46, element -> "C", 
+  {id -> 35, type -> c4h, reference -> 46, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -442,62 +421,62 @@ rules = {
           connect -> {
             {element -> "C", test -> {flag -> {bond -> single}}}, 
             {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
-  {id -> 47, type -> c4h, reference -> 131, element -> "C", 
+  {id -> 45, type -> c4h, reference -> 126, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "S", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 48, type -> c4h, reference -> 136, element -> "C", 
+  {id -> 46, type -> c4h, reference -> 131, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "S", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "S", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 46, type -> c4h, reference -> 125, element -> "C", 
+  {id -> 44, type -> c4h, reference -> 120, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "S", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 49, type -> c4h, reference -> 141, element -> "C", 
+  {id -> 47, type -> c4h, reference -> 136, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "Si", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 51, type -> c4h2, reference -> 17, element -> "C", 
+  {id -> 49, type -> c4h2, reference -> 17, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single, aromatic ->
             include}}}, 
       {element -> "C", test -> {flag -> {bond -> single, aromatic ->
             include}}}}}, 
-  {id -> 63, type -> c4h2, reference -> 93, element -> "C", 
+  {id -> 61, type -> c4h2, reference -> 93, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "N", test -> {flag -> {bond -> triple}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 58, type -> c4h2, reference -> 61, element -> "C", 
+  {id -> 56, type -> c4h2, reference -> 61, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> {
           {element -> "O", test -> {flag -> {bond -> double}}}, 
           {element -> "*", test -> {flag -> {bond -> single}}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 57, type -> c4h2, reference -> 57, element -> "C", 
+  {id -> 55, type -> c4h2, reference -> 57, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "O", test -> {flag -> {bond -> double}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 50, type -> c4h2, reference -> 11, element -> "C", 
+  {id -> 48, type -> c4h2, reference -> 11, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 67, type -> c4h2, reference -> 117, element -> "C", 
+  {id -> 64, type -> c4h2, reference -> 112, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "N", test -> {flag -> {bond -> single}}, 
@@ -507,44 +486,35 @@ rules = {
               {element -> "O", test -> {flag -> {bond -> double}}}, 
               {element -> "O", test -> {flag -> {bond -> single}}}}}, 
           {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 64, type -> c4h2, reference -> 100, element -> "C", 
-    connect -> {
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "N", test -> {flag -> {bond -> single}}, 
-        connect -> {
-          {element -> "C", test -> {flag -> {bond -> single}}, 
-            connect -> 
-            {element -> "O", test -> {flag -> {bond -> double}}}}, 
-          {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 59, type -> c4h2, reference -> 68, element -> "C", 
+  {id -> 57, type -> c4h2, reference -> 68, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "N", test -> {flag -> {bond -> single}}, 
         connect -> {
           {element -> "C", test -> {flag -> {bond -> single}}}, 
           {element -> "C", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 60, type -> c4h2, reference -> 72, element -> "C", 
+  {id -> 58, type -> c4h2, reference -> 72, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "N", test -> {flag -> {bond -> single}}, 
         connect -> {
           {element -> "C", test -> {flag -> {bond -> single}}}, 
           {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 62, type -> c4h2, reference -> 87, element -> "C", 
+  {id -> 60, type -> c4h2, reference -> 87, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "N", test -> {flag -> {bond -> single}}, 
         connect -> {
           {element -> "O", test -> {flag -> {bond -> partial}}}, 
           {element -> "O", test -> {flag -> {bond -> partial}}}}}}}, 
-  {id -> 61, type -> c4h2, reference -> 76, element -> "C", 
+  {id -> 59, type -> c4h2, reference -> 76, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "N", test -> {flag -> {bond -> single}}, 
         connect -> {
           {element -> "H", test -> {flag -> {bond -> single}}}, 
           {element -> "H", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 56, type -> c4h2, reference -> 47, element -> "C", 
+  {id -> 54, type -> c4h2, reference -> 47, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}, 
@@ -553,7 +523,7 @@ rules = {
           connect -> {
             {element -> "C", test -> {flag -> {bond -> single}}}, 
             {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
-  {id -> 66, type -> c4h2, reference -> 106, element -> "C", 
+  {id -> 63, type -> c4h2, reference -> 101, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}, 
@@ -566,7 +536,7 @@ rules = {
                       include}}}, 
                 {element -> "*", test -> {flag -> {bond -> single}}}}}, 
             {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
-  {id -> 65, type -> c4h2, reference -> 106, element -> "C", 
+  {id -> 62, type -> c4h2, reference -> 101, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}, 
@@ -578,68 +548,68 @@ rules = {
                 {element -> "C", test -> {flag -> {bond -> single}}}, 
                 {element -> "*", test -> {flag -> {bond -> single}}}}}, 
             {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
-  {id -> 53, type -> c4h2, reference -> 36, element -> "C", 
+  {id -> 51, type -> c4h2, reference -> 36, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 52, type -> c4h2, reference -> 26, element -> "C", 
+  {id -> 50, type -> c4h2, reference -> 26, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 54, type -> c4h2, reference -> 36, element -> "C", 
+  {id -> 52, type -> c4h2, reference -> 36, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 69, type -> c4h2, reference -> 132, element -> "C", 
+  {id -> 66, type -> c4h2, reference -> 127, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "S", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 70, type -> c4h2, reference -> 137, element -> "C", 
+  {id -> 67, type -> c4h2, reference -> 132, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "S", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "S", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 68, type -> c4h2, reference -> 126, element -> "C", 
+  {id -> 65, type -> c4h2, reference -> 121, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "S", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 71, type -> c4h2, reference -> 142, element -> "C", 
+  {id -> 68, type -> c4h2, reference -> 137, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "Si", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 55, type -> c4h2, reference -> 38, element -> "C", 
+  {id -> 53, type -> c4h2, reference -> 38, element -> "C", 
     connect -> {
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 82, type -> c4h3, reference -> 94, element -> "C", 
+  {id -> 79, type -> c4h3, reference -> 94, element -> "C", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "N", test -> {flag -> {bond -> triple}}}}}, 
-  {id -> 77, type -> c4h3, reference -> 62, element -> "C", 
+  {id -> 74, type -> c4h3, reference -> 62, element -> "C", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> single}}, 
       connect -> {
         {element -> "O", test -> {flag -> {bond -> double}}}, 
         {element -> "*", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 76, type -> c4h3, reference -> 58, element -> "C", 
+  {id -> 73, type -> c4h3, reference -> 58, element -> "C", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "O", test -> {flag -> {bond -> double}}}}}, 
-  {id -> 72, type -> c4h3, reference -> 12, element -> "C", 
+  {id -> 69, type -> c4h3, reference -> 12, element -> "C", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> single}}}}, 
-  {id -> 84, type -> c4h3, reference -> 118, element -> "C", 
+  {id -> 80, type -> c4h3, reference -> 113, element -> "C", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
@@ -648,39 +618,31 @@ rules = {
             {element -> "O", test -> {flag -> {bond -> double}}}, 
             {element -> "O", test -> {flag -> {bond -> single}}}}}, 
         {element -> "*", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 83, type -> c4h3, reference -> 101, element -> "C", 
-    connect -> 
-    {element -> "N", test -> {flag -> {bond -> single}}, 
-      connect -> {
-        {element -> "C", test -> {flag -> {bond -> single}}, 
-          connect -> 
-          {element -> "O", test -> {flag -> {bond -> double}}}}, 
-        {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 78, type -> c4h3, reference -> 69, element -> "C", 
+  {id -> 75, type -> c4h3, reference -> 69, element -> "C", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single}}}, 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 79, type -> c4h3, reference -> 73, element -> "C", 
+  {id -> 76, type -> c4h3, reference -> 73, element -> "C", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single}}}, 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 81, type -> c4h3, reference -> 88, element -> "C", 
+  {id -> 78, type -> c4h3, reference -> 88, element -> "C", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
         {element -> "O", test -> {flag -> {bond -> partial}}}, 
         {element -> "O", test -> {flag -> {bond -> partial}}}}}}, 
-  {id -> 80, type -> c4h3, reference -> 77, element -> "C", 
+  {id -> 77, type -> c4h3, reference -> 77, element -> "C", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
         {element -> "H", test -> {flag -> {bond -> single}}}, 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 75, type -> c4h3, reference -> 48, element -> "C", 
+  {id -> 72, type -> c4h3, reference -> 48, element -> "C", 
     connect -> 
     {element -> "O", test -> {flag -> {bond -> single}}, 
       connect -> 
@@ -688,50 +650,50 @@ rules = {
         connect -> {
           {element -> "C", test -> {flag -> {bond -> single}}}, 
           {element -> "O", test -> {flag -> {bond -> double}}}}}}}, 
-  {id -> 74, type -> c4h3, reference -> 37, element -> "C", 
+  {id -> 71, type -> c4h3, reference -> 37, element -> "C", 
     connect -> 
     {element -> "O", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 73, type -> c4h3, reference -> 27, element -> "C", 
+  {id -> 70, type -> c4h3, reference -> 27, element -> "C", 
     connect -> 
     {element -> "O", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 86, type -> c4h3, reference -> 133, element -> "C", 
+  {id -> 82, type -> c4h3, reference -> 128, element -> "C", 
     connect -> 
     {element -> "S", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 87, type -> c4h3, reference -> 138, element -> "C", 
+  {id -> 83, type -> c4h3, reference -> 133, element -> "C", 
     connect -> 
     {element -> "S", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "S", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 85, type -> c4h3, reference -> 127, element -> "C", 
+  {id -> 81, type -> c4h3, reference -> 122, element -> "C", 
     connect -> 
     {element -> "S", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 88, type -> c4h3, reference -> 143, element -> "C", 
+  {id -> 84, type -> c4h3, reference -> 138, element -> "C", 
     connect -> 
     {element -> "Si", test -> {flag -> {bond -> single}}}}, 
-  {id -> 89, type -> c4h4, reference -> 13, element -> "C"}, 
-  {id -> 91, type -> c4ho, reference -> 35, element -> "C", 
+  {id -> 85, type -> c4h4, reference -> 13, element -> "C"}, 
+  {id -> 87, type -> c4ho, reference -> 35, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 90, type -> c4ho, reference -> 25, element -> "C", 
+  {id -> 86, type -> c4ho, reference -> 25, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 93, type -> c4o, reference -> 34, element -> "C", 
+  {id -> 89, type -> c4o, reference -> 34, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -739,7 +701,7 @@ rules = {
       {element -> "O", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 92, type -> c4o, reference -> 24, element -> "C", 
+  {id -> 88, type -> c4o, reference -> 24, element -> "C", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
@@ -747,15 +709,15 @@ rules = {
       {element -> "O", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 94, type -> c4oe, reference -> 33, element -> "C", test -> {flag -> {
+  {id -> 90, type -> c4oe, reference -> 33, element -> "C", test -> {flag -> {
         ring -> any}}, 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "O", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 95, type -> ca+2, reference -> 165, charge -> 2, element -> "Ca", 
+  {id -> 91, type -> ca+2, reference -> 160, charge -> 2, element -> "Ca", 
     test -> {charge -> 2}}, 
-  {id -> 96, type -> cac, reference -> 18, element -> "C", test -> {flag -> {
+  {id -> 92, type -> cac, reference -> 18, element -> "C", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
@@ -763,8 +725,8 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 100, type -> cac, reference -> 114, element -> "C", test -> {flag ->
-      {ring -> any, aromatic -> include}}, 
+  {id -> 96, type -> cac, reference -> 109, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -777,7 +739,7 @@ rules = {
               {element -> "O", test -> {flag -> {bond -> double}}}, 
               {element -> "O", test -> {flag -> {bond -> single}}}}}, 
           {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 99, type -> cac, reference -> 78, element -> "C", test -> {flag -> {
+  {id -> 95, type -> cac, reference -> 78, element -> "C", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
@@ -785,7 +747,7 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "N", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 98, type -> cac, reference -> 49, element -> "C", test -> {flag -> {
+  {id -> 94, type -> cac, reference -> 49, element -> "C", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
@@ -798,7 +760,7 @@ rules = {
           connect -> {
             {element -> "C", test -> {flag -> {bond -> single}}}, 
             {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
-  {id -> 97, type -> cac, reference -> 39, element -> "C", test -> {flag -> {
+  {id -> 93, type -> cac, reference -> 39, element -> "C", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
@@ -806,8 +768,8 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 101, type -> caca, reference -> 19, element -> "C", test -> {flag ->
-      {ring -> any, aromatic -> include}}, 
+  {id -> 97, type -> caca, reference -> 19, element -> "C", test -> {flag -> {
+        ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -815,14 +777,14 @@ rules = {
             include}}}, 
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
-  {id -> 102, type -> cah, reference -> 20, element -> "C", test -> {flag -> {
+  {id -> 98, type -> cah, reference -> 20, element -> "C", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
-  {id -> 104, type -> cam, reference -> 21, element -> "C", test -> {flag -> {
+  {id -> 100, type -> cam, reference -> 21, element -> "C", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
@@ -833,7 +795,7 @@ rules = {
           {element -> "M", test -> {flag -> {bond -> single}}}}}, 
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
-  {id -> 103, type -> cam, reference -> 21, element -> "C", test -> {flag -> {
+  {id -> 99, type -> cam, reference -> 21, element -> "C", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
@@ -841,7 +803,7 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "M", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 106, type -> can, reference -> 120, element -> "C", test -> {flag ->
+  {id -> 102, type -> can, reference -> 115, element -> "C", test -> {flag ->
       {ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
@@ -849,21 +811,21 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
-  {id -> 105, type -> can, reference -> 119, element -> "C", test -> {flag ->
+  {id -> 101, type -> can, reference -> 114, element -> "C", test -> {flag ->
       {ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
-  {id -> 107, type -> can2, reference -> 121, element -> "C", test -> {flag ->
+  {id -> 103, type -> can2, reference -> 116, element -> "C", test -> {flag ->
       {ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
-  {id -> 108, type -> cano, reference -> 84, element -> "C", test -> {flag ->
+  {id -> 104, type -> cano, reference -> 84, element -> "C", test -> {flag ->
       {ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
@@ -874,14 +836,14 @@ rules = {
         connect -> {
           {element -> "O", test -> {flag -> {bond -> partial}}}, 
           {element -> "O", test -> {flag -> {bond -> partial}}}}}}}, 
-  {id -> 109, type -> cl-, reference -> 156, charge -> -1, element -> "Cl", 
+  {id -> 105, type -> cl-, reference -> 151, charge -> -1, element -> "Cl", 
     test -> {charge -> -1}}, 
-  {id -> 110, type -> cs+, reference -> 163, charge -> 1, element -> "Cs", 
+  {id -> 106, type -> cs+, reference -> 158, charge -> 1, element -> "Cs", 
     test -> {charge -> 1}}, 
-  {id -> 111, type -> f-, reference -> 155, charge -> -1, element -> "F", test
+  {id -> 107, type -> f-, reference -> 150, charge -> -1, element -> "F", test
     -> {charge -> -1}}, 
-  {id -> 112, type -> he, reference -> 3, element -> "He"}, 
-  {id -> 117, type -> hn, reference -> 113, element -> "H", 
+  {id -> 108, type -> he, reference -> 3, element -> "He"}, 
+  {id -> 112, type -> hn, reference -> 108, element -> "H", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
@@ -891,7 +853,7 @@ rules = {
           connect -> {
             {element -> "O", test -> {flag -> {bond -> double}}}, 
             {element -> "O", test -> {flag -> {bond -> single}}}}}}}}, 
-  {id -> 116, type -> hn, reference -> 113, element -> "H", 
+  {id -> 111, type -> hn, reference -> 108, element -> "H", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
@@ -900,50 +862,42 @@ rules = {
             {element -> "O", test -> {flag -> {bond -> double}}}, 
             {element -> "O", test -> {flag -> {bond -> single}}}}}, 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 115, type -> hn, reference -> 102, element -> "H", 
-    connect -> 
-    {element -> "N", test -> {flag -> {bond -> single}}, 
-      connect -> {
-        {element -> "C", test -> {flag -> {bond -> single}}, 
-          connect -> 
-          {element -> "O", test -> {flag -> {bond -> double}}}}, 
-        {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 113, type -> hn, reference -> 82, element -> "H", 
+  {id -> 109, type -> hn, reference -> 82, element -> "H", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single}}}, 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 114, type -> hn, reference -> 83, element -> "H", 
+  {id -> 110, type -> hn, reference -> 83, element -> "H", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> single}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single}}}, 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 118, type -> ho, reference -> 29, element -> "H", 
+  {id -> 113, type -> ho, reference -> 29, element -> "H", 
     connect -> 
     {element -> "O", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 119, type -> hs, reference -> 129, element -> "H", 
+  {id -> 114, type -> hs, reference -> 124, element -> "H", 
     connect -> 
     {element -> "S", test -> {flag -> {bond -> single}}}}, 
-  {id -> 120, type -> hsi, reference -> 144, element -> "H", 
+  {id -> 115, type -> hsi, reference -> 139, element -> "H", 
     connect -> 
     {element -> "Si", test -> {flag -> {bond -> single}}}}, 
-  {id -> 121, type -> hw, reference -> 8, element -> "H", 
+  {id -> 116, type -> hw, reference -> 8, element -> "H", 
     connect -> 
     {element -> "O", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 122, type -> i-, reference -> 158, charge -> -1, element -> "I", test
+  {id -> 117, type -> i-, reference -> 153, charge -> -1, element -> "I", test
     -> {charge -> -1}}, 
-  {id -> 123, type -> k+, reference -> 161, charge -> 1, element -> "K", test
+  {id -> 118, type -> k+, reference -> 156, charge -> 1, element -> "K", test
     -> {charge -> 1}}, 
-  {id -> 124, type -> kr, reference -> 4, element -> "Kr"}, 
-  {id -> 125, type -> li+, reference -> 159, charge -> 1, element -> "Li", 
+  {id -> 119, type -> kr, reference -> 4, element -> "Kr"}, 
+  {id -> 120, type -> li+, reference -> 154, charge -> 1, element -> "Li", 
     test -> {charge -> 1}}, 
-  {id -> 126, type -> m, reference -> 22, charge -> 2.42, element -> "M", 
+  {id -> 121, type -> m, reference -> 22, charge -> 2.42, element -> "M", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single, aromatic ->
             include}}, 
@@ -953,7 +907,7 @@ rules = {
           {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
                 include}}}}}, 
       {element -> "M", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 127, type -> m, reference -> 23, charge -> -1.21, element -> "M", 
+  {id -> 122, type -> m, reference -> 23, charge -> -1.21, element -> "M", 
     connect -> 
     {element -> "M", test -> {flag -> {bond -> single}}, 
       connect -> 
@@ -964,9 +918,9 @@ rules = {
                 include}}}, 
           {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
                 include}}}}}}}, 
-  {id -> 128, type -> mg+2, reference -> 164, charge -> 2, element -> "Mg", 
+  {id -> 123, type -> mg+2, reference -> 159, charge -> 2, element -> "Mg", 
     test -> {charge -> 2}}, 
-  {id -> 132, type -> n3, reference -> 112, element -> "N", 
+  {id -> 127, type -> n3, reference -> 107, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single, aromatic ->
             include}}}, 
@@ -976,7 +930,7 @@ rules = {
         connect -> {
           {element -> "O", test -> {flag -> {bond -> double}}}, 
           {element -> "O", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 131, type -> n3, reference -> 112, element -> "N", 
+  {id -> 126, type -> n3, reference -> 107, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single, aromatic ->
             include}}}, 
@@ -985,7 +939,7 @@ rules = {
           {element -> "O", test -> {flag -> {bond -> double}}}, 
           {element -> "O", test -> {flag -> {bond -> single}}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 130, type -> n3, reference -> 112, element -> "N", 
+  {id -> 125, type -> n3, reference -> 107, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -993,22 +947,22 @@ rules = {
           {element -> "O", test -> {flag -> {bond -> single}}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 129, type -> n3, reference -> 79, element -> "N", 
+  {id -> 124, type -> n3, reference -> 79, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 133, type -> n3h, reference -> 80, element -> "N", 
+  {id -> 128, type -> n3h, reference -> 80, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 134, type -> n3h2, reference -> 81, element -> "N", 
+  {id -> 129, type -> n3h2, reference -> 81, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 137, type -> n3mh, reference -> 111, element -> "N", 
+  {id -> 132, type -> n3mh, reference -> 106, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single, aromatic ->
             include}}}, 
@@ -1017,7 +971,15 @@ rules = {
           {element -> "O", test -> {flag -> {bond -> double}}}, 
           {element -> "O", test -> {flag -> {bond -> single}}}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 136, type -> n3mh, reference -> 111, element -> "N", 
+  {id -> 130, type -> n3mh, reference -> 98, element -> "N", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "O", test -> {flag -> {bond -> double}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 131, type -> n3mh, reference -> 106, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -1025,64 +987,58 @@ rules = {
           {element -> "O", test -> {flag -> {bond -> single}}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 135, type -> n3mh, reference -> 103, element -> "N", 
+  {id -> 133, type -> n3mh2, reference -> 99, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
-        connect -> 
-        {element -> "O", test -> {flag -> {bond -> double}}}}, 
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 138, type -> n3mh2, reference -> 104, element -> "N", 
-    connect -> {
-      {element -> "C", test -> {flag -> {bond -> single}}, 
-        connect -> 
-        {element -> "O", test -> {flag -> {bond -> double}}}}, 
+        connect -> {
+          {element -> "C", test -> {flag -> {bond -> single}}}, 
+          {element -> "O", test -> {flag -> {bond -> double}}}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 139, type -> na, reference -> 122, element -> "N", test -> {flag -> {
+  {id -> 134, type -> na, reference -> 117, element -> "N", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
-  {id -> 140, type -> na+, reference -> 160, charge -> 1, element -> "Na", 
+  {id -> 135, type -> na+, reference -> 155, charge -> 1, element -> "Na", 
     test -> {charge -> 1}}, 
-  {id -> 141, type -> nc, reference -> 96, element -> "N", 
+  {id -> 136, type -> nc, reference -> 96, element -> "N", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> triple}}}}, 
-  {id -> 142, type -> ne, reference -> 5, element -> "Ne"}, 
-  {id -> 143, type -> nh4+, reference -> 168, charge -> 1, element -> "N", 
+  {id -> 137, type -> ne, reference -> 5, element -> "Ne"}, 
+  {id -> 138, type -> nh4+, reference -> 163, charge -> 1, element -> "N", 
     test -> {charge -> 1}, 
     connect -> {
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 145, type -> no, reference -> 89, element -> "N", 
+  {id -> 140, type -> no, reference -> 89, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single, aromatic ->
             include}}}, 
       {element -> "O", test -> {flag -> {bond -> partial}}}, 
       {element -> "O", test -> {flag -> {bond -> partial}}}}}, 
-  {id -> 144, type -> no, reference -> 89, element -> "N", 
+  {id -> 139, type -> no, reference -> 89, element -> "N", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> partial}}}, 
       {element -> "O", test -> {flag -> {bond -> partial}}}}}, 
-  {id -> 148, type -> o, reference -> 52, element -> "O", 
+  {id -> 143, type -> o, reference -> 52, element -> "O", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> double}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single}}}, 
         {element -> "C", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 151, type -> o, reference -> 105, element -> "O", 
+  {id -> 146, type -> o, reference -> 100, element -> "O", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> double}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single}}}, 
         {element -> "N", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 147, type -> o, reference -> 50, element -> "O", 
+  {id -> 142, type -> o, reference -> 50, element -> "O", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> double}}, 
       connect -> {
@@ -1090,18 +1046,18 @@ rules = {
         {element -> "O", test -> {flag -> {bond -> single}}, 
           connect -> 
           {element -> "C", test -> {flag -> {bond -> single}}}}}}}, 
-  {id -> 146, type -> o, reference -> 31, element -> "O", 
+  {id -> 141, type -> o, reference -> 31, element -> "O", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> double}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single}}}, 
         {element -> "O", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 149, type -> o, reference -> 53, element -> "O", 
+  {id -> 144, type -> o, reference -> 53, element -> "O", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> double}}, 
       connect -> 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 153, type -> o, reference -> 110, element -> "O", 
+  {id -> 148, type -> o, reference -> 105, element -> "O", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> double}}, 
       connect -> {
@@ -1111,7 +1067,7 @@ rules = {
                   include}}}, 
             {element -> "*", test -> {flag -> {bond -> single}}}}}, 
         {element -> "O", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 152, type -> o, reference -> 110, element -> "O", 
+  {id -> 147, type -> o, reference -> 105, element -> "O", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> double}}, 
       connect -> {
@@ -1120,44 +1076,44 @@ rules = {
             {element -> "C", test -> {flag -> {bond -> single}}}, 
             {element -> "*", test -> {flag -> {bond -> single}}}}}, 
         {element -> "O", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 150, type -> o, reference -> 54, element -> "O", 
+  {id -> 145, type -> o, reference -> 54, element -> "O", 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> double}}}}, 
-  {id -> 154, type -> o2z, reference -> 145, element -> "O", 
+  {id -> 149, type -> o2z, reference -> 140, element -> "O", 
     connect -> {
       {element -> "Si", test -> {flag -> {bond -> single}}}, 
       {element -> "Si", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 155, type -> oh, reference -> 28, element -> "O", 
+  {id -> 150, type -> oh, reference -> 28, element -> "O", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 156, type -> oha, reference -> 32, element -> "O", 
+  {id -> 151, type -> oha, reference -> 32, element -> "O", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "O", test -> {flag -> {bond -> double}}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 158, type -> on, reference -> 90, element -> "O", 
+  {id -> 153, type -> on, reference -> 90, element -> "O", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> partial}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single, aromatic ->
               include}}}, 
         {element -> "O", test -> {flag -> {bond -> partial}}}}}}, 
-  {id -> 157, type -> on, reference -> 90, element -> "O", 
+  {id -> 152, type -> on, reference -> 90, element -> "O", 
     connect -> 
     {element -> "N", test -> {flag -> {bond -> partial}}, 
       connect -> {
         {element -> "C", test -> {flag -> {bond -> single}}}, 
         {element -> "O", test -> {flag -> {bond -> partial}}}}}}, 
-  {id -> 160, type -> os, reference -> 51, element -> "O", 
+  {id -> 155, type -> os, reference -> 51, element -> "O", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> {
           {element -> "C", test -> {flag -> {bond -> single}}}, 
           {element -> "O", test -> {flag -> {bond -> double}}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 162, type -> os, reference -> 107, element -> "O", 
+  {id -> 157, type -> os, reference -> 102, element -> "O", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -1168,7 +1124,7 @@ rules = {
               {element -> "*", test -> {flag -> {bond -> single}}}}}, 
           {element -> "O", test -> {flag -> {bond -> double}}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 161, type -> os, reference -> 107, element -> "O", 
+  {id -> 156, type -> os, reference -> 102, element -> "O", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}, 
         connect -> {
@@ -1178,98 +1134,98 @@ rules = {
               {element -> "*", test -> {flag -> {bond -> single}}}}}, 
           {element -> "O", test -> {flag -> {bond -> double}}}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 159, type -> os, reference -> 41, element -> "O", 
+  {id -> 154, type -> os, reference -> 41, element -> "O", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 163, type -> ose, reference -> 40, element -> "O", test -> {flag -> {
+  {id -> 158, type -> ose, reference -> 40, element -> "O", test -> {flag -> {
         ring -> any}}, 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> single}}, 
       connect -> 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 164, type -> ow, reference -> 7, element -> "O", 
+  {id -> 159, type -> ow, reference -> 7, element -> "O", 
     connect -> {
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 165, type -> rb+, reference -> 162, charge -> 1, element -> "Rb", 
+  {id -> 160, type -> rb+, reference -> 157, charge -> 1, element -> "Rb", 
     test -> {charge -> 1}}, 
-  {id -> 166, type -> sa, reference -> 123, element -> "S", test -> {flag -> {
+  {id -> 161, type -> sa, reference -> 118, element -> "S", test -> {flag -> {
         ring -> any, aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "S", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
-  {id -> 167, type -> sc, reference -> 134, element -> "S", 
+  {id -> 162, type -> sc, reference -> 129, element -> "S", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 168, type -> sh, reference -> 128, element -> "S", 
+  {id -> 163, type -> sh, reference -> 123, element -> "S", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 169, type -> si4z, reference -> 146, element -> "Si", 
+  {id -> 164, type -> si4z, reference -> 141, element -> "Si", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 170, type -> si4z, reference -> 147, element -> "Si", 
+  {id -> 165, type -> si4z, reference -> 142, element -> "Si", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 171, type -> si4z, reference -> 148, element -> "Si", 
+  {id -> 166, type -> si4z, reference -> 143, element -> "Si", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+  {id -> 167, type -> si4z, reference -> 144, element -> "Si", 
+    connect -> {
+      {element -> "C", test -> {flag -> {bond -> single}}}, 
+      {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}}}, 
   {id -> 172, type -> si4z, reference -> 149, element -> "Si", 
     connect -> {
-      {element -> "C", test -> {flag -> {bond -> single}}}, 
-      {element -> "O", test -> {flag -> {bond -> single}}}, 
-      {element -> "O", test -> {flag -> {bond -> single}}}, 
-      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 177, type -> si4z, reference -> 154, element -> "Si", 
-    connect -> {
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 176, type -> si4z, reference -> 153, element -> "Si", 
+  {id -> 171, type -> si4z, reference -> 148, element -> "Si", 
     connect -> {
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 175, type -> si4z, reference -> 152, element -> "Si", 
+  {id -> 170, type -> si4z, reference -> 147, element -> "Si", 
     connect -> {
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 174, type -> si4z, reference -> 151, element -> "Si", 
+  {id -> 169, type -> si4z, reference -> 146, element -> "Si", 
     connect -> {
       {element -> "O", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 173, type -> si4z, reference -> 150, element -> "Si", 
+  {id -> 168, type -> si4z, reference -> 145, element -> "Si", 
     connect -> {
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 178, type -> sr+2, reference -> 166, charge -> 2, element -> "Sr", 
+  {id -> 173, type -> sr+2, reference -> 161, charge -> 2, element -> "Sr", 
     test -> {charge -> 2}}, 
-  {id -> 179, type -> ss, reference -> 139, element -> "S", 
+  {id -> 174, type -> ss, reference -> 134, element -> "S", 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "S", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 180, type -> xe, reference -> 6, element -> "Xe"}};
+  {id -> 175, type -> xe, reference -> 6, element -> "Xe"}};
 
 (* Masses *)
 

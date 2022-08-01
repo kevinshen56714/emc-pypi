@@ -1,0 +1,18 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg1,
+  compress	-> false,
+  map		-> false,
+  unwrap	-> true,
+  source	-> ".",
+  target	-> "."
+};
+
+get		= {name -> source+"/"+input};
+
+xyz 		= {name -> output, compress -> compress, map -> map,
+		   unwrap -> unwrap};
+

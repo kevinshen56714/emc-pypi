@@ -6,7 +6,7 @@
 #  purpose:	Compare nonbonded parameters in either .csv or .prm parameter
 #		files; part of EMC distribution
 #
-#  Copyright (c) 2004-2019 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

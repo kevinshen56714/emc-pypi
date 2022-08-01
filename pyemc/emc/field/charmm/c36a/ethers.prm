@@ -1,8 +1,9 @@
+#EMC/FIELD/CHARMM/v34.
 #
 #  CHARMM interaction parameters using ethers force field files, 
-#  converted by emc_charmm.pl v3.1, June 25, 2020 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl v3.3, April 1, 2021 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Thu Jun 25 15:30:38 2020.
+#  and created on Fri Mar 18 14:24:40 2022.
 #
 
 # Force field definition
@@ -13,10 +14,10 @@ FFMODE		CHARMM
 FFTYPE		ATOMISTIC
 FFAPPLY		GROUPS
 FFINDEX		TYPES
-FFDEPTH		1
+FFDEPTH		2
 FFCHARGE	ALL
 VERSION		v34.
-CREATED		Jun 2020
+CREATED		Mar 2022
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -29,7 +30,7 @@ PAIR14		INCLUDE
 TORSION		ERROR
 GROUP		IGNORE
 RULE		ERROR
-SHAKE		ALL
+SHAKE		NONE
 
 ITEM	END
 

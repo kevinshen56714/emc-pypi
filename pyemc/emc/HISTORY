@@ -131,6 +131,13 @@ Date     Description
          - Corrected PDB import
          - Increased group connectivity to 1024
          - Release VMD EMC GUI v1.5.1 (see ./vmd/)
+20220701 - Added interaction sampling
+	 - Changed typing formalism to accomodate structure imports
+	 - Added sulfates and sulfonates to CHARMM CGENFF
+	 - Updated VMD EMC GUI to v1.5.2 to work with newer Tcl versions
+	 - Adapted PSF output to align with VMD
+	 - Changed from qsort() to mergesort() in FieldIndexSort()
+20220801 - Web publication
 
 
 v9.4.3

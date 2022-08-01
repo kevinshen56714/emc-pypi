@@ -6,13 +6,18 @@ variables	= {
   output	-> $arg1,
   traject	-> input,
   compress	-> false,
+  map		-> true,
   unwrap	-> true,
+  parameters	-> true,
+  types		-> false,
+  shake		-> "auto",
   source	-> ".",
   target	-> "."
 };
 
-get		= {name -> source+"/"+input, work -> target};
+get		= {name -> source+"/"+input};
 
-lammps 		= {name -> output, compress -> compress, unwrap -> unwrap,
-		   parameters -> true};
+lammps 		= {name -> output, compress -> compress, map -> map,
+		   unwrap -> unwrap, parameters -> parameters, types -> types,
+		   shake -> shake};
 

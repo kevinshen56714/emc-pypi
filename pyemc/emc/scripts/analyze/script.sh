@@ -5,7 +5,7 @@
 #  date:	February 8, 24, 2018.
 #  purpose:	script size sampling of LAMMPS trajectories 
 #
-#  Copyright (c) 2004-2018 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
