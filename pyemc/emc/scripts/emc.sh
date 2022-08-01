@@ -5,7 +5,7 @@
 #  date:	February 19, November 3, 2018
 #  purpose:	Wrapper around EMC for starting correct executable
 #
-#  Copyright (c) 2004-2019 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -25,13 +25,6 @@ function init() {
   local dir;
   local host;
 
-  while [ "$1" != "" ]; do
-    case "$1" in 
-      -version)	echo ${emc_version}; exit;;
-    esac;
-    shift;
-  done;
-  
   if [ "$HOST" = "" ]; then
     dir=$(dirname "$0");
     host=$(/bin/hostname 2>&1 || sed -e 's/\..*$//');

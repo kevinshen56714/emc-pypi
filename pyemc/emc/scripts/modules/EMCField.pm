@@ -1,13 +1,13 @@
 #!/usr/bin/env perl
 #
-#  program:	EMCField.pm
+#  program:	EMC::Field.pm
 #  author:	Pieter J. in 't Veld
 #  date:	May 21, 2016, September 16, 2017, April 4, August 3, 
 #		November 3, 16, 2018
 #  purpose:	Interpret force field definition file and convert it into
 #  		EMC textual force field formats; part of EMC distribution
 #
-#  Copyright (c) 2004-2019 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -35,7 +35,7 @@ use vars qw($VERSION @ISA @EXPORT @EXPORT_OK %EXPORT_TAGS);
 
 $VERSION = "1.2";
 @ISA = qw(Exporter);
-@EXPORT = qw(&main);
+#@EXPORT = qw(&main);
 
 # functions
 
@@ -242,7 +242,10 @@ sub open_input {
   if (!defined($::EMCField::Topology)) {
     my $line = 0;
     my $stream = fopen($::EMCField::DefineName, "r");
-    foreach (<$stream>) { chop; push(@{$::EMCField::Topology}, [$_, ++$line]); }
+    foreach (<$stream>) { 
+      chop;
+      push(@{$::EMCField::Topology}, {verbatim => $_, line => ++$line});
+    }
     fclose($stream);
   }
 }
@@ -348,8 +351,8 @@ sub get_define {
   $::EMCField::Nonbond = {};
   $::EMCField::Equivalence = {};
   foreach(@{$::EMCField::Topology}) {
-    my $line = @{$_}[1];
-    my @arg = split_data(@{$_}[0]);
+    my $line = $_->{line};
+    my @arg = split_data($_->{verbatim});
     next if (substr($_, 0, 1) eq "#");
     if (!$command) {
       if (join(" ", @arg[0,1]) eq "ITEM DEFINE") {
@@ -369,8 +372,8 @@ sub get_define {
   set_define($ffname);
   $command = 0;
   foreach(@{$::EMCField::Topology}) {
-    my $line = @{$_}[1];
-    my @arg = split_data(@{$_}[0]);
+    my $line = $_->{line};
+    my @arg = split_data($_->{verbatim});
     if (!$command) {
       next if (substr(@arg[0], 0, 1) eq "#");
       if (@arg[0] eq "ITEM") {

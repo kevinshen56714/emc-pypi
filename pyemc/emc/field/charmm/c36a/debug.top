@@ -1,0 +1,86 @@
+#EMC/FIELD/CHARMM/v36.1
+#
+#  CHARMM topology using debug force field files, 
+#  converted by emc_charmm.pl v3.3, April 1, 2021 by Pieter J. in 't Veld,
+#  to be used in conjuction with EMC v9.4.4 or higher,
+#  and created on Wed Mar  9 15:01:55 2022.
+#
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+(?
+  (CG2C53)
+  (CG314)
+  (CG324)
+  (CG334)
+  (CG3AM0)
+  (CG3AM1)
+  (CG3AM2)
+  (CG3C31)
+  (CG3C41)
+  (CG3C51)
+  (CG3C52B)
+  (CG3C52)
+  (CG3C53)
+  (CG3C54A)
+  (CG3C54)
+  (HGP5)
+  (OG3C51)
+  (OG3C61)
+  (NG3P50)
+  (NG3P51)
+  (NG3P52A)
+  (NG3P52B)
+  (NG3P52)
+  (NG3P60)
+  (NG3P61)
+  (NG3P62)
+  (CG2O1)
+  (HGA1)
+  (HGA2)
+  (HGP1)
+  (HGP2)
+  (NG2S2)
+  (OG2D1)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	residue	atom	charge	rule
+
+0	?	?	UNK	UNK	0	*
+1	CG2O1	C	PNH2	C	0	C(=O)(C)(N)
+2	CG3C52	C	PRLP	C3	0	^5C(C(C(H)(H)([N+]))(H)(H))(C(H)(H)([N+](C)(H)(H)))(H)(H)
+3	CG3C52	C	PNH2	CB	0	^5C(C(C)(H)(H))(C(C)(H)([N+]))(H)(H)
+4	CG3C52B	C	PNH2	CG	0	^5C(C(C(C)(H)([N+]))(H)(H))(C(H)(H)([N+](C)(H)(H)))(H)(H)
+5	CG3C53	C	PNH2	CA	0	^5C(C)(C)(H)([N+])
+6	CG3C54	C	PRLP	C2	0	^5C(C(C(C)(H)(H))(H)(H))(H)(H)([N+](C(C)(H)(H))(H)(H))
+7	CG3C54A	C	PNH2	CD	0	^5C(C(C(C)(H)(H))(H)(H))(H)(H)([N+](C(C)(C)(H))(H)(H))
+8	HGA1	H	PNH2	HA	0	H(C(C)(C)([N+]))
+9	HGA2	H	PNH2	HB1	0	H(C(C)(C)(H))
+10	HGA2	H	PNH2	HD1	0	H(C(C)(H)([N+]))
+11	HGP1	H	PNH2	HT1	0	H(N)
+12	HGP2	H	PNH2	HN1	0	H([N+])
+13	NG2S2	N	PNH2	NT	0	N(C)(H)(H)
+14	NG3P52A	N	PRLP	N1	0	^5[N+](C(C)(H)(H))(C(C)(H)(H))(H)(H)
+15	NG3P52B	N	PNH2	N	0	^5[N+](C(C)(C)(H))(C(C)(H)(H))(H)(H)
+16	OG2D1	O	PNH2	O	0	O(=C)
+
+ITEM	END
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+PNH2	[N+]1C(CCC1)C(=O)N
+PRLP	[N+]1CCCC1
+
+ITEM	END

@@ -5,7 +5,7 @@
 #  date:	July 25, 2017, February 27, 2018, April 2, May 26, June 4, 2021
 #  purpose:	List the types occuring in an EMC setup script
 #
-#  Copyright (c) 2004-2021 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

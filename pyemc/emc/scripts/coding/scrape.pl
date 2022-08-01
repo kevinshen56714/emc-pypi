@@ -6,7 +6,7 @@
 #  purpose:	Create continuous list of file names and line number as 
 #  		produced by grep
 #
-#  Copyright (c) 2004-2020 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

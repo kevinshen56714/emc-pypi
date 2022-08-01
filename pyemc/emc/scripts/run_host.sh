@@ -4,10 +4,10 @@
 #  author:	Pieter J. in 't Veld
 #  date:	February 21, 2012, March 14, November 2, 2016,
 #		January 18, July 5, August 1, 2017, January 9,
-#		February 7, 2018.
+#		February 7, 2018, March 23, 2022.
 #  purpose:	start jobs remotely or collect data; part of EMC distribution
 #
-#  Copyright (c) 2004-2019 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -17,12 +17,13 @@
 #    20180210	Added retrieval and unpacking of archived data from host;
 #		needed after analysis executed on queueing system
 #    20181028	Added -[no]back options for capturing submission logs
+#    20220323	Added -keep option for keeping exchange data files
 #
 
 # initial variables
 
-version=1.5.1;
-date="October 28, 2018";
+version=1.5.2;
+date="March 23, 2022";
 script=$(basename $0);
 
 # functions
@@ -94,6 +95,7 @@ function help() {
   echo -e "  -debug\tproduce debug output";
   echo -e "  -exchange\tretrieve and unpack archived data from host";
   echo -e "  -[no]info\tcontrol informational output";
+  echo -e "  -keep\t\tkeep exchange data files";
   echo -e "  -quiet\tswitch off any output";
   echo -e "  -sync\t\tset directory to synchronize";
   echo;
@@ -120,6 +122,7 @@ function init() {
   debug=false;
   exchange=false;
   info=true;
+  keep=false;
   log=true;
   while [ "$1" != "" ]; do
     case "$1" in
@@ -131,6 +134,7 @@ function init() {
       -debug)	debug=true;;
       -exchange) exchange=true;;
       -info)	info=true;;
+      -keep)	keep=true;;
       -noinfo)	info=false;;
       -quiet)	info=false; debug=false; log=false;;
       -sync)	shift; sync=$1;;
@@ -201,7 +205,9 @@ function myrsync() {
   if [ "$clear" == "true" ]; then
 
     echo ssh $host "rm -f \"$dir/exchange/files/\"* \"$dir/exchange/data/\"*.tgz" | tee -a $output;
-    ssh $host "rm -f \"$dir/exchange/files/\"* \"$dir/exchange/data/\"*.tgz" | tee -a $output;
+    if [ "$keep" == "false" ]; then
+      ssh $host "rm -f \"$dir/exchange/files/\"* \"$dir/exchange/data/\"*.tgz" | tee -a $output;
+    fi;
     echo | tee -a $output;
 
   else
@@ -250,15 +256,19 @@ function myrsync() {
       echo "rsync -avz \"$host:$dir/exchange/data/*.tgz\" exchange/data/" | tee -a $output;
       myrsync -avz "$host:$dir/exchange/data/*.tgz" exchange/data/;
       echo | tee -a $output;
-      echo "ssh $host \"rm $dir/exchange/data/*.tgz\"" | tee -a $output;
-      ssh $host "rm \"$dir/exchange/data/\"*.tgz" | tee -a $output;
+      if [ "$keep" == "false" ]; then 
+	echo "ssh $host \"rm $dir/exchange/data/*.tgz\"" | tee -a $output;
+	ssh $host "rm \"$dir/exchange/data/\"*.tgz" | tee -a $output;
+      fi;
       echo | tee -a $output;
       for file in exchange/data/*.tgz; do
 	echo "tar -zxvf ${file}" | tee -a $output;
 	tar -zxvf ${file} 2>&1 | tee -a $output;
       done;
       echo | tee -a $output;
-      rm exchange/data/*.tgz;
+      if [ "$keep" == "false" ]; then
+	rm exchange/data/*.tgz;
+      fi;
     fi;
   fi;
 

@@ -7,7 +7,7 @@
 #		file basis (per cluster or type), used for e.g. density and
 #		pressure profiles
 #
-#  Copyright (c) 2004-2018 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

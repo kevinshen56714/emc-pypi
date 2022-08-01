@@ -5,7 +5,7 @@
 #  date:	May 14, 2020.
 #  purpose:	Generate comment and function list of perl script source	
 #
-#  Copyright (c) 2004-2020 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

@@ -13,15 +13,14 @@
 #    20170929	First release
 #    20170930	Reorganization
 #    20210801	Adaptation to EMC Setup v4.1
+#    20211010	Replaced thread by pipe for spawning subprocess 
 #
-
-package require Thread
 
 #==============================================================================
 # Package export
 #==============================================================================
 
-package provide emc_gui 1.5.1
+package provide emc_gui 1.5.3
 
 
 #==============================================================================
@@ -34,9 +33,10 @@ namespace eval ::EMC::gui {
 
   # general
 
-  variable version "1.5.1"
-  variable date "16 August 2021"
+  variable version "1.5.3"
+  variable date "23 July 2022"
   variable authors "Marc Siggel, Eduard Schreiner, and Pieter J. in 't Veld"
+  variable platform $tcl_platform(platform)
 
   # window variable
 
@@ -877,7 +877,7 @@ proc tab_force_field {} {
   ttk::label $ffsettings.basic.lbl1 \
     -text "Standard Options" -font TkHeadingFont
 
-  # important basic Settings hard code in here
+  # important basic Settings hard coded in here
   # advanced settings are not implemented in the prototype
 
   ttk::labelframe $ffsettings.advanced \
@@ -1143,7 +1143,7 @@ proc tab_chemistry {} {
   ttk::label $wchem.definechemistry.title \
     -text "Defined Chemistry" -font TkHeadingFont
   ttk::button $wchem.definechemistry.addsm \
-    -text "Add Small Molecule" -width 17 \
+    -text "Add Small Molecule" -width 14 \
     -command {
       if {[winfo exists .emcsm]} {
 	raise .emcsm
@@ -1151,7 +1151,7 @@ proc tab_chemistry {} {
       }
       emcsm
     }
-  ttk::button $wchem.definechemistry.addpoly -text "Add Polymer"  -width 17 \
+  ttk::button $wchem.definechemistry.addpoly -text "Add Polymer"  -width 14 \
     -command {
       if {[winfo exists .emcpoly]} {
 	raise .emcpoly
@@ -1159,7 +1159,7 @@ proc tab_chemistry {} {
       }
       emcpoly
     }
-  ttk::button $wchem.definechemistry.addsurf -text "Add Surface" -width 17 \
+  ttk::button $wchem.definechemistry.addsurf -text "Add Surface" -width 14 \
     -command {
       if {[winfo exists .emcsurf]} {
 	raise .emcsurf
@@ -1167,11 +1167,11 @@ proc tab_chemistry {} {
       }
       emcsurf
     }
-  ttk::button $wchem.definechemistry.addprotein -text "Add Protein" -width 17 \
+  ttk::button $wchem.definechemistry.addprotein -text "Add Protein" -width 14 \
     -command {
       puts "Warning) Open protein window - This feature does not exists yet"
     }
-  ttk::button $wchem.definechemistry.deleteitem -text "Delete Item" -width 17 \
+  ttk::button $wchem.definechemistry.deleteitem -text "Delete Item" -width 14 \
     -command {
       if {$::EMC::gui::temptype == "polymer"} {
 	::EMC::gui::DeletePolymerItem $::EMC::gui::tempname
@@ -1320,20 +1320,20 @@ proc tab_chemistry {} {
   $wchem.trials.tv heading trial \
     -text "Trial Name"
   $wchem.trials.tv column name \
-    -width 200 -stretch 1 -anchor center
+    -width 203 -stretch 1 -anchor center
   $wchem.trials.tv column smiles \
-    -width 200 -stretch 1 -anchor center
+    -width 203 -stretch 1 -anchor center
   $wchem.trials.tv column trial \
-    -width 200 -stretch 1 -anchor center
+    -width 203 -stretch 1 -anchor center
   ttk::scrollbar $wchem.trials.scroll \
     -orient vertical -command "$wchem.trials.tv yview"
   
   ttk::button $wchem.trials.addtrial \
-    -text "Add $::EMC::gui::style_accept" -width 17 \
+    -text "Add $::EMC::gui::style_accept" -width 14 \
     -command { emctrial }
 
   ttk::button $wchem.trials.removetrial \
-    -text "Remove" -width 17 \
+    -text "Remove" -width 14 \
     -command {
       set trialposition [ \
 	lsearch -index 0 $::EMC::gui::LoopList "trial"]
@@ -3672,7 +3672,8 @@ proc ::EMC::gui::ImportOptions {} \
 {
   set ::EMC::gui::optionlist {}
   set import [ \
-    exec $::EMC::gui::EMC_ROOTDIR/scripts/emc_setup.pl \
+    exec perl \
+      $::EMC::gui::EMC_ROOTDIR/scripts/emc_setup.pl \
       -field_type=$::EMC::gui::ffdefault(type) -options_tcl]
   eval "array set importoptions $import"
   unset import
@@ -6170,7 +6171,7 @@ proc ::EMC::gui::CheckAllEntryValidity {} {
 proc ::EMC::gui::GetSetupPlErrors {} {
   set errormsg ""
   if [catch { 
-      exec \
+      exec perl \
 	$::EMC::gui::EMC_ROOTDIR/scripts/emc_setup.pl \
 	$::EMC::gui::options(filename)} msg] {
     append errormsg "ERROR WARNING - EMC SETUP EXEC FAILED\n"	
@@ -6501,9 +6502,9 @@ proc ::EMC::gui::MakeAndCheckTempDirectory {} {
   
   set errormsg ""
   if {[catch { \
-      exec \
+      exec perl \
 	$::EMC::gui::EMC_ROOTDIR/scripts/emc_setup.pl \
-	  ./setup/$::EMC::gui::options(filename)} msg] == 1} {
+	./setup/$::EMC::gui::options(filename)} msg] == 1} {
     append errormsg "ERROR WARNING - EMC SETUP EXEC FAILED\n"	
     append errormsg "ErrorMsg: $msg\n"
     puts "Error) EMC Setup failure: $msg"
@@ -6624,6 +6625,25 @@ proc ::EMC::gui::TriggerEmcTestRun {} {
 # Only with one run to avoid crashing head node!
 #==============================================================================
 
+proc ::EMC::gui::handlePipeReadable {pipe} {
+  if {[gets $pipe ::EMC::gui::line] >= 0} {
+    # Managed to actually read a line; stored in $line now
+  } elseif {[eof $pipe]} {
+    # Pipeline was closed; get exit code, etc.
+    if {[catch {close $pipe} msg opt]} {
+      set exitinfo [dict get $opt -errorcode]
+    } else {
+      # Successful termination
+      set exitinfo ""
+    }
+    # Stop the waiting in [vwait], below
+    set ::EMC::gui::pipe(done) $pipe
+  } else {
+    # Partial read; things will be properly buffered up for now...
+  }
+}
+
+
 proc ::EMC::gui::RunEmcBuild {} {
   set ::EMC::gui::statusmessage "Status: Submitting Build..."
   if {[::EMC::gui::CheckAllEntryValidity] != 0} {
@@ -6694,9 +6714,10 @@ proc ::EMC::gui::RunEmcBuild {} {
 
   cd ..
   set errormsg ""
-  if {[catch {exec \
-      $::EMC::gui::EMC_ROOTDIR/scripts/emc_setup.pl \
-      ./setup/$::EMC::gui::options(filename)} msg] == 1} {
+  if {[catch {
+      exec perl \
+	$::EMC::gui::EMC_ROOTDIR/scripts/emc_setup.pl \
+	./setup/$::EMC::gui::options(filename)} msg] == 1} {
     append errormsg "ERROR WARNING - EMC SETUP EXEC FAILED\n"	
     append errormsg "ErrorMsg: $msg\n"
     puts "Error) EMC Setup failure: $msg"
@@ -6717,10 +6738,13 @@ proc ::EMC::gui::RunEmcBuild {} {
   set ::EMC::gui::progress "-"
   set ::EMC::gui::interrupt(done) 0
   puts "Info) Running '[pwd]/build/$shfilename.sh'"
-  thread::create "
-    [list exec ./build/$shfilename.sh];
-    [list thread::send [thread::id] {set ::EMC::gui::interrupt(done) 1}];
-    thread::exit"
+
+  exec ./build/$shfilename.sh &
+
+  set pipeline [open |[list /bin/bash ./build/$shfilename.sh] "r"]
+  fileevent $pipeline readable [list ::EMC::gui::handlePipeReadable $pipeline]
+  fconfigure $pipeline -blocking false
+
   set ::EMC::gui::statusmessage "Status: Build Submitted Successfully"
   puts "Info) Building structure(s): see 'Results/Summary' tab for progress"
   puts "Info) DO NOT apply a break!!"
@@ -6732,7 +6756,9 @@ proc ::EMC::gui::RunEmcBuild {} {
     ::EMC::gui::CheckRunStatusClusterBuild .emc.hlf.nb.results.tv
 #    puts "[LINE [info frame]]: Info) progress = $::EMC::gui::progress"
   }
-  vwait ::EMC::gui::interrupt(done)
+
+  vwait ::EMC::gui::pipe(done)
+  
   interrupt cancel $::EMC::gui::interrupt(id)
   puts "Info) EMC build finished"
 
@@ -7127,7 +7153,7 @@ proc ::EMC::gui::WriteFieldOptionFromTv {} {
 #==============================================================================
 
 proc ::EMC::gui::GetPathsFromEshFile {} {
-  set homedir ""
+  set homedir "."
   set tempfile ""
   set types {
     {{Esh Files} {.esh}}
@@ -7332,15 +7358,21 @@ proc ::EMC::gui::GetUpdateParameterList {} {
   set ::EMC::gui::ffbrowse {}
   set ::EMC::gui::fffilelist {}
   set field $::EMC::gui::options(field)
+  
+#  puts "[LINE [info frame]]: field = $field"
+#  puts "[LINE [info frame]]: fields = $::EMC::gui::fields"
+
   set fieldlist [dict get $::EMC::gui::fields $field items]
   set fielddir $::EMC::gui::EMC_ROOTDIR/field/$field
+
+#  puts "[LINE [info frame]]: DONE"
 
   .emc.hlf.nb.ffsettings.browserframe.tv \
     delete [.emc.hlf.nb.ffsettings.browserframe.tv children {}]
   .emc.hlf.nb.ffsettings.browserframe.tv2 \
     delete [.emc.hlf.nb.ffsettings.browserframe.tv2 children {}]
 
-  foreach item $fieldlist {
+  foreach item [lsort $fieldlist] {
     if {[llength $fieldlist] == 1} {
       lappend ::EMC::gui::fffilelist [list $item $fielddir/$item]
       .emc.hlf.nb.ffsettings.browserframe.tv2 \
@@ -7697,17 +7729,23 @@ proc ::EMC::gui::AnalysisOptionsInfo {} {
 proc ::EMC::gui::GetForceFieldNames {} {
   set fielddir $::EMC::gui::EMC_ROOTDIR/field
   set n0 [llength [file split $fielddir]]
+  if { $::EMC::gui::platform == "windows" } {
+    set n0 [expr $n0-1]
+  }
   set ::EMC::gui::fields [dict create]
 
+#  puts "[LINE [info frame]]: fielddir = $fielddir"
+#  puts "[LINE [info frame]]: list = {[file split $fielddir]}"
+#  puts "[LINE [info frame]]: n0 = [llength [file split $fielddir]]"
+#  puts "[LINE [info frame]]: platform = $::EMC::gui::platform"
+
   foreach file [ffind $fielddir {*.prm *.frc}] {
-    set names [file split $file]
-    set field [lindex $names $n0]
-    set name [ \
-      join [ \
-	lrange $names [expr $n0 + 1] [expr [llength $names] - 1]] "/"]
+    set names [lrange [file split $file] $n0 end]
+    set names [lassign $names field]
+    set name [join $names "/"]
     ::EMC::gui::dictnlappend ::EMC::gui::fields $field items $name
   }
-  set ::EMC::gui::fflist [dict keys $::EMC::gui::fields]
+  set ::EMC::gui::fflist [lsort [dict keys $::EMC::gui::fields]]
 #  foreach f [dict keys $::EMC::gui::fields] {
 #    puts $f
 #    set names [dict get $::EMC::gui::fields $f items]

@@ -6,17 +6,22 @@ variables	= {
   output	-> $arg1,
   traject	-> input,
   compress	-> true,
+  map		-> true,
   unwrap	-> true,
   pbc		-> true,
+  extend	-> true,
   vdw		-> false,
   cut		-> false,
   connect	-> false,
+  parameters	-> false,
   source	-> ".",
   target	-> "."
 };
 
-get		= {name -> source+"/"+input, work -> target};
+get		= {name -> source+"/"+input};
 
-pdb 		= {name -> output, compress -> compress, unwrap -> unwrap,
-		   pbc -> pbc, vdw -> vdw, cut -> cut, connectivity -> connect};
+pdb 		= {name -> output, compress -> compress, map -> map,
+		   unwrap -> unwrap, pbc -> pbc, vdw -> vdw, cut -> cut,
+		   extend -> extend, connectivity -> connect,
+		   parameters -> parameters};
 

@@ -6,7 +6,7 @@
 #  purpose:	Reduce number of parameters using parameters.csv and
 #		references.csv files; part of EMC distribution
 #
-#  Copyright (c) 2004-2021 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

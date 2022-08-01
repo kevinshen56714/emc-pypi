@@ -1,8 +1,9 @@
+#EMC/FIELD/CHARMM/v36.1
 #
 #  CHARMM interaction parameters using lipid force field files, 
-#  converted by emc_charmm.pl v3.3, August 15, 2020 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl v3.3, April 1, 2021 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Wed Sep  9 08:55:48 2020.
+#  and created on Fri Mar 18 14:25:22 2022.
 #
 
 # Force field definition
@@ -13,10 +14,10 @@ FFMODE		CHARMM
 FFTYPE		ATOMISTIC
 FFAPPLY		GROUPS
 FFINDEX		TYPES
-FFDEPTH		10
+FFDEPTH		11
 FFCHARGE	ALL
 VERSION		v36.1
-CREATED		Sep 2020
+CREATED		Mar 2022
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -29,7 +30,7 @@ PAIR14		INCLUDE
 TORSION		ERROR
 GROUP		IGNORE
 RULE		ERROR
-SHAKE		ALL
+SHAKE		NONE
 
 ITEM	END
 

@@ -5,7 +5,7 @@ variables	= {
   input		-> $arg0,
   output	-> $arg1,
   traject	-> input,
-  compress	-> false,
+  compress	-> true,
   unwrap	-> true,
   vdw		-> false,
   source	-> ".",
@@ -13,12 +13,19 @@ variables	= {
   frequency	-> 1
 };
 
-shell		= {"rm -f "+output+".pdb", work -> target};
+output		= {
+  debug		-> false,
+  exit		-> true,
+  info		-> true,
+  warning	-> true
+};
+
+shell		= {"rm -f "+output+(compress ? ".pdb.gz" : ".pdb")};
+shell		= {"rm -f "+output+(compress ? ".psf.gz" : ".psf")};
 
 get		= {name -> source+"/"+input};
 
 sample		= {
-  mode		-> sample,
   script	-> {
     id		-> 0,
     active	-> true,

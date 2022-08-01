@@ -1,8 +1,9 @@
+#EMC/FIELD/CHARMM/v36.1
 #
 #  CHARMM interaction parameters using na force field files, 
-#  converted by emc_charmm.pl v3.1, June 25, 2020 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl v3.3, April 1, 2021 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Thu Jun 25 15:30:52 2020.
+#  and created on Fri Mar 18 14:25:16 2022.
 #
 
 # Force field definition
@@ -13,10 +14,10 @@ FFMODE		CHARMM
 FFTYPE		ATOMISTIC
 FFAPPLY		GROUPS
 FFINDEX		TYPES
-FFDEPTH		4
+FFDEPTH		5
 FFCHARGE	ALL
 VERSION		v36.1
-CREATED		Jun 2020
+CREATED		Mar 2022
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -29,7 +30,7 @@ PAIR14		INCLUDE
 TORSION		ERROR
 GROUP		IGNORE
 RULE		ERROR
-SHAKE		ALL
+SHAKE		NONE
 
 ITEM	END
 
@@ -53,17 +54,18 @@ ITEM	MASS
 # type	mass	element	ncons	charge	index	comment
 
 CN1	12.011	C	3	0	100	Nucleic acid carbonyl carbon
-CN1B	12.011	C	3	0	100	Nucleic acid carbonyl carbon, Ura C4
-CN1G	12.011	C	3	0	100	Nucleic acid carbonyl carbon, Gua C6
+CN1B	12.011	C	3	0	100	Nucleic acid carbonyl carbon Ura C4
+CN1G	12.011	C	3	0	100	Nucleic acid carbonyl carbon Gua C6
 CN1T	12.011	C	3	0	101	Nucleic acid carbonyl carbon (T/U C2)
-CN1U	12.011	C	3	0	101	Nucleic acid carbonyl carbon, Ura C2
+CN1U	12.011	C	3	0	101	Nucleic acid carbonyl carbon Ura C2
 CN2	12.011	C	3	0	102	Nucleic acid aromatic carbon to amide
-CN2A	12.011	C	3	0	102	Nucleic acid aromatic carbon to amide, Ade C6
-CN2C	12.011	C	3	0	102	Nucleic acid aromatic carbon to amide, Cyt C4
+CN2A	12.011	C	3	0	102	Nucleic acid aromatic carbon to amide Ade C6
+CN2C	12.011	C	3	0	102	Nucleic acid aromatic carbon to amide Cyt C4
 CN3	12.011	C	3	0	103	Nucleic acid aromatic carbon
+CN3B	12.011	C	-	0	103	Nucleic acid aromatic carbon Thy C6
 CN3T	12.011	C	3	0	104	Nucleic acid aromatic carbon, Thy C5
 CN4	12.011	C	3	0	105	Nucleic acid purine C8 and ADE C2
-CN4G	12.011	C	3	0	105	Nucleic acid purine, Gua C8
+CN4G	12.011	C	3	0	105	Nucleic acid purine Gua C8
 CN5	12.011	C	3	0	106	Nucleic acid purine C4 and C5
 CN5G	12.011	C	3	0	107	Nucleic acid guanine C5
 CN7	12.011	C	4	0	108	Nucleic acid carbon (equivalent to protein CT1)
@@ -72,17 +74,17 @@ CN8	12.011	C	4	0	110	Nucleic acid carbon (equivalent to protein CT2)
 CN8B	12.011	C	4	0	111	Nucleic acid carbon (equivalent to protein CT2)
 CN9	12.011	C	4	0	112	Nucleic acid carbon (equivalent to protein CT3)
 CN9P	12.011	C	4	0	112	Nucleic acid carbon (equivalent to protein CT3) connected to P
-CN9T	12.011	C	4	0	112	Nucleic acid carbon (equivalent to protein CT3), Thy C5M
+CN9T	12.011	C	4	0	112	Nucleic acid carbon (equivalent to protein CT3) Thy C5M
 HN1	1.0079	H	1	0	91	Nucleic acid amine proton
-HN1A	1.0079	H	1	0	91	Nucleic acid aromatic carbon proton, Ade
-HN1C	1.0079	H	1	0	91	Nucleic acid aromatic carbon proton, Cyt
+HN1A	1.0079	H	1	0	91	Nucleic acid aromatic carbon proton Ade
+HN1C	1.0079	H	1	0	91	Nucleic acid aromatic carbon proton Cyt
 HN2	1.0079	H	1	0	92	Nucleic acid ring nitrogen proton
 HN3	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton
-HN3A	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton, Ade H2
-HN3B	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton, Ura H6
-HN3C	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton, Cyt H5
-HN3G	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton, Gua H8
-HN3U	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton, Ura H5
+HN3A	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton Ade H2
+HN3B	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton Ura H6
+HN3C	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton Cyt H5
+HN3G	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton Gua H8
+HN3U	1.0079	H	1	0	93	Nucleic acid aromatic carbon proton Ura H5
 HN4	1.0079	H	1	0	94	Nucleic acid phosphate hydroxyl proton
 HN5	1.0079	H	1	0	95	Nucleic acid ribose hydroxyl proton
 HN7	1.0079	H	1	0	97	Nucleic acid proton (equivalent to protein HA)
@@ -92,9 +94,9 @@ NN1	14.0067	N	3	0	113	Nucleic acid amide nitrogen
 NN2	14.0067	N	3	0	114	Nucleic acid protonated ring nitrogen
 NN2B	14.0067	N	3	0	115	From NN2, for N9 in GUA different from ADE
 NN2G	14.0067	N	3	0	117	Nucleic acid protonated ring nitrogen, gua N1
-NN2T	14.0067	N	3	0	116	Nucleic acid protonated ring nitrogen, Thy N3
+NN2T	14.0067	N	3	0	116	Nucleic acid protonated ring nitrogen Thy N3
 NN2U	14.0067	N	3	0	116	Nucleic acid protonated ring nitrogen, ura N3
-NN2Y	14.0067	N	3	0	115	Nucleic acid protonated ring nitrogen, Thy N1
+NN2Y	14.0067	N	3	0	115	Nucleic acid protonated ring nitrogen Thy N1
 NN3	14.0067	N	2	0	118	Nucleic acid unprotonated ring nitrogen
 NN3A	14.0067	N	2	0	119	Nucleic acid unprotonated ring nitrogen, ade N1 and N3
 NN3G	14.0067	N	2	0	120	Nucleic acid unprotonated ring nitrogen, gua N3

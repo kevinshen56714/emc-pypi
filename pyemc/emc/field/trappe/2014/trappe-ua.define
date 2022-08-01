@@ -392,13 +392,8 @@ nc	0	N(#C)
 # Amides
 
 c3mo	0	C(=O)(N)(C)
-c4	0	C(N(C=O)(H))(C)(C)(C)
-c4h	0	C(N(C=O)(H))(C)(C)
-c4h2	0	C(N(C=O)(H))(C)
-c4h3	0	C(N(C=O)(H))
-hn	0	H(N(C=O)(C))
-n3mh	0	N(C(=O))(C)(H)
-n3mh2	0	N(C(=O))(H)(H)
+n3mh	0	N(C(=O)(C))(C)(H)
+n3mh2	0	N(C(=O)(C))(H)(H)
 o	0	O(=C(N)(C))
 
 # Urethane

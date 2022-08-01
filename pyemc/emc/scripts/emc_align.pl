@@ -1,23 +1,25 @@
 #!/usr/bin/env perl
 #
-#  program:	charmm.pl
+#  program:	emc_align.pl
 #  author:	Pieter J. in 't Veld
-#  date:	July 12, 2020
+#  date:	July 12, 2020, January 14, 2022.
 #  purpose:	Align EMC Script input
 #
-#  Copyright (c) 2004-2020 Pieter J. in 't Veld
+#  Copyright (c) 2004-2022 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
 #  notes:
 #    20200712	Conception date
 #    20200719	Adaptation to include headers etc.
+#    20220114	Preceeded curly braces in regex with a backslash
+#    		Added stack for item history
 #
 
 $::EMCAlign::script = "emc_align.pl";
 $::EMCAlign::author = "Pieter J. in 't Veld";
 $::EMCAlign::version = "v1.0";
-$::EMCAlign::date = "July 19, 2020";
+$::EMCAlign::date = "January 14, 2022";
 $::EMCAlign::EMCVersion = "9.4.4";
 
 %::EMCAlign::Flag = (
@@ -113,11 +115,14 @@ sub align {
   my $n;
   my $amp;
   my $item;
+  my @stack;							# 20220114
   my $first;
   my $flag = 0;
   my @empty = (0, 0);
   my %verbatim = (emc => 1, lammps => 1, namd => 1);
   my %flags = (replicas => 1, nonbonds => 1, bonds => 1, angles => 1);
+  my %exclude = (include => 1, stage => 1, trial => 1);
+  my %all_caps = (emc => 1, lammps => 1, namd => 1, gromacs => 1);
   my @output;
   my $comment;
 
@@ -139,19 +144,22 @@ sub align {
 	next;
       }
       if (@a[0] eq "ITEM") {
-	my $previous = $item;
 	push(@output, "\n") if ($item eq "" || !@empty[1]);
 	if (($item = lc(@a[1])) eq "end") {
+	  my $previous = pop(@stack);				# 20220114
 	  push(@a, "#", uc($previous)) if (@a[2] eq "");
 	  push(@output, 
 	    join("\t", (shift(@a), shift(@a), join(" ", @a))), "\n");
 	  $item = "";
 	} else {
-	  my $tmp = "# ".ucfirst(lc(@a[1]))." section";
+	  my $key = lc(@a[1]);
+	  my $section = defined($all_caps{$key}) ? uc($key) : ucfirst($key);
+	  my $tmp = "# $section section";
 	  push(@output, "$tmp\n\n") if (lc($tmp) ne lc($comment));
 	  @a[2] = join(" ", splice(@a, 2)) if (substr(@a[2],0,1) eq "#");
 	  push(@output, join("\t", @a), "\n");
 	  $flag = $flags{$item};
+	  push(@stack, $item) if(!defined($exclude{$item}));	# 20220114
 	}
 	$first = 1;
 	next;
@@ -182,6 +190,8 @@ sub align {
 	    while ($n>0) { push(@output, "\t"); $n -= 8; }
 	  }
 	  my $tmp = $_;
+	  @a[0] =~ s/\{/\\\{/g;					# 20220114
+	  @a[0] =~ s/\}/\\\}/g;					# 20220114
 	  $tmp =~ s/^@a[0]//;
 	  $tmp =~ s/^\t/ /;
 	  push(@output, trim($tmp));
