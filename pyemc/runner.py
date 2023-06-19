@@ -52,13 +52,12 @@ def setup(esh_file: str, *args):
     '''
 
     # If EMC_ROOT was defined
-    emc_setup_file = os.path.join(_get_path(), 'scripts',
-                                  'emc_setup.pl')
+    emc_setup_file = os.path.join(_get_path(), 'scripts', 'emc_setup.pl')
 
     # Used the packaged version
     if not os.path.isfile(emc_setup_file):
         emc_setup_file = os.path.join(_get_path(), 'emc', 'scripts',
-                                    'emc_setup.pl')
+                                      'emc_setup.pl')
 
     command = ['perl', str(emc_setup_file), esh_file]
     for arg in args:
@@ -78,7 +77,7 @@ def build(build_file: str):
 
     # If EMC_ROOT was defined
     emc_bin_file = os.path.join(_get_path(), 'bin', _get_exec())
-    
+
     # Used the packaged version
     if not os.path.isfile(emc_bin_file):
         emc_bin_file = os.path.join(_get_path(), 'emc', 'bin', _get_exec())
