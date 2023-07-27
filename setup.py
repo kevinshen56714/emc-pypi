@@ -20,7 +20,7 @@ extra_files = package_files('pyemc/emc')
 
 setup(
     name='emc-pypi',
-    version='2023.8.1',
+    version='2023.8.2',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     description='Python interface for the Enhanced Monte Carlo (EMC) package',
