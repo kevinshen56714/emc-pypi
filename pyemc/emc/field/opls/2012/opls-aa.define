@@ -318,6 +318,7 @@ ITEM	EXTRA
 
 140.1	hc	hc	0.06
 140.2	hc	hc	0.06
+140.3	hc	hc	0.06
 244.1	ct	ct	0.15
 
 # Imides
@@ -445,6 +446,7 @@ o1s	s	ca	62	104.2	# ditto
 s	ca	ca	70	120	# ditto
 
 ca	os	ca	75	110	# ca-os-cm		PJV 20201110
+ca	s	ca	78.7	104.4	# diphenyl sulfone
 ca	sy	ca	78.7	104.4	# diphenyl sulfone
 
 ct	ct	na	80	111.2	# ct-ct-n3		PJV 20201110
@@ -499,6 +501,7 @@ o1s	s	ca	ca	2.6	2	0	-
 
 ca	ca	ct	ca	0	1	0	-
 ca	ca	os	ca	0	1	0	1.5	2	180	-
+ca	ca	s	ca	0	1	0	-0.45	2	180	-
 ca	ca	sy	ca	0	1	0	-0.45	2	180	-
 ca	ct	os	ca	0	1	0	1.5	2	180	-
 
@@ -612,7 +615,8 @@ ITEM	RULES
 139	C(C)(C)(C)(C)
 140	H(C(H)(H)(H)) H(C(C)(H)(H)) H(C(C)(C)(H)) H(C(C)(C)(C))
 140.1	H(C(N)(H)(H)) H(C(N)(C)(H)) H(C(N)(C)(C))
-140.2	H(C(c)(H)(H)) H(C(c)(C)(H)) H(C(c)(C)(C))
+140.2	H(C(c)(H)(H)) H(C(c)(C)(H)) H(C(c)(C)(C)) H(C(S)(H)(H))
+140.3	H(C(S)(H)(H))
 
 # Alkenes
 

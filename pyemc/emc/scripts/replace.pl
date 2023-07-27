@@ -8,7 +8,7 @@
 #  purpose:	Search and replace strings in multiple files; part of EMC
 #  		distribution
 # 
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2023 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -176,6 +176,7 @@ sub full {
 # main
 
   init(@ARGV);
+
   foreach (@files)
   {
     my $nchanges;

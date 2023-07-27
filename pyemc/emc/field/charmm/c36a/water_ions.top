@@ -1,9 +1,9 @@
-#EMC/FIELD/CHARMM/UNKNOWN
+#EMC/FIELD/CHARMM/unknown
 #
 #  CHARMM topology using water_ions force field files, 
-#  converted by emc_charmm.pl v3.3, April 1, 2021 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Mar 22 21:18:37 2022.
+#  and created on Tue Jul 25 20:26:52 CEST 2023.
 #
 
 # Rule precedences
@@ -18,13 +18,13 @@ ITEM	PRECEDENCE
   (CES)
   (HT)
   (HX)
+  (POT)
   (LIT)
   (MG)
+  (SOD)
   (OT)
   (OX)
-  (POT)
   (RUB)
-  (SOD)
   (ZN)
 )
 
@@ -43,7 +43,7 @@ ITEM	RULES
 4	CLA	Cl	CLA	CLA	-1	[Cl-]
 5	CES	Cs	CES	CES	1	[Cs+]
 6	HT	H	TIP3	H1	0	H(H)(O)
-7	HT	H	TP3M	H1	0	H(O(H))
+7	HT	H	TP3M	H1	0	H(O)
 8	HX	H	OH	H1	0	H([O-])
 9	POT	K	POT	POT	1	[K+]
 10	LIT	Li	LIT	LIT	1	[Li+]

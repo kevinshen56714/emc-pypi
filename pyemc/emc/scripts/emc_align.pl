@@ -5,7 +5,7 @@
 #  date:	July 12, 2020, January 14, 2022.
 #  purpose:	Align EMC Script input
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2023 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

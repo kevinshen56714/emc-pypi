@@ -8,7 +8,7 @@
 #  purpose:	Interpret OPLSAA force field files and convert them into
 #  		EMC textual force field formats; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2023 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -219,6 +219,7 @@ sub get_define {
     }
     if (!$read) {
       $read = 1 if (join(" ", @arg[0, 1]) eq "ITEM DEFINE");
+      $read = 2 if (join(" ", @arg[0, 1]) eq "ITEM MASS");
       $read = 2 if (join(" ", @arg[0, 1]) eq "ITEM MASSES");
       $read = 3 if (join(" ", @arg[0, 1]) eq "ITEM PRECEDENCE");
       $read = 4 if (join(" ", @arg[0, 1]) eq "ITEM EQUIVALENCE");

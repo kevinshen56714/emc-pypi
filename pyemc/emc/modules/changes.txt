@@ -1,0 +1,156 @@
+pro:~/emc/src/modules/core:582> replace "if \(n<=0\) return memset" "if (n<0) return memset" $(find * -name '*.c')
+accept.c:26:   if (n<0) return memset(accept, 0, abs(n)*sizeof(struct accept));
+accept.c: changed 1 line.
+argument.c:67:   if (n<0) return memset(arg, 0, abs(n)*sizeof(struct argument));
+argument.c: changed 1 line.
+cluster.c:38:   if (n<0) return memset(cluster, 0, abs(n)*sizeof(struct cluster));
+cluster.c: changed 1 line.
+clusters.c:34:   if (n<0) return memset(clusters, 0, abs(n)*sizeof(struct clusters));
+clusters.c: changed 1 line.
+distributions.c:34:   if (n<0) return memset(distributions,0,abs(n)*sizeof(struct distributions));
+distributions.c: changed 1 line.
+ewald.c:40:   if (n<0) return memset(ewald, 0, abs(n)*sizeof(struct ewald));
+ewald.c: changed 1 line.
+force/entry.c:26:   if (n<0) return memset(entry, 0, abs(n)*sizeof(struct force_entry));
+force/entry.c: changed 1 line.
+force/ewald.c:26:   if (n<0) return memset(ewald, 0, abs(n)*sizeof(struct force_ewald));
+force/ewald.c: changed 1 line.
+force/list.c:29:   if (n<0) return memset(list, 0, abs(n)*sizeof(struct force_list));
+force/list.c: changed 1 line.
+force.c:31:   if (n<0) return memset(force, 0, abs(n)*sizeof(struct force));
+force.c: changed 1 line.
+forces.c:35:   if (n<0) return memset(forces, 0, abs(n)*sizeof(struct forces));
+forces.c: changed 1 line.
+group/site.c:32:   if (n<0) return memset(group_site, 0, abs(n)*sizeof(struct group_site));
+group/site.c: changed 1 line.
+group.c:35:   if (n<0) return memset(group, 0, abs(n)*sizeof(struct group));
+group.c: changed 1 line.
+groups.c:35:   if (n<0) return memset(groups, 0, abs(n)*sizeof(struct groups));
+groups.c: changed 1 line.
+identity.c:35:   if (n<0) return memset(identity, 0, abs(n)*sizeof(struct identity));
+identity.c: changed 1 line.
+images.c:44:   if (n<0) return memset(images, 0, abs(n)*sizeof(struct images));
+images.c: changed 1 line.
+io.c:36:   if (n<0) return memset(io, 0, abs(n)*sizeof(struct io));
+io.c: changed 1 line.
+junction.c:34:   if (n<0) return memset(junction, 0, abs(n)*sizeof(struct junction));
+junction.c: changed 1 line.
+list/bond.c:26:   if (n<0) return memset(list, 0, abs(n)*sizeof(struct list));
+list/bond.c: changed 1 line.
+list/long.c:29:   if (n<0) return memset(list, 0, abs(n)*sizeof(struct list_long));
+list/long.c: changed 1 line.
+list.c:36:   if (n<0) return memset(list, 0, abs(n)*sizeof(struct list));
+list.c:323:   if (n<0) return memset(list, 0, abs(n)*sizeof(struct stacklist));
+list.c: changed 2 lines.
+map.c:25:   if (n<0) return memset(map, 0, abs(n)*sizeof(struct map));
+map.c: changed 1 line.
+mass.c:39:   if (n<0) return memset(mass, 0, abs(n)*sizeof(struct mass));
+mass.c: changed 1 line.
+moves/endbridge.c:38:   if (n<0) return memset(endbridge, 0, abs(n)*sizeof(struct endbridge));
+moves/endbridge.c: changed 1 line.
+moves/rebridge.c:39:   if (n<0) return memset(rebridge, 0, abs(n)*sizeof(struct rebridge));
+moves/rebridge.c: changed 1 line.
+moves/reptate.c:35:   if (n<0) return memset(reptate, 0, abs(n)*sizeof(struct reptate));
+moves/reptate.c: changed 1 line.
+moves/rotate.c:36:   if (n<0) return memset(rotate, 0, abs(n)*sizeof(struct rotate));
+moves/rotate.c: changed 1 line.
+moves/temper.c:38:   if (n<0) return memset(temper, 0, abs(n)*sizeof(struct temper));
+moves/temper.c: changed 1 line.
+moves.c:47:   if (n<0) return memset(moves, 0, abs(n)*sizeof(struct moves));
+moves.c: changed 1 line.
+nsites.c:26:   if (n<0) return memset(nsites, 0, abs(n)*sizeof(struct nsites));
+nsites.c: changed 1 line.
+output.c:43:   if (n<0) return memset(output, 0, abs(n)*sizeof(struct output));
+output.c: changed 1 line.
+parse.c:35:   if (n<0) return memset(parse, 0, abs(n)*sizeof(struct parse));
+parse.c:62:   if (n<0) return memset(var, 0, abs(n)*sizeof(void *));
+parse.c:96:   if (n<0) return memset(var, 0, abs(n)*sizeof(long));
+parse.c:121:   if (n<0) return memset(var, 0, abs(n)*sizeof(int));
+parse.c:146:   if (n<0) return memset(var, 0, abs(n)*sizeof(long));
+parse.c:171:   if (n<0) return memset(var, 0, abs(n)*sizeof(double));
+parse.c:196:   if (n<0) return memset(var, 0, abs(n)*sizeof(double complex));
+parse.c: changed 7 lines.
+port/pdb.c:31:   if (n<0) return memset(pdb, 0, abs(n)*sizeof(struct port_pdb));
+port/pdb.c: changed 1 line.
+port.c:55:   if (n<0) return memset(port, 0, abs(n)*sizeof(struct port));
+port.c: changed 1 line.
+profiles.c:55:   if (n<0) return memset(profiles, 0, abs(n)*sizeof(struct profiles));
+profiles.c: changed 1 line.
+range.c:26:   if (n<0) return memset(range, 0, abs(n)*sizeof(struct range));
+range.c: changed 1 line.
+sector.c:26:   if (n<0) return memset(sector, 0, abs(n)*sizeof(sector));
+sector.c: changed 1 line.
+sectors.c:30:   if (n<0) return memset(sectors, 0, abs(n)*sizeof(struct sectors));
+sectors.c: changed 1 line.
+simulation.c:91:   if (n<0) return memset(sim, 0, abs(n)*sizeof(struct simulation));
+simulation.c: changed 1 line.
+site.c:42:   if (n<0) return memset(site, 0, abs(n)*sizeof(struct site));
+site.c: changed 1 line.
+sites.c:46:   if (n<0) return memset(sites, 0, abs(n)*sizeof(struct sites));
+sites.c: changed 1 line.
+spline.c:36:   if (n<0) return memset(spline, 0, abs(n)*sizeof(struct spline));
+spline.c: changed 1 line.
+statistic.c:26:   if (n<0) return memset(statistic, 0, abs(n)*sizeof(struct statistic));
+statistic.c: changed 1 line.
+statistics.c:30:   if (n<0) return memset(statistics, 0, abs(n)*sizeof(struct statistics));
+statistics.c: changed 1 line.
+stencil.c:33:   if (n<0) return memset(stencil, 0, abs(n)*sizeof(struct stencil));
+stencil.c: changed 1 line.
+stencils.c:30:   if (n<0) return memset(stencils, 0, abs(n)*sizeof(struct stencils));
+stencils.c: changed 1 line.
+store/forces.c:41:   if (n<0) return memset(store, 0, abs(n)*sizeof(struct store_forces));
+store/forces.c: changed 1 line.
+store/sites.c:45:   if (n<0) return memset(store, 0, abs(n)*sizeof(struct store_sites));
+store/sites.c: changed 1 line.
+store/verlet.c:37:   if (n<0) return memset(store, 0, abs(n)*sizeof(struct store_verlet));
+store/verlet.c: changed 1 line.
+store.c:45:   if (n<0) return memset(store, 0, abs(n)*sizeof(struct store));
+store.c: changed 1 line.
+string.c:33:   if (n<0) return memset(string, 0, abs(n)*sizeof(char));
+string.c: changed 1 line.
+system.c:60:   if (n<0) return memset(system, 0, abs(n)*sizeof(struct system));
+system.c: changed 1 line.
+systems.c:36:   if (n<0) return memset(systems, 0, abs(n)*sizeof(struct systems)); 
+systems.c: changed 1 line.
+types/charmm/angle.c:63:   if (n<0) return memset(angle, 0, abs(n)*sizeof(struct type));
+types/charmm/angle.c: changed 1 line.
+types/charmm/bond.c:66:   if (n<0) return memset(bond, 0, abs(n)*sizeof(struct type));
+types/charmm/bond.c: changed 1 line.
+types/charmm/improper.c:66:   if (n<0) return memset(improper, 0, abs(n)*sizeof(struct type));
+types/charmm/improper.c: changed 1 line.
+types/charmm/lj.c:161:   if (n<0) return memset(lj, 0, abs(n)*sizeof(struct type));
+types/charmm/lj.c: changed 1 line.
+types/charmm/lj14.c:66:   if (n<0) return memset(lj14, 0, abs(n)*sizeof(struct type));
+types/charmm/lj14.c: changed 1 line.
+types/charmm/torsion.c:110:   if (n<0) return memset(torsion, 0, abs(n)*sizeof(struct type));
+types/charmm/torsion.c: changed 1 line.
+types/coarse/fene.c:66:   if (n<0) return memset(fene, 0, abs(n)*sizeof(struct type));
+types/coarse/fene.c: changed 1 line.
+types/coarse/lj.c:172:   if (n<0) return memset(lj, 0, abs(n)*sizeof(struct type));
+types/coarse/lj.c: changed 1 line.
+types/spline/angle.c:63:   if (n<0) return memset(angle, 0, abs(n)*sizeof(struct type));
+types/spline/angle.c: changed 1 line.
+types/spline/bond.c:66:   if (n<0) return memset(bond, 0, abs(n)*sizeof(struct type));
+types/spline/bond.c: changed 1 line.
+types/spline/pair.c:101:   if (n<0) return memset(pair, 0, abs(n)*sizeof(struct type));
+types/spline/pair.c: changed 1 line.
+types/spline/torsion.c:66:   if (n<0) return memset(torsion, 0, abs(n)*sizeof(struct type));
+types/spline/torsion.c: changed 1 line.
+types/standard/correct.c:31:   if (n<0) return memset(correct, 0, abs(n)*sizeof(struct type));
+types/standard/correct.c: changed 1 line.
+types.c:54:   if (n<0) return memset(types, 0, abs(n)*sizeof(struct types));
+types.c: changed 1 line.
+verlet.c:28:   if (n<0) return memset(verlet, 0, abs(n)*sizeof(struct verlet));
+verlet.c: changed 1 line.
+verlets.c:38:   if (n<0) return memset(verlets, 0, abs(n)*sizeof(struct verlets));
+verlets.c: changed 1 line.
+voigt.c:25:   if (n<0) return memset(voigt, 0, abs(n)*sizeof(struct voigt));
+voigt.c: changed 1 line.
+xref/array.c:31:   if (n<0) return memset(array, 0, abs(n)*sizeof(struct xref_array));
+xref/array.c: changed 1 line.
+xref/direct.c:31:   if (n<0) return memset(direct, 0, abs(n)*sizeof(struct xref_direct));
+xref/direct.c: changed 1 line.
+xref/list.c:31:   if (n<0) return memset(list, 0, abs(n)*sizeof(struct xref_list));
+xref/list.c: changed 1 line.
+xref.c:36:   if (n<0) return memset(xref, 0, abs(n)*sizeof(struct xref));
+xref.c: changed 1 line.

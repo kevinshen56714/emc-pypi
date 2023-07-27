@@ -7,6 +7,7 @@
 !		1995/03/01	Original conception
 !	PJV	2014/12/22	Tightening of rules
 !	PJV	2015/07/28	Added rule for o with two connections
+!	PJV	2023/02/28	Loosened cp rule to (>C(~*)(:*)(:*))
 
 !
 ! GENERAL
@@ -391,7 +392,7 @@ end_type
 
 type:cp
   ! SP2 aromatic carbon with partial double bond
-  template:(>C(-*)(:*)(:*))
+  template:(>C(~*)(:*)(:*))
   atom_test:1
     hybridization: SP2
     aromaticity:AROMATIC

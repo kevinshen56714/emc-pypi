@@ -196,7 +196,7 @@ sub info {
 
 
 sub warning {
-  printf("::EMCField::Warning: %s", join(" ", @_)) if ($::EMCField::Warning);
+  printf("Warning: %s", join(" ", @_)) if ($::EMCField::Warning);
 }
 
 

@@ -49,7 +49,7 @@ sub replace {
   my $year = $time->year;
   my $ymd = $time->ymd("");
   my $fullmonth = $time->fullmonth;
-  my $date = "$fullmonth $time->day_of_month, $year";		# 20220102
+  my $date = "$fullmonth ".$time->day_of_month.", $year";	# 20220102
 
   return if (test($input.$ext, 1)||test($output.$ext, 0));
   open($file_in, "<", $input.$ext);
@@ -153,6 +153,7 @@ sub initialize {
   replace(".sh") if (-e "@files[0].sh");			# 20180208
   replace(".pm") if (-e "@files[0].pm");			# 20211128
   replace(".txi") if (-e "@files[0].txi");			# 20220314
+  replace(".define") if (-e "@files[0].define");		# 20230307
   
   print("copied $nreplacements file", $nreplacements==1 ? "" : "s", "\n");
 

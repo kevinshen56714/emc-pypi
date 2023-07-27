@@ -13,7 +13,7 @@ FFTYPE		ATOMISTIC
 FFDEPTH		4
 FFCHARGE	ALL
 VERSION		Jan 2007
-CREATED		Apr 2021
+CREATED		Dec 2022
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -789,6 +789,7 @@ ca	os	p	100	120.5
 ca	p	o	45	109.5
 ca	p	oh	45	109.5
 ca	p	os	45	109.5
+ca	s	ca	78.7	104.4
 ca	s	cm	62	104.2
 ca	s	ct	62	104.2
 ca	s	o1s	62	104.2
@@ -1302,6 +1303,7 @@ ca	ca	oh	ho	0	1	0	1.682	2	0	34
 ca	ca	os	ca	0	1	0	1.5	2	180	-
 ca	ca	os	ct	0	1	0	3	2	0	17
 ca	ca	os	p	0	1	0	2.99	2	0	129
+ca	ca	s	ca	0	1	0	-0.45	2	180	-
 ca	ca	s	ct	0	1	0	0.6	2	0	314
 ca	ca	s	o1s	2.6	2	0	-
 ca	ca	sh	hs	0	1	0	1.1	2	0	49.1

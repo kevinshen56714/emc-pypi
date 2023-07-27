@@ -13,7 +13,7 @@ def _get_exec() -> None:
         None
     '''
     if sys.platform == 'linux' or sys.platform == 'linux2':
-        emc_exec = 'emc_linux64'
+        emc_exec = 'emc_linux_x86_64'
     elif sys.platform == 'darwin':
         emc_exec = 'emc_macos'
     elif sys.platform == 'win32':
@@ -35,10 +35,7 @@ def _get_path() -> str:
     Returns:
         module_path (str): the path of the module
     '''
-
-    # If a newer version of EMC has been downloaded,
-    # the EMC_ROOT environment variable needs to be set to use that.
-    return os.environ.get('EMC_ROOT', os.path.dirname(__file__))
+    return os.path.dirname(__file__)
 
 
 def setup(esh_file: str, *args):
@@ -50,14 +47,8 @@ def setup(esh_file: str, *args):
     Returns:
         None
     '''
-
-    # If EMC_ROOT was defined
-    emc_setup_file = os.path.join(_get_path(), 'scripts', 'emc_setup.pl')
-
-    # Used the packaged version
-    if not os.path.isfile(emc_setup_file):
-        emc_setup_file = os.path.join(_get_path(), 'emc', 'scripts',
-                                      'emc_setup.pl')
+    emc_setup_file = os.path.join(_get_path(), 'emc', 'scripts',
+                                  'emc_setup.pl')
 
     command = ['perl', str(emc_setup_file), esh_file]
     for arg in args:
@@ -74,12 +65,6 @@ def build(build_file: str):
     Returns:
         None
     '''
-
-    # If EMC_ROOT was defined
-    emc_bin_file = os.path.join(_get_path(), 'bin', _get_exec())
-
-    # Used the packaged version
-    if not os.path.isfile(emc_bin_file):
-        emc_bin_file = os.path.join(_get_path(), 'emc', 'bin', _get_exec())
+    emc_bin_file = os.path.join(_get_path(), 'emc', 'bin', _get_exec())
 
     subprocess.run([str(emc_bin_file), build_file])

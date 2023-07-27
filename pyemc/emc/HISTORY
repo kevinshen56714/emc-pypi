@@ -138,6 +138,27 @@ Date     Description
 	 - Adapted PSF output to align with VMD
 	 - Changed from qsort() to mergesort() in FieldIndexSort()
 20220801 - Web publication
+20230322 - Added stricter rule implementation for charged species by changing
+	   FieldRuleTestCompare()
+20230407 - Added Set, Reset, and ReallocReset to simple variable modifiers in
+	   parse.c and parse.h
+	 - Added exceptions for TypeFamilyRetype() in type.hh to 
+	   types/cff/{bond_angle, end_bond_torsion, angle_torsion} to avoid
+	   scrambling of constants as a result of retyping
+20230503 - Adapted ClustersBuild() and ClusterBuild() to improve structure 
+	   imports with more than one molecule
+20230609 - Included trajectory loading by VMD script
+20230617 - Fixed aromatic designation when reading graphene
+	 - Fixed issue with implicit general field application in groups
+20230718 - Changed group site charges from static to dynamic array
+	 - Added system mapping after deformation
+20230724 - Changed Linux executables for x86_64 and aarch64 architectures to
+	   include OS; note that emc_linux64 changed to emc_linux_x86_64
+	 - Altered scripts/emc.sh to reflect changes in executable
+	 - Coupled set EMC mixing rule to LAMMPS port
+	 - Changed OPLS mixing rules from arithmetic to geometric according to
+	   Jorgensen et al., J. Am. Chem. Soc. 1996, 118, 11225
+20230801 - Web publication
 
 
 v9.4.3
