@@ -1,9 +1,9 @@
 #EMC/FIELD/CHARMM/v34.
 #
 #  CHARMM topology using ethers force field files, 
-#  converted by emc_charmm.pl v3.3, April 1, 2021 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Fri Mar 18 14:24:40 2022.
+#  and created on Mon Mar 06 14:44:44 CET 2023.
 #
 
 # Rule precedences
@@ -11,17 +11,16 @@
 ITEM	PRECEDENCE
 
 (?
-  (CC30A)
-  (CC31A)
+  (CC326A)
   (CC325A)
   (CC325B)
-  (CC326A)
-  (CC32A)
-  (CC33A)
-  (HCA1A)
+  (CT1)
+  (CT2)
+  (CT3)
+  (HA1)
+  (HA3)
+  (HA2)
   (HCA25A)
-  (HCA2A)
-  (HCA3A)
   (OC305A)
   (OC30A)
 )
@@ -35,28 +34,28 @@ ITEM	RULES
 # id	type	element	residue	atom	charge	rule
 
 0	?	?	UNK	UNK	0	*
-1	CC30A	C	NEOP	CT	0	C(C)(C)(C)(C)
-2	CC31A	C	IBUT	CT	0	C(C)(C)(C)(H)
-3	CC325A	C	CPEN	C1	0	^5C(H)(H)(^5C(H)(H)(^5C))(^5C(H)(H)(^5C))
-4	CC325B	C	TF2M	C1	0	^5C(C)(H)(^5C)(^5O)
-5	CC325B	C	TF2M	C2	0	^5C(H)(H)(^5C(C)(H)(^5O))(^5C(H)(H)(^5C))
-6	CC325B	C	TF2M	C3	0	^5C(H)(H)(^5C(H)(H)(^5C))(^5C(H)(H)(^5O))
-7	CC325B	C	TF2M	C4	0	^5C(H)(H)(^5C)(^5O)
-8	CC326A	C	THP	C1	0	^6C(H)(H)(O)(^6C)
-9	CC326A	C	THP	C2	0	^6C(H)(H)(^6C)(^6C)
-10	CC32A	C	BUTA	C2	0	C(C)(C)(H)(H)
-11	CC32A	C	DEET	C2	0	C(C)(H)(H)(O)
-12	CC33A	C	BUTA	C1	0	C(C)(H)(H)(H)
-13	CC33A	C	DME	C1	0	C(H)(H)(H)(O)
-14	CC33A	C	TF2M	C5	0	C(H)(H)(H)(^5C)
-15	HCA1A	H	IBUT	HT	0	H(C(C)(C)(C))
-16	HCA25A	H	CPEN	H1A	0	H(^5C)
-17	HCA2A	H	BUTA	H21	0	H(C(C)(C)(H))
-18	HCA2A	H	DEET	H21	0	H(C(C)(H)(O))
-19	HCA2A	H	THP	H1A	0	H(^6C)
-20	HCA3A	H	BUTA	H11	0	H(C(C)(H)(H))
-21	HCA3A	H	DME	H11	0	H(C(H)(H)(O))
-22	HCA3A	H	TF2M	H5A	0	H(C(H)(H)(^5C))
+1	CC325A	C	CPEN	C1	0	^5C(H)(H)(^5C(H)(H)(^5C))(^5C(H)(H)(^5C))
+2	CC325B	C	TF2M	C1	0	^5C(C)(H)(^5C)(^5O)
+3	CC325B	C	TF2M	C2	0	^5C(H)(H)(^5C(C)(H)(^5O))(^5C(H)(H)(^5C))
+4	CC325B	C	TF2M	C3	0	^5C(H)(H)(^5C(H)(H)(^5C))(^5C(H)(H)(^5O))
+5	CC325B	C	TF2M	C4	0	^5C(H)(H)(^5C)(^5O)
+6	CC326A	C	THP	C1	0	^6C(H)(H)(O)(^6C)
+7	CC326A	C	THP	C2	0	^6C(H)(H)(^6C)(^6C)
+8	CT1	C	NEOP	CT	0	C(C)(C)(C)(C)
+9	CT1	C	IBUT	CT	0	C(C)(C)(C)(H)
+10	CT2	C	BUTA	C2	0	C(C)(C)(H)(H)
+11	CT2	C	DEET	C2	0	C(C)(H)(H)(O)
+12	CT3	C	BUTA	C1	0	C(C)(H)(H)(H)
+13	CT3	C	DME	C1	0	C(H)(H)(H)(O)
+14	CT3	C	TF2M	C5	0	C(H)(H)(H)(^5C)
+15	HA1	H	IBUT	HT	0	H(C(C)(C)(C))
+16	HA2	H	BUTA	H21	0	H(C(C)(C)(H))
+17	HA2	H	DEET	H21	0	H(C(C)(H)(O))
+18	HA2	H	THP	H1A	0	H(^6C)
+19	HA3	H	BUTA	H11	0	H(C(C)(H)(H))
+20	HA3	H	DME	H11	0	H(C(H)(H)(O))
+21	HA3	H	TF2M	H5A	0	H(C(H)(H)(^5C))
+22	HCA25A	H	CPEN	H1A	0	H(^5C)
 23	OC305A	O	TF2M	O1	0	^5O(^5C)(^5C)
 24	OC30A	O	DEET	O3	0	O(C)(C)
 25	OC30A	O	THP	O1	0	O(^6C)(^6C)

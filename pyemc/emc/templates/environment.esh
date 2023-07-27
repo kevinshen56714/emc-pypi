@@ -6,11 +6,10 @@
 #  purpose:	Example for using EMC setup environment mode
 #
 
-ITEM	OPTIONS
+ITEM	ENVIRONMENT
 
 project		dpd
 replace		true
-environment	true
 queue_build	default
 queue_run	default
 queue_analyze	default
@@ -51,19 +50,19 @@ ITEM	END
 
 ITEM	GROUPS
 
-@GROUPS
+@{GROUPS}
 
 ITEM	END
 
 ITEM	CLUSTERS
 
-@CLUSTERS
+@{CLUSTERS}
 
 ITEM	END
 
 ITEM	POLYMERS
 
-@POLYMERS
+@{POLYMERS}
 
 ITEM	END
 

@@ -1,0 +1,49 @@
+# Instructions
+# ------------
+# - Create a base project directory
+# 
+#     mkdir ./project
+# 
+# - Copy this setup directory to your project directory
+# 
+#     cp -pPR $EMC_ROOT/examples/setup/environment/t_glass/setup ./project
+# 
+# - Execute all setup scripts from the root project directory, e.g.
+# 
+#     cd ./project
+#     ./setup/2018061100.esh
+# 
+# - Always have a ./project/setup directory in order to use multiple stages
+#   within the same project
+# - The above structure warrants uniformity for future database solutions
+# - Keep a log of which scripts are stored in your ./project/setup directory;
+#   see Index below for a suggestion
+# 
+# Remarks
+# -------
+# - Log file for explanation of different setup scripts
+# - It is advised to use date and serial number in setup script names
+# - Simulations create different atactic polymers
+# - Different types of analyses are performed
+#   - Pressure, energy and density are sampled
+#   - Cavity size analysis is performed additionally (see ITEM ANALYSIS
+#     paragraph)
+# 
+# Index
+# -----
+.esh		stage	sub	temperature	remarks
+-------------------------------------------------------------------------------
+2023072600	00	a-pp	s:200:300:5	atactic polypropylene	
+			a-ps	s:320:420:5	atactic polystyrene
+2023072601	00	a-pp	s:200:300:5	atactic polypropylene	
+			a-ps	s:320:420:5	atactic polystyrene
+						different way
+2023072610	00	a-pp	s:200:300:5	atactic polypropylene	
+			a-ps	s:320:420:5	atactic polystyrene
+						same as 2023072600 but without
+						comments
+2023072611	00	a-pp	s:200:300:5	atactic polypropylene	
+			a-ps	s:320:420:5	atactic polystyrene
+						same as 2023072601 but without
+						comments
+

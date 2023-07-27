@@ -8,7 +8,7 @@
 #  purpose:	translation of Accelrys InsightII .mdf and .arc formats
 #  		to lammps input files; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2023 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

@@ -1,0 +1,42 @@
+#!/usr/bin/env vmd -e
+
+# variables
+
+set project "name"
+
+# load structure
+
+if { [file exists $project.psf.gz] == 1} {
+  exec gunzip $project.psf.gz
+}
+if { [file exists $project.pdb.gz] == 1} {
+  exec gunzip $project.pdb.gz
+
+}
+mol new $project.psf waitfor all
+mol addfile $project.pdb waitfor all
+
+exec gzip $project.psf
+exec gzip $project.pdb
+
+# set representation
+
+mol delrep 0 top
+mol representation Lines 1
+mol color Type
+mol addrep top
+mol showrep top 0 1
+
+# set atom radii
+
+set radii {1.75 1.25 0.4725 0.4786 1.56 1.58278}
+set types {"ct" "hc" "ho" "hw" "oh" "ow4"}
+foreach type ${types} radius ${radii} {
+  set atoms [atomselect top "type \"${type}\""]
+  $atoms set radius ${radius}
+  $atoms delete
+}
+
+# set periodic box
+
+pbc box

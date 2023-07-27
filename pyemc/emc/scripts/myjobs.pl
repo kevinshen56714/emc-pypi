@@ -7,7 +7,7 @@
 #  		April 13, June 5, 2018
 #  purpose:	wrapper for LSF bjobs and PBS qstat; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2023 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

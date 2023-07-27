@@ -1,9 +1,9 @@
-#EMC/FIELD/CHARMM/UNKNOWN
+#EMC/FIELD/CHARMM/unknown
 #
 #  CHARMM interaction parameters using water_ions force field files, 
-#  converted by emc_charmm.pl v3.3, April 1, 2021 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Mar 22 21:18:37 2022.
+#  and created on Tue Jul 25 20:26:52 CEST 2023.
 #
 
 # Force field definition
@@ -14,10 +14,11 @@ FFMODE		CHARMM
 FFTYPE		ATOMISTIC
 FFAPPLY		GROUPS
 FFINDEX		TYPES
-FFDEPTH		2
+FFDEPTH		1
 FFCHARGE	ALL
-VERSION		UNKNOWN
-CREATED		Mar 2022
+FFSTRICT	FALSE
+VERSION		unknown
+CREATED		July 2023
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -26,8 +27,8 @@ NBONDED		3
 INNER		10.0
 CUTOFF		12.0
 ANGLE		ERROR
-PAIR14		INCLUDE
 TORSION		ERROR
+PAIR14		INCLUDE
 GROUP		IGNORE
 RULE		ERROR
 SHAKE		NONE
@@ -42,19 +43,19 @@ ITEM	MASS
 
 BAR	137.327	Ba	0	2	12	Barium Ion
 CAD	112.411	Cd	0	2	14	Cadmium (II) cation
-CAL	40.078	Ca	0	2	9	Calcium Ion
-CES	132.905	Cs	0	1	11	Cesium Ion
-CLA	35.4527	Cl	0	-1	15	Chloride Ion
-HT	1.0079	H	2	0	1	TIPS3P WATER HYDROGEN
-HX	1.0079	H	1	0	2	Hydroxide hydrogen
+CAL	40.08	Ca	0	2	9	Calcium Ion
+CES	132.90545	Cs	0	1	11	Cesium Ion
+CLA	35.45	Cl	0	-1	15	Chloride Ion
+HT	1.008	H	2	0	1	TIPS3P WATER HYDROGEN
+HX	1.008	H	1	0	2	Hydroxide hydrogen
 LIT	6.941	Li	0	1	5	Lithium ion
 MG	24.305	Mg	0	2	7	Magnesium Ion
 OT	15.9994	O	2	0	3	TIPS3P WATER OXYGEN
 OX	15.9994	O	1	0	4	Hydroxide oxygen
-POT	39.098	K	0	1	8	Potassium Ion
-RUB	85.468	Rb	0	1	10	Rubidium Ion
-SOD	22.99	Na	0	1	6	Sodium Ion
-ZN	65.39	Zn	0	2	13	Zinc (II) cation
+POT	39.0983	K	0	1	8	Potassium Ion
+RUB	85.4678	Rb	0	1	10	Rubidium Ion
+SOD	22.98977	Na	0	1	6	Sodium Ion
+ZN	65.37	Zn	0	2	13	Zinc (II) cation
 
 ITEM	END
 
@@ -114,7 +115,6 @@ ITEM	INCREMENT
 
 HT	HT	0	0
 HT	OT	0.417	-0.417
-HX	OX	0.32	-1.32
 
 ITEM	END
 
@@ -129,15 +129,15 @@ CAD	CAD	1.357	-0.12	1.357	-0.12
 CAL	CAL	1.367	-0.12	1.367	-0.12
 CES	CES	2.1	-0.19	2.1	-0.19
 CLA	CLA	2.27	-0.15	2.27	-0.15
-HT	HT	0.2245	-0.046	0.2245	-0.046
-HX	HX	0.2245	-0.046	0.2245	-0.046
-LIT	LIT	1.2975	-0.00233	1.2975	-0.00233
+HT	HT	0.225	-0.046	0.225	-0.046
+HX	HX	0.225	-0.046	0.225	-0.046
+LIT	LIT	1.298	-0.002	1.298	-0.002
 MG	MG	1.185	-0.015	1.185	-0.015
-OT	OT	1.7682	-0.1521	1.7682	-0.1521
+OT	OT	1.768	-0.152	1.768	-0.152
 OX	OX	1.7	-0.12	1.7	-0.12
-POT	POT	1.76375	-0.087	1.76375	-0.087
+POT	POT	1.764	-0.087	1.764	-0.087
 RUB	RUB	1.9	-0.15	1.9	-0.15
-SOD	SOD	1.41075	-0.0469	1.41075	-0.0469
+SOD	SOD	1.411	-0.047	1.411	-0.047
 ZN	ZN	1.09	-0.25	1.09	-0.25
 
 ITEM	END
@@ -148,8 +148,8 @@ ITEM	BOND
 
 # type1	type2	k	l0
 
-HT	HT	0	1.5139
-HT	OT	450	0.9572
+HT	HT	0	1.514
+HT	OT	450	0.957
 HX	OX	545	0.97
 
 ITEM	END

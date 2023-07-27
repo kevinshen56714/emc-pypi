@@ -1,0 +1,13 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  message	-> "raw"
+};
+
+get		= {name -> input};
+
+force		= {style -> none, message -> message};
+force		= {style -> init, message -> message};
+

@@ -1,0 +1,214 @@
+#!/usr/bin/env emc_setup.pl
+#
+#  script:	t_glass.esh
+#  author:	Pieter J. in 't Veld
+#  date:	June 11, 2018, July 27, 2023.
+#  purpose:	Example for creating input for glass temperature calculations;
+#
+#  notes:
+#    20180611	Creation date
+#    20230727	Adaptation for atactic polypropylene and polystyrene
+#		Addition of comments
+#
+#  - this script generates 210 simulations in total
+#  - start simulations with
+#
+#  	./run/2023072610.sh -build
+#
+#    which spans an EMC build for each, chained with a subsequent LAMMPS
+#    simulation
+#
+
+#
+# General settings
+#
+
+ITEM	ENVIRONMENT
+
+project		atom
+replace		true
+queue_run	default	
+queue_build	default	
+queue_analyze	default
+time_build	00:40:00
+time_analyze	24:00:00
+time_run	24:00:00
+name_testdir	t_glass	
+			
+analyze_window	25
+			
+ncores		20
+preprocess	true
+			
+trun		-
+
+ITEM	END	# ENVIRONMENT
+
+# Analysis
+
+ITEM	ANALYSIS
+
+cavity		start=2e6, ninserts=1e5, record=false
+
+ITEM	END	# ANALYSIS
+
+# Variables
+
+ITEM	VARIABLES
+
+pressure	1.0
+
+ITEM	END	# VARIABLES
+
+# Loops
+
+ITEM	LOOPS
+
+stage		00
+trial		a-pp		a-ps
+temperature:p	s:200:300:5	s:320:420:5
+density:h	0.85		1.00		
+copy		5		
+
+ITEM	END	# LOOPS
+
+#
+# Project stage 00
+#
+
+ITEM	STAGE	00
+
+# Set script template
+
+ITEM	TEMPLATE
+
+# Command line options
+
+ITEM	OPTIONS
+
+replace		true
+field		charmm/c36a/cgenff
+field_increment	empty
+ntotal		25000
+tequil		10000
+dtdump		1e6
+density		@{DENSITY}
+pressure	@{PRESSURE}
+temperature	@{TEMPERATURE}
+sample		pressure=true, volume=true, energy=true
+
+ITEM	END	# OPTIONS
+
+# LAMMPS relaxation parameters
+
+ITEM	VARIABLES
+
+
+trelax		5e5
+thigh		@{TEMPERATURE}+400
+
+ITEM	END	# VARIABLES
+
+ITEM	LAMMPS	stage=simulation	spot=tail
+
+fix		int all npt temp ${temperature} ${thigh} ${tdamp} &
+		iso ${pressure} ${pressure} ${pdamp}
+run		${trelax}
+unfix		int
+
+fix		int all npt temp ${thigh} ${temperature} ${tdamp} &
+		iso ${pressure} ${pressure} ${pdamp}
+run		${trelax}
+unfix		int
+
+write_restart	${project}.restart2
+
+ITEM	END	# LAMMPS
+
+# Chemistry
+
+ITEM	GROUPS
+
+@{GROUPS}
+
+ITEM	END	# GROUPS
+
+ITEM	CLUSTERS
+
+@{CLUSTERS}
+
+ITEM	END	# CLUSTERS
+
+ITEM	POLYMERS
+
+@{POLYMERS}
+
+ITEM	END	# POLYMERS
+
+ITEM	END	# TEMPLATE
+
+#
+# Trial 	a-pp
+#
+
+ITEM	TRIAL	a-pp
+
+# Groups
+
+ITEM	GROUPS
+
+monomer		*C(C)C*, 1,monomer:2, 1,term:1, 2,term:1	
+term		*C
+
+ITEM	END	# GROUPS
+
+# Clusters
+
+ITEM	CLUSTERS
+
+polymer		alternate,1
+
+ITEM	END	# CLUSTERS
+
+# Polymers
+
+ITEM	POLYMERS
+
+polymer
+100		monomer,30,term,2
+
+ITEM	END	# POLYMERS
+
+#
+# Trial 	a-ps
+#
+
+ITEM	TRIAL	a-ps
+
+# Groups
+
+ITEM	GROUPS
+
+monomer		*C(c1ccccc1)C*, 1,monomer:2, 1,term:1, 2,term:1
+term		*C
+
+ITEM	END	# GROUPS
+
+# Clusters
+
+ITEM	CLUSTERS
+
+polymer		alternate,1
+
+ITEM	END	# CLUSTERS
+
+# Polymers
+
+ITEM	POLYMERS
+
+polymer
+100		monomer,20,term,2
+
+ITEM	END	# POLYMERS
+
+

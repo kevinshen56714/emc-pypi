@@ -13,7 +13,7 @@ def _get_exec() -> None:
         None
     '''
     if sys.platform == 'linux' or sys.platform == 'linux2':
-        emc_exec = 'emc_linux64'
+        emc_exec = 'emc_linux_x86_64'
     elif sys.platform == 'darwin':
         emc_exec = 'emc_macos'
     elif sys.platform == 'win32':

@@ -73,7 +73,7 @@ ITEM	END
 
 # Masses
 
-ITEM	MASSES
+ITEM	MASS
 
 # type	mass	element	ncons	charge	comment
                         

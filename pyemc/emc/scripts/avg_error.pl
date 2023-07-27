@@ -5,7 +5,7 @@
 #  date:	October 22, 2018.
 #  purpose:	Repair of LAMMPS time-averaged output; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2023 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

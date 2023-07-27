@@ -16,7 +16,7 @@
 #  		and coarse-grained [[multi-]interface] simulations; part of
 #  		EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2023 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -96,7 +96,7 @@
 #    		Debugged interpretation of -charge=false for -field=dpd
 #    20151127	Added $::EMC::Lammps{prefix} for adding project prefix to output
 #    		and $::EMC::Lammps{chunk} for using chunk approach in profiles
-#    20151130	Added $::EMC::Lammps{restart} and $::EMC::Shear
+#    20151130	Added $::EMC::MD{restart} and $::EMC::Shear
 #    20160119	Refined force field choice
 #    20160120	Generalized LAMMPS input script to be used for either
 #		equilibration or restart
@@ -522,7 +522,23 @@
 #    20220407	Importing DPD references through get_data_quick()
 #    20220727	Added map keyword to cluster import
 #    20220801	Web publication
-#    		
+#    20220806	New version: 4.1.4 
+#		Improved behavior of ITEM INCLUDE
+#    		Allowing for clusters to have the same name as polymeric groups
+#    20220819	Corrected module initialization behavior
+#    20220830	Migration of list() to set_text()
+#    		and set_list() to set_hash()
+#    20221020	Changed automatic surface sizing when importing structures to 
+#    		be as square as possible
+#    20221125	Reduced all function calls to internal calls, when possible
+#    20221218	Placed creation of build.emc at end
+#    20230316	New version: 4.1.6
+#		Altered run_sh() in write_job_functions() to reflect using
+#		third line from last of run.sh output for obtaining job id
+#    20230321	Added debug option to InsightII imports
+#    20230611	Improved variable interpretation in bash script loops
+#    20230801	Web publication
+#
 #  file formats:
 #    parameters	column1	column2		column3		...
 #    	line1	-	-		temperature[K]	...
@@ -587,15 +603,24 @@ use Time::Piece;
 
 # Module initialization
 
-if (-d dirname($0)."/modules") {
-  use lib $::EMC::Modules{dir} = dirname($0)."/modules";
-} else {
-  use lib $::EMC::Modules{dir} = $ENV{EMC_ROOT}."/scripts/modules";
+BEGIN {
+  if (-d dirname($0)."/modules") {
+    $::EMC::Modules{dir} = dirname($0)."/modules";
+  } else {
+    $::EMC::Modules{dir} = $ENV{EMC_ROOT}."/scripts/modules";
+  }
+  if (! -d $::EMC::Modules{dir}) {
+    print("Error: cannot locate modules directory: set EMC_ROOT?\n\n");
+    exit(-1);
+  }
 }
-opendir(DIR, $::EMC::Modules{dir});
-foreach(readdir(DIR)) { 
-  require $_ if (substr($_,-3) eq ".pm" && -f "$::EMC::Modules{dir}/$_" ); }
-close DIR;
+use lib $::EMC::Modules{dir};
+use EMCField;
+
+#opendir(DIR, $::EMC::Modules{dir});
+#foreach(readdir(DIR)) { 
+#  require $_ if (substr($_,-3) eq ".pm" && -f "$::EMC::Modules{dir}/$_" ); }
+#close DIR;
 
 use strict;
 
@@ -603,10 +628,10 @@ use strict;
 
 $::EMC::OSType = $^O;
 
-$::EMC::Year = "2022";
+$::EMC::Year = "2023";
 $::EMC::Copyright = "2004-$::EMC::Year";
-$::EMC::Version = "4.1.3";
-$::EMC::Date = "April 7, $::EMC::Year";
+$::EMC::Version = "4.1.5";
+$::EMC::Date = "March 21, $::EMC::Year";
 $::EMC::EMCVersion = "9.4.4";
 $::EMC::pi = 3.14159265358979323846264338327950288;
 {
@@ -989,6 +1014,7 @@ $::EMC::Dielectric = -1;
   formal	=> 1,
   guess		=> -1,
   map		=> 0,
+  merge		=> -1,
   mode		=> "",
   name		=> "",
   ncells	=> "1:auto:auto",
@@ -1033,8 +1059,6 @@ $::EMC::Kappa = -1;
   nsample	=> 1000, 
   pdamp		=> 1000,
   prefix	=> 0, 
-  restart	=> 0, 
-  restart_dir	=> "..",
   skin		=> -1,
   tdamp		=> 100,
   tequil	=> 1000,
@@ -1085,6 +1109,10 @@ $::EMC::LoopVariables = {
 
 # M
 
+%::EMC::MD = (
+  restart	=> 0,
+  restart_dir	=> ".."
+);
 @::EMC::Modules	= ();
 %::EMC::Moves = (
   cluster	=> {
@@ -1107,10 +1135,13 @@ $::EMC::LoopVariables = {
   dtthermo	=> 1000,
   dttiming	=> 10000,
   dtupdate	=> 20,
+  extra_bonds	=> [],
+  fixed_atoms	=> [],
   pres_period	=> 100.0,
   pres_decay	=> 50.0,
   temp_damp	=> 3,
   timestep	=> 2.0,
+  tequil	=> 100000,
   tminimize	=> 50000,
   trun		=> 10000000,
   write		=> 0
@@ -1164,6 +1195,7 @@ $::EMC::NTotal = 10000;
   fraction	=> "number",
   niterations	=> -1,
   order		=> "list",
+  connect	=> "",
   ignore	=> ["cluster"]
 );
 %::EMC::Polymers = (
@@ -1193,6 +1225,7 @@ $::EMC::Precision = -1;
   build		=> "default",
   memory	=> "default",
   ncores	=> -1,
+  ppt		=> 1,
   ppn		=> "default",
   run		=> "default",
   user		=> "none"
@@ -1218,16 +1251,16 @@ $::EMC::Precision = -1;
   name		=> "references",
   suffix	=> "_ref"
 );
+%::EMC::Region = (
+  epsilon	=> 0.1,
+  sigma		=> 1
+);
 %::EMC::Replace = (
   flag		=> 0,
   analysis	=> 1,
   build		=> 1,
   run		=> 1,
   test		=> 1
-);
-%::EMC::Region = (
-  epsilon	=> 0.1,
-  sigma		=> 1
 );
 %::EMC::RunTime = (
   analyze	=> "00:30:00",
@@ -1255,7 +1288,7 @@ $::EMC::Precision = -1;
   extension	=> ".esh",
   flag		=> 0,
   name		=> "chemistry",
-  ncolums	=> 80,
+  ncolumns	=> 80,
   suffix	=> "_chem"
 );
 $::EMC::Seed = -1;
@@ -1322,6 +1355,13 @@ sub date {
 }
 
 
+sub boolean {
+  return @_[0] if (@_[0] eq "true");
+  return @_[0] if (@_[0] eq "false");
+  return @_[0] ? @_[0]<0 ? "auto" : "true" : "false";
+}
+
+
 sub flag {
   my %allowed = ("true" => 1, "false" => 0, "1" => 1, "0" => 0, "auto" => -1);
   
@@ -1334,18 +1374,6 @@ sub flag_q {
   my %allowed = ("true" => 1, "false" => 0, "1" => 1, "0" => 0, "auto" => -1);
   
   return defined($allowed{@_[0]}) ? 1 : 0;
-}
-
-
-sub value_q {
-  return @_[0] =~ m/^([+-]?)(?=\d|\.\d)\d*(\.\d*)?([Ee]([+-]?\d+))?$/ ? 1 : 0;
-}
-
-
-sub boolean {
-  return @_[0] if (@_[0] eq "true");
-  return @_[0] if (@_[0] eq "false");
-  return @_[0] ? @_[0]<0 ? "auto" : "true" : "false";
 }
 
 
@@ -1379,32 +1407,6 @@ sub trim_right {
   my $s = shift(@_);
   $s =~ s/\s+$//g;
   return $s;
-}
-
-
-sub list {
-  my $hash = shift(@_);
-  my $type = shift(@_);
-  my %ignore = set_ignore($hash);
-  my %special = (); foreach (@_) { $special{$_} = 1; }
-  my @arg;
-
-  foreach (sort(keys(%{$hash}))) {
-    next if (defined($ignore{$_}));
-    my $result;
-    if (defined($special{$_})) {
-      $result = ${$hash}{$_};
-    } elsif ($type eq "array") {
-      $result = join(":", @{${$hash}{$_}});
-    } elsif ($type eq "boolean") {
-      $result = boolean(${$hash}{$_});
-    } else {
-      $result = ${$hash}{$_};
-    }
-    #push(@arg, $result eq "" ? "$_" : "$_=$result");
-    push(@arg, "$_=$result");
-  }
-  return join(", ", @arg);
 }
 
 
@@ -1545,7 +1547,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["string", "chemistry", "emc", "ignore"]},
   build_origin	=> {
     comment	=> "set build order of clusters",
-    default	=> list($::EMC::Build{origin}),
+    default	=> set_text($::EMC::Build{origin}),
     gui		=> ["string", "chemistry", "emc", "ignore"]},
   build_replace	=> {
     comment	=> "replace already existing build results",
@@ -1592,7 +1594,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["real", "chemistry", "field", "standard", "general"]},
   cutoff	=> {
     comment	=> "set pairwise interaction cut off",
-    default	=> list(\%::EMC::CutOff, "real"),
+    default	=> set_text(\%::EMC::CutOff, "real"),
     gui		=> ["string", "chemistry", "field", "ignore", "general"]},
 
   # D
@@ -1603,11 +1605,11 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["boolean", "environment", "top", "ignore"]},
   deform	=> {
     comment	=> "deform system from given density",
-    default	=> list(\%::EMC::Deform, "integer"),
+    default	=> set_text(\%::EMC::Deform, "integer"),
     gui		=> ["boolean", "environment", "top", "ignore"]},
   delete	=> {
     comment	=> "sets which clusters to delete; each deletion is separated by a +-sign; default assigns no clusters to delete",
-    default	=> list($::EMC::Split->{default}, "string"),
+    default	=> set_text($::EMC::Delete->{default}, "string"),
     gui		=> ["list", "chemistry", "emc", "ignore"]},
   density	=> {
     comment	=> "set simulation density in g/cc for each phase",
@@ -1646,11 +1648,11 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["integer", "chemistry", "emc", "ignore"]},
   emc_export	=> {
     comment	=> "set EMC section to export",
-    default	=> list($::EMC::EMC{export}, "string"),
+    default	=> set_text($::EMC::EMC{export}, "string"),
     gui		=> ["string", "chemistry", "top", "string"]},
   emc_exclude	=> {
     comment	=> "set EMC section to exclude",
-    default	=> list($::EMC::EMC{exclude}, "boolean"),
+    default	=> set_text($::EMC::EMC{exclude}, "boolean"),
     gui		=> ["string", "chemistry", "top", "ignore"]},
   emc_execute	=> {
     comment	=> "execute EMC build script",
@@ -1658,19 +1660,19 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["boolean", "chemistry", "top", "ignore"]},
   emc_moves	=> {
     comment	=> "set Monte Carlo moves for after build",
-    default	=> list($::EMC::EMC{moves}, "integer"),
+    default	=> set_text($::EMC::EMC{moves}, "integer"),
     gui		=> ["string", "chemistry", "top", "emc"]},
   emc_output	=> {
     comment	=> "set EMC output modes",
-    default	=> list($::EMC::EMC{output}, "boolean"),
+    default	=> set_text($::EMC::EMC{output}, "boolean"),
     gui		=> ["string", "chemistry", "top", "ignore"]},
   emc_progress	=> {
     comment	=> "set progress indicators",
-    default	=> list($::EMC::EMC{progress}, "boolean"),
+    default	=> set_text($::EMC::EMC{progress}, "boolean"),
     gui		=> ["string", "chemistry", "top", "ignore"]},
   emc_run	=> {
     comment	=> "set Monte Carlo run conditions for after build",
-    default	=> list($::EMC::EMC{run}, "string"),
+    default	=> set_text($::EMC::EMC{run}, "string"),
     gui		=> ["string", "chemistry", "top", "emc"]},
   emc_test	=> {
     comment	=> "test EMC build script",
@@ -1678,7 +1680,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["boolean", "chemistry", "top", "ignore"]},
   emc_traject	=> {
     comment	=> "settings for EMC trajectory",
-    default	=> list($::EMC::EMC{traject}, "string"),
+    default	=> set_text($::EMC::EMC{traject}, "string"),
     gui		=> ["string", "chemistry", "top", "emc"]},
   environment	=> {
     comment	=> "create project environment",
@@ -1735,7 +1737,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["boolean", "chemistry", "field", "ignore", "general"]},
   field_dpd	=> {
     comment	=> "set various DPD options",
-    default	=> list($::EMC::Field{dpd}, "boolean"),
+    default	=> set_text($::EMC::Field{dpd}, "boolean"),
     gui		=> ["string", "chemistry", "field", "ignore", "general"]},
   field_error	=> {
     comment	=> "override field errors (used for debugging)",
@@ -1883,7 +1885,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["real", "chemistry", "lammps", "advanced"]},
   location	=> {
     comment	=> "prepend paths for various file locations",
-    default	=> list(\%::EMC::Location, "array"),
+    default	=> set_text(\%::EMC::Location, "array"),
     gui		=> ["list", "chemistry", "emc", "advanced"]},
 
   # M
@@ -1910,7 +1912,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["list", "chemistry", "lammps", "advanced"]},
   moves_cluster	=> {
     comment	=> "define cluster move settings used to optimize build",
-    default	=> list($::EMC::Moves{cluster}, "string"),
+    default	=> set_text($::EMC::Moves{cluster}, "string"),
     gui		=> ["list", "chemistry", "emc", "advanced"]},
   msd		=> {
     comment	=> "set LAMMPS mean square displacement output",
@@ -1952,6 +1954,14 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     comment	=> "set update frequency",
     default	=> $::EMC::NAMD{dtupdate},
     gui		=> ["string", "chemistry", "top", "ignore"]},
+  namd_extra_bonds => {
+    comment	=> "set selection for extra bonds",
+    default	=> "-",
+    gui		=> ["string", "chemistry", "top", "ignore"]},
+  namd_fixed_atoms => {
+    comment	=> "set selection for fixed atoms",
+    default	=> "-",
+    gui		=> ["string", "chemistry", "top", "ignore"]},
   namd_pres_period => {
     comment	=> "set pressure ensemble period",
     default	=> $::EMC::NAMD{pres_period},
@@ -1963,6 +1973,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   namd_temp_damp => {
     comment	=> "set temperature ensemble damping",
     default	=> $::EMC::NAMD{temp_damp},
+    gui		=> ["string", "chemistry", "top", "ignore"]},
+  namd_tequil	=> {
+    comment	=> "set number of equilibration timesteps",
+    default	=> $::EMC::NAMD{tequil},
     gui		=> ["string", "chemistry", "top", "ignore"]},
   namd_tminimize => {
     comment	=> "set number of minimization timesteps",
@@ -2028,6 +2042,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     comment	=> "set total number of atoms",
     default	=> $::EMC::NTotal,
     gui		=> ["integer", "chemistry", "top", "standard"]},
+  nthreads	=> {
+    comment	=> "set number of cores for per thread for MD jobs",
+    default	=> $::EMC::Queue{ppt},
+    gui		=> ["integer", "environment", "lammps", "ignore"]},
   number	=> {
     comment	=> "assume number of molecules in chemistry file",
     default	=> boolean($::EMC::Flag{number}),
@@ -2056,7 +2074,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
 
   pair		=> {
     comment	=> "set pair constant defaults",
-    default	=> list(\%::EMC::PairConstants, "real"),
+    default	=> set_text(\%::EMC::PairConstants, "real"),
     gui		=> ["list", "chemistry", "field", "advanced", "dpd"]},
   parameters	=> {
     comment	=> "set parameters file name",
@@ -2140,7 +2158,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["boolean", "chemistry", "emc", "ignore"]},
   polymer	=> {
     comment	=> "default polymer settings for groups",
-    default	=> list(\%::EMC::PolymerFlag, "string"),
+    default	=> set_text(\%::EMC::PolymerFlag, "string"),
     gui		=> ["list", "chemistry", "top", "ignore"]},
   port		=> {
     comment	=> "port EMC setup variables to other applications",
@@ -2163,7 +2181,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["real", "chemistry", "top", "standard"]},
   profile	=> {
     comment	=> "set LAMMPS profile output",
-    default	=> list(\%::EMC::ProfileFlag, "boolean"),
+    default	=> set_text(\%::EMC::ProfileFlag, "boolean"),
     gui		=> ["boolean", "chemistry", "analysis", "standard"]},
   project	=> {
     comment	=> "set project name; slashes are used to create subdirectories",
@@ -2174,7 +2192,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
 
   queue		=> {
     comment	=> "queue settings",
-    default	=> list(\%::EMC::Queue, "string"),
+    default	=> set_text(\%::EMC::Queue, "string"),
     gui		=> ["string", "environment", "top", "advanced"]},
   queue_account	=> {
     comment	=> "set queue account for billing",
@@ -2204,6 +2222,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     comment	=> "set queue cores per node for packing jobs",
     default	=> $::EMC::Queue{ppn},
     gui		=> ["string", "environment", "top", "advanced"]},
+  queue_ppt	=> {
+    comment	=> "set queue cores per thread",
+    default	=> $::EMC::Queue{ppt},
+    gui		=> ["string", "environment", "top", "advanced"]},
   queue_user	=> {
     comment	=> "options to be passed directly to queuing system",
     default	=> $::EMC::Queue{user},
@@ -2221,7 +2243,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["real", "chemistry", "emc", "standard"]},
   record	=> {
     comment	=> "set record entry in build paragraph",
-    default	=> list(\%::EMC::Record, "string"),
+    default	=> set_text(\%::EMC::Record, "string"),
     gui		=> ["list", "chemistry", "top", "ignore"]},
   references	=> {
     comment	=> "set references file name",
@@ -2245,20 +2267,20 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["string", "chemistry", "field", "advanced", "dpd"]},
   restart	=> {
     comment	=> "create LAMMPS restart script",
-    default	=> boolean($::EMC::Lammps{restart}).",".$::EMC::Lammps{restart_dir},
+    default	=> boolean($::EMC::MD{restart}).",".$::EMC::MD{restart_dir},
     gui		=> ["boolean", "chemistry", "lammps", "ignore"]},
   rlength	=> {
     comment	=> "set reference length",
     default	=> strref($::EMC::Reference{length}),
     gui		=> ["real", "chemistry", "field", "advanced", "dpd"]},
-  rmax		=> {
-    comment	=> "set maximum build cutoff radius",
-    default	=> $::EMC::CutOff{rmax},
-    gui		=> ["real", "chemistry", "emc", "standard"]},
   rmass		=> {
     comment	=> "set reference mass",
     default	=> strref($::EMC::Reference{mass}),
     gui		=> ["real", "chemistry", "field", "advanced", "dpd"]},
+  rmax		=> {
+    comment	=> "set maximum build cutoff radius",
+    default	=> $::EMC::CutOff{rmax},
+    gui		=> ["real", "chemistry", "emc", "standard"]},
   rtype		=> {
     comment	=> "set reference type",
     default	=> $::EMC::Reference{type},
@@ -2268,7 +2290,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
 
   sample	=> {
     comment	=> "set sampling options for LAMMPS input script",
-    default	=> list(\%::EMC::Sample, "boolean"),
+    default	=> set_text(\%::EMC::Sample, "boolean"),
     gui		=> ["string", "chemistry", "top", "standard"]},
   script	=> {
     comment	=> "set script file name",
@@ -2312,7 +2334,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["real", "chemistry", "lammps", "advanced"]},
   split		=> {
     comment	=> "sets which clusters to partition; each split is separated by a +-sign; default assigns no clusters to split",
-    default	=> list($::EMC::Split->{default}, "string"),
+    default	=> set_text($::EMC::Split->{default}, "string"),
     gui		=> ["list", "chemistry", "emc", "advanced"]},
   suffix	=> {
     comment	=> "set EMC and LAMMPS suffix",
@@ -2320,7 +2342,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["string", "chemistry", "top", "ignore"]},
   system	=> {
     comment	=> "system identification and checks during building",
-    default	=> list(\%::EMC::System, "boolean", "id"),
+    default	=> set_text(\%::EMC::System, "boolean", "id"),
     gui		=> ["boolean", "chemistry", "emc", "advanced"]},
   system_charge	=> {
     comment	=> "check for charge neutrality after build",
@@ -2383,7 +2405,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["string", "chemistry", "lammps", "standard"]},
   triclinic	=> {
     comment	=> "set LAMMPS triclinic mode",
-    default	=> $::EMC::Lammps{triclinic},
+    default	=> boolean($::EMC::Lammps{triclinic}),
     gui		=> ["string", "chemistry", "lammps", "standard"]},
   trun		=> {
     comment	=> "set LAMMPS run time",
@@ -2424,7 +2446,7 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     gui		=> ["boolean", "chemistry", "top", "ignore"]},
   weight	=> {
     comment	=> "set build relaxation energetic weights",
-    default	=> list($::EMC::Build{weight}, "real"),
+    default	=> set_text($::EMC::Build{weight}, "real"),
     gui		=> ["list", "chemistry", "emc", "standard"]},
   width		=> {
     comment	=> "use double width in scripts",
@@ -2644,7 +2666,8 @@ sub set_variables {
     $::EMC::EMC{execute} = $::EMC::EMC{test} = 0;
   } if (flag($::EMC::EMC{execute})) {
     $::EMC::EMC{executable} = $::EMC::ENV{HOST} ne "" ? "emc_$::EMC::ENV{HOST}" : "emc$::EMC::EMC{suffix}";
-  } elsif ($::EMC::EMC{execute} eq "-" || !flag($::EMC::EMC{execute})) {
+  } elsif ($::EMC::EMC{execute} eq "-" || 
+           !flag($::EMC::EMC{execute})) {
     $::EMC::EMC{execute} = 0;
   } elsif ($::EMC::EMC{execute} ne "-") {
     $::EMC::EMC{executable} = $::EMC::EMC{execute};
@@ -2742,6 +2765,7 @@ sub set_direction {
 sub set_densities {
   my $i = scalar(@::EMC::Densities);
   my $n = $::EMC::NPhases<2 ? 1 : $::EMC::NPhases;
+
   while ($i<$n) { $::EMC::Densities[$i++] = $::EMC::Density; }
 }
 
@@ -2837,14 +2861,19 @@ sub output_fields {
 }
 
 
+sub set_md_flags {
+  $::EMC::Lammps{write} = flag(@_[0]);
+  $::EMC::NAMD{write} = flag(@_[0]);
+}
+
+
 sub reset_flags {
   return if (!$Reset::EMC::Flags);
   $Reset::EMC::Flags = 0;
   $::EMC::EMC{write} = 0;
   $::EMC::Field{write} = 0;
-  $::EMC::Lammps{write} = 0;
-  $::EMC::NAMD{write} = 0;
   $::EMC::PDB{write} = 0;
+  set_md_flags(0);
 }
 
 
@@ -2883,7 +2912,7 @@ sub set_pdb_flag {
 sub field_type {
   my $name = shift(@_);
   my $add = shift(@_);
-  my $stream = EMC::IO::open($name, "r");
+  my $stream = fopen($name, "r");
   my $define = 0;
   my @arg = split("\.", (split($^O eq "MSWin32" ? "\\\\" : "/", $name))[-1]); pop(@arg);
   my $type = join("\.", @arg);
@@ -3066,76 +3095,6 @@ sub convert_key {
 }
 
 
-sub set_ignore {
-  my $list = shift(@_);
-  my %hash = ();
-
-  $hash{flag} = 1;
-  $hash{ignore} = 1;
-  if (defined(${$list}{ignore})) {
-    foreach (@{${$list}{ignore}}) {
-      $hash{$_} = 1;
-    }
-  }
-  return %hash;
-}
-
-
-sub set_list {
-  my $line = shift(@_);
-  my $hash = shift(@_);
-  my $type = shift(@_);
-  my $default = shift(@_);
-  my %ignore = set_ignore($hash);
-  my %special; foreach (@{shift(@_)}) { $special{$_} = 1; }
-
-  foreach(@_) {
-    my @arg = split("=");
-    if (scalar(@arg) == 1) { 
-      @arg = split(":");
-      @arg = (shift(@arg), join(":", @arg)) if (scalar(@arg)>1);
-    }
-    if (!defined(${$hash}{@arg[0]}) || defined($ignore{@arg[0]})) {
-      error_line($line, "illegal option \'@arg[0]\'\n") if (!flag_q(@arg[0]));
-    }
-    if (defined($special{@arg[0]}) || $type eq "string") {
-      @arg[1] =~ s/^"+|"+$//g;
-    } elsif ($type eq "array") {
-      my @a = split(":", @arg[1]);
-      @arg[1] = $default ? [@a, @{${$hash}{@arg[0]}}] : [@a];
-    } elsif ($type eq "boolean") {
-      if (scalar(@arg) == 1) {
-	if ($default eq "") {
-	  @arg = (@arg[0], 1);
-	}
-	elsif (
-	    @arg[0] eq "0" || @arg[0] eq "1" ||
-	    @arg[0] eq "false" || @arg[0] eq "true") {
-	  @arg = ($default, @arg[0]);
-	}
-      }
-      if (@arg[1] eq "true" || @arg[1] eq "") {
-	@arg[1] = 1;
-      } elsif (@arg[1] eq "false") {
-	@arg[1] = 0;
-      } elsif (@arg[1] == 0 && @arg[1] ne "0") {
-	error_line($line, "illegal option value \'@arg[1]\'\n");
-      }
-      @arg[1] = 1 if (scalar(@arg)==1);
-      @arg[1] = 0 if (@arg[1] eq "false");
-      @arg[1] = 1 if (@arg[1] eq "true");
-    } elsif ($type eq "integer") {
-      @arg[1] = int(eval(@arg[1]));
-      @arg[1] = 0 if (@arg[1]<0);
-    } elsif ($type eq "real") {
-      @arg[1] = eval(@arg[1]);
-    }
-    ${$hash}{@arg[0]} = @arg[1];
-  }
-  ${$hash}{flag} = 1;
-}
-
-
 sub set_list_polymer {
   my $line = shift(@_);
   my $hash = shift(@_);
@@ -3145,7 +3104,7 @@ sub set_list_polymer {
     order => {list => 1, random => 1}
   );
 
-  set_list($line, $hash, "string", "", [], @_);
+  set_hash($line, $hash, "string", "", [], @_);
   foreach (sort(keys(%allowed))) {
     if (!defined(${$allowed{$_}}{${$hash}{$_}})) {
       error_line($line, "illegal option for keyword '$_'\n");
@@ -3311,7 +3270,132 @@ sub set_port {
 }
 
 
-sub my_eval {	# => EMC::Math::eval
+sub list_hash {
+  my $list = shift(@_);
+
+  return undef if (ref($list) ne "ARRAY");
+
+  my $hash = {};
+
+  foreach (@{$list}) {
+    $hash->{$_} = 1;
+  }
+  return $hash;
+}
+
+
+sub set_ignore {
+  my $list = shift(@_);
+  my $hash = {};
+
+  $hash->{flag} = 1;
+  $hash->{ignore} = 1;
+  if (defined($list->{ignore})) {
+    foreach (@{$list->{ignore}}) {
+      $hash->{$_} = 1;
+    }
+  }
+  return $hash;
+}
+
+
+sub set_hash {
+  my $line = shift(@_);
+  my $hash = shift(@_);
+  my $type = shift(@_);
+  my $default = shift(@_);
+  my $special = list_hash(shift(@_));
+  
+  my $ignore = set_ignore($hash);
+  my $error = 1;
+  my $order = 0;
+  my $iorder = 0;
+
+  $order = undef if (ref($order) ne "ARRAY");
+  foreach(@_) {
+    my @arg = split("=");
+    if (scalar(@arg) == 1) {
+      if ($order) {
+	if ($iorder<scalar(@{$order})) {
+	  @arg = ($order->[$iorder++], @arg[0]);
+	} else {
+	  next if (!$error);
+	  error_line($line, "too many arguments\n");
+	}
+      } else {
+	@arg = split(":");
+	@arg = (shift(@arg), join(":", @arg)) if (scalar(@arg)>1);
+      }
+    }
+    if ($error &&(!defined($hash->{@arg[0]}) || defined($ignore->{@arg[0]}))) {
+      error_line(
+	$line, "illegal option \'@arg[0]\'\n") if (!flag_q(@arg[0]));
+    }
+    if (defined($special->{@arg[0]}) || $type eq "string") {
+      @arg[1] =~ s/^"+|"+$//g;				# strip quotes
+    } elsif ($type eq "array") {
+      my @a = split(":", @arg[1]);
+      @arg[1] = $default ? [@a, @{$hash->{@arg[0]}}] : [@a];
+    } elsif ($type eq "boolean") {
+      if (scalar(@arg) == 1) {
+	if ($default eq "") {
+	  @arg = (@arg[0], 1);
+	}
+	elsif (
+	    @arg[0] eq "0" || @arg[0] eq "1" ||
+	    @arg[0] eq "false" || @arg[0] eq "true") {
+	  @arg = ($default, @arg[0]);
+	}
+      }
+      if (@arg[1] eq "true" || @arg[1] eq "") {
+	@arg[1] = 1;
+      } elsif (@arg[1] eq "false") {
+	@arg[1] = 0;
+      } elsif (@arg[1] == 0 && @arg[1] ne "0") {
+	error_line($line, "illegal option value \'@arg[1]\'\n");
+      }
+      @arg[1] = 1 if (scalar(@arg)==1);
+      @arg[1] = 0 if (@arg[1] eq "false");
+      @arg[1] = 1 if (@arg[1] eq "true");
+    } elsif ($type eq "integer") {
+      @arg[1] = int(eval(@arg[1]));
+      @arg[1] = 0 if (@arg[1]<0);
+    } elsif ($type eq "real") {
+      @arg[1] = eval(@arg[1]);
+    }
+    $hash->{@arg[0]} = @arg[1];
+  }
+  $hash->{flag} = 1;
+  return $hash;
+}
+
+
+sub set_text {
+  my $hash = shift(@_);
+  my $type = shift(@_);
+  my $ignore = set_ignore($hash);
+  my $special = {}; foreach (@_) { $special->{$_} = 1; }
+  my @arg;
+
+  foreach (sort(keys(%{$hash}))) {
+    next if (defined($ignore->{$_}));
+    my $result;
+    if (defined($special->{$_})) {
+      $result = $hash->{$_};
+    } elsif ($type eq "array") {
+      $result = join(":", @{$hash->{$_}});
+    } elsif ($type eq "boolean") {
+      $result = boolean($hash->{$_});
+    } else {
+      $result = $hash->{$_};
+    }
+    push(@arg, "$_=$result");
+  }
+  return join(", ", @arg);
+}
+
+
+sub my_eval {
   my $string;
   my $first = 1;
   my $error = 0;
@@ -3382,7 +3466,7 @@ sub options {
   elsif ($arg[0] eq "analyze_data") {
     $::EMC::Analyze{data} = flag(@string[0]); }
   elsif ($arg[0] eq "analyze_last") {
-    ${${$::EMC::Analyze{scripts}}{last}}{active} = flag(@string[0]); }
+    $::EMC::Analyze{scripts}->{last}->{active} = flag(@string[0]); }
   elsif ($arg[0] eq "analyze_replace") {
     $::EMC::Analyze{replace} = flag(@string[0]); }
   elsif ($arg[0] eq "analyze_skip") {
@@ -3399,7 +3483,9 @@ sub options {
     elsif ($n=5) {
       $::EMC::Angles{join("\t", @string[0,1,2])} = join(",", @value[3,4]); }
   }
-  elsif ($arg[0] eq "auto") { ${$::EMC::Field{dpd}}{auto} = flag(@string[0]); }
+  elsif ($arg[0] eq "auto") {
+    ${$::EMC::Field{dpd}}{auto} = flag(@string[0]);
+  }
 
   # B
 
@@ -3419,7 +3505,7 @@ sub options {
     $::EMC::Build{order} = set_allowed($line, $string[0], "random", "sequence");
   }
   elsif ($arg[0] eq "build_origin") {
-    set_list($line, $::EMC::Build{origin}, "string", "0", [], @string);
+    set_hash($line, $::EMC::Build{origin}, "string", "0", [], @string);
   }
   elsif ($arg[0] eq "build_replace") {
     $::EMC::Build{replace} = flag($string[0]);
@@ -3430,26 +3516,32 @@ sub options {
 
   # C
 
-  elsif ($arg[0] eq "charge") { $::EMC::Flag{charge} = flag($string[0]); }
+  elsif ($arg[0] eq "charge") {
+    $::EMC::Flag{charge} = flag($string[0]); }
   elsif ($arg[0] eq "charge_cut") { $::EMC::CutOff{charge} = $value[0]; }
-  elsif ($arg[0] eq "chunk") { $::EMC::Lammps{chunk} = flag($string[0]); }
-  elsif ($arg[0] eq "communicate") { $::EMC::Lammps{communicate} = flag($string[0]); }
+  elsif ($arg[0] eq "chunk") {
+    $::EMC::Lammps{chunk} = flag($string[0]); }
+  elsif ($arg[0] eq "communicate") {
+    $::EMC::Lammps{communicate} = flag($string[0]); }
   elsif ($arg[0] eq "core") { $::EMC::Core = $value[0]; }
-  elsif ($arg[0] eq "cross") { $::EMC::Flag{cross} = flag($string[0]); }
-  elsif ($arg[0] eq "crystal") { $::EMC::Flag{crystal} = flag($string[0]); }
+  elsif ($arg[0] eq "cross") {
+    $::EMC::Flag{cross} = flag($string[0]); }
+  elsif ($arg[0] eq "crystal") {
+    $::EMC::Flag{crystal} = flag($string[0]); }
   elsif ($arg[0] eq "cut") {
     $::EMC::Lammps{cutoff} = 
       $::EMC::CutOff{repulsive} = $string[0] eq "repulsive" ? 1 : 0;
     $::EMC::CutOff{pair} = $value[0] if (!$::EMC::CutOff{repulsive});
   }
   elsif ($arg[0] eq "cutoff") {
-    set_list($line, \%::EMC::CutOff, "real", "-1", [], @value); }
+    set_hash($line, \%::EMC::CutOff, "real", "-1", [], @value); }
 
   # D
 
-  elsif ($arg[0] eq "debug") { $::EMC::Flag{debug} = flag($string[0]); }
+  elsif ($arg[0] eq "debug") {
+    $::EMC::Flag{debug} = flag($string[0]); }
   elsif ($arg[0] eq "deform") {
-    set_list($line, \%::EMC::Deform, "string", "xx", [], @string); }
+    set_hash($line, \%::EMC::Deform, "string", "xx", [], @string); }
   elsif ($arg[0] eq "delete") { set_list_oper($line, $::EMC::Delete, @string); }
   elsif ($arg[0] eq "density") {
     $::EMC::Density = $value[0]; @::EMC::Densities = @value; }
@@ -3473,7 +3565,7 @@ sub options {
   elsif ($arg[0] eq "emc_export") {
     my %allowed = (csv => 1, json => 2, math => 3, false => 0, true => 1);
     my @convert = ("", "csv", "json", "math");
-    set_list($line, $::EMC::EMC{export}, "string", "", [], @string);
+    set_hash($line, $::EMC::EMC{export}, "string", "", [], @string);
     my $ptr = $::EMC::EMC{export};
     foreach (sort(keys(%{$ptr}))) {
       next if ($_ eq "flag");
@@ -3484,23 +3576,34 @@ sub options {
     }
   }
   elsif ($arg[0] eq "emc_exclude") {
-    set_list($line, $::EMC::EMC{exclude}, "boolean", "", [], @string); }
-  elsif ($arg[0] eq "emc_execute") { $::EMC::EMC{execute} = flag($string[0]); }
+    set_hash($line, $::EMC::EMC{exclude}, "boolean", "", [], @string); }
+  elsif ($arg[0] eq "emc_execute") {
+    $::EMC::EMC{execute} = flag($string[0]); }
   elsif ($arg[0] eq "emc_moves") {
-    set_list($line, $::EMC::EMC{moves}, "integer", "", [], @string); }
+    set_hash($line, $::EMC::EMC{moves}, "integer", "", [], @string); }
   elsif ($arg[0] eq "emc_output") { 
-    set_list($line, $::EMC::EMC{output}, "boolean", "", [], @string); }
+    set_hash($line, $::EMC::EMC{output}, "boolean", "", [], @string); }
   elsif ($arg[0] eq "emc_progress") {
-    set_list($line, $::EMC::EMC{progress}, "boolean", "", [], @string); }
+    set_hash($line, $::EMC::EMC{progress}, "boolean", "", [], @string); }
   elsif ($arg[0] eq "emc_run") {
-    set_list($line, $::EMC::EMC{run}, "string", "", [], @string); }
-  elsif ($arg[0] eq "emc_test") { $::EMC::EMC{test} = flag($string[0]); }
+    set_hash($line, $::EMC::EMC{run}, "string", "", [], @string); }
+  elsif ($arg[0] eq "emc_test") {
+    $::EMC::EMC{test} = flag($string[0]); }
   elsif ($arg[0] eq "emc_traject") { 
-    set_list($line, $::EMC::EMC{traject}, "string", "", [], @string); }
-  elsif ($arg[0] eq "environment") { $::EMC::Flag{environment} = flag($string[0]); }
-  elsif ($arg[0] eq "ewald") { $::EMC::Flag{ewald} = flag($string[0]); }
-  elsif ($arg[0] eq "exclude") { $::EMC::Flag{exclude} = flag($string[0]); }
-  elsif ($arg[0] eq "expert") { $::EMC::Flag{expert} = flag($string[0]); }
+    set_hash($line, $::EMC::EMC{traject}, "string", "", [], @string); }
+  elsif ($arg[0] eq "environment") {
+    $::EMC::Flag{environment} = flag($string[0]); }
+  elsif ($arg[0] eq "ewald") {
+    $::EMC::Flag{ewald} = flag($string[0]); }
+  elsif ($arg[0] eq "exclude") {
+    if ($string[0] eq "wall") { $::EMC::Flag{exclude} = 2; }
+    elsif ($string[0] eq "soft") { $::EMC::Flag{exclude} = 1; }
+    elsif ($string[0] eq "true") { $::EMC::Flag{exclude} = 1; }
+    elsif ($string[0] eq "false") { $::EMC::Flag{exclude} = 0; }
+    else { $::EMC::Flag{exclude} = $value[0]>0 ? $value[0] : 0; }
+  }
+  elsif ($arg[0] eq "expert") {
+    $::EMC::Flag{expert} = flag($string[0]); }
   elsif ($arg[0] eq "extension") { $::EMC::Script{extension} = $string[0]; }
   elsif ($arg[0] eq "replica" || $arg[0] eq "extra") {
     @arg[2] = 0 if ($n==2);
@@ -3517,7 +3620,7 @@ sub options {
   elsif ($arg[0] eq "field_check") {
     $::EMC::FieldFlag{check} = flag($string[0]); }
   elsif ($arg[0] eq "field_dpd") {
-    set_list($line, $::EMC::Field{dpd}, "boolean", "", [], @string); }
+    set_hash($line, $::EMC::Field{dpd}, "boolean", "", [], @string); }
   elsif ($arg[0] eq "field_debug") {
     $::EMC::FieldFlags{debug} = 1;
     if (@string[0] eq "0" || @string[0] eq "false") { 
@@ -3605,7 +3708,8 @@ sub options {
 
   # I
 
-  elsif ($arg[0] eq "info") { $::EMC::Flag{info} = flag($string[0]); }
+  elsif ($arg[0] eq "info") {
+    $::EMC::Flag{info} = flag($string[0]); }
   elsif ($arg[0] eq "inner") { $::EMC::CutOff{inner} = $value[0]; }
   elsif ($arg[0] eq "insight") { 
     $::EMC::Insight{write} = flag($string[0]); }
@@ -3623,18 +3727,25 @@ sub options {
   # L
 
   elsif ($arg[0] eq "lammps") {
+    my $flag = 0;
     if ($string[0] eq "old" ) {
-      $::EMC::Lammps{write} = $::EMC::Lammps{new_version}-1; }
+      $flag = $::EMC::Lammps{new_version}-1; }
     elsif ($string[0] eq "new") {
-      $::EMC::Lammps{write} = $::EMC::Lammps{new_version}; }
+      $flag = $::EMC::Lammps{new_version}; }
     elsif ($string[0] eq "newer") {
-      $::EMC::Lammps{write} = $::EMC::Lammps{newer_version}; }
+      $flag = $::EMC::Lammps{newer_version}; }
     elsif ($value[0]>2000) {
-      $::EMC::Lammps{write} = $value[0]; }
+      $flag = $value[0]; }
     else {
-      $::EMC::Lammps{write} = flag($string[0]); } }
+      $flag = flag($string[0]); }
+    if ($flag) {
+      set_md_flags(0);
+      $::EMC::Lammps{write} = $flag;
+    }
+  }
   elsif ($arg[0] eq "lammps_cutoff") {
-    $::EMC::Lammps{cutoff} = $::EMC::CutOff{repulsive} = flag($value[0]); }
+    $::EMC::Lammps{cutoff} = 
+    $::EMC::CutOff{repulsive} = flag($value[0]); }
   elsif ($arg[0] eq "lammps_dlimit") {
     $::EMC::Lammps{dlimit} = $value[0]; }
   elsif ($arg[0] eq "lammps_error") {
@@ -3644,7 +3755,8 @@ sub options {
   elsif ($arg[0] eq "lammps_tdamp") {
     $::EMC::Lammps{tdamp} = $value[0]; }
   elsif (@arg[0] eq "location") {
-    set_list($line, \%::EMC::Location, "array", 1, [], @string);
+    set_hash($line, \%::EMC::Location, "array", 1, [], @string);
+    @{$::EMC::FieldList{location}} = @{$::EMC::Location{field}};
     update_field("location", @{$::EMC::Location{field}}[0]);
   }
 
@@ -3667,7 +3779,10 @@ sub options {
     }
   }
   elsif ($arg[0] eq "mol") { 
-    $::EMC::Flag{mass} = $::EMC::Flag{number} = $::EMC::Flag{volume} = 0 if (($::EMC::Flag{mol} = flag($string[0]))); }
+    if (($::EMC::Flag{mol} = flag($string[0]))) {
+      $::EMC::Flag{mass} = $::EMC::Flag{number} = $::EMC::Flag{volume} = 0;
+    }
+  }
   elsif ($arg[0] eq "momentum") {
     $string[0] = 0 if ($value[0]<0);
     if (($::EMC::Lammps{momentum_flag} = flag($string[0]))) {
@@ -3679,7 +3794,7 @@ sub options {
     }
   }
   elsif ($arg[0] eq "moves_cluster") {
-    set_list($line, $::EMC::Moves{cluster}, "string", "", [], @string);
+    set_hash($line, $::EMC::Moves{cluster}, "string", "", [], @string);
   }
   elsif ($arg[0] eq "msd") {
     $::EMC::Sample{msd} = $string[0] ne "average" ? flag($string[0]) : 2;
@@ -3688,7 +3803,12 @@ sub options {
   # N
 
   elsif ($arg[0] eq "namd") { 
-    $::EMC::PDB{write} = 1 if (($::EMC::NAMD{write} = flag(@string[0]))); }
+    if ((flag(@string[0]))) {
+      set_md_flags(0);
+      $::EMC::NAMD{write} = 1;
+      $::EMC::PDB{write} = 1;
+    }
+  }
   elsif ($arg[0] eq "namd_dtcoulomb") { $::EMC::NAMD{dtcoulomb} = @value[0]; }
   elsif ($arg[0] eq "namd_dtdcd") { $::EMC::NAMD{dtdcd} = @value[0]; }
   elsif ($arg[0] eq "namd_dtnonbond") { $::EMC::NAMD{dtnonbond} = @value[0]; }
@@ -3696,6 +3816,11 @@ sub options {
   elsif ($arg[0] eq "namd_dtthermo") { $::EMC::NAMD{dtthermo} = @value[0]; }
   elsif ($arg[0] eq "namd_dttiming") { $::EMC::NAMD{dttiming} = @value[0]; }
   elsif ($arg[0] eq "namd_dtupdate") { $::EMC::NAMD{dtupdate} = @value[0]; }
+  elsif ($arg[0] eq "namd_extra_bonds") {
+    push(
+      @{$::EMC::NAMD{extra_bonds}},
+      EMC::NAMD::set_focus($line, {}, {distance => 1}, @string));
+  }
   elsif ($arg[0] eq "namd_pres_decay") { $::EMC::NAMD{pres_decay} = @value[0]; }
   elsif ($arg[0] eq "namd_pres_period") { $::EMC::NAMD{pres_period} = @value[0]; }
   elsif ($arg[0] eq "namd_temp_damp") { $::EMC::NAMD{temp_damp} = @value[0]; }
@@ -3711,12 +3836,14 @@ sub options {
   elsif ($arg[0] eq "ncores") { $::EMC::Queue{ncores} = @value[0]; }
   elsif ($arg[0] eq "ncorespernode") { $::EMC::Queue{ppn} = @value[0]; }
   elsif ($arg[0] eq "niterations") { $::EMC::Build{niterations} = $value[0]; }
-  elsif ($arg[0] eq "norestart") { $::EMC::Flag{norestart} = flag(@string[0]); }
+  elsif ($arg[0] eq "norestart") {
+    $::EMC::Flag{norestart} = flag(@string[0]); }
   elsif ($arg[0] eq "nparallel") {
     $::EMC::ImportNParallel = $value[0]<1 ? 0 : $value[0]; }
   elsif ($arg[0] eq "nrelax") { $::EMC::Build{nrelax} = $value[0]; }
   elsif ($arg[0] eq "nsample") { $::EMC::Lammps{nsample} = $value[0]; }
   elsif ($arg[0] eq "ntotal") { $::EMC::NTotal = $value[0]; }
+  elsif ($arg[0] eq "nthreads") { $::EMC::Queue{nthreads} = @value[0]; }
   elsif ($arg[0] eq "number") {
     $::EMC::Flag{number} = flag($string[0]);
     if (flag($string[0])) {
@@ -3726,7 +3853,8 @@ sub options {
 
   # O
 
-  elsif ($arg[0] eq "omit") { $::EMC::Flag{omit} = flag($string[0]); }
+  elsif ($arg[0] eq "omit") {
+    $::EMC::Flag{omit} = flag($string[0]); }
   elsif ($arg[0] eq "options_perl") {
     set_options_flag("perl", $string[0]); }
   elsif ($arg[0] eq "options_tcl") { 
@@ -3738,13 +3866,16 @@ sub options {
 
   elsif ($arg[0] eq "pair") { 
     $::EMC::Flag{pair} = 1; 
-    set_list($line, \%::EMC::PairConstants, "real", "-1", [], @value); }
+    set_hash($line, \%::EMC::PairConstants, "real", "-1", [], @value); }
   elsif ($arg[0] eq "parameters") {
     $::EMC::Parameters{name} = $string[0]; $::EMC::Parameters{read} = 1; }
   elsif ($arg[0] eq "params") {
     reset_flags(); $::EMC::Field{write} = flag($string[0]); }
   elsif ($arg[0] eq "pdb") {
-    $::EMC::NAMD{write} = 0 if (!($::EMC::PDB{write} = flag(@string[0]))); }
+    if (!($::EMC::PDB{write} = flag(@string[0]))) {
+      $::EMC::NAMD{write} = 0;
+    }
+  }
   elsif ($arg[0] eq "pdb_atom") {
     set_pdb_flag("atom", $string[0], $line); }
   elsif ($arg[0] eq "pdb_compress") {
@@ -3810,7 +3941,8 @@ sub options {
     $::EMC::PolymerFlag{niterations} = @value[0]; }
   elsif ($arg[0] eq "port") { set_port($line, @string); }
   elsif ($arg[0] eq "precision") { $::EMC::Precision = $value[0]; }
-  elsif ($arg[0] eq "prefix") { $::EMC::Lammps{prefix} = flag($string[0]); }
+  elsif ($arg[0] eq "prefix") {
+    $::EMC::Lammps{prefix} = flag($string[0]); }
   elsif ($arg[0] eq "pressure") {
     $::EMC::Pressure{value} = $value[0] if ((
 	$::EMC::Pressure{flag} = $string[0] ne "false"));
@@ -3844,7 +3976,8 @@ sub options {
     }
   }
   elsif ($arg[0] eq "profile") { 
-    set_list($line, \%::EMC::ProfileFlag, "boolean", "density", [], @string); }
+    set_hash(
+      $line, \%::EMC::ProfileFlag, "boolean", "density", [], @string); }
   elsif ($arg[0] eq "project") { 
     $::EMC::Project{name} = basename($::EMC::Project{script} = @string[0]);
     $::EMC::Project{directory} = dirname(@string[0]);
@@ -3856,13 +3989,14 @@ sub options {
   # Q
 
   elsif ($arg[0] eq "queue") {
-    set_list($line, \%::EMC::Queue, "string", "", [], @string); }
+    set_hash($line, \%::EMC::Queue, "string", "", [], @string); }
   elsif ($arg[0] eq "queue_account") { $::EMC::Queue{account} = $string[0]; }
   elsif ($arg[0] eq "queue_analyze") { $::EMC::Queue{analyze} = $string[0]; }
   elsif ($arg[0] eq "queue_build") { $::EMC::Queue{build} = $string[0]; }
   elsif ($arg[0] eq "queue_memory") { $::EMC::Queue{memory} = $value[0]; }
   elsif ($arg[0] eq "queue_ncores") { $::EMC::Queue{ncores} = @value[0]; }
   elsif ($arg[0] eq "queue_ppn") { $::EMC::Queue{ppn} = $value[0]; }
+  elsif ($arg[0] eq "queue_ppt") { $::EMC::Queue{ppt} = $value[0]; }
   elsif ($arg[0] eq "queue_run") { $::EMC::Queue{run} = $string[0]; }
   elsif ($arg[0] eq "queue_user") { $::EMC::Queue{user} = join(" ", @string); }
   elsif ($arg[0] eq "quiet") { $::EMC::Flag{info} = $::EMC::Flag{debug} = $::EMC::Flag{warn} = 0; }
@@ -3891,7 +4025,7 @@ sub options {
       $::EMC::Record{frequency} = @value[1];
       $::EMC::Record{inactive} = boolean(flag($string[2]));
     } else {
-      set_list($line, \%::EMC::Record, "string", "", [], @string);
+      set_hash($line, \%::EMC::Record, "string", "", [], @string);
       foreach (keys(%::EMC::Record)) {
 	if ($_ eq "frequency") { 
 	  $::EMC::Record{$_} = eval($::EMC::Record{$_});
@@ -3908,10 +4042,11 @@ sub options {
     $::EMC::Region{epsilon} = $value[0]>0.0 ? $value[0] : $string[0] if ($value[0]>=0.0); }
   elsif ($arg[0] eq "region_sigma") {
     $::EMC::Region{sigma} = $value[0]>0.0 ? $value[0] : $string[0] if ($value[0]>=0.0); }
-  elsif ($arg[0] eq "replace") { $::EMC::Replace{flag} = flag($string[0]); }
+  elsif ($arg[0] eq "replace") {
+    $::EMC::Replace{flag} = flag($string[0]); }
   elsif ($arg[0] eq "restart") { 
-    $::EMC::Lammps{restart} = flag($string[0]);
-    $::EMC::Lammps{restart_dir} = $string[1] if ($string[1] ne ""); }
+    $::EMC::MD{restart} = flag($string[0]);
+    $::EMC::MD{restart_dir} = $string[1] if ($string[1] ne ""); }
   elsif ($arg[0] eq "rlength") { $::EMC::Reference{length} = $value[0]; }
   elsif ($arg[0] eq "rmass") { $::EMC::Reference{mass} = $value[0]; }
   elsif ($arg[0] eq "rtype") { $::EMC::Reference{type} = $string[0]; }
@@ -3919,7 +4054,7 @@ sub options {
   # S
 
   elsif ($arg[0] eq "sample") { 
-    set_list($line, \%::EMC::Sample, "string", "", [], @string);
+    set_hash($line, \%::EMC::Sample, "string", "", [], @string);
     my %average = (msd => 1);
     my %allowed = (false => 0, true => 1, average => 2);
     foreach (sort(keys(%::EMC::Sample))) {
@@ -3970,26 +4105,33 @@ sub options {
   elsif ($arg[0] eq "shake_tolerance") { $::EMC::Shake{tolerance} = $value[0]; }
   elsif ($arg[0] eq "shape") { $::EMC::Shape = $value[0]; }
   elsif ($arg[0] eq "shear") {
-    $::EMC::Shear{rate} = @value[0]; $::EMC::Shear{flag} = flag($string[0]); 
+    $::EMC::Shear{rate} = @value[0];
+    $::EMC::Shear{flag} = flag($string[0]); 
     $::EMC::Shear{mode} = $string[1] if ($string[1] ne ""); 
     $::EMC::Shear{ramp} = @value[2] if ($string[2] ne ""); }
   elsif ($arg[0] eq "skin") { $::EMC::Lammps{skin} = $value[0]; }
   elsif ($arg[0] eq "split") { set_list_oper($line, $::EMC::Split, @string); }
   elsif ($arg[0] eq "suffix") { $::EMC::EMC{suffix} = $string[0]; }
   elsif ($arg[0] eq "system") { 
-    set_list($line, \%::EMC::System, "boolean", "", ["id"], @string); }
-  elsif ($arg[0] eq "system_charge") { $::EMC::System{charge} = flag($string[0]); }
-  elsif ($arg[0] eq "system_geometry") { $::EMC::System{geometry} = flag($string[0]); }
-  elsif ($arg[0] eq "system_id") { $::EMC::System{id} = $string[0]; }
-  elsif ($arg[0] eq "system_map") { $::EMC::System{map} = flag($string[0]); }
-  elsif ($arg[0] eq "system_pbc") { $::EMC::System{pbc} = flag($string[0]); }
+    set_hash($line, \%::EMC::System, "boolean", "", ["id"], @string); }
+  elsif ($arg[0] eq "system_charge") {
+    $::EMC::System{charge} = flag($string[0]); }
+  elsif ($arg[0] eq "system_geometry") {
+    $::EMC::System{geometry} = flag($string[0]); }
+  elsif ($arg[0] eq "system_id") {
+    $::EMC::System{id} = $string[0]; }
+  elsif ($arg[0] eq "system_map") {
+    $::EMC::System{map} = flag($string[0]); }
+  elsif ($arg[0] eq "system_pbc") {
+    $::EMC::System{pbc} = flag($string[0]); }
 
   # T
 
   elsif ($arg[0] eq "temperature") { $::EMC::Temperature = $value[0]; }
   elsif ($arg[0] eq "tequil") { $::EMC::Lammps{tequil} = $value[0]; }
   elsif ($arg[0] eq "tfreq") { $::EMC::Lammps{tfreq} = $value[0]; }
-  elsif ($arg[0] eq "thermo_multi") { $::EMC::Lammps{multi} = flag($string[0]); }
+  elsif ($arg[0] eq "thermo_multi") {
+    $::EMC::Lammps{multi} = flag($string[0]); }
   elsif ($arg[0] eq "tighten") { 
     if ($string[0] eq "false" || $string[0] eq "-") {
       $::EMC::Tighten = "";
@@ -4001,7 +4143,8 @@ sub options {
   elsif ($arg[0] eq "time_build") { $::EMC::RunTime{build} = $string[0]; }
   elsif ($arg[0] eq "time_run") { $::EMC::RunTime{run} = $string[0]; }
   elsif ($arg[0] eq "timestep") { $::EMC::Timestep = $value[0]; }
-  elsif ($arg[0] eq "triclinic") { $::EMC::Flag{triclinic} = flag($string[0]); }
+  elsif ($arg[0] eq "triclinic") {
+    $::EMC::Flag{triclinic} = flag($string[0]); }
   elsif ($arg[0] eq "trun") { 
     if (($::EMC::Lammps{trun_flag} = $string[0] eq "-" ? 0 : 1)) {
       my @s = @string; shift(@s);
@@ -4009,10 +4152,6 @@ sub options {
 	$n==1 ? $value[0] : "\"".join(" ", $value[0], @s)."\"";
     } 
   }
-
-  # V
-
-  elsif ($arg[0] eq "version") { $::EMC::Flag{version} = flag($string[0]); }
 
   # U
 
@@ -4036,6 +4175,8 @@ sub options {
 
   # V
 
+  elsif ($arg[0] eq "version") {
+    $::EMC::Flag{version} = flag($string[0]); }
   elsif ($arg[0] eq "volume") { 
     if (($::EMC::Flag{volume} = flag($string[0]))) {
       $::EMC::Flag{mol} = $::EMC::Flag{mass} = 0; } }
@@ -4044,7 +4185,7 @@ sub options {
 
   elsif ($arg[0] eq "warn") { $::EMC::Flag{warn} = flag($string[0]); }
   elsif ($arg[0] eq "weight") { 
-    set_list($line, $::EMC::Build{weight}, "real", "", [], @string); }
+    set_hash($line, $::EMC::Build{weight}, "real", "", [], @string); }
   elsif ($arg[0] eq "width") { $::EMC::Flag{width} = flag($string[0]); }
   elsif ($arg[0] eq "workdir") { $::EMC::WorkDir = $string[0]; }
   else { return 1; }
@@ -4275,6 +4416,22 @@ sub options_export {
 }
 
 
+sub trace {
+  my $i = 0;
+  my $divider = join("", ("-") x 79);
+
+  printf("Back Trace:\n\n");
+  printf("%-3.3s %-35.35s %s\n", "lvl", "call", "call location");
+  print("$divider\n");
+  while ((my @call = (caller($i++)))) {
+    printf("%-3.3s ", "$i");
+    printf("%-35.35s ", $call[3]);
+    printf("%s:%s\n", scrub_dir($call[1]), $call[2]);
+  }
+  print("$divider\n\n");
+}
+
+
 sub text_line {
   my $line = shift(@_);
   my $input = $::EMC::Flag{source} ne "" ? $::EMC::Flag{source} : "input";
@@ -4289,82 +4446,88 @@ sub text_line {
 }
 
 
-sub info {	# -> EMC::Message::info
+sub info {
   printf("Info: ".shift(@_), @_) if ($::EMC::Flag{info});
 }
 
 
-sub debug {	# -> EMC::Message::debug
+sub debug {
   printf("Debug: ".shift(@_), @_) if ($::EMC::Flag{debug});
 }
 
 
-sub tdebug {	# -> EMC::Message::tdebug
+sub tdebug {
   print(join("\t", "Debug:", @_), "\n") if ($::EMC::Flag{debug});
 }
 
 
-sub warning {	# -> EMC::Message::warning
+sub warning {
   printf("Warning: ".shift(@_), @_) if ($::EMC::Flag{warn});
 }
 
 
-sub message {	# -> EMC::Message::message
+sub message {
   printf("Message: ".shift(@_), @_) if ($::EMC::Flag{info});
 }
 
 
-sub error {	# -> EMC::Message::error
+sub error {
   printf("Error: ".shift(@_), @_);
   printf("\n");
   exit(-1);
 }
 
 
-sub expert {	# -> EMC::Message::expert
+sub expert {
   if ($::EMC::Flag{expert}) { warning(@_); }
   else { error(@_); }
 }
 
 
-sub error_line {	# -> EMC::Message::error_line
+sub error_line {
   error(text_line(@_));
 }
 
 
-sub expert_line {	# -> EMC::Message::expert_line
+sub expert_line {
   expert(text_line(@_));
 }
 
 
-sub tprint {	# -> EMC::Message::tprint
+sub tprint {
   print(join("\t", @_), "\n");
 }
 
 
-sub my_warn {
-  my ( $file, $line ) = ( caller )[1,2];
-  $file = scalar reverse(reverse($file) =~ m{^(.*?)[\\/]});
-  warning("$file:$line ", @_);
-}
-
-
-sub my_strip {	# -> EMC::Message::my_strip
+sub my_strip {
   my $sep = $::EMC::OSType eq "MSWin32" ? "\\" : "/";
   return dirname(@_).$sep.basename(@_);
 }
 
 
+sub origin {
+  my ($file, $line) = ref(@_[0]) eq "ARRAY" ? @{shift(@_)}[1,2] : (caller)[1,2];
+  
+  print("$file:$line: ", @_);
+}
+
+
+sub spot {
+  my $caller = ref(@_[0]) eq "ARRAY" ? shift(@_) : [caller];
+  origin($caller, @_);
+}
+
+
 # i/o routines
 
-sub fexpand {	# -> EMC::IO::expand
+sub fexpand {
   return @_[0] if (substr(@_[0],0,1) ne "~");
   return $ENV{HOME}.substr(@_[0],1) if (substr(@_[0],1,1) eq "/");
   return $ENV{HOME}."/../".substr(@_[0],1);
 }
 
 
-sub fexist {	# -> EMC::IO::exist
+sub fexist {
   my $name = fexpand(shift(@_));
 
   return 1 if (-f $name);
@@ -4373,7 +4536,7 @@ sub fexist {	# -> EMC::IO::exist
 }
 
 
-sub flocate {	# -> EMC::IO::locate
+sub flocate {
   my $name = shift(@_);
   my @ext = ("", shift(@_));
 
@@ -4388,7 +4551,7 @@ sub flocate {	# -> EMC::IO::locate
 }
 
 
-sub ffind {	# -> EMC::IO::find
+sub ffind {
   my $dir = shift(@_);
   my $pattern = shift(@_);
   my @dirs;
@@ -4403,32 +4566,60 @@ sub ffind {	# -> EMC::IO::find
 }
 
 
-sub fopen {	# -> EMC::IO::open
+sub fopen {
   my $name = fexpand(shift(@_));
   my $mode = shift(@_);
-  my @ext = @_;
-  my $stream;
+  my @modes = split("", $mode);
+  my $attr = ref(@_[0]) eq "HASH" ? shift(@_) : undef;
+  my $suffix = ref(@_[0]) eq "ARRAY" ? shift(@_) : undef;
+  my $compress = 0;
+  my $error = 0;
+  my $local = undef;
+  my $stream = \$local;
 
+  if (substr($name,-3) eq ".gz") {
+    $name = substr($name, 0, length($name)-3);
+    push(@modes, "z");
+  }
+  my %tmp; foreach (@modes) { $tmp{$_} = 1; }
+  $mode = join("", sort(keys(%tmp)));
   if ($mode eq "r") {
-    open($stream, "<$name");
-    if (!scalar(stat($stream))) {
-      foreach (@ext) {
+    if ($name eq "-") {
+      ${$stream} = *STDIN;
+    } else {
+      foreach ($suffix ? ("", @{$suffix}) : ("")) {
 	next if (! -f $name.$_);
-	open($stream, "<".($name .= $_));
+	open(${$stream}, "<", $name .= $_);
 	last;
       }
     }
   } elsif ($mode eq "w") {
-    open($stream, ">$name");
+    if ($name eq "-") {
+      ${$stream} = *STDOUT;
+    } else {
+      open(${$stream}, ">", $name);
+    }
   } elsif ($mode eq "a") {
-    open($stream, ">>$name");
+    if ($name eq "-") {
+      ${$stream} = *STDOUT;
+    } else {
+      open(${$stream}, ">>", $name);
+    }
+  } elsif ($mode eq "rz") {
+    $compress = 1;
+    $name = $name.".gz" if (-e $name.".gz");
+    ${$stream} = new IO::Uncompress::Gunzip($name) or $error = 1;
+  } elsif ($mode eq "wz") {
+    $compress = 1;
+    $name = $name.".gz";
+    ${$stream} = new IO::Compress::Gzip($name) or $error = 1;
   } else {
     error("unsupported mode \"$mode\"\n");
   }
-  if (!scalar(stat($stream))) {
+  if ($compress ? $error : !scalar(stat(${$stream}))) {
     error("cannot open \"$name\"\n");
   }
-  return scalar(@ext) ? ($stream, $name) : $stream;
+  return $suffix ? (${$stream}, $name) : ${$stream};
 }
 
 
@@ -4626,7 +4817,7 @@ sub get_data {
       undef(@last)
     }
   }
-  #foreach (@{$data}) { EMC::Message::spot(join("\t", "$_); }
+  #foreach (@{$data}) { spot(join("\t", "$_); }
   $data = preprocess_data($data) if ($preprocess);
   $::EMC::Flag{comment} = $ncomment;
   return $data;
@@ -4895,7 +5086,7 @@ sub cluster_flag {
 }
 
 
-sub allow_list {
+sub list_allow {
   my $hash = shift(@_);
   my @keys = keys(%{$hash});
   my %list;
@@ -5095,7 +5286,7 @@ sub read_script {
   my @io;
 
   return if (!($::EMC::EMC{write}||$::EMC::Lammps{write}) && !(-e $name));
-  ($stream, $name) = fopen($name, "r", @{$suffix});
+  ($stream, $name) = fopen($name, "r", [@{$suffix}]);
   info("%s\n", "reading script from \"$name\"");
   reset_global_variables();
   foreach (keys(%types)) {
@@ -5116,7 +5307,7 @@ sub read_script {
     my $line = $s->{line};
     my $verbatim = $s->{verbatim};
     my @arg = @{$s->{data}};
-      
+    
     $::EMC::Flag{source} = ${@io[0]}{name};
 
 #    my @data = @{$s->{data}};
@@ -5131,25 +5322,29 @@ sub read_script {
     @previous = @current; @current = @arg;
 
     if (@arg[0] eq "ITEM") {				# interpret item
-      $polymer_name = "";
       $mode_last = $mode; $mode = -1;
-      for ($i=0; $i<scalar(@items); ++$i) {		# find command
-	next if (${$items[$i]}{item} ne $arg[1]);
-	$mode = ${$items[$i]}{mode};
-	$flag{env} = ${$items[$i]}{env};
-	$line_mode = $line;
-	my %answer = set_options($line, [["comment", 0]], \@arg, 1, 0);
-	$flag{comment} = 1 if ($answer{comment});
-	last;
-      }
-      if (!($flag{comment} || $flag{field}) && $mode<0) {
-       	error_line($line, "unknown item \'$arg[1]\'\n");
-      }
-      if ($mode==8 && @current[1] eq "ENVIRONMENT") {
-	error_line($line, "cannot alter environment once set\n") if ($env_flag);
-	$::EMC::Project{name} = $arg[2] if ($arg[2] ne "");
-	$::EMC::Flag{environment} = 1;
-	@current[1] = "OPTIONS";
+      if (@arg[1] eq "INCLUDE") {
+	$mode = 27;
+      } else {
+	$polymer_name = "";
+	for ($i=0; $i<scalar(@items); ++$i) {		# find command
+	  next if (${$items[$i]}{item} ne @arg[1]);
+	  $mode = ${$items[$i]}{mode};
+	  $flag{env} = ${$items[$i]}{env};
+	  $line_mode = $line;
+	  my %answer = set_options($line, [["comment", 0]], \@arg, 1, 0);
+	  $flag{comment} = 1 if ($answer{comment});
+	  last;
+	}
+	if (!($flag{comment} || $flag{field}) && $mode<0) {
+	  error_line($line, "unknown item \'$arg[1]\'\n");
+	}
+	if ($mode==8 && @current[1] eq "ENVIRONMENT") {
+	  error_line($line, "cannot alter environment once set\n") if ($env_flag);
+	  $::EMC::Project{name} = $arg[2] if ($arg[2] ne "");
+	  $::EMC::Flag{environment} = 1;
+	  @current[1] = "OPTIONS";
+	}
       }
       if (!$flag{template}) {				# apply outside of
 	if ($mode == 27) {				# template
@@ -5158,13 +5353,14 @@ sub read_script {
 	  
 	  my $ext = $::EMC::Include{extension};
 	  my $path = $::EMC::Location{include};
-	  my $name = flocate(@current[2], $ext, @{$path});
+	  my $name = @current[2]; $name =~ s/^\"+|\"+$//g;
+	  my $name = flocate($name, $ext, @{$path});
 	  error_line($line, "cannot find '@current[2]'\n") if ($name eq "");
 	  info("including \"$name\"\n");
 	  $stream = fopen($name, "r");
 	  unshift(@io, {name => $name, data => get_data($stream, [], 1)});
 	  close($stream);
-	  $mode = 0;
+	  $mode = $mode_last;
 	  next;
 
 	} elsif ($mode == 28) {
@@ -5577,10 +5773,11 @@ sub read_script {
 	  "ncells", "name", "mode", "type", "flag", "density", "focus",
 	  "tighten", "ntrials", "periodic", "field", "exclude", "depth",
 	  "percolate", "unwrap", "guess", "charges", "formal", "translate",
-	  "map"
+	  "map", "debug", "merge"
 	);
 	my %allowed = (
 	  charges => {charges => 1},
+	  debug => {debug => 1},
 	  density => {mass => 1, number => 1},
 	  depth => {depth => 1},
 	  exclude => {box => 1, contour => 1, none => 1},
@@ -5589,6 +5786,8 @@ sub read_script {
 	  focus => {focus => 1},
 	  formal => {formal => 1},
 	  guess => {guess => 1},
+	  map => {map => 1},
+	  merge => {merge => 1},
 	  mode => {get => 1, emc => 1, insight => 1, pdb => 1},
 	  name => {name => 1},
 	  ncells => {ncells => 1},
@@ -5599,9 +5798,10 @@ sub read_script {
 	  translate => {translate => 1},
 	  type => {
 	    crystal => 1, surface => 1, line => 1, structure => 1, system => 1},
-	  unwrap => {unwrap => 1},
-	  map => {map => 1}
+	  unwrap => {unwrap => 1}
 	);
+	my %flags = (debug => 1, focus => 1, formal => 1, guess => 1,
+	  unwrap => 1);
 	my @ncells = split(":", $flag{ncells});
 	my $i = 0;
 	
@@ -5681,7 +5881,7 @@ sub read_script {
 	      @n[1] = @m[$index{$::EMC::Direction{y}}];
 	      @n[2] = @m[$index{$::EMC::Direction{z}}];
 	    } else {
-	      EMC::Message::spot("{", join(", ", @m), "}\n");
+	      spot("{", join(", ", @m), "}\n");
 	      error_line($line, "ncells can only have 1 or 3 entries\n");
 	    }
 	  } elsif ($_ eq "ntrials") {
@@ -5700,7 +5900,7 @@ sub read_script {
 	      $value = $flag{$_};
 	    }
 	    $::EMC::Import{$_} = $value if ($flag{$_} ne "false");
-	  } elsif ($_ eq "focus" || $_ eq "guess" || $_ eq "unwrap") {
+	  } elsif (defined($flags{$_})) {
 	    $::EMC::Import{$_} = $flag{$_}<0 ? -1 : flag($flag{$_});
 	  } else {
 	    $::EMC::Import{$_} = $flag{$_};
@@ -5761,8 +5961,10 @@ sub read_script {
 	@::EMC::NClusters[$i] = $poly ? 1 : ${$::EMC::Group{$group}}{nextra}+1;
 	$::EMC::Profile{$name} = 1 if ($::EMC::ProfileFlag{density});
 	if (!defined($::EMC::Polymer{$name})) {
-	  $polymer{$name}{cluster} = 1;
-	  $polymer{$name}{type} = $poly ? $flag{polymer}{$group} : 0;
+	  if (!defined($polymer{$name})) {
+	    $polymer{$name}{cluster} = 1;
+	    $polymer{$name}{type} = $poly ? $flag{polymer}{$group} : 0;
+	  }
 	  if ($poly) {
 	    $::EMC::PolymerFlag{cluster} = 1;
 	  } else {
@@ -5864,7 +6066,7 @@ sub read_script {
 
     } elsif ($mode==24) {
 
-      # LAMMPS
+      # LAMMPS		[stage	[position]]
 
       my %answer = set_options(
 	$line_mode, [["stage", "simulation"], ["spot", "tail"]], \@last, 0, 1);
@@ -6127,7 +6329,7 @@ sub read_script {
       # subsequent items -> profile contributors
 
       my %allow_style = ("type" => 1, "cluster" => 1);
-      my %allow_type = allow_list(\%::EMC::ProfileFlag);
+      my %allow_type = list_allow(\%::EMC::ProfileFlag);
       my $name = shift(@arg);
       my @a = split(":", shift(@arg));
       my $style = @a[0];
@@ -6429,7 +6631,7 @@ sub read_references {
     $data = $::EMC::Verbatim{references};
     info("reading references from input\n", $name);
   } else {
-    ($stream, $name) = fopen($name, "r", @{$suffix});
+    ($stream, $name) = fopen($name, "r", [@{$suffix}]);
     info("reading references from \"%s\"\n", $name);
     $data = get_data_quick($stream, \@input, 0);
   }
@@ -6639,7 +6841,7 @@ sub read_parameters {
       info("reading parameters from input\n");
       $data = $::EMC::Verbatim{parameters};
     } else {
-      ($stream, $name) = fopen($name, "r", @{$suffix});
+      ($stream, $name) = fopen($name, "r", [@{$suffix}]);
       info("reading parameters from \"%s\"\n", $name);
       $data = get_data_quick($stream);
     }
@@ -7105,7 +7307,7 @@ sub write_emc_variables_polymer {
   my $i = shift(@_);
 
   if (ref($poly) ne "ARRAY") {
-    EMC::Message::spot("caller = ", join(":", (caller)[1,2]), "\n");
+    spot("caller = ", join(":", (caller)[1,2]), "\n");
     error("missing polymer definition for cluster '$name'\n")
   }
   my $npolys = scalar(@{$poly});
@@ -7448,6 +7650,10 @@ sub write_emc_groups {
       printf($stream format_output(1, "id $id", 4, 2));
       printf($stream format_output(1, "fraction ${$flag}{fraction}, order -> ${$flag}{order}, bias -> ${$flag}{bias}", 4, 2));
       printf($stream format_output(1, "terminator true", 4, 2)) if ($terminator);
+      if ($flag->{connect} ne "") {
+	my @a = split(":", $flag->{connect});
+	printf($stream format_output(1, "connects {".join(", ", @a)."}", 4, 2));
+      }
       printf($stream format_output(0, "polymers {", 4, 2));
       write_emc_polymers($stream, "group", $name);
       printf($stream "\n    }\n  }%s", $i++<$n-1 ? ",\n" : "");
@@ -7552,6 +7758,9 @@ sub write_emc_field_apply {
     full => 1, reduced => 1, false => 1);
 
   #printf($stream "(* apply force field *)\n\n");
+  if ($::EMC::FieldFlag{debug} ne "false") {
+    printf($stream "put\t\t= {name -> \"debug\"};\n\n");
+  }
   printf($stream "field\t\t= {\n");
 
   printf($stream "%s", format_output(1, "mode apply", 2, 2));
@@ -7577,14 +7786,16 @@ sub write_emc_field_apply {
 
 sub write_emc_interaction {
   my $stream = shift(@_);
+  my $phase = shift(@_);
   my $mode = shift(@_); $mode = "repulsive" if ($mode eq "");
   my $field_exclude = $::EMC::Field{type} eq "dpd" ||
 		      $::EMC::Field{type} eq "colloid" ? 1 : 0;
-  my $flag = ($::EMC::Flag{exclude} &&
-	      $::EMC::Import{exclude} eq "box" &&
-	      defined($::EMC::Import{name}) &&
-	      $::EMC::Import{type} eq "surface" &&
-	      $::EMC::FieldFlags{ncalls}>1) ? 1 : 0;
+  my $fimport = $::EMC::Import{exclude} eq "box" &&
+		defined($::EMC::Import{name}) &&
+		$::EMC::Import{type} eq "surface" &&
+		$::EMC::FieldFlags{ncalls}>1 ? 1 : 0;
+  my $flag = $::EMC::Flag{exclude}==2 ? ($fimport ? 1 : ($phase>1 ? 2 : 0)) :
+	     $::EMC::Flag{exclude}==1 ? ($fimport ? $phase<2 : 0) : 0;
   my $ptr = $::EMC::Build{cluster};
   my $rmax = $::EMC::CutOff{rmax};
 
@@ -7670,7 +7881,8 @@ sub write_emc_moves {
 sub write_emc_region {
   my $stream = shift(@_);
   my $full = shift(@_);
-  my $l = shift(@_) ? "lprevious" : "lxtal";
+
+  my $l = "lphase";
   my $hxx = $::EMC::Direction{x} eq "x" ? $l : "infinite";
   my $hyy = $::EMC::Direction{x} eq "y" ? $l : "infinite";
   my $hzz = $::EMC::Direction{x} eq "z" ? $l : "infinite";
@@ -7714,8 +7926,9 @@ sub write_emc_import {
       $::EMC::Import{mode} eq "emc") {
     printf($stream "get\t\t= {name -> import$field};\n");
   } elsif ($::EMC::Import{mode} eq "insight") {			# insight
+    my $debug = $::EMC::Import{debug} ? " debug -> true," : "";
     printf($stream 
-      "insight\t\t= {id -> %s, name -> import, mode -> get,\n\t\t   ".
+      "insight\t\t= {id -> %s, name -> import, mode -> get,$debug\n\t\t   ".
       "depth -> $::EMC::Import{depth}, crystal -> %s, percolate -> %s,\n\t\t   ".
       "formal -> %s, flag -> {charge -> %s}$field};\n",
       $id, boolean($::EMC::Import{crystal}),
@@ -7832,10 +8045,10 @@ sub write_emc_import_variables {
 	  "n$y $::EMC::Import{ny}" :
 	$::EMC::ImportNParallel ? 
 	  "n$y $::EMC::ImportNParallel" : 
-	  "n$y int((vphase1/fshape)^(1/3)/sqrt(l$y$y*l$z$z)+0.5)",
+	  "n$y int((vphase1/fshape)^(1/3)/l$y$y+0.5)",
 	$::EMC::Import{nz} ne "auto" ?
 	  "n$z $::EMC::Import{nz}" :
-	  "n$z n$y",
+	  "n$z int((vphase1/fshape)^(1/3)/l$z$z+0.5)",
 
 	"lxtal n$x*l$x$x",
 	"lphase lxtal",
@@ -7923,16 +8136,20 @@ sub write_emc_import_variables {
     if (defined($import->{translate})) {
       my $d = $import->{translate};
 
-      $d = "($d)" if ($d =~ m/\+|\-/);
-      $d = "{$d*lxx/la, 0, 0}" if ($::EMC::Direction{x} eq "x");
-      $d = "{$d*lyx/lb, $d*lyy/lb, 0}" if ($::EMC::Direction{x} eq "y");
-      $d = "{$d*lzx/lc, $d*lzy/lc, $d*lzz/lc}" if ($::EMC::Direction{x} eq "z");
-      $extra .= ",\n\t\t   translate -> $d";
+      if ($d!=0) {
+	$d = "($d)" if ($d =~ m/\+|\-/);
+	$d = "{$d*lxx/la, 0, 0}" if ($::EMC::Direction{x} eq "x");
+	$d = "{$d*lyx/lb, $d*lyy/lb, 0}" if ($::EMC::Direction{x} eq "y");
+	$d = "{$d*lzx/lc, $d*lzy/lc, $d*lzz/lc}" if ($::EMC::Direction{x} eq "z");
+	$extra .= ",\n\t\t   translate -> $d";
+      }
     }
     $extra .= ",\n\t\t   " if ($import->{guess}>=0 || $import->{unwrap}>=0);
     $extra .= "guess -> ".boolean($import->{guess}) if ($import->{guess}>=0);
     $extra .= ", " if ($import->{guess}>=0 && $import->{unwrap}>=0);
     $extra .= "unwrap -> ".boolean($import->{unwrap}) if ($import->{unwrap}>=0);
+    $extra .= ", " if ($import->{unwrap}>=0 && $import->{merge}>=0);
+    $extra .= "merge -> ".boolean($import->{merge}) if ($import->{merge}>=0);
     printf($stream 
       "crystal\t\t= {n -> {nx, ny, nz}, periodic -> {%s}%s};\n\n",
       join(", ", @periodic), $extra);
@@ -8041,6 +8258,9 @@ sub write_emc_phase {
   printf($stream "\n") if (write_emc_verbatim($stream, "build", $phase, 1));
   
   printf($stream "(* build %s *)\n\n", $phase>0 ? "phase $phase" : "system");
+  
+  write_emc_interaction($stream, $phase);
+  
   printf($stream "variables\t= {\n");
   printf($stream "%s", format_output(1, "nphase$phase ntotal()-ntotal", 2, 2));
   printf($stream "%s", format_output(1, "mphase$phase mtotal()-mtotal", 2, 2));
@@ -8085,7 +8305,6 @@ sub write_emc_phase {
     printf($stream "%s", format_output(0, "lphase lphase1", 2, 2));
   }
   printf($stream "\n};\n\n");
-  write_emc_interaction($stream);
   write_emc_moves($stream);
   
   write_emc_build($stream, $phase, @clusters);
@@ -8209,11 +8428,9 @@ sub write_emc_build {
   my $phase = shift(@_);
   my $mode = "soft";
   my @clusters = create_clusters(@_);
-
-  #write_emc_region($stream, 1, 1) if ($phase>1);
-  
   my $n = scalar (@clusters)-1;
   my $i = 0;
+  
   my $lx = $phase ? "2*fshape" : "fshape";
   my $split = $::EMC::Split->{phases};
   my $fsplit = $phase ? defined($split->[$phase-1]) ? 1 : 0 : 0;
@@ -8292,7 +8509,7 @@ sub write_emc_build {
     printf($stream "%s\n", format_output(0, "exclude {", 6, 2));
     printf($stream "%s", format_output(1, "shape cuboid, type -> absolute, mode -> $mode", 8, 2));
     printf($stream "%s", format_output(1, "h {xx -> l$x, yy -> l$y, zz -> l$z", 8, 2));
-    printf($stream "\t\t    zy -> lzy, zx -> lzx, yx -> lyx}\n");
+    printf($stream "\t\t    zy -> lzy, zx -> lzx, yx -> lyx}");
     printf($stream "\n%s", format_output(0, "}", 6, 2));
   }
   
@@ -8536,7 +8753,9 @@ sub write_emc_run {
     printf($stream "%s", format_output(1, "mode put", 2, 2));
     printf($stream "%s", format_output(1, "frequency ntraject", 2, 2));
     printf($stream "%s", format_output(1, "name output", 2, 2));
-    printf($stream "%s", format_output(0, "append ".boolean(flag(${$::EMC::EMC{traject}}{append})), 2, 2));
+    printf($stream "%s", format_output(0, "append ".
+	boolean(flag(${$::EMC::EMC{traject}}{append})),
+       	2, 2));
     printf($stream "\n};\n\n");
   }
 
@@ -8900,7 +9119,7 @@ variable	bseed		index	298537		# brownian seed" : "")."
 variable	tequil		index	$::EMC::Lammps{tequil}		# equilibration time
 variable	dlimit		index	$::EMC::Lammps{dlimit}		# nve/limit distance
 variable	trun		index	$::EMC::Lammps{trun}		# run time
-variable	frestart	index	".($::EMC::Lammps{restart} ? 1 : 0)
+variable	frestart	index	".($::EMC::MD{restart} ? 1 : 0)
 ."		# 0: equil, 1: restart
 variable	dtrestart	index	$::EMC::Lammps{dtrestart}		# delta restart time
 variable	dtdump		index	$::EMC::Lammps{dtdump}		# delta dump time
@@ -9482,44 +9701,106 @@ sub write_namd_header {
   my $date = date; chop($date);
 
   printf($stream "%s",
-"# LAMMPS input script for standardized atomistic simulations
+"# NAMD input script for standardized atomistic simulations
 # Created by $::EMC::Script v$::EMC::Version, $::EMC::Date as part of EMC
 # on $date
 
 # Variable definitions
 
-set			project		\"$::EMC::Project{name}\"
-set			source		\"$::EMC::Build{dir}\"
-set			params		\"$::EMC::Build{dir}\"
-set			frestart	".($::EMC::Lammps{restart} ? 1 : 0)."
-set			restart		\"\"
+set		project		\"$::EMC::Project{name}\"
+set		source		\"$::EMC::Build{dir}\"
+set		params		\"$::EMC::Build{dir}\"
+set		frestart	".($::EMC::MD{restart} ? 1 : 0)."
+set		restart		\"\"
+set		seed		283567238
 
-set			ftemperature	".($::EMC::Pressure{flag} ? 0 : 1)."
-set			temperature	$::EMC::Temperature
-set			temp_damp	$::EMC::NAMD{temp_damp}
+set		temperature	$::EMC::Temperature
+set		temp_damp	$::EMC::NAMD{temp_damp}
 
-set			fpressure	$::EMC::Pressure{flag}
-set			pressure	$::EMC::Pressure{value}
-set			pres_period	$::EMC::NAMD{pres_period}
-set			pres_decay	$::EMC::NAMD{pres_decay}
+set		pressure	$::EMC::Pressure{value}
+set		pres_period	$::EMC::NAMD{pres_period}
+set		pres_decay	$::EMC::NAMD{pres_decay}
 
-set			cutoff_inner	$::EMC::CutOff{inner}
-set			cutoff_outer	$::EMC::CutOff{pair}
-set			cutoff_ghost	".($::EMC::CutOff{ghost}>0 ? $::EMC::CutOff{ghost} : $::EMC::CutOff{pair}+2)."
+set		ensemble	\"".($::EMC::Pressure{flag} ? "npt" : "nvt")."\"
 
-set			timestep	$::EMC::Timestep
-set			dtnonbond	$::EMC::NAMD{dtnonbond}
-set			dtcoulomb	$::EMC::NAMD{dtcoulomb}
-set			dtupdate	$::EMC::NAMD{dtupdate}
-set			dtthermo	$::EMC::NAMD{dtthermo}
-set			dtdcd		$::EMC::NAMD{dtdcd}
-set			dtrestart	$::EMC::NAMD{dtrestart}
-set			dttiming	$::EMC::NAMD{dttiming}
+set		cutoff_inner	$::EMC::CutOff{inner}
+set		cutoff_outer	$::EMC::CutOff{pair}
+set		cutoff_ghost	".($::EMC::CutOff{ghost}>0 ? $::EMC::CutOff{ghost} : $::EMC::CutOff{pair}+2)."
 
-set			tminimize	$::EMC::NAMD{tminimize}
-set			trun		$::EMC::NAMD{trun}
+set		timestep	$::EMC::Timestep
+set		dtnonbond	$::EMC::NAMD{dtnonbond}
+set		dtcoulomb	$::EMC::NAMD{dtcoulomb}
+set		dtupdate	$::EMC::NAMD{dtupdate}
+set		dtthermo	$::EMC::NAMD{dtthermo}
+set		dtdcd		$::EMC::NAMD{dtdcd}
+set		dtrestart	$::EMC::NAMD{dtrestart}
+set		dttiming	$::EMC::NAMD{dttiming}
+
+set		fixed_atoms	".(scalar(@{$::EMC::NAMD{fixed_atoms}})?1:0)."
+set		extra_bonds	".(scalar(@{$::EMC::NAMD{extra_bonds}})?1:0)."
+set		tminimize	$::EMC::NAMD{tminimize}
+set		tequil		$::EMC::NAMD{tequil}
+set		trun		$::EMC::NAMD{trun}
+
+set		fixedAtomsCol	B_or_O 
+set		modes		[list]
+
+# Command line arguments
+
+puts \"====================================================\"
+
+set		command		\"\"
+set		value 		\"\"
+set		exclude 	[list arg command exclude value]
+
+foreach arg \${argv} {
+  if { [string range \${arg} 0 0] eq \"-\" } {
+    set command [string range \${arg} 1 end]
+    if { \${command} eq \"mode\"} {
+      set command \"modes\"
+    }
+    set value \"\"
+  } else {
+    set value \${arg}
+  }
+  if { [lsearch -exact \${exclude} \${command}]>=0 || 
+       [info exists \${command}]==0 } {
+    if { \${value} eq \"\" } {
+      puts \"UserWarning: excluding \${command}\"
+    }
+    continue
+  }
+  if { \${value} != \"\" } {
+    if { \${command} eq \"modes\"} {
+      lappend \$command [list \${value}]
+      puts \"UserInfo: appending \'\${value}\' to \${command}\"
+    } else {
+      set \${command} \${value}
+      puts \"UserInfo: setting \${command} to \'\${value}\'\"
+    }
+  }
+}
+
+if { [llength \${modes}]==0 } {
+  puts \"UserWarning: no execution modes were set\"
+}
+
+puts \"====================================================\"
 
 # Input
+
+if { \${fixed_atoms} } {
+  fixedAtoms		on
+  fixedAtomsFile	\"\${source}/\${project}.pdb\"
+  fixedAtomsCol		\"\${fixedAtomsCol}\"
+}
+
+# ExtraBonds
+
+if { \${extra_bonds} } {
+  extraBonds		yes
+  extraBondsFile	\"\${source}/\${project}_extra.bonds\"
+}
 
 structure		\"\${source}/\${project}.psf\"
 coordinates		\"\${source}/\${project}.pdb\"
@@ -9555,10 +9836,11 @@ timestep		\${timestep}
 nonBondedFreq		\${dtnonbond}
 fullElectFrequency	\${dtcoulomb}
 stepsPerCycle		\${dtupdate}
+seed			\${seed}
 
 # Temperature
 
-if { \${ftemperature} } {
+if { \${ensemble} eq \"nvt\" } {
   langevin		on
   langevinDamping	\${temp_damp}
   langevinTemp		\${temperature}
@@ -9567,7 +9849,7 @@ if { \${ftemperature} } {
 
 # Pressure
 
-if { \${fpressure} } {
+if { \${ensemble} eq \"npt\" } {
   useGroupPressure	yes
   useFlexibleCell	no
   useConstantArea	no
@@ -9616,14 +9898,29 @@ sub write_namd_footer {
   printf($stream "%s",
 "# Run conditions
 
-if { \${frestart} == 0 } {
-  puts			\"UserInfo: running minimizer\"
-  minimize		\${tminimize}
-  reinitvels		\${temperature}
+foreach mode \$modes {
+  if { \${mode} eq \"minimize\" } {
+    puts     		\"UserInfo: running minimizer\"
+    minimize		\${tminimize}
+  }
+  if { \${mode} eq \"quench\" } {
+    puts		\"UserInfo: running velocity quenching\"
+    velocityQuenching	on
+    maximumMove		0.1
+    reinitvels		\${temperature}
+    run			\${tminimize}
+    velocityQuenching	off
+  } 
+  if { \${mode} eq \"equilibrate\" } {
+    puts		\"UserInfo: running MD equilibration\"
+    reinitvels		\${temperature}
+    run			\${tequil}
+  }
+  if { \${mode} eq \"run\" || \${mode} eq \"restart\" } {
+    puts		\"UserInfo: starting run\"
+    run			\${trun}
+  }
 }
-
-puts			\"UserInfo: starting run\"
-run			\${trun}
 ");
 }
 
@@ -9778,7 +10075,7 @@ sub write_job_loop {
   for (my $i=0; $i<$dim; ++$i) {
     my $list = $first ? 
       "\${$NAME"."s[\$i_$name]}" :
-      "\$(replace_vars \"\${$NAME"."s[\${i_$paired"."[$i]}]}\" \"\${values[\@]}\")";
+      "\"\$(replace_vars \"\${$NAME"."s[\${i_$paired"."[$i]}]}\" \"\${values[\@]}\")\"";
     my $VAR = $NAME.($dim<2 ? "" : "_".($i+1));
 
     write_job_indent($stream,
@@ -9893,7 +10190,8 @@ sub write_job_func_test {
   my $stream = shift(@_);
   my $options = "\n    -project \"$::Project{directory}$::EMC::Project{name}\" \\";
   my $preprocess = $::EMC::Flag{enviroment} ? 0 : $::EMC::Flag{preprocess};
-  my $lammps = $::EMC::Lammps{write}>1 ? "\n    -lammps=$::EMC::Lammps{version} \\" : "";
+  my $lammps = $::EMC::Lammps{write}>0 ? "\n    -lammps=$::EMC::Lammps{version} \\" : "";
+  my $namd = $::EMC::NAMD{write}>0 ? "\n    -namd=$::EMC::NAMD{write} \\" : "";
  
   printf($stream "\nsub submit {\n");
   foreach (@{$::EMC::LoopVariables->{active}}) {
@@ -9905,7 +10203,7 @@ sub write_job_func_test {
   printf($stream "
   run \"\${chemistry}/scripts/$::EMC::Project{script}.sh\" \\$options
     $::EMC::Project{name};
-  run emc_setup.pl \\$lammps
+  run emc_setup.pl \\$lammps$namd
     -preprocess=$preprocess \\
     -project=$::EMC::Project{name} \\
     -workdir=\"\${WORKDIR}\" \\
@@ -10121,6 +10419,7 @@ sub write_job_replace_vars {
 ");
 }
 
+
 sub write_job_stage {
   my $command = shift(@_);
   my $name = shift(@_);
@@ -10307,7 +10606,7 @@ run_sh() {
   JOB_ID=\$(perl -e '
     \$a = (split(\" \", \@ARGV[0]))[-1];
     \$a =~ s/[<|>]//g; 
-    print(\$a);\' -- \"\${output[3]}\");
+    print(\$a);\' -- \"\${output[\${#output[@]} - 3]}\");
 }
 
 run_check() {
@@ -10627,7 +10926,7 @@ analyze() {
 
   # BUILD
 
-  if ($type eq "build" || ($type eq "run" && !$::EMC::Lammps{restart})) {
+  if ($type eq "build" || ($type eq "run" && !$::EMC::MD{restart})) {
 
     my $options = "\n      -project \"$::EMC::Project{directory}$::EMC::Project{name}\" \\";
     my $values = "";
@@ -10637,7 +10936,8 @@ analyze() {
       $options .= "\n      -$var \"\${".uc($var)."}\" \\";
     }
    
-    my $lammps = $::EMC::Lammps{write}>1 ? "\n      -lammps=$::EMC::Lammps{version} \\" : "";
+    my $lammps = $::EMC::Lammps{write}>0 ? "\n      -lammps=$::EMC::Lammps{version} \\" : "";
+    my $namd = $::EMC::NAMD{write}>0 ? "\n    -namd=$::EMC::NAMD{write} \\" : "";
     
     printf($stream
 "
@@ -10659,7 +10959,7 @@ run_emc() {
   run \"\${CHEMISTRY}/scripts/$::EMC::Project{script}.sh\" \\$options
     $::EMC::Project{name};
   run \\
-    emc_setup.pl \\$lammps
+    emc_setup.pl \\$lammps$namd
       -preprocess=$preprocess \\
       -project=$::EMC::Project{name} \\
       -workdir=\"\${WORKDIR}\" \\
@@ -10723,8 +11023,8 @@ run_init() {
   # RUN
 
   if ($type eq "run") {
-    my $restart_name = "$::EMC::Lammps{restart_dir}/*/*.restart?";
-    my $restart_file = $::EMC::Lammps{restart} ? "\n".
+    my $restart_name = "$::EMC::MD{restart_dir}/*/*.restart?";
+    my $restart_file = $::EMC::MD{restart} ? "\n".
       "  else\n".
       "    frestart=1;\n".
       "    restart=\$(first \$(ls -1t $restart_name));\n".
@@ -10739,7 +11039,8 @@ run_init() {
     my $run_line = $::EMC::Lammps{trun_flag} ?
 	($::EMC::Lammps{trun} ne "" ? "\n\t-var trun ".eval($::EMC::Lammps{trun})." \\" : "") : "";
 
-    printf($stream
+    if (!$::EMC::MD{restart}) {
+      printf($stream
 "
 help() {
   echo \"EMC run script created by $::EMC::Script v$::EMC::Version, $::EMC::Date\n\";
@@ -10782,16 +11083,18 @@ run_init() {
     shift;
   done;
 }
-") if (!$::EMC::Lammps{restart});
+");
+    }
 
-    printf($stream
+    if ($::EMC::Lammps{write}) {
+      printf($stream
 "
 run_lammps() {
   local dir=\"\$1\"; shift;
   local frestart=\"\$1\"; shift;
   local ncores=\"\$1\"; shift;
-  local restart_dir=\"".($::EMC::Lammps{restart} ? "$::EMC::Lammps{restart_dir}" : "..")."\";
-  local output restart wait file;
+  local restart_dir=\"".($::EMC::MD{restart} ? "$::EMC::MD{restart_dir}" : "..")."\";
+  local output restart file;
   
   printf \"### \${dir}\\n\\n\";
   if [ ! -e \${dir} ]; then
@@ -10849,7 +11152,7 @@ run_lammps() {
     -input $::EMC::Project{name}.in -output $::EMC::Project{name}.out \\
     -project $::EMC::Project{name} \\
       lmp_\${HOST} -nocite \\
-	-var source $::EMC::Lammps{restart_dir}/build \\".
+	-var source $::EMC::MD{restart_dir}/build \\".
 	$run_line.$shear_line."
 	-var frestart \${frestart} \\
 	-var restart \@FILE \\
@@ -10862,6 +11165,104 @@ run_lammps() {
   echo;
 }
 ");
+    }
+
+    if ($::EMC::NAMD{write}) {
+      printf($stream
+"
+run_namd() {
+  local dir=\"\$1\"; shift;
+  local frestart=\"\$1\"; shift;
+  local ncores=\"\$1\"; shift;
+  local fequil=\"\$1\"; shift;
+  local nppn=\${NCORES_PER_NODE};
+  local nppt=\${NCORES_PER_THREAD};
+  local nnodes=\$(calc \"int(\${ncores}/\${nppn})\");
+  local nmpi=\$(calc \"int(\${nppn}/\${nppt})\");
+  local nextra=\$(calc \"\${ncores}-\${nnodes}*\${nppn}\");
+  local nmpiextra=\$(calc \"int(\${nextra}/\${nppt})\");
+  local restart_dir=\"".($::EMC::MD{restart} ? "$::EMC::MD{restart_dir}" : "..")."\";
+  local output file thread equil mode;
+  
+  printf \"### \${dir}\\n\\n\";
+  if [ ! -e \${dir} ]; then
+    run mkdir -p \${dir};
+  fi;
+
+  if [ \${fbuild} != 1 ]; then
+    if [ ! -e \${dir}/../build/$::EMC::Project{name}.pdb ]; then
+      printf \"# ../build/$::EMC::Project{name}.pdb does not exists -> skipped\\n\\n\";
+      run_null;
+      return;
+    fi;
+    if [ ! -e \${dir}/../build/$::EMC::Project{name}.prm ]; then
+      printf \"# ../build/$::EMC::Project{name}.prm does not exists -> skipped\\n\\n\";
+      run_null;
+      return;
+    fi;
+    if [ ! -e \${dir}/../build/$::EMC::Project{name}.namd ]; then
+      printf \"# ../build/$::EMC::Project{name}.namd does not exists -> skipped\\n\\n\";
+      run_null;
+      return;
+    fi;
+  fi;
+
+  if [ \${freplace} != 1 ]; then
+    if [ \${frestart} != 1 ]; then
+      if [ -e \${dir}/$::EMC::Project{name}.coor ]; then
+	printf \"# $::EMC::Project{name}.coor exists -> skipped\\n\\n\";
+	run_null;
+	return;
+      fi;
+    else
+      if [ \${ferror} == 1 ]; then
+	if [ -e \"\$(first \${restart_dir}/*/$::EMC::Project{name}.out)\" ]; then
+	  file=\$(first \$(ls -1t \${restart_dir}/*/$::EMC::Project{name}.out));
+	  if [ \"\$(grep ERROR \${file})\" != \"\" ]; then
+	    run_null;
+	    return;
+	  fi;
+	else
+	  frestart=0;
+	fi;
+      fi;
+    fi;
+  fi;
+
+  if [ \"\${nppt}\" != \"1\" ]; then
+    thread=\"+ppn \$(calc \"\${nppt}-1\") \";
+    thread+=\"+commap 0-\$(calc \"\${nmpi}-1\") \";
+    thread+=\"+pemap \${nmpi}-\$(calc \"\${nppn}-1\")\${nppn}.\";
+    thread+=\$(calc \${nppn}-\${nmpi});
+  fi;
+
+  if [ \"\${frestart}\" == \"0\" ]; then
+    mode=\"minimize equilibrate run\";
+  else
+    mode=\"run\";
+  fi;
+
+  run cd \${dir};
+  run cp \${restart_dir}/build/$::EMC::Project{name}.namd .;
+  set -f;
+  WALLTIME=\${RUN_WALLTIME};
+  run_pack -n \${ncores} -nppt \${nppt} \\
+    -walltime \${RUN_WALLTIME} -starttime \${START_TIME} -queue \${QUEUE} \\
+    -output $::EMC::Project{name}.out \\
+    -project $::EMC::Project{name} \\
+      namd2 \${thread}\\
+	--tclmain $::EMC::Project{name}.namd \\
+	  -mode \${mode} \\
+	  -frestart \${frestart} \\
+	  -seed \${SEED};
+  set +f;
+
+  SEED=\$(calc \${SEED}+1);
+  run cd \"\${WORKDIR}\";
+  echo;
+}
+");
+    }
   }
 
   write_job_permutations($stream, $type);
@@ -10906,11 +11307,12 @@ run_lammps() {
 	printf($stream "values+=(\"\$$var\");\n");
       }
     }
-    my $lammps = $::EMC::Lammps{write}>1 ? "\n    -lammps=$::EMC::Lammps{version} \\" : "";
+    my $lammps = $::EMC::Lammps{write}>0 ? "\n    -lammps=$::EMC::Lammps{version} \\" : "";
+    my $namd = $::EMC::NAMD{write}>0 ? "\n    -namd=$::EMC::NAMD{write} \\" : "";
     printf($stream "
   run \"\${CHEMISTRY}/scripts/$::EMC::Project{script}.sh\" \\$options
     $::EMC::Project{name};
-  run emc_setup.pl \\$lammps
+  run emc_setup.pl \\$lammps$namd
     -preprocess=$preprocess \\
     -project=$::EMC::Project{name} \\
     -workdir=\"\${WORKDIR}\" \\
@@ -11065,7 +11467,7 @@ sub write_job_footer {
   } elsif ($type eq "build") {
     $header = "\n  run_init \"\$@\";\n";
   } elsif ($type eq "run") {
-    $header = "\n  run_init \"\$@\";\n" if (!$::EMC::Lammps{restart});
+    $header = "\n  run_init \"\$@\";\n" if (!$::EMC::MD{restart});
   } elsif ($type eq "test") {
     printf($stream
 "# main
@@ -11119,6 +11521,7 @@ $header
   RUN_WALLTIME=$::EMC::RunTime{run};")."
   SEED=\$(date +%s);
   NCORES_PER_NODE=$::EMC::Queue{ppn};
+  NCORES_PER_THREAD=$::EMC::Queue{ppt};
   MEMORY_PER_CORE=$::EMC::Queue{memory};
   NCORES=".($type eq "run" ? $::EMC::Queue{ncores} : 1).";$trailer
 
@@ -11469,12 +11872,12 @@ ITEM	END
   initialize(@ARGV);
   
   if (!$::EMC::Flag{environment}) {
-    write_emc($::EMC::Build{name});
     if (!${$::EMC::EMC{exclude}}{build}) {
       write_field($::EMC::Project{name});
       write_lammps($::EMC::Project{name});
       write_namd($::EMC::Project{name});
     }
+    write_emc($::EMC::Build{name});
 
     if (flag($::EMC::EMC{execute})) {
       my $emc;

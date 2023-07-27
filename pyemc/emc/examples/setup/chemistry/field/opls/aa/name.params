@@ -1,0 +1,141 @@
+# LAMMPS parameters created by EMC v9.4.4, build Aug 20 2021 07:52:52
+
+# Variables
+
+variable	seed		index	-1
+variable	ntotal		index	999
+variable	fshape		index	1
+variable	output		index	name
+variable	field		index	opls/2012/opls-aa
+variable	location1	index	C:/Users/kevin/Downloads/v9.4.4/field/
+variable	nav		index	0.6022141179
+variable	temperature	index	300
+variable	radius		index	5
+variable	nrelax		index	100
+variable	weight_nonbond	index	0.0001
+variable	weight_bond	index	0.0001
+variable	weight_focus	index	1
+variable	cutoff		index	9.5
+variable	charge_cutoff	index	9.5
+variable	kappa		index	4
+variable	density1	index	1
+variable	lprevious	index	0
+variable	lphase		index	21.2756779563
+variable	f_water		index	0.773223319156
+variable	f_alcohol	index	0.226776680844
+variable	chem_water	index	O
+variable	chem_alcohol	index	CCO
+variable	lg_water	index	3
+variable	lg_alcohol	index	9
+variable	l_water		index	3
+variable	norm_water	index	1
+variable	l_alcohol	index	9
+variable	norm_alcohol	index	1
+variable	mg_water	index	18.0152
+variable	mg_alcohol	index	46.0688
+variable	m_water		index	18.0152
+variable	m_alcohol	index	46.0688
+variable	norm		index	17.2292832405
+variable	n_water		index	258
+variable	n_alcohol	index	25
+variable	mtotal		index	5799.6416
+variable	nphase1		index	999
+variable	mphase1		index	5799.6416
+variable	vphase1		index	9630.53078235
+variable	lbox		index	21.2756779563
+variable	lphase1		index	21.2756779563
+variable	lxx		index	21.2756779563
+variable	lyy		index	21.2756779563
+variable	lzz		index	21.2756779563
+variable	lzy		index	0
+variable	lzx		index	0
+variable	lyx		index	0
+variable	vtotal		index	9630.53078235
+
+# Types
+
+variable	type_ct		index	1
+variable	type_hc		index	2
+variable	type_ho		index	3
+variable	type_hw		index	4
+variable	type_oh		index	5
+variable	type_ow4	index	6
+
+variable	type_bond_ct_ct	index	1
+variable	type_bond_ct_hc	index	2
+variable	type_bond_ct_oh	index	3
+variable	type_bond_ho_oh	index	4
+variable	type_bond_hw_ow4 index	5
+
+variable	type_angle_ct_ct_hc index	1
+variable	type_angle_ct_ct_oh index	2
+variable	type_angle_ct_oh_ho index	3
+variable	type_angle_hc_ct_hc index	4
+variable	type_angle_hc_ct_oh index	5
+variable	type_angle_hw_ow4_hw index	6
+
+# Clusters
+
+variable	n0_water	index	1
+variable	n1_water	index	258
+variable	nl_water	index	258
+
+variable	n0_alcohol	index	259
+variable	n1_alcohol	index	283
+variable	nl_alcohol	index	25
+
+# Flags
+
+variable	flag_charged	index	1
+
+# Masses
+
+mass		1    12.01100  # ct
+mass		2     1.00790  # hc
+mass		3     1.00790  # ho
+mass		4     1.00790  # hw
+mass		5    15.99940  # oh
+mass		6    15.99940  # ow4
+
+# Potentials
+
+pair_style	lj/cut/coul/long ${cutoff} ${charge_cutoff}  # 9.5
+bond_style	harmonic
+angle_style	harmonic
+dihedral_style	multi/harmonic
+pair_modify	mix geometric tail yes
+special_bonds	lj/coul 0 0 0.5
+
+# Pair Coeffs
+
+pair_coeff	 1  1    0.06600    3.50000  # ct,ct
+pair_coeff	 2  2    0.03000    2.50000  # hc,hc
+pair_coeff	 3  3    0.00000    0.94500  # ho,ho
+pair_coeff	 4  4    0.00000    0.95720  # hw,hw
+pair_coeff	 5  5    0.17000    3.12000  # oh,oh
+pair_coeff	 6  6    0.15539    3.16556  # ow4,ow4
+
+# Bond Coeffs
+
+bond_coeff	1  268.00000    1.52900  # ct,ct
+bond_coeff	2  340.00000    1.09000  # ct,hc
+bond_coeff	3  320.00000    1.41000  # ct,oh
+bond_coeff	4  553.00000    0.94500  # ho,oh
+bond_coeff	5  600.00000    1.00000  # hw,ow4
+
+# Angle Coeffs
+
+angle_coeff	1   37.50000  110.70000  # ct,ct,hc
+angle_coeff	2   50.00000  109.50000  # ct,ct,oh
+angle_coeff	3   55.00000  108.50000  # ct,oh,ho
+angle_coeff	4   33.00000  107.80000  # hc,ct,hc
+angle_coeff	5   35.00000  109.50000  # hc,ct,oh
+angle_coeff	6   75.00000  109.47000  # hw,ow4,hw
+
+# Dihedral Coeffs
+
+dihedral_coeff	1   -1.03300   -0.20200    2.88300    2.05200    0.00000  # ct,ct,oh,ho
+dihedral_coeff	2    0.15000   -0.45000    0.00000    0.60000    0.00000  # hc,ct,ct,hc
+dihedral_coeff	3    0.23400   -0.70200    0.00000    0.93600    0.00000  # hc,ct,ct,oh
+dihedral_coeff	4    0.17620   -0.52860    0.00000    0.70480    0.00000  # hc,ct,oh,ho
+

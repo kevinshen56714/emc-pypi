@@ -1,0 +1,254 @@
+#!/usr/bin/env emc_setup.pl
+#
+#  script:	t_glass.esh
+#  author:	Pieter J. in 't Veld
+#  date:	June 11, 2018, July 27, 2023.
+#  purpose:	Example for creating input for glass temperature calculations;
+#
+#  notes:
+#    20180611	Creation date
+#    20230727	Adaptation for atactic polypropylene and polystyrene
+#		Addition of comments
+#
+#  - this script generates 420 simulations in total
+#  - start simulations with
+#
+#  	./run/2023072601.sh -build
+#
+#    which spans an EMC build for each, chained with a subsequent LAMMPS
+#    simulation
+#
+
+#
+# General settings
+#
+
+ITEM	ENVIRONMENT
+
+project		atom		# - output file names start with 'atom'
+replace		true		# - replace all existing files with produced
+queue_run	default		# - queueing system queues; choose 'local' when
+queue_build	default		# - running on local machine is desired
+queue_analyze	default
+time_build	00:40:00	# - queue EMC build time
+time_analyze	24:00:00	# - queue post processing analysis time
+time_run	24:00:00	# - queue MD run time
+name_testdir	t_glass		# - name of ./test/t_glass for testing first
+				#   loop entry
+analyze_window	25		# - number of frames to include for window
+				#   avaraging
+ncores		20		# - number of cores for running MD jobs
+preprocess	true		# - use gcc preprocessor while interpreting
+				#   template
+trun		-
+
+ITEM	END	# ENVIRONMENT
+
+# Analysis
+
+ITEM	ANALYSIS		# - include cavity size (CESA) analysis
+				# - analyses void space, which correlates with
+				#   diffusion
+
+cavity		start=2e6, ninserts=1e5, record=false
+
+ITEM	END	# ANALYSIS
+
+# Variables
+
+# - workflow-wide accessible variables referred to in all-caps between @{}
+
+ITEM	VARIABLES
+
+pressure	1.0		# - system pressure in template referred to as
+				#   @{PRESSURE} 
+
+ITEM	END	# VARIABLES
+
+# Loops
+
+# - workflow-wide accessible loop variables referred to in all-caps between @{}
+
+ITEM	LOOPS
+
+stage		00
+field:h		charmm, &	# - include choice of force field in loops;
+				#   the :h extention indicates, that this loop
+				#   variable with not appear in the resulting
+				#   directory tree in ./data, i.e. it is
+				#   hidden
+		trappe		# - check for both the charmm and trappe force
+				#   fields
+trial		a-pp &		# - set trial; considering atactic
+		a-ps		#   polypropylene and atactic polystyrene
+monomer:h	*C(C)C*, &	# - repeat unit definition for a-pp
+		*C(c1ccccc1)C*	# - repeat unit definition for a-ps
+				# - the repeat unit definitions do not appear
+				#   in the directory tree
+temperature:p	s:200:300:5, &	# - defines a separate sequence for each trial,
+				#   e.g. s:200:300:5 generates a sequence
+				#   of temperature from 200 to 300 K in steps
+				#   of 5 K; the :p extention implies, that
+				#   this entry is paired with the previous
+				#   entry ('monomer' in this case)
+		s:320:420:5
+density:h	0.85, &		# - estimated initial structure density
+		1.00		#   the :h extention implies a hidden entry
+copy		5		# - create 5 statistically independent copies,
+				#   which allows for better statistics in the
+				#   measured quantities
+
+ITEM	END	# LOOPS
+
+#
+# Project stage 00
+#
+
+ITEM	STAGE	00
+
+# Set script template
+
+ITEM	TEMPLATE
+
+# Command line options
+
+ITEM	OPTIONS
+
+# - the following define only works when executing in preprocessing mode (see
+#   environment options above)
+# - preprocessing allows for the use of a selected set of C preprocessing
+#   directives and assumes the availability of the GNU C compiler gcc
+# - this capability allows for the use of aliases
+
+#define		charmm	charmm/c36a/cgenff
+#define		trappe	trappe/2014/trappe-ua
+
+replace		true		# - replace produced scripts
+field		@{FIELD}	# - define force field, which uses loop
+				#   variable 'field', which is referred to by
+				#   @{FIELD} (always all caps!); this is
+				#   translated for the first loop entry to
+				#
+				#       field	charmm
+				#
+				#   which, due to the previous
+				#
+				#   	#define	charmm	charmm/c36a/cgenff
+				#
+				#   is identical to
+				#
+				# 	field	charmm/c36a/cgenff
+				#
+				#   due to an active preprocessing mode
+field_increment	empty		# - assume empty increments when not exisiting
+ntotal		25000		# - targeted number of sites to build
+tequil		10000		# - MD push-off or equilibration time
+dtdump		1e6		# - trajectory output frequency (every 1e6
+				#   timesteps
+density		@{DENSITY}	# - initial built structure density in units of
+				#   g/cc ; uses loop variable 'density'
+pressure	1.0		# - activate pressure ensemble NPT; target
+				#   pressure equals 1.0 atm
+temperature	@{TEMPERATURE}	# - system temperature in K; uses loop variable
+				#   'temperature'
+sample		pressure=true,&	# - activate on-the-fly sampling of system
+		volume=true, &	#   pressure, volume, and energy; default
+		energy=true	#   takes a sample every 10 time steps and
+				#   stores every 10000 time steps
+
+ITEM	END	# OPTIONS
+
+# LAMMPS relaxation parameters
+
+ITEM	VARIABLES
+
+# - the following variables are created by EMC and ported to LAMMPS through
+#   atom.params, where they are available as LAMMPS variables
+
+trelax		5e5		# - intermediate MD relaxation time
+thigh		@{TEMPERATURE}+400 # - highest temperature for MD relaxation
+
+ITEM	END	# VARIABLES
+
+# - add LAMMPS paragraph for relaxation
+# - location will be after the simulation label
+# - the variables used in this paragraph are all defined in atom.params, which
+#   is produced by EMC
+
+ITEM	LAMMPS	stage=simulation	spot=tail
+
+fix		int all npt temp ${temperature} ${thigh} ${tdamp} &
+		iso ${pressure} ${pressure} ${pdamp}
+run		${trelax}
+unfix		int
+
+fix		int all npt temp ${thigh} ${temperature} ${tdamp} &
+		iso ${pressure} ${pressure} ${pdamp}
+run		${trelax}
+unfix		int
+
+write_restart	${project}.restart2
+
+ITEM	END	# LAMMPS
+
+# Chemistry
+
+# Groups
+
+ITEM	GROUPS
+
+# - definition of monomers
+# - '*' refers to connection point
+# - a group with one '*' automatically is categorized as a terminator; all
+#   others are repeat units
+
+monomer		@{MONOMER}, &		# - SMILES for polymer repeat unit
+					#   with first connection at first
+					#   carbon and second connection at
+					#   last carbon
+		1,monomer:2, &		# - connect first connection to second
+					#   connection of group 'monomer'
+		1,term:1, 2,term:1	# - connect first and second
+					#   connections for first connection of
+					#   group 'term'
+term		*C
+
+ITEM	END	# GROUPS
+
+# Clusters
+
+ITEM	CLUSTERS
+
+polymer		alternate,1		# - create an alternating copolymer,
+					#   which effectively is a linear
+					#   polymer of only one monomer
+
+ITEM	END	# CLUSTERS
+
+# Polymers
+
+ITEM	POLYMERS
+
+# - table of contributing polymers for cluster 'polymer'
+
+polymer
+100		monomer,30,term,2	# - first entry in table with 30 repeat
+					#   repeat units of group 'monomer' and
+					#   two end groups of group 'term'
+
+# - more entries could follow, if a length distribution is wanted, e.g.
+#
+# polymer
+# 10		monomer,10,term,2
+# 40		monomer,20,term,2
+# 20		monomer,30,term,2
+# 20		monomer,40,term,2
+# 10		monomer,50,term,2
+#
+# - this creates a distribution of polymers with length 10, 20, 30, 40, and 50
+#   with mol fractions 0.1, 0.4, 0.2, 0.2, and 0.1 resp.
+
+ITEM	END	# POLYMERS
+
+ITEM	END	# TEMPLATE
+

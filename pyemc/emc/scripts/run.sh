@@ -6,44 +6,48 @@
 #		April 16, 2014, March 14, 23, May 8, July 3, 17, 2017,
 #		December 2, 19, 2017, February 24, May 26, 31, July 5,
 #		October 29, 2018, August 17, 2019, May 23, 2020, April 4,
-#		2022.
+#		August 20, 2022.
 #  purpose:	execute job in LSF, PBS, or Slurm queues or directly on local
 #		host; part of EMC work flow
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2023 Pieter J. in 't Veld
 #  Distributed under GNU Public License v3 as stated in LICENSE file in EMC
 #  root directory
 #
 #  notes:
-#    20130705	Creation date
-#    20170314	Added local queue to side-step queue submission
-#    20170323	Added wait and file options
-#		Rewrote use of commands
-#    20170703	Made some minor adjustements with respect to queue
-#    20170716	Adjusted the use of the -file and @FILE combo
-#    20171202	Corrected behavior when using -file for PBS
-#    20171219	Added -nthreads to allow for assigning multiple threads for PBS
-#		Added -mode to select PBS assignment mode (how processes are
-#		to nodes)
-#		Added -backfill, which equals -mode 1
-#    20180224	Added -sleep to avoid queueing system time outs
-#    20180526	Added local mpi execution of multi-processor jobs
-#    20180531	Added -memory per core for PBS queues
-#		Added -single node mode
-#    20180705	Corrected -file behavior
-#    20181028	Corrected queueing system determination (behavior of which
-#		depends on OS)
-#    20190817	Added -account to allow for charging accounts and -user to
-#		allow for queue-specific settings not covered by run.sh
-#    20200523	Corrected behavior for running local jobs
-#    20220404	New version: 3.4
-#		Added -modules for loading modules during execution
+#    20130705	- Creation date
+#    20170314	- Added local queue to side-step queue submission
+#    20170323	- Added wait and file options
+#		- Rewrote use of commands
+#    20170703	- Made some minor adjustements with respect to queue
+#    20170716	- Adjusted the use of the -file and @FILE combo
+#    20171202	- Corrected behavior when using -file for PBS
+#    20171219	- Added -nppt to allow for assigning multiple threads for
+#		  PBS
+#		- Added -mode to select PBS assignment mode (how processes are
+#		  to nodes)
+#		- Added -backfill, which equals -mode 1
+#    20180224	- Added -sleep to avoid queueing system time outs
+#    20180526	- Added local mpi execution of multi-processor jobs
+#    20180531	- Added -memory per core for PBS queues
+#		- Added -single node mode
+#    20180705	- Corrected -file behavior
+#    20181028	- Corrected queueing system determination (behavior of which
+#		  depends on OS)
+#    20190817	- Added -account to allow for charging accounts and -user to
+#		  allow for queue-specific settings not covered by run.sh
+#    20200523	- Corrected behavior for running local jobs
+#    20220404	- New version: 3.4
+#		- Added -modules for loading modules during execution
+#    20220820	- New version: 3.5
+#		- Changed interpretation of pbs_select
+#		- Added purge to module interpretation
 #
 
 # Variables
 
-version=3.4;
-date="April 4, 2022";
+version=3.5;
+date="August 20, 2022";
 script=$(basename "$0");
 subscript=;
 walltime=;
@@ -54,8 +58,9 @@ queue=default;
 join=true;
 local="local";
 memory=default;
-ppn=40;
-nthreads=1;
+mpiprocs=default;
+nppt=1;
+nppn=40;
 mode=0;
 sleep=0.1;
 
@@ -146,6 +151,8 @@ set_modules() {
       if [ ${#arg[@]} == 2 ]; then
 	echo "module ${arg[0]} ${arg[1]}";
 	module ${arg[0]} ${arg[1]};
+      elif [ ${module} == "purge" ]; then
+	module purge;
       else
 	echo "module load ${module}";
 	module load ${module};
@@ -200,9 +207,9 @@ script_help() {
   echo -e "  -modules\tset modules to load";
   echo -e "  -n\t\tset number of processors; includes threads";
   echo -e "  -nodes\tset nodes subset to run on (LSF only) []";
-  echo -e "  -nthreads\tset number of threads per node (PBS only) [${nthreads}]";
   echo -e "  -output\tset piped output file name";
-  echo -e "  -ppn\t\tset number of processors per node (PBS only) [${ppn}]";
+  echo -e "  -ppn\t\tset number of processors per node (PBS only) [${nppn}]";
+  echo -e "  -ppt\tset number of processes per thread (PBS only) [${nppt}]";
   echo -e "  -project\tset project name [${project}]";
   echo -e "  -queue\tset desired queue [${queue}]";
   echo -e "  -single\tactivate single node mode (no mpiexec)";
@@ -256,11 +263,12 @@ run_init() {
       -memory)		shift; memory=$1;;
       -mode)		shift; mode=$(int $1);;
       -modules)		shift; commands+=(-modules "$1"); set_modules "$1";;
+      -mpiprocs)	shift; mpiprocs=$(int $1);;
       -n)		shift; nprocs=$(int $1);;
       -nodes)		shift; nodes=$(int $1);;
-      -nthreads)	shift; nthreads=$(int $1);;
       -output)		shift; commands+=(-output "$(single "$1")");;
-      -ppn)		shift; ppn=$(int $1);;
+      -ppn)		shift; nppn=$(int $1);;
+      -ppt)		shift; nppt=$(int $1);;
       -project)		shift; project=$1;;
       -queue)		shift; queue=$1;;
       -single)		commands+=(-single);;
@@ -287,7 +295,7 @@ run_init() {
   if [ ${#commands[@]} -eq 0 ]; then script_help; fi;
   if [ "${subscript}" == "" ]; then subscript="$(which ${script})"; fi;
   if [ "${queue}" == ${local} ]; then system=${local}; fi;
-  if [ ${ppn} -lt 1 ]; then ppn=1; fi;
+  if [ ${nppn} -lt 1 ]; then nppn=1; fi;
   if [ "${system}" == "" ]; then system=$(system_queue); fi;
   if [ "${system}" == "" ]; then
       error="Could not determine queueing system";
@@ -373,57 +381,63 @@ lsf_run() {
 
 set_nodes() {
   perl -e '
-    $n=$ARGV[0]; $ppn=$ARGV[1];
-    printf "%d\n", int(($n+($n%$ppn ? $ppn : 0))/$ppn);
+    $n=$ARGV[0]; $=$ARGV[1];
+    printf "%d\n", int(($n+($n%$ ? $nppn : 0))/$nppn);
   ' $@;
 }
 
 
 pbs_nodes() {
   local n=$1;
-  local nnodes=$(set_nodes ${n} ${ppn});
+  local nnodes=$(set_nodes ${n} ${nppn});
   local mem;
 
   if [ "${nnodes}" == "1" ]; then
     if [ "${memory}" != "default" ]; then
       mem=":$(calc "${n}*${memory}")gb";
     fi;
-    echo "${nnodes}:ppn=${n}${mem}";
+    echo "${nnodes}:=${n}${mem}";
   else
     if [ "${memory}" != "default" ]; then
-      mem=":$(calc "${ppn}*${memory}")gb";
+      mem=":$(calc "${nppn}*${memory}")gb";
     fi;
-    echo "${nnodes}:ppn=${ppn}";
+    echo "${nnodes}:=${nppn}";
   fi;
 }
 
 
 pbs_select() {
   local n=$1;
-  local nnodes=$(calc "int((${n}+(${n}%${ppn} ? ${ppn} : 0))/${ppn})-1");
-  local nextra=$(calc "${n}-${nnodes}*${ppn}");
-  local nmpi=$(calc "int(${ppn}/${nthreads})");
-  local nmpiextra=$(calc "int(${nextra}/${nthreads})");
+  local nnodes=$(calc "int(${n}/${nppn})");
+  local nextra=$(calc "${n}-${nnodes}*${nppn}");
+  local nmpi=$(calc "int(${nppn}/${nppt})");
+  local nmpiextra=$(calc "int(${nextra}/${nppt})");
+  local extra;
   local mem;
 
-  if [ "${nnodes}" == "0" ]; then
-    nmpi=$(calc "int(${n}/${nthreads})");
+  if [ "${nextra}" != "0" ]; then
+    extra="1:ncpus=${nextra}:mpiprocs=${nmpiextra}";
     if [ "${memory}" != "default" ]; then
-      mem=":mem=$(calc "${n}*${memory}")gb";
+      extra="${extra}:mem=$(calc ${nextra}*${memory})gb";
     fi;
-    echo "1:ncpus=${n}:mpiprocs=${nmpi}${mem}";
+  fi;
+  if [ "${nnodes}" == "0" ]; then
+    echo ${extra};
   else
-    if [ "$memory" != "default" ]; then
-      mem=(":mem=$(calc "${ppn}*${memory}")gb" ":mem=$(calc "${ppn}*${memory}")gb");
+    if [ "${extra}" != "" ]; then
+      extra="+${extra}";
     fi;
-    echo "${nnodes}:ncpus=${ppn}:mpiprocs=${nmpi}${mem[0]}+1:ncpus=${nextra}:mpiprocs=${nmpiextra}${mem[1]}";
+    if [ "$memory" != "default" ]; then
+      mem=":mem=$(calc "${nppn}*${memory}")gb";
+    fi;
+    echo "${nnodes}:ncpus=${nppn}:mpiprocs=${nmpi}${mem}${extra}";
   fi;
 }
 
 
 pbs_run() {
   local options="-N ${project}";
-  local n=$(calc "int(${nprocs}/${nthreads})");
+  local n=$(calc "int(${nprocs}/${nppt})");
   local command="-submit pbs $@";
   local settings;
   local select;
@@ -431,9 +445,9 @@ pbs_run() {
 
   if [ "${mode}" == "1" ]; then
     if [ "${memory}" != "default" ]; then
-      mem=":$(calc $memory*$nthreads)gb";
+      mem=":$(calc $memory*$nppt)gb";
     fi;
-    settings="select=${n}:ncpus=${nthreads}${mem}";
+    settings="select=${n}:ncpus=${nppt}${mem}";
   elif [ "${mode}" == "2" ]; then
     settings="nodes=$(pbs_nodes ${nprocs})";
   else
