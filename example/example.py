@@ -1,4 +1,4 @@
 import pyemc
 
-pyemc.setup('name.esh')
+pyemc.setup('example.esh')
 pyemc.build('build.emc')
