@@ -19,7 +19,7 @@ repos:
 
   # If you want to avoid flake8 errors due to unused vars or imports:
   - repo: https://github.com/PyCQA/autoflake
-    rev: v2.2.0
+    rev: v2.2.1
     hooks:
     - id: autoflake
       args: [
@@ -34,7 +34,7 @@ repos:
       - id: isort
 
   - repo: https://github.com/google/yapf
-    rev: 'v0.40.0'
+    rev: 'v0.40.2'
     hooks:
     -   id: yapf
         # https://github.com/pre-commit/mirrors-yapf/issues/15
