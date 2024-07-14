@@ -3,7 +3,7 @@
 [![PyPI version shields.io](https://img.shields.io/pypi/v/emc-pypi.svg?style=for-the-badge&logo=PyPI&logoColor=blue)](https://pypi.python.org/pypi/emc-pypi/)
 [![PyPI download month](https://img.shields.io/pypi/dm/emc-pypi.svg?style=for-the-badge&logo=PyPI)](https://pypi.python.org/pypi/emc-pypi/)
 
-This module is a thin Python wrapper library of the [EMC](http://montecarlo.sourceforge.net/emc/Welcome.html) package that allows you to use all EMC functionalities with Python interface.
+This module is a thin Python wrapper library of the [EMC](http://montecarlo.sourceforge.net/emc/Welcome.html) package that allows you to use all EMC functionalities with Python interface. No pre-installation of EMC is needed.
 
 EMC creates input structures from SMILES strings and LAMMPS input files for particle simulations with atomistic force fields - Born, COMPASS, PCFF, CHARMM, OPLS, TraPPE or coarse-grained force fields - DPD, Martini, SDK.
 
