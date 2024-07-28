@@ -23,7 +23,7 @@ pip install emc-pypi
 ```python
 import pyemc
 
-# Run the emc_setup.pl and generate the build.emc file for the build command
+# Run the emc.pl and generate the build.emc file for the build command
 pyemc.setup('your-setup-file.esh')
 
 # Or you can pass in arguments like this
