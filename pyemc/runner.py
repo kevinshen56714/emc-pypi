@@ -1,7 +1,7 @@
 import os
+import platform
 import subprocess
 import sys
-import platform
 
 
 def _get_exec() -> None:
@@ -54,8 +54,7 @@ def setup(esh_file: str, *args):
     Returns:
         None
     '''
-    emc_setup_file = os.path.join(_get_path(), 'emc', 'scripts',
-                                  'emc.pl')
+    emc_setup_file = os.path.join(_get_path(), 'emc', 'scripts', 'emc.pl')
 
     command = ['perl', str(emc_setup_file), esh_file]
     for arg in args:
