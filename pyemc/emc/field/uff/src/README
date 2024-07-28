@@ -1,0 +1,107 @@
+Implementation of the Universal Force Field (UFF) in deMonNano
+--------------------------------------------------------------
+
+As far as possible, UFF molecular mechanics forcefield in deMon
+follows the published forcefield definition in [1]. In several
+cases, the definitions and expressions in [1] are not consistent
+with the published applications of the forcefield [1,5,6].
+In those cases, an attempt was made to correct the errors and omissions,
+using information from [2].
+
+The following changed were made, compared to the published UFF
+forcefield description (all equation and page numbers refer to [1]).
+
+1. Sign error in Eq. 2 (equilibrium bond length) was corrected
+   - electronegativity correction must be negative!
+
+2. Equilibrium valence angle for O_3_z was corrected from 146.0
+   degree to 145.45 degree.
+
+3. Bending periodicity (Eq. 10) for linear coordination was
+   corrected from 1 to 2.
+
+4. Sign errors were corrected in eqs. 13 and and unnumbered equation
+   for the beta parameter (between eqs. 13 and 14).
+
+5. The reference value of the UFF amide force constant, of 105.5
+   kcal/mol/rad**2 (p. 10028) is wrong. The results are consistent
+   with the force constant of 211.0 kcal/mol/rad**2.
+
+6. Equilibrium torsional angle for a bond between a group-6A atom
+   (oxygen ...) and an sp2 atom (90 degree) is wrong (p. 10028).
+   It should be 0 degree.
+
+7. The conditional for the special-case sp2-sp3 torsion (p. 10029)
+   is wrong, and should be inverted - see [4].
+
+8. The overall shape of the UFF torsional potential degenerates to
+   a Heavyside function when one of the bond angles becomes linear,
+   leading to failures in geometry optimization and force constant
+   evaluation. The UFF torsional term was augmented with a smooth
+   masking function, to avoid this.
+
+9. UFF inversion potential is not defined in [1] for group 5A
+   elements (from phosphorus down). Taking the equilibrium inversion
+   coordinate of 87 degree, and the suitable expressions for the
+   cosine weights (see uff_get_inversion_shape in "uff_database.f90")
+   appears to reproduce published UFF structures and energetics.
+
+The following atom types have been fully tested, and are believed
+to reproduce published UFF forcefield results exactly. The examples
+refer to the $deMon/examples/test.mm directory.
+
+  Atom type  Example     Description
+  ---------  -------     -----------
+
+    Al3      alme3tma    Trivalent aluminum
+    As3+3    asf3        Trivalent arsenic
+    B_2      bcl3        Planar (sp2) boron
+    B_3      b2h5nme2    Tetrahedral (sp2) boron, including
+                         charge transfer adducts and borohydrates
+    Br       bbr3        Univalent bromine
+    C_1      c2h2, co    Linear (sp) carbon
+    C_2      acetone     Planar tricoordinated (sp2) carbon
+    C_3      c2h6        Tetrahedral (sp3) carbon
+    C_R      c4h6        Resonant, variable bond order (sp2) carbon.
+    Cl       socl2       Univalent chlorine
+    F_       sof2ncl     Univalent fluorine
+    Ge3      geh3ogeh3   Tetrahedral (sp3) germanium
+    H_       h2o         Normal, non-bridging hydrogen
+    H_b      b2h5nme2    Bridging hydrogen, for use in boranes
+                         (NOT SUITABLE FOR H-BONDS!)
+    I_       bi3         Univalent iodine
+    N_1      ch3cn       Monocoordinated (sp) nitrogen, triple bond
+    N_2      ch3n2ch3    Dicoordinated (sp2) nitrogen, single-double bond
+    N_3      ch3nh2      Amine (sp3) nitrogen, three single bonds
+    N_3+4    b2h5nme2    Charged amine (sp3) nitrogen, four single bonds
+                         (THIS IS NOT A STANDARD UFF TYPE!)
+    N_R      c5h5n       Resonant planar (sp2) nitrogen, for use in
+                         aromatics and amides. For amides, use 1.41 bond
+                         order!
+    O_1      co          Special "co" type, one triple bond.
+    O_2      acetone     One-coordinated (sp2) oxygen, one double bond.
+    O_3      h2o         Two-coordinated (sp3) oxygen, two single bonds
+    O_3_z    sih3osih3   Special two-coordinated oxygen, for use in
+                         Si-O bonds
+    O_R      c4h4o       Resonant planar (sp2) oxygen, also for use in
+                         nitro groups and such.
+    P_3+3    ph3         Pyramidal (sp3) phosphorus, three single bonds
+    P_3+5    p4o7        Tetrahedral hypervalent phosphorus
+    P_3+q    bh3ph3      Dative tetrahedral (sp3) phosphorus, watch for
+                         the bond order!
+    S_3+2    ch3sch3     Bent two-coordinated sulfur (sp3), two single bonds
+    S_3+4    socl2       Pyramidal three-coordinated hypervalent sulfur
+    S_3+6    so2cl2      Tetrahedral four-coordinated hypervalent sulfur
+    Se3+2    h2se        Bent two-coordinated (sp3) selenium
+    Si3      si4o4h8     Tetrahedral silicon
+
+Additionally, parameter sets for the following atom types are believed
+be complete, and may be expected produce results identical to the published
+UFF data: Li, Na, K_, Rb, Cs (Note that UFF does not specify atomic charges
+- it is your responsibility to assign those, if charges are needed!)
+
+For the remaining atom types, UFF definition [1] relies on an unpublished
+set of electronegativities [2]. In deMon, these values were replaced by
+Pauling electronegativities, scaled to fit published UFF electronegativities.
+This can be expected to produce small deviations in bond lengths and bond
+angles, compared to published UFF results.

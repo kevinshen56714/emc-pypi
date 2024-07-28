@@ -159,6 +159,46 @@ Date     Description
 	 - Changed OPLS mixing rules from arithmetic to geometric according to
 	   Jorgensen et al., J. Am. Chem. Soc. 1996, 118, 11225
 20230801 - Web publication
+20230919 - Added port->links to accommodate identical atom designations in
+	   imported molecules by PortInsightMDFGet()
+	 - Introduction of emc.pl, a modular version of emc_setup.pl
+20231006 - Fixed field typing issues for connective groups, e.g. in polymers
+	 - Fixed merging of clusters when using crystal command
+	 - Cleaned up memory usage
+20240224 - Fixed numerical stability issue in GrowSideConnect()
+	 - Fixed compression for use of ".gz" in name for scripting export
+	   command
+	 - Added selection options for surface grafting
+	 - Successfully passed valgrind test
+	 - Fixed issues with increment designation for polymers
+	 - Disallowed application of non-group field to groups with field
+	   definitions
+	 - Alteration of TRAPPE-UA acid parameters using J. Phys. Chem. B 2004,
+	   108, 14130-14136
+20240428 - Added published COMPASS force field in ./field/compass
+	 - Fixed assigment of nsites in ring
+	 - Added capture upon writing of empty fields
+	 - Updated treatment of CMAP to align with LAMMPS 2023 and higher
+	 - Adapted group polymers to include monomers and dimers in polymer
+	   definition
+	 - Introduced lone pair representation
+20240703 - Fixed a memory leak when applying fields
+	 - Fixed EMC setup control settings for field_bond, field_angle,
+	   field_torsion, and field_improper
+	 - Added force field wildcard recognition for mass entries
+	 - Added field alteration to emc.pl by means of ITEM FIELD
+	 - Updated the use of CHARMM CMAP files for LAMMPS
+	 - Improved exported InsightII files
+	 - Various additions to CHARMM CGENFF (see templates in cgenff.top)
+	 - Added EMC setup polymer keyword 'sequence' as synonym for 'block'
+	 - Addition of lone pairs for use with benzene and related structures
+	   for CHARMM CGENFF
+	 - Added the use of force field templates as EMC Setup references
+	   in groups and clusters
+	 - Fixed issues with ring recognition
+	 - Fixed double occurrence of hydrogen atom names in PDB/PSF for e.g.
+	   alcohols
+20240801 - Web publication
 
 
 v9.4.3

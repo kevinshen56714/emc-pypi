@@ -4,11 +4,11 @@
 #  author:	Pieter J. in 't Veld
 #  date:	August 10, 2005, April 9, 2013, April 26, 2017, January 26,
 #  		November 4, 2018, January 12, May 10, 2019, June 9, 2020,
-#  		May 17, June 10, 2021.
+#  		May 17, June 10, 2021, March 26, 2024.
 #  purpose:	Search and replace strings in multiple files; part of EMC
 #  		distribution
 # 
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -26,11 +26,18 @@
 #    20210517	- Added -d to use replace string as file name
 #    20210610	- Added check for square brackets to exclude @ interpretation
 #    		  for SMILES
+#    20240326	- Change to v2.5
+#    		- Addition of -s option
+#    20240428	- Addition of -m option
 #
 
-$Version = "2.4.";
-$Year = "2021";
-$Date = "June 10, $Year";
+#use Data::Dumper;
+use File::Find;
+use Time::Piece;
+
+$Version = "2.5";
+$Year = "2024";
+$Date = "April 28, $Year";
 $Copyright = "2004-$Year";
 
 # functions
@@ -38,13 +45,15 @@ $Copyright = "2004-$Year";
 sub help {
   print("EMC Replace v$Version ($Date), (c) $Copyright Pieter J. in 't Veld\n\n");
   print("Usage:\n");
-  print("  replace.pl [-option] search_string replace_string file[:#] ...\n");
+  print("  replace.pl [-option[=#]] search_string replace_string file[:#] ...\n");
   print("\n");
   print("Options:\n");
   print("  -d\t\tuse replace_string as replace file name\n");
   print("  -f\t\tconsider full file\n");
   print("  -h\t\tthis message\n");
+  print("  -m\t\tprovide mask for find\n");
   print("  -q\t\tno output\n");
+  print("  -s\t\treplace date stamps\n");
   print("  -v\t\tvariable replacement using '\@' (not with -f)\n");
   print("\n");
   print("Notes:\n");
@@ -60,28 +69,79 @@ sub init {
   $flag_vars		= 0;
   $flag_data 		= 0;
   $flag_full 		= 0;
+  $flag_replace		= 1;
   $flag_screen		= 1;
+  $flag_stamp		= 0;
+  $mask			= undef;
   foreach (@arg) {
     if (substr($_,0,1) eq "-") {
-      if ($_ eq "-q") { $flag_screen = 0; next; }
-      elsif ($_ eq "-d") { $flag_data = 1; next; }
-      elsif ($_ eq "-f") { $flag_full = 1; next; }
-      elsif ($_ eq "-v") { $flag_vars = 1; next; }
-      elsif ($_ eq "-h") { help(); }
+      my @a = split("=");
+      if (@a[0] eq "-q") {
+       	$flag_screen = defined(@a[1]) ? flag(@a[1]) : 0; next; }
+      elsif (@a[0] eq "-d") {
+       	$flag_data = defined(@a[1]) ? flag(@a[1]) : 1; next; }
+      elsif (@a[0] eq "-f") {
+       	$flag_full = defined(@a[1]) ? flag(@a[1]) : 1; next; }
+      elsif (@a[0] eq "-m") {
+       	$mask = @a[1] if (defined(@a[1])); next; }
+      elsif (@a[0] eq "-r") {
+       	$flag_replace = defined(@a[1]) ? flag(@a[1]) : 0; next; }
+      elsif (@a[0] eq "-s") {
+       	$flag_stamp = defined(@a[1]) ? flag(@a[1]) : 1; next; }
+      elsif (@a[0] eq "-v") {
+       	$flag_vars = defined(@a[1]) ? flag(@a[1]) : 1; next; }
+      elsif (@a[0] eq "-h") {
+       	help(); }
     }
     $_			=~ s/\\n/\n/g;
     $_			=~ s/\\t/\t/g;
     push(@files, $_);
   }
-  $search		= shift(@files);
-  $replace		= shift(@files);
-  $replace		= `cat $replace` if ($flag_data);
-  chop($replace) if ($flag_data);
+  if ($flag_replace) {
+    $search		= shift(@files);
+    $replace		= shift(@files);
+    $replace		= `cat $replace` if ($flag_data);
+    chop($replace) if ($flag_data);
+  }
+  if (defined($mask)) {
+    my @f = ffind(".", $mask);
+    push(@files, @f) if (scalar(@f));
+  }
   help() if (scalar(@files)<1);
   return if (!$flag_vars);
   return if (substr($search,0,1) ne "@");
   $search		=~ s/[@,\{,\}]//g;
   $search		= "\@{$search}";
+}
+
+
+sub flag {
+  my %allowed = ("true" => 1, "false" => 0, "1" => 1, "0" => 0);
+  
+  return 
+    @_[0] eq "" ? 1 : 
+    defined($allowed{@_[0]}) ? $allowed{@_[0]} : 
+    eval(@_[0]) ? 1 : 0;
+}
+
+
+sub ffind {							# 20240428
+  my $dir = shift(@_);
+  my $pattern = shift(@_);
+  my @dirs;
+  my @files;
+
+  File::Find::find( sub{ -d $_ and push @dirs, $File::Find::name; }, $dir );
+  for (my $i=0; $i<2; ++$i) {
+    foreach (@dirs) {
+      foreach (sort(glob($_."/".$pattern))) {
+	push(@files, $_) if (-e $_);
+      }
+    }
+    last if (scalar(@files));
+    $pattern .= ".gz"
+  }
+  return @files;
 }
 
 
@@ -92,14 +152,36 @@ sub lines {
   my $nchanges		= 0;
   my @output		= ();
   my $file;
+  my $stamp;
+
+  if ($flag_stamp) {
+    my $time		= Time::Piece::localtime();		# 20240326
+    my $fullmonth	= $time->fullmonth;
+
+    $stamp		= {
+      day		=> sprintf("%02d", $time->day_of_month),
+      month		=> sprintf("%02d", $time->mon),
+      year		=> $time->year,
+      ymd		=> $time->ymd(""),
+      date		=> "$fullmonth ".$time->day_of_month.", ".$time->year
+    };
+  }
 
   open($file, "<".$name);
   while (<$file>)
   {
     ++$nlines;
     $line		= $_;
+    if ($flag_stamp) {
+      foreach (keys(%{$stamp})) {
+	my $STAMP	= "@\\{".uc($_)."\\}";
+	$line		=~ s/$STAMP/$stamp->{$_}/g;
+      }
+    }
     if ($nline) {
-      $line		=~ s/$search/$replace/g if ($nline==$nlines);
+      if ($flag_replace) {
+	$line		=~ s/$search/$replace/g if ($nline==$nlines);
+      }
     } elsif ($flag_vars && ($_ =~ tr/@//)) {
       my $var;
       my $last;
@@ -144,7 +226,7 @@ sub lines {
       $result		.= ($var eq $search ? $replace : $var) if ($read);
       $line		= $result;
     } elsif ($flag_vars ? substr($search,0,1) ne "@" : 1) {
-      $line		=~ s/$search/$replace/g;
+      $line		=~ s/$search/$replace/g if ($flag_replace);
     }
     push(@output, $line);
     next if ($line eq $_);

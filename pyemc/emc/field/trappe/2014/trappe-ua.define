@@ -27,6 +27,8 @@
 #    		- Missing vibrational constants are taken from OPLS-UA
 #    20150202	- Addition of alcohols, nitrous compounds, sulfurous compounds
 #    20210525	- Addition of amides
+#    20240126	- Adapted protonated acid contributions using J. Phys. Chem. B,
+#    		  2004, 108, 14130-14136
 #
 
 # Definitions
@@ -63,6 +65,7 @@ ITEM	REFERENCES
 2000	104	8008	J. Phys. Chem. B
 2001	105	3093	J. Phys. Chem. B
 2002	954	181	J. Chromatogr. A
+2004	108	14130	J. Phys. Chem. B
 2004	108	17596	J. Phys. Chem. B
 2005	109	18974	J. Phys. Chem. B
 2005	109	24100	J. Phys. Chem. B
@@ -173,8 +176,8 @@ ITEM	PRECEDENCE
   (c1n)
   (c3)
   (c3mo)
-  (c3oa)
   (c3oe)
+  (c3oa)
   (c3o)
   (c3h)
   (c3ho)
@@ -225,6 +228,7 @@ ITEM	PRECEDENCE
   (na+)
   (ne)
   (o)
+  (oha)
   (oh)
   (on)
   (ose)
@@ -504,9 +508,10 @@ ho	oh	0.435	-0.435
 
 # Acids
 
-c3oa	c4*	-0.08	0.08
-c3oa	oh	0.13	-0.13
-c3oa	o	0.5	-0.5
+c3oa	c4*	-0.12	0.12
+c3oa	oha	0.09	-0.09
+c3oa	o	0.45	-0.45
+ho	oha	0.37	-0.37
 
 # Ethers
 
@@ -605,7 +610,7 @@ br-	br-	br-	br-	br-	br-	br-
 c1n	c1n	c1n	c1n	c1n	c1n	c1n	
 c3	c3	c3	c3	c3	c3	c3	
 c3o	c3o	c3o	c3o	c3o	c3o	c3o	
-c3oa	c3o	c3oa	c3o	c3o	c3o	c3o	
+c3oa	c3oa	c3oa	c3o	c3o	c3o	c3o	
 c3oe	c3oe	c3oe	c3o	c3oe	c3oe	c3o	
 c3h	c3h	c3h	c3h	c3h	c3h	c3h	
 c3h2	c3h2	c3h2	c3h2	c3h2	c3h2	c3h2	
@@ -656,6 +661,7 @@ ne	ne	ne	ne	ne	ne	ne
 no	no	no	no	no	no	no	
 o	o	o	o	o	o	o	
 oh	oh	oh	oh	oh	oh	oh	
+oha	oh	oha	oh	oh	oh	oh	
 on	on	on	on	on	on	on	
 os	os	os	os	os	os	os	
 ose	ose	ose	os	ose	ose	os	
@@ -689,6 +695,7 @@ c	c	3.65	5
 c1n	c1n	3.55	60
 c3	c3	3.85	20
 c3o	c3o	3.82	40
+c3oa	c3oa	3.90	41
 c3oe	c3oe	3.82	40
 #c3oe	c3oe	3.90	41	# OPLS?
 c3h	c3h	3.71	47	
@@ -903,6 +910,7 @@ c3*	c3*	c3o*	os	0	0	0	47.91	1	0	773.13	2	0	1.99	3	0
 c4*	c3*	c3o*	o	513.2	0	0	-149.3	1	0	-164.38	2	0	24.12	3	0	-28.45	4	0
 c4*	c3*	c3o*	os	262.84	0	0	149.3	1	0	-164.38	2	0	-24.12	3	0	-28.45	4	0
 c*	c3h	c3h	c*	0	0	0	125	1	0	6450	2	0	-125	3	0
+c*	c3o	n3mh	c*	0	0	0	3000	1	0	250	2	0	630	3	0	# 20240319 OPLS
 c3*	c3h	c4h2	c*	688.5	0	0	86.36	1	0	-109.77	2	0	-282.24	3	0
 n3*	c3o*	c4*	c*	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
 n3*	c3o*	c4*	hc	221.34	0	0	481	1	0	-150	2	0	-115	3	0	0.57	4	0	0.08	5	0	0.01	6	0
@@ -989,6 +997,8 @@ c3*	c3h	c3h	*	-8050	0
 cac	*	*	*	2215	0
 caca	*	*	*	2215	0
 cah	*	*	*	2215	0
+c3o	*	*	*	3000	0
+n3mh	*	*	*	3000	0
 
 ITEM	END
 

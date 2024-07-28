@@ -1,10 +1,12 @@
-#!/usr/bin/env emc_setup.pl
+#!/usr/bin/env emc.pl
 #
 #  script:	polymer.esh
 #  author:	Pieter J. in 't Veld
-#  date:	October 1, 2017
+#  date:	@{DATE}
 #  purpose:	Example for clusters using EMC setup chemistry mode
 #
+
+# Options section
 
 ITEM	OPTIONS
 
@@ -16,20 +18,22 @@ ntotal		1000
 density		1.0
 emc_execute	true
 
-ITEM	END
+ITEM	END	# OPTIONS
+
+# Groups section
 
 ITEM	GROUPS
 
 group1		CCO
 group2		O
 
-ITEM	END
+ITEM	END	# GROUPS
+
+# Clusters section
 
 ITEM	CLUSTERS
 
 molecule1	group1,10
 molecule2	group2,90
 
-ITEM	END
-
-
+ITEM	END	# CLUSTERS

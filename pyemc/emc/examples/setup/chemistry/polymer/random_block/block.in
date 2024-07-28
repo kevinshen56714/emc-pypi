@@ -1,5 +1,5 @@
 # LAMMPS input script for standardized atomistic simulations
-# Created by emc_setup.pl v3.9.0, July 28, 2019 as part of EMC
+# Created by emc.pl v3.9.0, July 28, 2019 as part of EMC
 # on Tue Jul 30 11:53:08 EDT 2019
 
 # Variable definitions

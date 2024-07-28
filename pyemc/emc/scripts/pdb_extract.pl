@@ -5,7 +5,7 @@
 #  date:	May 10, 2020.
 #  purpose:	Extract segname from PDB and PSF	
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

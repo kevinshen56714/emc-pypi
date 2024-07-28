@@ -5,7 +5,7 @@
 #  date:	August 30, 2018
 #  purpose:	Determine charge of PSF file
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -82,11 +82,14 @@ sub help {
     chop();
     @arg = split(" ");
     if (!$n) {
-      $n = @arg[0] if (@arg[1] eq "!NATOM");
+      $n = $ntotal = @arg[0] if (@arg[1] eq "!NATOM");
       next;
     }
+    ++$ncharged if (eval(@arg[6]) != 0);
     $charge += @arg[6];
     last if (!--$n);
   }
-  print("total charge = $charge\n\n");
+  printf(
+    "total charge = %f (%f%% charged)\n\n",
+    $charge, $ntotal ? $ncharged/$ntotal*100 : 0.0);
 

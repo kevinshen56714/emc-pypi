@@ -21,7 +21,7 @@
 # usage with vmd after build: vmd -e dpd.vmd
 #
 
-  emc_setup.pl \
+  emc.pl \
     -field=dpd -mass -replace  \
     -profile -build_dir=. -rtype=WAT8 dpd nylon + branch + water
 

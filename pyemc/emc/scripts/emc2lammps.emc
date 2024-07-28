@@ -9,6 +9,7 @@ variables	= {
   map		-> true,
   unwrap	-> true,
   parameters	-> true,
+  ewald		-> true,
   types		-> false,
   shake		-> "auto",
   source	-> ".",
@@ -19,5 +20,5 @@ get		= {name -> source+"/"+input};
 
 lammps 		= {name -> output, compress -> compress, map -> map,
 		   unwrap -> unwrap, parameters -> parameters, types -> types,
-		   shake -> shake};
+		   shake -> shake, ewald -> ewald};
 

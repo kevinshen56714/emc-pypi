@@ -5,7 +5,7 @@
 #  Date:	September 12, 2017, July 6, 2018, May 8, July 20, 2019
 #  Purpose:	Create VMD input for last frame; part of EMC distribution
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

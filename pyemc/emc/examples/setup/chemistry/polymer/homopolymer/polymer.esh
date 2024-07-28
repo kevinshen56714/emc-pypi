@@ -1,11 +1,11 @@
-#!/usr/bin/env emc_setup.pl
+#!/usr/bin/env emc.pl
 #
 # Chemistry file new style
 #
 #    file:	chemistry.esh
 #    author:	Pieter J. in 't Veld
 #    date:	May 19, 2015
-#    purpose:	Chemical input for emc_setup.pl
+#    purpose:	Chemical input for emc.pl
 #
 #    notes:
 #    	- Create a simulation with water, salt and polyethylene

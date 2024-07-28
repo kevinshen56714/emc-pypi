@@ -1,10 +1,12 @@
-#!/usr/bin/env emc_setup.pl
+#!/usr/bin/env emc.pl
 #
 #  script:	environment.esh
 #  author:	Pieter J. in 't Veld
-#  date:	October 1, 2017
+#  date:	@{DATE}
 #  purpose:	Example for using EMC setup environment mode
 #
+
+# Environment section
 
 ITEM	ENVIRONMENT
 
@@ -19,14 +21,16 @@ time_analyze	00:20:00
 analyze_window	10
 ncores		8
 
-ITEM	END
+ITEM	END	# ENVIRONMENT
+
+# Loops section
 
 ITEM	LOOPS
 
 stage		00
 trial		00
 
-ITEM	END
+ITEM	END	# LOOPS
 
 #
 #	STAGE	00
@@ -34,7 +38,11 @@ ITEM	END
 
 ITEM	STAGE	00
 
+# Template section
+
 ITEM	TEMPLATE	# TEMPLATE
+
+# Options section
 
 ITEM	OPTIONS
 
@@ -46,27 +54,33 @@ dtdump		10000
 shape		1
 emc_execute	true
 
-ITEM	END
+ITEM	END	# OPTIONS
+
+# Groups section
 
 ITEM	GROUPS
 
 @{GROUPS}
 
-ITEM	END
+ITEM	END	# GROUPS
+
+# Clusters section
 
 ITEM	CLUSTERS
 
 @{CLUSTERS}
 
-ITEM	END
+ITEM	END	# CLUSTERS
+
+# Polymers section
 
 ITEM	POLYMERS
 
 @{POLYMERS}
 
-ITEM	END
+ITEM	END	# POLYMERS
 
-ITEM	END		# TEMPLATE END
+ITEM	END	# TEMPLATE END
 
 #
 #	TRIAL	00
@@ -74,15 +88,20 @@ ITEM	END		# TEMPLATE END
 
 ITEM	TRIAL	00
 
+# Groups section
+
 ITEM	GROUPS
 
-ITEM	END
+ITEM	END	# GROUPS
+
+# Clusters section
 
 ITEM	CLUSTERS
 
-ITEM	END
+ITEM	END	# CLUSTERS
+
+# Polymers section
 
 ITEM	POLYMERS
 
-ITEM	END
-
+ITEM	END	# POLYMERS

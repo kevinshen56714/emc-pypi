@@ -41,6 +41,7 @@
 #    		- Corrected dicarboxylic acid entries
 #    		- Added isocyanate entries
 #    20201109	- Added sulfone and ionic liquid entries
+#    20230814	- Added carbonate entries (DLV, Vigil/Sandia)
 #
 
 # Definitions
@@ -80,6 +81,7 @@ ITEM	REFERENCES
 1988	63	547	Mol. Phys.
 1998	424	145	Theochem.
 1954	??	??	Wiley (Hirschfelder)
+2007	806	23	J. Mol. Struct. THEOCHEM
 
 ITEM	END
 
@@ -256,6 +258,7 @@ ITEM	PRECEDENCE
   (ct4)
   (ctm)
   (cz)
+  (os1)
   (n)
   (n_1)
   (n2)
@@ -339,13 +342,22 @@ ITEM	EXTRA
 256.1	ct	ct	0.209	# OCN-CH3
 257.1	ct	ct	0.269	# OCN-CH2-R
 258.1	ct	ct	0.329	# OCN-CH-R
-259.1	ct	ct	0.389	# OCN-C-R
+259.5	ct	ct	0.389	# OCN-C-R
 
 # Sulfonates
 
 202.1	s	s	1.18	# sulfur in sulfonate
 311.1	o1s	o1s	-0.68	# oxygen in sulfonate
 145.1	ca	ca	-0.14	# aromatic carbon in sulfonate
+
+# Carbonates (2023.08.14 J. Mol. Struct. 2007, 806, 23)
+
+771	o	o	-0.512	# originally -0.5
+772	c	c	0.85	# originally 0.86
+773	os1	os1	-0.429	# originally -0.45
+775	ct	ct	0.235	# originally 0.16
+776	ct	ct	0.185	# originally -0.1
+777	hc	hc	0.025	# originally 0.03
 
 # Sulfones
 
@@ -357,9 +369,9 @@ ITEM	EXTRA
 
 # RMIM+ (2020.11.09, J. Chem. Theory Comput. 2009, 5, 1038)
 
-139.1	ct	ctm	-0.17	# C bound to aromatic N in imidazole ring
-139.2	ct	ctm	-0.1125	# C bound to aromatic N in imidazole ring
-140.3	hc	hcm	0.18	# H bound to previous C
+139.2	ct	ctm	-0.17	# C bound to aromatic N in imidazole ring
+139.3	ct	ctm	-0.1125	# C bound to aromatic N in imidazole ring
+140.4	hc	hcm	0.18	# H bound to previous C
 145.2	ca	caw	-0.24	# aromatic C in imidazole ring
 145.3	ca	car	-0.09	# aromatic C in imidazole ring
 146.1	ha	haw	0.27	# H bound to aromatic C in imidazole ring
@@ -384,6 +396,7 @@ nam	na	na	na	na	na	na
 lp1	lp1	lp1	lp1	lp1	lp	lp
 n=	n=	n=	n=	n=	n=	n=
 o1s	o1s	o1s	o1s	o1s	o1s	o1s
+os1	os1	os	os	os	os	os
 ow1	ow1	ow1	ow	ow	ow	ow
 ow2	ow2	ow2	ow	ow	ow	ow
 ow3	ow3	ow3	ow	ow	ow	ow
@@ -454,6 +467,9 @@ ct	na	ca	70	125.2	# c-na-ca
 na	ca	na	70	109.8	# imidazole
 hw	ow4	hw	75	109.47	# SPC/E water		PJV 20210401
 
+os	c	os	69.9	118.18	# carbonate		DLV 20230814
+
+
 ITEM	END
 
 # Torsion parameters
@@ -473,6 +489,7 @@ cm	c	os	ct	4	1	0	5	2	0	-	#	211.1
 cm	cm	c	os	0	1	0	2.1	2	0	-	#	207.2
 ca	ct	ct	ct	1.3	1	0	-0.05	2	0	0.2	3	0	-	#	3.1
 os	co	co	os	-0.55	1	0	-	#	16
+*	c	n	*	0	1	0	7	2	0
 
 # isocyanate additions; PJV 20170203
 
@@ -505,6 +522,11 @@ ca	ca	s	ca	0	1	0	-0.45	2	180	-
 ca	ca	sy	ca	0	1	0	-0.45	2	180	-
 ca	ct	os	ca	0	1	0	1.5	2	180	-
 
+# sulfoxide; PJV 20231024
+
+ct	sz	ct	hc	0	1	0	0.275	3	0	-	# from ct:c:ct:hc
+hc	ct	sz	oy	0	1	0	-	# from hc:ct:c:o
+
 # RMIM+; PJV 20201110
 
 ca	ca	na	ca	0	1	0	3	2	0	-
@@ -515,6 +537,10 @@ hc	ct	ct	na	0	1	0	0.3	3	0	-
 ct	na	ca	ca	0	1	0	-
 ct	na	ca	ha	0	1	0	4.651	2	0	-
 ct	na	ca	na	0	1	0	4.651	2	0	-
+
+# carbonate; DLV 20230814
+
+ct	os	c	os	4.669	1	0	5.124	2	0	-
 
 ITEM	END
 
@@ -615,8 +641,8 @@ ITEM	RULES
 139	C(C)(C)(C)(C)
 140	H(C(H)(H)(H)) H(C(C)(H)(H)) H(C(C)(C)(H)) H(C(C)(C)(C))
 140.1	H(C(N)(H)(H)) H(C(N)(C)(H)) H(C(N)(C)(C))
-140.2	H(C(c)(H)(H)) H(C(c)(C)(H)) H(C(c)(C)(C)) H(C(S)(H)(H))
-140.3	H(C(S)(H)(H))
+140.2	H(C(c)(H)(H)) H(C(c)(C)(H)) H(C(c)(C)(C))
+140.3	H(C(S)(H)(H)) H(C(S)(C)(H)) H(C(S)(C)(C))
 
 # Alkenes
 
@@ -813,7 +839,7 @@ ITEM	RULES
 256.1	C(N(=C(=O)))(H)(H)(H)
 257.1	C(N(=C(=O)))(H)(H)(C)
 258.1	C(N(=C(=O)))(H)(C)(C)
-259.1	C(N(=C(=O)))(C)(C)(C)
+259.5	C(N(=C(=O)))(C)(C)(C)
 
 # Aromatics (nitrile, amide, chloride)
 
@@ -901,7 +927,7 @@ ITEM	RULES
 
 295	C1(C(=O)(O(H)))(H)C(H)(H)C(H)(H)C(H)(H)N1(C)
 296	C1N(C)C(C(=O)OH)(H)C(H)(H)C(H)(H)C1(H)(H)
-297	C(H)(H)(H)[N+](H)(H)C
+#297	C(H)(H)(H)[N+](H)(H)C
 298	C(C(:O):O)(H)(H)[N+](H)(H)(H)
 299	C([N+](H)(H)(H))(C(H)(H)(H))(H)C(=O)OH
 300	N(H)(H)[C+](N(*)(*))N(*)(*)
@@ -962,6 +988,17 @@ ITEM	RULES
 461	C(O(P(~O)(~O)(c(:c)(:c))))(H)(H)(H)
 462	H(C(O(P(~O)(~O)(c(:c)(:c))))(H)(H))
 464	C1(C)(C)C(=O)N(H)C(=O)N(H)C1=O
+
+# Carbonates; DLV 20230814
+
+771	O=C(OC)(OC)
+772	C(=O)(OC)(OC)
+774	C(OC(=O)O)(H)(H)(*)
+775	C(OC(=O)O)(H)(*)(*)
+776	C(OC(=O)O)(H)(H)(H)
+773	O(C(=O)(O(C(*)(*)(*))))(C(*)(*)(*))
+777	H(C(OC(=O)O)(H)(*))
+779	H(C(OC(=O)O)(H)(H))
 
 # Esters
 
@@ -1101,9 +1138,9 @@ ITEM	RULES
 145.3	c(:n(:c)(C))(:n(:c)(C))(H)
 146.1	H(c(:n(:c(:n)(H))(C))(:c(:n(:c)(C))(H)))
 146.2	H(c(:n(:c)(C))(:n(:c)(C)))
-139.1	C(n(:c(:n(:c)(C))(H))(:c(:c)(H)))(C)(H)(H)
-139.2	C(n(:c(:n(:c)(C))(H))(:c(:c)(H)))(c)(H)(H)
-140.3	H(C(n(:c(:c)(H))(:c(:n)(H)))(C)(H)) H(C(n(:c(:c)(H))(:c(:n)(H)))(c)(H))
+139.2	C(n(:c(:n(:c)(C))(H))(:c(:c)(H)))(C)(H)(H)
+139.3	C(n(:c(:n(:c)(C))(H))(:c(:c)(H)))(c)(H)(H)
+140.4	H(C(n(:c(:c)(H))(:c(:n)(H)))(C)(H)) H(C(n(:c(:c)(H))(:c(:n)(H)))(c)(H))
 
 ITEM	END
 

@@ -1,7 +1,7 @@
-#!/usr/bin/env emc_setup.pl
+#!/usr/bin/env emc.pl
 #
 #  script:	stages/lj/stage.esh
-#  author:  	emc_setup.pl v3.9.2, November 19, 2019
+#  author:  	emc.pl v3.9.2, November 19, 2019
 #  date:	Thu Dec  5 09:59:07 CET 2019
 #  purpose:	EMC setup chemistry file as part of a multiple simulation
 #  		workflow; this file is auto-generated

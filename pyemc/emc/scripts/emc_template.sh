@@ -2,10 +2,10 @@
 #
 #  program:	emc_template.sh
 #  author:	Pieter J. in 't Veld
-#  date:	June 22, 27, July 23, 2018, March 2, 18, 2019.
+#  date:	June 22, 27, July 23, 2018, March 2, 18, 2019, March 26, 2024.
 #  purpose:	Copying of templates as available in the template directory
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -14,6 +14,8 @@
 #    20180627	Added empty line at end
 #    20190302	Added -list
 #    20190318	Creates setup.esh when target is omitted (was template.esh)
+#    20240326	Change to v1.2
+#    		Added date and script replacement in resulting .esh
 #
 
 # variables
@@ -21,10 +23,10 @@
 info=1;
 replace=0;
 script=$0;
-version=1.1;
-year=2019;
+version=1.2;
+year=2014;
 author="Pieter J. in 't Veld";
-date="March 28, $year";
+date="March 26, $year";
 
 
 # functions
@@ -62,6 +64,8 @@ function script_help() {
   echo;
   echo -e "Notes:"
   echo -e "  * An input file with name 'setup.esh' is created when target is omitted";
+  echo -e "  * Options can be activated by either using its full representation or its";
+  echo -e "    first letter";
   echo;
   show_list;
   exit;
@@ -85,11 +89,16 @@ function initialize() {
 
   while [ "$1" != "" ]; do
     case "$1" in
+      -h)	script_help;;
       -help)	script_help;;
+      -i)	info=1;;
       -info)	info=1;;
-      -quiet)	info=0;;
-      -replace)	replace=1;;
+      -l)	list=1;;
       -list)	list=1;;
+      -q)	info=0;;
+      -quiet)	info=0;;
+      -r)	replace=1;;
+      -replace)	replace=1;;
       *)	files+=("$(basename $1 .esh)");;
     esac;
     shift;
@@ -128,5 +137,10 @@ function error() {
   info "using '${files[0]}.esh' to create '${files[1]}.esh'";
   cp "${template_dir}/${files[0]}.esh" "${files[1]}.esh";
 
-  if [ "${info}" == "1" ]; then echo; fi;
+  if [ "${info}" == "1" ]; then 
+    replace.pl -s "${files[0]}.esh" "${files[1]}.esh" "${files[1]}.esh";
+    echo;
+  else
+    replace.pl -q -s "${files[0]}.esh" "${files[1]}.esh" "${files[1]}.esh";
+  fi;
 

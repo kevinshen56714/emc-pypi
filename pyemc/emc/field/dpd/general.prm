@@ -39,7 +39,7 @@ ITEM	END
 
 ITEM	EQUIVALENCE
 
-# type	pair	bond	angle	torsion	improper
+# type	pair	incr	bond	angle	torsion	improper
 
 ITEM	END
 
@@ -59,7 +59,7 @@ ITEM	BOND_AUTO
 
 # type1	type2	k	l0
 
-*	*	20	1
+*	*	25	1
 
 ITEM	END
 

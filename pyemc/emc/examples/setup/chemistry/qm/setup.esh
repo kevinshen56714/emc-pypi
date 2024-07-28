@@ -1,0 +1,43 @@
+#!/usr/bin/env emc.pl
+#
+#  script:	chemistry.esh
+#  author:	Pieter J. in 't Veld
+#  date:	March 12, 2024
+#  purpose:	Example for altering assigned partial charges
+#
+#  notes:
+#    20240312	- Only works with emc.pl (not with emc.pl)
+#
+
+ITEM	OPTIONS
+
+replace		true
+field		trappe-ua
+#system_charge	false
+ntotal		1000
+density		0.1
+number		true
+focus		true
+emc_output	exit=true
+emc_execute	true
+
+ITEM	END
+
+ITEM	SHORTHAND
+
+# standard TraPPE water
+
+water		O,1
+
+# additive partial charges to exisiting field
+# c=a is short for charges=additive (both options are valid)
+
+water1:c=a	[O+0.2]([H-0.1])([H-0.1]),1
+
+# partial charges overriding exisiting field
+# c=o is short for charges=override (both options are valid)
+
+water2:c=o	[O-0.8]([H+0.4])([H+0.4]),1
+
+ITEM	END
+

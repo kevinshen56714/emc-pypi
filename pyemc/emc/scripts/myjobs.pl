@@ -7,7 +7,7 @@
 #  		April 13, June 5, 2018
 #  purpose:	wrapper for LSF bjobs and PBS qstat; part of EMC distribution
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -24,16 +24,22 @@
 #    		Added -f[ull] flag for invoking -name, -progress, and -wd
 #    		options
 #    		Repurposed -f to -full instead of -file
+#    20240114	Version 2.4
+#		Added functionality for determining progress of jobs running
+#    		in compute node scratch
+#    20240228	Changed getting user name from Account_Name to Job_Owner for
+#    		PBS
 #
 
 use File::Basename;
+use Data::Dumper;
 
-$Year = "2018";
+$Year = "2024";
 $Copyright = "2004-$Year";
-$Date = "June 5, $Year";
+$Date = "February 28, $Year";
 $Author = "Pieter J. in 't Veld";
 $Script = basename($0);
-$Version = "2.3.0";
+$Version = "2.4";
 
 use Time::Local;
 use Scalar::Util qw(looks_like_number);
@@ -41,6 +47,13 @@ use Scalar::Util qw(looks_like_number);
 $Time = time;
 
 # functions
+
+sub trim {
+  my $s = shift(@_);
+  $s =~ s/^\s+|\s+$//g;
+  return $s;
+}
+
 
 sub myseconds {
   my %months = (
@@ -80,6 +93,35 @@ sub myexec {
 }
 
 
+sub extract_commands {
+  my $commands = {};
+  my $command;
+  my $arg;
+  my $quote = 0;
+
+  foreach (split("", @_[0])) {
+    if ($quote || $_ ne " ") {
+      $arg .= $_;
+      if ($_ eq "\'") { $quote ^= 1; }
+      elsif ($_ eq "\"" && !($quote & 1)) { $quote ^= 2; }
+      next;
+    }
+    if (substr($arg,0,1) eq "-") {
+      $command = substr($arg,1);
+    } elsif(defined($command)) {
+      $commands->{$command} = $arg;
+      undef($command);
+    } else {
+      $commands->{executable} = $arg;
+      last;
+    }
+    undef($arg);
+  }
+  $commands->{$command} = undef if (defined($command));
+  return $commands;
+}
+
+
 sub convert2seconds {
   my @t = split(":", @_[0]);
   return @t[2]+60*(@t[1]+60*@t[0]);
@@ -88,8 +130,7 @@ sub convert2seconds {
 
 sub extract {
   my @arg = split(" <", @_[0]);
-  @arg[-1] =~ s/>//g;
-  return @arg;
+  return (shift(@arg), substr(join(" <",@arg),0,-1));
 }
 
 
@@ -113,15 +154,15 @@ sub newest {
 
 sub set_progress {
   my $job = shift(@_);
-  my $wd = $Jobs{$job}->{"wd"}; $wd =~ s/^~+/$Home\//g; 
-  my $name = "$wd/".$Jobs{$job}->{"job_name"}.".dirs";
+  my $wd = $Jobs->{$job}->{"wd"}; $wd =~ s/^~+/$Home\//g; 
+  my $name = "$wd/".$Jobs->{$job}->{"job_name"}.".dirs";
 
-  if ($Jobs{$job}->{"status"} ne "RUN") {
-    $Jobs{$job}->{"progress"} = ["-"];
+  if ($Jobs->{$job}->{"status"} ne "RUN") {
+    $Jobs->{$job}->{"progress"} = ["-"];
     return;
   }
   my @dirs = -f $name ? split("\n", `cat $name`) : ($wd);
-  $Jobs{$job}->{"progress"} = [];
+  $Jobs->{$job}->{"progress"} = [];
   foreach(@dirs) {
     my @arg = ();
     $name = "$_/$ProgressName";
@@ -133,50 +174,52 @@ sub set_progress {
 	last if (looks_like_number(@arg[0])); shift(@arg);
       }
     }
-    push(@{$Jobs{$job}->{"progress"}}, scalar(@arg) ? @arg[0] : "-");
+    push(@{$Jobs->{$job}->{"progress"}}, scalar(@arg) ? @arg[0] : "-");
   }
 }
 
 
 sub set_workdir {
   my $job = shift(@_);
-  my $wd = $Jobs{$job}->{"wd"}; $wd =~ s/^~+/$Home\//g; 
-  my $name = "$wd/".$Jobs{$job}->{"job_name"}.".dirs";
+  my $wd = $Jobs->{$job}->{"wd"}; $wd =~ s/^~+/$Home\//g; 
+  my $name = "$wd/".$Jobs->{$job}->{"job_name"}.".dirs";
 
-  $Jobs{$job}->{"workdir"} = [];
+  $Jobs->{$job}->{"workdir"} = [];
   foreach (-f $name ? split("\n", `cat $name`) : $wd) {
     $_ =~ s/^$Home\/+/~/g;
-    push(@{$Jobs{$job}->{"workdir"}}, $_);
+    push(@{$Jobs->{$job}->{"workdir"}}, $_);
   }
 }
 
 
 sub data2jobs {
   my %convert = (
-    "Job" => "job",
-    "Job Name" => "job_name",
-    "User" => "user",
-    "Project" => "project",
-    "Status" => "status",
-    "Queue" => "queue",
+    "Array" => "array",
     "Command" => "command",
+    "CWD" => "wd",
+    "Depend" => "dependency",
+    "Dependency Condition" => "dependency",
+    "Elapsed" => "cpu_time",
+    "Eligible" => "eligible_time",
+    "Estimated" => "start_time",
+    "Execution CWD" => "exec_wd",
+    "Execution Home" => "exec_home",
+    "Expired" => "expired",
+    "Job" => "job",
+    "Job Dir" => "job_dir",
+    "Job Name" => "job_name",
+    "Limit" => "limit_time",
+    "Nodes" => "nodes",
+    "Pending" => "pend_time",
+    "Project" => "project",
+    "Queue" => "queue",
+    "Resource" => "resource_time",
+    "Started" => "start_time",
+    "Status" => "status",
     "Submitted" => "submit_time",
     "Submitted from host" => "host",
-    "CWD" => "wd",
-    "Eligible" => "eligible_time",
-    "Started" => "start_time",
-    "Estimated" => "start_time",
-    "Pending" => "pend_time",
-    "Execution Home" => "exec_home",
-    "Execution CWD" => "exec_wd",
-    "Resource" => "resource_time",
-    "Elapsed" => "cpu_time",
-    "Limit" => "limit_time",
-    "Dependency Condition" => "dependency",
-    "Depend" => "dependency",
-    "Array" => "array",
     "Total" => "total",
-    "Expired" => "expired"
+    "User" => "user"
   );
   my $job = -1;
   my $user = "";
@@ -187,55 +230,70 @@ sub data2jobs {
     if (@arg[0] eq "Job") {
       $job = @arg[1]; 
     } elsif (@arg[0] eq "User") {
-      $user = @arg[1];
+      $user = (split("\\@", @arg[1]))[0];
     }
   }
   return if ($job<0);
-  $Jobs{$job}->{"processors"} = 1;
+  $Jobs->{$job}->{"processors"} = 1;
   foreach (@_) {
     my @arg = extract($_);
-    if ($convert{@arg[0]} ne "") {
+    if (defined($convert{@arg[0]})) {
       if (@arg[0] eq "CWD") {
 	@arg[1] =~ s/^$Home\/$user+/~$user/ if ($Home ne "");
       }
-      next if (@arg[0] eq "Estimated" && defined($Jobs{$job}->{"start_time"}));
-      $Jobs{$job}->{$convert{@arg[0]}} = @arg[1];
+      next if (@arg[0] eq "Estimated" && defined($Jobs->{$job}->{"start_time"}));
+      $Jobs->{$job}->{$convert{@arg[0]}} = @arg[1];
     } else {
-      @arg = split(" ", $_);
-      if (join(" ", @arg[1,2]) eq "Processors Requested") {
-	$Jobs{$job}->{"processors"} = @arg[0];
+      my @a = split(" ", $_);
+      if (join(" ", @a[1,2]) eq "Processors Requested") {
+	$Jobs->{$job}->{"processors"} = @a[0];
+      } else {
+	$Jobs->{$job}->{variables}->{@arg[0]} = @arg[1];
       }
     }
   }
-  if ($Jobs{$job}->{"status"} eq "BATCH") {
-    $Jobs{$job}->{"cpu_time"} = "";
-    $Jobs{$job}->{"processors"} = $Jobs{$job}->{"array"};
-    $Jobs{$job}->{"efficiency"} = int(div($Jobs{$job}->{"expired"}, $Jobs{$job}->{"total"})*1e4+0.5)/100;
-  } elsif ($Jobs{$job}->{"status"} eq "RUN") {
-    my $start = $Jobs{$job}->{"start_time"};
-    my $eligible = $Jobs{$job}->{"eligible_time"};
+  if ($Jobs->{$job}->{"status"} eq "BATCH") {
+    $Jobs->{$job}->{"cpu_time"} = "";
+    $Jobs->{$job}->{"processors"} = $Jobs->{$job}->{"array"};
+    $Jobs->{$job}->{"efficiency"} = int(div($Jobs->{$job}->{"expired"}, $Jobs->{$job}->{"total"})*1e4+0.5)/100;
+  } elsif ($Jobs->{$job}->{"status"} eq "RUN") {
+    my $start = $Jobs->{$job}->{"start_time"};
+    my $eligible = $Jobs->{$job}->{"eligible_time"};
     my $runtime = $Time-myseconds($start eq "" ? $eligible : $start);
     $runtime = 0 if ($runtime<0);
-    my $cputime = $Jobs{$job}->{"cpu_time"}/$Jobs{$job}->{"processors"};
-    $Jobs{$job}->{"run_time"} = mytime($runtime);
-    $Jobs{$job}->{"efficiency"} = $runtime>0 ? int($cputime/$runtime*1e4+0.5)/100:0;
-    if ($Jobs{$job}->{"cpu_time"} ne "") {
-      $Jobs{$job}->{"cpu_time"} = mytime($cputime);
+    my $cputime = $Jobs->{$job}->{"cpu_time"}/$Jobs->{$job}->{"processors"};
+    $Jobs->{$job}->{"run_time"} = mytime($runtime);
+    $Jobs->{$job}->{"efficiency"} = $runtime>0 ? int($cputime/$runtime*1e4+0.5)/100:0;
+    if ($Jobs->{$job}->{"cpu_time"} ne "") {
+      $Jobs->{$job}->{"cpu_time"} = mytime($cputime);
     }
   } else {
-    $Jobs{$job}->{"cpu_time"} = "";
+    $Jobs->{$job}->{"cpu_time"} = "";
   }
-  if ($Jobs{$job}->{"dependency"} ne "") {
-    $Jobs{$job}->{"status"} = "CHAIN" if ($Jobs{$job}->{"status"} eq "PEND");
-    $Jobs{$job}->{"status"} = "CHAIN" if ($Jobs{$job}->{"status"} eq "HOLD");
+  if ($Jobs->{$job}->{"dependency"} ne "") {
+    $Jobs->{$job}->{"status"} = "CHAIN" if ($Jobs->{$job}->{"status"} eq "PEND");
+    $Jobs->{$job}->{"status"} = "CHAIN" if ($Jobs->{$job}->{"status"} eq "HOLD");
   }
-  if ($Jobs{$job}->{"status"} eq "PEND") {
-    if ($Jobs{$job}->{"pend_time"} ne "" ) {
-      my $runtime = myseconds($Jobs{$job}->{"pend_time"})-$Time;
-      $Jobs{$job}->{"run_time"} = mytime($runtime) if ($runtime>0);
+  if ($Jobs->{$job}->{"status"} eq "PEND") {
+    if ($Jobs->{$job}->{"pend_time"} ne "" ) {
+      my $runtime = myseconds($Jobs->{$job}->{"pend_time"})-$Time;
+      $Jobs->{$job}->{"run_time"} = mytime($runtime) if ($runtime>0);
     }
   }
   if ($FlagProgress) { set_progress($job); }
+  foreach (keys(%{$Jobs->{$job}})) {
+    $Jobs->{$job}->{$_} = trim($Jobs->{$job}->{$_});
+  }
+  if (defined($Jobs->{$job}->{variables})) {
+    my $vars = $Jobs->{$job}->{variables};
+    if (defined($vars->{command})) {
+      $vars->{command} = extract_commands($vars->{command});
+    }
+    if (defined($Jobs->{$job}->{job_dir})) {
+      $vars->{JOBDIR} = $vars->{PBS_JOBDIR} = $Jobs->{$job}->{job_dir};
+    }
+  }
+  $Jobs->{$job}->{user} = $user;
   set_workdir($job);
 }
 
@@ -244,10 +302,10 @@ sub print_progress {
   return if (!scalar(keys(%Jobs)));
   foreach (sort({$a <=> $b} keys(%Jobs))) {
     my $job = $_;
-    my $wd = $Jobs{$job}->{"wd"};
+    my $wd = $Jobs->{$job}->{"wd"};
     my $name = "$wd/$ProgressName";
     $name =~ s/^$Home\/+/~/g; 
-    printf("%s: %s\n", $name, $Jobs{$job}->{"progress"});
+    printf("%s: %s\n", $name, $Jobs->{$job}->{"progress"});
   }
 }
 
@@ -297,7 +355,8 @@ sub print_jobs {
   my $next = "";
   my %total = ("CHAIN" => 0, "PEND" => 0, "RUN" => 0);
  
-  return if (!scalar(keys(%Jobs)));
+  return if (!scalar(keys(%{$Jobs})));
+  #print(__LINE__.": ", Dumper($Jobs));
   push(@index, "queue") if ($FlagQueue);
   push(@index, "job_name") if ($FlagName);
   push(@index, "start_time") if ($FlagStart);
@@ -312,23 +371,23 @@ sub print_jobs {
     $next = $separator;
   }
   print("\n");
-  foreach (sort({$a <=> $b} keys(%Jobs))) {
+  foreach (sort({$a <=> $b} keys(%{$Jobs}))) {
     my $job = $_;
-    my $nlines = $FlagProgress||$FlagWD ? scalar(@{$Jobs{$job}->{"workdir"}}):1;
+    my $nlines = $FlagProgress||$FlagWD ? scalar(@{$Jobs->{$job}->{"workdir"}}):1;
     my $i;
 
-    next if ($FlagUser && $Jobs{$job}->{"user"} ne $User);
+    next if ($FlagUser && $Jobs->{$job}->{"user"} ne $User);
    
     for ($i=0; $i<$nlines; ++$i) {
       $next = "";
       foreach (@index) {
 	my $id = $_;
 	if ($_ eq "start_time") {
-	  if ($Jobs{$job}->{"start_time"} eq "") {
+	  if ($Jobs->{$job}->{"start_time"} eq "") {
 	    $id = "submit_time";
 	  }
 	}
-	my $text = $Jobs{$job}->{$id};
+	my $text = $Jobs->{$job}->{$id};
 	if ($id eq "progress" || $id eq "workdir") {
 	  $text = @{$text}[$i];
 	} else {
@@ -339,7 +398,7 @@ sub print_jobs {
       }
       print("\n");
     }
-    $total{$Jobs{$job}->{"status"}} += $Jobs{$job}->{"processors"};
+    $total{$Jobs->{$job}->{"status"}} += $Jobs->{$job}->{"processors"};
   }
   my @arg = ();
   foreach (sort(keys(%total))) {
@@ -431,7 +490,8 @@ sub pbs_create_jobs {
   my %ids = (
     "Job Id:" => "Job",
     "Job_Name" => "Job Name",
-    "Account_Name" => "User",
+    "Job_Owner" => "User",
+    "Account_Name" => "Account",
     "project" => "Project",	# no eqv
     "job_state" => "Status",
     "queue" => "Queue",
@@ -454,7 +514,9 @@ sub pbs_create_jobs {
     "depend" => "Dependency Condition",
     "server" => "Server",
     "depend" => "Depend",
-    "array_state_count" => "Array"
+    "array_state_count" => "Array",
+    "jobdir" => "Job Dir",
+    "exec_vnode" => "Nodes"
   );
   my %status = (
     "B" => "BATCH",
@@ -490,8 +552,8 @@ sub pbs_create_jobs {
 	  } else {
 	    foreach(split(",", $value)) {			# environment
 	      my @a = split("=");
-	      next if (!defined($ids{@a[0]}));
-	      push(@data, "$ids{@a[0]} <@a[1]>");
+	      my $id = defined($ids{@a[0]}) ? $ids{shift(@a)} : shift(@a);
+	      push(@data, "$id <".join("=", @a).">");
 	    }
 	  }
 	}

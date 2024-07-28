@@ -3,7 +3,7 @@
 #  CHARMM interaction parameters using prot force field files, 
 #  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Jul 25 20:26:52 CEST 2023.
+#  and created on Wed Oct 18 09:08:10 CEST 2023.
 #
 
 # Force field definition
@@ -18,7 +18,7 @@ FFDEPTH		4
 FFCHARGE	ALL
 FFSTRICT	FALSE
 VERSION		v36.1
-CREATED		July 2023
+CREATED		October 2023
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -1054,6 +1054,7 @@ CA	CA	CA	CT*	3.1	2	180
 CA	CA	CT*	HA*	0	6	0
 CA	CA	CT1	CT*	0.23	2	180
 CT*	CA	CA	HP	4.2	2	180
+CT*	CT2	CPH1	NR3	0.19	3	0
 N	C	CT*	NH2	0	1	0
 
 ITEM	END

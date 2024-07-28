@@ -3,7 +3,7 @@
 #  CHARMM interaction parameters using cgenff force field files, 
 #  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Jul 25 20:26:14 CEST 2023.
+#  and created on Wed Jul 03 00:21:22 CEST 2024.
 #
 
 # Force field definition
@@ -18,7 +18,7 @@ FFDEPTH		5
 FFCHARGE	ALL
 FFSTRICT	TRUE
 VERSION		v36.1
-CREATED		July 2023
+CREATED		July 2024
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -52,7 +52,7 @@ ITEM	MASS
 
 # type	mass	element	ncons	charge	index	comment
 
-ALG1	26.982	Al	4	0	412	Aluminum, for ALF4, AlF4-
+ALG1	26.98154	Al	4	0	412	Aluminum, for ALF4, AlF4-
 BRGA1	79.904	Br	1	0	399	BRET, bromoethane
 BRGA2	79.904	Br	1	0	400	DBRE, 1,1-dibromoethane
 BRGA3	79.904	Br	1	0	401	TBRE, 1,1,1-dibromoethane
@@ -73,32 +73,34 @@ CG2D2O	12.011	C	-	0	287	Double bond carbon adjacent to heteroatom. In conjugated
 CG2DC1	12.011	C	3	0	288	Conjugated alkenes, R2C=CR2
 CG2DC2	12.011	C	3	0	289	Conjugated alkenes, R2C=CR2
 CG2DC3	12.011	C	3	0	290	Conjugated alkenes, H2C=
+CG2L61	10.011	C	-	0	308	6-mem aromatic C with lone pair
 CG2N1	12.011	C	3	0	291	Conjugated C in guanidine/guanidinium
 CG2N1A	12.011	C	3	0	291	Conjugated C in guanidine/guanidinium (MGU2)
 CG2N1B	12.011	C	3	0	291	Conjugated C in guanidine/guanidinium (GUAN)
 CG2N2	12.011	C	-	0	292	Conjugated C in amidinium cation
 CG2O1	12.011	C	3	0	293	Carbonyl C: amides
 CG2O1A	12.011	C	3	0	293	Carbonyl C: amides (DMF)
-CG2O1B	12.011	C	3	0	293	Carbonyl C: amides (DMA)
-CG2O1C	12.011	C	3	0	293	Carbonyl C: amides (HDZ1)
-CG2O1D	12.011	C	3	0	293	Carbonyl C: amides (FORM)
-CG2O1E	12.011	C	3	0	293	Carbonyl C: amides (ACEM)
-CG2O1F	12.011	C	3	0	293	Carbonyl C: amides (2AMF)
+CG2O1B	12.011	C	3	0	293	Carbonyl C: amides (HDZ1)
+CG2O1C	12.011	C	3	0	293	Carbonyl C: amides (FORM)
+CG2O1D	12.011	C	3	0	293	Carbonyl C: amides (2AMP)
+CG2O1E	12.011	C	3	0	293	Carbonyl C: amides (2AMF)
 CG2O2	12.011	C	3	0	294	Carbonyl C: esters, [neutral] carboxylic acids
 CG2O2A	12.011	C	3	0	294	Carbonyl C: esters, [neutral] carboxylic acids (ACEH)
 CG2O2B	12.011	C	3	0	294	Carbonyl C: esters, [neutral] carboxylic acids (ZOIC)
-CG2O2C	12.011	C	3	0	294	Carbonyl C: esters, [neutral] carboxylic acids (IPAA)
 CG2O3	12.011	C	3	0	295	Carbonyl C: [negative] carboxylates
+CG2O3A	12.011	C	3	0	295	Carbonyl C: [negative] carboxylates (HIST)
 CG2O4	12.011	C	3	0	296	Carbonyl C: aldehydes
-CG2O4A	12.011	C	3	0	296	Carbonyl C: aldehydes (BALD)
+CG2O4A	12.011	C	3	0	296	Carbonyl C: aldehydes (3ALP)
 CG2O4B	12.011	C	3	0	296	Carbonyl C: aldehydes (PRAL)
 CG2O5	12.011	C	3	0	297	Carbonyl C: ketones
 CG2O5A	12.011	C	3	0	297	Carbonyl C: ketones (BF7)
 CG2O5B	12.011	C	3	0	297	Carbonyl C: ketones (PHEK)
-CG2O5C	12.011	C	3	0	297	Carbonyl C: ketones (PHMK)
+CG2O5C	12.011	C	3	0	297	Carbonyl C: ketones (3ACP)
 CG2O5D	12.011	C	3	0	297	Carbonyl C: ketones (BEON)
 CG2O6	12.011	C	3	0	298	Carbonyl C: urea, carbonate
-CG2O6A	12.011	C	3	0	298	Carbonyl C: urea, carbonate (UREA)
+CG2O6A	12.011	C	3	0	298	Carbonyl C: urea, carbonate (DMUR)
+CG2O6C	12.011	C	3	0	298	Carbonyl C: urea, carbonate (CO31)
+CG2O6D	12.011	C	3	0	298	Carbonyl C: urea, carbonate (DECB)
 CG2O7	12.011	C	2	0	299	CO2 carbon
 CG2R51	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp
 CG2R51A	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (OXAZ)
@@ -113,7 +115,7 @@ CG2R51I	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (B2FO)
 CG2R51J	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (A2FO)
 CG2R51K	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (ISOX)
 CG2R51L	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (THIP)
-CG2R51M	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (EIMI)
+CG2R51M	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (EIMM)
 CG2R51O	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (A2FO)
 CG2R51P	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (TRZ3)
 CG2R51Q	12.011	C	3	0	300	5-mem ring, his CG, CD2(0), trp (ISOT)
@@ -126,14 +128,14 @@ CG2R52B	12.011	C	3	0	301	5-mem ring, double bound to N, PYRZ, pyrazole (ISOX)
 CG2R53	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo
 CG2R53A	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo (OXAZ)
 CG2R53B	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo (THAZ)
-CG2R53C	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo (NADE)
-CG2R53D	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo (IMIA)
+CG2R53C	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo (IMIA)
+CG2R53D	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo (GBL)
 CG2R53E	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo (B2FO)
 CG2R53F	12.011	C	3	0	302	5-mem ring, double bound to N and adjacent to another heteroatom, purine C8, his CE1 (0,+1), 2PDO, kevo (A2FO)
 CG2R57	12.011	C	-	0	303	5-mem ring, bipyrroles
 CG2R61	12.011	C	3	0	308	6-mem aromatic C
 CG2R61A	12.011	C	3	0	308	6-mem aromatic C (CHLB)
-CG2R61B	12.011	C	3	0	308	6-mem aromatic C (PNPO)
+CG2R61B	12.011	C	3	0	308	6-mem aromatic C (NITB)
 CG2R61C	12.011	C	3	0	308	6-mem aromatic C (BROB)
 CG2R61D	12.011	C	3	0	308	6-mem aromatic C (IODB)
 CG2R61E	12.011	C	3	0	308	6-mem aromatic C (PYRD)
@@ -142,73 +144,80 @@ CG2R61G	12.011	C	3	0	308	6-mem aromatic C (TRIB)
 CG2R61H	12.011	C	3	0	308	6-mem aromatic C (3FLP)
 CG2R61I	12.011	C	3	0	308	6-mem aromatic C (3FLP)
 CG2R61J	12.011	C	3	0	308	6-mem aromatic C (BSAT)
-CG2R61K	12.011	C	3	0	308	6-mem aromatic C (PNPO)
+CG2R61K	12.011	C	3	0	308	6-mem aromatic C (NITB)
 CG2R61L	12.011	C	3	0	308	6-mem aromatic C (PHEO)
 CG2R61M	12.011	C	3	0	308	6-mem aromatic C (PYRD)
 CG2R61N	12.011	C	3	0	308	6-mem aromatic C (BROB)
 CG2R61O	12.011	C	3	0	308	6-mem aromatic C (IODB)
 CG2R61P	12.011	C	3	0	308	6-mem aromatic C (PYZN)
 CG2R61Q	12.011	C	3	0	308	6-mem aromatic C (TRIB)
-CG2R61R	12.011	C	3	0	308	6-mem aromatic C (PYRM)
-CG2R61S	12.011	C	3	0	308	6-mem aromatic C (3AMP)
+CG2R61R	12.011	C	3	0	308	6-mem aromatic C (3AMP)
+CG2R61S	12.011	C	3	0	308	6-mem aromatic C (4AP2)
 CG2R61T	12.011	C	3	0	308	6-mem aromatic C (PMSM)
 CG2R61U	12.011	C	3	0	308	6-mem aromatic C (PMST)
 CG2R62	12.011	C	-	0	309	6-mem aromatic C for protonated pyridine (NIC) and rings containing carbonyls (see CG2R63) (NA)
 CG2R63	12.011	C	-	0	310	6-mem aromatic amide carbon (NA) (and other 6-mem aromatic carbonyls?)
 CG2R64	12.011	C	3	0	311	6-mem aromatic amidine and guanidine carbon (between 2 or 3 Ns and double-bound to one of them), NA, PYRM
-CG2R64A	12.011	C	3	0	311	6-mem aromatic amidine and guanidine carbon (between 2 or 3 Ns and double-bound to one of them), NA, PYRM (NADE)
-CG2R64B	12.011	C	3	0	311	6-mem aromatic amidine and guanidine carbon (between 2 or 3 Ns and double-bound to one of them), NA, PYRM (TRIA)
-CG2R64C	12.011	C	3	0	311	6-mem aromatic amidine and guanidine carbon (between 2 or 3 Ns and double-bound to one of them), NA, PYRM (TRIB)
-CG2R64D	12.011	C	3	0	311	6-mem aromatic amidine and guanidine carbon (between 2 or 3 Ns and double-bound to one of them), NA, PYRM (NADE)
+CG2R64A	12.011	C	3	0	311	6-mem aromatic amidine and guanidine carbon (between 2 or 3 Ns and double-bound to one of them), NA, PYRM (TRIA)
+CG2R64B	12.011	C	3	0	311	6-mem aromatic amidine and guanidine carbon (between 2 or 3 Ns and double-bound to one of them), NA, PYRM (TRIB)
+CG2R64C	12.011	C	3	0	311	6-mem aromatic amidine and guanidine carbon (between 2 or 3 Ns and double-bound to one of them), NA, PYRM (45DP)
 CG2R66	12.011	C	3	0	312	6-mem aromatic carbon bound to F
 CG2R67	12.011	C	3	0	313	6-mem aromatic carbon of biphenyl
 CG2R71	12.011	C	-	0	315	7-mem ring arom C, AZUL, azulene, kevo
 CG2RC0	12.011	C	3	0	314	6/5-mem ring bridging C, guanine C4,C5, trp
 CG2RC7	12.011	C	-	0	316	Sp2 ring connection with single bond(!), AZUL, azulene, kevo
 CG301	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane
-CG301A	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane
-CG301B	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (PIVAH)
-CG301C	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (TCLE)
-CG301D	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (TBRE)
-CG301E	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (TECT)
+CG301A	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (PIVAH)
+CG301B	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (TCLE)
+CG301C	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (TBRE)
+CG301D	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (IBEAD)
+CG301E	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (ATEC)
+CG301F	12.011	C	4	0	317	Aliphatic C, no hydrogens, neopentane (TECT)
 CG302	12.011	C	4	0	318	Aliphatic C, no hydrogens, trifluoromethyl
 CG302A	12.011	C	4	0	318	Aliphatic C, no hydrogens, trifluoromethyl (TFE)
 CG311	12.011	C	4	0	319	Aliphatic C with 1 H, CH
-CG311A	12.011	C	4	0	319	Aliphatic C with 1 H, CH
-CG311B	12.011	C	4	0	319	Aliphatic C with 1 H, CH (IPAA)
-CG311C	12.011	C	4	0	319	Aliphatic C with 1 H, CH (DCLE)
-CG311D	12.011	C	4	0	319	Aliphatic C with 1 H, CH (DBRE)
+CG311A	12.011	C	4	0	319	Aliphatic C with 1 H, CH (EBUAH)
+CG311B	12.011	C	4	0	319	Aliphatic C with 1 H, CH (DCLE)
+CG311C	12.011	C	4	0	319	Aliphatic C with 1 H, CH (DBRE)
+CG311D	12.011	C	4	0	319	Aliphatic C with 1 H, CH (IPECB)
+CG311E	12.011	C	4	0	319	Aliphatic C with 1 H, CH (IPECA)
 CG312	12.011	C	4	0	320	Aliphatic C with 1 H, difluoromethyl
 CG314	12.011	C	4	0	321	Aliphatic C with 1 H, adjacent to positive N (PROT NTER) (+)
 CG321	12.011	C	4	0	322	Aliphatic C for CH2
-CG321A	12.011	C	4	0	322	Aliphatic C for CH2
-CG321B	12.011	C	4	0	322	Aliphatic C for CH2 (BUAH)
-CG321C	12.011	C	4	0	322	Aliphatic C for CH2 (PHEK)
+CG321A	12.011	C	4	0	322	Aliphatic C for CH2 (BUAH)
+CG321B	12.011	C	4	0	322	Aliphatic C for CH2 (PHEK)
+CG321C	12.011	C	4	0	322	Aliphatic C for CH2 (EIMM)
 CG321D	12.011	C	4	0	322	Aliphatic C for CH2 (EIMI)
 CG321E	12.011	C	4	0	322	Aliphatic C for CH2 (BRET)
 CG321F	12.011	C	4	0	322	Aliphatic C for CH2 (CALD)
-CG321G	12.011	C	4	0	322	Aliphatic C for CH2 (ETO)
-CG321H	12.011	C	4	0	322	Aliphatic C for CH2 (2MPA)
-CG321I	12.011	C	4	0	322	Aliphatic C for CH2 (DECB)
-CG321J	12.011	C	4	0	322	Aliphatic C for CH2 (TFE)
-CG321K	12.011	C	4	0	322	Aliphatic C for CH2 (TRIT)
-CG321L	12.011	C	4	0	322	Aliphatic C for CH2 (EMS)
-CG321M	12.011	C	4	0	322	Aliphatic C for CH2 (EESM)
+CG321G	12.011	C	4	0	322	Aliphatic C for CH2 (EDMAO)
+CG321H	12.011	C	4	0	322	Aliphatic C for CH2 (DECB)
+CG321I	12.011	C	4	0	322	Aliphatic C for CH2 (2MPA)
+CG321J	12.011	C	4	0	322	Aliphatic C for CH2 (DECB)
+CG321K	12.011	C	4	0	322	Aliphatic C for CH2 (DECA)
+CG321L	12.011	C	4	0	322	Aliphatic C for CH2 (BSO4)
+CG321M	12.011	C	4	0	322	Aliphatic C for CH2 (CHCE)
+CG321N	12.011	C	4	0	322	Aliphatic C for CH2 (TRIT)
+CG321O	12.011	C	4	0	322	Aliphatic C for CH2 (EMS)
+CG321P	12.011	C	4	0	322	Aliphatic C for CH2 (EESM)
 CG322	12.011	C	4	0	323	Aliphatic C for CH2, monofluoromethyl
 CG323	12.011	C	4	0	324	Aliphatic C for CH2, thiolate carbon
 CG324	12.011	C	4	0	325	Aliphatic C for CH2, adjacent to positive N (piperidine) (+)
 CG324A	12.011	C	4	0	325	Aliphatic C for CH2, adjacent to positive N (piperidine) (+) (EAMM)
-CG324B	12.011	C	4	0	325	Aliphatic C for CH2, adjacent to positive N (piperidine) (+) (2MPA)
+CG324B	12.011	C	4	0	325	Aliphatic C for CH2, adjacent to positive N (piperidine) (+) (TMAC)
+CG324C	12.011	C	4	0	325	Aliphatic C for CH2, adjacent to positive N (piperidine) (+) (EDMAP)
+CG324D	12.011	C	4	0	325	Aliphatic C for CH2, adjacent to positive N (piperidine) (+) (2MPA)
+CG324E	12.011	C	4	0	325	Aliphatic C for CH2, adjacent to positive N (piperidine) (+) (ZWIT)
 CG331	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3)
 CG331A	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (HDZ1)
-CG331B	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (DMA)
-CG331C	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (ACEH)
-CG331D	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (METO)
-CG331E	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (SCH1)
-CG331F	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (DMCB)
-CG331G	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (CROT)
-CG331H	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (MGU2)
-CG331I	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (DMCB)
+CG331B	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (ACEH)
+CG331C	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (EDMAO)
+CG331D	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (SCH1)
+CG331E	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (DMCB)
+CG331F	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (CROT)
+CG331G	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (MGU2)
+CG331H	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (DMCB)
+CG331I	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (DMCA)
 CG331J	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (MSMT)
 CG331K	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (MMST)
 CG331L	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (MSO4)
@@ -219,7 +228,16 @@ CG331P	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (MMSM)
 CG331Q	12.011	C	4	0	326	Aliphatic C for methyl group (-CH3) (MSAM)
 CG334	12.011	C	4	0	327	Aliphatic C for methyl group (-CH3), adjacent to positive N (PROT NTER) (+)
 CG334A	12.011	C	4	0	327	Aliphatic C for methyl group (-CH3), adjacent to positive N (PROT NTER) (+) (MAMM)
-CG341	12.011	C	-	0	326	Aliphatic C (CH4)
+CG341	12.011	C	4	0	326	Aliphatic C (CH4)
+CG3A00	12.011	C	4	0	328	Aliphatic C for C NEUTRAL tri-C-amine
+CG3A01	12.011	C	4	0	329	Aliphatic C for C NEUTRAL di-C-amine
+CG3A02	12.011	C	4	0	330	Aliphatic C for C NEUTRAL C-amine
+CG3A10	12.011	C	4	0	328	Aliphatic C for CH NEUTRAL tri-C-amine
+CG3A11	12.011	C	4	0	329	Aliphatic C for CH NEUTRAL di-C-amine
+CG3A12	12.011	C	4	0	330	Aliphatic C for CH NEUTRAL C-amine
+CG3A20	12.011	C	4	0	328	Aliphatic C for CH2 NEUTRAL tri-C-amine
+CG3A21	12.011	C	4	0	329	Aliphatic C for CH2 NEUTRAL di-C-amine
+CG3A22	12.011	C	4	0	330	Aliphatic C for CH2 NEUTRAL C-amine
 CG3AM0	12.011	C	4	0	328	Aliphatic C for CH3, NEUTRAL trimethylamine methyl carbon (#)
 CG3AM1	12.011	C	4	0	329	Aliphatic C for CH3, NEUTRAL dimethylamine methyl carbon (#)
 CG3AM2	12.011	C	4	0	330	Aliphatic C for CH3, NEUTRAL methylamine methyl carbon (#)
@@ -231,107 +249,116 @@ CG3C51A	12.011	C	4	0	334	5-mem ring aliphatic CH (proline CA, furanoses) (GVL)
 CG3C52	12.011	C	4	0	335	5-mem ring aliphatic CH2 (proline CB/CG/CD, THF, deoxyribose)
 CG3C52A	12.011	C	4	0	335	5-mem ring aliphatic CH2 (proline CB/CG/CD, THF, deoxyribose) (A2FO)
 CG3C52B	12.011	C	4	0	335	5-mem ring aliphatic CH2 (proline CB/CG/CD, THF, deoxyribose) (GBL)
+CG3C52C	12.011	C	4	0	335	5-mem ring aliphatic CH2 (proline CB/CG/CD, THF, deoxyribose) (GBL)
+CG3C52D	12.011	C	4	0	335	5-mem ring aliphatic CH2 (proline CB/CG/CD, THF, deoxyribose) (B2FO)
 CG3C53	12.011	C	4	0	336	5-mem ring aliphatic CH adjacent to positive N (proline.H+ CA) (+)
 CG3C54	12.011	C	4	0	337	5-mem ring aliphatic CH2 adjacent to positive N (proline.H+ CD) (+)
 CG3RC1	12.011	C	-	0	338	Bridgehead in bicyclic systems containing at least one 5-membered or smaller ring
-CLGA1	35.4527	Cl	1	0	396	CLET, DCLE, chloroethane, 1,1-dichloroethane
-CLGA3	35.4527	Cl	1	0	397	TCLE, 1,1,1-trichloroethane
-CLGR1	35.4527	Cl	1	0	398	CHLB, chlorobenzene
-DUM	-1	?	-	0	416	Dummy atom
+CLGA1	35.453	Cl	1	0	396	CLET, DCLE, chloroethane, 1,1-dichloroethane
+CLGA3	35.453	Cl	1	0	397	TCLE, 1,1,1-trichloroethane
+CLGR1	35.453	Cl	1	0	398	CHLB, chlorobenzene
+DUM	0	?	-	0	416	Dummy atom
 FGA1	18.998	F	1	0	404	Aliphatic fluorine, monofluoro
 FGA2	18.998	F	1	0	405	Aliphatic fluorine, difluoro
 FGA3	18.998	F	1	0	406	Aliphatic fluorine, trifluoro
 FGP1	18.998	F	1	0	407	Anionic F, for ALF4 AlF4-
 FGR1	18.998	F	1	0	408	Aromatic flourine
 HE	4.0026	He	-	0	417	Helium
-HGA1	1.0079	H	1	0	256	Alphatic proton, CH
-HGA2	1.0079	H	1	0	257	Alphatic proton, CH2
-HGA3	1.0079	H	1	0	258	Alphatic proton, CH3
-HGA4	1.0079	H	1	0	259	Alkene proton; RHC=
-HGA41	1.0079	H	-	0	258	Aliphatic proton CH4
-HGA5	1.0079	H	1	0	260	Alkene proton; H2C=CR
-HGA6	1.0079	H	1	0	261	Aliphatic H on fluorinated C, monofluoro
-HGA7	1.0079	H	1	0	262	Aliphatic H on fluorinated C, difluoro
-HGAAM0	1.0079	H	1	0	263	Aliphatic H, NEUTRAL trimethylamine (#)
-HGAAM1	1.0079	H	1	0	264	Aliphatic H, NEUTRAL dimethylamine (#)
-HGAAM2	1.0079	H	1	0	265	Aliphatic H, NEUTRAL methylamine (#)
-HGP1	1.0079	H	1	0	266	Polar H
-HGP2	1.0079	H	1	0	267	Polar H, +ve charge
-HGP3	1.0079	H	1	0	268	Polar H, thiol
-HGP4	1.0079	H	1	0	269	Polar H, neutral conjugated -NH2 group (NA bases)
-HGP5	1.0079	H	1	0	270	Polar H on quarternary ammonium salt (choline)
-HGPAM1	1.0079	H	1	0	271	Polar H, NEUTRAL dimethylamine (#), terminal alkyne H
-HGPAM2	1.0079	H	1	0	272	Polar H, NEUTRAL methylamine (#)
-HGPAM3	1.0079	H	-	0	273	Polar H, NEUTRAL ammonia (#)
-HGR51	1.0079	H	1	0	274	Nonpolar H, neutral 5-mem planar ring C, LJ based on benzene
-HGR52	1.0079	H	1	0	275	Aldehyde H, formamide H (RCOH); nonpolar H, neutral 5-mem planar ring C adjacent to heteroatom or + charge
-HGR53	1.0079	H	1	0	276	Nonpolar H, +ve charge HIS he1(+1)
-HGR61	1.0079	H	1	0	277	Aromatic H
-HGR62	1.0079	H	1	0	278	Nonpolar H, neutral 6-mem planar ring C adjacent to heteroatom
-HGR63	1.0079	H	-	0	279	Nonpolar H, NAD+ nicotineamide all ring CH hydrogens
-HGR71	1.0079	H	-	0	280	Nonpolar H, neutral 7-mem arom ring, AZUL, azulene, kevo
-HGTIP3	1.0079	H	-	0	414	Polar H, TIPS3P WATER HYDROGEN
-IGR1	126.904	I	1	0	403	IODB, iodobenzene
-NE	20.18	Ne	-	0	418	Neon
-NG1T1	14.0067	N	1	0	339	N for cyano group
-NG2D1	14.0067	N	2	0	341	N for neutral imine/Schiff's base (C=N-R, acyclic amidine, gunaidine)
-NG2O1	14.0067	N	3	0	347	NITB, nitrobenzene
-NG2P1	14.0067	N	3	0	348	N for protonated imine/Schiff's base (C=N(+)H-R, acyclic amidinium, guanidinium)
-NG2P1A	14.0067	N	3	0	348	N for protonated imine/Schiff's base (C=N(+)H-R, acyclic amidinium, guanidinium) (MGUA)
-NG2P1B	14.0067	N	3	0	348	N for protonated imine/Schiff's base (C=N(+)H-R, acyclic amidinium, guanidinium) (SCH2)
-NG2R43	14.0067	N	-	0	349	Amide in 4-memebered ring (planar), AZDO, lsk
-NG2R50	14.0067	N	2	0	350	Double bound neutral 5-mem planar ring, purine N7
-NG2R50A	14.0067	N	2	0	350	Double bound neutral 5-mem planar ring, purine N7 (OXAD)
-NG2R51	14.0067	N	3	0	351	Single bound neutral 5-mem planar (all atom types sp2) ring, his, trp pyrrole (fused)
-NG2R51A	14.0067	N	3	0	351	Single bound neutral 5-mem planar (all atom types sp2) ring, his, trp pyrrole (fused) (PYRL)
-NG2R51B	14.0067	N	3	0	351	Single bound neutral 5-mem planar (all atom types sp2) ring, his, trp pyrrole (fused) (PYRZ)
-NG2R51C	14.0067	N	3	0	351	Single bound neutral 5-mem planar (all atom types sp2) ring, his, trp pyrrole (fused) (TRZ3)
-NG2R52	14.0067	N	3	0	352	Protonated schiff base, amidinium, guanidinium in 5-membered ring, HIS, 2HPP, kevo
-NG2R53	14.0067	N	-	0	353	Amide in 5-memebered NON-SP2 ring (slightly pyramidized), 2PDO, kevo
-NG2R57	14.0067	N	-	0	354	5-mem ring, bipyrroles
-NG2R60	14.0067	N	2	0	355	Double bound neutral 6-mem planar ring, pyr1, pyzn
-NG2R60A	14.0067	N	2	0	355	Double bound neutral 6-mem planar ring, pyr1, pyzn (PYZN)
-NG2R61	14.0067	N	-	0	356	Single bound neutral 6-mem planar ring imino nitrogen; glycosyl linkage
-NG2R62	14.0067	N	2	0	357	Double bound 6-mem planar ring with heteroatoms in o or m, pyrd, pyrm
-NG2R62A	14.0067	N	2	0	357	Double bound 6-mem planar ring with heteroatoms in o or m, pyrd, pyrm (TRIB)
-NG2R67	14.0067	N	-	0	358	6-mem planar ring substituted with 6-mem planar ring (N-phenyl pyridinones etc.)
-NG2RC0	14.0067	N	-	0	359	6/5-mem ring bridging N, indolizine, INDZ, kevo
-NG2S0	14.0067	N	3	0	342	N,N-disubstituted amide, proline N (CO=NRR')
-NG2S1	14.0067	N	3	0	343	Peptide nitrogen (CO=NHR)
-NG2S1A	14.0067	N	3	0	343	Peptide nitrogen (CO=NHR)
-NG2S1B	14.0067	N	3	0	343	Peptide nitrogen (CO=NHR) (NMA)
-NG2S1C	14.0067	N	3	0	343	Peptide nitrogen (CO=NHR) (2AMF)
-NG2S1D	14.0067	N	3	0	343	Peptide nitrogen (CO=NHR) (2MPA)
-NG2S1E	14.0067	N	3	0	343	Peptide nitrogen (CO=NHR) (CROT)
-NG2S2	14.0067	N	3	0	344	Terminal amide nitrogen (CO=NH2)
-NG2S2A	14.0067	N	3	0	344	Terminal amide nitrogen (CO=NH2) (FORM)
-NG2S2B	14.0067	N	3	0	344	Terminal amide nitrogen (CO=NH2) (UREA)
-NG2S3	14.0067	N	3	0	345	External amine ring nitrogen (planar/aniline), phosphoramidate
-NG2S3A	14.0067	N	3	0	345	External amine ring nitrogen (planar/aniline), phosphoramidate (NADE)
-NG301	14.0067	N	3	0	360	Neutral trimethylamine nitrogen
-NG311	14.0067	N	3	0	361	Neutral dimethylamine nitrogen
-NG311A	14.0067	N	3	0	361	Neutral dimethylamine nitrogen (PMSM)
-NG311B	14.0067	N	3	0	361	Neutral dimethylamine nitrogen (PBSM)
-NG311C	14.0067	N	3	0	361	Neutral dimethylamine nitrogen (MGU2)
-NG321	14.0067	N	3	0	362	Neutral methylamine nitrogen
-NG321A	14.0067	N	3	0	362	Neutral methylamine nitrogen (MSMT)
-NG321B	14.0067	N	3	0	362	Neutral methylamine nitrogen (MGU2)
-NG321C	14.0067	N	3	0	362	Neutral methylamine nitrogen (MGU1)
-NG331	14.0067	N	-	0	363	Neutral ammonia nitrogen
-NG3C51	14.0067	N	-	0	364	Secondary sp3 amine in 5-membered ring
-NG3N1	14.0067	N	-	0	365	N in hydrazine, HDZN
-NG3P0	14.0067	N	4	0	366	Quarternary N+, choline
-NG3P1	14.0067	N	4	0	367	Tertiary NH+ (PIP)
-NG3P1A	14.0067	N	4	0	367	Tertiary NH+ (PIP) (TMAP)
-NG3P2	14.0067	N	4	0	368	Secondary NH2+ (proline)
-NG3P2A	14.0067	N	4	0	368	Secondary NH2+ (proline) (2MPA)
-NG3P3	14.0067	N	4	0	369	Primary NH3+, phosphatidylethanolamine
-NG3P50	14.0067	N	-	0	366	Quarternary N+ (5-mem ring)
-NG3P51	14.0067	N	-	0	367	Tertiary NH+ (5-mem ring)
-NG3P52	14.0067	N	4	0	368	Secondary NH2+ (5-mem ring)
-NG3P60	14.0067	N	-	0	366	Quarternary N+ (6-mem ring)
-NG3P61	14.0067	N	-	0	367	Tertiary NH+ (6-mem ring)
-NG3P62	14.0067	N	4	0	368	Secondary NH2+ (6-mem ring)
+HGA1	1.008	H	1	0	256	Alphatic proton, CH
+HGA2	1.008	H	1	0	257	Alphatic proton, CH2
+HGA3	1.008	H	1	0	258	Alphatic proton, CH3
+HGA4	1.008	H	1	0	259	Alkene proton; RHC=
+HGA41	1.008	H	1	0	258	Aliphatic proton CH4
+HGA5	1.008	H	1	0	260	Alkene proton; H2C=CR
+HGA6	1.008	H	1	0	261	Aliphatic H on fluorinated C, monofluoro
+HGA7	1.008	H	1	0	262	Aliphatic H on fluorinated C, difluoro
+HGAA10	1.008	H	1	0	263	Aliphatic H for CH NEUTRAL tri-C-amine
+HGAA11	1.008	H	1	0	264	Aliphatic H for CH NEUTRAL di-C-amine
+HGAA12	1.008	H	1	0	265	Aliphatic H for CH NEUTRAL C-amine
+HGAA20	1.008	H	1	0	263	Aliphatic H for CH2 NEUTRAL tri-C-amine
+HGAA21	1.008	H	1	0	264	Aliphatic H for CH2 NEUTRAL di-C-amine
+HGAA22	1.008	H	1	0	265	Aliphatic H for CH2 NEUTRAL C-amine
+HGAAM0	1.008	H	1	0	263	Aliphatic H, NEUTRAL trimethylamine (#)
+HGAAM1	1.008	H	1	0	264	Aliphatic H, NEUTRAL dimethylamine (#)
+HGAAM2	1.008	H	1	0	265	Aliphatic H, NEUTRAL methylamine (#)
+HGP1	1.008	H	1	0	266	Polar H
+HGP2	1.008	H	1	0	267	Polar H, +ve charge
+HGP3	1.008	H	1	0	268	Polar H, thiol
+HGP4	1.008	H	1	0	269	Polar H, neutral conjugated -NH2 group (NA bases)
+HGP5	1.008	H	1	0	270	Polar H on quarternary ammonium salt (choline)
+HGPAM1	1.008	H	1	0	271	Polar H, NEUTRAL dimethylamine (#), terminal alkyne H
+HGPAM2	1.008	H	1	0	272	Polar H, NEUTRAL methylamine (#)
+HGPAM3	1.008	H	-	0	273	Polar H, NEUTRAL ammonia (#)
+HGR51	1.008	H	1	0	274	Nonpolar H, neutral 5-mem planar ring C, LJ based on benzene
+HGR52	1.008	H	1	0	275	Aldehyde H, formamide H (RCOH); nonpolar H, neutral 5-mem planar ring C adjacent to heteroatom or + charge
+HGR53	1.008	H	1	0	276	Nonpolar H, +ve charge HIS he1(+1)
+HGR61	1.008	H	1	0	277	Aromatic H
+HGR62	1.008	H	1	0	278	Nonpolar H, neutral 6-mem planar ring C adjacent to heteroatom
+HGR63	1.008	H	-	0	279	Nonpolar H, NAD+ nicotineamide all ring CH hydrogens
+HGR71	1.008	H	-	0	280	Nonpolar H, neutral 7-mem arom ring, AZUL, azulene, kevo
+HGTIP3	1.008	H	-	0	414	Polar H, TIPS3P WATER HYDROGEN
+IGR1	126.90447	I	1	0	403	IODB, iodobenzene
+LPG1	1	Lp	1	0	-	Lone pair
+NE	20.1797	Ne	-	0	418	Neon
+NG1T1	14.007	N	1	0	339	N for cyano group
+NG2C50	14.007	N	3	0	353	Amide N in 5-membered NON-SP2 ring (slightly pyramidized) (NMP)
+NG2D1	14.007	N	2	0	341	N for neutral imine/Schiff's base (C=N-R, acyclic amidine, gunaidine)
+NG2O1	14.007	N	3	0	347	NITB, nitrobenzene
+NG2P1	14.007	N	3	0	348	N for protonated imine/Schiff's base (C=N(+)H-R, acyclic amidinium, guanidinium)
+NG2P1A	14.007	N	3	0	348	N for protonated imine/Schiff's base (C=N(+)H-R, acyclic amidinium, guanidinium) (MGUA)
+NG2P1B	14.007	N	3	0	348	N for protonated imine/Schiff's base (C=N(+)H-R, acyclic amidinium, guanidinium) (SCH2)
+NG2R43	14.007	N	-	0	349	Amide in 4-memebered ring (planar), AZDO, lsk
+NG2R50	14.007	N	2	0	350	Double bound neutral 5-mem planar ring, purine N7
+NG2R50A	14.007	N	2	0	350	Double bound neutral 5-mem planar ring, purine N7 (OXAD)
+NG2R51	14.007	N	3	0	351	Single bound neutral 5-mem planar (all atom types sp2) ring, his, trp pyrrole (fused)
+NG2R51A	14.007	N	3	0	351	Single bound neutral 5-mem planar (all atom types sp2) ring, his, trp pyrrole (fused) (PYRL)
+NG2R51B	14.007	N	3	0	351	Single bound neutral 5-mem planar (all atom types sp2) ring, his, trp pyrrole (fused) (PYRZ)
+NG2R51C	14.007	N	3	0	351	Single bound neutral 5-mem planar (all atom types sp2) ring, his, trp pyrrole (fused) (TRZ3)
+NG2R52	14.007	N	3	0	352	Protonated schiff base, amidinium, guanidinium in 5-membered ring, HIS, 2HPP, kevo
+NG2R53	14.007	N	-	0	353	Amide in 5-memebered NON-SP2 ring (slightly pyramidized), 2PDO, kevo
+NG2R57	14.007	N	-	0	354	5-mem ring, bipyrroles
+NG2R60	14.007	N	2	0	355	Double bound neutral 6-mem planar ring, pyr1, pyzn
+NG2R60A	14.007	N	2	0	355	Double bound neutral 6-mem planar ring, pyr1, pyzn (PYZN)
+NG2R61	14.007	N	-	0	356	Single bound neutral 6-mem planar ring imino nitrogen; glycosyl linkage
+NG2R62	14.007	N	2	0	357	Double bound 6-mem planar ring with heteroatoms in o or m, pyrd, pyrm
+NG2R62A	14.007	N	2	0	357	Double bound 6-mem planar ring with heteroatoms in o or m, pyrd, pyrm (TRIB)
+NG2R67	14.007	N	-	0	358	6-mem planar ring substituted with 6-mem planar ring (N-phenyl pyridinones etc.)
+NG2RC0	14.007	N	-	0	359	6/5-mem ring bridging N, indolizine, INDZ, kevo
+NG2S0	14.007	N	3	0	342	N,N-disubstituted amide, proline N (CO=NRR')
+NG2S1	14.007	N	3	0	343	Peptide nitrogen (CO=NHR)
+NG2S1A	14.007	N	3	0	343	Peptide nitrogen (CO=NHR) (2AMP)
+NG2S1B	14.007	N	3	0	343	Peptide nitrogen (CO=NHR) (2AMF)
+NG2S1C	14.007	N	3	0	343	Peptide nitrogen (CO=NHR) (2MPA)
+NG2S1D	14.007	N	3	0	343	Peptide nitrogen (CO=NHR) (CROT)
+NG2S2	14.007	N	3	0	344	Terminal amide nitrogen (CO=NH2)
+NG2S2A	14.007	N	3	0	344	Terminal amide nitrogen (CO=NH2) (FORM)
+NG2S2B	14.007	N	3	0	344	Terminal amide nitrogen (CO=NH2) (UREA)
+NG2S3	14.007	N	3	0	345	External amine ring nitrogen (planar/aniline), phosphoramidate
+NG2S3A	14.007	N	3	0	345	External amine ring nitrogen (planar/aniline), phosphoramidate (4AP2)
+NG301	14.007	N	3	0	360	Neutral trimethylamine nitrogen
+NG311	14.007	N	3	0	361	Neutral dimethylamine nitrogen
+NG311A	14.007	N	3	0	361	Neutral dimethylamine nitrogen (PMSM)
+NG311B	14.007	N	3	0	361	Neutral dimethylamine nitrogen (PBSM)
+NG311C	14.007	N	3	0	361	Neutral dimethylamine nitrogen (MGU2)
+NG321	14.007	N	3	0	362	Neutral methylamine nitrogen
+NG321A	14.007	N	3	0	362	Neutral methylamine nitrogen (MSMT)
+NG321B	14.007	N	3	0	362	Neutral methylamine nitrogen (MGU2)
+NG321C	14.007	N	3	0	362	Neutral methylamine nitrogen (MGU1)
+NG331	14.007	N	-	0	363	Neutral ammonia nitrogen
+NG3C51	14.007	N	-	0	364	Secondary sp3 amine in 5-membered ring
+NG3N1	14.007	N	-	0	365	N in hydrazine, HDZN
+NG3P0	14.007	N	4	0	366	Quarternary N+, choline
+NG3P1	14.007	N	4	0	367	Tertiary NH+ (PIP)
+NG3P1A	14.007	N	4	0	367	Tertiary NH+ (PIP) (EDMAP)
+NG3P2	14.007	N	4	0	368	Secondary NH2+ (proline)
+NG3P2A	14.007	N	4	0	368	Secondary NH2+ (proline) (2MPA)
+NG3P3	14.007	N	4	0	369	Primary NH3+, phosphatidylethanolamine
+NG3P50	14.007	N	4	0	366	Quarternary N+ (5-mem ring)
+NG3P51	14.007	N	4	0	367	Tertiary NH+ (5-mem ring)
+NG3P52	14.007	N	4	0	368	Secondary NH2+ (5-mem ring)
+NG3P60	14.007	N	4	0	366	Quarternary N+ (6-mem ring)
+NG3P61	14.007	N	4	0	367	Tertiary NH+ (6-mem ring)
+NG3P62	14.007	N	4	0	368	Secondary NH2+ (6-mem ring)
 OG2D1	15.9994	O	1	0	370	Carbonyl O: amides, esters, [neutral] carboxylic acids, aldehydes, uera
 OG2D2	15.9994	O	1	0	371	Carbonyl O: negative groups: carboxylates, carbonate
 OG2D3	15.9994	O	1	0	372	Carbonyl O: ketones
@@ -349,36 +376,38 @@ OG311	15.9994	O	2	0	383	Hydroxyl oxygen
 OG311A	15.9994	O	2	0	383	Hydroxyl oxygen (ACEH)
 OG311B	15.9994	O	2	0	383	Hydroxyl oxygen (TFE)
 OG312	15.9994	O	1	0	384	Ionized alcohol oxygen
-OG3C31	15.9994	O	-	0	385	Epoxide oxygen, 1EOX, 1BOX, sc
+OG3C31	15.9994	O	2	0	385	Epoxide oxygen, 1EOX, 1BOX, sc
 OG3C51	15.9994	O	2	0	386	5-mem furanose ring oxygen (ether)
 OG3C61	15.9994	O	2	0	387	DIOX, dioxane, ether in 6-membered ring
 OG3C61A	15.9994	O	2	0	387	DIOX, dioxane, ether in 6-membered ring (MORP)
 OG3R60	15.9994	O	2	0	378	O in 6-mem cyclic enol ether (PY01, PY02) or ester
 OG3R60A	15.9994	O	2	0	378	O in 6-mem cyclic enol ether (PY01, PY02) or ester (PY01)
 OGTIP3	15.9994	O	-	0	415	TIPS3P WATER OXYGEN
-PG0	30.974	P	-	0	409	Neutral phosphate
-PG1	30.974	P	4	0	410	Phosphate -1
-PG2	30.974	P	-	0	411	Phosphate -2
-SG2D1	32.066	S	-	0	388	Thiocarbonyl S
-SG2R50	32.066	S	2	0	389	THIP, thiophene
-SG2R50A	32.066	S	2	0	389	THIP, thiophene (THIP)
-SG301	32.066	S	2	0	391	Sulfur C-S-S-C type
-SG302	32.066	S	1	0	392	Thiolate sulfur (-1)
-SG311	32.066	S	2	0	390	Sulphur, SH, -S-
-SG311A	32.066	S	2	0	390	Sulphur, SH, -S- (THPS)
-SG311B	32.066	S	2	0	390	Sulphur, SH, -S- (DITH)
-SG311C	32.066	S	2	0	390	Sulphur, SH, -S- (TMOR)
-SG3O1	32.066	S	4	0	393	Sulfate -1 sulfur
-SG3O1A	32.066	S	4	0	393	Sulfate -1 sulfur
-SG3O1B	32.066	S	4	0	393	Sulfate -1 sulfur (BSAT)
-SG3O1C	32.066	S	4	0	393	Sulfate -1 sulfur (NESM)
-SG3O2	32.066	S	4	0	394	Neutral sulfone/sulfonamide sulfur
-SG3O2A	32.066	S	4	0	394	Neutral sulfone/sulfonamide sulfur (PBSM)
-SG3O2B	32.066	S	4	0	394	Neutral sulfone/sulfonamide sulfur (PMSM)
-SG3O2C	32.066	S	4	0	394	Neutral sulfone/sulfonamide sulfur (BSAM)
-SG3O2E	32.066	S	4	0	394	Neutral sulfone/sulfonamide sulfur (MMST)
-SG3O2F	32.066	S	4	0	394	Neutral sulfone/sulfonamide sulfur (MSMT)
-SG3O3	32.066	S	3	0	395	Neutral sulfoxide sulfur
+PG0	30.9738	P	-	0	409	Neutral phosphate
+PG1	30.9738	P	4	0	410	Phosphate -1
+PG2	30.9738	P	-	0	411	Phosphate -2
+SG2D1	32.06	S	-	0	388	Thiocarbonyl S
+SG2D2	32.06	S	1	0	388	Thiocarbonyl S (partial bond)
+SG2R50	32.06	S	2	0	389	THIP, thiophene
+SG2R50A	32.06	S	2	0	389	THIP, thiophene (THIP)
+SG301	32.06	S	2	0	391	Sulfur C-S-S-C type
+SG302	32.06	S	1	0	392	Thiolate sulfur (-1)
+SG311	32.06	S	2	0	390	Sulphur, SH, -S-
+SG311A	32.06	S	2	0	390	Sulphur, SH, -S- (THPS)
+SG311B	32.06	S	2	0	390	Sulphur, SH, -S- (DITH)
+SG311C	32.06	S	2	0	390	Sulphur, SH, -S- (TMOR)
+SG3O1	32.06	S	4	0	393	Sulfate -1 sulfur
+SG3O1A	32.06	S	4	0	393	Sulfate -1 sulfur (ESNA)
+SG3O1B	32.06	S	4	0	393	Sulfate -1 sulfur (BSAT)
+SG3O1C	32.06	S	4	0	393	Sulfate -1 sulfur (NESM)
+SG3O2	32.06	S	4	0	394	Neutral sulfone/sulfonamide sulfur
+SG3O2A	32.06	S	4	0	394	Neutral sulfone/sulfonamide sulfur (PBSM)
+SG3O2B	32.06	S	4	0	394	Neutral sulfone/sulfonamide sulfur (PMSM)
+SG3O2C	32.06	S	4	0	394	Neutral sulfone/sulfonamide sulfur (BSAM)
+SG3O2D	32.06	S	4	0	394	Neutral sulfone/sulfonamide sulfur (MESN)
+SG3O2E	32.06	S	4	0	394	Neutral sulfone/sulfonamide sulfur (MMST)
+SG3O2F	32.06	S	4	0	394	Neutral sulfone/sulfonamide sulfur (MSMT)
+SG3O3	32.06	S	3	0	395	Neutral sulfoxide sulfur
 
 ITEM	END
 
@@ -409,6 +438,7 @@ CG2D2O	CG2D2O	CG2D2O	CG2D2O	CG2D2O	CG2D2O	CG2D2O
 CG2DC1	CG2DC1	CG2DC1	CG2DC1	CG2DC1	CG2DC1	CG2DC1
 CG2DC2	CG2DC2	CG2DC2	CG2DC2	CG2DC2	CG2DC2	CG2DC2
 CG2DC3	CG2DC3	CG2DC3	CG2DC3	CG2DC3	CG2DC3	CG2DC3
+CG2L61	CG2R61	CG2L61	CG2R61	CG2R61	CG2R61	CG2R61
 CG2N1	CG2N1	CG2N1	CG2N1	CG2N1	CG2N1	CG2N1
 CG2N1A	CG2N1	CG2N1A	CG2N1	CG2N1	CG2N1	CG2N1
 CG2N1B	CG2N1	CG2N1B	CG2N1	CG2N1	CG2N1	CG2N1
@@ -419,12 +449,11 @@ CG2O1B	CG2O1	CG2O1B	CG2O1	CG2O1	CG2O1	CG2O1
 CG2O1C	CG2O1	CG2O1C	CG2O1	CG2O1	CG2O1	CG2O1
 CG2O1D	CG2O1	CG2O1D	CG2O1	CG2O1	CG2O1	CG2O1
 CG2O1E	CG2O1	CG2O1E	CG2O1	CG2O1	CG2O1	CG2O1
-CG2O1F	CG2O1	CG2O1F	CG2O1	CG2O1	CG2O1	CG2O1
 CG2O2	CG2O2	CG2O2	CG2O2	CG2O2	CG2O2	CG2O2
 CG2O2A	CG2O2	CG2O2A	CG2O2	CG2O2	CG2O2	CG2O2
 CG2O2B	CG2O2	CG2O2B	CG2O2	CG2O2	CG2O2	CG2O2
-CG2O2C	CG2O2	CG2O2C	CG2O2	CG2O2	CG2O2	CG2O2
 CG2O3	CG2O3	CG2O3	CG2O3	CG2O3	CG2O3	CG2O3
+CG2O3A	CG2O3	CG2O3A	CG2O3	CG2O3	CG2O3	CG2O3
 CG2O4	CG2O4	CG2O4	CG2O4	CG2O4	CG2O4	CG2O4
 CG2O4A	CG2O4	CG2O4A	CG2O4	CG2O4	CG2O4	CG2O4
 CG2O4B	CG2O4	CG2O4B	CG2O4	CG2O4	CG2O4	CG2O4
@@ -435,6 +464,8 @@ CG2O5C	CG2O5	CG2O5C	CG2O5	CG2O5	CG2O5	CG2O5
 CG2O5D	CG2O5	CG2O5D	CG2O5	CG2O5	CG2O5	CG2O5
 CG2O6	CG2O6	CG2O6	CG2O6	CG2O6	CG2O6	CG2O6
 CG2O6A	CG2O6	CG2O6A	CG2O6	CG2O6	CG2O6	CG2O6
+CG2O6C	CG2O6	CG2O6C	CG2O6	CG2O6	CG2O6	CG2O6
+CG2O6D	CG2O6	CG2O6D	CG2O6	CG2O6	CG2O6	CG2O6
 CG2O7	CG2O7	CG2O7	CG2O7	CG2O7	CG2O7	CG2O7
 CG2R51	CG2R51	CG2R51	CG2R51	CG2R51	CG2R51	CG2R51
 CG2R51A	CG2R51	CG2R51A	CG2R51	CG2R51	CG2R51	CG2R51
@@ -495,7 +526,6 @@ CG2R64	CG2R64	CG2R64	CG2R64	CG2R64	CG2R64	CG2R64
 CG2R64A	CG2R64	CG2R64A	CG2R64	CG2R64	CG2R64	CG2R64
 CG2R64B	CG2R64	CG2R64B	CG2R64	CG2R64	CG2R64	CG2R64
 CG2R64C	CG2R64	CG2R64C	CG2R64	CG2R64	CG2R64	CG2R64
-CG2R64D	CG2R64	CG2R64D	CG2R64	CG2R64	CG2R64	CG2R64
 CG2R66	CG2R66	CG2R66	CG2R66	CG2R66	CG2R66	CG2R66
 CG2R67	CG2R67	CG2R67	CG2R67	CG2R67	CG2R67	CG2R67
 CG2R71	CG2R71	CG2R71	CG2R71	CG2R71	CG2R71	CG2R71
@@ -507,6 +537,7 @@ CG301B	CG301	CG301B	CG301	CG301	CG301	CG301
 CG301C	CG301	CG301C	CG301	CG301	CG301	CG301
 CG301D	CG301	CG301D	CG301	CG301	CG301	CG301
 CG301E	CG301	CG301E	CG301	CG301	CG301	CG301
+CG301F	CG301	CG301F	CG301	CG301	CG301	CG301
 CG302	CG302	CG302	CG302	CG302	CG302	CG302
 CG302A	CG302	CG302A	CG302	CG302	CG302	CG302
 CG311	CG311	CG311	CG311	CG311	CG311	CG311
@@ -514,6 +545,7 @@ CG311A	CG311	CG311A	CG311	CG311	CG311	CG311
 CG311B	CG311	CG311B	CG311	CG311	CG311	CG311
 CG311C	CG311	CG311C	CG311	CG311	CG311	CG311
 CG311D	CG311	CG311D	CG311	CG311	CG311	CG311
+CG311E	CG311	CG311E	CG311	CG311	CG311	CG311
 CG312	CG312	CG312	CG312	CG312	CG312	CG312
 CG314	CG314	CG314	CG314	CG314	CG314	CG314
 CG321	CG321	CG321	CG321	CG321	CG321	CG321
@@ -530,11 +562,17 @@ CG321J	CG321	CG321J	CG321	CG321	CG321	CG321
 CG321K	CG321	CG321K	CG321	CG321	CG321	CG321
 CG321L	CG321	CG321L	CG321	CG321	CG321	CG321
 CG321M	CG321	CG321M	CG321	CG321	CG321	CG321
+CG321N	CG321	CG321N	CG321	CG321	CG321	CG321
+CG321O	CG321	CG321O	CG321	CG321	CG321	CG321
+CG321P	CG321	CG321P	CG321	CG321	CG321	CG321
 CG322	CG322	CG322	CG322	CG322	CG322	CG322
 CG323	CG323	CG323	CG323	CG323	CG323	CG323
 CG324	CG324	CG324	CG324	CG324	CG324	CG324
 CG324A	CG324	CG324A	CG324	CG324	CG324	CG324
 CG324B	CG324	CG324B	CG324	CG324	CG324	CG324
+CG324C	CG324	CG324C	CG324	CG324	CG324	CG324
+CG324D	CG324	CG324D	CG324	CG324	CG324	CG324
+CG324E	CG324	CG324E	CG324	CG324	CG324	CG324
 CG331	CG331	CG331	CG331	CG331	CG331	CG331
 CG331A	CG331	CG331A	CG331	CG331	CG331	CG331
 CG331B	CG331	CG331B	CG331	CG331	CG331	CG331
@@ -556,6 +594,15 @@ CG331Q	CG331	CG331Q	CG331	CG331	CG331	CG331
 CG334	CG334	CG334	CG334	CG334	CG334	CG334
 CG334A	CG334	CG334A	CG334	CG334	CG334	CG334
 CG341	CG331	CG331	CG331	CG331	CG331	CG331
+CG3A00	CG3AM0	CG3A00	CG301	CG301	CG301	CG301
+CG3A01	CG3AM1	CG3A01	CG301	CG301	CG301	CG301
+CG3A02	CG3AM2	CG3A02	CG301	CG301	CG301	CG301
+CG3A10	CG3AM0	CG3A10	CG311	CG311	CG311	CG311
+CG3A11	CG3AM1	CG3A11	CG311	CG311	CG311	CG311
+CG3A12	CG3AM2	CG3A12	CG311	CG311	CG311	CG311
+CG3A20	CG3AM0	CG3A20	CG321	CG321	CG321	CG321
+CG3A21	CG3AM1	CG3A21	CG321	CG321	CG321	CG321
+CG3A22	CG3AM2	CG3A22	CG321	CG321	CG321	CG321
 CG3AM0	CG3AM0	CG3AM0	CG3AM0	CG3AM0	CG3AM0	CG3AM0
 CG3AM1	CG3AM1	CG3AM1	CG3AM1	CG3AM1	CG3AM1	CG3AM1
 CG3AM2	CG3AM2	CG3AM2	CG3AM2	CG3AM2	CG3AM2	CG3AM2
@@ -567,6 +614,8 @@ CG3C51A	CG3C51	CG3C51A	CG3C51	CG3C51	CG3C51	CG3C51
 CG3C52	CG3C52	CG3C52	CG3C52	CG3C52	CG3C52	CG3C52
 CG3C52A	CG3C52	CG3C52A	CG3C52	CG3C52	CG3C52	CG3C52
 CG3C52B	CG3C52	CG3C52B	CG3C52	CG3C52	CG3C52	CG3C52
+CG3C52C	CG3C52	CG3C52C	CG3C52	CG3C52	CG3C52	CG3C52
+CG3C52D	CG3C52	CG3C52D	CG3C52	CG3C52	CG3C52	CG3C52
 CG3C53	CG3C53	CG3C53	CG3C53	CG3C53	CG3C53	CG3C53
 CG3C54	CG3C54	CG3C54	CG3C54	CG3C54	CG3C54	CG3C54
 CG3RC1	CG3RC1	CG3RC1	CG3RC1	CG3RC1	CG3RC1	CG3RC1
@@ -588,6 +637,12 @@ HGA41	HGA3	HGA3	HGA3	HGA3	HGA3	HGA3
 HGA5	HGA5	HGA5	HGA5	HGA5	HGA5	HGA5
 HGA6	HGA6	HGA6	HGA6	HGA6	HGA6	HGA6
 HGA7	HGA7	HGA7	HGA7	HGA7	HGA7	HGA7
+HGAA10	HGAAM0	HGAA10	HGA1	HGA1	HGA1	HGA1
+HGAA11	HGAAM1	HGAA11	HGA1	HGA1	HGA1	HGA1
+HGAA12	HGAAM2	HGAA12	HGA1	HGA1	HGA1	HGA1
+HGAA20	HGAAM0	HGAA20	HGA2	HGA2	HGA2	HGA2
+HGAA21	HGAAM1	HGAA21	HGA2	HGA2	HGA2	HGA2
+HGAA22	HGAAM2	HGAA22	HGA2	HGA2	HGA2	HGA2
 HGAAM0	HGAAM0	HGAAM0	HGAAM0	HGAAM0	HGAAM0	HGAAM0
 HGAAM1	HGAAM1	HGAAM1	HGAAM1	HGAAM1	HGAAM1	HGAAM1
 HGAAM2	HGAAM2	HGAAM2	HGAAM2	HGAAM2	HGAAM2	HGAAM2
@@ -608,8 +663,10 @@ HGR63	HGR63	HGR63	HGR63	HGR63	HGR63	HGR63
 HGR71	HGR71	HGR71	HGR71	HGR71	HGR71	HGR71
 HGTIP3	HGTIP3	HGTIP3	HGTIP3	HGTIP3	HGTIP3	HGTIP3
 IGR1	IGR1	IGR1	IGR1	IGR1	IGR1	IGR1
+LPG1	LPG1	LPG1	LPG1	LPG1	LPG1	LPG1
 NE	NE	NE	NE	NE	NE	NE
 NG1T1	NG1T1	NG1T1	NG1T1	NG1T1	NG1T1	NG1T1
+NG2C50	NG2S0	NG2C50	NG2R53	NG2R53	NG2R53	NG2R53
 NG2D1	NG2D1	NG2D1	NG2D1	NG2D1	NG2D1	NG2D1
 NG2O1	NG2O1	NG2O1	NG2O1	NG2O1	NG2O1	NG2O1
 NG2P1	NG2P1	NG2P1	NG2P1	NG2P1	NG2P1	NG2P1
@@ -638,7 +695,6 @@ NG2S1A	NG2S1	NG2S1A	NG2S1	NG2S1	NG2S1	NG2S1
 NG2S1B	NG2S1	NG2S1B	NG2S1	NG2S1	NG2S1	NG2S1
 NG2S1C	NG2S1	NG2S1C	NG2S1	NG2S1	NG2S1	NG2S1
 NG2S1D	NG2S1	NG2S1D	NG2S1	NG2S1	NG2S1	NG2S1
-NG2S1E	NG2S1	NG2S1E	NG2S1	NG2S1	NG2S1	NG2S1
 NG2S2	NG2S2	NG2S2	NG2S2	NG2S2	NG2S2	NG2S2
 NG2S2A	NG2S2	NG2S2A	NG2S2	NG2S2	NG2S2	NG2S2
 NG2S2B	NG2S2	NG2S2B	NG2S2	NG2S2	NG2S2	NG2S2
@@ -696,6 +752,7 @@ PG0	PG0	PG0	PG0	PG0	PG0	PG0
 PG1	PG1	PG1	PG1	PG1	PG1	PG1
 PG2	PG2	PG2	PG2	PG2	PG2	PG2
 SG2D1	SG2D1	SG2D1	SG2D1	SG2D1	SG2D1	SG2D1
+SG2D2	SG2D1	SG2D2	SG2D1	SG2D1	SG2D1	SG2D1
 SG2R50	SG2R50	SG2R50	SG2R50	SG2R50	SG2R50	SG2R50
 SG2R50A	SG2R50	SG2R50A	SG2R50	SG2R50	SG2R50	SG2R50
 SG301	SG301	SG301	SG301	SG301	SG301	SG301
@@ -712,6 +769,7 @@ SG3O2	SG3O2	SG3O2	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2A	SG3O2	SG3O2A	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2B	SG3O2	SG3O2B	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2C	SG3O2	SG3O2C	SG3O2	SG3O2	SG3O2	SG3O2
+SG3O2D	SG3O2	SG3O2D	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2E	SG3O2	SG3O2E	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2F	SG3O2	SG3O2F	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O3	SG3O3	SG3O3	SG3O3	SG3O3	SG3O3	SG3O3
@@ -745,6 +803,7 @@ CG2D2O	CG2D2O	CG2D2O	CG2D2O	CG2D2O	CG2D2O	CG2D2O
 CG2DC1	CG2DC1	CG2DC1	CG2DC1	CG2DC1	CG2DC1	CG2DC1
 CG2DC2	CG2DC2	CG2DC2	CG2DC2	CG2DC2	CG2DC2	CG2DC2
 CG2DC3	CG2DC3	CG2DC3	CG2DC3	CG2DC3	CG2DC3	CG2DC3
+CG2L61	CG2R61	CG2L61	CG2R61	CG2R61	CG2R61	CG2R61
 CG2N1	CG2N1	CG2N1	CG2N1	CG2N1	CG2N1	CG2N1
 CG2N1A	CG2N1	CG2N1A	CG2N1	CG2N1	CG2N1	CG2N1
 CG2N1B	CG2N1	CG2N1B	CG2N1	CG2N1	CG2N1	CG2N1
@@ -755,12 +814,11 @@ CG2O1B	CG2O1	CG2O1B	CG2O1	CG2O1	CG2O1	CG2O1
 CG2O1C	CG2O1	CG2O1C	CG2O1	CG2O1	CG2O1	CG2O1
 CG2O1D	CG2O1	CG2O1D	CG2O1	CG2O1	CG2O1	CG2O1
 CG2O1E	CG2O1	CG2O1E	CG2O1	CG2O1	CG2O1	CG2O1
-CG2O1F	CG2O1	CG2O1F	CG2O1	CG2O1	CG2O1	CG2O1
 CG2O2	CG2O2	CG2O2	CG2O2	CG2O2	CG2O2	CG2O2
 CG2O2A	CG2O2	CG2O2A	CG2O2	CG2O2	CG2O2	CG2O2
 CG2O2B	CG2O2	CG2O2B	CG2O2	CG2O2	CG2O2	CG2O2
-CG2O2C	CG2O2	CG2O2C	CG2O2	CG2O2	CG2O2	CG2O2
 CG2O3	CG2O3	CG2O3	CG2O3	CG2O3	CG2O3	CG2O3
+CG2O3A	CG2O3	CG2O3A	CG2O3	CG2O3	CG2O3	CG2O3
 CG2O4	CG2O4	CG2O4	CG2O4	CG2O4	CG2O4	CG2O4
 CG2O4A	CG2O4	CG2O4A	CG2O4	CG2O4	CG2O4	CG2O4
 CG2O4B	CG2O4	CG2O4B	CG2O4	CG2O4	CG2O4	CG2O4
@@ -771,6 +829,8 @@ CG2O5C	CG2O5	CG2O5C	CG2O5	CG2O5	CG2O5	CG2O5
 CG2O5D	CG2O5	CG2O5D	CG2O5	CG2O5	CG2O5	CG2O5
 CG2O6	CG2O6	CG2O6	CG2O6	CG2O6	CG2O6	CG2O6
 CG2O6A	CG2O6	CG2O6A	CG2O6	CG2O6	CG2O6	CG2O6
+CG2O6C	CG2O6	CG2O6C	CG2O6	CG2O6	CG2O6	CG2O6
+CG2O6D	CG2O6	CG2O6D	CG2O6	CG2O6	CG2O6	CG2O6
 CG2O7	CG2O7	CG2O7	CG2O7	CG2O7	CG2O7	CG2O7
 CG2R51	CG2R51	CG2R51	CG2R51	CG2R51	CG2R51	CG2R51
 CG2R51A	CG2R51	CG2R51A	CG2R51	CG2R51	CG2R51	CG2R51
@@ -831,7 +891,6 @@ CG2R64	CG2R64	CG2R64	CG2R64	CG2R64	CG2R64	CG2R64
 CG2R64A	CG2R64	CG2R64A	CG2R64	CG2R64	CG2R64	CG2R64
 CG2R64B	CG2R64	CG2R64B	CG2R64	CG2R64	CG2R64	CG2R64
 CG2R64C	CG2R64	CG2R64C	CG2R64	CG2R64	CG2R64	CG2R64
-CG2R64D	CG2R64	CG2R64D	CG2R64	CG2R64	CG2R64	CG2R64
 CG2R66	CG2R66	CG2R66	CG2R66	CG2R66	CG2R66	CG2R66
 CG2R67	CG2R67	CG2R67	CG2R67	CG2R67	CG2R67	CG2R67
 CG2R71	CG2R71	CG2R71	CG2R71	CG2R71	CG2R71	CG2R71
@@ -843,6 +902,7 @@ CG301B	CG301	CG301B	CG301	CG301	CG301	CG301
 CG301C	CG301	CG301C	CG301	CG301	CG301	CG301
 CG301D	CG301	CG301D	CG301	CG301	CG301	CG301
 CG301E	CG301	CG301E	CG301	CG301	CG301	CG301
+CG301F	CG301	CG301F	CG301	CG301	CG301	CG301
 CG302	CG302	CG302	CG302	CG302	CG302	CG302
 CG302A	CG302	CG302A	CG302	CG302	CG302	CG302
 CG311	CG311	CG311	CG311	CG311	CG311	CG311
@@ -850,6 +910,7 @@ CG311A	CG311	CG311A	CG311	CG311	CG311	CG311
 CG311B	CG311	CG311B	CG311	CG311	CG311	CG311
 CG311C	CG311	CG311C	CG311	CG311	CG311	CG311
 CG311D	CG311	CG311D	CG311	CG311	CG311	CG311
+CG311E	CG311	CG311E	CG311	CG311	CG311	CG311
 CG312	CG312	CG312	CG312	CG312	CG312	CG312
 CG314	CG314	CG314	CG314	CG314	CG314	CG314
 CG321	CG321	CG321	CG321	CG321	CG321	CG321
@@ -866,11 +927,17 @@ CG321J	CG321	CG321J	CG321	CG321	CG321	CG321
 CG321K	CG321	CG321K	CG321	CG321	CG321	CG321
 CG321L	CG321	CG321L	CG321	CG321	CG321	CG321
 CG321M	CG321	CG321M	CG321	CG321	CG321	CG321
+CG321N	CG321	CG321N	CG321	CG321	CG321	CG321
+CG321O	CG321	CG321O	CG321	CG321	CG321	CG321
+CG321P	CG321	CG321P	CG321	CG321	CG321	CG321
 CG322	CG322	CG322	CG322	CG322	CG322	CG322
 CG323	CG323	CG323	CG323	CG323	CG323	CG323
 CG324	CG324	CG324	CG324	CG324	CG324	CG324
 CG324A	CG324	CG324A	CG324	CG324	CG324	CG324
 CG324B	CG324	CG324B	CG324	CG324	CG324	CG324
+CG324C	CG324	CG324C	CG324	CG324	CG324	CG324
+CG324D	CG324	CG324D	CG324	CG324	CG324	CG324
+CG324E	CG324	CG324E	CG324	CG324	CG324	CG324
 CG331	CG331	CG331	CG331	CG331	CG331	CG331
 CG331A	CG331	CG331A	CG331	CG331	CG331	CG331
 CG331B	CG331	CG331B	CG331	CG331	CG331	CG331
@@ -892,6 +959,15 @@ CG331Q	CG331	CG331Q	CG331	CG331	CG331	CG331
 CG334	CG334	CG334	CG334	CG334	CG334	CG334
 CG334A	CG334	CG334A	CG334	CG334	CG334	CG334
 CG341	CG331	CG331	CG331	CG331	CG331	CG331
+CG3A00	CG3AM0	CG3A00	CG301	CG301	CG301	CG301
+CG3A01	CG3AM1	CG3A01	CG301	CG301	CG301	CG301
+CG3A02	CG3AM2	CG3A02	CG301	CG301	CG301	CG301
+CG3A10	CG3AM0	CG3A10	CG311	CG311	CG311	CG311
+CG3A11	CG3AM1	CG3A11	CG311	CG311	CG311	CG311
+CG3A12	CG3AM2	CG3A12	CG311	CG311	CG311	CG311
+CG3A20	CG3AM0	CG3A20	CG321	CG321	CG321	CG321
+CG3A21	CG3AM1	CG3A21	CG321	CG321	CG321	CG321
+CG3A22	CG3AM2	CG3A22	CG321	CG321	CG321	CG321
 CG3AM0	CG3AM0	CG3AM0	CG3AM0	CG3AM0	CG3AM0	CG3AM0
 CG3AM1	CG3AM1	CG3AM1	CG3AM1	CG3AM1	CG3AM1	CG3AM1
 CG3AM2	CG3AM2	CG3AM2	CG3AM2	CG3AM2	CG3AM2	CG3AM2
@@ -903,6 +979,8 @@ CG3C51A	CG3C51	CG3C51A	CG3C51	CG3C51	CG3C51	CG3C51
 CG3C52	CG3C52	CG3C52	CG3C52	CG3C52	CG3C52	CG3C52
 CG3C52A	CG3C52	CG3C52A	CG3C52	CG3C52	CG3C52	CG3C52
 CG3C52B	CG3C52	CG3C52B	CG3C52	CG3C52	CG3C52	CG3C52
+CG3C52C	CG3C52	CG3C52C	CG3C52	CG3C52	CG3C52	CG3C52
+CG3C52D	CG3C52	CG3C52D	CG3C52	CG3C52	CG3C52	CG3C52
 CG3C53	CG3C53	CG3C53	CG3C53	CG3C53	CG3C53	CG3C53
 CG3C54	CG3C54	CG3C54	CG3C54	CG3C54	CG3C54	CG3C54
 CG3RC1	CG3RC1	CG3RC1	CG3RC1	CG3RC1	CG3RC1	CG3RC1
@@ -924,6 +1002,12 @@ HGA41	HGA3	HGA3	HGA3	HGA3	HGA3	HGA3
 HGA5	HGA5	HGA5	HGA5	HGA5	HGA5	HGA5
 HGA6	HGA6	HGA6	HGA6	HGA6	HGA6	HGA6
 HGA7	HGA7	HGA7	HGA7	HGA7	HGA7	HGA7
+HGAA10	HGAAM0	HGAA10	HGA1	HGA1	HGA1	HGA1
+HGAA11	HGAAM1	HGAA11	HGA1	HGA1	HGA1	HGA1
+HGAA12	HGAAM2	HGAA12	HGA1	HGA1	HGA1	HGA1
+HGAA20	HGAAM0	HGAA20	HGA2	HGA2	HGA2	HGA2
+HGAA21	HGAAM1	HGAA21	HGA2	HGA2	HGA2	HGA2
+HGAA22	HGAAM2	HGAA22	HGA2	HGA2	HGA2	HGA2
 HGAAM0	HGAAM0	HGAAM0	HGAAM0	HGAAM0	HGAAM0	HGAAM0
 HGAAM1	HGAAM1	HGAAM1	HGAAM1	HGAAM1	HGAAM1	HGAAM1
 HGAAM2	HGAAM2	HGAAM2	HGAAM2	HGAAM2	HGAAM2	HGAAM2
@@ -944,8 +1028,10 @@ HGR63	HGR63	HGR63	HGR63	HGR63	HGR63	HGR63
 HGR71	HGR71	HGR71	HGR71	HGR71	HGR71	HGR71
 HGTIP3	HGTIP3	HGTIP3	HGTIP3	HGTIP3	HGTIP3	HGTIP3
 IGR1	IGR1	IGR1	IGR1	IGR1	IGR1	IGR1
+LPG1	LPG1	LPG1	LPG1	LPG1	LPG1	LPG1
 NE	NE	NE	NE	NE	NE	NE
 NG1T1	NG1T1	NG1T1	NG1T1	NG1T1	NG1T1	NG1T1
+NG2C50	NG2S0	NG2C50	NG2R53	NG2R53	NG2R53	NG2R53
 NG2D1	NG2D1	NG2D1	NG2D1	NG2D1	NG2D1	NG2D1
 NG2O1	NG2O1	NG2O1	NG2O1	NG2O1	NG2O1	NG2O1
 NG2P1	NG2P1	NG2P1	NG2P1	NG2P1	NG2P1	NG2P1
@@ -974,7 +1060,6 @@ NG2S1A	NG2S1	NG2S1A	NG2S1	NG2S1	NG2S1	NG2S1
 NG2S1B	NG2S1	NG2S1B	NG2S1	NG2S1	NG2S1	NG2S1
 NG2S1C	NG2S1	NG2S1C	NG2S1	NG2S1	NG2S1	NG2S1
 NG2S1D	NG2S1	NG2S1D	NG2S1	NG2S1	NG2S1	NG2S1
-NG2S1E	NG2S1	NG2S1E	NG2S1	NG2S1	NG2S1	NG2S1
 NG2S2	NG2S2	NG2S2	NG2S2	NG2S2	NG2S2	NG2S2
 NG2S2A	NG2S2	NG2S2A	NG2S2	NG2S2	NG2S2	NG2S2
 NG2S2B	NG2S2	NG2S2B	NG2S2	NG2S2	NG2S2	NG2S2
@@ -1032,6 +1117,7 @@ PG0	PG0	PG0	PG0	PG0	PG0	PG0
 PG1	PG1	PG1	PG1	PG1	PG1	PG1
 PG2	PG2	PG2	PG2	PG2	PG2	PG2
 SG2D1	SG2D1	SG2D1	SG2D1	SG2D1	SG2D1	SG2D1
+SG2D2	SG2D1	SG2D2	SG2D1	SG2D1	SG2D1	SG2D1
 SG2R50	SG2R50	SG2R50	SG2R50	SG2R50	SG2R50	SG2R50
 SG2R50A	SG2R50	SG2R50A	SG2R50	SG2R50	SG2R50	SG2R50
 SG301	SG301	SG301	SG301	SG301	SG301	SG301
@@ -1048,6 +1134,7 @@ SG3O2	SG3O2	SG3O2	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2A	SG3O2	SG3O2A	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2B	SG3O2	SG3O2B	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2C	SG3O2	SG3O2C	SG3O2	SG3O2	SG3O2	SG3O2
+SG3O2D	SG3O2	SG3O2D	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2E	SG3O2	SG3O2E	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O2F	SG3O2	SG3O2F	SG3O2	SG3O2	SG3O2	SG3O2
 SG3O3	SG3O3	SG3O3	SG3O3	SG3O3	SG3O3	SG3O3
@@ -1101,6 +1188,8 @@ CG2DC2	CG321	0	0
 CG2DC2	CG331	0	0
 CG2DC2	HGA4	-0.15	0.15
 CG2DC3	HGA5	-0.21	0.21
+CG2L61	HGR61	-0.05	0.05
+CG2L61	LPG1	0.15	-0.15
 CG2N1	NG2D1	0.62	-0.62
 CG2N1	NG2P1	0.38	0.12
 CG2N1	NG2P1A	-0.12	0.12
@@ -1121,38 +1210,39 @@ CG2O1	NG2S2	0	0
 CG2O1	OG2D1	0.51	-0.51
 CG2O1A	NG2S0	-0.03	0.03
 CG2O1A	OG2D1	0.54	-0.54
-CG2O1B	CG331B	-0.08	0.08
-CG2O1B	NG2S0	-0.01	0.01
-CG2O1B	OG2D1	0.52	-0.52
-CG2O1C	NG2S1B	0.09	-0.09
-CG2O1C	OG2D1	0.49	-0.49
-CG2O1D	NG2S2A	-0.01	0.01
-CG2O1E	OG2D1	0.55	-0.55
-CG2O1F	OG2D1	0.52	-0.52
+CG2O1B	NG2S1	0.09	-0.09
+CG2O1B	OG2D1	0.49	-0.49
+CG2O1C	NG2S2A	-0.01	0.01
+CG2O1D	OG2D1	0.55	-0.55
+CG2O1E	OG2D1	0.52	-0.52
 CG2O2	CG2R61	-0.08	0.08
 CG2O2	CG301	0.04	-0.04
-CG2O2	CG311	0.03	-0.03
+CG2O2	CG311	0.04	-0.04
 CG2O2	CG321	0.04	-0.04
 CG2O2	CG331	0.04	-0.04
 CG2O2	OG2D1	0.63	-0.63
 CG2O2	OG302	0.23	-0.23
 CG2O2	OG311	0.17	-0.17
-CG2O2A	CG301B	0.03	-0.03
-CG2O2A	CG321B	0.03	-0.03
-CG2O2A	CG331C	0.03	-0.03
+CG2O2A	CG301A	0.03	-0.03
+CG2O2A	CG311A	0.03	-0.03
+CG2O2A	CG321A	0.03	-0.03
+CG2O2A	CG331B	0.03	-0.03
 CG2O2A	OG2D1	0.55	-0.55
 CG2O2B	OG2D1	0.46	-0.46
 CG2O2B	OG311A	0.08	-0.08
-CG2O2C	CG311B	0.09	-0.09
-CG2O2C	OG302	0.18	-0.18
 CG2O3	CG2O5	0.1	-0.1
 CG2O3	CG2R61	0.1	-0.1
 CG2O3	CG3*	0.1	-0.1
+CG2O3	CG301	0.1	-0.1
 CG2O3	CG311	0.1	-0.1
+CG2O3	CG314	0.1	-0.1
 CG2O3	CG321	0.1	-0.1
 CG2O3	CG324	0.1	-0.1
 CG2O3	CG331	0.1	-0.1
+CG2O3	NG301	0	0
 CG2O3	OG2D2	0.26	-0.76
+CG2O3	SG2D2	0.13	-0.63
+CG2O3A	OG2D2	0.12	-0.67
 CG2O4	CG2R61	-0.09	0.09
 CG2O4	CG321	-0.11	0.11
 CG2O4	CG331	-0.11	0.11
@@ -1168,7 +1258,7 @@ CG2O5	CG331	-0.04	0.04
 CG2O5	OG2D3	0.48	-0.48
 CG2O5A	CG2R61	0	0
 CG2O5B	CG2R61	-0.12	0.12
-CG2O5B	CG321C	-0.01	0.01
+CG2O5B	CG321B	-0.01	0.01
 CG2O5B	OG2D3	0.47	-0.47
 CG2O5C	OG2D3	0.47	-0.47
 CG2O5D	OG2D3	0.46	-0.46
@@ -1176,19 +1266,24 @@ CG2O6	NG2S1	-0.17	0.17
 CG2O6	NG2S2	0.01	-0.01
 CG2O6	OG2D1	0.39	-0.39
 CG2O6	OG2D2	0.47333	-1.14
-CG2O6	OG302	-0.02	0.02
+CG2O6	OG302	-0.08	0.08
+CG2O6	OG311	0.17	-0.17
+CG2O6A	NG2S1	0	0
 CG2O6A	OG2D1	0.58	-0.58
+CG2O6C	OG2D2	0.26	-0.76
+CG2O6D	OG302	-0.02	0.02
 CG2O7	OG2D5	0.3	-0.3
 CG2R51	CG2R51	0	0
 CG2R51	CG2R51B	-0.1	0.1
 CG2R51	CG2R52	-0.25	0.25
 CG2R51	CG2R53	0.08	-0.08
-CG2R51	CG321	-0.13	0.13
+CG2R51	CG321	-0.1	0.1
+CG2R51	CG321C	-0.13	0.13
 CG2R51	CG321D	-0.09	0.09
 CG2R51	CG331	-0.09	0.09
 CG2R51	CG3C52	0	0
 CG2R51	HGR51	-0.15	0.15
-CG2R51	HGR52	-0.13	0.13
+CG2R51	HGR52	-0.1	0.1
 CG2R51	NG2R50	0.32	-0.32
 CG2R51	NG2R51	0.04	-0.04
 CG2R51	NG2R52	0.32	-0.32
@@ -1204,14 +1299,13 @@ CG2R51B	HGR52	-0.14	0.14
 CG2R51B	NG2R51A	0	0
 CG2R51B	OG2R50	0.28	-0.28
 CG2R51B	OG2R50A	0.14	-0.14
-CG2R51C	HGR52	-0.1	0.1
 CG2R51D	CG2R51T	0.02	-0.02
-CG2R51D	HGR52	-0.1	0.1
 CG2R51D	NG2R50	0.34	-0.34
 CG2R51E	CG2R51L	-0.07	0.07
 CG2R51E	HGR52	-0.18	0.18
 CG2R51E	SG2R50A	0.05	-0.05
 CG2R51F	CG2R51O	-0.04	0.04
+CG2R51F	HGR52	-0.13	0.13
 CG2R51F	NG2R50	0.29	-0.29
 CG2R51G	CG2R52A	-0.1	0.1
 CG2R51G	HGR51	-0.14	0.14
@@ -1222,7 +1316,7 @@ CG2R51J	CG3C52A	-0.07	0.07
 CG2R51J	HGR51	-0.21	0.21
 CG2R51K	HGR51	-0.18	0.18
 CG2R51L	HGR51	-0.17	0.17
-CG2R51M	HGR52	-0.1	0.1
+CG2R51M	HGR52	-0.13	0.13
 CG2R51O	HGR52	-0.21	0.21
 CG2R51O	SG2R50	-0.05	0.05
 CG2R51P	HGR52	-0.2	0.2
@@ -1239,13 +1333,14 @@ CG2R52	NG2R50	0.27	-0.27
 CG2R52A	HGR52	-0.13	0.13
 CG2R52A	NG2R50	0.17	-0.17
 CG2R52B	NG2R50	0.21	-0.21
-CG2R53	CG3C52	-0.25	0.25
+CG2R53	CG3C52	0	0
 CG2R53	HGR52	-0.13	0.13
 CG2R53	HGR53	-0.18	0.18
+CG2R53	NG2C50	0	0
 CG2R53	NG2R50	0.38	-0.38
 CG2R53	NG2R51	0	0
 CG2R53	NG2R52	0.25	0.25
-CG2R53	OG2D1	0.39	-0.39
+CG2R53	OG2D1	0.51	-0.51
 CG2R53	OG2R50	0.11	-0.11
 CG2R53	OG3C51	0.01	-0.01
 CG2R53	SG2R50	0.04	-0.04
@@ -1253,11 +1348,10 @@ CG2R53A	HGR52	-0.19	0.19
 CG2R53A	NG2R50	0.3	-0.3
 CG2R53B	HGR52	-0.14	0.14
 CG2R53B	NG2R50	0.32	-0.32
-CG2R53C	HGR52	-0.12	0.12
-CG2R53C	NG2R50	0.41	-0.41
-CG2R53C	NG2R51	0.05	-0.05
-CG2R53D	NG2R50	0.36	-0.36
-CG2R53D	NG2R51	0.02	-0.02
+CG2R53C	NG2R50	0.36	-0.36
+CG2R53C	NG2R51	0.02	-0.02
+CG2R53D	CG3C52B	-0.25	0.25
+CG2R53D	OG2D1	0.39	-0.39
 CG2R53E	OG2D1	0.43	-0.43
 CG2R53E	OG3C51	-0.06	0.06
 CG2R53F	CG3C52A	-0.17	0.17
@@ -1277,15 +1371,16 @@ CG2R61	HGR62	-0.12	0.12
 CG2R61	IGR1	0.08	-0.08
 CG2R61	NG2O1	0.28	-0.28
 CG2R61	NG2R60	0.3	-0.3
-CG2R61	NG2R62	0.535	-0.535
+CG2R61	NG2R62	0.41	-0.41
 CG2R61	NG2S1	0.14	-0.14
-CG2R61	NG2S3	0.05	-0.05
+CG2R61	NG2S3	0.09	-0.09
 CG2R61	NG301	0.13	-0.13
 CG2R61	NG311	0.24	-0.24
 CG2R61	OG301	0.22	-0.22
 CG2R61	OG303	0.34	-0.34
 CG2R61	OG311	0.11	-0.11
 CG2R61	OG312	-0.24	-0.76
+CG2R61	SG311	0.03	-0.03
 CG2R61	SG3O1	-0.4	0.4
 CG2R61	SG3O2	0.24	-0.24
 CG2R61	SG3O2A	0.23	-0.23
@@ -1312,59 +1407,63 @@ CG2R61O	HGR62	-0.14	0.14
 CG2R61P	HGR62	-0.1	0.1
 CG2R61P	NG2R60A	0.28	-0.28
 CG2R61Q	HGR62	-0.07	0.07
-CG2R61R	NG2R62	0.41	-0.41
-CG2R61S	NG2S1	0.3	-0.3
+CG2R61Q	NG2R62A	0.535	-0.535
+CG2R61R	NG2S1A	0.3	-0.3
+CG2R61S	NG2S3A	0.05	-0.05
 CG2R61T	NG311A	0.21	-0.21
 CG2R61U	OG303	0.32	-0.32
-CG2R64	CG2RC0	0.02	-0.02
 CG2R64	HGR62	-0.14	0.14
 CG2R64	NG2R60	0.3	-0.3
 CG2R64	NG2R62	0.32	-0.32
 CG2R64	NG2S1	0.3	-0.3
 CG2R64	NG2S3	0.01	-0.01
-CG2R64A	HGR62	-0.13	0.13
-CG2R64A	NG2R62	0.31	-0.31
-CG2R64B	HGR62	-0.1	0.1
-CG2R64B	NG2R62	0.44	-0.44
-CG2R64C	HGR62	-0.09	0.09
-CG2R64C	NG2R62	0.405	-0.405
-CG2R64D	NG2R62	0.43	-0.43
+CG2R64A	HGR62	-0.1	0.1
+CG2R64A	NG2R62	0.44	-0.44
+CG2R64B	HGR62	-0.09	0.09
+CG2R64B	NG2R62	0.405	-0.405
+CG2R64C	NG2R62	0.41	-0.41
 CG2R66	FGR1	0.21	-0.21
 CG2R67	CG2R67	0	0
-CG2RC0	CG2RC0	0	0
-CG2RC0	NG2R50	0.3	-0.3
-CG2RC0	NG2R51	0	0
-CG2RC0	NG2R62	0.43	-0.43
 CG3*	OG301	0.17	-0.17
+CG301	CG301	0	0
+CG301	CG311	0	0
 CG301	CG321	0	0
 CG301	CG331	0	0
+CG301	CG3C5*	0	0
 CG301	CLGA3	-0.14	0.14
-CG301	OG302	0.26	-0.26
+CG301	NG2C50	0.18	-0.18
+CG301	NG2S1	0.23	-0.23
+CG301	OG302	0.32	-0.32
 CG301	OG311	0.23	-0.23
 CG301*	NG2S0	0.18	-0.18
-CG301A	OG303	-0.1	0.1
-CG301C	CG331	0.18	-0.18
-CG301D	CG331	-0.15	0.15
-CG301E	OG311	0.18	-0.18
+CG301B	CG331	0.18	-0.18
+CG301C	CG331	-0.15	0.15
+CG301D	NG2S1	0.16	-0.16
+CG301E	OG302	0.26	-0.26
+CG301F	OG311	0.18	-0.18
 CG302	CG321	-0.08	0.08
 CG302	CG331	-0.07	0.07
 CG302	FGA3	0.15	-0.15
 CG302A	FGA3	0.14	-0.14
+CG311	CG311	0	0
 CG311	CG321	0	0
 CG311	CG324	0	0
 CG311	CG331	0	0
+CG311	CG3C5*	0	0
 CG311	CLGA1	0.04	-0.04
 CG311	HGA1	-0.09	0.09
+CG311	HGA2	-0.09	0.09
+CG311	NG2C50	0.18	-0.18
 CG311	NG2S1	0.16	-0.16
-CG311	NG301	0.16	-0.16
 CG311	OG302	0.26	-0.26
 CG311	OG311	0.23	-0.23
 CG311*	NG2S0	0.18	-0.18
-CG311A	OG303	-0.1	0.1
-CG311C	CG331	0.26	-0.26
+CG311B	CG331	0.26	-0.26
+CG311B	HGA1	-0.22	0.22
+CG311C	CG331	0.24	-0.24
 CG311C	HGA1	-0.22	0.22
-CG311D	CG331	0.24	-0.24
-CG311D	HGA1	-0.22	0.22
+CG311D	NG2S1A	0.23	-0.23
+CG311E	OG302	0.32	-0.32
 CG312	CG331	-0.04	0.04
 CG312	FGA2	0.19	-0.19
 CG312	HGA7	-0.1	0.1
@@ -1372,15 +1471,27 @@ CG314	CG321	0	0
 CG314	HGA1	-0.09	0.09
 CG314	NG3P0	0.4	-0.15
 CG314	NG3P2	0.38	-0.06667
+CG314	NG3P3	0.41	-0.03
 CG321	CG321	0	0
 CG321	CG324	0	0
 CG321	CG331	0	0
+CG321	CG3A0*	0	0
+CG321	CG3A1*	0	0
+CG321	CG3A2*	0	0
+CG321	CG3A20	0	0
+CG321	CG3A21	0	0
+CG321	CG3A22	0	0
+CG321	CG3C31	0	0
+CG321	CG3C5*	0	0
 CG321	CG3C51	0	0
 CG321	CLGA1	0.1	-0.1
 CG321	HGA2	-0.09	0.09
-CG321	NG2S1	0.23	-0.23
+CG321	NG2C50	0.18	-0.18
+CG321	NG2S1	0.16	-0.16
 CG321	NG2S3	0.07	-0.07
+CG321	NG301	0.19	-0.19
 CG321	NG311	0.24	-0.24
+CG321	NG3P0	0.07	-0.07
 CG321	OG301	0.17	-0.17
 CG321	OG302	0.26	-0.26
 CG321	OG303	0.1	-0.1
@@ -1398,18 +1509,20 @@ CG321	SG3O1	-0.08	0.08
 CG321	SG3O2	0.29	-0.29
 CG321	SG3O3	0.12	-0.12
 CG321*	NG2S0	0.18	-0.18
-CG321A	OG303	-0.1	0.1
 CG321E	CG331	0.25	-0.25
 CG321E	HGA2	-0.14	0.14
 CG321F	CLGA1	0.04	-0.04
 CG321G	HGA2	-0.11	0.11
-CG321H	NG2S1D	0	0
-CG321I	OG302	0.34	-0.34
-CG321J	OG311	0.18	-0.18
-CG321J	OG311B	0.18	-0.18
-CG321K	SG311	0.09	-0.09
-CG321L	SG311	0.05	-0.05
-CG321M	SG3O2	0.22	-0.22
+CG321H	NG2S1A	0.23	-0.23
+CG321I	NG2S1C	0	0
+CG321J	OG302	0.34	-0.34
+CG321K	OG302	0.32	-0.32
+CG321L	OG303	-0.1	-0.9
+CG321M	OG311	0.18	-0.18
+CG321M	OG311B	0.18	-0.18
+CG321N	SG311	0.09	-0.09
+CG321O	SG311	0.05	-0.05
+CG321P	SG3O2	0.22	-0.22
 CG322	CG331	-0.06	0.06
 CG322	FGA1	0.22	-0.22
 CG322	HGA6	-0.11	0.11
@@ -1420,22 +1533,34 @@ CG323	SG302	-0.2	-0.8
 CG324	CG331	0	0
 CG324	HGA2	-0.09	0.09
 CG324	HGP5	-0.25	0.25
-CG324	NG301	0.22	-0.22
 CG324	NG3P0	0.4	-0.15
-CG324	NG3P1	0.33	-0.13333
+CG324	NG3P1	0.33	-0.032
 CG324	NG3P2	0.38	-0.1
 CG324	NG3P3	0.31	-0.03
 CG324	NG3P62	0.38	-0.115
 CG324A	HGA2	-0.05	0.05
-CG324B	NG3P2A	0.38	-0.06667
+CG324B	NG3P0	0.5	-0.15
+CG324C	NG3P1A	0.4	-0.06667
+CG324D	NG3P2A	0.38	-0.06667
+CG324E	NG3P3	0.41	-0.03
 CG331	CG331	0	0
+CG331	CG3A0*	0	0
+CG331	CG3A1*	0	0
+CG331	CG3A10	0	0
+CG331	CG3A2*	0	0
+CG331	CG3A20	0	0
+CG331	CG3A21	0	0
+CG331	CG3A22	0	0
+CG331	CG3C31	0	0
 CG331	CG3C51	0	0
 CG331	HGA3	-0.09	0.09
+CG331	NG2C50	0.18	-0.18
 CG331	NG2D1	0.24	-0.24
 CG331	NG2S0	0.18	-0.18
 CG331	NG2S1	0.16	-0.16
 CG331	NG301	0.18	-0.18
 CG331	NG311	0.24	-0.24
+CG331	NG3P0	0.07	-0.07
 CG331	OG301	0.17	-0.17
 CG331	OG302	0.26	-0.26
 CG331	OG303	0.1	-0.1
@@ -1446,17 +1571,18 @@ CG331	SG311	0.07	-0.07
 CG331	SG3O1	-0.08	0.08
 CG331	SG3O2	0.32	-0.32
 CG331	SG3O3	0.12	-0.12
-CG331D	HGA3	-0.11	0.11
-CG331E	NG2D1	0.22	-0.22
-CG331F	NG2S1	0.23	-0.23
-CG331G	NG2S1E	0.19	-0.19
-CG331H	NG311C	0.07	-0.07
-CG331I	OG302	0.34	-0.34
+CG331C	HGA3	-0.11	0.11
+CG331D	NG2D1	0.22	-0.22
+CG331E	NG2S1A	0.23	-0.23
+CG331F	NG2S1D	0.19	-0.19
+CG331G	NG311C	0.07	-0.07
+CG331H	OG302	0.34	-0.34
+CG331I	OG302	0.32	-0.32
 CG331J	OG303	0.34	-0.34
 CG331K	OG303	0.32	-0.32
-CG331L	OG303	-0.1	0.1
+CG331L	OG303	-0.1	-0.9
 CG331M	SG311	0.05	-0.05
-CG331N	SG3O2B	0.29	-0.29
+CG331N	SG3O2D	0.29	-0.29
 CG331O	SG3O2B	0.24	-0.24
 CG331P	SG3O2	0.22	-0.22
 CG331Q	SG3O2C	0.2	-0.2
@@ -1465,10 +1591,19 @@ CG334	HGP5	-0.25	0.25
 CG334	NG2P1	0.45	0.55
 CG334	NG2P1A	0.38	-0.38
 CG334	NG3P0	0.4	-0.15
-CG334	NG3P1	0.42	-0.06667
-CG334	NG3P1A	0.4	-0.16
+CG334	NG3P1	0.42	-0.016
+CG334	NG3P1A	0.4	-0.06667
 CG334	NG3P3	0.31	-0.03
 CG334A	HGA3	-0.05	0.05
+CG3A*	NG2S1*	0.23	-0.23
+CG3A10	HGAA10	-0.09	0.09
+CG3A10	NG301	0.21	-0.21
+CG3A20	HGAA20	-0.09	0.09
+CG3A20	NG301	0.21	-0.21
+CG3A21	HGAA21	-0.09	0.09
+CG3A21	NG311	0.21	-0.21
+CG3A22	HGAA22	-0.09	0.09
+CG3A22	NG321	0.21	-0.21
 CG3AM0	HGAAM0	-0.09	0.09
 CG3AM0	NG301	0.21	-0.21
 CG3AM1	HGAAM1	-0.09	0.09
@@ -1476,26 +1611,29 @@ CG3AM1	NG311	0.21	-0.21
 CG3AM2	HGAAM2	-0.09	0.09
 CG3AM2	NG321	0.21	-0.21
 CG3C31	CG3C31	0	0
+CG3C31	HGA1	-0.09	0.09
 CG3C31	HGA2	-0.09	0.09
+CG3C31	OG3C31	0.2	-0.2
 CG3C41	CG3C41	0	0
 CG3C41	HGA2	-0.09	0.09
 CG3C51	CG3C51	0	0
 CG3C51	CG3C52	0	0
 CG3C51	HGA1	-0.09	0.09
-CG3C51	NG2R51	0	0
 CG3C51	NG2S0	0.11	-0.11
-CG3C51	OG303	0.1	-0.1
+CG3C51	OG311	0.23	-0.23
 CG3C51	OG3C51	0.2	-0.2
 CG3C51A	CG3C52	0.01	-0.01
 CG3C51A	OG3C51	0.26	-0.26
 CG3C52	CG3C52	0	0
-CG3C52	CG3C52B	-0.01	0.01
+CG3C52	CG3C52C	-0.01	0.01
 CG3C52	CG3C53	0	0
 CG3C52	CG3C54	0	0
 CG3C52	HGA2	-0.09	0.09
+CG3C52	NG2C50	0.18	-0.18
 CG3C52	NG2S0	0.18	-0.18
-CG3C52	OG3C51	0.37	-0.37
-CG3C52B	OG3C51	0.26	-0.26
+CG3C52	OG3C51	0.2	-0.2
+CG3C52C	OG3C51	0.26	-0.26
+CG3C52D	OG3C51	0.37	-0.37
 CG3C53	HGA1	-0.09	0.09
 CG3C53	NG3P52	0.25	0.75
 CG3C54	HGA2	-0.09	0.09
@@ -1505,12 +1643,11 @@ HGP1	NG2R51	0.32	-0.32
 HGP1	NG2R51A	0.35	-0.35
 HGP1	NG2R51B	0.33	-0.33
 HGP1	NG2R51C	0.29	-0.29
-HGP1	NG2S1	0.32	-0.32
-HGP1	NG2S1A	0.34	-0.34
-HGP1	NG2S1B	0.31	-0.31
-HGP1	NG2S1C	0.33	-0.33
-HGP1	NG2S1D	0.47	-0.47
-HGP1	NG2S1E	0.28	-0.28
+HGP1	NG2S1	0.31	-0.31
+HGP1	NG2S1A	0.32	-0.32
+HGP1	NG2S1B	0.33	-0.33
+HGP1	NG2S1C	0.47	-0.47
+HGP1	NG2S1D	0.28	-0.28
 HGP1	NG2S2	0.31	-0.31
 HGP1	NG2S2A	0.35	-0.35
 HGP1	NG2S2B	0.34	-0.34
@@ -1527,16 +1664,15 @@ HGP2	NG2P1	0.46	-0.46
 HGP2	NG2P1A	0.44	-0.44
 HGP2	NG2P1B	0.38	-0.38
 HGP2	NG2R52	0.44	-0.44
-HGP2	NG3P1	0.32	-0.06667
-HGP2	NG3P1A	0.32	-0.04
+HGP2	NG3P1	0.32	-0.32
 HGP2	NG3P2	0.32	-0.1
 HGP2	NG3P2A	0.32	-0.13333
 HGP2	NG3P3	0.33	-0.09
 HGP2	NG3P52	0.24	-0.24
 HGP2	NG3P62	0.35	-0.115
 HGP3	SG311	0.16	-0.16
-HGP4	NG2S3	0.4	-0.4
-HGP4	NG2S3A	0.38	-0.38
+HGP4	NG2S3	0.38	-0.38
+HGP4	NG2S3A	0.4	-0.4
 HGPAM1	NG311	0.4	-0.4
 HGPAM1	NG311C	0.36	-0.36
 HGPAM2	NG321	0.39	-0.39
@@ -1558,20 +1694,21 @@ NG311A	SG3O2B	0.06	-0.06
 NG311B	SG3O2A	-0.01	0.01
 NG321	SG3O2	0.24	-0.24
 NG321	SG3O2C	-0.01	0.01
-NG3P0	OG312	-0.38	-0.37
+NG3P0	OG312	0.91	-0.91
 OG2P1	PG1	-0.78	0.28
-OG2P1	SG3O1	-0.55	0.21667
-OG2P1	SG3O1A	-0.65	0.4
+OG2P1	SG3O1	-0.65	0.65
+OG2P1	SG3O1A	-0.55	0.21667
 OG2P1	SG3O1B	-0.65	0.31667
 OG2P1	SG3O1C	-0.5	0.16667
 OG2P1	SG3O2	-0.42	0.42
 OG2P1	SG3O2A	-0.4	0.4
 OG2P1	SG3O2B	-0.36	0.36
+OG2P1	SG3O2D	-0.36	0.36
 OG2P1	SG3O2E	-0.32	0.32
 OG2P1	SG3O2F	-0.28	0.28
 OG2P1	SG3O3	-0.55	0.55
 OG303	PG1	-0.47	0.47
-OG303	SG3O1A	-0.38	0.13
+OG303	SG3O1	0.62	-0.62
 OG303	SG3O2	0.1	-0.1
 OG303	SG3O2E	0.08	-0.08
 SG301	SG301	0	0
@@ -1682,6 +1819,7 @@ HGR63	HGR63	0.9	-0.046	0.9	-0.046
 HGR71	HGR71	1.358	-0.03	1.358	-0.03
 HGTIP3	HGTIP3	0.225	-0.046	0.225	-0.046
 IGR1	IGR1	2.19	-0.55	2.19	-0.55
+LPG1	LPG1	0.2	-0.3	0.2	-0.3
 NG1T1	NG1T1	1.79	-0.18	1.79	-0.18
 NG2D1	NG2D1	1.85	-0.2	1.85	-0.2
 NG2O1	NG2O1	1.85	-0.2	1.85	-0.2
@@ -1750,11 +1888,17 @@ ITEM	BOND_AUTO
 
 # type1	type2	k	l0
 
+CG2*	NG2S0	430	1.35
 CG2O1	CG3*	250	1.49
 CG2O2	CG3*	200	1.522
+CG2O3	NG3*	200	1.522
+CG2O3	SG2D*	525	1.26
 CG2R61	CG3*	230	1.49
+CG3*	CG3C31	275	1.5
 CG3*	CG3C4*	222.5	1.538
+CG3*	NG2R53	315	1.434
 CG3*	NG2S0	315	1.434
+CG3*	NG2S1	320	1.43
 CG3*	NG3*	263	1.474
 CG3*	NG3P*	200	1.48
 CG32*	CG32*	222.5	1.53
@@ -1981,6 +2125,7 @@ CG2R61	CLGR1	350	1.74
 CG2R61	HGR61	340	1.08
 CG2R61	HGR62	340	1.08
 CG2R61	IGR1	190	2.115
+CG2R61	LPG1	500	0.7
 CG2R61	NG2O1	230	1.402
 CG2R61	NG2R60	450	1.305
 CG2R61	NG2R61	380	1.379
@@ -2283,23 +2428,37 @@ ITEM	ANGLE_AUTO
 
 # type1	type2	type3	k	theta0	kub	s0
 
+CG2*	CG2R61	LPG1	90	90	0	0
 CG2*	NG2S0	CG3*	42	119.5	0	0
+CG2*	NG301	CG3*	53.4	112.35	0	0
+CG2*	SG311	HGP3	40	95	0	0
 CG2O*	CG3*	HG*	50	109.5	0	0
 CG2O*	CG3*	NG2S0	50	107	0	0
 CG2O*	CG3*	NG3P*	43.7	110	0	0
+CG2O*	CG3*	OG311	75.7	110.1	0	0
+CG2O*	NG2S1	CG2R61	50	120	0	0
 CG2O1	CG3*	CG3*	52	108	0	0
 CG2O1	CG3*	OG311	75.7	110.1	0	0
+CG2O1	NG2S1	CG3*	50	120	0	0
 CG2O2	CG3*	CG3*	52	108	0	0
 CG2O3	CG321	CG3*	52	108	0	0
+CG2O6	NG2S1	CG3*	60	120	0	0
+CG2R53	NG2R53	CG3*	50	120	0	0
+CG2R6*	CG2R61	NG2S3	60	121	0	0
+CG2R6*	CG2R64	NG2S3	81	118.4	0	0
 CG2R61	CG2R61	CG3*	45.8	120	0	0
 CG2R61	CG3*	CG3*	51.8	107.5	0	0
-CG3*	CG2O1	NG2S0	20	112.5	0	0
+CG3*	CG2*	NG2S0	20	112.5	0	0
 CG3*	CG2O1	OG2D1	80	121	0	0
 CG3*	CG2O2	OG2D1	70	125	20	2.442
 CG3*	CG2O2	OG302	55	109	20	2.326
+CG3*	CG2O2	OG311	55	110.5	0	0
+CG3*	CG2R61	LPG1	50	90	0	0
 CG3*	CG2R61	NG2R60	45.8	122.3	0	0
 CG3*	CG3*	CG3C4*	58.35	113.5	11.16	2.561
+CG3*	CG3*	NG2*	70	113.5	0	0
 CG3*	CG3*	NG2S0	70	110.5	0	0
+CG3*	CG3*	NG2S1	70	113.5	0	0
 CG3*	CG3*	NG3*	43.7	110	0	0
 CG3*	CG3*	NG3P0	67.7	115	0	0
 CG3*	CG3*	NG3P1	100	110	0	0
@@ -2307,11 +2466,18 @@ CG3*	CG3*	NG3P2	40	110	0	0
 CG3*	CG3*	NG3P3	67.7	110	0	0
 CG3*	CG3*	OG301	45	111.5	0	0
 CG3*	CG3*	OG303	75.7	110.1	0	0
+CG3*	CG301	OG302	75.7	110.1	0	0
 CG3*	CG321	CG3*	58.35	113.5	11.16	2.561
 CG3*	CG324	HGA2	26.5	111.8	22.53	2.179
+CG3*	CG3C31	CG3C31	67.35	116.7	0	0
+CG3*	CG3C31	HGA1	30	115.4	0	0
+CG3*	CG3C31	OG3C31	60.35	115.5	0	0
 CG3*	CG3C4*	HGA*	46	110.5	0	0
-CG3*	NG2S0	CG3*	45	121	0	0
+CG3*	CG3C5*	OG3C51	45	111.5	0	0
+CG3*	NG2*	CG3C*	45	121	0	0
+CG3*	NG2S1	HGP1	35	117	0	0
 CG3*	NG3*	CG3*	40.5	109.6	0	0
+CG3*	NG311	HGPAM1	35	111	0	0
 CG3*	NG3P0	CG3*	60	109.5	26	2.466
 CG3*	NG3P0	OG311	69	100	0	0
 CG3*	NG3P0	OG312	80	112	0	0
@@ -2321,13 +2487,25 @@ CG3*	NG3P2	CG3*	40	115.2	0	0
 CG3*	NG3P2	CG31*	45	115.2	0	0
 CG3*	OG301	CG3*	95	109.7	0	0
 CG3*	OG303	SG3O1	15	109	27	1.9
+CG311	CG3C5*	CG3C5*	58	115	8	2.561
 CG33*	CG3*	NG3*	43.7	112.2	0	0
+CG331	CG3*	NG2*	70	120	0	0
+CG331	CG3*	NG2S1	70	120	0	0
+CG3C31	CG3*	HGA*	42	109	0	0
 CG3C4*	CG3*	HGA*	34.6	110.1	22.53	2.179
-HGA*	CG3*	NG2S0	48	108	0	0
+HGA*	CG3*	NG2*	48	108	0	0
 HGA*	CG3*	OG301	60	109.5	0	0
+HGA1	CG311	NG3*	40	109.88	0	0
 HGA2	CG321	NG3*	32.4	109.5	50	2.14
+HGA3	CG331	NG2*	50	105	0	0
 HGA3	CG331	NG3*	30.5	109.7	50	2.14
+HGP5	CG314	NG3*	40	109.5	27	2.13
+HGP5	CG324	NG3*	40	109.5	27	2.13
 HGP5	CG334	NG3*	40	109.5	27	2.13
+LPG1	CG2R61	OG3*	50	90	0	0
+LPG1	CG2R61	SG3*	50	90	0	0
+NG3*	CG2O3	SG2D*	40	116	50	2.353
+SG2D*	CG2O3	SG2D*	100	128	70	2.259
 
 ITEM	END
 
@@ -3622,6 +3800,7 @@ FGA2	CG312	PG1	50	122	30	2.357
 FGA2	CG312	PG2	50	122	30	2.357
 FGA3	CG302	FGA3	118	107	30	2.155
 FGP1	ALG1	FGP1	23	109.47	15	2.819
+HGA	CG3C31	OG3C31	68.5	115	0	0
 HGA1	CG311	NG2R53	48	108	0	0
 HGA1	CG311	NG2S1	48	108	0	0
 HGA1	CG311	NG301	40	109.88	0	0
@@ -3794,6 +3973,7 @@ HGR52	CG2R53	NG3C51	32	117.8	0	0
 HGR52	CG2R53	OG2R50	25	119.5	20	2.14
 HGR52	CG2R53	SG2R50	30	118	0	0
 HGR53	CG2R53	NG2R52	32	126	25	2.14
+HGR61	CG2R61	LPG1	50	90	0	0
 HGR62	CG2R61	NG2R60	30	116	35	2.1
 HGR62	CG2R61	NG2R61	33	115	0	0
 HGR62	CG2R61	NG2R62	30	116	35	2.1
@@ -3807,6 +3987,7 @@ HGR62	CG2R64	NG2R67	80	119	0	0
 HGR63	CG2R62	NG2R61	80	117.5	0	0
 HGR63	CG2R62	NG2R62	50.5	118.5	0	0
 HGTIP3	OGTIP3	HGTIP3	55	104.52	0	0
+LPG1	CG2R61	LPG1	50	180	0	0
 NG2D1	CG2N1	NG311	50	125	0	0
 NG2D1	CG2N1	NG321	100	125	0	0
 NG2D1	CG2N2	NG321	85	127	0	0
@@ -3928,26 +4109,51 @@ ITEM	TORSION_AUTO
 # type1	type2	type3	type4	k	n	delta	[...]
 
 *	CG3*	CG3*	*	0.195	3	0
+CG*	CG*	SG311	HGP3	0.24	1	0	0.15	2	0	0.27	3	0
+CG2*	NG2S0	CG3C52	CG3C52	0	3	180
+CG2*	NG2S1	CG2O6	OG2D1	4	2	180	0.95	4	0
+CG2*	NG2S1	CG2O6	OG302	4	2	180	0.95	4	0
+CG2O*	CG2R61	CG2R61	SG311	3.5	2	180
 CG2O*	CG3*	NG2S0	CG2O1	1.2	1	180	0.46	2	180	0.05	3	180
 CG2O*	CG3*	NG2S0	CG3*	2.6	2	180
 CG2O*	CG3*	NG3P0	CG3*	0.26	3	0
+CG2O*	NG2S1	CG2R61	CG2R61	1.2	2	180
 CG2O1	NG2S0	CG3*	CG3*	0	3	0
 CG2O1	NG2S0	CG3*	HGA*	0	3	0
+CG2O1	NG2S1	CG3*	CG3*	1.8	1	0
+CG2O2	CG3*	OG302	CG2O2	0.05	1	0
+CG2O2	CG3*	OG311	HGP1	0.05	1	0
+CG2O2	OG302	CG301	CG3*	0	3	0
+CG2O3	CG3*	OG311	HGP1	0.82	3	180
+CG2O3	NG3*	CG3*	CG3*	0.2	3	0
+CG2O3	NG301	CG3*	HGA*	0.2	3	0
 CG2O6	NG2S1	CG3*	CG3*	0.35	1	180	0.75	2	0	0.15	4	0
+CG2O6	NG2S1	CG3*	HGA*	0	3	0
 CG2O6	OG302	CG3*	CG3*	0.1	1	180	0.6	2	0	0.1	3	180
+CG2R53	NG2R53	CG3*	CG3*	0.385	1	0	0.42	2	0	0.08	3	0	0.055	4	0
+CG2R53	NG2R53	CG3*	HGA*	0	3	0
+CG2R6*	CG2R6*	CG2R6*	NG2S3	5	2	180
+CG2R6*	CG2R61	NG2S3	HGP4	1.35	2	180
+CG2R6*	CG2R64	NG2S3	HGP4	2	2	180
 CG2R61	CG2R61	CG2R61	CG3*	3.1	2	180
 CG2R61	CG2R61	CG3*	CG3*	0.23	2	180
 CG2R61	NG2R60	CG2R61	CG3*	3.1	2	180
 CG3*	CG2O1	NG2S0	CG3*	2.6	2	180
+CG3*	CG2O1	NG2S1	CG3*	1.6	1	0	2.5	2	180
 CG3*	CG2O2	OG302	CG3*	2.05	2	180
+CG3*	CG2O2	OG311	HGP1	2.05	2	180
 CG3*	CG2R61	CG2R61	HGR6*	2.4	2	180
 CG3*	CG3*	CG2O1	NG2S0	0	1	0
+CG3*	CG3*	CG2O1	NG2S1	0	1	0
 CG3*	CG3*	CG2R61	NG2R60	0.23	2	180
+CG3*	CG3*	NG2R53	CG3C*	0.385	1	180	0.42	2	0	0.08	3	180	0.055	4	0
 CG3*	CG3*	NG2S0	CG3*	0.1	3	0
+CG3*	CG3*	NG2S1	HGP1	0	1	0
 CG3*	CG3*	NG3*	CG3*	0.1	3	0
 CG3*	CG3*	NG3*	HG*	0.1	3	0
 CG3*	CG3*	NG3P0	OG311	0.1	3	0
 CG3*	CG3*	NG3P0	OG312	0.35	3	0
+CG3*	CG3*	OG301	CG3*	0.57	1	0	0.29	2	0	0.43	3	0
 CG3*	CG3*	OG303	SG3O1	0	3	0
 CG3*	CG301	CG2O1	OG2D1	1.4	1	0
 CG3*	CG301	CG2O2	OG302	0.05	6	180
@@ -3955,36 +4161,65 @@ CG3*	CG311	CG2O1	OG2D1	1.4	1	0
 CG3*	CG311	CG2O2	OG302	0.05	6	180
 CG3*	CG311	CG2O2	OG311	0.05	6	180
 CG3*	CG321	CG2O1	OG2D1	0.05	6	180
+CG3*	CG321	CG2O2	OG302	0.53	2	180
 CG3*	CG321	CG2O2	OG311	0	6	180
 CG3*	CG321	CG2O3	OG2D2	0.05	6	180
+CG3*	CG3C31	OG3C31	CG3C31	0.64	5	0	0.81	6	180
+CG3*	NG2R53	CG2R53	CG3C5*	0.4	2	180
+CG3*	NG2R53	CG2R53	OG2D1	2.5	2	180
+CG3*	NG2R53	CG3C*	HGA*	0.1	3	0
+CG3*	NG2R53	CG3C5*	CG3C5*	0.1	3	0
 CG3*	NG2S0	CG2O1	OG2D1	2.6	2	180
 CG3*	NG2S0	CG3*	HGA*	0	3	0
+CG3*	NG2S1	CG2O1	OG2D1	2.5	2	180
 CG3*	NG2S1	CG2O6	NG2S*	1.6	1	0	2.5	2	180
+CG3*	NG2S1	CG2O6	OG2D1	4	2	180	0.95	4	0
+CG3*	NG2S1	CG2O6	OG302	4	2	180	0.95	4	0
+CG3*	NG3*	CG2O3	SG2D*	0.05	6	180
 CG3*	NG3*	CG3*	HG*	0.1	3	0
 CG3*	OG301	CG3*	CG301	0.57	1	0	0.29	2	0	0.43	3	0
 CG3*	OG301	CG3*	CG311	0.57	1	0	0.29	2	0	0.43	3	0
 CG3*	OG301	CG3*	CG321	0.57	1	0	0.29	2	0	0.43	3	0
 CG3*	OG301	CG3*	CG331	0.4	1	0	0.49	3	0
+CG3*	OG301	CG3C5*	CG3C5*	0.1	1	180	1.65	2	180	0.45	3	0
 CG3*	OG303	SG3O1	OG2P1	0	3	0
 CG301	CG3*	CG2O2	OG2D1	0	6	180
 CG311	CG3*	CG2O2	OG2D1	0	6	180
+CG311	CG3*	CG2O2	OG311	0	6	180
+CG311	CG3C5*	OG3C51	CG3C5*	0.3	3	0
 CG32*	CG32*	OG301	CG32*	0.57	1	0	0.29	2	0	0.43	3	0
 CG321	CG3*	CG2O2	OG2D1	0.05	6	180
+CG321	CG3*	CG2O2	OG311	0.05	6	180
 CG331	CG3*	CG2O2	OG2D1	0.05	6	180
-CG3C41	CG3*	CG2O2	OG2D1	0	6	180
+CG331	CG3*	CG2O2	OG311	0.05	3	180
+CG3C41	CG3*	CG2O2	OG2D1	0	1	180
+CG3C5*	NG2R53	CG3*	HGA*	0.42	3	0
 HG*	CG3*	CG2O*	OG2D2	0.05	6	180
 HG*	CG3*	OG303	SG3O1	0	3	0
 HGA*	CG3*	CG2R61	NG2R60	0.002	6	0
+HGA*	CG3*	NG311	HGPAM1	0.05	3	0
+HGA*	CG3*	NG321	HGPAM2	0.01	3	0
+HGA*	CG3*	NG3P0	OG311	0.1	3	0
+HGA*	CG3*	NG3P0	OG312	0.35	3	0
 HGA*	CG3*	OG301	*	0	3	0
 HGP1	NG2S*	CG2O6	NG2S*	1.5	2	180
 HGP2	NG3P1	CG3*	HGP5	0.42	3	0
 HGP5	CG3*	NG3P0	OG311	0.1	3	0
 HGP5	CG3*	NG3P0	OG312	0.35	3	0
+LPG1	*	*	*	0	2	0
+NG2R6*	CG2R6*	CG2R6*	NG2S3	5	2	180
 NG2S0	CG2O*	CG3*	NG2S0	0.11	1	180	0.95	2	180	0.29	3	180
 NG2S0	CG2O1	CG3*	OG3*	0	1	0
 NG2S0	CG3*	CG2O*	OG2D2	0.21	1	0	1.08	2	180	0.3	3	0
+NG2S3	CG2R6*	CG2R6*	NG2S3	3.1	2	180
 NG3P*	CG3*	CG2O*	OG2D2	3.2	2	180
 OG2D1	CG2O1	CG3*	OG311	0	1	0
+OG2D1	CG2O2	CG3*	OG302	0.287	2	0
+OG2D1	CG2O2	CG3*	OG311	0.287	2	0
+OG2D2	CG2O3	CG3*	OG311	1.11	2	180
+OG3*	CG2O2	CG301	OG3*	1.2	2	0
+OG302	CG2O2	CG3*	OG311	1.2	2	0
+OG311	CG2O2	CG3*	OG311	1.2	2	0
 
 ITEM	END
 

@@ -8,7 +8,7 @@
 #  purpose:	Interpret OPLSAA force field files and convert them into
 #  		EMC textual force field formats; part of EMC distribution
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -70,6 +70,7 @@ $FFMode = "";
 $FFDepth = 3;
 $FFShake = "ALL";
 $FFCharge = "ALL";
+$FFStrict = "TRUE";
 
 sub check_shake {
   foreach ("NONE", "HYDROGEN", "WATER", "ALL") { return if ($_ eq uc(@_[0])); }
@@ -203,6 +204,8 @@ sub get_define {
     "extra impropers", "references", "rules", "redefinitions", "repairs",
     "extra nonbonds");
   my @nargs = (1, 1, 5, 1, 3, 3, 4, 5, 5, 6, 4, 2, 2, 3, 4);
+  my $line = 0;
+  my $lines;
 
   $Masses = {};
   $Extras = {};
@@ -211,7 +214,8 @@ sub get_define {
   $Equivalence = {};
   seek($TOPOL, 0, 0);
   foreach(<$TOPOL>) {
-    chop();
+    chomp();
+    ++$line;
     next if (substr($_, 0, 1) eq "#");
     my @arg; foreach (split("\t")) {
       last if (substr($_,0,1) eq "#");
@@ -243,7 +247,8 @@ sub get_define {
       foreach (@arg[0 .. 1]) { $_ = uc($_); }
       if ($arg[0] eq "FFMODE") { $FFMode = $arg[1]; }
       elsif ($arg[0] eq "FFDEPTH") { $FFDepth = $arg[1]; }
-      elsif ($arg[0] eq "FFCHARGE") { $FFCharge = $arg[1]; }
+      elsif ($arg[0] eq "FFCHARGE") { $FFCharge = uc($arg[1]); }
+      elsif ($arg[0] eq "FFSTRICT") { $FFStrict = uc($arg[1]); }
       elsif (join(" ", @arg[0, 1]) eq "FFTYPE ATOMISTIC") { $OPLSUA = 0; }
       elsif (join(" ", @arg[0, 1]) eq "FFTYPE UNITED") { $OPLSUA = 1; }
       elsif ($arg[0] eq "SHAKE") { check_shake($FFShake = $arg[1]); }
@@ -268,7 +273,12 @@ sub get_define {
       my $l = length($n = scalar(@arg)), $i = 0;
       foreach (@arg) {
 	$ext = substr(sprintf("%03ld", $i), -$l-1, 3);
-	$Rules{$i++ ? "$index.$ext" : $index} = $_;
+	my $id = $i++ ? "$index.$ext" : $index;
+	warning("redefining $id (".join(", ", @{$lines->{rules}->{$id}}).") in line $line\n") if (defined($lines->{rules}->{$id}));
+	$lines->{rules}->{$id} = [] if (!defined($lines->{rules}->{$id}));
+	push(@{$lines->{rules}->{$id}}, $line);
+	$Rules{$id} = $_;
+	debug("$id\t$_\n");
       }
     } elsif ($read==12) {					# redefine
 	$Redefine{lc($arg[0])} = lc($arg[1]);
@@ -276,6 +286,10 @@ sub get_define {
 	$Repair{lc(@arg[0])} = join("\t", @arg[1,2,3]);
     } elsif ($read==5) {					# extra
       foreach(@arg) { $_ = lc($_); }
+      my $id = @arg[0];
+      warning("redefining $id (".join(", ", @{$lines->{extras}->{$id}}).") in line $line\n") if (defined($lines->{extras}->{$id}));
+      $lines->{extras}->{$id} = [] if (!defined($lines->{extras}->{$id}));
+      push(@{$lines->{extras}->{$id}}, $line);
       $Extras{$arg[0]} = join("\t", @arg);
     } elsif ($read==14) {					# nonbond
       my $key = join("\t", arrange(splice(@arg,0,2)));
@@ -836,6 +850,7 @@ sub put_header {
   printf($file "FFTYPE\t\t".($OPLSUA ? "UNITED" : "ATOMISTIC")."\n");
   printf($file "FFDEPTH\t\t$FFDepth\n");
   printf($file "FFCHARGE\t$FFCharge\n");
+  printf($file "FFSTRICT\t$FFStrict\n");
   printf($file "VERSION\t\t".$Version."\n");
   printf($file "CREATED\t\t".`date +"%b %Y"`);
   printf($file "LENGTH\t\tANGSTROM\n");

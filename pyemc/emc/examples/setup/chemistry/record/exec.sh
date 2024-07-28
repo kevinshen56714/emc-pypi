@@ -9,7 +9,7 @@
   fi;
 
   if [ "${EMC_ROOT}" != "" ]; then
-    "${EMC_ROOT}/scripts/emc_setup.pl" fullerene.esh;
+    "${EMC_ROOT}/scripts/emc.pl" fullerene.esh;
     if [ -e build.emc ]; then
       rm -f record_*;
       "${EMC_ROOT}/bin/${EMC}" build 2>&1 | tee build.out;

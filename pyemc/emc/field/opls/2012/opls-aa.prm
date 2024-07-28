@@ -12,8 +12,9 @@ FFMODE		OPLS
 FFTYPE		ATOMISTIC
 FFDEPTH		4
 FFCHARGE	ALL
+FFSTRICT	TRUE
 VERSION		Jan 2007
-CREATED		Dec 2022
+CREATED		Oct 2023
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -51,6 +52,7 @@ ITEM	REFERENCES
 2001	105	4118	J. Phys. Chem. A
 2004	18	16264	J. Phys. Chem. B
 2006	2	1499	J. Chem. Theory Comput.
+2007	806	23	J. Mol. Struct. THEOCHEM
 2009	5	1038	J. Chem. Theory Comput.
 
 ITEM	END
@@ -250,7 +252,7 @@ oh1	oh	oh	oh	oh	oh	oh
 oh2	oh	oh	oh	oh	oh	oh
 oh3	oh	oh	oh	oh	oh	oh
 os	os	os	os	os	os	os
-os1	os	os	os	os	os	os
+os1	os1	os	os	os	os	os
 ow	ow	ow	ow	ow	ow	ow
 ow1	ow1	ow1	ow	ow	ow	ow
 ow2	ow2	ow2	ow	ow	ow	ow
@@ -360,7 +362,7 @@ oh1	oh	oh	oh	oh	oh	oh
 oh2	oh	oh	oh	oh	oh	oh
 oh3	oh	oh	oh	oh	oh	oh
 os	os	os	os	os	os	os
-os1	os	os	os	os	os	os
+os1	os1	os	os	os	os	os
 ow	ow	ow	ow	ow	ow	ow
 ow1	ow1	ow1	ow	ow	ow	ow
 ow2	ow2	ow2	ow	ow	ow	ow
@@ -1056,6 +1058,7 @@ o2	p	os	100	108.23
 oh	co	os	92.6	111.55
 oh	p	oh	45	102.6
 oh	p	os	45	102.6
+os	c	os	69.9	118.18
 os	co	os	92.6	111.55
 os	p	os	45	102.6
 oy	sy	oy	104	119
@@ -1070,6 +1073,7 @@ ITEM	TORSION_AUTO
 # type1	type2	type3	type4	k	n	delta	[...]	[index]
 
 *	c	cb	*	0	1	0	7	2	0	174.5
+*	c	n	*	0	1	0	7	2	0
 *	ca	ca	*	0	1	0	7.25	2	0	165
 *	ca	cb	*	0	1	0	7	2	0	174
 *	ca	nc	*	0	1	0	7.25	2	0	165.67
@@ -1392,7 +1396,7 @@ ct	ct	c_1	o	0	1	0	1.166	2	0	69
 ct	ct	c_2	oh	1	1	0	0.546	2	0	0.45	3	0	96
 ct	ct	c_3	o	0	1	0	0.546	2	0	95
 ct	ct	c_3	oh	1	1	0	0.546	2	0	0.45	3	0	96
-ct	ct	c_5	o	-1	1	0	-1.9	2	0	-0.9	3	0	139
+ct	ct	c_5	o	-0.75	1	0	-0.55	2	0	-0.25	3	0	105
 ct	ct	c_5	oh	0	1	0	1.412	2	0	106
 ct	ct	ca	nc	-0.5	1	0	0.5	2	0	-0.5	3	0	382
 ct	ct	cm	hc	0	1	0	-
@@ -1456,6 +1460,7 @@ ct	nt	os	ct	0	1	0	0.3	3	0	301
 ct	os	c	hc	4.669	1	0	5.124	2	0	181.1
 ct	os	c	n	-2	1	0	5	2	0	304
 ct	os	c	o	0	1	0	5.124	2	0	182
+ct	os	c	os	4.669	1	0	5.124	2	0	-
 ct	os	c_4	o	0	1	0	5	2	0	210.1
 ct	os	ca	nc	0.4	1	0	5.5	2	0	380
 ct	os	co	hc	0	1	0	0.76	3	0	12.4
@@ -1468,6 +1473,7 @@ ct	s	ca	nc	1.6	1	0	5.1	2	0	381
 ct	s	ct	hc	0	1	0	0.647	3	0	51
 ct	s	s	ct	0	1	0	-7.414	2	0	1.705	3	0	23
 ct	sy	ct	hc	0	1	0	0.35	3	0	236
+ct	sz	ct	hc	0	1	0	0.275	3	0	-
 cz	ct	ct	hc	0	1	0	0.366	3	0	273
 cz	cz	ct	hc	0	1	0	244.2
 cz	nz	ct	hc	0	1	0	242.2
@@ -1533,6 +1539,7 @@ hc	ct	p	os	0	1	0	0.25	3	0	126.1
 hc	ct	s	s	0	1	0	0.558	3	0	24
 hc	ct	sh	hs	0	1	0	0.48	3	0	26
 hc	ct	sy	oy	0	1	0	0.35	3	0	235
+hc	ct	sz	oy	0	1	0	-
 hc	ct4	oh	ho	0	1	0	0.476	3	0	135
 hc	nc	nz	nz	0	1	0	306
 ho	oh	c	n	-2	1	0	5	2	0	305

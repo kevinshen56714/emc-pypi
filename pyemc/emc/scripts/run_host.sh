@@ -7,7 +7,7 @@
 #		February 7, 2018, March 23, 2022.
 #  purpose:	start jobs remotely or collect data; part of EMC distribution
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
