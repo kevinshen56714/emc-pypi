@@ -161,7 +161,7 @@ sub set_define {
   }
   $::EMCField::Header{nonbond} = "# ".join("\t", @header);
   if (!defined($init{$name})) {
-    error("unsupported force field name '$name'\n");
+    error("unsupported force field type '$name'\n");
   }
   my $i; for ($i=0; $i<scalar(@order); ++$i) {
     $::EMCField::Define{$order[$i]} = @{$init{$name}}[$i];

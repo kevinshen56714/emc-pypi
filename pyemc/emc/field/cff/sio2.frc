@@ -40,7 +40,9 @@
 
 !Ver Ref  Type     Mass      Element   connection  Charges       Comment
 !--- ---  -----  ----------  -------   ----------  -------  ---------------------------
-1.0  2   h1si       1.00800      H          1        0.0    Hydrogen in silica surface 
+1.0  2   h1si       1.00794      H          1        0.0    Hydrogen in silica surface
+1.0  3   h1sw       1.00794      H          1        0.0    Hydrogen, nonpolar
+1.0  3   o2sw      15.99940      O          2        0.0    Oxygen, SP3, in water
 1.0  2   o1si      15.99940      O          1        0.0    Oxygen in silica surface (deprotonated)
 1.0  2   o2sh      15.99940      O          2        0.0    Oxygen in silica surface (protonated)
 1.0  2   o2si      15.99940      O          2        0.0    Oxygen in bulk silica
@@ -54,6 +56,8 @@
 !Ver Ref  Type   NonB   Bond   Angle  Torsion  OOP
 !--- ---  -----  -----  -----  -----  -------  -----
  1.0  1   X      X      X      X      X        X
+ 1.0  2   h1sw   h1sw   h1sw   h1sw   h1sw     h1sw
+ 1.0  2   o2sw   o2sw   o2sw   o2sw   o2sw     o2sw
 
 
 #auto_equivalence     cff91_auto
@@ -63,10 +67,12 @@
 !Ver  Ref   Type  NonB Bond   Bond  Angle    Angle     Torsion   Torsion      OOP      OOP
 !                       Inct        End atom Apex atom End Atoms Center Atoms End Atom Center Atom
 !---- ---   ----  ---- ------ ----  -------- --------- --------- ------------ -------- -----------
+1.0    3    h1sw  h1sw h1sw   h1sw_ h1sw_    h1sw_     h1sw_     h1sw_        h1_      h1sw_
 1.0    1    h1si  h1si h1si   h1si_ h1si_    h1si_     h1si_     h1si_        h1si_    h1si_
-1.0    1    o1si  o2sh o1si   o2si_ o2si_    o2si_     o2si_     o2si_        o2si_    o2si_
+1.0    1    o1si  o1si o1si   o2si_ o2si_    o2si_     o2si_     o2si_        o2si_    o2si_
 1.0    1    o2sh  o2sh o2sh   o2si_ o2si_    o2si_     o2si_     o2si_        o2si_    o2si_
 1.0    1    o2si  o2si o2si   o2si_ o2si_    o2si_     o2si_     o2si_        o2si_    o2si_
+1.0    3    o2sw  o2sw o2sw   o2sw_ o2sw_    o2sw_     o2sw_     o2sw_        o2sw_    o2sw_
 1.0    1    si4o  si4o si4o   si4o_ si4o_    si4o_     si4o_     si4o_        si4o_    si4o_
 
 
@@ -74,11 +80,12 @@
 
 !Ver Ref    I     J     DeltaIJ   DeltaJI
 !--- ---  ----- -----   -------   -------
-1.0  2    o1si  si4o    -0.900    -0.100
-1.0  2    o2sh  si4o    -0.275     0.275
-1.0  2    o2si  h1si    -0.400     0.400
-1.0  2    si4o  o2si     0.275    -0.275
-
+1.0   2   o1si  si4o    -0.900    -0.100
+1.0   2   o2sh  h1si    -0.400     0.400
+1.0   2   o2sh  si4o    -0.275     0.275
+1.0   2   o2si  h1si    -0.400     0.400
+1.0   2   o2si  si4o    -0.275     0.275
+1.0   3   h1sw  o2sw     0.410    -0.410
 
 #quadratic_bond       cff91_auto
 
@@ -86,8 +93,8 @@
 
 !Ver Ref    I     J       R0         K2
 !--- ---  ----- -----  -------    --------
-1.0  2    si4o_ o2si_  1.680      285.0000
-1.0  2    o2si_ h1si_  0.945      495.0000
+1.0  2    si4o_ o2si_  1.680       285.000
+1.0  2    o2si_ h1si_  0.945       495.000
 
 
 #quartic_bond         cff91
@@ -96,7 +103,7 @@
 
 !Ver Ref    I     J       R0         K2          K3          K4
 !--- ---  ----- -----  -------    --------    --------    --------
-
+1.0   3   h1sw   o2sw    0.9570    553.280    -1278.96    1788.682
 
 #quadratic_angle      cff91_auto
 
@@ -104,9 +111,9 @@
 
 !Ver Ref    I     J     K      Theta0       K2
 !--- ---  ----- ----- -----   --------   -------
-1.0   2   o2si_ si4o_ o2si_   109.5      100.0000
-1.0   2   si4o_ o2si_ si4o_   149.0      100.0000
-1.0   2   si4o_ o2si_ h1si_   115.0       50.0000
+1.0   2   o2si_ si4o_ o2si_   109.5      100.000
+1.0   2   si4o_ o2si_ si4o_   149.0      100.000
+1.0   2   si4o_ o2si_ h1si_   115.0       50.000
 
 
 #quartic_angle        cff91
@@ -116,6 +123,7 @@
 
 !Ver Ref    I     J     K      Theta0       K2         K3         K4
 !--- ---  ----- ----- -----   --------   --------   --------   -------- 
+ 1.0  3   h1sw  o2sw  h1sw    104.5200    46.6500   -11.7046    -8.7911
 
 
 #torsion_1            cff91_auto
@@ -124,7 +132,7 @@
 
 !Ver Ref    I     J     K     L       KPhi     n     Phi0
 !--- ---  ----- ----- ----- -----   --------  ---  ---------
-1.0   2   *     si4o_ o2si_ *       0.0000    0.0  0.0000
+1.0   2   *     si4o_ o2si_ *         0.000   0.0      0.000
 
 
 #torsion_3            cff91
@@ -164,10 +172,13 @@
 
 !Ver Ref    I          r             eps
 !--- ---  -----   -------------  -----------
-1.0   2     h1si       1.0980      0.0130
-1.0   2     o2si       3.6000      0.0400
-1.0   2     o2sh       3.6000      0.1200
-1.0   2     si4o       4.2000      0.0800
+1.0   2    h1si       1.0980       0.0130
+1.0   3    h1sw       2.8780       0.0230
+1.0   2    o1si       3.6000       0.1200
+1.0   2    o2si       3.6000       0.0400
+1.0   2    o2sh       3.6000       0.1200
+1.0   3    o2sw       3.8100       0.0800
+1.0   2    si4o       4.2000       0.0800
 
 
 #bond-bond            cff91
@@ -210,7 +221,7 @@
 !                                      -----------------------------       -----------------------------
 !Ver Ref    I     J     K     L          F(1)       F(2)       F(3)          F(1)       F(2)       F(3)
 !--- ---  ----- ----- ----- -----      -------    -------    -------       -------    -------    -------
-1.0  2    si4o   o2si  si4o   o2si        0.000     0.000     0.000        0.000     0.000     0.000
+1.0  2    si4o   o2si  si4o  o2si       0.000     0.000     0.000        0.000     0.000     0.000
 
 #middle_bond-torsion_3 cff91
 
@@ -219,7 +230,7 @@
 
 !Ver Ref    I     J     K     L          F(1)       F(2)       F(3)
 !--- ---  ----- ----- ----- -----      -------    -------    -------
-1.0  2    si4o   o2si  si4o   o2si        0.000     0.000     0.000
+1.0  2    si4o   o2si  si4o  o2si        0.000      0.000      0.000
 
 
 #angle-torsion_3      cff91
@@ -231,7 +242,7 @@
 !                                      -----------------------------       -----------------------------
 !Ver Ref    I     J     K     L          F(1)       F(2)       F(3)          F(1)       F(2)       F(3)
 !--- ---  ----- ----- ----- -----      -------    -------    -------       -------    -------    -------
-1.0   2	  s14o   o2si  si4o   o2si        0.000     0.000     0.000        0.000     0.000     0.000
+1.0   2	  si4o   o2si  si4o   o2si       0.000      0.000      0.000         0.000      0.000      0.000
 
 #angle-angle-torsion_1 cff91
 
@@ -258,11 +269,16 @@
 #reference 1
 @Author PJV
 @Date 01-February-2020
-created template from COMPASS
+created template from CFF
 
 #reference 2
 @Author RKM, PJV, HH
 @Date 05-March-2020 
 Added SiO2 parameters 
+
+#reference 3
+@Author PJV
+@Date 02-January-2024
+Added water parameters
 
 #end

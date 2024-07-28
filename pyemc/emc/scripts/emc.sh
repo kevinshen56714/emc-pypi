@@ -5,7 +5,7 @@
 #  date:	February 19, November 3, 2018, July 24, 2023.
 #  purpose:	Wrapper around EMC for starting correct executable
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -17,7 +17,7 @@
 
 # variables
 
-emc_root=$(d=$(pwd); cd $(dirname $0)/..; r=$(pwd); cd "$d"; echo "$r");
+emc_root="$(cd "$(dirname $0)/.."; pwd)";
 emc_version=9.4.4;
 
 

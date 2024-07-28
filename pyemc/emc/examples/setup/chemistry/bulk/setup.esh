@@ -1,19 +1,19 @@
-#!/usr/bin/env emc_setup.pl
+#!/usr/bin/env emc.pl
 #
 #    file:	bulk.esh
 #    author:	Pieter J. in 't Veld
 #    date:	July 4, 2016
-#    purpose:	Chemical input for emc_setup.pl
+#    purpose:	Chemical input for emc.pl
 #
 #    notes:
 #    	- Create a simulation with water, alcohol, salt and a sugar
 #    	- Alternative to chemistry.esh file, containing an OPTIONS section,
-#    	  to be used with emc_setup.pl v1.5 and up
+#    	  to be used with emc.pl v1.5 and up
 #    	- Allowed separators are commas and tabs, which can be used
 #    	  interchangebly
 #	- Call with
 #
-#		emc_setup.pl bulk
+#		emc.pl bulk
 #
 #	  or (for MacOS or Linux)
 #

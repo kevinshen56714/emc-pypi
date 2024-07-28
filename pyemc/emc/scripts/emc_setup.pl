@@ -16,7 +16,7 @@
 #  		and coarse-grained [[multi-]interface] simulations; part of
 #  		EMC distribution
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -532,12 +532,15 @@
 #    		be as square as possible
 #    20221125	Reduced all function calls to internal calls, when possible
 #    20221218	Placed creation of build.emc at end
-#    20230316	New version: 4.1.6
+#    20230316	New version: 4.1.5
 #		Altered run_sh() in write_job_functions() to reflect using
 #		third line from last of run.sh output for obtaining job id
 #    20230321	Added debug option to InsightII imports
 #    20230611	Improved variable interpretation in bash script loops
 #    20230801	Web publication
+#    		Improved preprocessing treatment
+#    20240104	Addition of -queue_project
+#    20240330	Addition of charges option to ITEM GROUPS
 #
 #  file formats:
 #    parameters	column1	column2		column3		...
@@ -628,10 +631,10 @@ use strict;
 
 $::EMC::OSType = $^O;
 
-$::EMC::Year = "2023";
+$::EMC::Year = "2024";
 $::EMC::Copyright = "2004-$::EMC::Year";
 $::EMC::Version = "4.1.5";
-$::EMC::Date = "March 21, $::EMC::Year";
+$::EMC::Date = "March 30, $::EMC::Year";
 $::EMC::EMCVersion = "9.4.4";
 $::EMC::pi = 3.14159265358979323846264338327950288;
 {
@@ -947,6 +950,7 @@ $::EMC::Dielectric = -1;
   reduced	=> -1,
   rules		=> 0,
   shake		=> -1,
+  trace		=> 0,
   triclinic	=> 0,
   version	=> 0,
   volume	=> 0,
@@ -1227,6 +1231,7 @@ $::EMC::Precision = -1;
   ncores	=> -1,
   ppt		=> 1,
   ppn		=> "default",
+  project	=> "none",
   run		=> "default",
   user		=> "none"
 );
@@ -1602,6 +1607,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
   debug		=> {
     comment	=> "control debugging information",
     default	=> boolean($::EMC::Flag{debug}),
+    gui		=> ["boolean", "environment", "top", "ignore"]},
+  debug_trace	=> {
+    comment	=> "control trace output upon error",
+    default	=> boolean($::EMC::Flag{trace}),
     gui		=> ["boolean", "environment", "top", "ignore"]},
   deform	=> {
     comment	=> "deform system from given density",
@@ -2214,6 +2223,10 @@ $::EMC::PolymerFlag{cluster} = boolean($::EMC::PolymerFlag{cluster});
     comment	=> "set number of cores for execution of MD jobs",
     default	=> $::EMC::Queue{ncores},
     gui		=> ["integer", "environment", "lammps", "standard"]},
+  queue_project	=> {
+    comment	=> "set queue project (PBS only)",
+    default	=> $::EMC::Queue{project},
+    gui		=> ["string", "environment", "top", "advanced"]},
   queue_run	=> {
     comment	=> "set job run script queue",
     default	=> $::EMC::Queue{run},
@@ -2516,13 +2529,16 @@ sub set_variables {
   if ($::EMC::EMC{suffix}<0) {
     my $suffix;
     if ($::EMC::ENV{HOST} ne "") {
-      $suffix = $::EMC::ENV{HOST}; }
-    elsif ($^O eq "MSWin32" || $^O eq "MSWin64") { 
-      $suffix = "win32"; }
-    elsif ($^O eq "darwin") { 
-      $suffix = "macos"; }
-    elsif ($^O eq "linux") { 
-      $suffix = `uname -m` eq "x86_64\n" ? "linux64" : "linux"; }
+      $suffix = $::EMC::ENV{HOST};
+    } elsif ($^O eq "MSWin32" || $^O eq "MSWin64") { 
+      $suffix = "win32";
+    } elsif ($^O eq "darwin") { 
+      $suffix = "macos";
+    } elsif ($^O eq "linux") { 
+      my $uname = `uname -m`;
+      $suffix = "linux";
+      $suffix .= "_".$uname if ($uname eq "x86_64" || $uname eq "aarch64");
+    }
     $::EMC::EMC{suffix} = "_$suffix";
   }
   $::EMC::Columns = $ENV{COLUMNS} if (defined($ENV{COLUMNS}));
@@ -2667,10 +2683,11 @@ sub set_variables {
   } if (flag($::EMC::EMC{execute})) {
     $::EMC::EMC{executable} = $::EMC::ENV{HOST} ne "" ? "emc_$::EMC::ENV{HOST}" : "emc$::EMC::EMC{suffix}";
   } elsif ($::EMC::EMC{execute} eq "-" || 
-           !flag($::EMC::EMC{execute})) {
+           flag_q($::EMC::EMC{execute})) {
     $::EMC::EMC{execute} = 0;
   } elsif ($::EMC::EMC{execute} ne "-") {
     $::EMC::EMC{executable} = $::EMC::EMC{execute};
+    $::EMC::EMC{execute} = 1;
   }
   $::EMC::Lammps{pdamp} = (
     $::EMC::Field{type} eq "dpd" ? 10 :
@@ -3313,6 +3330,7 @@ sub set_hash {
 
   $order = undef if (ref($order) ne "ARRAY");
   foreach(@_) {
+    next if ($_ eq ",");
     my @arg = split("=");
     if (scalar(@arg) == 1) {
       if ($order) {
@@ -3540,9 +3558,12 @@ sub options {
 
   elsif ($arg[0] eq "debug") {
     $::EMC::Flag{debug} = flag($string[0]); }
+  elsif ($arg[0] eq "debug_trace") {
+    $::EMC::Flag{trace} = flag($string[0]); }
   elsif ($arg[0] eq "deform") {
     set_hash($line, \%::EMC::Deform, "string", "xx", [], @string); }
-  elsif ($arg[0] eq "delete") { set_list_oper($line, $::EMC::Delete, @string); }
+  elsif ($arg[0] eq "delete") { 
+    set_list_oper($line, $::EMC::Delete, @string); }
   elsif ($arg[0] eq "density") {
     $::EMC::Density = $value[0]; @::EMC::Densities = @value; }
   elsif ($arg[0] eq "dielectric") { $::EMC::Dielectric = $value[0]; }
@@ -3578,7 +3599,7 @@ sub options {
   elsif ($arg[0] eq "emc_exclude") {
     set_hash($line, $::EMC::EMC{exclude}, "boolean", "", [], @string); }
   elsif ($arg[0] eq "emc_execute") {
-    $::EMC::EMC{execute} = flag($string[0]); }
+    $::EMC::EMC{execute} = $string[0]; }
   elsif ($arg[0] eq "emc_moves") {
     set_hash($line, $::EMC::EMC{moves}, "integer", "", [], @string); }
   elsif ($arg[0] eq "emc_output") { 
@@ -3997,6 +4018,7 @@ sub options {
   elsif ($arg[0] eq "queue_ncores") { $::EMC::Queue{ncores} = @value[0]; }
   elsif ($arg[0] eq "queue_ppn") { $::EMC::Queue{ppn} = $value[0]; }
   elsif ($arg[0] eq "queue_ppt") { $::EMC::Queue{ppt} = $value[0]; }
+  elsif ($arg[0] eq "queue_project") { $::EMC::Queue{project} = $string[0]; }
   elsif ($arg[0] eq "queue_run") { $::EMC::Queue{run} = $string[0]; }
   elsif ($arg[0] eq "queue_user") { $::EMC::Queue{user} = join(" ", @string); }
   elsif ($arg[0] eq "quiet") { $::EMC::Flag{info} = $::EMC::Flag{debug} = $::EMC::Flag{warn} = 0; }
@@ -4472,6 +4494,7 @@ sub message {
 
 
 sub error {
+  trace() if ($::EMC::Flag{trace});
   printf("Error: ".shift(@_), @_);
   printf("\n");
   exit(-1);
@@ -4674,10 +4697,34 @@ sub split_data {
 }
 
 
-sub preprocess_data {
-  my $data = shift(@_);
-  my $command = "gcc -x c -E -o - -";
+sub get {
+  my $stream = shift(@_);
+  my $data = ref(@_) eq "ARRAY" ? shift(@_) : [];
+
+  @{$data} = ();
+  foreach(<$stream>) {
+    chomp();
+    my @arg = split("\r");
+    if (@arg) {
+      foreach(@arg) {
+	chomp();
+	push(@{$data}, $_);
+      }
+    } else {
+      push(@{$data}, "");
+    }
+  }
+  return $data;
+}
+
+
+sub get_preprocess {
+  my $stream = shift(@_);
+  my $data = get($stream, ref(@_) eq "ARRAY" ? shift(@_) : []);
   my %allow = (if => 1, elif => 1, else => 1, define => 1, endif => 1);
+  my $read = [];
+  
+  my $command = "gcc -x c -E -o - -";
   my ($child_in, $child_out, $child_err);
   my $pid = open3($child_in, $child_out, $child_err, $command);
 
@@ -4685,59 +4732,40 @@ sub preprocess_data {
     warning("could not open gcc for preprocessing\n");
     return $data;
   }
-  my $result = [];
-  my $last = 1;
-  my $line = 0;
-  my @stored;
 
-  # pipe into gcc
+  foreach (@{$data}) {					# pipe to gcc
+    my $s = $_;
 
-  foreach (@{$data}) {
-    my $s = $_->{verbatim}; $s =~ s/&\n/\\\n/g; $s =~ s/\\\n/ /g;
-    my $l = $_->{line};
-    my @a = split(" ", $s);
-
-    @stored[$l] = $_;
-    for (my $i=$last+1; $i<$l; ++$i) {
-      print($child_in "\n");
+    push(@{$read}, $_);
+    $s =~ s/^\s+|\s+$//g;
+    if (substr($s,0,1) eq "#") {
+      my @a = split(" ", $s);
+      $s = "" if (!defined($allow{substr(@a[0],1)}));
     }
-    $s = "" if (substr($s,0,1) eq "#" && !defined($allow{substr(@a[0],1)}));
     print($child_in "$s\n");
-    $last = $l+($s =~ tr/\n//);
   }
   close($child_in);
+  
+  my $i = 0;						# collect from pipe
 
-  # collect from pipe
-
-  foreach (<$child_out>) {
-    chomp();
+  @{$data} = ();
+  foreach (@{get($child_out)}) {
     if (substr($_,0,1) eq "#") {
-      $line = (split(" "))[1]-1;
+      $i = (split(" "))[1]-1;
       next;
-    } else {
-      ++$line;
     }
     if ($_ =~ m/\<stdin\>/) {
       error($_);
     }
-    next if ($_ eq "");
-    my $h = @stored[$line];
-    my $d = $_;
-    my $v = $h->{verbatim}; $v =~ s/&\n/\n/g; $v =~ s/\\\n/\n/g;
-    my $sd = $h->{data};
-    if (join(" ", split(" ", $v)) ne join(" ", split(" ", $d))) {
-      push(
-	@{$result}, {line => $line, verbatim => $d, data => [split_data($d)]});
-    } else {
-      push(
-	@{$result}, {line => $line, verbatim => $h->{verbatim}, data => $sd});
-    }
+    my $s = $read->[$i];
+    $s =~ s/^\s+|\s+$//g;
+    $s = join(" ", split(" ", $s));
+    $data->[$i] = $s eq $_ ? $read->[$i] : $_;
+    ++$i;
   }
-
-  # close resources
-
   close($child_out);
-  return $result;
+
+  return $data;
 }
 
 
@@ -4756,7 +4784,7 @@ sub get_data {
 
   $comment = 0 if ($preprocess);
   @{$data} = ();
-  foreach(<$stream>) {
+  foreach(@{$preprocess ? get_preprocess($stream) : get($stream)}) {
     chomp();
     my @arg = split("\r");
     ++$line if (!scalar(@arg));
@@ -4794,20 +4822,22 @@ sub get_data {
 
       $verbatim .= (length($verbatim) ? "\n" : "").$_;
       if (!$comment && substr(trim($_),0,1) eq "#") {
-	@a = ($_);
+	@a = (trim($_));
       } else {
 	@a = split_data($_); next if (!scalar(@a));
       }
       if (substr(@a[-1],-1) eq "&" || substr(@a[-1],-1) eq "\\") {
 	if (length(@a[-1])==1) {
 	  delete(@a[-1]);
-       	}
+	  next if (!scalar(@a));
+	}
 	else { 
 	  @a[-1] = substr(@a[-1],0,length(@a[-1])-1);
-       	}
+	}
 	@a[-1] = trim(@a[-1]);
 	$first = $line if (!defined($first));
-	push(@last, @a); next;
+	push(@last, @a);
+	next;
       }
       push(@{$data}, {
 	  line => defined($first) ? $first : $line,
@@ -4817,8 +4847,7 @@ sub get_data {
       undef(@last)
     }
   }
-  #foreach (@{$data}) { spot(join("\t", "$_); }
-  $data = preprocess_data($data) if ($preprocess);
+  #foreach(@{$data}) { tprint(__LINE__.":", @{$_->{data}}); }
   $::EMC::Flag{comment} = $ncomment;
   return $data;
 }
@@ -5135,27 +5164,42 @@ sub field_id {
 sub group_id {
   my $line = shift(@_);
   my $id = shift(@_);
+  my $charges = shift(@_);
   my $field = shift(@_);
   my $mass = shift(@_);
   my $terminator = shift(@_);
   my @tmp = split(":", $id);
   my $name = shift(@tmp);
-  my %allowed = (f => 2, field => 2, m => 2, mass => 2, t => 1, term => 1);
+  my $allowed = {
+    c => "charges", charges => 1,
+    f => "field", field => 1,
+    m => "mass", mass => 1,
+    t => "term", term => 1};
+  my $charge_check = {
+    a => "additive", additive => 1,
+    f => "forcefield", forcefield => 1, field => 1,
+    o => "override", override => 1};
 
   return $id if (!scalar(@tmp));
   if (!$::EMC::Flag{expert}) {			# Check errors
     foreach (@tmp) {
       my @a = split("=");
-      if (!defined($allowed{@a[0]})) {
-	error(
-	  "unrecognized group modifier '@a[0]' in line $line of input\n");
+      if (!defined($allowed->{@a[0]})) {
+	error_line($line, "unrecognized group modifier '@a[0]'\n");
       }
     }
   }
   @{$field} = ();				# Filter options
   foreach (@tmp) {
     my @a = split("=");
-    if (@a[0] eq "f" || @a[0] eq "field") { @{$field} = split(",", @a[1]); }
+    if (@a[0] eq "c" || @a[0] eq "charges") { 
+      if (!defined($charge_check->{@a[1]})) {
+	error_line($line, "unrecognized charges modifier '@a[1]'\n");
+      }
+      @a[1] = "forcefield" if (@a[1] eq "field");
+      ${$charges} = length(@a[1])==1 ? $charge_check->{@a[1]} : @a[1];
+    }
+    elsif (@a[0] eq "f" || @a[0] eq "field") { @{$field} = split(",", @a[1]); }
     elsif (@a[0] eq "m" || @a[0] eq "mass") { ${$mass} = @a[1]; }
     elsif (@a[0] eq "t" || @a[0] eq "term") { ${$terminator} = 1; }
     else { $name .= ":@a[0]"; }
@@ -5652,8 +5696,10 @@ sub read_script {
       my $mass;
       my @field;
       my $volume;
+      my $charges;
       my $terminator = 0;
-      my $id = group_id($line, shift(@arg), \@field, \$mass, \$terminator);
+      my $id = group_id(
+	$line, shift(@arg), \$charges, \@field, \$mass, \$terminator);
       my $name = convert_name($id);
       my $chemistry = shift(@arg);
       my $i = defined($::EMC::XRef{$name}) ? $::EMC::XRef{$name} : $index++;
@@ -5678,6 +5724,7 @@ sub read_script {
       @::EMC::Groups[$i] = $name;
       undef($::EMC::Group{$name});
       ${$::EMC::Group{$name}}{id} = $id;
+      ${$::EMC::Group{$name}}{charges} = $charges;
       ${$::EMC::Group{$name}}{chemistry} = $chemistry;
       ${$::EMC::Group{$name}}{nextra} = count_clusters($chemistry)-1;
       ${$::EMC::Group{$name}}{terminator} = $terminator;
@@ -5698,14 +5745,15 @@ sub read_script {
       }
       my $mass;
       my @field;
+      my $charges;
       my $terminator = 0;
-      my $id = group_id($line, shift(@arg), \@field, \$mass, \$terminator);
+      my $id = group_id(
+	$line, shift(@arg), \$charges, \@field, \$mass, \$terminator);
       my $name = convert_name($id);
       my $chemistry = shift(@arg);
       my $poly = defined($flag{polymer}{$chemistry});
       my $nconnects = ($chemistry =~ tr/\*\<\>//);
 
-      #tprint(__LINE__.":", $line, $verbatim);
       check_name($name, $line, 0);
       push(@::EMC::Groups, $name) if (!defined($::EMC::Group{$name}));
 
@@ -5718,6 +5766,7 @@ sub read_script {
 	#tprint(__LINE__.":", $line, $name, $poly, $polymer{$name}{type});
 	next;
       }
+      ${$::EMC::Group{$name}}{charges} = $charges;
       ${$::EMC::Group{$name}}{chemistry} = $chemistry;
       ${$::EMC::Group{$name}}{nextra} = count_clusters($chemistry)-1;
       ${$::EMC::Group{$name}}{terminator} = $terminator;
@@ -5729,7 +5778,7 @@ sub read_script {
       
       for ($i=0; $i<$nconnects; ++$i) { 
 	@{${$::EMC::Group{$name}}{connect}}[$i] = []; }
-     
+    
       while (scalar(@arg)) {
 	my $connect = shift(@arg);
 	my @a = split(":", shift(@arg));
@@ -5763,7 +5812,6 @@ sub read_script {
       my $group = convert_name(shift(@arg));
       
       if (defined($flag{import}{$group})) {		# import
-	
 	my %flag = %::EMC::ImportDefault;
 	my %mode = (
 	  ".emc" => "emc", ".car" => "insight", ".mdf" => "insight",
@@ -5909,6 +5957,7 @@ sub read_script {
 	$::EMC::Import{periodic} = [@periodic];
 	for ($i=0; $i<scalar(@ncells); ++$i) {
 	  if ($i && @ncells[$i] eq "auto") {
+	    print(__LINE__, ": ncells[$i] = @ncells[$i]\n");
 	    next if ($::EMC::Import{type} ne "crystal");
 	    @ncells[$i] = 1;
 	  }
@@ -6055,7 +6104,7 @@ sub read_script {
       my $phase = $answer{phase}; $phase = $::EMC::NPhases if ($phase<0);
       my $sub = $answer{spot}; $sub = 2 if ($sub<0);
       if ($sub>2) {
-	error($line, "unallowed sub phase for EMC paragraph\n");
+	error_line($line, "unallowed sub phase for EMC paragraph\n");
       }
       $verbatim = "\n$verbatim" if ($line_last && $line-$line_last>1);
       if (!defined($::EMC::Verbatim{build}[$phase])) {
@@ -6092,7 +6141,12 @@ sub read_script {
 		@last[0] eq "tail" ? 1 :
 		@last[0] ? 1 : 0 if (@last[0] ne "");
 	$::EMC::Variables{type} = $type;
-	push(@{$::EMC::Variables{data}}, [split(" ", $verbatim)]);
+	my @a;
+	foreach (split(" ", $verbatim)) {
+	  last if (substr($_,0,1) eq "#");
+	  push(@a, $_);
+	}
+	push(@{$::EMC::Variables{data}}, [@a]);
       }
     
     } elsif ($mode==8) {
@@ -6542,26 +6596,31 @@ sub reset_global_variables {
 
 
 sub check_name {
-  my $line = "in line $_[1] of input";
-  my $type = ("group", "cluster", "polymer")[$_[2]];
-  my @restricted = $_[2] ? (@::EMC::Restricted) : (@::EMC::Restricted, @::EMC::RestrictedGroup);
+  my $line = @_[1];
+  my $type = ("group", "cluster", "polymer")[@_[2]];
+  my @restricted = @_[2] ?
+    (@::EMC::Restricted) : (@::EMC::Restricted, @::EMC::RestrictedGroup);
   
   if (@_[0] eq "") {
-    error("empty name $line\n");
+    error_line($line, "empty name\n");
   }
   if (substr(@_[0],0,1) =~ m/[0-9]/) {
-    error("illegal $type name \'@_[0]\' (starts with a number) $line\n");
+    error_line($line, 
+      "illegal $type name \'@_[0]\' (starts with a number)\n");
   }
   if (@_[0] =~ m/[+\-\.*\%\/]/) {
-    error("illegal $type name \'@_[0]\' (contains an illegal character) $line\n");
+    error_line($line,
+      "illegal $type name \'@_[0]\' (contains an illegal character)\n");
   }
   foreach ((@restricted, $::EMC::Project{name})) {
     next if ($_ ne @_[0]);
-    error("illegal $type name \'@_[0]\' (reserved variable) $line\n");
+    error_line($line,
+      "illegal $type name \'@_[0]\' (reserved variable)\n");
   }
   foreach (@::EMC::RestrictedStart) {
     next if ($_ ne substr(@_[0],0,length($_)));
-    error("illegal $type name \'@_[0]\' (disallowed variable start) $line\n");
+    error_line($line,
+      "illegal $type name \'@_[0]\' (disallowed variable start)\n");
   }
 }
 
@@ -7630,6 +7689,7 @@ sub write_emc_groups {
   printf($stream "groups\t\t= {\n");
   foreach (@::EMC::Groups) {
     my $field;
+    my $charges;
     my $name = $_;
     my $id = $::EMC::Group{$name}{id};
     my $terminator = ${$::EMC::Group{$name}}{terminator};
@@ -7640,6 +7700,7 @@ sub write_emc_groups {
       my @fields = @{$::EMC::Group{$name}{field}};
       if (scalar(@fields)>1) { $field = "{".join(", ", @fields)."}"; }
       elsif (scalar(@fields)==1) { $field = "@fields[0]"; }
+      $charges = $::EMC::Group{$name}{charges}
     }
     if ($::EMC::Group{$name}{polymer}) {
       if (!defined($::EMC::Polymer{$name})) {
@@ -7647,14 +7708,19 @@ sub write_emc_groups {
       }
       my $poly = $::EMC::Polymer{$name};
       my $flag = @{@{$poly}[0]}[5];
-      printf($stream format_output(1, "id $id", 4, 2));
-      printf($stream format_output(1, "fraction ${$flag}{fraction}, order -> ${$flag}{order}, bias -> ${$flag}{bias}", 4, 2));
-      printf($stream format_output(1, "terminator true", 4, 2)) if ($terminator);
+      printf($stream
+       	format_output(1, "id $id", 4, 2));
+      printf($stream
+       	format_output(1, "fraction ${$flag}{fraction}, order -> ${$flag}{order}, bias -> ${$flag}{bias}", 4, 2));
+      printf($stream
+       	format_output(1, "terminator true", 4, 2)) if ($terminator);
       if ($flag->{connect} ne "") {
 	my @a = split(":", $flag->{connect});
-	printf($stream format_output(1, "connects {".join(", ", @a)."}", 4, 2));
+	printf($stream
+	  format_output(1, "connects {".join(", ", @a)."}", 4, 2));
       }
-      printf($stream format_output(0, "polymers {", 4, 2));
+      printf($stream
+       	format_output(0, "polymers {", 4, 2));
       write_emc_polymers($stream, "group", $name);
       printf($stream "\n    }\n  }%s", $i++<$n-1 ? ",\n" : "");
     } elsif ($::EMC::Group{$name}{nconnects}) {
@@ -7662,10 +7728,16 @@ sub write_emc_groups {
       my $connect = ${$::EMC::Group{$name}}{connect};
       my $nconnects = ${$::EMC::Group{$name}}{nconnects};
       
-      printf($stream format_output(1, "id $id, depth -> $::EMC::EMC{depth}, chemistry -> chem_$name", 4, 2));
-      printf($stream format_output(1, "field $field", 4, 2)) if ($field ne "");
-      printf($stream format_output(1, "terminator true", 4, 2)) if ($terminator);
-      printf($stream format_output(0, "connects {", 4, 2));
+      printf($stream
+       	format_output(1, "id $id, depth -> $::EMC::EMC{depth}, chemistry -> chem_$name", 4, 2));
+      printf($stream
+	format_output(1, "charges $charges", 4, 2)) if (defined($charges));
+      printf($stream
+       	format_output(1, "field $field", 4, 2)) if ($field ne "");
+      printf($stream
+       	format_output(1, "terminator true", 4, 2)) if ($terminator);
+      printf($stream
+       	format_output(0, "connects {", 4, 2));
 
       printf($stream "\n");
       foreach (@{${$::EMC::Group{$name}}{connect}}) {
@@ -7689,11 +7761,17 @@ sub write_emc_groups {
       }
       printf($stream "\n    }\n  }%s", $i++<$n-1 ? ",\n" : "");
     } else {
-      printf($stream format_output(1, "id $id", 4, 2));
-      printf($stream format_output(1, "depth $::EMC::EMC{depth}", 4, 2));
+      printf($stream
+       	format_output(1, "id $id", 4, 2));
+      printf($stream
+       	format_output(1, "depth $::EMC::EMC{depth}", 4, 2));
       #printf($stream format_output(1, "terminator true", 4, 2)) if ($terminator);
-      printf($stream format_output(1, "field $field", 4, 2)) if ($field ne "");
-      printf($stream format_output(0, "chemistry chem_$name", 4, 2));
+      printf($stream
+	format_output(1, "charges $charges", 4, 2)) if (defined($charges));
+      printf($stream
+       	format_output(1, "field $field", 4, 2)) if ($field ne "");
+      printf($stream
+       	format_output(0, "chemistry chem_$name", 4, 2));
       printf($stream "\n".format_output($i++<$n-1, "}", 2, 2));
     }
   }
@@ -7841,9 +7919,12 @@ sub write_emc_moves_cluster {
   my $limit = join(", ", split(":", ${$ptr}{limit}));
   my $max = join(", ", split(":", ${$ptr}{max}));
   my $min = join(", ", split(":", ${$ptr}{min}));
-
+  
+  if (defined({0 => 1, 1 => 1}->{$ptr->{active}})) {
+    $ptr->{active} = boolean($ptr->{active});
+  }
   printf($stream "%s\n", format_output(0, "cluster {", 2, 2));
-  printf($stream "%s", format_output(1, "active true", 4, 2));
+  printf($stream "%s", format_output(1, "active ".$ptr->{active}, 4, 2));
   printf($stream "%s", format_output(1, "frequency ${$ptr}{frequency}", 4, 2));
   printf($stream "%s", format_output(1, "cut ${$ptr}{cut}", 4, 2)); 
   printf($stream "%s", format_output(1, "min {$min}", 4, 2));
@@ -7857,14 +7938,23 @@ sub write_emc_moves {
   my $stream = shift(@_);
   my @keys = sort(keys(%::EMC::Moves));
   my @active = ();
-  my %functions = (
-    cluster => \&write_emc_moves_cluster
-  );
+
+  my $moves = {
+    cluster => {
+      function => \&write_emc_moves_cluster,
+      allowed => {
+	both => 1, translate => 1, rotate => 1, false => 0, true => 1,
+	none => 0, 0 => 0, 1 => 1
+      }
+    }
+  };
   my $n = 0;
 
   foreach (@keys) {
-    push(@active, $_) if (
-      defined($functions{$_}) && flag(${$::EMC::Moves{$_}}{active}));
+    next if (!defined($moves->{$_}));
+    next if (!defined($moves->{$_}->{allowed}->{$::EMC::Moves{$_}->{active}}));
+    next if (!$moves->{$_}->{allowed}->{$::EMC::Moves{$_}->{active}});
+    push(@active, $_);
   }
   return if (!($n = scalar(@active)));
 
@@ -7872,7 +7962,7 @@ sub write_emc_moves {
 
   printf($stream "moves\t\t= {\n");
   for ($i=0; $i<$n; ++$i) {
-    &{$functions{@active[$i]}}($stream, $i<$n-1);
+    $moves->{@active[$i]}->{function}->($stream, $i<$n-1);
   }
   printf($stream "};\n\n");
 }
@@ -7902,6 +7992,40 @@ sub write_emc_region {
   printf($stream "%s\n", format_output(0, "}", 4, 2));
   printf($stream "%s\n", format_output(0, "}", 2, 2));
   printf($stream "};\n\n") if ($full);
+}
+
+
+sub write_emc_tighten {						# tighten
+  my $stream = shift(@_);
+  my @geometry = ("infinite", "infinite", "infinite");
+  my $value = $::EMC::Import{tighten};
+  my $flag = 1;
+  
+  $value = $::EMC::Tighten if ($value<0);
+  if ($::EMC::Import{type} eq "surface") {
+    foreach (($::EMC::Direction{x})) {
+      @geometry[0] = $value if ($_ eq "x");
+      @geometry[1] = $value if ($_ eq "y");
+      @geometry[2] = $value if ($_ eq "z");
+    }
+  } elsif ($::EMC::Import{type} eq "tube") {
+    @geometry = ($value, $value, $value);
+    foreach (($::EMC::Direction{x})) {
+      @geometry[0] = "infinite" if ($_ eq "x");
+      @geometry[1] = "infinite" if ($_ eq "y");
+      @geometry[2] = "infinite" if ($_ eq "z");
+    }
+  } elsif ($::EMC::Import{type} eq "structure") {
+    @geometry = ($value, $value, $value);
+  } else {
+    $flag = 0;
+  }
+
+  if ($flag) {
+    printf($stream 
+      "deform\t\t= {mode -> tighten, type -> absolute,\n".
+      "\t\t   geometry -> {%s}};\n", join(", ", @geometry));
+  }
 }
 
 
@@ -7947,36 +8071,8 @@ sub write_emc_import {
       boolean($::EMC::Import{map}));
   }
   if (defined($::EMC::Import{tighten})) {			# tighten
-    my @geometry = ("infinite", "infinite", "infinite");
-    my $value = $::EMC::Import{tighten};
-    my $flag = 1;
-    
-    $value = $::EMC::Tighten if ($value<0);
-    if ($::EMC::Import{type} eq "surface") {
-      foreach (($::EMC::Direction{x})) {
-	@geometry[0] = $value if ($_ eq "x");
-	@geometry[1] = $value if ($_ eq "y");
-	@geometry[2] = $value if ($_ eq "z");
-      }
-    } elsif ($::EMC::Import{type} eq "tube") {
-      @geometry = ($value, $value, $value);
-      foreach (($::EMC::Direction{x})) {
-	@geometry[0] = "infinite" if ($_ eq "x");
-	@geometry[1] = "infinite" if ($_ eq "y");
-	@geometry[2] = "infinite" if ($_ eq "z");
-      }
-    } elsif ($::EMC::Import{type} eq "structure") {
-      @geometry = ($value, $value, $value);
-    } else {
-      $flag = 0;
-    }
-
-    if ($flag) {
-      printf($stream 
-	"deform\t\t= {mode -> tighten, type -> absolute,\n".
-	"\t\t   geometry -> {%s}};\n", join(", ", @geometry));
-    }
     if ($::EMC::Import{type} eq "structure") {
+      write_emc_tighten($stream);
       printf($stream "focus\t\t= {mode -> middle, ntrials -> 1};\n");
     }
   }
@@ -8151,8 +8247,14 @@ sub write_emc_import_variables {
     $extra .= ", " if ($import->{unwrap}>=0 && $import->{merge}>=0);
     $extra .= "merge -> ".boolean($import->{merge}) if ($import->{merge}>=0);
     printf($stream 
-      "crystal\t\t= {n -> {nx, ny, nz}, periodic -> {%s}%s};\n\n",
+      "crystal\t\t= {n -> {nx, ny, nz}, periodic -> {%s}%s};\n",
       join(", ", @periodic), $extra);
+    if (defined($::EMC::Import{tighten})) {			# tighten
+      if ($::EMC::Import{type} ne "structure") {
+	write_emc_tighten($stream);
+      }
+    }
+    printf($stream "\n");
   }
   push(@flags, $flag) if ($flag ne "mobile");
   push(@flags, "focus") if ($::EMC::Import{focus});
@@ -8258,7 +8360,7 @@ sub write_emc_phase {
   printf($stream "\n") if (write_emc_verbatim($stream, "build", $phase, 1));
   
   printf($stream "(* build %s *)\n\n", $phase>0 ? "phase $phase" : "system");
-  
+ 
   write_emc_interaction($stream, $phase);
   
   printf($stream "variables\t= {\n");
@@ -8890,6 +8992,12 @@ sub write_emc_store {
 
   printf($stream "(* storage *)\n");
 
+  #if ($::EMC::Flag{charge}) {					# done by EMC
+  #  printf($stream "variables\t= {\n");
+  #  printf($stream "%s", format_output(1, "flag_charged charged()", 2, 2));
+  #  printf($stream "};\n");
+  #}
+
   if (!$::EMC::EMC{test}) {
     printf($stream "\nput\t\t= {name -> output, compress -> true};\n");
 
@@ -9400,6 +9508,7 @@ variable	kB		equal	1.3806504e-23	# [J/K Boltzmann]
 variable	atm2Pa		equal	101325.0	# [Pa Atmosphere]
 variable	A2m		equal	1.0e-10		# [m]
 variable	fs2s		equal	1.0e-15		# [s]
+variable	volume		equal	vol
 
 variable	convert 	equal	\${atm2Pa}*\${atm2Pa}*\${fs2s}*\${A2m}*\${A2m}*\${A2m}
 
@@ -9408,7 +9517,7 @@ fix		cnu all ave/correlate \${tfreq} \${nsample} \${dtime} &
 fix		anu all ave/correlate \${tfreq} \${nsample} \${dtime} &
 		c_thermo_press[4] c_thermo_press[5] c_thermo_press[6] ave running
 
-variable	scale		equal	\${convert}/\${kB}*\${nsample}*\${timestep}*1000
+variable	scale		equal	\${convert}/(\${kB}*\${temperature})*\${volume}*\${tfreq}*\${timestep}*1000
 
 variable	nu_xy		equal	trap(f_cnu[3])*\${scale}
 variable	nu_xz		equal	trap(f_cnu[4])*\${scale}
@@ -9422,7 +9531,7 @@ variable	nu_avg		equal	(v_anu1+v_anu2+v_anu3)/3.0
 
 fix		nu all ave/time \${dtime} 1 \${dtime} &
 		v_nu_avg v_nu v_nu_xy v_nu_xz v_nu_yz title1 &
-		\"# Time-averaged data: multiply with <vol>/<T> [LAMMPS units] for nu in [mPa s]\" &
+		\"# Time-averaged data: for nu in [mPa s]\" &
 		file \${project}.green-kubo
 
 thermo_style	custom step temp c_thermo_temp pe ke press c_thermo_press vol
@@ -10071,11 +10180,25 @@ sub write_job_loop {
   my $paired = shift(@_);
   my $dim = shift(@_);
   my $first = shift(@_);
+  my $f_seq = 0;
+  my $q = "\"";
 
+  foreach (keys(%::EMC::Loop)) {
+    my @a = split(":");
+    next if (@a[0] ne $name);
+    foreach (@{$::EMC::Loop{$_}}) {
+      @a = split(":");
+      next if (scalar(@a)<2);
+      $f_seq = (@a[0] eq "s" || @a[0] eq "seq");
+      last if ($f_seq);
+    }
+    last if ($f_seq);
+  }
+  $q = "" if ($f_seq);
   for (my $i=0; $i<$dim; ++$i) {
     my $list = $first ? 
       "\${$NAME"."s[\$i_$name]}" :
-      "\"\$(replace_vars \"\${$NAME"."s[\${i_$paired"."[$i]}]}\" \"\${values[\@]}\")\"";
+      "$q\$(replace_vars \"\${$NAME"."s[\${i_$paired"."[$i]}]}\" \"\${values[\@]}\")$q";
     my $VAR = $NAME.($dim<2 ? "" : "_".($i+1));
 
     write_job_indent($stream,
@@ -10590,6 +10713,9 @@ run_sh() {
 
   if [ \"\${QUEUE_ACCOUNT}\" != \"\" ]; then
     line+=(-account \${QUEUE_ACCOUNT});
+  fi;
+  if [ \"\${QUEUE_PROJECT}\" != \"\" ]; then
+    line+=(-queue_project \${QUEUE_PROJECT});
   fi;
   if [ \"\${QUEUE_USER}\" != \"\" ]; then
     line+=(\${QUEUE_USER});
@@ -11414,8 +11540,8 @@ sub write_job_settings {
 
 
 sub queue_entry {
-  my $arg;
-  ($arg) = @_[0] =~ m/"([^"]*)"/;
+  my $arg = shift(@_);
+  $arg =~ m/"([^"]*)"/;
   return $arg eq "none" ? "" : $arg;
 }
 
@@ -11513,6 +11639,7 @@ $host
 $header
   QUEUE=$::EMC::Queue{$type};
   QUEUE_ACCOUNT=\"".queue_entry($::EMC::Queue{account})."\";
+  QUEUE_PROJECT=\"".queue_entry($::EMC::Queue{project})."\";
   QUEUE_USER=\"".queue_entry($::EMC::Queue{user})."\";
   START_TIME=\"now\";
 ".($type eq "analyze" ? "

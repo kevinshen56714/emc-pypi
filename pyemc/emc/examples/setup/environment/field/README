@@ -93,9 +93,9 @@ Creation of the simulation environment occurs in ${WORKDIR} through
 
   ./setup/2018070100.esh
 
-or, when the above is not executable or emc_setup.pl is not in your path,
+or, when the above is not executable or emc.pl is not in your path,
 
-  ${EMC_ROOT}/scripts/emc_setup.pl setup/2018070100.esh
+  ${EMC_ROOT}/scripts/emc.pl setup/2018070100.esh
 
 Though the latter being possible, the user is adviced to add both 'bin' and
 'scripts' directory to their path, e.g.

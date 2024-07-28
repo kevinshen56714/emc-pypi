@@ -16,7 +16,7 @@
 # usage with vmd after build: vmd -e solution.vmd
 #
 
-  emc_setup.pl \
+  emc.pl \
     -ntotal=1000 -field=charmm \
     -replace solution $@;
 

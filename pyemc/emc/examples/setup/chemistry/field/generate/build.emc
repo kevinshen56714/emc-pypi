@@ -1,6 +1,6 @@
 (* EMC: Script *)
 
-(* Created by emc_setup.pl v3.6.0, July 8, 2018
+(* Created by emc.pl v3.6.0, July 8, 2018
    on Sun Jul  8 12:15:11 EDT 2018 *)
 
 (* define variables *)

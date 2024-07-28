@@ -1,6 +1,7 @@
 import os
 import subprocess
 import sys
+import platform
 
 
 def _get_exec() -> None:
@@ -13,7 +14,13 @@ def _get_exec() -> None:
         None
     '''
     if sys.platform == 'linux' or sys.platform == 'linux2':
-        emc_exec = 'emc_linux_x86_64'
+        arch = platform.machine()
+        if arch == 'x86_64':
+            emc_exec = 'emc_linux_x86_64'
+        elif arch == 'aarch64':
+            emc_exec = 'emc_linux_aarch64'
+        else:
+            raise Exception(f'Unsupported Linux architecture: {arch}')
     elif sys.platform == 'darwin':
         emc_exec = 'emc_macos'
     elif sys.platform == 'win32':
@@ -39,16 +46,16 @@ def _get_path() -> str:
 
 
 def setup(esh_file: str, *args):
-    '''Method to run emc_setup.pl of EMC
+    '''Method to run emc.pl of EMC
 
     Attributes:
-        esh_file (str): emc_setup.pl input file
+        esh_file (str): emc.pl input file
 
     Returns:
         None
     '''
     emc_setup_file = os.path.join(_get_path(), 'emc', 'scripts',
-                                  'emc_setup.pl')
+                                  'emc.pl')
 
     command = ['perl', str(emc_setup_file), esh_file]
     for arg in args:

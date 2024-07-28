@@ -1,0 +1,62 @@
+EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
+
+Info: reading gromacs field from './src/martini.itp'
+Info: writing field to 'martini.prm.gz'
+
+EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
+
+Info: reading gromacs field from './src/ions.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TN2q
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TN2q
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TC3
+Info: writing field to 'ions.prm.gz'
+
+EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
+
+Info: reading gromacs field from './src/solvents.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
+Info: writing field to 'solvents.prm.gz'
+
+EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
+
+Info: reading gromacs field from './src/phospholipids.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C4h
+Info: writing field to 'phospholipids.prm.gz'
+
+EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
+
+Info: reading gromacs field from './src/sugars.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SP3
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SP3
+Info: writing field to 'sugars.prm.gz'
+
+EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
+
+Info: reading gromacs field from './src/ions.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TN2q
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TN2q
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TC3
+Info: reading gromacs field from './src/martini.itp'
+Info: reading gromacs field from './src/phospholipids.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C4h
+Info: reading gromacs field from './src/solvents.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
+Info: reading gromacs field from './src/sugars.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SP3
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SP3
+Info: writing field to 'full.prm.gz'
+

@@ -1,0 +1,924 @@
+OPLS conversion v0.8beta, October 16, 2019, (c) Pieter J. in 't Veld
+
+Info: opening "opls-aa.define" for reading
+Info: opening "src/oplsaa.par" for reading
+Info: opening "src/oplsaa.sb" for reading
+Info: opening "opls-aa.prm" for writing
+Info: opening "opls-aa.top" for writing
+Info: reading defines
+Info: reading references
+Info: reading masses
+Info: reading redefinitions
+Info: reading repairs
+Info: reading precedences
+Info: reading extra types
+Info: reading equivalences
+Info: reading extra nonbonds
+Info: reading extra bonds
+Info: reading extra angles
+Info: reading extra torsions
+Info: reading extra impropers
+Info: reading rules
+Debug: 	94	N(#C)(C)
+Debug: 	95	C(#N)(C)
+Debug: 	100	[DM]
+Debug: 	101	[He]
+Debug: 	102	[Ne]
+Debug: 	103	[Ar]
+Debug: 	104	[Kr]
+Debug: 	105	[Xe]
+Debug: 	120	C([Cl])([Cl])([Cl])
+Debug: 	123	[Cl](C([Cl])([Cl])([Cl]))
+Debug: 	127	N(H)(H)(H)
+Debug: 	128	H(N(H)(H))
+Debug: 	97	[O](H)(H)([LP])([LP])
+Debug: 	98	H([O](H)([LP])([LP]))
+Debug: 	99	[LP][O](H)(H)([LP])
+Debug: 	111	[OW3P](H)(H)
+Debug: 	112	H([OW3P](H))
+Debug: 	113	[O](H)(H)([LP])
+Debug: 	114	H([O](H)([LP]))
+Debug: 	115	[LP][O](H)(H)
+Debug: 	116	[OW3F](H)(H)
+Debug: 	117	H([OW3F](H))
+Debug: 	133	[O](H)(H)
+Debug: 	134	H(O(H))
+Debug: 	135	C(C)(H)(H)(H)
+Debug: 	136	C(C)(C)(H)(H)
+Debug: 	137	C(C)(C)(C)(H)
+Debug: 	138	C(H)(H)(H)(H)
+Debug: 	139	C(C)(C)(C)(C)
+Debug: 	140	H(C(H)(H)(H)) H(C(C)(H)(H)) H(C(C)(C)(H)) H(C(C)(C)(C))
+Debug: 	140.1	H(C(N)(H)(H)) H(C(N)(C)(H)) H(C(N)(C)(C))
+Debug: 	140.2	H(C(c)(H)(H)) H(C(c)(C)(H)) H(C(c)(C)(C))
+Debug: 	140.3	H(C(S)(H)(H)) H(C(S)(C)(H)) H(C(S)(C)(C))
+Debug: 	141	C(=C)(*)(*)
+Debug: 	142	C(=C)(H)(*)
+Debug: 	143	C(=C)(H)(H)
+Debug: 	144	H(C(=C)(C))
+Debug: 	145	c(:c)(:c)(H) c(:c)(:c)(C)
+Debug: 	1004	c(:c)(:c)(C(c)(H)(H)) c(:c)(:c)(C(c)(C)(H)) c(:c)(:c)(C(c)(C)(C)) c(:c)(:c)(C(n)(H)(H)) c(:c)(:c)(C(n)(C)(H)) c(:c)(:c)(C(n)(C)(C))
+Debug: 	146	H(c(:c)(:c))
+Debug: 	147	c(:c)(:c)(:c) c(:c)(:c)(c)
+Debug: 	148	C(c(:c)(:c))(H)(H)(H)
+Debug: 	149	C(c(:c)(:c))(C)(H)(H) C(c(:c)(:c))(c(:c)(:c))(H)(H)
+Debug: 	515	C(c(:c)(:c))(C)(C)(H) C(c(:c)(:c))(c(:c)(:c))(C)(H) 
+Debug: 	516	C(c(:c)(:c))(C)(C)(C) C(c(:c)(:c))(c(:c)(:c))(C)(C)
+Debug: 	150	C(=C)(C(=C)(*))(H)
+Debug: 	154	O(C(*)(*)*)(H)
+Debug: 	155	H(O(C(*)(*)(*)))
+Debug: 	156	H(C(O(H))(H)(H))
+Debug: 	157	C(O(H))(H)(H)(*)
+Debug: 	158	C(O(H))(H)(*)(*)
+Debug: 	159	C(O(H))(*)(*)(*)
+Debug: 	160	C(O(H))(C(F)(F)(F))(H)(H)
+Debug: 	161	C(C(O(H))(H)(H))(F)(F)(F)
+Debug: 	162	O(C(C(F)(F)(F))(H)(H))(H)
+Debug: 	163	H(O(C(C(F)(F)(F))(H)(H)))
+Debug: 	164	F(C(C(O(H))(H)(H))(F)(F))
+Debug: 	165	H(C(C(F)(F)(F))(O(H))(H))
+Debug: 	166	c(:c)(:c)(O(H))
+Debug: 	167	O(c(:c)(:c))(H)
+Debug: 	168	H(O(c(:c)(:c)))
+Debug: 	169	O(C(C(O(H))(*)(*))(*)(*))(H)
+Debug: 	170	H(O(C(C(O(H))(*)(*))(*)(*)))
+Debug: 	171	O(C(C(O(H))(C(O(H))(*))(*)(*)))(H) O(C(C(O(H))(*)(*))(C(C(O(H))(*)(*))(*)))(H)
+Debug: 	172	H(O(C(C(O(H))(C(O(H))(*))(*)(*))))
+Debug: 	173	C(C)(O(H))(H)(H)
+Debug: 	174	C(C)(C)(O(H))(H)
+Debug: 	175	C(C)(C)(C)(O(H))
+Debug: 	176	H(C(O(H))(*)(*))
+Debug: 	177	O(c(:c)(:c))(c(:c)(:c))
+Debug: 	178	C(=C)(=C) C(=C)(C(=C)(*))C
+Debug: 	179	O(c(:c)(:c))(C)
+Debug: 	180	O(C)(C)
+Debug: 	181	C(O(*))(H)(H)(H)
+Debug: 	182	C(O(*))(H)(H)(*)
+Debug: 	183	C(O(*))(H)(*)(*)
+Debug: 	184	C(O(*))(*)(*)(*)
+Debug: 	997	C(O(*))(c(:c)(:c))(H)(*)
+Debug: 	997.1	C(O(*))(c(:c)(:c))(H)(H)
+Debug: 	998	C(O(*))(c(:c)(:c))(*)(*)
+Debug: 	185	H(C(O(*))(*)(*))
+Debug: 	186	O(C(O(*))(*)(*))(C)
+Debug: 	187	O(C(O(C(*)(*)(*)))(*)(*))(H)
+Debug: 	188	H(O(C(O(C(*)(*)(*)))(*)(*)))
+Debug: 	189	C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(H)(H)
+Debug: 	190	H(C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(H))
+Debug: 	191	C(O(C(*)(*)(*)))(O(H))(H)(H)
+Debug: 	192	H(C(O(C(*)(*)(*)))(O(H))(H))
+Debug: 	193	C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(H)(*)
+Debug: 	194	H(C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(*))
+Debug: 	195	C(O(C(*)(*)(*)))(O(H))(H)(*)
+Debug: 	196	H(C(O(C(*)(*)(*)))(O(H))(*))
+Debug: 	197	C(O(C(*)(*)(*)))(O(C(*)(*)(*)))(*)(*)
+Debug: 	198	C(O(C(*)(*)(*)))(O(H))(*)(*)
+Debug: 	199	c(:c)(:c)(O(C))
+Debug: 	200	S(H)(*)
+Debug: 	201	S(H)(H)
+Debug: 	202	S(*)(*)
+Debug: 	203	S(S)(*)
+Debug: 	204	H(S(*))
+Debug: 	205	H(S(H))
+Debug: 	206	C(S(H))(H)(H)(*)
+Debug: 	207	C(S(H))(H)(*)(*)
+Debug: 	208	C(S(H))(*)(*)(*)
+Debug: 	209	C(S(*))(H)(H)(H)
+Debug: 	210	C(S(*))(H)(H)(*)
+Debug: 	211	C(S(*))(H)(*)(*)
+Debug: 	212	C(S(*))(*)(*)(*)
+Debug: 	213	C(S(S))(H)(H)(H)
+Debug: 	214	C(S(S))(H)(H)(*)
+Debug: 	215	C(S(S))(H)(*)(*)
+Debug: 	216	C(S(S))(*)(*)(*)
+Debug: 	217	C(S(H))(H)(H)(H)
+Debug: 	202.1	S(c(:c)(:c))(=O)(:O)(:O) S(c(:c)(:c))(=O)(=O)([O-])
+Debug: 	311.1	O(=S(:O)(:O)(c(:c)(:c))) O(:S(=O)(:O)(c(:c)(:c))) O(=S(=O)([O-])(c(:c)(:c))) [O-](S(=O)(=O)(c(:c)(:c)))
+Debug: 	145.1	c(:c)(:c)(S(=O)(:O)(:O)) c(:c)(:c)(S(=O)(=O)([O-]))
+Debug: 	218	C(c(:c)(:c))(OH)(H)(H)
+Debug: 	219	C(c(:c)(:c))(OH)(H)(*)
+Debug: 	220	C(c(:c)(:c))(OH)(*)(*)
+Debug: 	221	c(:c)(:c)(C(O(H))(*)(*))
+Debug: 	221.1	c(:c)(:c)(C(O(C))(*)(*))
+Debug: 	221.2	c(:c)(:c)(C(O(N))(*)(*))
+Debug: 	222	S(c(:c)(:c))(C)
+Debug: 	228	c(:c)(:c)(S(C))
+Debug: 	223	C(N(H)(H))(C)(H)(H)
+Debug: 	224	C(N(H)(H))(C)(*)(H)
+Debug: 	225	C(N(H)(H))(C)(*)(*)
+Debug: 	989	C(N(H)(H))(c(:c)(:c))(H)(H)
+Debug: 	226	[Cl](C(=C)(H)(*))
+Debug: 	227	C(=C)([Cl])(H)(*)
+Debug: 	231	C(c(:c)(:c))(c(:c)(:c))(=O)
+Debug: 	232	C(c(:c)(:c))(=O)(H)
+Debug: 	233	C(c(:c)(:c))(C)(=O)
+Debug: 	229	C(N(C(=O)(*))(H))(H)(*)(*)
+Debug: 	230	C(N(C(=O)(*))(H))(*)(*)(*)
+Debug: 	234	C(c(:c)(:c))(=O)(N(H)(H))
+Debug: 	235	C(=O)(N(H)(*))(*)
+Debug: 	236	O(=C(N(H)(*))(*))
+Debug: 	237	N(C(=O)(*))(H)(H)
+Debug: 	238	N(C(=O)(*))(H)(*)
+Debug: 	239	N(C(=O)(*))(*)(*)
+Debug: 	240	H(N(C(=O)(*))(H))
+Debug: 	241	H(N(C(=O)(*))(*))
+Debug: 	242	C(N(C(=O)(*))(H))(H)(H)(H)
+Debug: 	243	C(N(C(=O)(*))(*))(H)(H)(H)
+Debug: 	244	C(N(C(=O)(*))H)(H)(H)(*)
+Debug: 	244.1	C(N(C(=O)(O))H)(H)(H)(*)
+Debug: 	245	C(N(C(=O)(*))(*))(H)(H)(*)
+Debug: 	246	C(N(C(=O)(*))(*))(H)(*)(*)
+Debug: 	987	N(c(:c)(:c))(C(=O)(*))(C)
+Debug: 	988	c(:c)(:c)(N(C(=O)(*))(C))
+Debug: 	247	C(=O)(N(H)(H))(N(H)(H))
+Debug: 	248	O(=C(N(H)(H))(N(H)(H)))
+Debug: 	249	N(C(=O)(N(H)(H)))(H)(H)
+Debug: 	250	H(N(C(=O)(N(H)(H)))(H))
+Debug: 	251	N(C(=O)(*))(C(=O)(*))(H)
+Debug: 	251.1	N(C(=O)(*))(C(=O)(*))(C)
+Debug: 	252	C(N(C(=O)(*)))(=O)(*)
+Debug: 	253	O(=C(N(C(=O)(*)))(*))
+Debug: 	254	H(N(C(=O)(*))(C(=O)(*)))
+Debug: 	255	H(C(N(C(=O)(*))(C(=O)(*)))(*)(*)(*))
+Debug: 	256	C(C(=O)N(*))(H)(H)(H)
+Debug: 	257	C(C(=O)N(*))(H)(H)(C)
+Debug: 	258	C(C(=O)N(*))(H)(C)(C)
+Debug: 	259	C(C(=O)N(*))(C)(C)(C)
+Debug: 	259.1	C(N(C(=O)(*))(C(=O)(*)))(H)(H)(H)
+Debug: 	259.2	C(N(C(=O)(*))(C(=O)(*)))(H)(H)(C)
+Debug: 	259.3	C(N(C(=O)(*))(C(=O)(*)))(H)(C)(C)
+Debug: 	259.4	C(N(C(=O)(*))(C(=O)(*)))(C)(C)(C)
+Debug: 	150.1	C(=N(C))(=O)
+Debug: 	251.2	N(=C(=O))(C)
+Debug: 	253.1	O(=C(=N(C)))
+Debug: 	256.1	C(N(=C(=O)))(H)(H)(H)
+Debug: 	257.1	C(N(=C(=O)))(H)(H)(C)
+Debug: 	258.1	C(N(=C(=O)))(H)(C)(C)
+Debug: 	259.1	C(N(=C(=O)))(C)(C)(C)
+Debug: 	260	c(:c)(:c)(C(#N))
+Debug: 	261	C(c(:c)(:c))(#N)
+Debug: 	262	N(#C(c(:c)(:c)))
+Debug: 	263	c(:c)(:c)([Cl])
+Debug: 	264	[Cl](c(:c)(:c))
+Debug: 	265	N(c(:c)(:c))(C(=O)(*))(H)
+Debug: 	266	c(:c)(:c)(N(C(=O)(*))(H))
+Debug: 	267	C(C)(=O)(O(H))
+Debug: 	268	O(C(C)(=O))(H)
+Debug: 	269	O(=C(C)O(H))
+Debug: 	270	H(O(C(C)(=O)))
+Debug: 	271	C(C)(:O)(:O)
+Debug: 	272	O(:C(C)(:O))
+Debug: 	273	C(C(:O)(:O))(H)(H)(H)
+Debug: 	274	C(C(:O)(:O))(H)(H)(*)
+Debug: 	275	C(C(:O)(:O))(H)(*)(*)
+Debug: 	276	C(C(:O)(:O))(*)(*)(*)
+Debug: 	990	C(=O)(N(O(H))(*))(*)
+Debug: 	991	C(=O)(N(O(H))(*))(c(:c)(:c))
+Debug: 	992	O(=C(N(O(H))(*))(*))
+Debug: 	993	N(O(H))(C(=O)(*))(*)
+Debug: 	994	H(N(O(H))(C(=O)(*)))
+Debug: 	995	O(H)(N(C(=O)(*))(*))
+Debug: 	996	H(O(N(C(=O)(*))(*)))
+Debug: 	267.1	C(C(C(C(=O)(OH))))(=O)(OH) C(C(C(C(:O)(:O))))(=O)(OH)
+Debug: 	271.1	C(C(C(C(=O)(OH))))(:O)(:O) C(C(C(C(:O)(:O))))(:O)(:O)
+Debug: 	277	C(C)(=O)(H)
+Debug: 	278	O(=C(C)(H))
+Debug: 	279	H(C(C)(=O))
+Debug: 	280	C(=O)(C)(H) C(=O)(C)(C) C(=O)(C)(c) C(=O)(c)(c)
+Debug: 	281	O(=C(C)(H)) O(=C(C)(C)) O(=C(C)(c)) O(=C(c)(c))
+Debug: 	282	H(C(C(=O)(*))(*)(*)) H(C(C(:O)(:O))(*)(*))
+Debug: 	283	C(C(=O)(O(H)))(N(H)(H))(C)(H)
+Debug: 	284	C(C(=O)(O(H)))(N(H)(H))(H)(H)
+Debug: 	285	C1(C(=O)(O(H)))N(H)C(H)(H)C(H)(H)C1(H)(H)
+Debug: 	286	[N+](H)(H)(H)(H)
+Debug: 	287	[N+](C)(H)(H)(H)
+Debug: 	309	[N+](C)(C)(H)(H)
+Debug: 	940	[N+](C)(C)(C)(H)
+Debug: 	288	[N+](C)(C)(C)(C)
+Debug: 	1125	[N+](c(:c)(:c))(C)(C)(C)
+Debug: 	1127	[N+](c(:c)(:c))(C)(C)(H)
+Debug: 	289	H([N+](H)(H)(H))
+Debug: 	290	H([N+](C)(H)(H))
+Debug: 	310	H([N+](C)(C)(H))
+Debug: 	941	H([N+](C)(C)(C))
+Debug: 	1124	H(C([N+](C)(C)(C))(H)(H))
+Debug: 	291	C([N+](H)(H)(H))(H)(H)(H)
+Debug: 	292	C([N+](H)(H)(H))(C)(H)(H)
+Debug: 	293	C([N+](H)(H)(H))(C)(C)(H)
+Debug: 	294	C([N+](H)(H)(H))(C)(C)(C)
+Debug: 	297	C([N+](C)(H)(H))(H)(H)(H)
+Debug: 	942	C([N+](C)(C)(H))(H)(H)(H)
+Debug: 	943	C([N+](C)(C)(H))(C)(H)(H)
+Debug: 	944	C([N+](C)(C)(H))(C)(C)(H)
+Debug: 	945	C([N+](C)(C)(H))(C)(C)(C)
+Debug: 	1120	C([N+](C)(C)(C))(H)(H)(H)
+Debug: 	1121	C([N+](C)(C)(C))(C)(H)(H)
+Debug: 	1122	C([N+](C)(C)(C))(C)(C)(H)
+Debug: 	1123	C([N+](C)(C)(C))(C)(C)(C)
+Debug: 	1126	c([N+](C)(C)(C))(:c)(:c)
+Debug: 	1128	c([N+](C)(C)(H))(:c)(:c)
+Debug: 	295	C1(C(=O)(O(H)))(H)C(H)(H)C(H)(H)C(H)(H)N1(C)
+Debug: 	296	C1N(C)C(C(=O)OH)(H)C(H)(H)C(H)(H)C1(H)(H)
+Debug: 	297	C(H)(H)(H)[N+](H)(H)C
+Debug: 	298	C(C(:O):O)(H)(H)[N+](H)(H)(H)
+Debug: 	299	C([N+](H)(H)(H))(C(H)(H)(H))(H)C(=O)OH
+Debug: 	300	N(H)(H)[C+](N(*)(*))N(*)(*)
+Debug: 	301	HN(H)[C+](N(*)(*))N(*)(*)
+Debug: 	302	[C+](N(*)(*))(N(*)(*))N(*)(*)
+Debug: 	303	N(C)(H)[C+](N(*)(*))N(*)(*)
+Debug: 	304	HN(C)[C+](N(*)(*))N(*)(*)
+Debug: 	305	C(H)(H)(H)N(H)[C+](N(*)(*))N(*)(*)
+Debug: 	306	C(H)(H)(H)C(H)(H)N(H)[C+](N(*)(*))N(*)(*)
+Debug: 	307	C(C(*)(H)(H))(H)(H)N(H)[C+](N(*)(*))N(*)(*)
+Debug: 	308	C(C(H)(H)C)(H)(H)C(H)(H)N(H)[C+](N(*)(*))N(*)(*)
+Debug: 	371	C(H)(*)(*)n1c(H)nc(*)c1*
+Debug: 	372	HC(*)(*)n1c(H)nc(*)c1*
+Debug: 	373	C(H)(*)(*)n1c(=O)n(H)c(=O)c(*)c1(H)
+Debug: 	374	HC(*)(*)n1c(=O)n(H)c(=O)c(*)c1(H)
+Debug: 	375	C(H)(*)(*)c1c(=O)nc(N(H)H)c(H)c1(H)
+Debug: 	376	HC(*)(*)c1c(=O)nc(N(H)H)c(H)c1(H)
+Debug: 	391	C(H)(*)(*)c1c(=O)n(H)c(N(H)H)c(H)c1(H)
+Debug: 	392	HC(*)(*)c1c(=O)n(H)c(N(H)H)c(H)c1(H)
+Debug: 	393	P(OC(*)(*)*)(OC(*)(*)*)(=O)=O
+Debug: 	394	O=P(*)(*)*
+Debug: 	395	OP(*)(*)*
+Debug: 	396	C(*)(*)(*)OP(OC(*)(*)*)(=O)=O
+Debug: 	397	C(c1c(=O)n(H)c(=O)n(*)c1(H))(F)(F)(F)
+Debug: 	398	[Cl]C([Cl])=C(*)(*)*
+Debug: 	399	C([Cl])([Cl])=C(*)(*)*
+Debug: 	1100	[F-]
+Debug: 	1101	[Cl-]
+Debug: 	1102	[Br-]
+Debug: 	1103	[I-]
+Debug: 	405	[NH4+]
+Debug: 	1106	[Li+]
+Debug: 	1107	[Na+]
+Debug: 	1108	[K+]
+Debug: 	1109	[Rb+]
+Debug: 	1110	[Cs+]
+Debug: 	1111	[Mg++]
+Debug: 	1112	[Ca++]
+Debug: 	1113	[Sr++]
+Debug: 	1114	[Ba++]
+Debug: 	434	[O-](H)
+Debug: 	435	H([O-])
+Debug: 	439	O(P(~O)(~O)(~O))(P(~O)(~O)(~O))
+Debug: 	457	c(:c)(:c)(OP(~O)(~O)(~O))
+Debug: 	458	C(O(P(~O)(~O)(O(c(:c)(:c)))))(H)(H)(H)
+Debug: 	459	H(C(H)(H)(O(P(~O)(~O)(O(c(:c)(:c))))))
+Debug: 	460	c(:c)(:c)(P(~O)(~O)(~O))
+Debug: 	461	C(O(P(~O)(~O)(c(:c)(:c))))(H)(H)(H)
+Debug: 	462	H(C(O(P(~O)(~O)(c(:c)(:c))))(H)(H))
+Debug: 	464	C1(C)(C)C(=O)N(H)C(=O)N(H)C1=O
+Debug: 	771	O=C(OC)(OC)
+Debug: 	772	C(=O)(OC)(OC)
+Debug: 	774	C(OC(=O)O)(H)(H)(*)
+Debug: 	775	C(OC(=O)O)(H)(*)(*)
+Debug: 	776	C(OC(=O)O)(H)(H)(H)
+Debug: 	773	O(C(=O)(O(C(*)(*)(*))))(C(*)(*)(*))
+Debug: 	777	H(C(OC(=O)O)(H)(*))
+Debug: 	779	H(C(OC(=O)O)(H)(H))
+Debug: 	465	C(=O)(O(C))(*)
+Debug: 	465.1	C(=O)(O(C))(c(:c)(:c))
+Debug: 	466	O(=C(O(C))(*))
+Debug: 	467	O(C)(C(=O)(*))
+Debug: 	468	C(O(C(=O)(*)))(H)(H)(H)
+Debug: 	469	H(C(O(C(=O)(*))(H)(H)(H)))
+Debug: 	470	C(c(:c)(:c))(=O)(O(H)) C(c(:c)(:c))(:O)(:O)
+Debug: 	471	C(O(c(:c)(:c)))(=O)(*)
+Debug: 	472	c(:c)(:c)(O(C(=O)(*)))
+Debug: 	473	O(c(:c)(:c))(C(=O)(*))
+Debug: 	474	S(C)(=O)(=O)(N)
+Debug: 	475	O(=S(C)(=O)(N))
+Debug: 	476	C(S(=O)(=O)(N))(H)(H)(H)
+Debug: 	477	H(C(S(=O)(=O)(N))(H)(H))
+Debug: 	478	N(S(=O)(=O)(C))(H)(H)
+Debug: 	479	H(N(S(=O)(=O)(C))(H))
+Debug: 	480	N(S(=O)(=O)(C))(H)(*)
+Debug: 	481	H(N(S(=O)(=O)(C))(*))
+Debug: 	482	C(N(S(=O)(=O)(C))(H))(H)(H)(H)
+Debug: 	483	H(C(N(S(=O)(=O)(C))(H))(H)(H))
+Debug: 	484	C(N(S(=O)(=O)(C))(H))(C)(H)(H)
+Debug: 	485	H(C(N(S(=O)(=O)(C))(H))(C)(H))
+Debug: 	486	C(C(N(S(=O)(=O)(C))(H))(H)(H))(H)(H)(H)
+Debug: 	487	H(C(C(N(S(=O)(=O)(C))(H))(H)(H))(H)(H))
+Debug: 	488	c(:c)(:c)(S(=O)(=O)(N)) c(:c)(:c)(S(=O)(=O)(C)) c(:c)(:c)(S(=O)(=O)(c))
+Debug: 	490	C(O(S(=O)(*)))(C)(H)(H)
+Debug: 	491	C(O(S(=O)(*)))(C)(C)(H)
+Debug: 	492	C(O(S(=O)(*)))(C)(C)(C)
+Debug: 	135.1	C(H)(H)(H)(S(=O)(=O)(*))
+Debug: 	136.1	C(C)(H)(H)(S(=O)(=O)(*))
+Debug: 	137.1	C(C)(C)(H)(S(=O)(=O)(*))
+Debug: 	139.1	C(C)(C)(C)(S(=O)(=O)(*))
+Debug: 	147.1	c(:c)(:c)(S(=O)(=O)(*))
+Debug: 	493	S(C)(C)(=O)(=O)
+Debug: 	493.01	S(C)(c)(=O)(=O) S(c)(c)(=O)(=O)
+Debug: 	494	O(=S(C)(C)(=O)) O(=S(C)(c)(=O)) O(=S(c)(c)(=O))
+Debug: 	489	c(:c)(:c)(S(=O)(C))
+Debug: 	495	S(=O)(C)(c)
+Debug: 	496	S(=O)(C)(C) S(=O)(c)(c)
+Debug: 	497	O(=S(C)(C)) O(=S(C)(c)) O(=S(c)(c))
+Debug: 	498	C(S(=O)(C))(H)(H)(H) C(S(=O)(c))(H)(H)(H)
+Debug: 	499	C(S(=O)(C))(C)(H)(H) C(S(=O)(C))(c)(H)(H)
+Debug: 	500	c(c(:c)(:c))(c(n)(H))(C(C)(H)(H))
+Debug: 	501	c(c(c)(C))(n(c)(H))(H)
+Debug: 	502	c(:c(:c)(c))(:c(:c)(H))(n(c)(H))
+Debug: 	503	n(c(c)(H))(c(:c)(:c))(H)
+Debug: 	504	H(n(c(c)(H))(c(:c)(:c)))
+Debug: 	718	c(:c)(:c)(F)
+Debug: 	719	F(c(:c)(:c))
+Debug: 	720	c1(F):c(F):c(F):c(F):c(F):c1(F)
+Debug: 	721	F(c1c(F)c(F)c(F)c(F)c1(F))
+Debug: 	724	c(:c)(:c)(C(F)(F)(F))
+Debug: 	725	C(c(:c)(:c))(F)(F)(F)
+Debug: 	726	F(C(c(:c)(:c))(F)(F))
+Debug: 	727	c1(F):c(F):c(*):c(*):c(*):c1(*) c1(F):c(*)c(F):c(*):c(*):c1(*) c1(F):c(*):c(*):c(F):c(*):c1(*)
+Debug: 	728	F(c1:c(F):c(*):c(*):c(*):c1(*)) F(c1:c(*):c(F):c(*):c(*):c1(*)) F(c1:c(*):c(*):c(F):c(*):c1(*))
+Debug: 	956	F(C(C)(C)(C)) F(C(C)(C)(H)) F(C(C)(H)(H))
+Debug: 	957	C(F)(C)(H)(H)
+Debug: 	958	H(C(F)(C)(C)) H(C(F)(C)(H))
+Debug: 	959	C(F)(C)(C)(H)
+Debug: 	960	C(F)(C)(C)(C)
+Debug: 	961	C(F)(F)(F)(C)
+Debug: 	962	C(F)(F)(C)(C)
+Debug: 	963	C(F)(C)(C)(C)
+Debug: 	964	C(F)(F)(F)(F)
+Debug: 	965	F(C)
+Debug: 	966	C(c(:c)(:c))(F)(F)(H)
+Debug: 	967	H(C(c(:c)(:c))(F)(F))
+Debug: 	968	C(C(:O)(:O))(F)(H)(H)
+Debug: 	980	F(C(=O)(*))
+Debug: 	983	c(:c)(:c)(O(C(F)(F)(F)))
+Debug: 	984	O(c(:c)(:c))(C(F)(F)(F))
+Debug: 	985	C(O(c(:c)(:c)))(F)(F)(F)
+Debug: 	986	F(C(O(c(:c)(:c)))(F)(F))
+Debug: 	969	C(C(:O)(:O))([Cl])(H)(H)
+Debug: 	970	[Cl](C)
+Debug: 	971	C([Cl])(H)(H)(*)
+Debug: 	972	H(C([Cl])(*)(*))
+Debug: 	973	C([Cl])(H)(*)(*)
+Debug: 	974	C([Cl])(*)(*)(*)
+Debug: 	981	[Cl](C(=O)(*))
+Debug: 	729	c(:c)(:c)([Br])
+Debug: 	730	[Br](c(:c)(:c))
+Debug: 	975	[Br](C)
+Debug: 	976	C([Br])(H)(H)(*)
+Debug: 	977	H(C([Br])(*)(*))
+Debug: 	978	C([Br])(H)(*)(*)
+Debug: 	979	C([Br])(*)(*)(*)
+Debug: 	982	[Br](C(=O)(*))
+Debug: 	731	c(:c)(:c)(I)
+Debug: 	732	I(c(:c)(:c))
+Debug: 	657.1	n(:c(:c)(H))(:c(:n)(H))(C(C)(H)(H)) n(:c(:c)(H))(:c(:n)(H))(C(c)(H)(H))
+Debug: 	145.2	c(:n(:c(:n)(H))(C))(:c(:n(:c)(C))(H))(H)
+Debug: 	145.3	c(:n(:c)(C))(:n(:c)(C))(H)
+Debug: 	146.1	H(c(:n(:c(:n)(H))(C))(:c(:n(:c)(C))(H)))
+Debug: 	146.2	H(c(:n(:c)(C))(:n(:c)(C)))
+Debug: 	139.1	C(n(:c(:n(:c)(C))(H))(:c(:c)(H)))(C)(H)(H)
+Debug: 	139.2	C(n(:c(:n(:c)(C))(H))(:c(:c)(H)))(c)(H)(H)
+Debug: 	140.3	H(C(n(:c(:c)(H))(:c(:n)(H)))(C)(H)) H(C(n(:c(:c)(H))(:c(:n)(H)))(c)(H))
+Info: reading pairs
+Info: reading bonds and angles
+Info: reading torsions and impropers
+
+Debug: 	TORSIONS:
+Debug: 	
+Debug: 		1	hc	ct	ct	hc	0	1	0	0.3	3	0
+Debug: 		1.1	hc	c	c	hc	0	1	0	0.3	3	0
+Debug: 		1.2	hc	c=	c=	hc	0	1	0	0.3	3	0
+Debug: 		1.3	ct	c=	c=	ct	0	1	0	0.3	3	0
+Debug: 		1.4	ct	c=	c=	hc	0	1	0	0.3	3	0
+Debug: 		1.5	h3	n3	ct	hc	0	1	0	0.3	3	0
+Debug: 		2	ct	ct	ct	hc	0	1	0	0.3	3	0
+Debug: 		2.1	co	ct	ct	hc	0	1	0	0.3	3	0
+Debug: 		2.2	ct	ct	co	hc	0	1	0	0.3	3	0
+Debug: 		3	ct	ct	ct	ct	1.3	1	0	-0.05	2	0	0.2	3	0
+Debug: 		3.1	co	ct	ct	ct	1.3	1	0	-0.05	2	0	0.2	3	0
+Debug: 		5	hc	ct	ct	oh	0	1	0	0.468	3	0
+Debug: 		5.1	hc	ct	ct	os	0	1	0	0.468	3	0
+Debug: 		5.2	hc	ct	co	os	0	1	0	0.468	3	0
+Debug: 		7	ct	ct	ct	oh	-1.552	1	0
+Debug: 		8	hc	ct	oh	ho	0	1	0	0.3524	3	0
+Debug: 		9	ct	ct	oh	ho	-0.356	1	0	-0.174	2	0	0.492	3	0
+Debug: 		10	oh	ct	ct	oh	9.508	1	0
+Debug: 		11	oh	ct	ct	oh	12.234	1	0
+Debug: 	double	11	oh	ct	ct	oh	10
+Debug: 	double	11	oh	ct	ct	oh	11
+Debug: 		12.1	ca	os	ct	hc	0	1	0	0.76	3	0
+Debug: 		12.4	ct	os	co	hc	0	1	0	0.76	3	0
+Debug: 		12.5	co	os	ct	hc	0	1	0	0.76	3	0
+Debug: 		13	ct	ct	os	ct	0.65	1	0	-0.25	2	0	0.67	3	0
+Debug: 		13.2	ct	co	os	ct	0.65	1	0	-0.25	2	0	0.67	3	0
+Debug: 		15	nt	ct	ct	oh	8	1	0
+Debug: 		16	os	ct	ct	os	-0.55	1	0
+Debug: 		17	ca	ca	os	ct	0	1	0	3	2	0
+Debug: 		20	ca	ca	ct	hc	0	1	0
+Debug: 		20.1	ca	ca	n3	h3	0	1	0
+Debug: 		21	ca	ca	ct	ct	0	1	0
+Debug: 		21.1	ca	ca	n3	ct	0	1	0
+Debug: 		22	ca	ct	ct	hc	0	1	0	0.462	3	0
+Debug: 		22.1	ca	n3	ct	hc	0	1	0	0.462	3	0
+Debug: 		22.9	cg	ct	ct	hc	0	1	0	0.462	3	0
+Debug: 		23	ct	s	s	ct	0	1	0	-7.414	2	0	1.705	3	0
+Debug: 		24	hc	ct	s	s	0	1	0	0.558	3	0
+Debug: 		25	ct	ct	s	s	1.941	1	0	-0.836	2	0	0.935	3	0
+Debug: 		26	hc	ct	sh	hs	0	1	0	0.48	3	0
+Debug: 		27	ct	ct	sh	hs	-0.759	1	0	-0.282	2	0	0.68	3	0
+Debug: 		28	hc	ct	ct	sh	0	1	0	0.452	3	0
+Debug: 		28.1	hc	ct	ct	sy	0	1	0	0.452	3	0
+Debug: 		28.2	hc	ct	ct	s	0	1	0	0.452	3	0
+Debug: 		29	ct	ct	ct	sh	1.262	1	0	-0.198	2	0	0.465	3	0
+Debug: 		29.1	ct	ct	ct	sy	1.262	1	0	-0.198	2	0	0.465	3	0
+Debug: 		30	h	nt	ct	hc	0	1	0	0.4	3	0
+Debug: 		31	hc	ct	ct	nt	-1.013	1	0	-0.709	2	0	0.473	3	0
+Debug: 		32	ct	ct	nt	h	-0.19	1	0	-0.417	2	0	0.418	3	0
+Debug: 		32.1	ct	ct	n2	h	-0.19	1	0	-0.417	2	0	0.418	3	0
+Debug: 		32.2	ct	ct	n2	h3	-0.19	1	0	-0.417	2	0	0.418	3	0
+Debug: 		33	ct	ct	ct	nt	2.392	1	0	-0.674	2	0	0.55	3	0
+Debug: 		34	ca	ca	oh	ho	0	1	0	1.682	2	0
+Debug: 		35	ct	ct	ct	n	0.845	1	0	-0.962	2	0	0.713	3	0
+Debug: 		35.1	cg	ct	ct	n	0.845	1	0	-0.962	2	0	0.713	3	0
+Debug: 		35.2	ca	ct	ct	n	0.845	1	0	-0.962	2	0	0.713	3	0
+Debug: 		36	c	ct	n	c	-2.365	1	0	0.912	2	0	-0.85	3	0
+Debug: 		37	n	c	ct	n	1.816	1	0	1.222	2	0	1.581	3	0
+Debug: 		38	c	n	ct	ct	0	1	0	0.462	2	0
+Debug: 		39	ct	ct	c	n	1.173	1	0	0.189	2	0	-1.2	3	0
+Debug: 		40	c	n	ct	hc	0	1	0
+Debug: 		41	hc	ct	c	n	0	1	0
+Debug: 		42.1	ct	ct	n	h	0	1	0
+Debug: 		42.2	c	ct	n	h	0	1	0
+Debug: 		43.1	ct	ct	c	o	0	1	0
+Debug: 		43.2	n	ct	c	o	0	1	0
+Debug: 		44	ct	c	n	h	0	1	0	4.9	2	0
+Debug: 		44.1	ca	c	n	h	0	1	0	4.9	2	0
+Debug: 		44.4	h	n	c	hc	0	1	0	4.9	2	0
+Debug: 		45	ct	c	n	ct	2.3	1	0	6.089	2	0
+Debug: 		45.1	ca	n	c	ct	2.3	1	0	6.089	2	0
+Debug: 		45.2	ct	n	c	hc	2.3	1	0	6.089	2	0
+Debug: 		45.3	ca	c	n	ca	2.3	1	0	6.089	2	0
+Debug: 		46	h	n	c	o	0	1	0	4.9	2	0
+Debug: 		47	ct	n	c	o	0	1	0	6.089	2	0
+Debug: 		47.1	ca	n	c	o	0	1	0	6.089	2	0
+Debug: 		44.7	h	n	c	n	0	1	0	4.9	2	0
+Debug: 		45.12	c	n	c	n	2.3	1	0	6.089	2	0
+Debug: 		48	ct	n	ct	hc	0	1	0
+Debug: 		48.1	ct	n2	ct	hc	0	1	0
+Debug: 		48.2	ca	n	ct	hc	0	1	0
+Debug: 		49.1	ca	ca	sh	hs	0	1	0	1.1	2	0
+Debug: 		51	ct	s	ct	hc	0	1	0	0.647	3	0
+Debug: 		51.1	ca	s	ct	hc	0	1	0	0.647	3	0
+Debug: 		52	ct	ct	ct	s	2.619	1	0	-0.62	2	0	0.258	3	0
+Debug: 		53	ct	ct	s	ct	0.925	1	0	-0.576	2	0	0.677	3	0
+Debug: 		54	h	n2	ca	n2	0	1	0	3.9	2	0
+Debug: 		54.1	ca	ca	n2	h	0	1	0	3.9	2	0
+Debug: 		55	ct	n2	ca	n2	0	1	0	7.936	2	0
+Debug: 		56	ca	n2	ct	hc	0	1	0	0.177	3	0
+Debug: 		57	h	n2	ct	hc	0	1	0
+Debug: 		58	ca	n2	ct	ct	1.829	1	0	0.243	2	0	-0.498	3	0
+Debug: 		59	hc	ct	ct	n2	0	1	0	-0.582	3	0
+Debug: 		60	c	n	ct	hc	0	1	0	-0.139	3	0
+Debug: 	double	60	c	n	ct	hc	40
+Debug: 	double	60	c	n	ct	hc	60
+Debug: 		61	h	n	ct	hc	0	1	0
+Debug: 		62	c	n	ct	ct	-1.396	1	0	-0.427	2	0
+Debug: 	double	62	c	n	ct	ct	38
+Debug: 	double	62	c	n	ct	ct	62
+Debug: 		63	ct	ct	n	h	0	1	0
+Debug: 	double	63	ct	ct	n	h	42.1
+Debug: 	double	63	ct	ct	n	h	63
+Debug: 		64	hc	ct	ct	n	0	1	0	0.464	3	0
+Debug: 		65	ct	ct	ct	n	1.964	1	0	0.659	3	0
+Debug: 	double	65	ct	ct	ct	n	35
+Debug: 	double	65	ct	ct	ct	n	65
+Debug: 		67	hc	ct	c	o	0	1	0
+Debug: 		67.1	hc	c	c	o	0	1	0
+Debug: 		68	ct	ct	c	n	3.25	1	0	-0.402	2	0	-0.136	3	0
+Debug: 	double	68	ct	ct	c	n	39
+Debug: 	double	68	ct	ct	c	n	68
+Debug: 		69	ct	ct	c	o	0	1	0	1.166	2	0
+Debug: 	double	69	ct	ct	c	o	43.1
+Debug: 	double	69	ct	ct	c	o	69
+Debug: 		70	c	ct	ct	hc	0	1	0	-0.1	3	0
+Debug: 		71	c	ct	ct	ct	-2.06	1	0	-0.313	2	0	0.315	3	0
+Debug: 		72	n	ct	ct	oh	6.28	1	0	-1.467	2	0	2.03	3	0
+Debug: 		73	c	ct	ct	n	-9	1	0	2	2	0	0.8	3	0
+Debug: 		74	c	ct	ct	oh	-6.18	1	0
+Debug: 		75	c	n	ct	ct	1.13	1	0	-1.42	2	0	0.44	3	0
+Debug: 	double	75	c	n	ct	ct	75
+Debug: 		77	ct	ct	c	n	3.26	1	0	0.44	2	0	0.6	3	0
+Debug: 	double	77	ct	ct	c	n	77
+Debug: 		81	cb	cg	ct	hc	0	1	0
+Debug: 		83	cb	cg	ct	ct	0	1	0
+Debug: 		86	h	n3	ct	hc	0	1	0	0.261	3	0
+Debug: 		87	ct	ct	n3	h	0	1	0	0.347	3	0
+Debug: 		88	hc	ct	ct	n3	0	1	0	0.384	3	0
+Debug: 		89	ct	ct	ct	n3	2.732	1	0	-0.229	2	0	0.485	3	0
+Debug: 		93	c	ct	ct	ct	-3.185	1	0	-0.825	2	0	0.493	3	0
+Debug: 	double	93	c	ct	ct	ct	71
+Debug: 	double	93	c	ct	ct	ct	93
+Debug: 		94	hc	ct	c	o2	0	1	0
+Debug: 		94.1	hc	ct	c	oh	0	1	0
+Debug: 		95	ct	ct	c	o	0	1	0	0.546	2	0
+Debug: 	double	95	ct	ct	c	o	95
+Debug: 		95.1	ca	ct	c	o	0	1	0	0.546	2	0
+Debug: 		96	ct	ct	c	oh	1	1	0	0.546	2	0	0.45	3	0
+Debug: 		97	nt	ct	c	oh	5.26	1	0	0.82	2	0
+Debug: 		98	hc	ct	oh	ho	-2.589	1	0	-1.123	2	0	0.27	3	0
+Debug: 	double	98	hc	ct	oh	ho	8
+Debug: 	double	98	hc	ct	oh	ho	98
+Debug: 		101	c	ct	ct	c	-0.55	1	0	1	3	0
+Debug: 		102	ho	oh	c	o	0	1	0	5.5	2	0
+Debug: 		103	ct	c	oh	ho	1.5	1	0	5.5	2	0
+Debug: 		103.1	hc	c	oh	ho	1.5	1	0	5.5	2	0
+Debug: 		104	c	ct	ct	hc	0	1	0	0.074	3	0
+Debug: 	double	104	c	ct	ct	hc	70
+Debug: 	double	104	c	ct	ct	hc	104
+Debug: 		105	ct	ct	c	o	-0.75	1	0	-0.55	2	0	-0.25	3	0
+Debug: 	double	105	ct	ct	c	o	105
+Debug: 		106	ct	ct	c	oh	0	1	0	1.412	2	0
+Debug: 	double	106	ct	ct	c	oh	96
+Debug: 	double	106	ct	ct	c	oh	106
+Debug: 		107	c	ct	n	ct	-1.737	1	0	1.251	2	0	-3.501	3	0
+Debug: 		108	ct	ct	n	ct	4.753	1	0	-0.734	2	0
+Debug: 		109	ct	ct	n	ct	2.859	1	0	2.058	2	0	-11.266	3	0
+Debug: 	double	109	ct	ct	n	ct	108
+Debug: 	double	109	ct	ct	n	ct	109
+Debug: 		111	ct	c	ct	hc	0	1	0	0.275	3	0
+Debug: 		111.1	ca	c	ct	hc	0	1	0	0.275	3	0
+Debug: 		112	hc	c	ct	hc	0	1	0	0.36	3	0
+Debug: 		112.1	f	c	ct	hc	0	1	0	0.36	3	0
+Debug: 		112.2	cl	c	ct	hc	0	1	0	0.36	3	0
+Debug: 		112.3	br	c	ct	hc	0	1	0	0.36	3	0
+Debug: 		113	ct	ct	c	f	0	1	0
+Debug: 		113.1	cl	c	ct	ct	0	1	0
+Debug: 		113.2	br	c	ct	ct	0	1	0
+Debug: 		114	ct	ct	c	o	-0.277	1	0	1.228	2	0	-0.694	3	0
+Debug: 	double	114	ct	ct	c	o	114
+Debug: 		115	c	ct	ct	hc	0	1	0	-0.076	3	0
+Debug: 	double	115	c	ct	ct	hc	115
+Debug: 		116	c	ct	ct	ct	-1.697	1	0	-0.456	2	0	0.585	3	0
+Debug: 	double	116	c	ct	ct	ct	116
+Debug: 		116.1	c	ct	ct	ca	-1.697	1	0	-0.456	2	0	0.585	3	0
+Debug: 		116.2	c	ct	ct	cg	-1.697	1	0	-0.456	2	0	0.585	3	0
+Debug: 		117	ct	ct	c	hc	0	1	0
+Debug: 		118	ct	c	ct	ct	1.454	1	0	-0.144	2	0	-0.775	3	0
+Debug: 		119	c	c	oh	ho	3	1	0	5.5	2	0
+Debug: 		120	ca	ct	p	os	2.25	1	0
+Debug: 		121	ct	os	p	ct	3.5	1	0	-3.3	2	0	1.5	3	0
+Debug: 		122	hc	ct	os	p	0	1	0	0.3	3	0
+Debug: 		123	ct	os	p	o2	0	1	0
+Debug: 		123.1	ca	os	p	o	0	1	0
+Debug: 		123.2	ho	oh	p	o	0	1	0
+Debug: 		123.3	ho	oh	p	oh	0	1	0
+Debug: 		124	ca	ca	ct	p	0	1	0
+Debug: 		125	ca	ct	p	o2	0	1	0
+Debug: 		126	hc	ct	p	o2	0	1	0	0.25	3	0
+Debug: 		126.1	hc	ct	p	os	0	1	0	0.25	3	0
+Debug: 		128	ct	os	p	o2	0.9	1	0	-2.93	2	0	2.64	3	0
+Debug: 	double	128	ct	os	p	o2	123
+Debug: 	double	128	ct	os	p	o2	128
+Debug: 		129	ca	ca	os	p	0	1	0	2.99	2	0
+Debug: 		130	cl	ct	ct	nt	2	1	0
+Debug: 		131	cl	ct	ct	hc	0	1	0	0.4	3	0
+Debug: 		132	cl	ct	ct	ct	0	1	0	0.4	3	0
+Debug: 		133	cl	ct	ct	cl	-0.25	1	0
+Debug: 		131.1	hc	ct	ct	i	0	1	0	0.4	3	0
+Debug: 		132.1	ct	ct	ct	i	0	1	0	0.4	3	0
+Debug: 		134	ct	ct	oh	ho	4.478	1	0	-2.1746	2	0
+Debug: 	double	134	ct	ct	oh	ho	9
+Debug: 	double	134	ct	ct	oh	ho	134
+Debug: 		135	hc	ct	oh	ho	0	1	0	0.476	3	0
+Debug: 	double	135	hc	ct	oh	ho	135
+Debug: 		136	f	ct	ct	hc	0	1	0	0.3137	3	0
+Debug: 		137	f	ct	ct	oh	0	1	0	0.5401	3	0
+Debug: 		138	ct	c	oh	ho	3.2	1	0	4.9	2	0
+Debug: 	double	138	ct	c	oh	ho	103
+Debug: 	double	138	ct	c	oh	ho	138
+Debug: 		139	ct	ct	c	o	-1	1	0	-1.9	2	0	-0.9	3	0
+Debug: 	double	139	ct	ct	c	o	139
+Debug: 		140	c	ct	ct	c	0.8	1	0	0.9	3	0
+Debug: 	double	140	c	ct	ct	c	101
+Debug: 	double	140	c	ct	ct	c	140
+Debug: 		141	ca	sy	n	h	1.671	1	0	-4.901	2	0	0.669	3	0
+Debug: 		142	hc	ct	n	sy	1.362	1	0	-1.457	2	0	0.149	3	0
+Debug: 		143	ca	sy	n	ct	2.074	1	0	-2.966	2	0	2.473	3	0
+Debug: 		144	ct	ct	n	sy	2.929	1	0	-2.533	2	0	0.497	3	0
+Debug: 		145	ca	ca	sy	n	1.656	1	0	-0.768	2	0	-0.117	3	0
+Debug: 		147	f	ct	ct	hc	0	1	0	0.4	3	0
+Debug: 	double	147	f	ct	ct	hc	136
+Debug: 	double	147	f	ct	ct	hc	147
+Debug: 		148	ct	ct	ct	f	0.3	1	0	-0.4	2	0	0.4	3	0
+Debug: 		149	f	ct	ct	f	-2.5	1	0	0.25	3	0
+Debug: 		151	ct	ct	oh	ho	2.674	1	0	-2.883	2	0	1.026	3	0
+Debug: 	double	151	ct	ct	oh	ho	151
+Debug: 		152	oh	ct	ct	oh	9.066	1	0
+Debug: 	double	152	oh	ct	ct	oh	152
+Debug: 		153	ct	os	co	oh	-0.375	1	0	-1.358	2	0	0.004	3	0
+Debug: 		153.1	ct	os	co	os	-0.375	1	0	-1.358	2	0	0.004	3	0
+Debug: 		154	ho	oh	co	os	-1.257	1	0	-1.806	2	0	0.003	3	0
+Debug: 		155	oh	ct	ct	os	4.319	1	0
+Debug: 		156	ct	ct	ct	ct	6.622	1	0	0.948	2	0	-1.388	3	0	-2.118	4	0
+Debug: 	double	156	ct	ct	ct	ct	3
+Debug: 	double	156	ct	ct	ct	ct	156
+Debug: 		157	br	ct	ct	hc	0	1	0	0.4	3	0
+Debug: 		158	br	ct	ct	ct	0	1	0	0.4	3	0
+Debug: 		159	br	ct	ca	ca	0	1	0	0.4	3	0
+Debug: 		165.1	ca	ca	ca	ca	0	1	0	7.25	2	0
+Debug: 		165.2	ca	ca	ca	ha	0	1	0	7.25	2	0
+Debug: 		165.3	ha	ca	ca	ha	0	1	0	7.25	2	0
+Debug: 		165.19	ca	ca	ca	f	0	1	0	7.25	2	0
+Debug: 		165.20	ca	ca	ca	cl	0	1	0	7.25	2	0
+Debug: 		165.21	br	ca	ca	ca	0	1	0	7.25	2	0
+Debug: 		165.22	ca	ca	ca	i	0	1	0	7.25	2	0
+Debug: 		165.23	f	ca	ca	ha	0	1	0	7.25	2	0
+Debug: 		165.24	cl	ca	ca	ha	0	1	0	7.25	2	0
+Debug: 		165.25	br	ca	ca	ha	0	1	0	7.25	2	0
+Debug: 		165.26	ha	ca	ca	i	0	1	0	7.25	2	0
+Debug: 		165.28	ha	ca	ca	nt	0	1	0	7.25	2	0
+Debug: 		165.30	c	c=	c=	c	0	1	0	7.25	2	0
+Debug: 		165.31	ct	ca	ca	ha	0	1	0	7.25	2	0
+Debug: 		165.32	ct	ca	ca	ct	0	1	0	7.25	2	0
+Debug: 		165.33	ca	ca	ca	ct	0	1	0	7.25	2	0
+Debug: 		165.34	ca	ca	ca	cb	0	1	0	7.25	2	0
+Debug: 		165.35	cb	ca	ca	ha	0	1	0	7.25	2	0
+Debug: 		165.69	ca	ca	nc	ca	0	1	0	7.25	2	0
+Debug: 		165.71	ca	nc	ca	ha	0	1	0	7.25	2	0
+Debug: 		165.72	ca	nc	nc	ct	0	1	0	7.25	2	0
+Debug: 		165.73	ca	nc	nc	ca	0	1	0	7.25	2	0
+Debug: 		165.74	ct	nc	nc	ct	0	1	0	7.25	2	0
+Debug: 		178	ct	ct	os	p	-1.42	1	0	-0.62	2	0	0.1	3	0
+Debug: 		180	hc	ct	c	os	0	1	0	0.132	3	0
+Debug: 		181	ct	c	os	ct	4.669	1	0	5.124	2	0
+Debug: 		181.1	ct	os	c	hc	4.669	1	0	5.124	2	0
+Debug: 		182	ct	os	c	o	0	1	0	5.124	2	0
+Debug: 		183	c	os	ct	hc	0	1	0	0.198	3	0
+Debug: 		184	ct	ct	c	os	0	1	0	-0.553	3	0
+Debug: 		185	c	os	ct	ct	-1.22	1	0	-0.126	2	0	0.422	3	0
+Debug: 		186	ca	ct	ct	n3	1	1	0
+Debug: 		187	ca	ct	ct	nt	-0.8	1	0
+Debug: 		190	ca	ca	ca	n2	0	1	0	1.62	2	0	-0.44	4	0
+Debug: 		192	ct	ct	nt	h	0	1	0	4	2	0
+Debug: 	double	192	ct	ct	nt	h	32
+Debug: 	double	192	ct	ct	nt	h	192
+Debug: 		193	ct	ct	nt	h	0.2	1	0	-0.417	2	0	0.418	3	0
+Debug: 	double	193	ct	ct	nt	h	193
+Debug: 		199	ct	ct	nt	ct	0.416	1	0	-0.128	2	0	0.695	3	0
+Debug: 		194	ct	ct	nt	ct	1.536	1	0	-0.128	2	0	0.695	3	0
+Debug: 	double	194	ct	ct	nt	ct	199
+Debug: 	double	194	ct	ct	nt	ct	194
+Debug: 		195	ct	ct	nt	ct	1.464	1	0	-0.128	2	0	0.695	3	0
+Debug: 	double	195	ct	ct	nt	ct	195
+Debug: 		196	ct	ct	nt	h	0.819	1	0	-0.417	2	0	0.418	3	0
+Debug: 	double	196	ct	ct	nt	h	196
+Debug: 		197	ct	ct	nt	h	1.522	1	0	-0.417	2	0	0.418	3	0
+Debug: 	double	197	ct	ct	nt	h	197
+Debug: 		198	nt	ct	ct	nt	11.035	1	0	-0.968	2	0	0.27	3	0
+Debug: 		199.1	ct	ct	nt	ct	0.416	1	0	-0.128	2	0	0.695	3	0
+Debug: 	double	199.1	ct	ct	nt	ct	199.1
+Debug: 		200	ct	nt	ct	hc	0	1	0	0.56	3	0
+Debug: 		200.1	ca	nt	ct	hc	0	1	0	0.56	3	0
+Debug: 		206	ca	ca	c	ct	0	1	0	0.2	2	0
+Debug: 		206.1	ca	ca	c	hc	0	1	0	0.2	2	0
+Debug: 		207.1	ca	ca	n	h	0	1	0	2.1	2	0
+Debug: 		207.2	c	n	ca	ca	0	1	0	2.1	2	0
+Debug: 		207.3	ca	ca	n	ct	0	1	0	2.1	2	0
+Debug: 		208	ca	ca	c	o	0	1	0	2.1	2	0
+Debug: 		208.1	ca	ca	c	os	0	1	0	2.1	2	0
+Debug: 		208.2	ca	ca	c	oh	0	1	0	2.1	2	0
+Debug: 		209	c	os	ca	ca	0	1	0	2.5	2	0
+Debug: 		210	ho	oh	c	o	0	1	0	5	2	0
+Debug: 	double	210	ho	oh	c	o	102
+Debug: 	double	210	ho	oh	c	o	210
+Debug: 		210.1	ct	os	c	o	0	1	0	5	2	0
+Debug: 	double	210.1	ct	os	c	o	182
+Debug: 	double	210.1	ct	os	c	o	210.1
+Debug: 		211	ca	c	oh	ho	4	1	0	5	2	0
+Debug: 		211.1	ca	c	os	ct	4	1	0	5	2	0
+Debug: 		212	ca	os	c	o	0	1	0	5	2	0
+Debug: 		213	ca	os	c	ct	1.5	1	0	5	2	0
+Debug: 		214	ca	ca	c	n	0	1	0	1.1	2	0
+Debug: 		215	ca	ca	nt	h	0	1	0	2.03	2	0
+Debug: 		215.4	cb	ca	n2	h	0	1	0	2.03	2	0
+Debug: 		216	ca	ca	nt	ct	-7.582	1	0	3.431	2	0	3.198	3	0
+Debug: 		222.16	ct	c	nc	ct	0	1	0	14	2	0
+Debug: 		222.17	h	nc	c	hc	0	1	0	14	2	0
+Debug: 		231	c	nc	oh	ho	3	1	0	3	2	0
+Debug: 		231.1	c	nc	os	ct	3	1	0	3	2	0
+Debug: 		234.1	ca	ct	oh	ho	-0.9	1	0
+Debug: 		234.2	c=	ct	oh	ho	-0.9	1	0
+Debug: 		235	hc	ct	sy	oy	0	1	0	0.35	3	0
+Debug: 		236	ct	sy	ct	hc	0	1	0	0.35	3	0
+Debug: 		236.1	ca	sy	ct	hc	0	1	0	0.35	3	0
+Debug: 		237	ct	ct	sy	ct	0	1	0
+Debug: 		238	ct	ct	sy	oy	0	1	0
+Debug: 		239	hc	ct	ct	sy	0	1	0	0.35	3	0
+Debug: 	double	239	hc	ct	ct	sy	28.1
+Debug: 	double	239	hc	ct	ct	sy	239
+Debug: 		240	ct	n3	ct	hc	0	1	0	0.3017	3	0
+Debug: 		241	ct	ct	n3	ct	1.4379	1	0	-0.1238	2	0	0.2639	3	0
+Debug: 		242.2	cz	nz	ct	hc	0	1	0
+Debug: 		242.4	ca	ca	nz	cz	0	1	0
+Debug: 		244.1	ct	ct	cz	cz	0	1	0
+Debug: 		244.2	cz	cz	ct	hc	0	1	0
+Debug: 		244.3	ct	cz	cz	hc	0	1	0
+Debug: 		244.4	ct	cz	cz	ct	0	1	0
+Debug: 		245	ca	ca	sy	ct	0	1	0	-0.9	2	0
+Debug: 		270.2	c=	c=	ct	hc	0	1	0	-0.372	3	0
+Debug: 		273	cz	ct	ct	hc	0	1	0	0.366	3	0
+Debug: 		274	ct	ct	ct	cz	0	1	0	-0.65	2	0
+Debug: 		301	ct	nt	os	ct	0	1	0	0.3	3	0
+Debug: 		301.1	ct	nt	oh	ho	0	1	0	0.3	3	0
+Debug: 		301.2	ct	os	nt	h	0	1	0	0.3	3	0
+Debug: 		301.3	h	nt	oh	ho	0	1	0	0.3	3	0
+Debug: 		301.4	ct	nt	nt	ct	0	1	0	0.3	3	0
+Debug: 		301.5	ct	nt	nt	h	0	1	0	0.3	3	0
+Debug: 		301.6	h	nt	nt	h	0	1	0	0.3	3	0
+Debug: 		302	ct	n	c	os	2.3	1	0	6.089	2	0
+Debug: 		302.1	ct	n	c	oh	2.3	1	0	6.089	2	0
+Debug: 		303	h	n	c	os	0	1	0	4.9	2	0
+Debug: 		303.1	h	n	c	oh	0	1	0	4.9	2	0
+Debug: 		304	ct	os	c	n	-2	1	0	5	2	0
+Debug: 		305	ho	oh	c	n	-2	1	0	5	2	0
+Debug: 		306	hc	nc	nz	nz	0	1	0
+Debug: 		306.1	ct	nc	nz	nz	0	1	0
+Debug: 		306.2	ct	ct	nc	nz	0	1	0
+Debug: 		314	ca	ca	s	ct	0	1	0	0.6	2	0
+Debug: 		320	ct	c	c	o	0	1	0	0.5	2	0
+Debug: 		321	hc	c	c	o	0	1	0	0.2	2	0
+Debug: 	double	321	hc	c	c	o	67.1
+Debug: 	double	321	hc	c	c	o	321
+Debug: 		322	ct	c	c	hc	0.8	1	0	-0.76	2	0
+Debug: 		323	hc	c	c	hc	0.8	1	0
+Debug: 	double	323	hc	c	c	hc	1.1
+Debug: 	double	323	hc	c	c	hc	323
+Debug: 		324	ct	c	c	ct	0.7	1	0	-1.5	2	0
+Debug: 		325	c	c	ct	hc	0	1	0	0.085	3	0
+Debug: 		326	n	c	c	o	0	1	0
+Debug: 		327	hc	c	c	n	-0.9	1	0	0.3	2	0
+Debug: 		328	ct	c	c	n	-0.5	1	0	0.2	2	0
+Debug: 		329	c	c	n	ct	0.4	1	0	4.9	2	0
+Debug: 		330	c	c	n	h	0	1	0	4.9	2	0
+Debug: 		331	o	c	c	o	1.6	1	0	3.2	2	0
+Debug: 		341	ct	c	n	oh	4.542	1	0	6.603	2	0	1.045	3	0
+Debug: 		342	o	c	n	oh	0	1	0	6.603	2	0
+Debug: 		343	c	n	oh	ho	5.519	1	0	-6.7	2	0	0.581	3	0
+Debug: 		344	h	n	oh	ho	2.722	1	0	-5.154	2	0
+Debug: 		350	ca	ca	ct	f	0	1	0	0.45	2	0
+Debug: 		351	ca	ca	ct	cl	0	1	0	-0.4	2	0
+Debug: 		352	cl	ct	c	o	-0.65	1	0
+Debug: 		353	cl	ct	c	n	0.65	1	0
+Debug: 		380	ct	os	ca	nc	0.4	1	0	5.5	2	0
+Debug: 		381	ct	s	ca	nc	1.6	1	0	5.1	2	0
+Debug: 		382	ct	ct	ca	nc	-0.5	1	0	0.5	2	0	-0.5	3	0
+
+Debug: 	EXTRAS:
+Debug: 	
+Debug: 	135.1
+Debug: 	136.1
+Debug: 	137.1
+Debug: 	139.1
+Debug: 	139.2
+Debug: 	140.1
+Debug: 	140.2
+Debug: 	140.3
+Debug: 	145.1
+Debug: 	145.2
+Debug: 	145.3
+Debug: 	146.1
+Debug: 	146.2
+Debug: 	147.1
+Debug: 	150.1
+Debug: 	160	134:2*	135*	136:2*
+Debug: 	202.1
+Debug: 	235	60*	62*	68*	69*	70*	71*
+Debug: 	237	63*	65*
+Debug: 	238
+Debug: 	239
+Debug: 	244.1
+Debug: 	251.1
+Debug: 	251.2
+Debug: 	253.1
+Debug: 	256.1
+Debug: 	257.1
+Debug: 	258.1
+Debug: 	259.1
+Debug: 	259.2
+Debug: 	259.3
+Debug: 	259.4
+Debug: 	267	70*	94	95*	96*
+Debug: 	267.1	101*	104*	105*	106*	138*	139*	140:1*
+Debug: 	271	70*	93*	94	95*	96*
+Debug: 	271.1
+Debug: 	311.1
+Debug: 	465.1	70*	210.1*
+Debug: 	657.1
+Debug: 	771
+Debug: 	772
+Debug: 	773
+Debug: 	775
+Debug: 	776
+Debug: 	777
+Debug: 	997.1
+
+Debug: 	PRUNING:
+Debug: 	
+Debug: 	116	c	ct	ct	ct	transfer
+Debug: 	115	c	ct	ct	hc	transfer
+Debug: 	38	c	n	ct	ct
+Debug: 	75	c	n	ct	ct
+Debug: 	75	c	n	ct	ct	transfer
+Debug: 	103	ct	c	oh	ho	transfer
+Debug: 	39	ct	ct	c	n
+Debug: 	77	ct	ct	c	n
+Debug: 	77	ct	ct	c	n	transfer
+Debug: 	43.1	ct	ct	c	o	transfer
+Debug: 	3	ct	ct	ct	ct
+Debug: 	156	ct	ct	ct	ct
+Debug: 	156	ct	ct	ct	ct	transfer
+Debug: 	109	ct	ct	n	ct
+Debug: 	108	ct	ct	n	ct
+Debug: 	108	ct	ct	n	ct	transfer
+Debug: 	199	ct	ct	nt	ct
+Debug: 	199.1	ct	ct	nt	ct
+Debug: 	195	ct	ct	nt	ct
+Debug: 	194	ct	ct	nt	ct
+Debug: 	194	ct	ct	nt	ct	transfer
+Debug: 	192	ct	ct	nt	h
+Debug: 	193	ct	ct	nt	h
+Debug: 	196	ct	ct	nt	h
+Debug: 	197	ct	ct	nt	h
+Debug: 	197	ct	ct	nt	h	transfer
+Debug: 	151	ct	ct	oh	ho	transfer
+Debug: 	182	ct	os	c	o	transfer
+Debug: 	123	ct	os	p	o2
+Debug: 	128	ct	os	p	o2
+Debug: 	128	ct	os	p	o2	transfer
+Debug: 	1.1	hc	c	c	hc
+Debug: 	323	hc	c	c	hc
+Debug: 	323	hc	c	c	hc	transfer
+Debug: 	67.1	hc	c	c	o	transfer
+Debug: 	239	hc	ct	ct	sy
+Debug: 	28.1	hc	ct	ct	sy
+Debug: 	28.1	hc	ct	ct	sy	transfer
+Debug: 	8	hc	ct	oh	ho	transfer
+Debug: 	102	ho	oh	c	o	transfer
+Debug: 	11	oh	ct	ct	oh
+Debug: 	152	oh	ct	ct	oh
+Debug: 	10	oh	ct	ct	oh
+
+Debug: 	OVERRIDE:
+Debug: 	
+Debug: 	c	ct	ct	hc	->	115
+Debug: 	ct	ct	nt	ct	->	199
+
+Warning: torsion doubles exist (reduced from 41 to 18)
+Info: writing headers
+Info: writing references
+Info: writing masses
+Info: writing equivalences
+Info: writing nonbonded
+Info: writing bonded
+Info: writing precedences
+Info: writing rules
+Info: writing comments
+

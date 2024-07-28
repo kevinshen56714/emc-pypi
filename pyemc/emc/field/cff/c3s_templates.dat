@@ -61,7 +61,7 @@ end_type
 
 
 type: o2sl
-  ! oxygen in water
+  ! oxygen in surface
   template (>O(-Si)(-H))
 end_type 
 
@@ -73,8 +73,9 @@ end_type
 type:h1oh
   ! hydrogen bonded to oxygen
   template: (>H(-O))
-!  atom_test:2
-!  end_test
+  atom_test:2
+    formal_charge:-1
+  end_test
 end_type
 
 
@@ -116,8 +117,8 @@ end_type
 precedence:
 (?
   (ca3s)
-  (h1oh
-    (h1os) )
+  (h1oh)
+  (h1os)
   (oc3s
     (o1si) (o1ho) (o2sl) )
   (si4s)

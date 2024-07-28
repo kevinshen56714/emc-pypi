@@ -13,7 +13,7 @@ FFTYPE	UNITED
 FFDEPTH	4
 FFINDEX	TYPES
 VERSION	Oct
-CREATED	Nov 2021
+CREATED	Mar 2024
 LENGTH	ANGSTROM
 ENERGY	KELVIN
 DENSITY	G/CC
@@ -39,6 +39,7 @@ ITEM	REFERENCES
 2000	104	8008	J. Phys. Chem. B
 2001	105	3093	J. Phys. Chem. B
 2002	954	181	J. Chromatogr. A
+2004	108	14130	J. Phys. Chem. B
 2004	108	17596	J. Phys. Chem. B
 2005	109	18974	J. Phys. Chem. B
 2005	109	24100	J. Phys. Chem. B
@@ -149,7 +150,7 @@ c3h2	c3h2	c3h2	c3h2	c3h2	c3h2	c3h2
 c3ho	c3ho	c3ho	c3ho	c3o	c3o	c3o
 c3mo	c3mo	c3mo	c3mo	c3o	c3o	c3o
 c3o	c3o	c3o	c3o	c3o	c3o	c3o
-c3oa	c3o	c3oa	c3o	c3o	c3o	c3o
+c3oa	c3oa	c3oa	c3o	c3o	c3o	c3o
 c3oe	c3oe	c3oe	c3o	c3oe	c3oe	c3o
 c4	c4	c4	c4	c4	c4	c4
 c4h	c4h	c4h	c4h	c4h	c4h	c4h
@@ -196,6 +197,7 @@ no	no	no	no	no	no	no
 o	o	o	o	o	o	o
 o2z	o2z	o2z	o2z	o2z	o2z	o2z
 oh	oh	oh	oh	oh	oh	oh
+oha	oh	oha	oh	oh	oh	oh
 on	on	on	on	on	on	on
 os	os	os	os	os	os	os
 ose	ose	ose	os	ose	ose	os
@@ -228,7 +230,7 @@ c3h2	c3h2	c3h2	c3h2	c3h2	c3h2	c3h2
 c3ho	c3ho	c3ho	c3ho	c3o	c3o	c3o
 c3mo	c3mo	c3mo	c3mo	c3o	c3o	c3o
 c3o	c3o	c3o	c3o	c3o	c3o	c3o
-c3oa	c3o	c3oa	c3o	c3o	c3o	c3o
+c3oa	c3oa	c3oa	c3o	c3o	c3o	c3o
 c3oe	c3oe	c3oe	c3o	c3oe	c3oe	c3o
 c4	c4	c4	c4	c4	c4	c4
 c4h	c4h	c4h	c4h	c4h	c4h	c4h
@@ -275,6 +277,7 @@ no	no	no	no	no	no	no
 o	o	o	o	o	o	o
 o2z	o2z	o2z	o2z	o2z	o2z	o2z
 oh	oh	oh	oh	oh	oh	oh
+oha	oh	oha	oh	oh	oh	oh
 on	on	on	on	on	on	on
 os	os	os	os	os	os	os
 ose	ose	ose	os	ose	ose	os
@@ -308,9 +311,9 @@ c3mo	o	0.424	-0.424
 c3mo	os	0.15	-0.15
 c3o	c4*	0	0
 c3o	o	0.424	-0.424
-c3oa	c4*	-0.08	0.08
-c3oa	o	0.5	-0.5
-c3oa	oh	0.13	-0.13
+c3oa	c4*	-0.12	0.12
+c3oa	o	0.45	-0.45
+c3oa	oha	0.09	-0.09
 c3oe	c4*	0	0
 c3oe	o	0.4	-0.4
 c3oe	os	0	0
@@ -335,6 +338,7 @@ hn	n3h2	0.356	-0.356
 hn	n3mh	0.432	-0.432
 hn	n3mh2	0.4	-0.4
 ho	oh	0.435	-0.435
+ho	oha	0.37	-0.37
 hs	sh	0.206	-0.206
 hsi	si4z	-0.212	0.212
 hw	ow	0.4238	-0.4238
@@ -362,6 +366,7 @@ c3h2	c3h2	3.675	85
 c3ho	c3ho	3.52	54
 c3mo	c3mo	3.72	34
 c3o	c3o	3.82	40
+c3oa	c3oa	3.90	41
 c3oe	c3oe	3.82	40
 c4	c4	6.4	0.5
 c4h	c4h	4.65	10
@@ -567,6 +572,7 @@ ITEM	TORSION_AUTO
 c*	c*	c3o*	o	2035.58	0	0	-736.9	1	0	57.84	2	0	-293.23	3	0
 c*	c*	os	c*	0	0	0	725.35	1	0	-163.75	2	0	558.20	3	0
 c*	c3h	c3h	c*	0	0	0	125	1	0	6450	2	0	-125	3	0
+c*	c3o	n3mh	c*	0	0	0	3000	1	0	250	2	0	630	3	0	# 20240319 OPLS
 c*	c3o*	c4h2	c*	-17.26	0	0	752.6	1	0	14.89	2	0	282.1	3	0
 c*	c4	c4	c*	0	0	0	355.03	1	0	-68.19	2	0	791.32	3	0	# 20180725 based on internal analogon c* c4h2 c4h2 c*
 c*	c4	c4h2	c*	0	0	0	0	1	0	0	2	0	461.29	3	0
@@ -663,8 +669,10 @@ ITEM	IMPROPER_AUTO
 c3*	c3	c3	*	-8050	0
 c3*	c3	c3h	*	-8050	0
 c3*	c3h	c3h	*	-8050	0
+c3o	*	*	*	3000	0
 cac	*	*	*	2215	0
 caca	*	*	*	2215	0
 cah	*	*	*	2215	0
+n3mh	*	*	*	3000	0
 
 ITEM	END

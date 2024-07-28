@@ -628,6 +628,14 @@ type:c_2
     end_test
 end_type
 
+type:c_2
+    ! carbamate, urea carbonyl carbon
+    template: (>C (=O) (~N) (~O))
+    atom_test:1
+        hybridization:sp2
+    end_test
+end_type
+
 type:cz 
     ! carbonate carbonyl carbon
     template: (>C (=O) (-O) (-O))
@@ -1263,6 +1271,13 @@ end_type
 
 type:o
    ! generic SP3 oxygen in alcohol, ether, or acid group
+   template (>O(:*))
+   atom_test:1
+   end_test
+end_type
+
+type:o
+   ! generic SP3 oxygen in alcohol, ether, or acid group
    template (>O(-*)(-*))
    atom_test:1
    end_test
@@ -1316,7 +1331,7 @@ type:o4e
 end_type
 
 type:o4e
-   ! SP3 oxygen  in planar four memberedd ring
+   ! SP3 oxygen  in planar four membered ring
    template (>O(-C)(-C))
    atom_test:1
      ring:PLANAR(4)
@@ -1711,6 +1726,21 @@ type: sf
   end_test
 end_type
 
+type: sf
+   ! S in sulfonate group
+   template: (>S(:O)(:O)(:O)(-*))
+    atom_test:1
+      hybridization:SP3
+      aromaticity:NON_AROMATIC
+    end_test
+  atom_test:4
+    disallowed_elements:S
+  end_test
+  atom_test:5
+    disallowed_elements:S
+  end_test
+end_type
+
 type: s-
    ! partial double sulfur bonded to something then bonded to 
    ! another  partial double oxygen or sulfur
@@ -2002,7 +2032,7 @@ precedence:
   (n(n_2)(n=2(n=1(n=(n1)))(n=(n1)))(n1))(n1)
   (n=)
   (n4(n+))
-  (s(sc(s'(sf))(sp)(s3e)(s4e)(sh(s'(sf))(s3e)(s4e))(s1(s3e)(s4e))))
+  (s(sc(s'(sf))(sp)(s3e)(s4e)(sh(s'(sf))(s3e)(s4e))(s1(s3e)(s4e)))(sf))
   (s(sh(s'(sf))(s3e)(s4e))(s1(s3e)(s4e))(s'(sf))(sp))
   (s(s-))
   (p(p=))

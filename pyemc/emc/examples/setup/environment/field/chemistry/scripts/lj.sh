@@ -1,7 +1,7 @@
 #!/bin/bash
 #
 #  script:	scripts/lj.sh
-#  author:	emc_setup.pl v3.9.2, November 19, 2019
+#  author:	emc.pl v3.9.2, November 19, 2019
 #  date:	Thu Dec  5 09:59:07 CET 2019
 #  purpose:	Create chemistry file based on sample definitions; this
 #  		script is auto-generated

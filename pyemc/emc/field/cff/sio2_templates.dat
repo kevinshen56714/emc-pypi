@@ -11,12 +11,13 @@
 ! * ANY  OTHER  METHODS WITHOUT THE EXPRESS  WRITTEN  PERMISSION OF THE    *
 ! * COPYRIGHT HOLDER.                                                      *
 ! *                                                                        *
-! * Copyright (C) 2020 BASF SE, All Rights Reserved                        *
+! * Copyright (C) 2023 BASF SE, All Rights Reserved                        *
 ! *                                                                        *
 ! **************************************************************************
 !
 ! Revision History:
 !       PJV      05/03/2020      Silicon oxide surface
+!       PJV      10/11/2023      Added rules for deprotonated surface oxygen
 
 type: ?
   ! anything	
@@ -26,6 +27,15 @@ end_type
 !
 ! Hydrogen
 !
+
+type:h1sw
+  ! generic hydrogen 
+  template: [>H (-*)]
+  atom_test:1
+     mass_number:1
+  end_test
+end_type
+
 
 type: h1si
   ! central silicon
@@ -43,9 +53,14 @@ type: o1si
   ! central silicon
   template: [>O(-Si)]
   atom_test:1 
-    formal_charge:-1
+!    formal_charge:-1
   end_test
 end_type
+
+!type: o1si
+!  ! central silicon
+!  template: [>O(-Si)(-Null)]
+!end_type
 
 type: o2sh
   ! central silicon
@@ -63,6 +78,15 @@ type: o2si
 ! end_test
 end_type
 
+type: o2sw
+   !  water oxygen  
+   template [>O[-H][-H]]
+   atom_test:1
+     aromaticity:NON_AROMATIC
+     formal_charge:0
+   end_test
+end_type
+
 !
 ! Silica
 !
@@ -75,6 +99,25 @@ type: si4o
 ! end_test
 end_type
 
+type: si4o
+  ! central silicon
+  template: [>Si(-O)(-O)(-O)(-O)]
+  atom_test:2 
+    formal_charge:-1
+  end_test
+end_type
+
+type: si4o
+  ! central silicon
+  template: [>Si(-O)(-O)(-O)(-O)]
+  atom_test:2
+    formal_charge:-1
+  end_test
+  atom_test:3
+    formal_charge:-1
+  end_test
+end_type
+
 !
 ! Precedences
 !
@@ -82,6 +125,8 @@ end_type
 precedence:
 (?
   (h1si)
+  (h1sw)
+  (o2sw)
   (o2sh)
   (o2si)
   (o1si)

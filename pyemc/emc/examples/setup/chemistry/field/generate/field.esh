@@ -1,4 +1,4 @@
-#!/usr/bin/env emc_setup.pl
+#!/usr/bin/env emc.pl
 #
 #  script:	field.esh
 #  author:	Pieter J. in 't Veld

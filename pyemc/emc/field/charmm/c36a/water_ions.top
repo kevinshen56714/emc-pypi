@@ -3,7 +3,7 @@
 #  CHARMM topology using water_ions force field files, 
 #  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Jul 25 20:26:52 CEST 2023.
+#  and created on Mon Jan 15 20:37:18 CET 2024.
 #
 
 # Rule precedences
@@ -16,12 +16,15 @@ ITEM	PRECEDENCE
   (CAD)
   (CLA)
   (CES)
+  (HP)
   (HT)
   (HX)
   (POT)
   (LIT)
+  (LP)
   (MG)
   (SOD)
+  (OP)
   (OT)
   (OX)
   (RUB)
@@ -42,17 +45,20 @@ ITEM	RULES
 3	CAD	Cd	CD2	CD	2	[Cd+2]
 4	CLA	Cl	CLA	CLA	-1	[Cl-]
 5	CES	Cs	CES	CES	1	[Cs+]
-6	HT	H	TIP3	H1	0	H(H)(O)
-7	HT	H	TP3M	H1	0	H(O)
-8	HX	H	OH	H1	0	H([O-])
-9	POT	K	POT	POT	1	[K+]
-10	LIT	Li	LIT	LIT	1	[Li+]
-11	MG	Mg	MG	MG	2	[Mg+2]
-12	SOD	Na	SOD	SOD	1	[Na+]
-13	OT	O	TIP3	OH2	0	O(H)(H)
-14	OX	O	OH	O1	0	[O-](H)
-15	RUB	Rb	RUB	RUB	1	[Rb+]
-16	ZN	Zn	ZN2	ZN	2	[Zn+2]
+6	HP	H	OPCW	H1	0	H(O(H)([Lp]))
+7	HT	H	TIP3	H1	0	H(H)(O)
+8	HT	H	TP3M	H1	0	H(O(H))
+9	HX	H	OH	H1	0	H([O-])
+10	POT	K	POT	POT	1	[K+]
+11	LIT	Li	LIT	LIT	1	[Li+]
+12	LP	Lp	OPCW	LP	0	[Lp](O)
+13	MG	Mg	MG	MG	2	[Mg+2]
+14	SOD	Na	SOD	SOD	1	[Na+]
+15	OP	O	OPCW	O	0	O(H)(H)([Lp])
+16	OT	O	TIP3	OH2	0	O(H)(H)
+17	OX	O	OH	O1	0	[O-](H)
+18	RUB	Rb	RUB	RUB	1	[Rb+]
+19	ZN	Zn	ZN2	ZN	2	[Zn+2]
 
 ITEM	END
 
@@ -70,6 +76,7 @@ CLA	[Cl-]
 LIT	[Li+]
 MG	[Mg+2]
 OH	[O-]
+OPCW	O[Lp]
 POT	[K+]
 RUB	[Rb+]
 SOD	[Na+]

@@ -1,0 +1,29 @@
+#
+#  STANDARD topology 
+#  converted by emc.pl v4.1.5, January 4, 2024 by Pieter J. in 't Veld
+#  to be used in conjuction with EMC v9.4.4 or higher
+#
+
+# Precedences
+
+ITEM	PRECEDENCE
+
+(
+  (ch)
+  (ch2)
+  (ch3)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	index	charge	rule
+
+0	ch	C	1	0	C(*)(*)(*)
+1	ch2	C	2	0	C(*)(*)
+2	ch3	C	3	0	C(*)
+
+ITEM	END

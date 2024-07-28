@@ -20,7 +20,7 @@
 # usage with vmd after build: vmd -e charmm.vmd
 #
 
-  emc_setup.pl \
+  emc.pl \
     -ntotal=5000 -density=3 -field=dpd/general \
     -replace polymer
 

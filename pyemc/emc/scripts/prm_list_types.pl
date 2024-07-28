@@ -3,10 +3,10 @@
 #  script:	prm_list_types.pl
 #  author:	Pieter J. in 't Veld
 #  date:	July 25, 2017, February 27, 2018, April 2, May 26, June 4,
-#  		2021, April 6, 2023.
+#  		2021, April 6, 2023, February 19, 2024.
 #  purpose:	List the types occuring in an EMC setup script
 #
-#  Copyright (c) 2004-2023 Pieter J. in 't Veld
+#  Copyright (c) 2004-2024 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -18,12 +18,13 @@
 #    20210604	- Added -debug and -list
 #    20230406	- New version: 2.0
 #    		- Added ITEM INCLUDE interpretation
+#    20240219	- Added fexpand to fopen
 #
 
 $Version = "2.0";
-$Year = "2023";
+$Year = "2024";
 $Copyright = "2004-$Year";
-$Date = "April 6, $Year";
+$Date = "February 19, $Year";
 $Author = "Pieter J. in 't Veld";
 $Target = 0;
 $Debug = 0;
@@ -45,7 +46,7 @@ sub info {
 
 
 sub fopen {
-  my $name = shift(@_);
+  my $name = fexpand(shift(@_));
   my $mode = shift(@_);
   my $file;
   my $result;

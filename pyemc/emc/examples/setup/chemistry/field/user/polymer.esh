@@ -1,4 +1,4 @@
-#!/usr/bin/env emc_setup.pl
+#!/usr/bin/env emc.pl
 #
 #  file:	polymer.esh
 #  author:	Pieter J. in 't Veld
@@ -77,7 +77,7 @@ torsion		error
 
 ITEM	END
 
-ITEM	MASSES
+ITEM	MASS
 
 # type	mass	element	ncons	charge	comment
 

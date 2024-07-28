@@ -1,12 +1,12 @@
 (* EMC: Field *)
 
-(* EMC v9.4.4, build Nov  4 2021 19:39:59, date Sun Nov 14 10:42:14 2021 *)
+(* EMC v9.4.4, build Mar 15 2024 08:25:46, date Tue Mar 19 15:04:36 2024 *)
 
 (* Flags *)
 
 flags = {
   family -> trappe, atomistic -> united, apply -> all, index -> types, depth
-  -> 4, strict -> true, shake -> none, check -> false, charge -> nonzero, 
+  -> 4, strict -> false, shake -> none, check -> false, charge -> nonzero, 
   pair14 -> ignore, angle -> error, torsion -> error, improper -> ignore, cmap
   -> ignore, increment -> error, group -> warn, rule -> error};
 
@@ -46,8 +46,8 @@ index = {type -> ?,
     {type -> c1n},
     {type -> c3},
     {type -> c3mo},
-    {type -> c3oa},
     {type -> c3oe},
+    {type -> c3oa},
     {type -> c3o},
     {type -> c3h},
     {type -> c3ho},
@@ -95,6 +95,7 @@ index = {type -> ?,
     {type -> na+},
     {type -> ne},
     {type -> o},
+    {type -> oha},
     {type -> oh},
     {type -> on},
     {type -> ose},
@@ -109,8 +110,7 @@ index = {type -> ?,
     {type -> si4z},
     {type -> sr+2},
     {type -> xe},
-    {type -> ?},
-    {type -> oha}}};
+    {type -> ?}}};
 
 (* Rules *)
 
@@ -709,16 +709,15 @@ rules = {
       {element -> "O", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 90, type -> c4oe, reference -> 33, element -> "C", test -> {flag -> {
-        ring -> any}}, 
+  {id -> 90, type -> c4oe, reference -> 33, element -> "C", 
     connect -> 
-    {element -> "C", test -> {flag -> {bond -> single}}, 
+    {element -> "C", test -> {flag -> {bond -> single, ring -> three}}, 
       connect -> 
-      {element -> "O", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "O", test -> {flag -> {bond -> single, ring -> three}}}}}, 
   {id -> 91, type -> ca+2, reference -> 160, charge -> 2, element -> "Ca", 
     test -> {charge -> 2}}, 
   {id -> 92, type -> cac, reference -> 18, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -726,7 +725,7 @@ rules = {
             include}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
   {id -> 96, type -> cac, reference -> 109, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -740,7 +739,7 @@ rules = {
               {element -> "O", test -> {flag -> {bond -> single}}}}}, 
           {element -> "*", test -> {flag -> {bond -> single}}}}}}}, 
   {id -> 95, type -> cac, reference -> 78, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -748,7 +747,7 @@ rules = {
             include}}}, 
       {element -> "N", test -> {flag -> {bond -> single}}}}}, 
   {id -> 94, type -> cac, reference -> 49, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -761,7 +760,7 @@ rules = {
             {element -> "C", test -> {flag -> {bond -> single}}}, 
             {element -> "O", test -> {flag -> {bond -> double}}}}}}}}, 
   {id -> 93, type -> cac, reference -> 39, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -769,7 +768,7 @@ rules = {
             include}}}, 
       {element -> "O", test -> {flag -> {bond -> single}}}}}, 
   {id -> 97, type -> caca, reference -> 19, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -778,14 +777,14 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
   {id -> 98, type -> cah, reference -> 20, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
   {id -> 100, type -> cam, reference -> 21, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}, 
@@ -796,7 +795,7 @@ rules = {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
   {id -> 99, type -> cam, reference -> 21, element -> "C", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -804,7 +803,7 @@ rules = {
             include}}}, 
       {element -> "M", test -> {flag -> {bond -> single}}}}}, 
   {id -> 102, type -> can, reference -> 115, element -> "C", test -> {flag ->
-      {ring -> any, aromatic -> include}}, 
+      {aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -812,21 +811,21 @@ rules = {
       {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
   {id -> 101, type -> can, reference -> 114, element -> "C", test -> {flag ->
-      {ring -> any, aromatic -> include}}, 
+      {aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
   {id -> 103, type -> can2, reference -> 116, element -> "C", test -> {flag ->
-      {ring -> any, aromatic -> include}}, 
+      {aromatic -> include}}, 
     connect -> {
       {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
       {element -> "N", test -> {flag -> {bond -> partial, aromatic ->
             include}}}}}, 
   {id -> 104, type -> cano, reference -> 84, element -> "C", test -> {flag ->
-      {ring -> any, aromatic -> include}}, 
+      {aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -996,7 +995,7 @@ rules = {
       {element -> "H", test -> {flag -> {bond -> single}}}, 
       {element -> "H", test -> {flag -> {bond -> single}}}}}, 
   {id -> 134, type -> na, reference -> 117, element -> "N", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -1138,12 +1137,11 @@ rules = {
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 158, type -> ose, reference -> 40, element -> "O", test -> {flag -> {
-        ring -> any}}, 
+  {id -> 158, type -> ose, reference -> 40, element -> "O", 
     connect -> 
-    {element -> "C", test -> {flag -> {bond -> single}}, 
+    {element -> "C", test -> {flag -> {bond -> single, ring -> three}}, 
       connect -> 
-      {element -> "C", test -> {flag -> {bond -> single}}}}}, 
+      {element -> "C", test -> {flag -> {bond -> single, ring -> three}}}}}, 
   {id -> 159, type -> ow, reference -> 7, element -> "O", 
     connect -> {
       {element -> "H", test -> {flag -> {bond -> single}}}, 
@@ -1151,7 +1149,7 @@ rules = {
   {id -> 160, type -> rb+, reference -> 157, charge -> 1, element -> "Rb", 
     test -> {charge -> 1}}, 
   {id -> 161, type -> sa, reference -> 118, element -> "S", test -> {flag -> {
-        ring -> any, aromatic -> include}}, 
+        aromatic -> include}}, 
     connect -> {
       {element -> "C", test -> {flag -> {bond -> partial, aromatic ->
             include}}}, 
@@ -1388,9 +1386,9 @@ increments = {
   {i0 -> c3mo, i1 -> os, delta -> {0.15, -0.15}},
   {i0 -> c3o, i1 -> c4*, delta -> {0, 0}},
   {i0 -> c3o, i1 -> o, delta -> {0.424, -0.424}},
-  {i0 -> c3oa, i1 -> c4*, delta -> {-0.08, 0.08}},
-  {i0 -> c3oa, i1 -> o, delta -> {0.5, -0.5}},
-  {i0 -> c3oa, i1 -> oh, delta -> {0.13, -0.13}},
+  {i0 -> c3oa, i1 -> c4*, delta -> {-0.12, 0.12}},
+  {i0 -> c3oa, i1 -> o, delta -> {0.45, -0.45}},
+  {i0 -> c3oa, i1 -> oha, delta -> {0.09, -0.09}},
   {i0 -> c3oe, i1 -> c4*, delta -> {0, 0}},
   {i0 -> c3oe, i1 -> o, delta -> {0.4, -0.4}},
   {i0 -> c3oe, i1 -> os, delta -> {0, 0}},
@@ -1415,6 +1413,7 @@ increments = {
   {i0 -> hn, i1 -> n3mh, delta -> {0.432, -0.432}},
   {i0 -> hn, i1 -> n3mh2, delta -> {0.4, -0.4}},
   {i0 -> ho, i1 -> oh, delta -> {0.435, -0.435}},
+  {i0 -> ho, i1 -> oha, delta -> {0.37, -0.37}},
   {i0 -> hs, i1 -> sh, delta -> {0.206, -0.206}},
   {i0 -> hsi, i1 -> si4z, delta -> {-0.212, 0.212}},
   {i0 -> hw, i1 -> ow, delta -> {0.4238, -0.4238}},
@@ -1447,8 +1446,8 @@ general = {
       improper -> c3o},
     {type -> c3o, pair -> c3o, bond -> c3o, angle -> c3o, torsion -> c3o, 
       improper -> c3o},
-    {type -> c3oa, pair -> c3o, increment -> c3oa, bond -> c3o, angle -> c3o, 
-      torsion -> c3o, improper -> c3o},
+    {type -> c3oa, pair -> c3oa, bond -> c3o, angle -> c3o, torsion -> c3o, 
+      improper -> c3o},
     {type -> c3oe, pair -> c3oe, bond -> c3o, angle -> c3oe, torsion -> c3oe, 
       improper -> c3o},
     {type -> c4, pair -> c4, bond -> c4, angle -> c4, torsion -> c4, improper
@@ -1539,6 +1538,8 @@ general = {
       improper -> o2z},
     {type -> oh, pair -> oh, bond -> oh, angle -> oh, torsion -> oh, improper
       -> oh},
+    {type -> oha, pair -> oh, increment -> oha, bond -> oh, angle -> oh, 
+      torsion -> oh, improper -> oh},
     {type -> on, pair -> on, bond -> on, angle -> on, torsion -> on, improper
       -> on},
     {type -> os, pair -> os, bond -> os, angle -> os, torsion -> os, improper
@@ -1632,16 +1633,19 @@ general = {
       {i0 -> ca*, i1 -> no, k -> 799.999621295, l -> 1.46}, 
       {i0 -> ca*, i1 -> sa, k -> 500.001005313, l -> 1.71}, 
       {i0 -> hn, i1 -> n3*, k -> 867.999837506, l -> 1.01}}}, 
-  improper -> {active -> true, n -> 6, data -> {
+  improper -> {active -> true, n -> 8, data -> {
       {i0 -> c3*, i1 -> *, i2 -> c3, i3 -> c3, k -> -15.9970116163, psi -> 0}, 
       {i0 -> c3*, i1 -> *, i2 -> c3, i3 -> c3h, k -> -15.9970116163, psi ->
         0}, 
       {i0 -> c3*, i1 -> *, i2 -> c3h, i3 -> c3h, k -> -15.9970116163, psi ->
         0}, 
+      {i0 -> c3o, i1 -> *, i2 -> *, i3 -> *, k -> 5.96161923588, psi -> 0}, 
       {i0 -> cac, i1 -> *, i2 -> *, i3 -> *, k -> 4.40166220249, psi -> 0}, 
       {i0 -> caca, i1 -> *, i2 -> *, i3 -> *, k -> 4.40166220249, psi -> 0}, 
-      {i0 -> cah, i1 -> *, i2 -> *, i3 -> *, k -> 4.40166220249, psi -> 0}}}, 
-  torsion -> {active -> true, n -> 78, data -> {
+      {i0 -> cah, i1 -> *, i2 -> *, i3 -> *, k -> 4.40166220249, psi -> 0}, 
+      {i0 -> n3mh, i1 -> *, i2 -> *, i3 -> *, k -> 5.96161923588, psi -> 0}}},
+        
+  torsion -> {active -> true, n -> 79, data -> {
       {i0 -> *, i1 -> ca*, i2 -> ca*, i3 -> *, coefficients -> {
           {k -> 0, n -> 0, delta -> 0}, 
           {k -> 0, n -> 1, delta -> 0}, 
@@ -1687,6 +1691,14 @@ general = {
           {k -> 0.248400801495, n -> 1, delta -> 0}, 
           {k -> 12.8174813571, n -> 2, delta -> 0}, 
           {k -> -0.248400801495, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c*, i1 -> c3o, i2 -> n3mh, i3 -> c*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 5.96161923588, n -> 1, delta -> 0}, 
+          {k -> 0.49680160299, n -> 2, delta -> 0}, 
+          {k -> 1.25194003954, n -> 3, delta -> 0}, 
           {k -> 0, n -> 0, delta -> 0}, 
           {k -> 0, n -> 0, delta -> 0}, 
           {k -> 0, n -> 0, delta -> 0}}}, 
@@ -2292,8 +2304,8 @@ specific = {
       improper -> c3o},
     {type -> c3o, pair -> c3o, bond -> c3o, angle -> c3o, torsion -> c3o, 
       improper -> c3o},
-    {type -> c3oa, pair -> c3o, increment -> c3oa, bond -> c3o, angle -> c3o, 
-      torsion -> c3o, improper -> c3o},
+    {type -> c3oa, pair -> c3oa, bond -> c3o, angle -> c3o, torsion -> c3o, 
+      improper -> c3o},
     {type -> c3oe, pair -> c3oe, bond -> c3o, angle -> c3oe, torsion -> c3oe, 
       improper -> c3o},
     {type -> c4, pair -> c4, bond -> c4, angle -> c4, torsion -> c4, improper
@@ -2384,6 +2396,8 @@ specific = {
       improper -> o2z},
     {type -> oh, pair -> oh, bond -> oh, angle -> oh, torsion -> oh, improper
       -> oh},
+    {type -> oha, pair -> oh, increment -> oha, bond -> oh, angle -> oh, 
+      torsion -> oh, improper -> oh},
     {type -> on, pair -> on, bond -> on, angle -> on, torsion -> on, improper
       -> on},
     {type -> os, pair -> os, bond -> os, angle -> os, torsion -> os, improper
@@ -2444,7 +2458,7 @@ specific = {
       {i0 -> oh, i1 -> si4z, k -> 748.000391113, l -> 1.64}, 
       {i0 -> os, i1 -> si4z, k -> 748.000391113, l -> 1.64}}}, 
   pair -> {active -> true, mix -> berthelot, shift -> false, nbonded -> 3, 
-    mode -> global, coulomb -> none, cutoff -> 14, n -> 68, data -> {
+    mode -> global, coulomb -> none, cutoff -> 14, n -> 69, data -> {
       {i0 -> ?, i1 -> ?, epsilon -> 0, sigma -> 0}, 
       {i0 -> ar, i1 -> ar, epsilon -> 0.231887116212, sigma -> 3.401}, 
       {i0 -> ba+2, i1 -> ba+2, epsilon -> 0.0466914018554, sigma -> 3.81661}, 
@@ -2457,6 +2471,7 @@ specific = {
       {i0 -> c3ho, i1 -> c3ho, epsilon -> 0.107309146246, sigma -> 3.52}, 
       {i0 -> c3mo, i1 -> c3mo, epsilon -> 0.0675650180067, sigma -> 3.72}, 
       {i0 -> c3o, i1 -> c3o, epsilon -> 0.0794882564784, sigma -> 3.82}, 
+      {i0 -> c3oa, i1 -> c3oa, epsilon -> 0.0814754628904, sigma -> 3.9}, 
       {i0 -> c3oe, i1 -> c3oe, epsilon -> 0.0794882564784, sigma -> 3.82}, 
       {i0 -> c4, i1 -> c4, epsilon -> 0.00099360320598, sigma -> 6.4}, 
       {i0 -> c4h, i1 -> c4h, epsilon -> 0.0198720641196, sigma -> 4.65}, 
