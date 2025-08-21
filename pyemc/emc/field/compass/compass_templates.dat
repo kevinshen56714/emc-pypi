@@ -1,0 +1,399 @@
+! compass_templates
+!
+! Template file of potential type assignment templates for the published 
+! COMPASS forcefield (June 2009) as provided with the LAMMPS distribution
+!
+! Revision history:
+!		2009/06/30	Original conception
+!	PJV	2024/02/25	Split of compass_published.frc into compass.frc
+!				and compass_templates.dat
+!	PJV	2024/02/26	Added missing end_test keywords and reorganized
+!				rules
+!
+
+type: ?
+  ! anything	
+  template: (>*)
+end_type
+
+!
+! NOBLE GASES
+!
+
+type: ar
+  ! Argon atom
+  template: (>Ar)
+end_type
+
+type: he
+  ! Helium atom
+  template: (>He)
+end_type
+
+type: kr
+  ! Krypton atom
+  template: (>Kr)
+end_type
+
+type: ne
+  ! Neon atom
+  template: (>Ne)
+end_type
+
+type: xe
+  ! Xenon atom
+  template: (>Xe)
+end_type
+
+!
+! CARBONS
+!
+
+type:c1o
+  ! Carbon in CO
+  template: [>C[~O]]
+end_type
+
+type:c2=
+  ! Carbon in =C= (e.g. CO2, CS2)
+  template: [>C[~*][~*]]
+end_type
+
+type:c3'
+    ! Carbonyl carbon [one polar substituent such as O,N]
+    ! e.g. amide, acid and ester
+    template: (>C (~O) (~*) (~*))
+    atom_test:1
+        hybridization:sp2
+    end_test
+    atom_test:3
+        allowed_elements: C, H
+    end_test
+    atom_test:4
+        allowed_elements: O, N
+    end_test
+end_type
+
+type:c3a
+  ! SP2 aromatic carbon
+  template:(>C(~*)(~*)(~*))
+  atom_test:1
+    hybridization: SP2
+    aromaticity:AROMATIC
+  end_test
+end_type
+
+type:c3a
+  ! Transferred from pcff - may not be required.
+  ! This is used for aromatic carbons that fail the aromaticity test because
+  ! the current ring checker is too lame to figure on a ring with more than
+  ! seven or eight sides. The NON_AROMATIC test is to eliminate the conflict
+  ! with the above 'c3a' definition. This can be removed when the ring checker
+  ! is made more robust.
+  template: [>C(-*)(:*)(:*)]
+  atom_test:1
+    hybridization:SP2
+    aromaticity:NON_AROMATIC
+  end_test
+end_type
+
+type:c4
+  ! generic SP3 carbon
+  template: (>C(-*)(-*)(-*)(-*))
+  atom_test:1
+    hybridization:SP3
+  end_test
+end_type
+
+type:c41o
+  ! Carbon, sp3, in methanol (and dimethyl ether?)
+  template: [>C(-O(-*))(-H)(-H)(-H)]
+  atom_test:1
+    hybridization:SP3
+  end_test
+  atom_test:3
+    allowed_elements:C,H
+  end_test
+end_type
+
+type: c43
+  ! sp3 carbon with 1 h and 3 heavy atoms
+  template: (>C(-H)(-*)(-*)(-*))
+  atom_test:1
+    hybridization:SP3
+  end_test
+  atom_test:3
+    disallowed_elements:H
+  end_test
+  atom_test:4
+    disallowed_elements:H
+  end_test
+  atom_test:5
+    disallowed_elements:H
+  end_test
+end_type
+
+type:c43o
+  ! Carbon, sp3, in secondary alcohols
+  template: [>C(-O(-H))(-H)(-C)(-C)]
+  atom_test:1
+        hybridization:SP3
+  end_test
+end_type
+
+type: c44
+  ! sp3 carbon with four heavy atoms attached
+  template: (>C(-*)(-*)(-*)(-*))
+  atom_test:1
+    hybridization:SP3
+  end_test
+  atom_test:2
+    disallowed_elements:H
+  end_test
+  atom_test:3
+    disallowed_elements:H
+  end_test
+  atom_test:4
+    disallowed_elements:H
+  end_test
+  atom_test:5
+    disallowed_elements:H
+  end_test
+end_type
+
+type: c4o
+  ! alpha carbon (e.g. alpha to oxygen in ethers and alcohols)
+  template: (>C(-O)(-*)(-*)(-*))
+  atom_test:1
+    hybridization:SP3
+  end_test
+end_type
+
+type: c4z
+  ! Carbon, sp3, bonded to -N3 (azides)
+  template: (>C(-N(~N(~N)))(-*)(-*)(-*))
+  atom_test:1
+    hybridization:SP3
+  end_test
+end_type
+
+!
+! HYDROGENS
+!
+
+type:h1
+  ! nonpolar hydrogen 
+  template: (>H (-*) )
+  atom_test:2
+    allowed_elements:C,Si
+  end_test
+end_type
+
+type:h1h
+  ! Hydrogen in H2
+  template: [>H[-H]]
+end_type
+
+type:h1o
+  ! strongly polar hydrogen (bonded to fluorine, nitrogen, Oxygen - h* in pcff)
+  template: (>H(-*))
+  atom_test:2
+    allowed_elements:O,N,F
+  end_test
+end_type
+
+!
+! NITROGENS
+!
+
+type:n1n
+  ! Nitrogen in N2
+  template: [>N[~N]]
+end_type
+
+type:n1o
+  ! Nitrogen in NO
+  template: [>N[~O]]
+end_type
+
+type:n1z
+  ! Nitrogen, terminal atom in -N3
+  template: [>N[~N[~N(~*)]]]
+end_type
+
+type:n2=
+  ! Nitrogen (in phosphazenes, or generic???)
+  template: [>N(~*)(~*)]
+end_type
+
+type:n2o
+  ! Nitrogen in NO2
+  template: [>N[~O][~O]]
+end_type
+
+type:n2t
+  ! Nitrogen, central atom in -N3
+  template: [>N[~N][~N(~*)]]
+end_type
+
+type:n2z
+  ! Nitrogen, first atom in -N3
+  template: (>N[~N[~N]](~*))
+end_type
+
+type: n3m
+  ! sp3 nitrogen in amides without hydrogen
+  template: (>N(-C[=O])(-C)(-C))
+  atom_test:1
+        hybridization:SP3
+  end_test
+end_type
+
+type: n3o
+  ! Nitrogen in nitro group
+  template: (>N[~O][~O](~O(~C)))
+end_type
+
+!
+! OXYGENS
+!
+
+type:o1=
+  ! Oxygen in NO2 and SO2 [and carbonyl]
+  template: (>O(~*))
+  atom_test:2
+    allowed_elements:N,S,C
+  end_test
+end_type
+
+type:o1=*
+  ! Oxygen in CO2
+  template: [>O[~C[~O]]]
+end_type
+
+type:o12
+  ! Oxygen in nitro group -NO2
+  template: [>O[~N[~O](~*)]]
+end_type
+
+type:o1c
+  ! Oxygen in CO
+  template: [>O[~C]]
+end_type
+
+type:o1n
+  ! Oxygen in NO
+  template: [>O[~N]]
+end_type
+
+type:o1o
+  ! Oxygen in O2
+  template: [>O[~O]]
+end_type
+
+type:o2
+  ! Generic oxygen with two bonds attached
+  template: [>O(~*)(~*)]
+end_type
+
+type:o2e
+  ! Ether oxygen
+  template: [>O(-C)(-C)]
+   atom_test: 1
+       aromaticity:NON_AROMATIC
+   end_test
+end_type
+
+type:o2h
+  ! Hydroxyl oxygen
+  template: (>O[-H](~*))
+end_type
+
+type:o2n
+  ! Oxygen in nitrates
+  template: (>O[~N[~O][~O]](~C))
+end_type
+
+type:o2s
+  ! Ester oxygen
+  template: (>O[~C[~O](~*)](~C))
+end_type
+
+type: o2z
+   ! Oxygen in siloxanes and zeolites
+   template: (>O(-Si)(-*) )
+   atom_test: 3
+       allowed_elements: Si, H 
+   end_test
+end_type
+
+!
+! PHOSPHOROUS
+!
+
+type: p4=
+   ! Phosphorous [in phosphazenes]
+   template: (>P(~*)(~*)(~*)(~*))
+end_type
+
+!
+! SULFURS
+!
+
+type:s1=
+  ! Sulfur in CS2
+  template: [>S[~C[~S]]]
+end_type
+
+type:s2=
+  ! Sulfur in SO2
+  template: [>S[~O][~O]]
+end_type
+
+!
+! SILICONS
+!
+
+type: si4
+   ! Generic silicon with four bonds attached
+   template: (>Si(-*)(-*)(-*)(-*))
+end_type
+
+type: si4c
+   ! A subset of si4, non-hydrogen atom attached [siloxanes??]
+   template: (>Si(-O)(-*)(-*)(-*))
+   atom_test: 3
+       allowed_elements: O, C
+   end_test
+   atom_test: 4
+       allowed_elements: O, C
+   end_test
+   atom_test: 5
+       allowed_elements: O, C
+   end_test
+end_type
+
+precedence:
+(?
+  (ar)
+  (c1o)
+  (c2=)
+  (c3a) (c3')
+  (c4 (c43 (c43o)) (c44) (c4o(c41o)) (c4z) )
+  (h1) (h1h) (h1o)
+  (he)
+  (kr)
+  (n1n) (n1o) (n1z)
+  (n2= (n2o) (n2t) (n2z) )
+  (n3m) (n3o)
+  (ne)
+  (o1= (o1=*) (o12) (o1c) (o1n) ) (o1o)
+  (o2 (o2e(o2s)) (o2h) (o2n) (o2z) )
+  (p4=)
+  (s1=)
+  (s2=)
+  (si4 (si4c) )
+  (xe)
+)
+end_precedence
+

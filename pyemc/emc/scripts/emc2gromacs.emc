@@ -1,0 +1,23 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg1,
+  traject	-> input,
+  system	-> 0,
+  compress	-> false,
+  map		-> true,
+  unwrap	-> true,
+  pbc		-> true,
+  parameters	-> true,
+  source	-> ".",
+  target	-> "."
+};
+
+get		= {name -> source+"/"+input};
+
+gromacs		= {name -> output, compress -> compress, system -> system,
+		   map -> map, unwrap -> unwrap, pbc -> pbc,
+		   parameters -> parameters};
+

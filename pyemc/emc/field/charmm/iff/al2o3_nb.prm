@@ -1,0 +1,140 @@
+#
+#  file:	al2o3_nb.prm
+#  author:	Samir Darouich, Pieter J. in 't Veld
+#  date:	15 March 2023
+#  purpose:	CHARMM nonbonded Al2O3 force field
+#  version:	0.1beta
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE		CHARMM
+FFTYPE		ATOMISTIC
+FFAPPLY		GROUPS
+FFINDEX		TYPES
+FFDEPTH		1
+FFCHARGE	ALL
+CREATED		Oct 2022
+LENGTH		ANGSTROM
+ENERGY		KCAL/MOL
+DENSITY		G/CC
+MIX		BERTHELOT
+NBONDED		3
+INNER		10.0
+CUTOFF		12.0
+ANGLE		IGNORE
+PAIR14		FALSE
+TORSION		IGNORE
+GROUP		IGNORE
+RULE		ERROR
+
+ITEM	END
+
+# Literature references
+
+# Masses
+
+ITEM	MASS
+
+#type  mass   element   ncons    charge    index    comment
+
+Cl-1	35.4527	Cl	0	-1	900	Cl anion in solution
+AL6O	26.982	Al	6	0	901	Al in aluminate bulk
+Na+1	22.99	Na	0	1	902	Na cation in solution
+O2AL	15.9994	O	2	0	903	Deprotonated surface O
+O3AL	15.9994	O	3	0	904	Surface O with one proton
+O4AL	15.9994	O	4	0	905	Bulk O
+OHAL	15.9994	O	4	0	906	Surface O with two protons
+HOAL	1.008	H	1	0	907	Surface proton
+
+ITEM	END
+
+# Equivalences
+
+ITEM	EQUIVALENCE
+
+#type	pair	incr	bond	angle	torsion	impr
+
+Cl-1	Cl-1	CL-1	Cl-1	Cl-1	Cl-1	Cl-1
+AL6O	AL6O	AL6O	AL6O	AL6O	AL6O	AL6O
+Na+1	Na+1	Na+1	Na+1	Na+1	Na+1	Na+1
+O2AL	OHAL	O2AL	OHAL	OHAL	OHAL	OHAL
+O3AL	OHAL	O3AL	OHAL	OHAL	OHAL	OHAL
+O4AL	O4AL	O4AL	O4AL	O4AL	O4AL	O4AL
+OHAL	OHAL	OHAL	OHAL	OHAL	OHAL	OHAL
+HOAL	HOAL	HOAL	HOAL	HOAL	HOAL	HOAL
+
+ITEM	END
+
+
+# Increment parameters
+
+ITEM	INCREMENT
+
+#type1	type2	delta12	delta21
+
+AL6O	O4AL	0.27	-0.27
+AL6O	O2AL	0.13	-0.63
+AL6O	O3AL	0.27	-0.27
+AL6O	OHAL	0.27	-0.27
+HOAL	O3AL	0.25	-0.25
+HOAL	OHAL	0.48	0.02
+
+ITEM	END
+
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+#type1	type2	rmin/2	ewell	rmin14/2	ewell14
+
+Cl-1	Cl-1	2.27	-0.15	2.27	-0.15
+AL6O	AL6O	0.93	-0.10	0.93	-0.10
+Na+1	Na+1	1.411	-0.047	1.411	-0.047
+O4AL	O4AL	1.77	-0.09	1.77	-0.09
+OHAL	OHAL	1.735	-0.122	1.735	-0.122
+HOAL	HOAL	0.5425	-0.015	0.5425	-0.015
+
+ITEM	END
+
+# Bond parameters 
+# Non Bonded Model, so every force constant is 0 except the OH
+
+ITEM	BOND_AUTO
+
+#type1	type2	k	l0
+
+*	*	0	2.03228
+
+Item	END
+
+
+ITEM	BOND
+
+#type1	type2	k	l0
+
+HOAL	OHAL	495.0	0.945
+
+ITEM	END
+
+#Angle parameters
+
+ITEM	ANGLE_AUTO
+
+#type1	type2	type3	k	thetha0	kub	s0
+
+*	*	*	0	180	0	0
+
+ITEM	END
+
+
+ITEM	TORSION_AUTO
+
+#type1	type2	type3	type4	k	n	delta	
+
+*	*	*	*	0	0	0
+
+ITEM	END

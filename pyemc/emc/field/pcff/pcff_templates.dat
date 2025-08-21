@@ -870,11 +870,50 @@ type: nh
    end_test
 end_type
 
+type: nh
+  ! sp2 nitrogen in 5-or 6-  membered ring
+  ! with  hydrogen attached
+  template: (>N(:C)(:C)(-H))
+  atom_test: 1
+    hybridization: SP2
+    aromaticity: AROMATIC
+   end_test
+  atom_test: 2
+    hybridization: SP2
+    aromaticity: AROMATIC
+   end_test
+  atom_test: 3
+    hybridization: SP2
+    aromaticity: AROMATIC
+   end_test
+end_type
+
 type: nh+
   ! protonated  nitrogen in 6- membered ring 
   ! with  hydrogen attached
   template: (>N(-H))
   atom_test: 1
+    hybridization: SP2
+    aromaticity: AROMATIC
+      ring:PLANAR(6)
+   end_test
+end_type
+
+type: nh+
+  ! protonated  nitrogen in 6- membered ring 
+  ! with  hydrogen attached
+  template: (>N(:C)(:C)(-H))
+  atom_test: 1
+    hybridization: SP2
+    aromaticity: AROMATIC
+      ring:PLANAR(6)
+   end_test
+  atom_test: 2
+    hybridization: SP2
+    aromaticity: AROMATIC
+      ring:PLANAR(6)
+   end_test
+  atom_test: 3
     hybridization: SP2
     aromaticity: AROMATIC
       ring:PLANAR(6)

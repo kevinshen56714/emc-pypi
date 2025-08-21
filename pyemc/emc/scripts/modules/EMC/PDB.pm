@@ -2,10 +2,10 @@
 #
 #  module:	EMC::PDB.pm
 #  author:	Pieter J. in 't Veld
-#  date:	September 3, 2022.
+#  date:	September 3, 2022, December 12, 2024.
 #  purpose:	PDB structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -30,6 +30,7 @@
 #
 #  notes:
 #    20220903	Inception of v1.0
+#    20241212	Added -pdb_licorice
 #
 
 package EMC::PDB;
@@ -88,6 +89,7 @@ sub set_defaults {
       extend		=> 0,
       fixed		=> 1,
       hexadecimal	=> 0,
+      licorice		=> 0,
       parameters	=> 0,
       pbc		=> 1,
       rank		=> 0,
@@ -188,6 +190,13 @@ sub set_commands {
       $indicator."hexadecimal"	=> {
 	comment		=> "set hexadecimal index output in PDB",
 	default		=> EMC::Math::boolean($flag->{hexadecimal}),
+	gui		=> ["boolean", "chemistry", "emc", "ignore"]},
+
+      # L
+
+      $indicator."licorice"		=> {
+	comment		=> "add licorice representation",
+	default		=> EMC::Math::boolean($flag->{licorice}),
 	gui		=> ["boolean", "chemistry", "emc", "ignore"]},
 
       # P
@@ -297,6 +306,12 @@ sub set_options {
   if ($option eq "hexadecimal") {				# backwards
     return $flag->{hexadecimal} = EMC::Math::flag($args->[0]); }
 
+  # L
+
+  if ($option eq $indicator."licorice") {
+    $flag->{vdw} = 0;
+    return $flag->{licorice} = EMC::Math::flag($args->[0]); }
+
   # P
 
   if ($option eq $indicator."parameters") {
@@ -326,6 +341,7 @@ sub set_options {
   # V
 
   if ($option eq $indicator."vdw") {
+    $flag->{licorice} = 0;
     return $flag->{vdw} = EMC::Math::flag($args->[0]); }
   return undef;
 }
@@ -516,6 +532,9 @@ sub write_emc {
   printf($stream " rigid -> ".EMC::Math::boolean($flag->{rigid}).",");
   printf($stream " connectivity -> ".EMC::Math::boolean($flag->{connect}).",");
   printf($stream "\n\t\t  ");
+  if ($flag->{licorice}) {
+    printf($stream " licorice -> ".EMC::Math::boolean($flag->{licorice}).",");
+  }
   printf($stream " parameters -> ".EMC::Math::boolean($flag->{parameters}));
   printf($stream "};\n");
 }

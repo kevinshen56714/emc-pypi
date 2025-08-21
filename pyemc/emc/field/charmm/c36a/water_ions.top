@@ -1,9 +1,9 @@
 #EMC/FIELD/CHARMM/unknown
 #
 #  CHARMM topology using water_ions force field files, 
-#  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl 4.0, October 10, 2024 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Mon Jan 15 20:37:18 CET 2024.
+#  and created on Tue Jul 08 14:00:16 CEST 2025.
 #
 
 # Rule precedences
@@ -17,6 +17,7 @@ ITEM	PRECEDENCE
   (CLA)
   (CES)
   (HP)
+  (HPC)
   (HT)
   (HX)
   (POT)
@@ -25,8 +26,13 @@ ITEM	PRECEDENCE
   (MG)
   (SOD)
   (OP)
+  (OPH)
+  (OPC)
   (OT)
   (OX)
+  (PP)
+  (PPA)
+  (PPB)
   (RUB)
   (ZN)
 )
@@ -45,20 +51,26 @@ ITEM	RULES
 3	CAD	Cd	CD2	CD	2	[Cd+2]
 4	CLA	Cl	CLA	CLA	-1	[Cl-]
 5	CES	Cs	CES	CES	1	[Cs+]
-6	HP	H	OPCW	H1	0	H(O(H)([Lp]))
-7	HT	H	TIP3	H1	0	H(H)(O)
-8	HT	H	TP3M	H1	0	H(O(H))
-9	HX	H	OH	H1	0	H([O-])
-10	POT	K	POT	POT	1	[K+]
-11	LIT	Li	LIT	LIT	1	[Li+]
-12	LP	Lp	OPCW	LP	0	[Lp](O)
-13	MG	Mg	MG	MG	2	[Mg+2]
-14	SOD	Na	SOD	SOD	1	[Na+]
-15	OP	O	OPCW	O	0	O(H)(H)([Lp])
-16	OT	O	TIP3	OH2	0	O(H)(H)
-17	OX	O	OH	O1	0	[O-](H)
-18	RUB	Rb	RUB	RUB	1	[Rb+]
-19	ZN	Zn	ZN2	ZN	2	[Zn+2]
+6	HP	H	H2PO4	H1	0	H(O(P))
+7	HPC	H	OPCW	H1	0	H(O(H)([Lp]))
+8	HT	H	TIP3	H1	0	H(H)(O)
+9	HT	H	TP3M	H1	0	H(O(H))
+10	HX	H	OH	H1	0	H([O-])
+11	POT	K	POT	POT	1	[K+]
+12	LIT	Li	LIT	LIT	1	[Li+]
+13	LP	Lp	OPCW	LP	0	[Lp](O)
+14	MG	Mg	MG	MG	2	[Mg+2]
+15	SOD	Na	SOD	SOD	1	[Na+]
+16	OP	O	H2PO4	O3	0	O(:P)
+17	OPC	O	OPCW	O	0	O(H)(H)([Lp])
+18	OPH	O	H2PO4	O1	0	O(H)(P)
+19	OT	O	TIP3	OH2	0	O(H)(H)
+20	OX	O	OH	O1	0	[O-](H)
+21	PP	P	PO4	P	0	P(:O)(:O)(:O)(:O)
+22	PPA	P	HPO4	P	0	P(:O)(:O)(:O)(O)
+23	PPB	P	H2PO4	P	0	P(:O)(:O)(O)(O)
+24	RUB	Rb	RUB	RUB	1	[Rb+]
+25	ZN	Zn	ZN2	ZN	2	[Zn+2]
 
 ITEM	END
 
@@ -73,10 +85,13 @@ CAL	[Ca+2]
 CD2	[Cd+2]
 CES	[Cs+]
 CLA	[Cl-]
+H2PO4	P(O)(:O)(:O)O
+HPO4	P(:O)(:O)(:O)O
 LIT	[Li+]
 MG	[Mg+2]
 OH	[O-]
 OPCW	O[Lp]
+PO4	P(:O)(:O)(:O):O
 POT	[K+]
 RUB	[Rb+]
 SOD	[Na+]

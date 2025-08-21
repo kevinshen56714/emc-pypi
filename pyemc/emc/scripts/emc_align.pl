@@ -5,7 +5,7 @@
 #  date:	July 12, 2020, January 14, 2022.
 #  purpose:	Align EMC Script input
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -119,7 +119,7 @@ sub align {
   my $first;
   my $flag = 0;
   my @empty = (0, 0);
-  my %verbatim = (emc => 1, lammps => 1, namd => 1);
+  my %verbatim = (emc => 1, gromacs => 1, lammps => 1, namd => 1);
   my %flags = (replicas => 1, nonbonds => 1, bonds => 1, angles => 1);
   my %exclude = (include => 1, stage => 1, trial => 1);
   my %all_caps = (emc => 1, lammps => 1, namd => 1, gromacs => 1);

@@ -5,7 +5,7 @@
 #  date:	October 15, 2018.
 #  purpose:	Reduce number of frames in LAMMPS trajectories
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

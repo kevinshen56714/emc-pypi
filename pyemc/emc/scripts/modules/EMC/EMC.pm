@@ -5,7 +5,7 @@
 #  date:	September 3, 2022.
 #  purpose:	EMC structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -158,16 +158,24 @@ sub set_defaults {
 
       moves		=> {
 	cluster		=> {
-	  active	=> "false",
-	  cut		=> 0.05,
-	  frequency	=> 1,
-	  limit		=> "auto:auto",
-	  max		=> "0:0",
-	  min		=> "auto:auto"
+	  default	=> {
+	    active	=> "false",
+	    clusters	=> "all",
+	    cut		=> 0.05,
+	    frequency	=> 1,
+	    limit	=> "auto:auto",
+	    max		=> "0:0",
+	    min		=> "auto:auto",
+	    phase	=> 0
+	  },
+	  phases	=> []
 	},
 	displace	=> {
-	  active	=> "true",
-	  frequency	=> 1
+	  default	=> {
+	    active	=> "true",
+	    frequency	=> 1
+	  },
+	  phases	=> []
 	}
       },
 
@@ -478,7 +486,7 @@ sub set_commands {
 
       moves_cluster	=> {
 	comment		=> "define cluster move settings used to optimize build",
-	default		=> EMC::Hash::text($context->{moves}->{cluster}, "string"),
+	default		=> EMC::Hash::text($context->{moves}->{cluster}->{default}, "string"),
 	gui		=> ["list", "chemistry", "emc", "advanced"]},
 
       # N
@@ -654,7 +662,7 @@ sub set_options {
 
   # B
 
-  if ($option eq "build") { 
+  if ($option eq "build") {
     return $build->{name} = $args->[0]; }
   if ($option eq "build_center") {
     return $build->{center} = EMC::Math::flag($args->[0]); }
@@ -779,7 +787,7 @@ sub set_options {
   # M
 
   if ($option eq "moves_cluster") {
-    EMC::Hash::set($line, $context->{moves}->{cluster}, "string", "", [], @{$args});
+    EMC::List::set_list_oper($line, $context->{moves}->{cluster}, @{$args});
     return $context->{moves}->{cluster};
   }
 
@@ -1634,9 +1642,11 @@ sub write_field {				# <= write_emc_field
       printf($stream "%s,\n", 
 	format_output(0, "name {$pre+\".frc\", ".
 	  "$pre+\"_templates.dat\"}", $pos, 2));
-    } elsif (-f EMC::IO::expand("$global->{root}/field/$name.top") ||
-	-f EMC::IO::expand($location ne "" ? "$location/" : "")."$name.top" ||
-	$global->{flag}->{rules}) {
+    } elsif (
+#	-f EMC::IO::expand("$global->{root}/field/$name.top") ||
+	-f EMC::IO::expand($location ne "" ? "$location/" : "")."$name.top" #||
+#	|| $global->{flag}->{rules}
+      ) {
       printf($stream "%s,\n",
 	format_output(0, "name {$pre+\".prm\", $pre+\".top\"}", $pos, 2));
     } else {
@@ -1712,8 +1722,8 @@ sub write_focus {				# <= write_emc_focus
 
   foreach (@{$context->{focus}}) {
     if ($_ eq "-") { next; }
-    elsif (!defined($clusters->{id}->{$_})) {
-      warning("undefined focus cluster \'$_\'\n");
+    elsif (!defined($clusters->{cluster}->{$_})) {
+      EMC::Message::warning("undefined focus cluster \'$_\'\n");
     }
     push(@focus, $_);
   }
@@ -2336,6 +2346,9 @@ sub write_interaction {				# <= write_emc_interaction
   return if ($field_exclude && !$flag && $flag_exclude!=2);
   
   printf($stream "types\t\t= {\n");
+  printf($stream "%s\n", format_output(0, "inverse {", 2, 2));
+  printf($stream "%s\n", format_output(0, "cutoff $field->{inverse}", 4, 2));
+  printf($stream "%s", format_output(1, "}", 2, 2));
   if (!$field_exclude) {
     printf($stream "%s\n", format_output(0, "$field->{type} {", 2, 2));
     if ($global->{cutoff}->{inner}>0) {
@@ -2374,10 +2387,12 @@ sub write_interaction {				# <= write_emc_interaction
 sub write_moves {				# <= write_emc_moves
   my $stream = shift(@_);
   my $emc = shift(@_);
-  my $moves = EMC::Common::element($emc, "context", "moves");
+  my $phase = shift(@_);
+  my $mode = shift(@_);
 
+  my $moves = EMC::Common::element($emc, "context", "moves");
   my @keys = sort(keys(%{$moves}));
-  my @active = ();
+  my $active = [];
   my $options = {
     cluster => {
       function => \&write_moves_cluster,
@@ -2390,18 +2405,28 @@ sub write_moves {				# <= write_emc_moves
   my $n = 0;
 
   foreach (@keys) {
-    next if (!defined($options->{$_}));
-    next if (!defined($options->{$_}->{allowed}->{$moves->{$_}->{active}}));
-    next if (!$options->{$_}->{allowed}->{$moves->{$_}->{active}});
-    push(@active, $_);
+    my $key = $_;
+
+    next if (!defined($options->{$key}));
+    foreach ($phase, 0) {
+      my $move = $moves->{$key};
+      my $ptr = $move->{phases}->[$_];
+      next if (!defined($options->{$key}->{allowed}->{$ptr->{active}}));
+      next if (!$options->{$key}->{allowed}->{$ptr->{active}});
+      EMC::Common::array($move, "active")->[$phase] = 1;
+      push(@{$active}, {move => $key, phase => $_});
+      last;
+    }
   }
-  return if (!($n = scalar(@active)));
+  return if (!($n = scalar(@{$active})));
 
   my $i;
 
   printf($stream "moves\t\t= {\n");
   for ($i=0; $i<$n; ++$i) {
-    $options->{@active[$i]}->{function}->($stream, $emc, $i<$n-1);
+    my $ptr = $active->[$i];
+    $options->{$ptr->{move}}->{function}->(
+	$stream, $emc, $ptr->{phase}, $i<$n-1, $mode, @_);
   }
   printf($stream "};\n\n");
 }
@@ -2410,23 +2435,49 @@ sub write_moves {				# <= write_emc_moves
 sub write_moves_cluster {			# <= write_emc_moves_cluster
   my $stream = shift(@_);
   my $emc = shift(@_);
+  my $phase = shift(@_);
   my $comma = shift(@_);
-  my $moves = EMC::Common::element($emc, "context", "moves");
-  my $ptr = $moves->{cluster};
+  my $mode = shift(@_);
+  my $cluster = EMC::Common::element($emc, "context", "moves", "cluster");
+
+  return if (ref($cluster->{phases}) ne "ARRAY");
+
+  my $ptr = $cluster->{phases}->[$phase];
   my $limit = join(", ", split(":", $ptr->{limit}));
   my $max = join(", ", split(":", $ptr->{max}));
   my $min = join(", ", split(":", $ptr->{min}));
 
   if (defined({0 => 1, 1 => 1}->{$ptr->{active}})) {
-    $ptr->{active} = boolean($ptr->{active});
+    $ptr->{active} = EMC::Math::boolean($ptr->{active});
   }
   printf($stream "%s\n", format_output(0, "cluster {", 2, 2));
-  printf($stream "%s", format_output(1, "active ".$ptr->{active}, 4, 2));
-  printf($stream "%s", format_output(1, "frequency $ptr->{frequency}", 4, 2));
-  printf($stream "%s", format_output(1, "cut $ptr->{cut}", 4, 2)); 
-  printf($stream "%s", format_output(1, "min {$min}", 4, 2));
-  printf($stream "%s", format_output(1, "max {$max}", 4, 2));
-  printf($stream "%s\n", format_output(0, "limit {$limit}", 4, 2));
+  if ($mode) {
+    printf($stream "%s\n", format_output(0, "active false", 4, 2));
+  } else {
+    printf($stream "%s", format_output(1, "active ".$ptr->{active}, 4, 2));
+    printf($stream "%s", format_output(1, "frequency $ptr->{frequency}", 4, 2));
+    
+    my $select = [];
+
+    foreach ("clusters", "groups", "sites") {
+      next if (!defined($ptr->{$_}));
+      my $a = $ptr->{$_};
+      if ($ptr->{$_} eq "all") {
+	next if ($_ ne "clusters");
+	$a = [create_clusters($emc, @_)];
+      }
+      push(@{$select}, format_output(0, "$_ {".join(", ", @{$a})."}", 6, 2));
+    }
+    if (scalar(@{$select})) {
+      printf($stream "%s\n", format_output(0, "select {", 4, 2));
+      printf($stream "%s\n", join(",\n", @{$select}));
+      printf($stream "%s", format_output(1, "}", 4, 2));
+    }
+    printf($stream "%s", format_output(1, "cut $ptr->{cut}", 4, 2)); 
+    printf($stream "%s", format_output(1, "min {$min}", 4, 2));
+    printf($stream "%s", format_output(1, "max {$max}", 4, 2));
+    printf($stream "%s\n", format_output(0, "limit {$limit}", 4, 2));
+  }
   printf($stream "%s\n", format_output(0, "}", 2, 2), $comma ? "," : "");
 }
 
@@ -2457,8 +2508,6 @@ sub write_phase {				# <= write_emc_phase
   my $fwall = $global->{flag}->{exclude}==2 ? $phase<$context->{nphases} : 0;
 
   printf($stream "(* clusters %s *)\n\n", $phase>0 ? "phase $phase" : "system");
-  write_delete($stream, $emc, $phase) if ($fdelete);
-  write_split($stream, $emc, $phase) if ($fsplit);
   printf($stream "\n") if (write_user($stream, $emc, $phase, 0));
   write_clusters($stream, $emc, "regular", @clusters);
   write_field_apply($stream, $emc);
@@ -2524,9 +2573,12 @@ sub write_phase {				# <= write_emc_phase
   }
   write_variables($stream, @variables);
   write_interaction($stream, $emc, $phase);
-  write_moves($stream, $emc);
+  write_moves($stream, $emc, $phase, 0, @clusters);
   
   write_build($stream, $emc, $phase, @clusters);
+  write_delete($stream, $emc, $phase) if ($fdelete);
+  write_split($stream, $emc, $phase) if ($fsplit);
+  write_moves($stream, $emc, $phase, 1);
   printf($stream "\n") if (write_user($stream, $emc, $phase, 2));
 
   return if ($flag->{test} || $flag->{exclude}->{build});
@@ -2554,7 +2606,7 @@ sub write_polymers {				# <= write_emc_polymers
   my $flag = $npolys>1 ? 1 : 0;
   my %level = (cluster => 4, group => 8);
   my $ipoly = 0;
-  my $connects = $poly->{connects};
+  my $options = $poly->{options};
   my $lvl;
 
   if (!defined($level{$typ})) {
@@ -2565,6 +2617,7 @@ sub write_polymers {				# <= write_emc_polymers
     my $i;
     my @g;
     my @w;
+    my $mask = $_->{mask};
     my $fraction = $_->{fraction};
     my $nrepeats = join(", ", @{$_->{nrepeats}});
     my $groups = join(", ", create_groups(@{$_->{groups}}));
@@ -2576,10 +2629,18 @@ sub write_polymers {				# <= write_emc_polymers
       printf($stream "%s\n", format_output(0, "{", $lvl-2, 2));
       printf($stream "%s", format_output(1, "index ".$ipoly++, $lvl, 2));
       printf($stream "%s", format_output(1, "type $type", $lvl, 2));
+      if (defined($options->{link})) {
+	printf($stream "%s",
+	  format_output(1, "link $options->{link}", $lvl, 2));
+      }
+      $mask = $type eq "random" ? 0 : 1 if (!defined($mask));
+      $mask = EMC::Math::binary($mask);
+      printf($stream "%s", format_output(1, "mask $mask", $lvl, 2));
       printf($stream "%s", format_output(1, "fraction $fraction", $lvl, 2));
-      if (defined($connects)) {
+      if (scalar(@{$options->{connects}})) {
 	printf($stream "%s", 
-	  format_output(1, "connects {".join(",", @{$connects})."}", $lvl, 2));
+	  format_output(1, "connects {".
+	    join(",", @{$options->{connects}})."}", $lvl, 2));
       }
     } else {
       my $id = $name.($flag ? "_".++$ipoly : "");
@@ -2587,7 +2648,10 @@ sub write_polymers {				# <= write_emc_polymers
       printf($stream "%s",
 	format_output(1, "id $id, system -> $global->{system}->{id}, type -> $type", $lvl, 2));
       printf($stream "%s",
-	format_output(1, "n int($fraction*n_$name/norm_$name+0.5)", $lvl, 2));
+       	format_output(1,
+	  scalar(@{$poly->{data}})>1 ?
+	    "n int($fraction*n_$name/norm_$name+0.5)" :
+	    "n n_$name", $lvl, 2));
     }
     if ($polymer_flag->{niterations}>0) {
       printf($stream "%s",
@@ -2610,6 +2674,7 @@ sub write_profile {				# <= write_emc_profile
   my $convert = EMC::Common::element($emc, "context", "convert");
   my $profiles = EMC::Common::element($global, "profiles");
   my $clusters = EMC::Common::element($emc, "clusters");
+  my $cluster = EMC::Common::element($clusters, "cluster");
   my $polymers = EMC::Common::element($emc, "polymers");
   my $polymer = EMC::Common::element($polymers, "polymer");
   my $polymer_id = EMC::Common::element($polymers, "id");
@@ -2621,8 +2686,8 @@ sub write_profile {				# <= write_emc_profile
   }
   my $n = scalar(@clusters);
   my $fcluster = 
-	$n && defined($profiles) && defined($profiles->{cluster}) ? 1 : 0;
- 
+	$n && EMC::Common::element($profiles, "flag", "flag") ? 1 : 0;
+
   $fcluster = 0 if (!$polymers->{flag}->{cluster});	# profiles through EMC
   @clusters = @{$clusters->{index}} if ($fcluster);
   $n = scalar(@clusters);
@@ -2643,9 +2708,9 @@ sub write_profile {				# <= write_emc_profile
       printf($stream "\n") if ($n);
     }
   }
-  foreach (@clusters) {
+  foreach (@clusters) {				# nl_ written out by EMC C
     --$n if (!$fcluster);
-    if (!defined($polymer_id->{$_})) {
+    if ($cluster->{$_}->{type} eq "cluster") {
       printf($stream
 	format_output($n, "nl_$_ nclusters(clusters -> $_)", 2, 2));
     } else {
@@ -2654,6 +2719,7 @@ sub write_profile {				# <= write_emc_profile
       my $npolys = scalar(@{$poly->{data}});
       my $ipoly = 0;
       my $flag = $npolys>1 ? 1 : 0;
+
       foreach (@{$poly->{data}}) {
 	my $id = $name.($flag ? "_".++$ipoly : "");
 	printf($stream "%s",
@@ -2891,72 +2957,70 @@ sub write_split {				# <= write_emc_split
   my $split = $context->{split}->{phases};
   my $unwrap = 1;
 
-  foreach (@{$split->[$phase]}) {
-    my $hash = $_;
-    my @focus = ();
-    my $thickness = $hash->{thickness};
-    my @center = (
-      $direction eq "x" ? "0.5" : "0.0",
-      $direction eq "y" ? "0.5" : "0.0",
-      $direction eq "z" ? "0.5" : "0.0"
-    );
-    my @h = (
-      $direction eq "x" ? $thickness : "infinite",
-      $direction eq "y" ? $thickness : "infinite",
-      $direction eq "z" ? $thickness : "infinite",
-      "0.0", "0.0", "0.0"
-    );
+  my $hash = $split->[$phase];
+  my @focus = ();
+  my $thickness = $hash->{thickness};
+  my @center = (
+    $direction eq "x" ? "0.5" : "0.0",
+    $direction eq "y" ? "0.5" : "0.0",
+    $direction eq "z" ? "0.5" : "0.0"
+  );
+  my @h = (
+    $direction eq "x" ? $thickness : "infinite",
+    $direction eq "y" ? $thickness : "infinite",
+    $direction eq "z" ? $thickness : "infinite",
+    "0.0", "0.0", "0.0"
+  );
 
-    if ($hash->{type} eq "absolute") {
-      if ($direction eq "x") {
-	@center = ("0.5*lxx", "0.0", "0.0");
-      } elsif ($direction eq "y") {
-	@center = ("0.5*lyx", "0.5*lyy", "0.0");
-      } elsif ($direction eq "z") {
-	@center = ("0.5*lzx", "0.5*lzy", "0.5*lzz");
-      }
+  if ($hash->{type} eq "absolute") {
+    if ($direction eq "x") {
+      @center = ("0.5*lxx", "0.0", "0.0");
+    } elsif ($direction eq "y") {
+      @center = ("0.5*lyx", "0.5*lyy", "0.0");
+    } elsif ($direction eq "z") {
+      @center = ("0.5*lzx", "0.5*lzy", "0.5*lzz");
     }
-    
-    printf($stream "split\t\t= {\n");
-    printf($stream format_output(1, "system ".$global->{system}->{id}, 2, 2));
-    printf($stream format_output(1, "direction ".$direction, 2, 2));
-    printf($stream format_output(1, "mode ".$hash->{mode}, 2, 2));
-    printf($stream format_output(1, "unwrap ".EMC::Math::boolean($unwrap), 2, 2));
-    printf($stream format_output(1, "fraction ".$hash->{fraction}, 2, 2));
-    $unwrap = 0;
-    
-    foreach ("sites", "groups", "clusters") {
-      if ($hash->{$_} ne "all") {
-	push(@focus, {$_ => $hash->{$_}});
-      } elsif ($_ eq "clusters") {
-	push(@focus, {$_ => \@clusters}) if (scalar(@clusters));
-      }
-    }
-    if (scalar(@focus)) {
-      my $i;
-      my $n = scalar(@focus)-1;
-
-      printf($stream format_output(0, "focus {", 2, 2));
-      printf($stream "\n");
-      for ($i=0; $i<=$n; ++$i) {
-	my $select = @focus[$i];
-	my $key = (keys(%{$select}))[0];
-
-	printf($stream format_output($i<$n, "$key {".join(", ", @{$select->{$key}})."}", 4, 2));
-	printf($stream "\n") if ($i==$n);
-      }
-      printf($stream format_output(1, "}", 2, 2));
-    }
-    printf($stream format_output(0, "region {", 2, 2));
-    printf($stream "\n");
-    printf($stream format_output(1, "shape cuboid", 4, 2));
-    printf($stream format_output(1, "type ".$hash->{type}, 4, 2));
-    printf($stream format_output(1, "center {".join(", ", @center)."}", 4, 2));
-    printf($stream format_output(0, "h {".join(", ", @h)."}", 4, 2));
-    printf($stream "\n");
-    printf($stream format_output(0, "}", 2, 2));
-    printf($stream "\n};\n\n");
   }
+  
+  printf($stream "split\t\t= {\n");
+  printf($stream format_output(1, "system ".$global->{system}->{id}, 2, 2));
+  printf($stream format_output(1, "direction ".$direction, 2, 2));
+  printf($stream format_output(1, "mode ".$hash->{mode}, 2, 2));
+  printf($stream format_output(1, "unwrap ".EMC::Math::boolean($unwrap), 2, 2));
+  printf($stream format_output(1, "fraction ".$hash->{fraction}, 2, 2));
+  $unwrap = 0;
+  
+  foreach ("sites", "groups", "clusters") {
+    if ($hash->{$_} ne "all") {
+      push(@focus, {$_ => $hash->{$_}});
+    } elsif ($_ eq "clusters") {
+      push(@focus, {$_ => \@clusters}) if (scalar(@clusters));
+    }
+  }
+  if (scalar(@focus)) {
+    my $i;
+    my $n = scalar(@focus)-1;
+
+    printf($stream format_output(0, "focus {", 2, 2));
+    printf($stream "\n");
+    for ($i=0; $i<=$n; ++$i) {
+      my $select = @focus[$i];
+      my $key = (keys(%{$select}))[0];
+
+      printf($stream format_output($i<$n, "$key {".join(", ", @{$select->{$key}})."}", 4, 2));
+      printf($stream "\n") if ($i==$n);
+    }
+    printf($stream format_output(1, "}", 2, 2));
+  }
+  printf($stream format_output(0, "region {", 2, 2));
+  printf($stream "\n");
+  printf($stream format_output(1, "shape cuboid", 4, 2));
+  printf($stream format_output(1, "type ".$hash->{type}, 4, 2));
+  printf($stream format_output(1, "center {".join(", ", @center)."}", 4, 2));
+  printf($stream format_output(0, "h {".join(", ", @h)."}", 4, 2));
+  printf($stream "\n");
+  printf($stream format_output(0, "}", 2, 2));
+  printf($stream "\n};\n\n");
 }
 
 
@@ -2965,6 +3029,7 @@ sub write_store {				# <= write_emc_store
   my $emc = shift(@_);
 
   my $flag = EMC::Common::element($emc, "flag");
+  my $context = EMC::Common::element($emc, "context");
   my $insight = EMC::Common::element($emc, "flag", "insight");
   my $global = EMC::Common::element($emc, "root", "global");
   my $field = EMC::Common::element($emc, "root", "fields", "field");
@@ -2992,10 +3057,10 @@ sub write_store {				# <= write_emc_store
     }
   }
 
-  if ($flag->{export}->{smiles} ne "") {
+  if ($context->{export}->{smiles} ne "") {
     printf($stream 
 "export		= {
-  smiles	-> {name -> output+\"_smiles\", compress -> true, style -> $flag->{export}->{smiles}}
+  smiles	-> {name -> output+\"_smiles\", compress -> true, style -> $context->{export}->{smiles}}
 };
 ");
   }
@@ -3192,10 +3257,10 @@ sub write_variables_polymer {			# <= write_emc_variables_polymer
       scalar(split(":", $data->[0]->{groups}->[0]))>1 ? 0 : 1
     ) {
     return if ($int);
-    push(@{$var}, $t."_$name ".$t."g_$cluster->{$_}->{group}->{id}");
+    push(@{$var}, $t."_$name ".$t."g_$data->[0]->{groups}->[0]");
   } else {
     my $f = 1;
-    if (1||scalar(@{$data})>1) {			# polymers
+    if (scalar(@{$data})>1) {				# polymers
       my $norm = ""; $f = 0;
       push(@{$var}, "") if ($i);
       if (!$int) {
@@ -3408,14 +3473,14 @@ sub write_variables_sizing {			# <= write_emc_variables_sizing
       EMC::Message::info("assuming mass fractions\n");
       push(@variables, "(* mass fractions *)\n");
       foreach (@{$index->{clusters}}) {
-	push(@variables, "f_$_ f_$_*l_$_/m_$_");
+	push(@variables, "f_$_ m_$_ ? f_$_*l_$_/m_$_ : 0");
       }
     }
     elsif ($flag->{volume}) {				# volume fractions
       EMC::Message::info("assuming volume fractions\n");
       push(@variables, "(* volume fractions *)\n");
       foreach (@{$index->{clusters}}) {
-	push(@variables, "f_$_ f_$_*v_$_/m_$_");
+	push(@variables, "f_$_ m_$_ ? f_$_*v_$_/m_$_ : 0");
       }
     }
   }

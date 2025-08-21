@@ -4,10 +4,10 @@
 #  author:	Pieter J. in 't Veld
 #  date:	February 21, 2012, March 14, November 2, 2016,
 #		January 18, July 5, August 1, 2017, January 9,
-#		February 7, 2018, March 23, 2022.
+#		February 7, 2018, March 23, 2022, February 26, 2025.
 #  purpose:	start jobs remotely or collect data; part of EMC distribution
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -18,13 +18,18 @@
 #		needed after analysis executed on queueing system
 #    20181028	Added -[no]back options for capturing submission logs
 #    20220323	Added -keep option for keeping exchange data files
+#    20250226	Version increase to 1.6.1
+#    		Added -port and -tunnel options for ssh tunnels
+#    		Corrected behavior when using user@host:dir
 #
 
 # initial variables
 
-version=1.5.2;
-date="March 23, 2022";
+version=1.6.1;
+date="February 26, 2025";
 script=$(basename $0);
+
+port=2222;
 
 # functions
 
@@ -96,7 +101,9 @@ function help() {
   echo -e "  -exchange\tretrieve and unpack archived data from host";
   echo -e "  -[no]info\tcontrol informational output";
   echo -e "  -keep\t\tkeep exchange data files";
+  echo -e "  -port\t\tset alternate tunnel port [$port]";
   echo -e "  -quiet\tswitch off any output";
+  echo -e "  -tunnel\tuse tunnel";
   echo -e "  -sync\t\tset directory to synchronize";
   echo;
   echo "Notes:";
@@ -124,6 +131,7 @@ function init() {
   info=true;
   keep=false;
   log=true;
+  tunnel=false;
   while [ "$1" != "" ]; do
     case "$1" in
       -help)	help;;
@@ -136,6 +144,8 @@ function init() {
       -info)	info=true;;
       -keep)	keep=true;;
       -noinfo)	info=false;;
+      -port)	shift; port=$1;;
+      -tunnel)	tunnel=true;;
       -quiet)	info=false; debug=false; log=false;;
       -sync)	shift; sync=$1;;
       -*)	help "unknown command: $1";;
@@ -159,7 +169,7 @@ function init() {
   if [ "$right" != "" ]; then
     host=$left;
     dir=$right;
-    dest=$(basename $src);
+    dest=$src;
     target="$dir/$(dirname $src)";
   else
     dest=$src;
@@ -192,8 +202,21 @@ function init() {
 }
 
 
+function myssh() {
+  if [ "$tunnel" == true ]; then
+    ssh -p $port "$@";
+  else
+    ssh "$@";
+  fi;
+}
+
+
 function myrsync() {
-  rsync --progress "$@";
+  if [ "$tunnel" == true ]; then
+    rsync --progress -e "ssh -p $port" "$@";
+  else
+    rsync --progress "$@";
+  fi;
 }
 
 
@@ -206,7 +229,7 @@ function myrsync() {
 
     echo ssh $host "rm -f \"$dir/exchange/files/\"* \"$dir/exchange/data/\"*.tgz" | tee -a $output;
     if [ "$keep" == "false" ]; then
-      ssh $host "rm -f \"$dir/exchange/files/\"* \"$dir/exchange/data/\"*.tgz" | tee -a $output;
+      myssh $host "rm -f \"$dir/exchange/files/\"* \"$dir/exchange/data/\"*.tgz" | tee -a $output;
     fi;
     echo | tee -a $output;
 
@@ -215,7 +238,7 @@ function myrsync() {
     if [ "$exchange" != "true" ]; then
       info "ssh $host \"mkdir -p $target\"";
       info;
-      ssh $host "mkdir -p \"$target\"";
+      myssh $host "mkdir -p \"$target\"";
 
       info "rsync -avz \"$src\" \"$host:$target\"";
       info;
@@ -231,14 +254,14 @@ function myrsync() {
 
       if [ "${back}" != "true" ]; then
 	info "ssh $host \"cd $dir; $dest\"";
-	ssh $host "cd $dir; $dest" 2>&1 | tee $output;
+	myssh $host "cd $dir; $dest" 2>&1 | tee $output;
       else
 	info "ssh $host \"cd $dir; nohup $dest &>/dev/null &\"";
-	ssh $host "cd $dir; nohup $dest &>/dev/null &";
+	myssh $host "cd $dir; nohup $dest &>/dev/null &";
       fi;
       info;
     else
-      ssh $host "
+      myssh $host "
 	cd $dir; a=(exchange/files/*); 
 	if [ -e \${a[0]} ]; then
 	  for f in \${a[@]}; do
@@ -258,7 +281,7 @@ function myrsync() {
       echo | tee -a $output;
       if [ "$keep" == "false" ]; then 
 	echo "ssh $host \"rm $dir/exchange/data/*.tgz\"" | tee -a $output;
-	ssh $host "rm \"$dir/exchange/data/\"*.tgz" | tee -a $output;
+	myssh $host "rm \"$dir/exchange/data/\"*.tgz" | tee -a $output;
       fi;
       echo | tee -a $output;
       for file in exchange/data/*.tgz; do

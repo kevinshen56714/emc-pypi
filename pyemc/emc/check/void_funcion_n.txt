@@ -1,0 +1,77 @@
+x	./default.h:37:  *(*void_function_n)(void *, ...);
+x	./list/function.h:22:    void_function_n	*entry, *nentry, *max_entry;
+x	./samples/interaction.h:89:    void_function_n	*func;
+x	./script/rank.h:24:    void_function_n	function;
+
+---
+
+x	./force/bonded.c:172:  void_function_n \
+x	./force/bonded.c:179:  void_function_n \
+x	./force.c:319:  void_function_n
+x	./force.c:653:  void_function_n
+x	./force.c:706:  void_function_n
+x	./force.c:732:  void_function_n
+x	./force.c:803:  void_function_n
+x	./list/common.c:361:    void_function_n function, struct list_common *list, ...)
+x	./sample.c:83:  sample->inits->entry[n] = (void_function_n) init;
+x	./samples/interaction.c:762:  void_function_n
+x	./samples/interaction.c:953:  void_function_n	// pairwise interactions between lists of sites
+x	./script/build.c:299:  void_function_n
+x	./script/build.c:302:			   (void_function_n) ScriptBuild##Module,
+x	./script/clusters.c:416:  {(void_function_n) ScriptClusters##Module##Init, init_rank},
+x	./script/clusters.c:422:  {(void_function_n) ScriptClusters##Module##Build, build_rank},
+x	./script/export.c:258:  {(void_function_n) ScriptExport##Module, rank},
+x	./script/force.c:143:  void_function_n
+x	./script/query.c:161:  void_function_n
+x	./script/test/force.c:191:  void_function_n	// pairwise interactions between lists of sites
+x	./script/test/lforce.c:138:  void_function_n
+x	./script/test/position.c:156:  void_function_n
+x	./script/test.c:161:  void_function_n
+x	./types/inverse/angle.c:78:  void_function_n \
+x	./types/inverse/angle.c:297:  void_function_n
+x	./types/inverse/bond.c:78:  void_function_n \
+x	./types/inverse/bond.c:174:  void_function_n
+x	./types/inverse/improper.c:88:  void_function_n
+x	./types/inverse/improper.c:100:  void_function_n
+x	./types/inverse/improper.c:113:  void_function_n
+x	./types/inverse/improper.c:127:  void_function_n
+x	./types/inverse/improper.c:169:  void_function_n
+x	./types/inverse/torsion.c:98:  void_function_n
+x	./types/inverse/torsion.c:110:  void_function_n
+x	./types/inverse/torsion.c:123:  void_function_n
+x	./types/inverse/torsion.c:137:  void_function_n
+x	./types/inverse/torsion.c:222:  void_function_n
+x	./types.c:364:  void_function_n
+
+	---
+
+	./list/function.h:26:LIST_FUNCTION_TYPEDEF(list_function, void, entry)
+	./list/function.h:33:#define MODULE		"list_function"
+	./sample.h:24:    struct list_function	*functions;
+	./sample.h:25:    struct list_function	*inits;
+	./types/registry.h:28:    struct list_function	pair, ewald;
+	./types/registry.h:29:    struct list_function	bond, angle, torsion, improper, cmap;
+	./types/registry.h:30:    struct list_function      	pair13, pair14, pair15;
+	./types/registry.h:31:    struct list_function	lists, list, single;
+
+	---
+
+	./force/bonded.c:220:  struct list_function
+	./force/bonded.c:283:  struct list_function
+	./force/bonded.c:387:  struct list_function
+	./force/bonded.c:471:  struct list_function
+	./force.c:317:  struct list_function
+	./list/function.c:2:    program:	list_function.c
+	./list/function.c:16:struct list_function *ListFunctionConstruct(long n)
+	./list/function.c:18:  struct list_function
+	./list/function.c:19:    *list		= calloc(abs(n), sizeof(struct list_function));
+	./list/function.c:26:struct list_function
+	./list/function.c:27:  *ListFunctionDestruct(struct list_function *list, long n)
+	./list/function.c:31:  struct list_function
+	./list/function.c:36:  if (n<0) return memset(list, 0, abs(n)*sizeof(struct list_function));
+	./script/force.c:134:  struct list_function
+	./script/test/lforce.c:136:  struct list_function
+	./types/inverse/angle.c:74:static struct list_function
+	./types/inverse/bond.c:74:static struct list_function
+	./types/inverse/improper.c:74:static struct list_function
+	./types/inverse/torsion.c:74:static struct list_function

@@ -1,0 +1,1319 @@
+#
+#  file:	opls-ua.define
+#  author:	Pieter J. in 't Veld
+#  date:	November 25, 2012, March 24, 2013, January 15, 2016,
+#  		December 26, 2024.
+#  purpose:	OPLS-UA typing rules
+#  version:	0.5beta
+#
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
+#  Distributed under GNU Public License as stated in LICENSE file in EMCroot
+#  directory
+#
+#  rule keys:
+#  	~	any bond
+#	-	single bond
+#	:	partial bond
+#	=	double bond
+#	#	triple bond
+#	*	wildcard, specified number of bonds
+#	^	followed by a number indicates the number of ring members
+#
+#  type conventions (by character):
+#       1[-2]	lower case letters indicating element (mandatory)
+#  	2	number of connections (mandatory)
+#  	3	chemical indicator, e.g. e: ether, a: aromatic
+#  		or connected to element
+#  	4	can indicate number of ring members in case of aromatic
+#
+#  Empty lines are skipped
+#  Specified types represent numerical OPLS assignments
+#
+#  notes:
+#    20121116	- Creation date, v0.1beta
+#    20121125	- Addition of keywords DEFINE, REFERENCES, EXTRA, PRECEDENCES
+#    20130317	- Addition of keywords EQUIVALENCE, BOND, ANGLE, TORSION,
+#    		  IMPROPER
+#    20130324	- Redefinition of EXTRA to include management of double
+#    		  torsions
+#    		- Addition of REDEFINE
+#    20160115	- Adapted interpretation of amides (broadened rule 235)
+#    		- Reordered precedence for c_1, c_2, c_3, c_4, c_5, c_6
+#    20161112	- Updated rule 108, 110, and 147 to correctly type PET 
+#    20241226	- New inception, v2.0
+#    		- Complete redesign
+#    		- New type definitions
+#    		- Inclusion of bond increments and streams
+#    		- General rules based on stream derived rules
+#    		- Dropped ITEM keywords EXTRA, PRECEDENCE, and REDEFINE
+#    		- Added ITEM keyword STREAM and RULES
+#    		- Zero increment contribution is assumed between two GROUP
+#    		  blocks
+#    		- Use /* */ or (* *) for commenting out blocks in STREAM
+#    		- Latter only works at beginning of line
+#
+
+# Definitions
+
+ITEM	DEFINE
+
+FFMODE		OPLS
+FFTYPE		UNITED
+FFINDEX		ELEMENTS
+FFCHARGE	ALL
+FFDEPTH		10
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+1954	??	??	Wiley (Hirschfelder)
+1972	24	1013	Mol. Phys.
+1988	63	547	Mol. Phys.
+1984	106	6638	J. Am. Chem. Soc.
+1991	113	8262	J. Am. Chem. Soc.
+1996	118	11225	J. Am. Chem. Soc.
+1999	121	4827	J. Am. Chem. Soc.
+1983	79	926	J. Chem. Phys.
+1990	11	958	J. Comput. Chem.
+1997	18	1955	J. Comput. Chem.
+1986	90	1276	J. Phys. Chem.
+1986	90	2174	J. Phys. Chem.
+1986	90	6379	J. Phys. Chem.
+1990	94	1683	J. Phys. Chem.
+1991	95	3315	J. Phys. Chem.
+2001	105	4118	J. Phys. Chem. A
+1998	102	8049	J. Phys. Chem. B
+2004	18	16264	J. Phys. Chem. B
+1998	424	145	Theochem.
+2007	806	23	J. Mol. Struct. THEOCHEM
+2006	2	1499	J. Chem. Theory Comput.
+2009	5	1038	J. Chem. Theory Comput.
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# WARNING:
+#   - ordered by importance => alter with care
+#   - general rules below assume order as given
+#   - do not change the first entry of each source group unless
+#     absolute certainty exists
+#   - first per each source group appears as bonded type in equivalence table
+#   - sorting used in wildcard types for bonded interactions (auto types), e.g.
+#   - c4* stands for all types starting with c4
+
+# dest	src	mass	element	ncons	index	charge	sigma	epsilon	comment
+
+am+3	Am	243.061	Am	0	699	3	3.3	0.05	Americium 3+ ion
+ar	Ar	39.948	Ar	0	103	0	3.401	0.2339	Argon
+ba+2	Ba	137.327	Ba	0	1114	2	4.18	0.047096	Barium 2+ ion
+br1	Br	79.904	Br	1	722	0	3.47	0.47	Bromide in alkanes (UA)
+br-	Br	79.904	Br	0	1102	-1	4.51	0.09	Bromide 1- anion
+c2n	CZ	12.011	C	2	95	0	3.65	0.15	C in CH3CN
+c3	C7	12.011	C	3	77	0	3.75	0.105	C (SP2) isobutene
+c3h	C8	13.0189	C	2	74	0	3.8	0.115	CH (SP2) 2-alkenes
+c3h2	C9	14.0268	C	1	72	0	3.85	0.14	CH2 (SP2) 1-alkenes
+c3a	CA	13.0189	C	2	75	0	3.75	0.11	C (aromatic) benzenoid
+c3ah	CD	13.0189	C	2	75	0	3.75	0.11	CH (aromatic) benzenoid
+c3o=	C	12.011	C	3	131	0	3.8	0.115	SP2 carbon in ketones
+c3oa	C	12.011	C	3	61	0	3.75	0.105	SP2 carbon in deprotonated acids
+c3oh	C	12.011	C	3	61	0	3.75	0.105	SP2 carbon in acids
+c4	CT	12.011	C	4	76	0	3.8	0.05	C (SP3) neopentane
+c4h	CH	13.0189	C	3	73	0	3.85	0.08	CH (SP3) isobutane
+c4hcl	CH	13.0189	C	3	120	0	3.8	0.08	CH chloroform
+c4h2	C2	14.0268	C	2	55	0	3.905	0.118	CH2 (SP3) alkanes
+c4h2e	C2	14.0268	C	2	91	0	3.8	0.118	CH2 in RCH2NR, RCH2OR, or RCH2SR
+c4h3	C3	15.0347	C	1	68	0	3.905	0.175	CH3 (C2) n-alkanes
+c4h31	C3	15.0347	C	1	67	0	3.775	0.207	CH3 (C1) ethane
+c4h33	C3	15.0347	C	1	69	0	3.91	0.16	CH3 (C3) isobutane
+c4h34	C3	15.0347	C	1	70	0	3.96	0.145	CH3 (C4) neopentane
+c4h3e	C3	15.0347	C	1	90	0	3.8	0.17	CH3 in CH3NR, RCH2OR, or RCH2SR
+c4h3a	C3	15.0347	C	1	64	0	3.91	0.16	CH3 in CH3COOH
+c4h3d	C3	15.0347	C	1	126	0	3.81	0.16	CH3 in DMSO
+c4h4	C4	16.0426	C	0	66	0	3.73	0.294	CH4 methane
+cl1	Cl	35.4527	Cl	1	119	0	3.4	0.3	Cl CCl2 Cl-C-Cl = 111.8
+cl13	Cl	35.4527	Cl	1	121	0	3.47	0.3	Cl CCl3 C-Cl=1.758, Cl-C-Cl = 111.3
+cl14	Cl	35.4527	Cl	1	123	0	3.47	0.266	Cl CCl4
+cl-	Cl	35.4527	Cl	0	1101	-1	4.18	0.11779	Chlorine 1- anion
+cs+	Cs	132.905	Cs	0	1110	1	4.82	8.1e-05	Cesium 1+ ion
+eu+3	Eu	151.964	Eu	0	705	3	3.3	0.05	Europium 3+ ion
+f1	F	18.998	F	1	54	0	2.94	0.061	F alkyl fluoride
+f-	F	18.998	F	0	1100	-1	3.08	0.72	Fluor 1- anion
+gd+3	Gd	157.25	Gd	0	706	3	3.3	0.05	Gadolinium 3+ ion
+h1n	H	1.0079	H	1	128	0	2.5	0	Ammonia
+h1o	HO	1.0079	H	1	65	0	2.5	0	Hydrogen in acids and alcohols
+h1s	HS	1.0079	H	1	86	0	2.5	0	Hydrogen in H2S
+h1w	HW	1.0079	H	1	98	0	2.5	0	Hydrogen in water
+he	He	4.0026	He	0	101	0	2.556	0.02	Helium
+i-	I	126.904	I	0	1103	-1	5.15	0.07	Iodine 1- anion
+k+	K	39.098	K	0	1108	1	4.06	0.000328	Potassium 1+ ion
+kr	Kr	83.8	Kr	0	104	0	3.624	0.317	Krypton
+la+3	La	138.905	La	0	703	3	3.75	0.06	Lanthanum 3+ ion
+li+	Li	6.941	Li	0	1106	1	2.7	0.018279	Lithium 1+ ion
+lp	LP	1	Lp	-	99	0	1	0	Lone pair in TIP5P Water
+mg+2	Mg	24.305	Mg	0	1111	2	2.91	0.875044	Magnesium 2+ ion
+n3am0	N	14.0067	N	3	130	0	3.25	0.17	Nitrogen in amides (no hydrogens)
+n3am1	N	14.0067	N	3	130	0	3.25	0.17	Nitrogen in amides (one hydrogen)
+n3am2	N	14.0067	N	3	130	0	3.25	0.17	Nitrogen in amides (two hydrogens)
+n4	NT	14.0067	N	4	127	0	3.42	0.17	Ammonia - OPLS-AA
+n1c	NZ	14.0067	N	1	94	0	3.2	0.17	Nitrogen in CH3CN
+na+	Na	22.99	Na	0	1107	1	3.35	0.002772	Sodium 1+ ion
+nd+3	Nd	144.242	Nd	0	704	3	3.473	0.054	Neodymium 3+ ion
+ne	Ne	20.18	Ne	0	102	0	2.78	0.069	Neon
+#nh4+	N	14.0067	N	0	405	1	5.34	0.0005	Ammonium 1+ ion (UA)
+o1=	O	15.9994	O	1	62	0	2.96	0.21	O= in carboxylic acids
+o1a	O2	15.9994	O	1	272	0	2.96	0.21	Oxygen in deprotonated acids
+o1s=	OY	15.9994	O	1	125	0	2.93	0.28	Oxygen in DMSO
+o2h	OH	15.9994	O	2	78	0	3.07	0.17	Oxygen in alcohols
+o2ha	OH	15.9994	O	2	63	0	3	0.17	Oxygen in carboxylic acids
+o1h-	OH	15.9994	O	1	434	0	3.2	0.25	Oxygen in hydroxide (OH-, d(O-H) = 0.953 A)
+o2e	OS	15.9994	O	2	108	0	3	0.17	Oxygen in ethers
+o2w	OW	15.9994	O	2	133	0	3.16557	0.1554	Oxygen in SPC/E Water
+o2w3	OW	15.9994	O	2	111	0	3.15061	0.1521	Oxygen in TIP3P Water JCP,79,926 (1983)
+o2w3f	OW	15.9994	O	2	116	0	3.176	0.15	Oxygen in TIP3F Water flexible model,
+o2w4	OW	15.9994	O	2	113	0	3.15365	0.155	Oxygen in TIP4P Water
+o2w4f	OW	15.9994	O	2	795	0	3.27	0.1	Oxygen in TIP4F Water Unpublished
+o2w5	OW	15.9994	O	2	97	0	3.12	0.16	Oxygen in TIP5P Water unpublished
+rb+	Rb	85.468	Rb	0	1109	1	4.32	0.000171	Rubidium 1+ ion
+s2	S	32.066	S	2	84	0	3.55	0.25	Sulfur in RSR
+s2s	S	32.066	S	2	84	0	3.55	0.25	Sulfur in RSSR
+s2h	SH	32.066	S	2	83	0	3.55	0.25	Sulfur in RSH
+s2h2	SH	32.066	S	2	82	0	3.7	0.25	Sulfur in H2S JPC,90,6379 (1986)
+s3	SZ	32.066	S	3	124	0	3.56	0.395	Sulfur in DMSO UA unpublished
+sr+2	Sr	87.62	Sr	0	1113	2	3.82	0.118226	Strontium 2+ ion
+th+4	Th	232.038	Th	0	698	4	3.3	0.05	Thorium 4+ ion
+xe	Xe	131.29	Xe	0	105	0	3.935	0.433	Xenon
+yb+3	Yb	173.04	Yb	0	707	3	2.95	0.04	Ytterbium 3+ ion
+
+ITEM	END
+
+# Equivalence
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	improper
+
+c3ah	c3ah	c3ah	c3ah	c3ah	c3a	c3a
+c3oa	c3oa	c3oa	c3o=	c3o=	c3o=	c3o=
+c3oh	c3oa	c3oh	c3oh	c3o=	c3o=	c3o=
+
+ITEM	END	# EQUIVALENCE
+
+
+#########################################################################
+#									#
+# Noble gases								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+ar	Ar	-	-	0	[Ar]
+he	He	-	-	0	[He]
+kr	Kr	-	-	0	[Kr]
+ne	Ne	-	-	0	[Ne]
+xe	Xe	-	-	0	[Xe]
+
+ITEM	END	# RULES
+
+
+#########################################################################
+#									#
+# Ions and water							#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+br-	Br	-	-	-1	[Br-]
+cl-	Cl	-	-	-1	[Cl-]
+cs+	Cs	-	-	1	[Cs+]
+eu+3	Eu	-	-	3	[Eu+3]
+f-	F	-	-	-1	[F-]
+i-	I	-	-	-1	[I-]
+k+	K	-	-	1	[K+]
+la+3	La	-	-	3	[La+3]
+li+	Li	-	-	1	[Li+]
+mg+2	Mg	-	-	2	[Mg+2]
+na+	Na	-	-	1	[Na+]
+#nh4+	N	-	-	1	[N+](H)(H)(H)(H)
+nd+3	Nd	-	-	3	[Nd+3]
+sr+2	Sr	-	-	2	[Sr+2]
+th+4	Th	-	-	4	[Th+4]
+yb+3	Yb	-	-	3	[Yb+3]
+
+ITEM	END	# RULES
+
+# Stream
+
+ITEM	STREAM
+
+# 133-134
+
+RESI	SPCE	0		! H2O, water (SPC/E)
+GROUP				!
+ATOM	O	o2w	-0.8476	!  H1--O--H2
+ATOM	H1	h1w	0.4238	!
+ATOM	H2	h1w	0.4238	!
+
+CONECT	O	H1	H2
+
+RESI	HYDR	-1		! HO, hydroxide
+GROUP				!
+ATOM	O	o1h-	-1.3	!  H--O(-)
+ATOM	H	h1o	0.3	!
+
+CONECT	O	H
+
+UNLINK	o1h-	h1o
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Alkanes								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4	C	-	-	0	C(~C)(~C)(~C)(~C)
+c4	C	-	-	0	C(C)(~C)(~C)(~C)
+c4	C	-	-	0	C(~C)(~C)(~C)(~*)
+c4	C	-	-	0	C(C)(~C)(~C)(~*)
+c4h	C	-	-	0	C(~C)(~C)(~C)
+c4h	C	-	-	0	C(C)(~C)(~C)
+c4h	C	-	-	0	C(~C)(~C)(~*)
+c4h	C	-	-	0	C(C)(~C)(~*)
+c4h2	C	-	-	0	C(~C)(~C)
+c4h2	C	-	-	0	C(C)(~C)
+c4h2	C	-	-	0	C(^6c)(~*)
+c4h2	C	-	-	0	C(C)(~*)
+c4h2	C	-	-	0	C(~C)(~*)
+c4h3	C	-	-	0	C(C(~*)(~*)(~*))
+c4h3	C	-	-	0	C(C(~*)(~*))
+c4h3	C	-	-	0	C(C(~*))
+c4h3	C	-	-	0	C(^6c)
+
+ITEM	END	# RULES
+
+# Increments
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+c4*	c4*	0	0
+
+ITEM	END	# INCREMENT
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	phi	(...)
+
+c*	c4	c4	c*	1.3	1	0	-0.05	2	0	0.2	3	0
+c*	c4h*	c4*	c*	-3.4	1	0	1.25	2	0	3.1	3	0
+
+ITEM	END	# TORSION
+
+# Streams
+
+ITEM	STREAM
+
+#
+
+RESI	METH	0		! CH4, methane
+GROUP				!
+ATOM	C1	c4h4	0	!  C1
+
+# 67
+
+RESI	ETHA	0		! C2H6, ethane
+GROUP				!
+ATOM	C1	c4h31	0	!
+GROUP				!  C1--C2
+ATOM	C2	c4h31	0	!
+
+CONECT	C1	C2
+
+# 68, 71
+
+RESI	PROP	0		! C3H8, propane
+GROUP				!
+ATOM	C1	c4h3	0	!  C1--C2--C3
+GROUP				!
+ATOM	C2	c4h2	0	!
+GROUP				!
+ATOM	C3	c4h3	0	!
+
+CONECT	C1	C2
+CONECT	C2	C3
+
+# 68, 71
+
+RESI	NBUT	0		! C4H10, n-butane
+GROUP				!
+ATOM	C1	c4h3	0	!  C1--C2--C3--C4
+GROUP				!
+ATOM	C2	c4h2	0	!
+GROUP				!
+ATOM	C3	c4h2	0	!
+GROUP				!
+ATOM	C4	c4h3	0	!
+
+CONECT	C1	C2
+CONECT	C2	C3
+CONECT	C3	C4
+
+# 69, 73
+
+RESI	IBUT	0		! C4H10, isobutane
+GROUP				!
+ATOM	C1	c4h	0	!      C4
+GROUP				!      |
+ATOM	C2	c4h33	0	!  C2--C1--C3
+GROUP				!
+ATOM	C3	c4h33	0	!
+GROUP				!
+ATOM	C4	c4h33	0	!
+
+CONECT	C1	C2	C3	C4
+
+# 70, 74
+
+RESI	NPEN	0		! C5H12, neopentane
+GROUP				!
+ATOM	C1	c4	0	!      C4
+GROUP				!      |
+ATOM	C2	c4h34	0	!  C2--C1--C3
+GROUP				!      |
+ATOM	C3	c4h34	0	!      C5
+GROUP				!
+ATOM	C4	c4h34	0	!
+GROUP				!
+ATOM	C5	c4h34	0	!
+
+CONECT	C1	C2	C3	C4	C5
+
+ITEM	END
+
+
+#########################################################################
+#									#
+# Alkenes								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+ITEM	END	# RULES
+
+# Streams
+
+ITEM	STREAM
+
+RESI	PROE	0		! C3h6, propene
+GROUP				!
+ATOM	C1	c3h2	0	!  C1==C2--C3
+ATOM	C2	c3h	0	!
+ATOM	C3	c4h3	0	!
+
+CONECT	C1	=C2
+CONECT	C2	C3
+
+ITEM	END
+
+
+#########################################################################
+#									#
+# Aromatics								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c3a	C	-	-	0	^6c(^6:c)(^6:c)(*)
+c3ah	C	-	-	0	^6c(^6:c)(^6:c)
+
+ITEM	END	# RULES
+
+# Increments
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+c3*	c4*	0	0
+
+ITEM	END	# INCREMENT
+
+# Bonds
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+c3a	c4*	317	1.51
+
+ITEM	END	# BOND
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c3a*	c3a	c4*	70	120
+c3a*	c3a	o2h	70	120
+c3a	c4*	c4*	63	114
+c3*	c4*	c3*	63	111.1
+
+ITEM	END	# ANGLE
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	phi	(...)
+
+*	c3a*	c3a*	*	7.25	2	0
+c3a*	c3a	c4*	c3*	0	1	0
+c3a*	c3a	c4*	c4*	0	1	0
+
+ITEM	END	# TORSION
+
+# Streams
+
+ITEM	STREAM
+
+# 75
+
+RESI	BENZ	0		! C6H6, benzene
+GROUP				!
+ATOM	C1	c3ah	0	!    C2--C3
+GROUP				!   //    \\
+ATOM	C2	c3ah	0	!  C1      C4
+GROUP				!   \      /
+ATOM	C3	c3ah	0	!    C6--C5  
+GROUP				!
+ATOM	C4	c3ah	0	!
+GROUP				!
+ATOM	C5	c3ah	0	!
+GROUP				!
+ATOM	C6	c3ah	0	!
+
+CONECT	C1	^6:C2
+CONECT	C2	^6:C3
+CONECT	C3	^6:C4
+CONECT	C4	^6:C5
+CONECT	C5	^6:C6
+CONECT	C6	^6:C1
+
+ITEM	END
+
+
+#########################################################################
+#									#
+# Alcohols								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+ITEM	END	# RULES
+
+# Increments
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+c4*	o2h	0.265	-0.265
+
+ITEM	END	# INCREMENT
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	thetha0
+
+c4*	c4	o2h	50	109.5
+c4*	c4h2	c4*	63	112.4
+
+ITEM	END	# ANGLE
+
+# Streams
+
+ITEM	STREAM
+
+# 78-80
+
+RESI	MEOH	0		! CH3O, methanol
+GROUP				!
+ATOM	C1	c4h31	0.265	!  C1--O--OH
+ATOM	O	o2h	-0.7	!
+ATOM	HO	h1o	0.435	!
+
+CONECT	C1	O
+CONECT	O	HO
+
+# 78-79, 81
+
+RESI	ETOH	0		! C2H6O, ethanol
+GROUP				!
+ATOM	C1	c4h3	0	!  C1--C2--O--OH
+GROUP				!
+ATOM	C2	c4h2	0.265	!
+ATOM	O	o2h	-0.7	!
+ATOM	HO	h1o	0.435	!
+
+CONECT	C1	C2
+CONECT	C2	O
+CONECT	O	HO
+
+# 78-79, 81
+
+RESI	PROH	0		! C3H8O, 2-propanol
+GROUP				!
+ATOM	C2	c4h3	0	!  C2--C1--C3
+GROUP				!      |
+ATOM	C1	c4h	0.265	!      O
+ATOM	O	o2h	-0.7	!      |
+ATOM	HO	h1o	0.435	!      OH
+GROUP				!
+ATOM	C3	c4h3	0	!
+
+CONECT	C1	C2	O
+CONECT	O	HO
+CONECT	C1	C3
+
+# 78-79, 81
+
+RESI	TBOH	0		! C4H10O, tert-butanol
+GROUP				!
+ATOM	C2	c4h3	0	!      C4
+GROUP				!      |
+ATOM	C1	c4	0.265	!  C2--C1--C3
+ATOM	O	o2h	-0.7	!      |
+ATOM	HO	h1o	0.435	!      O
+GROUP				!      |
+ATOM	C3	c4h3	0	!      OH     
+GROUP				!
+ATOM	C4	c4h3	0	!
+
+CONECT	C1	C2	O
+CONECT	O	HO
+CONECT	C1	C3
+CONECT	C1	C4
+
+# 75, 166-168
+
+RESI	PHOH	0		! C6H6O, phenol
+GROUP				!
+ATOM	C1	c3a	0.15	!            C2--C3
+ATOM	O1	o2h	-0.585	!           //    \\
+ATOM	HO	h1o	0.435	!  HO--O1--C1      C4
+GROUP				!           \      /
+ATOM	C2	c3ah	0	!            C6--C5  
+GROUP				!
+ATOM	C3	c3ah	0	!
+GROUP				!
+ATOM	C4	c3ah	0	!
+GROUP				!
+ATOM	C5	c3ah	0	!
+GROUP				!
+ATOM	C6	c3ah	0	!
+
+CONECT	C1	^6:C2	O1
+CONECT	O1	HO
+CONECT	C2	^6:C3
+CONECT	C3	^6:C4
+CONECT	C4	^6:C5
+CONECT	C5	^6:C6
+CONECT	C6	^6:C1
+
+ITEM	END
+
+
+#########################################################################
+#									#
+# Ethers								#
+#									#
+#########################################################################
+
+# Increments
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+c4*	o2e	0.25	-0.25
+
+ITEM	END	# INCREMENT
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	thetha0
+
+c4*	c4	o2e	50	109.5
+c4*	o2e	c4h*	100	111.8
+
+ITEM	END	# ANGLE
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	phi	(...)
+
+c4*	c4*	o2e	c4*	0.65	1	0	-0.25	2	0	0.67	3	0
+c4h*	o2e	c4h*	c4h*	-7.4	1	0	3	2	0	1.8	3	0
+
+ITEM	END	# TORSION
+
+# Streams
+
+ITEM	STREAM
+
+RESI	DMEO	0		! C2H6O, dimethylether
+GROUP				!
+ATOM	C1	c4h3e	0.25	!  C1--O1--C2
+ATOM	O1	o2e	-0.5	!
+ATOM	C2	c4h3e	0.25	!
+
+CONECT	C1	O1
+CONECT	O1	C2
+
+RESI	EMEO	0		! C2H6O, ethylmethylether
+GROUP				!
+ATOM	C1	c4h3e	0.25	!  C1--O1--C2--C3
+ATOM	O1	o2e	-0.5	!
+ATOM	C2	c4h2e	0.25	!
+GROUP				!
+ATOM	C3	c4h3	0	!
+
+CONECT	C1	O1
+CONECT	O1	C2
+CONECT	C2	C3
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Ketones								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c3o=	C	-	-	0	C(C)(C)(=O)
+
+ITEM	END	# RULES
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c3a	c3a	c4*	c*	0	1	0
+c*	c3o=	c4*	c*	1.454	1	0	-0.144	2	0	-0.775	3	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Acids									#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c3oa	C	-	-	0	C(~C)(:O)(:O)
+c3oh	C	-	-	0	C(~C)(=O)(O(H))
+
+ITEM	END	# RULES
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	thetha0
+
+c3a*	c3a*	c3o=	85	120
+
+ITEM	END	# ANGLE
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	phi	(...)
+
+c3a*	c3a	c3oa	o*	2.1	2	0
+c3a	c3oa	o2h*	h1o	4	1	0	5	2	0
+c4*	c4*	c3o=	o1*	0.82	2	0
+
+ITEM	END	# TORSION
+
+# Streams
+
+ITEM	STREAM
+
+# 61-64
+
+RESI	ETAH	0		! C2H4O2, acetic acid
+GROUP				!
+ATOM	C1	c3oh	0.55	!  HO--O1
+ATOM	O1	o2ha	-0.58	!       \
+ATOM	HO	h1o	0.45	!       C1--C2
+ATOM	O2	o1=	-0.5	!      //
+ATOM	C2	c4h3a	0.08	!     O2
+
+CONECT	C1	C2	O1	=O2
+CONECT	O1	HO
+
+# 61-63, 68, 71
+
+RESI	PRAH	0		! C3H6O2, propionic acid
+GROUP				!
+ATOM	C1	c3oh	0.55	!  HO--O1
+ATOM	O1	o2ha	-0.58	!       \
+ATOM	HO	h1o	0.45	!       C1--C2--C3
+ATOM	O2	o1=	-0.5	!      //
+ATOM	C2	c4h2	0.08	!     O2
+GROUP				!
+ATOM	C3	c4h3	0	!
+
+CONECT	C1	C2	O1	=O2
+CONECT	O1	HO
+CONECT	C2	C3
+
+# 61-63, 68, 73
+
+RESI	IBAH	0		! C4H8O2, isobutyric acid
+GROUP				!
+ATOM	C1	c3oh	0.55	!  HO--O1   C4
+ATOM	O1	o2ha	-0.58	!       \   |
+ATOM	HO	h1o	0.45	!       C1--C2--C3
+ATOM	O2	o1=	-0.5	!      //
+ATOM	C2	c4h	0.08	!     O2
+GROUP				!
+ATOM	C3	c4h3	0	!
+GROUP				!
+ATOM	C4	c4h3	0	!
+
+CONECT	C1	C2	O1	=O2
+CONECT	O1	HO
+CONECT	C2	C3	C4
+
+# 61-63, 68, 76
+
+RESI	IPAH	0		! C4H8O2, isopentanoic acid
+GROUP				!
+ATOM	C1	c3oh	0.55	!  HO--O1   C4
+ATOM	O1	o2ha	-0.58	!       \   |
+ATOM	HO	h1o	0.45	!       C1--C2--C3
+ATOM	O2	o1=	-0.5	!      //   |
+ATOM	C2	c4	0.08	!     O2    C5
+GROUP				!
+ATOM	C3	c4h3	0	!
+GROUP				!
+ATOM	C4	c4h3	0	!
+GROUP				!
+ATOM	C5	c4h3	0	!
+
+CONECT	C1	C2	O1	=O2
+CONECT	O1	HO
+CONECT	C2	C3	C4	C5
+
+# 61-63, 75
+
+RESI	BZAH	0		! C7H6O2, benzoic acid
+GROUP				!
+ATOM	C1	c3oh	0.55	!  HO--O1     C3--C4
+ATOM	O1	o2ha	-0.58	!       \    //    \\
+ATOM	HO	h1o	0.45	!       C1--C2      C6
+ATOM	O2	o1=	-0.5	!      //    \      /
+ATOM	C2	c3a	0.08	!     O2      C8--C7  
+GROUP				!
+ATOM	C3	c3ah	0	!
+GROUP				!
+ATOM	C4	c3ah	0	!
+GROUP				!
+ATOM	C5	c3ah	0	!
+GROUP				!
+ATOM	C6	c3ah	0	!
+GROUP				!
+ATOM	C7	c3ah	0	!
+
+CONECT	C1	C2	O1	=O2
+CONECT	O1	HO
+CONECT	C2	^6:C3
+CONECT	C3	^6:C4
+CONECT	C4	^6:C5
+CONECT	C5	^6:C6
+CONECT	C6	^6:C7
+CONECT	C7	^6:C2
+
+# 61-64
+
+RESI	ETAC	0		! C2H4O2, deprotonated acetic acid
+GROUP				!
+ATOM	C1	c3oa	0.7	!      O1
+ATOM	O1	o1a	-0.8	!       \
+ATOM	O2	o1a	-0.8	!  (-)  C1--C2
+ATOM	C2	c4h3	-0.1	!      //
+				!     O2
+
+CONECT	C1	C2	:O1	:O2
+
+UNLINK	c3oa	o1a
+
+# 61-63, 68, 71
+
+RESI	PRAC	0		! C3H6O2, deprotonated propionic acid
+GROUP				!
+ATOM	C1	c3oa	0.7	!      O1
+ATOM	O1	o1a	-0.8	!       \
+ATOM	O2	o1a	-0.8	!  (-)  C1--C2--C3
+ATOM	C2	c4h2	-0.1	!      //
+GROUP				!     O2
+ATOM	C3	c4h3	0	!
+
+CONECT	C1	C2	:O1	:O2
+CONECT	C2	C3
+
+UNLINK	c3oa	o1a
+
+# 61-63, 68, 73
+
+RESI	IBAC	0		! C4H8O2, deprotonated isobutyric acid
+GROUP				!
+ATOM	C1	c3oa	0.7	!      O1   C4
+ATOM	O1	o1a	-0.8	!       \   |
+ATOM	O2	o1a	-0.8	!  (-)  C1--C2--C3
+ATOM	C2	c4h	-0.1	!      //
+GROUP				!     O2
+ATOM	C3	c4h3	0	!
+GROUP				!
+ATOM	C4	c4h3	0	!
+
+CONECT	C1	C2	:O1	:O2
+CONECT	C2	C3	C4
+
+UNLINK	c3oa	o1a
+
+# 61-63, 68, 76
+
+RESI	IPAC	0		! C4H8O2, deprotonated isopentanoic acid
+GROUP				!
+ATOM	C1	c3oa	0.7	!      O1   C4
+ATOM	O1	o1a	-0.8	!       \   |
+ATOM	O2	o1a	-0.8	!  (-)  C1--C2--C3
+ATOM	C2	c4	-0.1	!      //   |
+GROUP				!     O2    C5
+ATOM	C3	c4h3	0	!
+GROUP				!
+ATOM	C4	c4h3	0	!
+GROUP				!
+ATOM	C5	c4h3	0	!
+
+CONECT	C1	C2	:O1	:O2
+CONECT	C2	C3	C4	C5
+
+UNLINK	c3oa	o1a
+
+# 61-63, 75
+
+RESI	BZAC	0		! C7H6O2, deprotonated benzoic acid
+GROUP				!
+ATOM	C1	c3oa	0.7	!      O1     C3--C4
+ATOM	O1	o1a	-0.8	!       \    //    \\
+ATOM	O2	o1a	-0.8	!  (-)  C1--C2      C6
+ATOM	C2	c3a	-0.1	!      //    \      /
+GROUP				!     O2      C8--C7  
+ATOM	C3	c3ah	0	!
+GROUP				!
+ATOM	C4	c3ah	0	!
+GROUP				!
+ATOM	C5	c3ah	0	!
+GROUP				!
+ATOM	C6	c3ah	0	!
+GROUP				!
+ATOM	C7	c3ah	0	!
+
+CONECT	C1	C2	:O1	:O2
+CONECT	C2	^6:C3
+CONECT	C3	^6:C4
+CONECT	C4	^6:C5
+CONECT	C5	^6:C6
+CONECT	C6	^6:C7
+CONECT	C7	^6:C2
+
+UNLINK	c3oa	o1a
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Nitrides								#
+#									#
+#########################################################################
+
+# Increments
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+c2n	c4*	-0.15	0.15
+
+ITEM	END	# INCREMENT
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	thetha0
+
+c*	c2n	n1c	150	180
+
+ITEM	END	# ANGLE
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	phi	(...)
+
+*	c*	c2*	n1c	0	1	0
+
+ITEM	END	# TORSION
+
+# Streams
+
+ITEM	STREAM
+
+# 94-96
+
+RESI	MECN	0		! C2H3N, acetonitrile, methylcyanide
+GROUP				!
+ATOM	N1	n1c	-0.43	!  N1##C1--C2
+ATOM	C1	c2n	0.28	!
+ATOM	C2	c4h31	0.15	!
+
+CONECT	N1	#C1
+CONECT	C1	C2
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Amides								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+n3am0	N	-	-	0	N(C(=O))(C)(C)
+n3am1	N	-	-	0	N(C(=O))(C)(H)
+n3am2	N	-	-	0	N(C(=O))(H)(H)
+
+ITEM	END	# RULES
+
+# Streams
+
+ITEM	STREAM
+
+# 129-132
+
+RESI	DMF	0		! C3H7O, dimethylformamide
+GROUP				!
+ATOM	C1	c3o=	0.5	!          C2
+ATOM	O1	o1=	-0.5	!          |
+GROUP				!  O1==C1--N1--C3
+ATOM	N1	n3am0	-0.57	!
+ATOM	C2	c4h3e	0.285	!
+ATOM	C3	c4h3e	0.285	!
+
+CONECT	C1	N1	=O1
+CONECT	N1	C2	C3
+
+# 129-130
+
+RESI	EMF	0		! C4H9O, ethylmethylformamide
+GROUP				!
+ATOM	C1	c3o=	0.5	!          C2
+ATOM	O1	o1=	-0.5	!          |
+GROUP				!  O1==C1--N1--C3--C4
+ATOM	N1	n3am0	-0.57	!
+ATOM	C2	c4h3e	0.285	!
+ATOM	C3	c4h2e	0.285	!
+GROUP				!
+ATOM	C4	c4h3	0	!
+
+CONECT	C1	N1	=O1
+CONECT	N1	C2	C3
+CONECT	C3	C4
+
+# 129-130, 235-236, 241
+
+RESI	MEAM	0		! C4H9O, methylacetmamide
+GROUP				!
+ATOM	C1	c4h3	0	!      O1  HN
+GROUP				!      ||  |
+ATOM	C2	c3o=	0.5	!  C1--C2--N1--C3
+ATOM	O1	o1=	-0.5	!
+GROUP				!
+ATOM	N1	n3am1	-0.5	!
+ATOM	HN	h1n	0.3	!
+ATOM	C3	c4h2e	0.2	!
+
+CONECT	C1	C2
+CONECT	C2	N1	=O1
+CONECT	N1	C3	HN
+
+# 129-130, 235-236, 241
+
+RESI	ETAM	0		! C4H9O, methylacetmamide
+GROUP				!
+ATOM	C1	c4h3	0	!      O1  HN
+GROUP				!      ||  |
+ATOM	C2	c3o=	0.5	!  C1--C2--N1--C3--C4
+ATOM	O1	o1=	-0.5	!
+GROUP				!
+ATOM	N1	n3am1	-0.5	!
+ATOM	HN	h1n	0.3	!
+ATOM	C3	c4h2e	0.2	!
+GROUP				!
+ATOM	C4	c4h3	0	!
+
+CONECT	C1	C2
+CONECT	C2	N1	=O1
+CONECT	N1	C3	HN
+CONECT	C3	C4
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Sulfides								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+ITEM	END	# RULES
+
+# Increments
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+c4*	s2	0.235	-0.235
+c4*	s2s	0.3	-0.3
+c4*	s2h	0.18	-0.18
+
+ITEM	END	# INCREMENT
+
+# Streams
+
+ITEM	STREAM
+
+# 82, 86
+
+RESI	H2S	0		! H2S, hydrogen sulfide
+GROUP				!
+ATOM	S1	s2h2	-0.47	!  H1--S1--H2
+ATOM	H1	h1s	0.235	!
+ATOM	H2	h1s	0.235	!
+
+CONECT	S1	H1	H2
+
+# 83, 87-88
+
+RESI	METS	0		! CH4S, methanethiol
+GROUP				!
+ATOM	S1	s2h	-0.45	!  H1--S1--C1
+ATOM	H1	h1s	0.27	!
+ATOM	C1	c4h31	0.18	!
+
+CONECT	S1	C1	H1
+
+# 83, 87-88
+
+RESI	DMSU	0		! C3H6S, dimethylsulfide
+GROUP				!
+ATOM	C1	c4h3e	0.235	!  C1--S1--C2
+ATOM	S1	s2	-0.47	!
+ATOM	C2	c4h3e	0.235	!
+
+CONECT	C1	S1
+CONECT	S1	C2
+
+# 83, 87-88
+
+RESI	EMSU	0		! C3H6S, ethylmethylsulfide
+GROUP				!
+ATOM	C1	c4h3e	0.235	!  C1--S1--C2--C3
+ATOM	S1	s2	-0.47	!
+ATOM	C2	c4h2e	0.235	!
+GROUP				!
+ATOM	C3	c4h3	0	!
+
+CONECT	C1	S1
+CONECT	S1	C2
+CONECT	C2	C3
+
+# 83, 87-88
+
+RESI	DMDS	0		! C3H6S, dimethylsulfide
+GROUP				!
+ATOM	C1	c4h3e	0.3	!  C1--S1--S2--C2
+ATOM	S1	s2s	-0.3	!
+ATOM	S2	s2s	-0.3	!
+ATOM	C2	c4h3e	0.3	!
+
+CONECT	C1	S1
+CONECT	S1	S2
+CONECT	S2	C2
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Sulfoxides								#
+#									#
+#########################################################################
+
+# Streams
+
+ITEM	STREAM
+
+# 124-126
+
+RESI	DMSO	0		! C2H6O2S, dimethylsulfoxide
+GROUP				!
+ATOM	C1	c4h3d	0.16	!      O1
+ATOM	S1	s3	0.139	!      ||
+ATOM	O1	o1s=	-0.459	!  C1--S1--C2
+ATOM	C2	c4h3d	0.16	!
+
+CONECT	C1	S1
+CONECT	S1	C2	=O1
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Halocarbons								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+ITEM	END	# RULES
+
+# Streams
+
+ITEM	STREAM
+
+# 118-119
+
+RESI	MECL	0		! CH2Cl2, methylenechloride
+GROUP				!
+ATOM	C1	c4h2e	0.5	!  Cl1--C1--Cl2
+ATOM	Cl1	cl1	-0.25	!
+ATOM	Cl2	cl1	-0.25	!
+
+CONECT	C1	Cl1	Cl2
+
+# 54-55
+
+RESI	ETHF	0		! C2H5F, ethylfluoride
+GROUP				!
+ATOM	C1	c4h31	0	!  C1--C2--F
+GROUP				!
+ATOM	C2	c4h2	0.22	!
+ATOM	F	f1	-0.22	!
+
+CONECT	C1	C2
+CONECT	C2	F
+
+ITEM	END
+
+
+
+

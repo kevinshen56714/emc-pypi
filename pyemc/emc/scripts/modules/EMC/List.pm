@@ -2,16 +2,17 @@
 #
 #  module:	EMC::List.pm
 #  author:	Pieter J. in 't Veld
-#  date:	November 25, 2021, May 2, 2024.
+#  date:	November 25, 2021, May 2, November 30, 2024.
 #  purpose:	List operations; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
 #  notes:
 #    20211125	Inception of v1.0
 #    20240502	Added extract()
+#    20241130	Improved compare()
 #
 
 package EMC::List;
@@ -60,10 +61,10 @@ sub compare {
   return undef if (ref(@_[0]) ne "ARRAY" || ref(@_[1]) ne "ARRAY");
   my $n = @{@_[0]}<@{@_[1]} ? @{@_[0]} : @{@_[1]};
   for (my $i=0; $i<$n; ++$i) {
-    return -1 if (@_[0]->[$i]<@_[1]->{$i});
-    return 1 if (@_[0]->[$i]>@_[1]->{$i});
+    return -1 if (@_[2] ? @_[0]->[$i] lt @_[1]->[$i] : @_[0]->[$i]<@_[1]->[$i]);
+    return 1 if (@_[2] ? @_[0]->[$i] gt @_[1]->[$i] : @_[0]->[$i]>@_[1]->[$i]);
   }
-  return 0;
+  return @{@_[0]}<@{@_[1]} ? -1 : @{@_[1]}<@{@_[0]} ? 1 : 0;
 }
 
 
@@ -110,11 +111,15 @@ sub extract {
   my $attr = ref(@_[0]) eq "HASH" ? EMC::Common::attributes(shift(@_)) :
 	     ref(@_[-1]) eq "HASH" ? EMC::Common::attributes(pop(@_)) : undef;
   my $not = EMC::Common::element($attr, "not") ? 1 : 0;
+  my $last = EMC::Common::element($attr, "last");
+  my $flag = length($sep) ? 1 : 0;
+  my $l = length($last);
   my $select;
 
-  foreach (@_) {
+  ARG: foreach (@_) {
     foreach (ref($_) eq "ARRAY" ? @{$_} : $_) {
-      next if ((($_ =~ m/$sep/) ? 0 : 1)^$not);
+      next if (($flag ? ($_ =~ m/$sep/) ? 0 : 1 : length($_) ? 1 : 0)^$not);
+      last ARG if ($l && substr($_,0,$l) eq $last);
       $select = [] if (!defined($select));
       push(@{$select}, $_);
     }
@@ -146,14 +151,18 @@ sub hash {
 
 
 sub index {
+  my $list = shift(@_);
+
+  return undef if (ref($list) ne "ARRAY");
+
   my $i = 0;
   my $target = shift(@_);
 
-  foreach (@_) {
+  foreach (@{$list}) {
     return $i if ($_ eq $target);
     ++$i;
   }
-  return -1;
+  return undef;
 }
 
 
@@ -175,6 +184,30 @@ sub pad_right {
 }
 
 
+sub permutations {
+  my $list = shift(@_);
+
+  return $list if (ref($list) ne "ARRAY");
+
+  my $result = [];					# initialize counters
+  my @i = (0) x scalar(@{$list});
+  my @n = map({ref($_) eq "ARRAY" ? scalar(@{$_}) : 0} @{$list});
+
+  for (my $k=0; $k<scalar(@{$list}); ) {
+    my $j = 0;						# assign
+    push(@{$result},
+      [map({ref($_) eq "ARRAY" ? $_->[@i[$j++]] : $j++ ? $_ : $_} @{$list})]);
+    $k = 0;
+    foreach (@i) {					# advance
+      last if (++$_<@n[$k]);
+      $_ = 0;
+      ++$k;
+    }
+  }
+  return $result;
+}
+
+
 sub replace {
   my ($list, $replace) = @_;
 
@@ -189,16 +222,33 @@ sub replace {
 
 
 sub sort {
-  my ($list, $freq) = @_;
+  my ($list, $freq, $up) = @_;
 
-  return undef if (ref($list) ne "ARRAY");
-  if (ref($freq) eq "HASH") {
-    @{$list} = sort(
-      {$freq->{$a}==$freq->{$b} ? $a cmp $b : $freq->{$a}<=>$freq->{$b}}
-      @{$list});
+  my $list = shift(@_);
+  my $freq = ref(@_[0]) eq "HASH" ? shift(@_) : undef;
+  my $reverse = defined(@_[0]) ? shift(@_)&3 : 0;	# bitwise list & freq
 
+  return $list if (ref($list) ne "ARRAY");
+  if (defined($freq)) {
+    if ($reverse == 0) {				# standard
+      @{$list} = sort(
+	{$freq->{$a}==$freq->{$b} ? $a cmp $b : $freq->{$a}<=>$freq->{$b}}
+	@{$list});
+    } elsif ($reverse == 1) {				# reverse list
+      @{$list} = sort(
+	{$freq->{$a}==$freq->{$b} ? $b cmp $a : $freq->{$a}<=>$freq->{$b}}
+	@{$list});
+    } elsif ($reverse == 2) {				# reverse freq
+      @{$list} = sort(
+	{$freq->{$a}==$freq->{$b} ? $a cmp $b : $freq->{$b}<=>$freq->{$a}}
+	@{$list});
+    } elsif ($reverse == 3) {				# reverse list & freq
+      @{$list} = sort(
+	{$freq->{$a}==$freq->{$b} ? $b cmp $a : $freq->{$b}<=>$freq->{$a}}
+	@{$list});
+    }
   } else {
-    @{$list} = sort(@{$list});
+    @{$list} = $reverse ? reverse(sort(@{$list})) : sort(@{$list});
   }
   return $list;
 
@@ -367,17 +417,6 @@ sub eval {					# <= eval_parms
 }
 
 
-sub index {
-  my $i = 0;
-  my $target = shift(@_);
-  foreach (@_) {
-    return $i if ($_ eq $target);
-    ++$i;
-  }
-  return -1;
-}
-
-
 sub ran {
   return @_[int(rand(scalar(@_)))];
 }
@@ -398,6 +437,7 @@ sub smiles {
     next if ($_ eq " ");
     next if (defined($filter) && defined($filter->{$_}));
     if ($_ eq "(") { 
+      $sub .= $_ if ($l);
       ++$l;
     } elsif ($_ eq ")") { 
       if (--$l<0) {
@@ -453,7 +493,7 @@ sub set_list_oper {
   my @args = @_;
 
   if (scalar(@args)==1) {
-    @args = oper(" ", @args[0]);
+    @args = split(" ", @args[0]);
   }
   $oper = EMC::Element::deep_copy($default);
   foreach (@args) {
@@ -473,8 +513,8 @@ sub set_list_oper {
     }
     if ($key eq "phase" || $key eq "+") {
       if (!$first) {
-       	$phases->[$phase] = [] if (!defined($phases->[$phase]));
-	push(@{$phases->[$phase]}, $oper);
+	$oper->{phases} = $phases = [] if (!defined($phases));
+	$phases->[$phase] = $oper;
       }
       $oper = EMC::Element::deep_copy($default);
       $oper->{phase} = $phase = eval(@arg[0]);
@@ -506,8 +546,8 @@ sub set_list_oper {
     $first = 0;
   }
   if (!$first) {
-    $phases->[$phase] = [] if (!defined($phases->[$phase]));
-    push(@{$phases->[$phase]}, $oper);
+    $oper->{phases} = $phases = [] if (!defined($phases));
+    $phases->[$phase] = $oper;
   }
   return $oper;
 }
@@ -515,18 +555,21 @@ sub set_list_oper {
 
 sub string {
   my $list = shift(@_);
+  my $attr = shift(@_);
   my $text = "";
   my $separator;
 
   return EMC::Hash::string($list) if (ref($list) eq "HASH");
   return $list if (ref($list) ne "ARRAY");
-  $text = "{";
+  $text = defined($attr->{parens}) ?
+    ref($attr->{parens}) eq "ARRAY" ? $attr->{parens}->[0] : "" : "{";
   foreach (@{$list}) {
     $text .= $separator.EMC::List::string($_);
     next if (defined($separator));
     $separator = ", ";
   }
-  $text .= "}";
+  $text .= defined($attr->{parens}) ?
+    ref($attr->{parens}) eq "ARRAY" ? $attr->{parens}->[1] : "" : "}";
   return $text;
 }
 

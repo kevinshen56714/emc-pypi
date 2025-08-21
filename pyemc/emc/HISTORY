@@ -199,6 +199,30 @@ Date     Description
 	 - Fixed double occurrence of hydrogen atom names in PDB/PSF for e.g.
 	   alcohols
 20240801 - Web publication
+20240817 - Fixed assignment of override partial charges to polymers
+20250103 - Fixed SEGV for PDB write
+	 - Fixed an issue with reading of group site charges
+	 - Updated OPLS; use previous with opls/2012 prefix
+	 - Fixed chirality issue in rings (e.g. sugars)
+20250212 - Ported source to accomodate MacOS ARM
+	 - Adapted zlib/zutil.h to use __APPLE__ only (OS_CODE 19)
+	 - Improved PDB structure import
+	 - Updated zlib function headers
+	 - Extended groups as polymers interpretation to include alternate and
+	   block representations
+	 - Corrected extremes for inverse bond determination
+20250318 - Corrected representation of types with asterisks in VMD input
+	 - Finished alternate and block polymeric groups
+20250414 - Created GROMACS port for select force fields
+	 - Corrected typing of protonated phosphates ROP(O)(O)=O
+	 - Converted opls/2012/opls-ua to abide by stricter rule interpretation
+	   (added explicit number of ring members to aromatic compounds (^6))
+	 - Altered input for VMD to allow for types with asterisks
+20250712 - Addition of constrain and virtual to SMILES and group sites to work
+	   in conjunction with GROMACS ports
+	 - Repaired export of SMILES for all internal clusters
+	 - Improved calculation of inverse angle probabilities
+20250801 - Web publication
 
 
 v9.4.3

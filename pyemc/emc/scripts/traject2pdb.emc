@@ -8,6 +8,7 @@ variables	= {
   compress	-> true,
   unwrap	-> true,
   vdw		-> false,
+  cut		-> false,
   source	-> ".",
   target	-> ".",
   frequency	-> 1
@@ -33,7 +34,7 @@ sample		= {
     quiet	-> true,
     script	-> {
       pdb 	-> {name -> output, compress -> compress, unwrap -> unwrap,
-		    vdw -> vdw, mode -> append}
+		    vdw -> vdw, mode -> append, cut -> cut}
     }
   }
 };

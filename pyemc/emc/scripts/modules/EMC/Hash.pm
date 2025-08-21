@@ -5,7 +5,7 @@
 #  date:	November 25, 2021, May 2, 2024.
 #  purpose:	Hash operations; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -178,6 +178,7 @@ sub arguments {
       }
       if ($error && 
 	      (!defined($hash->{@arg[0]}) || defined($ignore->{@arg[0]}))) {
+	#EMC::Message::dumper("hash = ", $hash);
 	EMC::Message::error_line(
 	  $line, "illegal option \'@arg[0]\'\n") if (!EMC::Math::flag_q(@arg[0]));
       }
@@ -298,5 +299,16 @@ sub text {
     push(@arg, "$_=$result");
   }
   return join(", ", @arg);
+}
+
+
+sub variables {
+  my $hash = {};
+
+  foreach (@_) {
+    my @arg = split("=");
+    $hash->{@arg[0]} = eval(@arg[1]);
+  }
+  return $hash;
 }
 

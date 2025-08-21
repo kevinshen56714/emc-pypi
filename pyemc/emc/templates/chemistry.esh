@@ -16,6 +16,7 @@ ntotal		1000
 #density		0.1
 #number		true
 focus		true
+pdb_licorice	true
 emc_execute	true
 
 ITEM	END	# OPTIONS

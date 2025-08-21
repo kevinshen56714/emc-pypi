@@ -5,7 +5,7 @@
 #  date:	November 24, 2021.
 #  purpose:	Math structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -79,24 +79,45 @@ sub eval {					# <= my_eval
   my $result = [];
 
   foreach (ref($value) eq "ARRAY" ? @{$value} : $value) {
-    my $string;
     my $first = 1;
-    my $error = 0;
+    my $eval = 1;
+    my $string;
 
-    foreach (split(//, $_)) {
-      next if ($first && $_ eq "0");
-      $string .= $_;
-      $first = 0;
+    if (substr($_,0,2) eq "0b") {
+      foreach (split(//, substr($_,2))) {
+	$string <<= 1;
+	++$string if ($_);
+      }
+      push(@{$result}, $string);
+    } else {
+      foreach (split(//, $_)) {
+	next if ($first && $_ eq "0");
+	$string .= $_;
+	$first = 0;
+      }
+      $string = "0" if ($string eq "");
+      {
+	local $@;
+	no warnings;
+	unless (eval($string)) { $eval = 0; }
+      }
+      push(@{$result}, $eval ? eval($string) : $string);
     }
-    $string = "0" if ($string eq "");
-    {
-      local $@;
-      no warnings;
-      unless (eval($string)) { $error = 1; }
-    }
-    push(@{$result}, $error ? $string : eval($string));
   }
   return $result;
+}
+
+
+sub binary {
+  my $v = shift(@_);
+  my @a;
+
+  push(@a, 0) if (!$v);
+  while ($v) {
+    push(@a, $v & 1 ? 1 : 0);
+    $v >>= 1;
+  }
+  return "0b".join("", reverse(@a));
 }
 
 

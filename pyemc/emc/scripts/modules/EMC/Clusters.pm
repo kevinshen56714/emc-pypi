@@ -5,7 +5,7 @@
 #  date:	September 21, 2022.
 #  purpose:	Clusters structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -464,16 +464,16 @@ sub set_cluster {
     $cluster = $cluster->{$name} = {};
     $cluster->{id} = scalar(@{$clusters->{index}});
     push(@{$clusters->{index}}, $name);
+    push(@{$clusters->{mol_mass}}, $mass);
   }
   check($clusters, $line, $name, $mass, $volume);
 
   # check mass
   
-  if ($mass ne "" && !$flag->{mass_entry}) {
+  if (defined($mass) && !$flag->{mass_entry}) {
     EMC::Message::error_line(
       $line, "mass entry not allowed for field '$field->{type}'\n");
   }
-  push(@{$clusters->{mol_mass}}, $mass);
 
   # check group
 
@@ -658,6 +658,10 @@ sub set_import {
     @ncells[$i++] = $global->{flag}->{expert}||($_ eq "auto") ? $_ : eval($_);
     last if ($i==3); }
   delete($flag->{n});
+ 
+  if ($flag->{name} eq "") {
+    EMC::Message::error_line($line, "import filename not set\n");
+  }
 
   my $filename = $flag->{name}; delete($flag->{name});
   my ($tmp, $path, $suffix) = File::Basename::fileparse($filename, '\.[^\.]*');

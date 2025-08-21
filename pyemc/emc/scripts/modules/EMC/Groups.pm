@@ -5,7 +5,7 @@
 #  date:	September 20, 2022.
 #  purpose:	Groups structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -632,7 +632,7 @@ sub set_group {
 	EMC::Message::error_line($line,
 	  "unrecognized charges modifier '@a[1]'\n");
       }
-      @a[1] = "forcefield" if (@a[1] eq "field");
+      @a[1] = "field" if (@a[1] eq "forcefield");
       ${$charges} = length(@a[1])==1 ? $charge_check->{@a[1]} : @a[1];
     }
     elsif (@a[0] eq "f" || @a[0] eq "field") { @{$field} = split(",", @a[1]); }

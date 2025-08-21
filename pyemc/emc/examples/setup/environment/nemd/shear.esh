@@ -4,11 +4,10 @@
 # Zero shear simulation
 #
 
-ITEM	OPTIONS
+ITEM	ENVIRONMENT
 
 project		pure
 replace		true
-environment	true
 name_analyze	date00
 name_build	date00
 name_run	date00

@@ -5,7 +5,7 @@
 #  date:	August 31, 2022.
 #  purpose:	NAMD structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -111,6 +111,7 @@ sub set_defaults {
   $namd->{flag} = EMC::Common::attributes(
     EMC::Common::hash($namd, "flag"),
     {
+      engine		=> 1,
       write		=> 0
     }
   );
@@ -806,6 +807,11 @@ run_md() {
   SEED=\$(calc \${SEED}+1);
   run cd \"\${WORKDIR}\";
   echo;
+}
+
+set_restart() {
+  RESTART=(\$1/*/*.restart.coor);
+  echo \"\${RESTART[0]}\";
 }
 ");
 }

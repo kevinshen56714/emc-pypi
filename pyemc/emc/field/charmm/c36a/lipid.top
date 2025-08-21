@@ -1,9 +1,9 @@
 #EMC/FIELD/CHARMM/v36.1
 #
 #  CHARMM topology using lipid force field files, 
-#  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl 4.0, October 10, 2024 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Jul 25 20:26:23 CEST 2023.
+#  and created on Tue Jul 08 13:53:00 CEST 2025.
 #
 
 # Rule precedences
@@ -11,24 +11,27 @@
 ITEM	PRECEDENCE
 
 (?
-  (CTL2A)
+  (HGA1)
+  (HGA2)
   (CTL3B)
   (CTL3A)
+  (CTL3C)
   (CTL3D)
   (CLA)
+  (CTL2A)
   (CTL2B)
-  (CTL2C)
-  (CTL3C)
   (CTL3E)
   (CL)
-  (CTL3)
   (CTL1A)
   (CCL)
   (CEL1)
   (CEL2)
   (CTL1)
   (CTL2)
+  (CTL3)
   (CTL5)
+  (CRL1)
+  (CRL2)
   (HOLA)
   (HAL1)
   (HAL2)
@@ -39,16 +42,15 @@ ITEM	PRECEDENCE
   (HL)
   (HOL)
   (HCL)
+  (NTLA)
   (NTLB)
   (NTL)
-  (NTLA)
-  (NTLC)
   (NH3L)
-  (OHLA)
   (OHLB)
   (OHLC)
   (OSLPA)
   (OHL)
+  (OHLA)
   (OSLP)
   (O2L)
   (OBL)
@@ -72,111 +74,166 @@ ITEM	RULES
 # id	type	element	residue	atom	charge	rule
 
 0	?	?	UNK	UNK	0	*
-1	CCL	C	DLPS	C13	0	C(:O)(:O)(C)
-2	CEL1	C	CHL1	C5	0	C(=C)(C)(C)
-3	CEL1	C	2HEX	C2	0	C(=C)(C)(H)
-4	CEL2	C	BTE1	C1	0	C(=C)(H)(H)
-5	CL	C	ACTF	C31	0	C(=O)(C(C)(H)(H))(O(C))
-6	CL	C	ACHO	C	0	C(=O)(C(H)(H)(H))(O(C))
-7	CLA	C	ACEH	C1	0	C(=O)(C(H)(H)(H))(O(H))
-8	CTL1	C	CHL1	C10	0	C(C)(C)(C)(C)
-9	CTL1	C	APPC	C213	0	C(C)(C)(C)(H)
-10	CTL1	C	APPC	C2	0	C(C)(C)(H)(O)
-11	CTL1A	C	DLPS	C12	0	C(C)(C)(H)([N+])
-12	CTL2	C	ACTF	C3	0	C(C(C)(H)(H))(H)(H)(O(C))
-13	CTL2	C	DPC	C1	0	C(C(C)(H)(H))(H)(H)(O(P))
-14	CTL2	C	APPC	C3	0	C(C(C)(H)(O))(H)(H)(O(C))
-15	CTL2	C	DLPG	C13	0	C(C(C)(H)(O))(H)(H)(O(H))
-16	CTL2	C	APPC	C1	0	C(C(C)(H)(O))(H)(H)(O(P))
-17	CTL2	C	DLPS	C11	0	C(C(C)(H)([N+]))(H)(H)(O(P))
-18	CTL2	C	ETAC	C2	0	C(C(H)(H)(H))(H)(H)(O(C))
-19	CTL2	C	NC5	C1	0	C(C(H)(H)(H))(H)(H)([N+](C)(C)(C))
-20	CTL2	C	ACHO	C1	0	C(C(H)(H)(O(C)))(H)(H)([N+](C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H)))
-21	CTL2	C	CHOL	C1	0	C(C(H)(H)(O(H)))(H)(H)([N+](C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H)))
-22	CTL2	C	LPPC	C12	0	C(C(H)(H)(O(P(:O)(:O)(O(C(C(C(H)(H)(O))(H)(H))(H)(H))))))(H)(H)([N+](C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H)))
-23	CTL2	C	APPC	C12	0	C(C(H)(H)(O(P(:O)(:O)(O(C(C(C)(H)(O))(H)(H))))))(H)(H)([N+](C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H)))
-24	CTL2	C	PC	C1	0	C(C(H)(H)(O(P(:O)(:O)(O(C(H)(H)(H))))))(H)(H)([N+](C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H)))
-25	CTL2	C	DLPE	C12	0	C(C(H)(H)(O))(H)(H)([N+](H)(H)(H))
-26	CTL2	C	ACHO	C5	0	C(C(H)(H)([N+]))(H)(H)(O(C))
-27	CTL2	C	CHOL	C5	0	C(C(H)(H)([N+]))(H)(H)(O(H))
-28	CTL2	C	APPC	C11	0	C(C(H)(H)([N+]))(H)(H)(O(P))
-29	CTL2	C	2HEX	C4	0	C(C)(C)(H)(H)
-30	CTL2A	C	DPC	C12	0	C(C(H)(H)(O(P(:O)(:O)(O(C(C(C(C)(H)(H))(H)(H))(H)(H))))))(H)(H)([N+](C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H)))
-31	CTL2B	C	SDS	C1	0	C(C(C)(H)(H))(H)(H)(O(:S))
-32	CTL2C	C	GLYP	C3	0	C(C(C)(H)(O))(H)(H)(O(:[P+]))
-33	CTL3	C	2HEX	C1	0	C(C(=C)(H))(H)(H)(H)
-34	CTL3	C	ACHO	C7	0	C(C(=O)(O(C)))(H)(H)(H)
-35	CTL3	C	CHL1	C18	0	C(C(C)(C)(C))(H)(H)(H)
-36	CTL3	C	APPC	C216	0	C(C(C)(C)(H))(H)(H)(H)
-37	CTL3	C	2HEX	C6	0	C(C(C)(H)(H))(H)(H)(H)
-38	CTL3	C	GH2F	C1	0	C(C(C)(H)(O))(H)(H)(H)
-39	CTL3	C	ETAC	C21	0	C(C(H)(H)(O))(H)(H)(H)
-40	CTL3	C	NC5	C5	0	C(C(H)(H)([N+]))(H)(H)(H)
-41	CTL3	C	MAS	C2	0	C(H)(H)(H)(O(C))
-42	CTL3	C	PC	C6	0	C(H)(H)(H)(O(P(:O)(:O)(O(C(C(H)(H)([N+]))(H)(H)))))
-43	CTL3	C	DMP	C1	0	C(H)(H)(H)(O(P(:O)(:O)(O(C(H)(H)(H)))))
-44	CTL3A	C	ACEH	C2	0	C(C(=O)(O(H)))(H)(H)(H)
-45	CTL3B	C	PGHG	C11	0	C(H)(H)(H)(O(P(:O)(:O)(O(C(C(C)(H)(H))(H)(H)))))
-46	CTL3C	C	MP	C1	0	C(H)(H)(H)(O(:P))
-47	CTL3C	C	GLYP	CP1	0	C(H)(H)(H)(O(:[P+](:O(C))(:O)(:O)))
-48	CTL3D	C	MP	C1	0	C(H)(H)(H)(O(:[P+](:O)(:O)(:O)))
-49	CTL3E	C	MSO4	C1	0	C(H)(H)(H)(O(:S))
-50	CTL5	C	ACHO	C2	0	C(H)(H)(H)([N+])
-51	HAL1	H	APPC	H13R	0	H(C(C)(C)(C))
-52	HAL1	H	APPC	HS	0	H(C(C)(C)(O))
-53	HAL2	H	DLPE	H12A	0	H(C(C(H)(H)(O))(H)([N+](H)(H)(H)))
-54	HAL2	H	2HEX	H41	0	H(C(C)(C)(H))
-55	HAL2	H	ACHO	H51	0	H(C(C)(H)(O))
-56	HAL3	H	2HEX	H11	0	H(C(C)(H)(H))
-57	HAL3	H	DMP	H11	0	H(C(H)(H)(O))
-58	HBL	H	DLPS	H12A	0	H(C(C)(C)([N+]))
-59	HCL	H	DLPE	HN1	0	H([N+])
-60	HEL1	H	2HEX	H21	0	H(C(=C)(C))
-61	HEL2	H	BTE1	H11	0	H(C(=C)(H))
-62	HL	H	NC5	H11	0	H(C(C(H)(H)(H))(H)([N+](C)(C)(C)))
-63	HL	H	ACHO	H11	0	H(C(C(H)(H)(O))(H)([N+](C)(C)(C)))
-64	HL	H	ACHO	H21	0	H(C(H)(H)([N+]))
-65	HOL	H	ACEH	HO1	0	H(O(C))
-66	HOL	H	MP	H2	0	H(O(P(:O)(:O)(:O)))
-67	HOLA	H	DLPA	H12	0	H(O(P(:O)(:O)(O)))
-68	HOLA	H	TXCL1	HP13	0	H(O(P(:O)(O)(O)))
-69	NH3L	N	DLPE	N	0	[N+](C)(H)(H)(H)
-70	NTL	N	NC5	N	0	[N+](C(C(H)(H)(H))(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
-71	NTL	N	ACHO	N	0	[N+](C(C(H)(H)(O(C)))(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
-72	NTL	N	CHOL	N	0	[N+](C(C(H)(H)(O(H)))(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
-73	NTL	N	LPPC	N	0	[N+](C(C(H)(H)(O(P(:O)(:O)(O(C(C(C(H)(H)(O))(H)(H))(H)(H))))))(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
-74	NTL	N	APPC	N	0	[N+](C(C(H)(H)(O(P(:O)(:O)(O(C(C(C)(H)(O))(H)(H))))))(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
-75	NTL	N	PC	N	0	[N+](C(C(H)(H)(O(P(:O)(:O)(O(C(H)(H)(H))))))(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
-76	NTLA	N	TEA	N	0	[N+](C(C)(H)(H))(C(C)(H)(H))(C(C)(H)(H))(C(C)(H)(H))
-77	NTLB	N	DPC	N	0	[N+](C(C(H)(H)(O(P(:O)(:O)(O(C(C(C(C)(H)(H))(H)(H))(H)(H))))))(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
-78	NTLC	N	NC4	N	0	[N+](C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
-79	O2L	O	APPC	O13	0	O(:P)
-80	O2L	O	MSO4	OS2	0	O(:S)
-81	O2L	O	GLYP	OP3	0	O(:[P+])
-82	OBL	O	ACEH	O2	0	O(=C)
-83	OCL	O	DLPS	O13A	0	O(:C)
-84	OHL	O	DLPG	OC3	0	O(C(C(C)(H)(O))(H)(H))(H)
-85	OHL	O	DLPG	OC2	0	O(C(C(H)(H)(O))(C(H)(H)(O))(H))(H)
-86	OHL	O	DLPA	O12	0	O(H)(P(:O)(:O)(O))
-87	OHL	O	TXCL1	OP13	0	O(H)(P(:O)(O)(O))
-88	OHLA	O	CHL1	O3	0	O(C(C(C)(H)(H))(C(C)(H)(H))(H))(H)
-89	OHLA	O	CHOL	OH1	0	O(C(C(H)(H)([N+]))(H)(H))(H)
-90	OHLB	O	ACEH	O1	0	O(C(=O)(C))(H)
-91	OHLC	O	MP	O2	0	O(H)(P(:O)(:O)(:O))
-92	OSL	O	MP	O1	0	O(:P)(C)
-93	OSL	O	MSO4	OS1	0	O(:S)(C)
-94	OSL	O	GLYP	OP1	0	O(:[P+])(C)
-95	OSL	O	ACHO	OM	0	O(C)(C)
-96	OSLP	O	APPC	O11	0	O(C(C)(H)(H))(P(:O)(:O)(O))
-97	OSLP	O	DMP	O1	0	O(C(H)(H)(H))(P(:O)(:O)(O))
-98	OSLPA	O	TXCL1	OP11	0	O(C(C)(H)(H))(P(:O)(O)(O))
-99	PL	P	APPC	P	0	P(:O)(:O)(O(C))(O(C))
-100	PLA	P	DLPA	P	0	P(:O)(:O)(O(C))(O(H))
-101	PLAA	P	TXCL1	P1	0	P(:O)(O)(O)(O)
-102	PLB	P	MP	P1	0	[P+](:O(C))(:O)(:O)(:O)
-103	PLC	P	MP	P1	0	P(:O)(:O)(:O)(O)
-104	PLD	P	GLYP	P1	0	[P+](:O(C))(:O(C))(:O)(:O)
-105	SL	S	MSO4	S	0	S(:O)(:O)(:O)(:O)
+1	HGA1		CHL1	H14	0	*(C(C)(C)(C))
+2	HGA1		CHL1	H3	0	*(C(C)(C)(O))
+3	HGA2		CHL1	H11A	0	*(C(*)(C)(C))
+4	CCL	C	DLPS	C13	0	C(:O)(:O)(C)
+5	CEL1	C	CHL1	C5	0	C(=C)(C)(C)
+6	CEL1	C	2HEX	C2	0	C(=C)(C)(H)
+7	CEL2	C	BTE1	C1	0	C(=C)(H)(H)
+8	CL	C	ACTF	C31	0	C(=O)(C(C)(H)(H))(O(C))
+9	CL	C	ACHO	C	0	C(=O)(C(H)(H)(H))(O(C))
+10	CLA	C	ACEH	C1	0	C(=O)(C(H)(H)(H))(O(H))
+11	CRL1	C	CHL1	C14	0	C(*)(C)(C)(C)
+12	CRL1	C	CHL1	C3	0	C(*)(C)(C)(O)
+13	CRL1	C	CHL1	C10	0	C(C)(C)(C)(C)
+14	CRL2	C	CHL1	C1	0	C(*)(*)(C)(C)
+15	CTL1	C	CHL1	C20	0	C(C(*)(C)(C))(C(C)(H)(H))(C(H)(H)(H))(H)
+16	CTL1	C	EPEN	C3	0	C(C(C)(H)(H))(C(C)(H)(H))(C(C)(H)(H))(H)
+17	CTL1	C	APPC	C213	0	C(C(C)(H)(H))(C(C)(H)(H))(C(H)(H)(H))(H)
+18	CTL1	C	CHL1	C25	0	C(C(C)(H)(H))(C(H)(H)(H))(C(H)(H)(H))(H)
+19	CTL1	C	-	-	0	C(C)(C)(C)(H)
+20	CTL1	C	APPC	C2	0	C(C)(C)(H)(O)
+21	CTL1A	C	DLPS	C12	0	C(C)(C)(H)([N+])
+22	CTL2	C	DAPC	C210	0	C(C(=C)(H))(C(=C)(H))(H)(H)
+23	CTL2	C	2HEX	C4	0	C(C(=C)(H))(C(C)(H)(H))(H)(H)
+24	CTL2	C	2PTE	C4	0	C(C(=C)(H))(C(H)(H)(H))(H)(H)
+25	CTL2	C	PHPC	C22	0	C(C(=O)(O))(C(C)(C)(H))(H)(H)
+26	CTL2	C	ACTF	C32	0	C(C(=O)(O))(C(C)(H)(H))(H)(H)
+27	CTL2	C	GH2F	C22	0	C(C(=O)(O))(C(H)(H)(H))(H)(H)
+28	CTL2	C	APPC	C212	0	C(C(C)(C)(H))(C(C)(H)(H))(H)(H)
+29	CTL2	C	APPC	C214	0	C(C(C)(C)(H))(C(H)(H)(H))(H)(H)
+30	CTL2	C	APPC	C210	0	C(C(C)(H)(H))(C(C)(H)(H))(H)(H)
+31	CTL2	C	2HEX	C5	0	C(C(C)(H)(H))(C(H)(H)(H))(H)(H)
+32	CTL2	C	DPC	C2	0	C(C(C)(H)(H))(C(H)(H)(O))(H)(H)
+33	CTL2	C	ACTF	C3	0	C(C(C)(H)(H))(H)(H)(O(C))
+34	CTL2	C	DPC	C1	0	C(C(C)(H)(H))(H)(H)(O(P))
+35	CTL2	C	APPC	C3	0	C(C(C)(H)(O))(H)(H)(O(C))
+36	CTL2	C	DLPG	C13	0	C(C(C)(H)(O))(H)(H)(O(H))
+37	CTL2	C	APPC	C1	0	C(C(C)(H)(O))(H)(H)(O(P))
+38	CTL2	C	DLPS	C11	0	C(C(C)(H)([N+]))(H)(H)(O(P))
+39	CTL2	C	ACTF	C2	0	C(C(H)(H)(H))(C(H)(H)(O))(H)(H)
+40	CTL2	C	ETAC	C2	0	C(C(H)(H)(H))(H)(H)(O(C))
+41	CTL2	C	LPPC	C2	0	C(C(H)(H)(O))(C(H)(H)(O))(H)(H)
+42	CTL2	C	CHOL	C5	0	C(C(H)(H)([N+]))(H)(H)(O(H))
+43	CTL2	C	APPC	C11	0	C(C(H)(H)([N+]))(H)(H)(O(P))
+44	CTL2	C	-	-	0	C(C)(C)(H)(H)
+45	CTL2	C	ACHO	C5	0	C(C)(H)(H)(O)
+46	CTL2	C	ACHO	C1	0	C(C)(H)(H)([N+])
+47	CTL2A	C	GLYP	C3	0	C(C(C)(H)(O))(H)(H)(O(:P))
+48	CTL2B	C	SDS	C1	0	C(C(C)(H)(H))(H)(H)(O(:S))
+49	CTL3	C	CHNS	C18	0	C(C(*)(C)(C))(H)(H)(H)
+50	CTL3	C	ACHO	C7	0	C(C(=O)(O(C)))(H)(H)(H)
+51	CTL3	C	CHL1	C18	0	C(C(C)(C)(C))(H)(H)(H)
+52	CTL3	C	APPC	C216	0	C(C(C)(C)(H))(H)(H)(H)
+53	CTL3	C	2HEX	C6	0	C(C(C)(H)(H))(H)(H)(H)
+54	CTL3	C	GH2F	C1	0	C(C(C)(H)(O))(H)(H)(H)
+55	CTL3	C	ETAC	C21	0	C(C(H)(H)(O))(H)(H)(H)
+56	CTL3	C	NC5	C5	0	C(C(H)(H)([N+]))(H)(H)(H)
+57	CTL3	C	2HEX	C1	0	C(C)(H)(H)(H)
+58	CTL3	C	MAS	C2	0	C(H)(H)(H)(O(C))
+59	CTL3	C	PC	C6	0	C(H)(H)(H)(O(P(:O)(:O)(O(C(C(H)(H)([N+]))(H)(H)))))
+60	CTL3	C	DMP	C1	0	C(H)(H)(H)(O)
+61	CTL3A	C	ACEH	C2	0	C(C(=O)(O(H)))(H)(H)(H)
+62	CTL3B	C	PGHG	C11	0	C(H)(H)(H)(O(P(:O)(:O)(O(C(C(C)(H)(H))(H)(H)))))
+63	CTL3C	C	GLYP	CP1	0	C(H)(H)(H)(O(:P(:O(C))(:O)(:O)))
+64	CTL3C	C	MP	C1	0	C(H)(H)(H)(O(:P(:O)(:O)(O)))
+65	CTL3D	C	MP	C1	0	C(H)(H)(H)(O(:P(:O)(:O)(:O)))
+66	CTL3E	C	MSO4	C1	0	C(H)(H)(H)(O(:S))
+67	CTL5	C	ACHO	C2	0	C(H)(H)(H)([N+])
+68	HAL1	H	CHL1	H20	0	H(C(C(*)(C)(C))(C(C)(H)(H))(C(H)(H)(H)))
+69	HAL1	H	EPEN	H3X	0	H(C(C(C)(H)(H))(C(C)(H)(H))(C(C)(H)(H)))
+70	HAL1	H	APPC	H13R	0	H(C(C(C)(H)(H))(C(C)(H)(H))(C(H)(H)(H)))
+71	HAL1	H	CHL1	H25	0	H(C(C(C)(H)(H))(C(H)(H)(H))(C(H)(H)(H)))
+72	HAL1	H	IPAC	H2	0	H(C(C(H)(H)(H))(C(H)(H)(H))(O(C)))
+73	HAL1	H	GH2F	HS	0	H(C(C(H)(H)(H))(C(H)(H)(O))(O(C)))
+74	HAL1	H	APPC	HS	0	H(C(C(H)(H)(O))(C(H)(H)(O))(O(C)))
+75	HAL1	H	DLPG	H12A	0	H(C(C(H)(H)(O))(C(H)(H)(O))(O(H)))
+76	HAL1	H	-	-	0	H(C(C)(C)(C))
+77	HAL1	H	-	-	0	H(C(C)(C)(O))
+78	HAL2	H	DAPC	H10R	0	H(C(C(=C)(H))(C(=C)(H))(H))
+79	HAL2	H	2HEX	H41	0	H(C(C(=C)(H))(C(C)(H)(H))(H))
+80	HAL2	H	2PTE	H41	0	H(C(C(=C)(H))(C(H)(H)(H))(H))
+81	HAL2	H	PHPC	H2R	0	H(C(C(=O)(O))(C(C)(C)(H))(H))
+82	HAL2	H	ACTF	H2X	0	H(C(C(=O)(O))(C(C)(H)(H))(H))
+83	HAL2	H	GH2F	H2R	0	H(C(C(=O)(O))(C(H)(H)(H))(H))
+84	HAL2	H	APPC	H12R	0	H(C(C(C)(C)(H))(C(C)(H)(H))(H))
+85	HAL2	H	APPC	H14R	0	H(C(C(C)(C)(H))(C(H)(H)(H))(H))
+86	HAL2	H	APPC	H10R	0	H(C(C(C)(H)(H))(C(C)(H)(H))(H))
+87	HAL2	H	2HEX	H51	0	H(C(C(C)(H)(H))(C(H)(H)(H))(H))
+88	HAL2	H	DPC	HR	0	H(C(C(C)(H)(H))(C(H)(H)(O))(H))
+89	HAL2	H	SDS	H11	0	H(C(C(C)(H)(H))(H)(O(:S)))
+90	HAL2	H	ACTF	HX	0	H(C(C(C)(H)(H))(H)(O(C)))
+91	HAL2	H	DPC	HA	0	H(C(C(C)(H)(H))(H)(O(P)))
+92	HAL2	H	GLYP	H31	0	H(C(C(C)(H)(O))(H)(O(:P)))
+93	HAL2	H	APPC	HX	0	H(C(C(C)(H)(O))(H)(O(C)))
+94	HAL2	H	DLPG	H13A	0	H(C(C(C)(H)(O))(H)(O(H)))
+95	HAL2	H	APPC	HA	0	H(C(C(C)(H)(O))(H)(O(P)))
+96	HAL2	H	DLPS	H11A	0	H(C(C(C)(H)([N+]))(H)(O(P)))
+97	HAL2	H	ACTF	H2A	0	H(C(C(H)(H)(H))(C(H)(H)(O))(H))
+98	HAL2	H	ETAC	H22	0	H(C(C(H)(H)(H))(H)(O(C)))
+99	HAL2	H	LPPC	HR	0	H(C(C(H)(H)(O))(C(H)(H)(O))(H))
+100	HAL2	H	DLPE	H12A	0	H(C(C(H)(H)(O))(H)([N+](H)(H)(H)))
+101	HAL2	H	ACHO	H51	0	H(C(C(H)(H)([N+]))(H)(O(C)))
+102	HAL2	H	CHOL	H51	0	H(C(C(H)(H)([N+]))(H)(O(H)))
+103	HAL2	H	APPC	H11A	0	H(C(C(H)(H)([N+]))(H)(O(P)))
+104	HAL2	H	-	-	0	H(C(C)(C)(H))
+105	HAL2	H	-	-	0	H(C(C)(H)(O))
+106	HAL3	H	CHNS	H181	0	H(C(C(*)(C)(C))(H)(H))
+107	HAL3	H	2HEX	H11	0	H(C(C(=C)(H))(H)(H))
+108	HAL3	H	ACEH	H21	0	H(C(C(=O)(O))(H)(H))
+109	HAL3	H	CHL1	H18A	0	H(C(C(C)(C)(C))(H)(H))
+110	HAL3	H	APPC	H16R	0	H(C(C(C)(C)(H))(H)(H))
+111	HAL3	H	2HEX	H61	0	H(C(C(C)(H)(H))(H)(H))
+112	HAL3	H	GH2F	HA	0	H(C(C(C)(H)(O))(H)(H))
+113	HAL3	H	ETAC	H211	0	H(C(C(H)(H)(O))(H)(H))
+114	HAL3	H	NC5	H51	0	H(C(C(H)(H)([N+]))(H)(H))
+115	HAL3	H	-	-	0	H(C(C)(H)(H))
+116	HAL3	H	GLYP	HP11	0	H(C(H)(H)(O(:P)))
+117	HAL3	H	MSO4	H11	0	H(C(H)(H)(O(:S)))
+118	HAL3	H	MAS	H21	0	H(C(H)(H)(O(C)))
+119	HAL3	H	DMP	H11	0	H(C(H)(H)(O(P)))
+120	HAL3	H	-	-	0	H(C(H)(H)(O))
+121	HBL	H	DLPS	H12A	0	H(C(C)(C)([N+]))
+122	HCL	H	DLPE	HN1	0	H([N+])
+123	HEL1	H	2HEX	H21	0	H(C(=C)(C))
+124	HEL2	H	BTE1	H11	0	H(C(=C)(H))
+125	HL	H	NC5	H11	0	H(C(C(H)(H)(H))(H)([N+](C)(C)(C)))
+126	HL	H	ACHO	H11	0	H(C(C(H)(H)(O))(H)([N+](C)(C)(C)))
+127	HL	H	ACHO	H21	0	H(C(H)(H)([N+]))
+128	HOL	H	ACEH	HO1	0	H(O(C))
+129	HOL	H	MP	H2	0	H(O(P(:O)(:O)(:O)))
+130	HOLA	H	PDAG	H12	0	H(O(P(:O)(:O)(O)))
+131	HOLA	H	TXCL1	HP13	0	H(O(P(:O)(O)(O)))
+132	NH3L	N	DLPE	N	0	[N+](C)(H)(H)(H)
+133	NTL	N	ACHO	N	0	[N+](C(C)(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
+134	NTLA	N	TEA	N	0	[N+](C(C)(H)(H))(C(C)(H)(H))(C(C)(H)(H))(C(C)(H)(H))
+135	NTLB	N	NC4	N	0	[N+](C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
+136	O2L	O	APPC	O13	0	O(:P)
+137	O2L	O	MSO4	OS2	0	O(:S)
+138	OBL	O	ACEH	O2	0	O(=C)
+139	OCL	O	DLPS	O13A	0	O(:C)
+140	OHL	O	DLPG	OC3	0	O(C(C(C)(H)(O))(H)(H))(H)
+141	OHL	O	DLPG	OC2	0	O(C(C)(C)(H))(H)
+142	OHL	O	PDAG	O12	0	O(H)(P(:O)(:O)(O))
+143	OHL	O	TXCL1	OP13	0	O(H)(P(:O)(O)(O))
+144	OHLA	O	CHL1	O3	0	O(C(*)(C)(C))(H)
+145	OHLA	O	CHOL	OH1	0	O(C(C(H)(H)([N+]))(H)(H))(H)
+146	OHLB	O	ACEH	O1	0	O(C(=O)(C))(H)
+147	OHLC	O	MP	O2	0	O(H)(P(:O)(:O)(:O))
+148	OSL	O	GLYP	OP1	0	O(:P)(C)
+149	OSL	O	MSO4	OS1	0	O(:S)(C)
+150	OSL	O	ACHO	OM	0	O(C)(C)
+151	OSLP	O	APPC	O11	0	O(C(C)(H)(H))(P(:O)(:O)(O))
+152	OSLP	O	DMP	O1	0	O(C(H)(H)(H))(P(:O)(:O)(O))
+153	OSLPA	O	TXCL1	OP11	0	O(C(C)(H)(H))(P(:O)(O)(O))
+154	PL	P	APPC	P	0	P(:O)(:O)(O(C))(O(C))
+155	PLA	P	PDAG	P	0	P(:O)(:O)(O(C))(O(H))
+156	PLAA	P	TXCL1	P1	0	P(:O)(O)(O)(O)
+157	PLB	P	MP	P1	0	P(:O(C))(:O)(:O)(:O)
+158	PLC	P	MP	P1	0	P(:O)(:O)(:O)(O)
+159	PLD	P	GLYP	P1	0	P(:O(C))(:O(C))(:O)(:O)
+160	SL	S	MSO4	S	0	S(:O)(:O)(:O)(:O)
 
 ITEM	END
 
@@ -196,37 +253,32 @@ APPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCC(C)CC)COC(=O)CCCCCCCCCCCCCCC
 BTE1	C=CCC
 BTE2	CC=CC
 BUTA	HCCCC
-CHL1	C1(O)CCC2(C(=CCC3C4C(C(C(CCCC(C)C)C)CC4)(C)CCC23)C1)C
-CHM1	C2(O)CCC1(C)CCCC=C1C2
-CHNS	C4(O)CCC3(C)C2CCC1(C)C(CCC1C2CC=C3C4)C
+CHL1	C1(O)(*)C(*)(*)C(*)(*)C2(C(=CC(*)(*)C3(*)C4(*)C(C(C(CCCC(C)C)C)(*)C(*)(*)C4(*)*)(C)C(*)(*)C(*)(*)C23*)C1(*)*)C
+CHM1	C2(O)(*)C(*)(*)C(*)(*)C1(C)C(*)(*)C(*)(*)C(*)(*)C=C1C2(*)*
+CHNS	C4(O)(*)C(*)(*)C(*)(*)C3(C)C2(*)C(*)(*)C(*)(*)C1(C)C(C(*)(*)C(*)(*)C1(*)C2(*)C(*)(*)C=C3C4(*)*)(*)C
 CHOL	[N+](C)(C)(C)CCO
 DAPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCC=CCC=CCC=CCC=CCCCCC)COC(=O)CCCC=CCC=CCC=CCC=CCCCCC
 DHPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCCCC)COC(=O)CCCCCC
 DIHE	CC=CCC=CC
 DIPE	C=CCC=C
-DLPA	P(O)(:O)(:O)OCC(OC(=O)CCCCCCCCCCC)COC(=O)CCCCCCCCCCC
 DLPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCC)COC(=O)CCCCCCCCCCC
 DLPE	[N+]CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCC)COC(=O)CCCCCCCCCCC
 DLPG	C(O)C(O)COP(:O)(:O)OCC(OC(=O)CCCCCCCCCCC)COC(=O)CCCCCCCCCCC
 DLPS	[N+]C(C(:O):O)COP(:O)(:O)OCC(OC(=O)CCCCCCCCCCC)COC(=O)CCCCCCCCCCC
 DMP	P(OC)(:O)(:O)OC
-DMPA	P(O)(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCC
 DMPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCC
 DMPE	[N+]CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCC
 DMPG	C(O)C(O)COP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCC
 DMPS	[N+]C(C(:O):O)COP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCC
-DOPA	P(O)(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCC=CCCCCCCCC
 DOPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCC=CCCCCCCCC
 DOPE	[N+]CCOP(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCC=CCCCCCCCC
 DOPG	C(O)C(O)COP(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCC=CCCCCCCCC
 DOPS	[N+]C(C(:O):O)COP(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCC=CCCCCCCCC
 DPC	[N+](C)(C)(C)CCOP(:O)(:O)OCCCCCCCCCCCC
-DPPA	P(O)(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC
 DPPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC
 DPPE	[N+]CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC
 DPPG	C(O)C(O)COP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC
 DPPS	[N+]C(C(:O):O)COP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC
-DSPA	P(O)(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCCCC
 DSPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCCCC
 DSPE	[N+]CCOP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCCCC
 DSPG	C(O)C(O)COP(:O)(:O)OCC(OC(=O)CCCCCCCCCCCCCCCCC)COC(=O)CCCCCCCCCCCCCCCCC
@@ -239,7 +291,7 @@ ETAM	[N+]CCO
 ETHE	C=C
 GH2F	CC(OC(=O)CC)COC(=O)CC
 GLYC	CC(OC(=O)C)COC(=O)C
-GLYP	[P+](:OCC(OC(=O)C)COC(=O)C)(:O)(:O):OC
+GLYP	P(:OCC(OC(=O)C)COC(=O)C)(:O)(:O):OC
 GPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(O)CO
 HEPT	HCCCCCCC
 HEXA	HCCCCCC
@@ -252,7 +304,7 @@ MBUT	CCCC(OC)=O
 MEEF	CC(OC(=O)CCC)C
 MPRO	C(C)C(OC)=O
 MP_1	CO:P(:O)(:O)O
-MP_2	[P+](:O)(:O)(:O):OC
+MP_2	P(:O)(:O)(:O):OC
 MSO4	S(:O)(:O)(:O):OC
 NC4	[N+](C)(C)(C)C
 NC5	[N+](C)(C)(C)CC
@@ -264,7 +316,6 @@ PDAG	P(O)(:O)(:O)OCC(OC(=O)C)COC(=O)C
 PENT	HCCCCC
 PGHG	COP(:O)(:O)OCCC
 PHPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CC(CCCC(CCCC(C)CCCC(C)C)C)C)COC(=O)CC(CCCC(CCCC(C)CCCC(C)C)C)C
-POPA	P(O)(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC
 POPC	[N+](C)(C)(C)CCOP(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC
 POPE	[N+]CCOP(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC
 POPG	C(O)C(O)COP(:O)(:O)OCC(OC(=O)CCCCCCCC=CCCCCCCCC)COC(=O)CCCCCCCCCCCCCCC

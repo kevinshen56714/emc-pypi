@@ -1,0 +1,274 @@
+#EMC/FIELD/OPLS/2025
+#
+#  OPLS topology using oplsaa.par, oplsaa.sb, and opls-ua.define
+#  converted by emc_opls.pl, v2.0, December 19, 2024 by Pieter J. in 't Veld
+#  created on Sun Jun 29 11:00:37 CEST 2025
+#
+
+# Precedence
+
+ITEM	PRECEDENCE
+
+(?
+  (ar)
+  (br-)
+  (c4h3a)
+  (c4h3d)
+  (c4h34)
+  (c4h33)
+  (c3oh)
+  (c3h2)
+  (c4h3e)
+  (c4h31)
+  (c4h3)
+  (c4h2e)
+  (c4h2)
+  (c4h)
+  (c4)
+  (c3oa)
+  (c3o=)
+  (c3h)
+  (c3ah)
+  (c3a)
+  (c2n)
+  (c4h4)
+  (cl1)
+  (cl-)
+  (cs+)
+  (eu+3)
+  (f1)
+  (f-)
+  (h1w)
+  (h1s)
+  (h1o)
+  (h1n)
+  (he)
+  (i-)
+  (k+)
+  (kr)
+  (la+3)
+  (li+)
+  (mg+2)
+  (n3am2)
+  (n3am0)
+  (n1c)
+  (n3am1)
+  (na+)
+  (nd+3)
+  (ne)
+  (o2ha)
+  (o2w)
+  (o2h)
+  (o2e)
+  (o1s=)
+  (o1h-)
+  (o1a)
+  (o1=)
+  (s2s)
+  (s3)
+  (s2h2)
+  (s2h)
+  (s2)
+  (sr+2)
+  (th+4)
+  (xe)
+  (yb+3)
+)
+
+ITEM	END	# PRECEDENCE
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	residue	atom	charge	rule
+
+0	?	?	UNK	UNK	0	*
+1	ar	Ar	-	-	0	[Ar]
+2	br-	Br	-	-	0	[Br-]
+3	c2n	C	MECN	C1	0	C(C)(#N)
+4	c3a	C	-	-	0	^6c(^6:c)(^6:c)(*)
+5	c3a	C	BZAC	C2	0	^6c(^6:c)(^6:c)(C)
+6	c3a	C	PHOH	C1	0	^6c(^6:c)(^6:c)(O(H))
+7	c3ah	C	BENZ	C1	0	^6c(^6:c)(^6:c)
+8	c3h	C	PROE	C2	0	C(=C)(C)
+9	c3h2	C	PROE	C1	0	C(=C(C))
+10	c3o=	C	-	-	0	C(C)(C)(=O)
+11	c3o=	C	ETAM	C2	0	C(C)(N)(=O)
+12	c3o=	C	DMF	C1	0	C(N)(=O)
+13	c3oa	C	PRAC	C1	0	C(C(C))(:O)(:O)
+14	c3oa	C	ETAC	C1	0	C(C)(:O)(:O)
+15	c3oa	C	BZAC	C1	0	C(^6c)(:O)(:O)
+16	c3oa	C	-	-	0	C(~C)(:O)(:O)
+17	c3oh	C	PRAH	C1	0	C(C(C))(=O)(O(H))
+18	c3oh	C	ETAH	C1	0	C(C)(=O)(O(H))
+19	c3oh	C	BZAH	C1	0	C(^6c)(=O)(O(H))
+20	c3oh	C	-	-	0	C(~C)(=O)(O(H))
+21	c4	C	IPAC	C2	0	C(C)(C)(C)(C)
+22	c4	C	TBOH	C1	0	C(C)(C)(C)(O(H))
+23	c4	C	-	-	0	C(C)(~C)(~C)(~*)
+24	c4	C	-	-	0	C(C)(~C)(~C)(~C)
+25	c4	C	-	-	0	C(~C)(~C)(~C)(~*)
+26	c4	C	-	-	0	C(~C)(~C)(~C)(~C)
+27	c4h	C	IBAC	C2	0	C(C)(C)(C)
+28	c4h	C	PROH	C1	0	C(C)(C)(O(H))
+29	c4h	C	-	-	0	C(C)(~C)(~*)
+30	c4h	C	-	-	0	C(C)(~C)(~C)
+31	c4h	C	-	-	0	C(~C)(~C)(~*)
+32	c4h	C	-	-	0	C(~C)(~C)(~C)
+33	c4h2	C	NBUT	C2	0	C(C(C))(C)
+34	c4h2	C	PRAC	C2	0	C(C)(C)
+35	c4h2	C	ETHF	C2	0	C(C)(F)
+36	c4h2	C	-	-	0	C(C)(~*)
+37	c4h2	C	-	-	0	C(C)(~C)
+38	c4h2	C	ETOH	C2	0	C(O(H))(C)
+39	c4h2	C	-	-	0	C(^6c)(~*)
+40	c4h2	C	-	-	0	C(~C)(~*)
+41	c4h2	C	-	-	0	C(~C)(~C)
+42	c4h2e	C	MEAM	C3	0	C(N(C)(H))
+43	c4h2e	C	EMF	C3	0	C(N)(C)
+44	c4h2e	C	EMEO	C2	0	C(O(C))(C)
+45	c4h2e	C	EMSU	C2	0	C(S(C))(C)
+46	c4h2e	C	MECL	C1	0	C([Cl])([Cl])
+47	c4h3	C	ETAC	C2	0	C(C(:O)(:O))
+48	c4h3	C	PROE	C3	0	C(C(=C))
+49	c4h3	C	IPAC	C3	0	C(C(C(:O)(:O))(C)(C))
+50	c4h3	C	IBAC	C3	0	C(C(C(:O)(:O))(C))
+51	c4h3	C	IPAH	C3	0	C(C(C(=O)(O(H)))(C)(C))
+52	c4h3	C	IBAH	C3	0	C(C(C(=O)(O(H)))(C))
+53	c4h3	C	NBUT	C1	0	C(C(C(C)))
+54	c4h3	C	TBOH	C2	0	C(C(C)(C)(O(H)))
+55	c4h3	C	PROH	C2	0	C(C(C)(O(H)))
+56	c4h3	C	PROP	C1	0	C(C(C))
+57	c4h3	C	ETAM	C1	0	C(C(N)(=O))
+58	c4h3	C	EMF	C4	0	C(C(N))
+59	c4h3	C	EMEO	C3	0	C(C(O(C)))
+60	c4h3	C	ETOH	C1	0	C(C(O(H)))
+61	c4h3	C	EMSU	C3	0	C(C(S(C)))
+62	c4h3	C	-	-	0	C(C(~*)(~*)(~*))
+63	c4h3	C	-	-	0	C(C(~*)(~*))
+64	c4h3	C	-	-	0	C(C(~*))
+65	c4h3	C	-	-	0	C(^6c)
+66	c4h31	C	MECN	C2	0	C(C(#N))
+67	c4h31	C	ETHF	C1	0	C(C(F))
+68	c4h31	C	ETHA	C1	0	C(C)
+69	c4h31	C	MEOH	C1	0	C(O(H))
+70	c4h31	C	METS	C1	0	C(S(H))
+71	c4h33	C	IBUT	C2	0	C(C(C)(C))
+72	c4h34	C	NPEN	C2	0	C(C(C)(C)(C))
+73	c4h3a	C	ETAH	C2	0	C(C(=O)(O(H)))
+74	c4h3d	C	DMSO	C1	0	C(S(C)(=O))
+75	c4h3e	C	EMF	C2	0	C(N(C(=O))(C(C)))
+76	c4h3e	C	DMF	C2	0	C(N(C(=O))(C))
+77	c4h3e	C	DMEO	C1	0	C(O(C))
+78	c4h3e	C	EMEO	C1	0	C(O)
+79	c4h3e	C	EMSU	C1	0	C(S(C(C)))
+80	c4h3e	C	DMSU	C1	0	C(S(C))
+81	c4h3e	C	DMDS	C1	0	C(S(S(C)))
+82	c4h4	C	METH	C1	0	C
+83	cl-	Cl	-	-	0	[Cl-]
+84	cl1	Cl	MECL	Cl1	0	[Cl](C([Cl]))
+85	cs+	Cs	-	-	0	[Cs+]
+86	eu+3	Eu	-	-	0	[Eu+3]
+87	f-	F	-	-	0	[F-]
+88	f1	F	ETHF	F	0	F(C(C))
+89	h1n	H	ETAM	HN	0	H(N)
+90	h1o	H	MEOH	HO	0	H(O(C))
+91	h1o	H	BZAH	HO	0	H(O)
+92	h1s	H	METS	H1	0	H(S(C))
+93	h1s	H	H2S	H1	0	H(S(H))
+94	h1w	H	SPCE	H1	0	H(O(H))
+95	he	He	-	-	0	[He]
+96	i-	I	-	-	0	[I-]
+97	k+	K	-	-	0	[K+]
+98	kr	Kr	-	-	0	[Kr]
+99	la+3	La	-	-	0	[La+3]
+100	li+	Li	-	-	0	[Li+]
+101	mg+2	Mg	-	-	0	[Mg+2]
+102	n1c	N	MECN	N1	0	N(#C(C))
+103	n3am0	N	EMF	N1	0	N(C(=O))(C)(C(C))
+104	n3am0	N	DMF	N1	0	N(C(=O))(C)(C)
+105	n3am1	N	-	-	0	N(C(=O))(C)(H)
+106	n3am1	N	ETAM	N1	0	N(C)(C(C))(H)
+107	n3am1	N	MEAM	N1	0	N(C)(C)(H)
+108	n3am2	N	-	-	0	N(C(=O))(H)(H)
+109	na+	Na	-	-	0	[Na+]
+110	nd+3	Nd	-	-	0	[Nd+3]
+111	ne	Ne	-	-	0	[Ne]
+112	o1=	O	BZAH	O2	0	O(=C)
+113	o1a	O	BZAC	O1	0	O(:C)
+114	o1h-	O	HYDR	O	0	O(H)
+115	o1s=	O	DMSO	O1	0	O(=S)
+116	o2e	O	EMEO	O1	0	O(C(C))(C)
+117	o2e	O	DMEO	O1	0	O(C)(C)
+118	o2h	O	TBOH	O	0	O(C(C)(C)(C))(H)
+119	o2h	O	PROH	O	0	O(C(C)(C))(H)
+120	o2h	O	ETOH	O	0	O(C(C))(H)
+121	o2h	O	MEOH	O	0	O(C)(H)
+122	o2h	O	PHOH	O1	0	O(^6c)(H)
+123	o2ha	O	PRAH	O1	0	O(C(C(C))(=O))(H)
+124	o2ha	O	ETAH	O1	0	O(C(C)(=O))(H)
+125	o2ha	O	BZAH	O1	0	O(C(^6c)(=O))(H)
+126	o2w	O	SPCE	O	0	O(H)(H)
+127	s2	S	EMSU	S1	0	S(C(C))(C)
+128	s2	S	DMSU	S1	0	S(C)(C)
+129	s2h	S	METS	S1	0	S(C)(H)
+130	s2h2	S	H2S	S1	0	S(H)(H)
+131	s2s	S	DMDS	S1	0	S(S(C))(C)
+132	s3	S	DMSO	S1	0	S(C)(C)(=O)
+133	sr+2	Sr	-	-	0	[Sr+2]
+134	th+4	Th	-	-	0	[Th+4]
+135	xe	Xe	-	-	0	[Xe]
+136	yb+3	Yb	-	-	0	[Yb+3]
+
+ITEM	END	# RULES
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+BENZ	c1ccccc1
+BZAC	C(:O)(:O)c1ccccc1
+BZAH	C(=O)(OH)c1ccccc1
+DMDS	CSSC
+DMEO	COC
+DMF	C(=O)N(C)C
+DMSO	CS(=O)C
+DMSU	CSC
+EMEO	COCC
+EMF	C(=O)N(CC)C
+EMSU	CSCC
+ETAC	C(:O)(:O)C
+ETAH	C(=O)(OH)C
+ETAM	CC(=O)N(H)CC
+ETHA	CC
+ETHF	CCF
+ETOH	CCOH
+H2S	S(H)H
+HYDR	OH
+IBAC	C(:O)(:O)C(C)C
+IBAH	C(=O)(OH)C(C)C
+IBUT	C(C)(C)C
+IPAC	C(:O)(:O)C(C)(C)C
+IPAH	C(=O)(OH)C(C)(C)C
+MEAM	CC(=O)N(H)C
+MECL	C(Cl)Cl
+MECN	N#CC
+MEOH	COH
+METH	C
+METS	S(H)C
+NBUT	CCCC
+NPEN	C(C)(C)(C)C
+PHOH	c1(OH)ccccc1
+PRAC	C(:O)(:O)CC
+PRAH	C(=O)(OH)CC
+PROE	C=CC
+PROH	CC(OH)C
+PROP	CCC
+SPCE	O(H)H
+TBOH	CC(C)(OH)C
+
+ITEM	END	# TEMPLATES
+

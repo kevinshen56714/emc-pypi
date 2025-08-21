@@ -1,0 +1,49 @@
+#
+#  CHARMM topology using clay force field files, 
+#  converted by emc_clay.pl 0.1beta, June 15, 2021 by Pieter J. in 't Veld,
+#  to be used in conjuction with EMC v9.4.4 or higher,
+#  and created on Mon Jul 19 20:46:45 2021.
+#
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+(?
+ (AL4O)
+ (AL6O)
+ (HO)
+ (K+1)
+ (O2AL)
+ (O2SI)
+ (O3AL)
+ (O3H)
+ (O3SI)
+ (SI4O)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	residue	atom	charge	rule
+
+0	?	?	-	-	0	*
+1	AL4O	Al	-	-	0	[Al](O)(O)(O)(O)
+2	AL6O	Al	-	-	0	[Al](O)(O)(O)(O)(O)(O)
+3	HO	H	-	-	0	HO
+4	K+1	K	-	-	0	[K]
+5	K+1	K	-	-	0	[K+]
+6	O2AL	O	-	-	0	O([Al])([Al])
+7	O2AL	O	-	-	0	O([Al])([Si]) O([Al])(H)
+8	O2SI	O	-	-	0	O([Si])([Si]) O([Si])(H)
+9	O3AL	O	-	-	0	O([Al])([Al])([Al])
+10	O3SI	O	-	-	0	O([Al])([Al])([Si])
+11	O3SI	O	-	-	0	O([Al])([Si])([Si])
+12	O3H	O	-	-	0	O([Al])([Al])(H)
+13	O3H	O	-	-	0	O([Al])([Si])(H)
+14	SI4O	Si	-	-	0	[Si](O)(O)(O)(O)
+
+ITEM	END

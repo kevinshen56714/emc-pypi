@@ -1,0 +1,2885 @@
+# index	xref	orig	type	charge	comment
+
+97	97	OW	o2w5	0	O TIP5P Water unpublished
+98	98	HW	hw	0.241	H TIP5P Water
+99	99	LP	lp	-0.241	M TIP5P Water
+111	111	OW	o2w3	-0.834	O TIP3P Water JCP,79,926 (1983)
+112	98	HW	hw	0.417	H TIP3P Water
+113	113	OW	o2w4	0	O TIP4P Water
+114	98	HW	hw	0.52	H TIP4P Water
+115	99	LP	lp	-1.04	M TIP4P Water
+116	116	OW	o2w3f	-0.822	O TIP3F Water flexible model,
+117	98	HW	hw	0.411	H TIP3F Water unpublished
+133	133	OW	o2w	-0.8476	O SPC/E Water
+134	98	HW	h1w	0.4238	H SPC/E Water
+135	135	CT	c4	-0.18	CH3 all-atom C: alkanes ALL-ATOM
+136	135	CT	c4	-0.12	CH2 all-atom C: alkanes PARAMETERS
+137	135	CT	c4	-0.06	CH all-atom C: alkanes FROM HERE ON
+138	135	CT	c4	-0.24	CH4 all-atom C: methane
+139	135	CT	c4	0	C all-atom C: alkanes
+140	140	HC	h1	0.06	H all-atom H: alkanes
+141	141	CM	c3=	0	alkene C (R2-C=) all atom
+142	141	CM	c3=	-0.115	alkene C (RH-C=) all atom
+143	141	CM	c3=	-0.23	alkene C (H2-C=) all atom
+144	144	HC	h1=	0.115	alkene H (H-C=) all atom
+145	145	CA	c3a	-0.115	Benzene C - 12 site JACS,112,4768-90
+146	146	HA	h1a	0.115	Benzene H - 12 site
+147	145	CA	c3a	0	Naphthalene fusion C (C9)
+148	135	CT	c4	-0.065	all-atom C: CH3, toluene
+149	135	CT	c4	-0.005	all-atom C: CH2, ethyl benzene
+150	150	C=	c3d	-0.115	diene =CH-CH=; see 178 also
+151	151	Cl	cl1	-0.2	Cl in alkyl chlorides JPCB 16264 (2004)
+152	135	CT	c4	-0.006	RCH2Cl
+153	140	HC	h1cl	0.103	H in RCH2Cl
+154	154	OH	o2h	-0.683	all-atom O: mono alcohols
+155	155	HO	h1o	0.418	all-atom H(O): mono alcohols
+156	140	HC	h1oh	0.04	all-atom H(C): methanol
+157	135	CT	c4	0.145	all-atom C: CH3 & CH2, alcohols
+158	135	CT	c4	0.205	all-atom C: CH, alcohols
+159	135	CT	c4	0.265	all-atom C: C, alcohols
+160	135	CT	c4	0.1263	CH2 Trifluoroethanol
+161	161	CT	c4f	0.5323	CF3
+162	162	OH	o2hh	-0.6351	OH
+163	155	HO	h1o	0.4286	HO
+164	164	F	f1	-0.2057	F
+165	140	HC	h1	0.0825	H
+166	145	CA	c3a	0.15	C(OH) phenol Use with all
+167	162	OH	o2hh	-0.585	O phenol atom C, H
+168	155	HO	h1o	0.435	H phenol 145 & 146
+169	162	OH	o2hh	-0.7	O: diols
+170	155	HO	h1o	0.435	H(O): diols
+171	162	OH	o2ht	-0.73	O: triols
+172	155	HO	h1o	0.465	H(O): triols
+173	135	CT	c4	0.145	C(H2OH):
+174	135	CT	c4	0.205	C(HROH):
+175	135	CT	c4	0.265	C(R2OH):
+176	140	HC	h1	0.06	H(CXOH):
+177	177	OS	o2e	-0.17	diphenyl ether
+178	150	C=	c3d	0	diene =CR-RC=; see 150 also
+179	177	OS	o2e	-0.285	O: anisole
+180	177	OS	o2e	-0.4	O: dialkyl ether
+181	135	CT	c4e	0.11	C(H3OR): methyl ether
+182	135	CT	c4e	0.14	C(H2OR): ethyl ether
+183	135	CT	c4e	0.17	C(HOR): i-Pr ether
+184	135	CT	c4e	0.2	C(OR): t-Bu ether
+185	140	HC	h1	0.03	H(COR): alpha H ether
+186	177	OS	o2e	-0.4	O: acetal ether O
+187	162	OH	o2hh	-0.7	O(H): hemiacetal
+188	155	HO	h1o	0.435	H(O): hemiacetal
+189	189	CO	c4o2	0.2	C(H2O2): acetal OCH2O
+190	140	HC	h1	0.1	H(CHO2): acetal OCH2O
+191	189	CO	c4o2	0.265	C(H2O2): hemiacetal OCH2OH
+192	140	HC	h1	0.1	H(CHO2): hemiacetal OCH2OH
+193	189	CO	c4o2	0.3	C(HCO2): acetal OCHRO
+194	140	HC	h1	0.1	H(CHO2): acetal OCHRO
+195	189	CO	c4o2	0.365	C(HCO2): hemiacetal OCHROH
+196	140	HC	h1	0.1	H(C2O2): hemiacetal OCHROH
+197	189	CO	c4o2	0.4	C(C2O2): acetal OCRRO
+198	189	CO	c4o2	0.465	C(C2O2): hemiacetal OCRROH
+199	145	CA	c3a	0.085	C(OMe) anisole
+200	200	SH	s2h	-0.335	all-atom S: thiols (mod 11/99)
+201	201	SH	s2h2	-0.47	S IN H2S JPC,90,6379 (1986)
+202	202	S	s2	-0.435	all-atom S: sulfides
+203	202	S	s2	-0.2175	all-atom S: disulfides
+204	204	HS	h1s	0.155	all-atom H(S): thiols (mod 11/99)
+205	204	HS	h1s	0.235	H IN H2S JPC,90,6379 (1986)
+206	135	CT	c4s	0.06	all-atom C: CH2, thiols
+207	135	CT	c4s	0.12	all-atom C: CH, thiols
+208	135	CT	c4s	0.18	all-atom C: C, thiols
+209	135	CT	c4s	0.0375	all-atom C: CH3, sulfides
+210	135	CT	c4s	0.0975	all-atom C: CH2, sulfides
+211	135	CT	c4s	0.1575	all-atom C: CH, sulfides
+212	135	CT	c4s	0.2175	all-atom C: C, sulfides
+213	135	CT	c4s	0.0375	all-atom C: CH3, disulfides
+214	135	CT	c4s	0.0975	all-atom C: CH2, disulfides
+215	135	CT	c4s	0.1575	all-atom C: CH, disulfides
+216	135	CT	c4s	0.2175	all-atom C: C, disulfides
+217	135	CT	c4s	0	all-atom C: CH3, methanethiol
+218	135	CT	c4o	0.2	C in CH2OH - benzyl alcohols
+219	135	CT	c4o	0.26	C in CHROH - benzyl alcohols
+220	135	CT	c4o	0.32	C in CR2OH - benzyl alcohols
+221	145	CA	c3a	-0.055	C(CH2OH) - benzyl alcohols, nitriles
+222	202	S	s2	-0.32	S in thioanisoles
+223	135	CT	c4n	0.08	C in RCH2NH2 and Gly CA (See 900 for amines)
+224	135	CT	c4	0.14	C in R2CHNH2 and Ala CA
+225	135	CT	c4	0.2	C in R3CNH2 and Aib CA
+226	151	Cl	cl1	-0.12	chloroalkene Cl (ClH-C=) - see also 398
+227	141	CM	c3=	0.005	chloroalkene C (ClH-C=)
+228	145	CA	c3a	0.1025	C(SMe) thioanisole
+229	135	CT	c4n	0.14	C on N: secondary N-CHR2 amide
+230	135	CT	c4n	0.2	C on N: secondary N-CR3 amide
+231	231	C	c3o	0.7	C: C=O in benzophenone
+232	231	C	c3o	0.565	C: C=O in benzaldehyde
+233	231	C	c3o	0.585	C: C=O in acetophenone
+234	231	C	c3o	0.615	C: C=O in benzamide
+235	231	C	c3am	0.5	C: C=O in amide. Acyl R in amides
+236	236	O	o1=	-0.5	O: C=O in amide. is neutral - use
+237	237	N	n3am	-0.76	N: primary amide. alkane parameters.
+238	237	N	n3am	-0.5	N: secondary amide 279 for formyl H.
+239	237	N	n3am	-0.14	N: tertiary amide NEW TERT AMIDE PARAMETERS:
+240	240	H	h1n	0.38	H on N: primary amide see 1035-1045
+241	240	H	h1n	0.3	H on N: secondary amide
+242	135	CT	c4	0.02	C on N: secondary N-Me amide
+243	135	CT	c4	-0.11	C on N: tertiary N-Me amide
+244	135	CT	c4	0.08	C on N: secondary N-CH2R amide
+245	135	CT	c4	-0.05	C on N: tertiary N-CH2R amide (Pro Cdelta)
+246	135	CT	c4	0.01	C on N: tertiary N-CHR2 amide (Pro Calpha)
+247	231	C	c3ou	0.142	C in O=C(NH2)2 Urea
+248	236	O	o1=	-0.39	O in O=C(NH2)2 Urea Isr. J. Chem
+249	237	N	n3am	-0.542	N in O=C(NH2)2 Urea 33, 323 (93)
+250	240	H	h1n	0.333	H in O=C(NH2)2 Urea
+251	237	N	n3am	-0.49	N in imide
+252	231	C	c3o	0.42	C(=O) in imide
+253	236	O	o1=	-0.42	O in imide
+254	240	H	h1n	0.37	H(N) in imide
+255	255	HC	h1co2	0.06	H(C) in formamide
+256	135	CT	c4	-0.12	C in CH3 imide
+257	135	CT	c4	-0.06	C in RCH2 imide
+258	135	CT	c4	0	C in R2CH imide
+259	135	CT	c4	0.06	C in R3C imide
+260	145	CA	c3a	0.035	C(CN) benzonitrile
+261	261	CZ	c2na	0.395	C(N) benzonitrile
+262	262	NZ	n1	-0.43	N benzonitrile
+263	145	CA	c3a	0.18	C(Cl) chlorobenzene
+264	151	Cl	cl1	-0.18	Cl chlorobenzene
+265	237	N	n3am	-0.385	N: N-phenylacetamide
+266	145	CA	c3a	0.085	ipso C in N-phenylacetamide
+267	231	C	c3oh	0.52	Co in CCOOH carboxylic acid
+268	268	OH	o2ha	-0.53	Oh in CCOOH R in RCOOH is
+269	236	O	o1=	-0.44	Oc in CCOOH neutral; use 135-140
+270	155	HO	h1o	0.45	H in CCOOH
+271	231	C	c3oa	0.7	C in COO- carboxylate
+272	272	O2	o1a	-0.8	O: O in COO- carboxylate
+273	135	CT	c4	-0.28	C: CH3, carboxylate ion
+274	135	CT	c4	-0.22	C: CH2, carboxylate ion
+275	135	CT	c4	-0.16	C: CH, carboxylate ion
+276	135	CT	c4	-0.1	C: C, carboxylate ion
+277	231	C	c3o	0.45	AA C: aldehyde & acyl halide - for C-alpha use
+278	236	O	o1=	-0.45	AA O: aldehyde & acyl halide - 135-139
+279	279	HC	h1co	0	AA H-alpha in aldehyde & formamide
+280	231	C	c3o	0.47	AA C: ketone - for C-alpha use
+281	236	O	o1=	-0.47	AA O: ketone - 135-139
+282	279	HC	h1co	0.06	AA H on C-alpha in ketone & aldehyde & acyl halide
+283	135	CT	c4	0.04	AA C-alpha on C-terminal ALA
+284	135	CT	c4	-0.02	AA C-alpha on C-terminal GLY
+285	135	CT	c4	-0.09	AA C-alpha on C-terminal PRO
+286	286	N3	n4h4	-0.4	N (NH4+) JPC,90,2174 (1986)
+287	286	N3	n4h3	-0.3	N (RNH3+)
+288	286	N3	n4  	0	N (R4N+)  Ammonium Ions
+289	289	H3	h1n4	0.35	H (NH4+)  see also 940-945,
+290	289	H3	h1n4	0.33	H (RNH3+)  1120-1130, 309-310
+291	135	CT	c4	0.13	C in CH3NH3+
+292	135	CT	c4	0.19	C in RCH2NH3+ & CA in N-term Gly
+293	135	CT	c4	0.25	C in R2CHNH3+ & CA in N-term Ala, etc.
+294	135	CT	c4	0.31	C in R3CNH3+
+295	135	CT	c4	0.23	AA:C-alpha in N-term PRO
+296	135	CT	c4	0.17	AA:C-delta in N-term PRO
+297	135	CT	c4	0.11	CT in CH3NH2+R
+298	135	CT	c4	0.09	AA C-alpha in Gly zwitterion
+299	135	CT	c4	0.15	AA C-alpha in Ala zwitterion
+300	300	N2	n3ch	-0.8	N: guanidinium NH2
+301	289	H3	h1n3	0.46	H: guanidinium NH2
+302	302	CA	c3a+	0.64	C: guanidinium C+
+303	300	N2	n3ch	-0.7	N: guanidinium NHR
+304	289	H3	h1n3	0.44	H: guanidinium NHR
+305	135	CT	c4	0.2	C: CH3, methylguanidinium
+306	135	CT	c4	-0.11	C: CH3, ethylguanidinium
+307	135	CT	c4	0.19	C: CH2(D), ARG, ethylguanidinium
+308	135	CT	c4	-0.05	C: CH2(G), ARG
+309	286	N3	n4h2	-0.2	N (R2NH2+)
+310	289	H3	h1n3	0.31	H (R2NH2+)
+311	311	NC	n2a6	-0.46	DAP N1 Diamino-
+312	312	CA	c3ap	0.36	DAP C2 pyridine
+313	300	N2	n3ch	-0.85	DAP N-amine
+314	240	H	h1n	0.37	DAP H-amine
+315	312	CA	c3ap	-0.15	DAP C3
+316	316	HA	h1a1	0.1	DAP H3
+317	312	CA	c3ap	-0.04	DAP C4
+318	316	HA	h1a1	0.1	DAP H4
+319	319	NA	n3ah1	-0.6	Uracil N1 -use 938 for nucleoside
+320	231	C	c3o	0.5	Uracil C2
+321	319	NA	n3ah1	-0.51	Uracil N3
+322	231	C	c3o	0.45	Uracil C4
+323	323	CM	c3ao	-0.07	Uracil C5
+324	323	CM	c3ao	0.08	Uracil C6
+325	240	H	h1n	0.41	Uracil H-N1
+326	236	O	o1=	-0.4	Uracil O-C2
+327	240	H	h1n	0.36	Uracil H-N3
+328	236	O	o1=	-0.42	Uracil O-C4
+329	329	HC	h1a4	0.1	Uracil H-C5
+330	329	HC	h1a4	0.1	Uracil H-C6 Thymine
+331	331	CT	c4t	-0.14	Thymine C-C5
+332	329	HC	h1a4	0.08	Thymine H-CC5
+333	319	NA	n3ah1	-0.56	Cytosine N1 -use 937 for nucleoside
+334	231	C	c3o	0.55	Cytosine C2
+335	311	NC	n2a6	-0.54	Cytosine N3
+336	312	CA	c3ap	0.46	Cytosine C4 Nucleotide base
+337	323	CM	c3ao	-0.06	Cytosine C5 parameters:
+338	323	CM	c3ao	0.1	Cytosine C6 JACS,113,2810(1991)
+339	240	H	h1n	0.38	Cytosine H-N1
+340	236	O	o1=	-0.48	Cytosine O-C2
+341	300	N2	n3ch	-0.79	Cytosine N-C4
+342	240	H	h1n	0.385	Cytosine H-NC4/N3
+343	240	H	h1n	0.355	Cytosine H-NC4/C5
+344	329	HC	h1a4	0.1	Cytosine H-C5
+345	345	H4	h1a2	0.1	Cytosine H-C6
+346	311	NC	n2a6	-0.53	Adenine N1
+347	347	CQ	c3a6a	0.22	Adenine C2
+348	311	NC	n2a6	-0.55	Adenine N3
+349	349	CB	c3aa	0.38	Adenine C4
+350	349	CB	c3aa	0.15	Adenine C5
+351	312	CA	c3ap	0.44	Adenine C6
+352	352	NB	n2a5	-0.49	Adenine N7 Guanine
+353	353	CK	c3a5a	0.2	Adenine C8 Guanine
+354	319	NA	n3ah1	-0.5	Adenine N9 Guanine -use 936 for
+355	355	H5	h1a3	0.2	Adenine H-C2 nucleoside
+356	300	N2	n3ch	-0.81	Adenine N-C6
+357	240	H	h1n	0.385	Adenine H-NC6/N1
+358	240	H	h1n	0.355	Adenine H-NC6/C5
+359	355	H5	h1a3	0.2	Adenine H-C8 Guanine
+360	240	H	h1n	0.35	Adenine H-N9 Guanine
+361	319	NA	n3ah1	-0.56	Guanine N1
+362	312	CA	c3ap	0.46	Guanine C2
+363	311	NC	n2a6	-0.51	Guanine N3
+364	349	CB	c3aa	0.34	Guanine C4
+365	349	CB	c3aa	0.12	Guanine C5
+366	231	C	c3o	0.52	Guanine C6
+367	240	H	h1n	0.38	Guanine H-N1
+368	300	N2	n3ch	-0.8	Guanine N-C2
+369	240	H	h1n	0.4	Guanine H-NC2
+370	236	O	o1=	-0.51	Guanine O-C6
+371	331	CT	c4t	-0.01	9-Me A or G C-N9
+372	329	HC	h1a4	0.12	9-Me A or G H-CN9
+373	331	CT	c4t	-0.01	1-Me U or T C-N1
+374	329	HC	h1a4	0.14	1-Me U or T H-CN1
+375	331	CT	c4t	-0.01	1-Me Cytosine C-N1
+376	329	HC	h1a4	0.13	1-Me Cytosine H-CN1
+377	319	NA	n3ah1	-0.64	CytH+ N1 Use AT = N* for nucleoside.
+378	231	C	c3o	0.65	CytH+ C2
+379	319	NA	n3ah1	-0.74	CytH+ N3 Protonated cytosine.
+380	312	CA	c3ap	0.66	CytH+ C4
+381	323	CM	c3ao	-0.06	CytH+ C5
+382	323	CM	c3ao	0.1	CytH+ C6
+383	240	H	h1n	0.49	CytH+ H-N1
+384	236	O	o1=	-0.3	CytH+ O-C2
+385	240	H	h1n	0.48	CytH+ H-N3
+386	300	N2	n3ch	-0.81	CytH+ N-C4
+387	240	H	h1n	0.46	CytH+ H-NC4/N3
+388	240	H	h1n	0.43	CytH+ H-NC4/C5
+389	316	HA	h1a1	0.14	CytH+ H-C5
+390	345	H4	h1a2	0.14	CytH+ H-C6
+391	331	CT	c4t	0.01	1-Me CytH+ C-N1
+392	329	HC	h1a4	0.16	1-Me CytH+ H-CN1
+393	393	P	p4	0.78	P dimethylphosphate anion
+394	272	O2	o1a	-0.66	O(=)  OPLS UA
+395	395	OS	o2p	-0.43	O(-)  see 440
+396	396	CT	c4h3	0.02	C in CH3  for AA
+397	323	CM	c3ao	0.18	F3C-C5 thymine; trifluorothymine
+398	151	Cl	cl1	-0.06	chloroalkene Cl (Cl2-C=) - tentative
+399	141	CM	c3=	0.12	chloroalkene C (Cl2-C=) - tentaive
+400	400	F		-1	F-
+401	401	Cl		-1	Cl-
+402	402	Br		-1	Br-
+403	403	I		-1	I- 400-410 new OPLS:
+405	405	Na	nh4+	1	NH4+ K Jensen
+406	406	Li		1	Li+ JCTC 2, 1499 (2006)
+407	407	Na		1	Na+
+408	408	K		1	K+
+409	409	Rb		1	Rb+
+410	410	Cs		1	Cs+
+411	411	Mg		2	Mg++
+412	412	Ca		2	Ca++
+413	413	Sr		2	Sr++
+414	414	Ba		2	Ba++
+415	415	C3	c4ai	-0.4	C in CH3S- thiolate
+416	329	HC	h1a4	0.1	H in CH3S-
+417	417	SH	s2-	-0.9	S in CH3S-
+418	415	C3	c4ai	-0.2	C in CH3O- alkoxide
+419	329	HC	h1a4	0.06	H in CH3O-
+420	420	OH	o1hi	-0.98	O in CH3O-
+421	421	CT	c4an	-1.07	C1 in CH2CN- RCN-
+422	329	HC	h1a4	0.19	H in CH2CN-
+423	261	CZ	c2na	0.51	C2 in CH2CN- JACS 111,
+424	424	NZ	n1-	-0.82	N in CH2CN- 4190 (89)
+425	415	C3	c4ai	-0.3	C in CH3NH-
+426	329	HC	h1a4	0.07	HC in CH3NH- RNH-
+427	427	N3	n2c	-1.31	N in CH3NH-
+428	428	H	h1n2	0.4	HN in CH3NH-
+429	415	C3	c4ai	-0.4	C2 in CH3CH2- RCH2-
+430	329	HC	h1a4	0.08	H in CH3CH2-
+431	421	CT	c4an	0	C1 in CH3CH2-
+432	329	HC	h1a4	0.07	H1 in CH3CH2-
+433	99	LP	lp	-0.98	LP in CH3CH2-
+434	434	OH	o1h-	-1.3	O in OH- Hydroxide O-H = 0.953 A
+435	155	HO	h1o	0.3	H in OH- JACS 108, 2517 (86)
+436	436	U	u2	2.5	U in UO2+ J Mol Struct 366, 55 (96)
+437	437	OU	o2u	-0.25	O in UO2+ r(U-O) = 1.80 A
+438	135	CT	c4	0.27	C in dimetyl phosphate
+439	177	OS	o2p	-0.865	O-(POn)2 in GTP (JT-R 4/4/05)
+440	393	P	p4	1.62	P in Me2PO4-
+441	441	O2	o1p=	-0.92	O= in
+442	177	OS	o2p	-0.6	O- in  dimethyl
+443	135	CT	c4	0.3	C in  phosphate
+444	140	HC	h1	-0.03	H in  6-31+G* CHELPG
+445	393	P	p4	1.92	P in MeOPO3--
+446	441	O2	o1p=	-1.12	O= in
+447	177	OS	o2p	-0.7	O- in  methyl phosphate
+448	135	CT	c4	0.44	C in  6-31+G* CHELPG
+449	140	HC	h1	-0.1	H in
+450	393	P	p4	1.62	P in MePO3Me-
+451	441	O2	o1p=	-0.97	O= in
+452	177	OS	o2p	-0.63	O- in  methyl
+453	135	CT	c4	0.28	C(O)  methylphosphonate
+454	140	HC	h1	-0.02	H(CO)  6-31+G* CHELPG
+455	135	CT	c4	-0.51	C(P)
+456	140	HC	h1	0.08	H(CP)
+457	145	CA	c3a	-0.14	Cipso benzyl methylphosphonate
+458	135	CT	c4	0.32	C(O)
+459	140	HC	h1	0.02	H(CO)
+460	145	CA	c3a	-0.04	Cipso methyl benzylphosphonate
+461	135	CT	c4	-0.47	C(P)
+462	140	HC	h1	0.12	H(CP)
+463	145	CA	c3a	0.14	Cipso C6H5OPO3(2-) use with 445-7
+464	135	CT	c4	0.24	C6(R2) of barbiturate
+465	231	C	c3oe	0.51	AA C: esters - for R on C=O, use
+466	236	O	o1=	-0.43	AA =O: esters ketone params (see 280-282)
+467	395	OS	o2s	-0.33	AA -OR: ester -
+468	135	CT	c4	0.16	methoxy C in esters - see also 490-492
+469	279	HC	h1co	0.03	alkoxy H's in esters
+470	231	C	c3o	0.635	Co in benzoic acid
+471	231	C	c3oe	0.625	Co in methyl benzoate, aryl ester
+472	145	CA	c3a	0.135	Cipso phenyl ester
+473	395	OS	o2s	-0.215	AA -OR phenyl ester
+474	474	SY	s4	1.48	S in sulfonamide
+475	475	OY	o1s=	-0.68	O in sulfonamide
+476	135	CT	c4sa	-0.54	CH3 attached to S of sulfonamide
+477	140	HC	h1	0.18	H of Me attached to S of sulfonamide
+478	237	N	n3sa2	-1	N: primary amide of sulfonamide
+479	240	H	h1n	0.44	H on N: primary sulfonamide
+480	237	N	n3sa1	-0.8	N secondary amide of sulfonamide
+481	240	H	h1n	0.41	H on N: secondary sulfonamide
+482	135	CT	c4ns	0.18	alpha CH3-N of sulfonamide
+483	140	HC	h1ns	0.03	H of alpha CH3-N of sulfonamide
+484	135	CT	c4	0.39	alpha CH2-N of sulfonamide
+485	140	HC	h1	-0.06	H of alpha CH2-N of sulfonamide
+486	135	CT	c4	-0.18	beta CH3 of N-ethyl sulfonamide
+487	140	HC	h1	0.06	H of beta CH3 of N-ethyl sulfonamide
+488	145	CA	c3a	0	benzene C attached to S of sulfonamide
+489	145	CA	c3a	0.03	benzene C attached to S of alkyl aryl sulfoxide
+490	135	CT	c4	0.19	C(H2OS) ethyl ester
+491	135	CT	c4	0.22	C(HOS) i-pr ester
+492	135	CT	c4	0.25	C(OS) t-bu ester
+493	474	SY	s4	1.374	S in sulfone
+494	475	OY	o1s=	-0.687	O in sulfone
+495	495	SZ	s3	0.245	alkyl aryl sulfoxide - all atom
+496	495	SZ	s3	0.13	sulfoxide - all atom
+497	497	OY	o1s	-0.42	sulfoxide - all atom
+498	135	CT	c4s	-0.035	CH3 all-atom C: sulfoxide
+499	135	CT	c4s	0.025	CH2 all-atom C: sulfoxide
+500	500	C*	c3a5	0.075	CG in TRP
+501	501	CB	c3a6	-0.055	CD C in TRP
+502	502	CN	c3at	0.13	CE C in TRP
+503	319	NA	n3ah1	-0.57	NE in TRP
+504	240	H	h1n	0.42	H on NE in TRP
+505	135	CT	c4	-0.005	CB in HIS
+506	506	CR	c3a53	0.295	CE1 in HID, HIE
+507	507	CV	c3a52	-0.015	CD2 in HID, CG in HIE
+508	508	CW	c3a51	0.015	CG in HID, CD2 in HIE
+509	506	CR	c3a53	0.385	CE1 in HIP
+510	510	CX	c3a54	0.215	CG, CD2 in HIP
+511	352	NB	n2a5	-0.49	NE in HID, ND in HIE
+512	319	NA	n3ah1	-0.54	N in HIP
+513	240	H	h1n	0.46	H on N in HIP
+514	508	CW	c3a51	-0.115	CD1 in TRP
+515	135	CT	c4	0.055	all-atom C: CH, isopropyl benzene
+516	135	CT	c4	0.115	all-atom C: C, t-butyl benzene
+517	141	CM	c3=	-0.03	vinyl ether HCOR
+518	141	CM	c3=	0.085	vinyl ether RCOR
+519	519	C!	c3ab	0	biphenyl C1
+520	311	NC	n2a6	-0.678	N in pyridine 6-31G*
+521	145	CA	c3a	0.473	C1 in pyridine CHELPG
+522	145	CA	c3a	-0.447	C2 in pyridine charges
+523	145	CA	c3a	0.227	C3 in pyridine for
+524	146	HA	h1a	0.012	H1 in pyridine 520-656
+525	146	HA	h1a	0.155	H2 in pyridine
+526	146	HA	h1a	0.065	H3 in pyridine
+527	311	NC	n2a6	-0.468	N in pyrazine
+528	145	CA	c3a	0.192	C in pyrazine
+529	146	HA	h1a	0.042	H in pyrazine
+530	311	NC	n2a6	-0.839	N in pyrimidine
+531	531	CQ	c3a6n	0.874	C2 in pyrimidine
+532	145	CA	c3a	0.653	C4 in pyrimidine
+533	145	CA	c3a	-0.689	C5 in pyrimidine
+534	146	HA	h1a	-0.032	H2 in pyrimidine
+535	146	HA	h1a	0.011	H4 in pyrimidine
+536	146	HA	h1a	0.197	H5 in pyrimidine
+537	311	NC	n2a6	-0.331	N in pyridazine
+538	145	CA	c3a	0.378	C3 in pyridazine
+539	145	CA	c3a	-0.16	C4 in pyridazine
+540	146	HA	h1a	-0.009	H3 in pyridazine
+541	146	HA	h1a	0.122	H4 in pyridazine
+542	319	NA	n3ah1	-0.239	N in pyrrole
+543	508	CW	c3a51	-0.163	C2 in pyrrole
+544	544	CS	c3a5n	-0.149	C3 in pyrrole
+545	240	H	h1n	0.317	H1 in pyrrole
+546	146	HA	h1a	0.155	H2 in pyrrole
+547	146	HA	h1a	0.118	H3 in pyrrole
+548	319	NA	n3ah1	-0.059	N1 in pyrazole
+549	352	NB	n2a5	-0.491	N2 in pyrazole
+550	550	CU	c3a55	0.246	C3 in pyrazole
+551	544	CS	c3a5n	-0.32	C4 in pyrazole
+552	508	CW	c3a51	-0.034	C5 in pyrazole
+553	240	H	h1n	0.301	H1 in pyrazole
+554	146	HA	h1a	0.072	H3 in pyrazole
+555	146	HA	h1a	0.15	H4 in pyrazole
+556	146	HA	h1a	0.135	H5 in pyrazole
+557	319	NA	n3ah1	-0.257	N1 in imidazole
+558	506	CR	c3a53	0.275	C2 in imidazole
+559	352	NB	n2a5	-0.563	N3 in imidazole
+560	507	CV	c3a52	0.185	C4 in imidazole
+561	508	CW	c3a51	-0.286	C5 in imidazole
+562	240	H	h1n	0.306	H1 in imidazole
+563	146	HA	h1a	0.078	H2 in imidazole
+564	146	HA	h1a	0.075	H4 in imidazole
+565	146	HA	h1a	0.187	H5 in imidazole
+566	177	OS	o2e	-0.19	O in furan
+567	508	CW	c3a51	-0.019	C2 in furan
+568	568	CS	c3a5o	-0.154	C3 in furan
+569	146	HA	h1a	0.142	H2 in furan
+570	146	HA	h1a	0.126	H3 in furan
+571	177	OS	o2e	-0.257	O in oxazole
+572	506	CR	c3a53	0.511	C2 in oxazole
+573	352	NB	n2a5	-0.59	N in oxazole
+574	507	CV	c3a52	0.169	C4 in oxazole
+575	508	CW	c3a51	-0.148	C5 in oxazole
+576	146	HA	h1a	0.043	H2 in oxazole
+577	146	HA	h1a	0.091	H4 in oxazole
+578	146	HA	h1a	0.181	H5 in oxazole
+579	177	OS	o2e	-0.122	O in isoxazole
+580	352	NB	n2a5	-0.413	N in isoxazole
+581	550	CU	c3a55	0.405	C3 in isoxazole
+582	544	CS	c3a5n	-0.455	C4 in isoxazole
+583	508	CW	c3a51	0.25	C5 in isoxazole
+584	146	HA	h1a	0.053	H3 in isoxazole
+585	146	HA	h1a	0.184	H4 in isoxazole
+586	146	HA	h1a	0.098	H5 in isoxazole
+587	319	NA	n3ah1	-0.5	N1 in indole
+588	508	CW	c3a51	0.001	C2 in indole
+589	544	CS	c3a5n	-0.39	C3 in indole
+590	145	CA	c3a	-0.27	C4 in indole
+591	145	CA	c3a	-0.127	C5 in indole
+592	145	CA	c3a	-0.108	C6 in indole
+593	145	CA	c3a	-0.258	C7 in indole
+594	502	CN	c3at	0.22	C8 in indole
+595	501	CB	c3a6	0.225	C9 in indole
+596	240	H	h1n	0.376	H1 in indole
+597	146	HA	h1a	0.147	H2 in indole
+598	146	HA	h1a	0.172	H3 in indole
+599	146	HA	h1a	0.155	H4 in indole
+600	146	HA	h1a	0.107	H5 in indole
+601	146	HA	h1a	0.11	H6 in indole
+602	146	HA	h1a	0.14	H7 in indole
+603	311	NC	n2a6	-0.694	N1 in quinoline
+604	145	CA	c3a	0.425	C2 in quinoline
+605	145	CA	c3a	-0.359	C3 in quinoline
+606	145	CA	c3a	-0.008	C4 in quinoline
+607	145	CA	c3a	-0.197	C5 in quinoline
+608	145	CA	c3a	-0.112	C6 in quinoline
+609	145	CA	c3a	-0.07	C7 in quinoline
+610	145	CA	c3a	-0.307	C8 in quinoline
+611	145	CA	c3a	0.563	C9 in quinoline
+612	145	CA	c3a	-0.051	C10 in quinoline
+613	146	HA	h1a	0.028	H2 in quinoline
+614	146	HA	h1a	0.146	H3 in quinoline
+615	146	HA	h1a	0.119	H4 in quinoline
+616	146	HA	h1a	0.133	H5 in quinoline
+617	146	HA	h1a	0.113	H6 in quinoline
+618	146	HA	h1a	0.114	H7 in quinoline
+619	146	HA	h1a	0.157	H8 in quinoline
+620	311	NC	n2a6	-0.76	N1 in purine (9H)
+621	531	CQ	c3a6n	0.679	C2 in purine
+622	311	NC	n2a6	-0.788	N3 in purine
+623	501	CB	c3a6	0.736	C4 in purine
+624	501	CB	c3a6	0.038	C5 in purine
+625	145	CA	c3a	0.343	C6 in purine
+626	352	NB	n2a5	-0.642	N7 in purine
+627	627	CK	c3a5m	0.452	C8 in purine
+628	319	NA	n3ah1	-0.682	N9 in purine
+629	146	HA	h1a	0.024	H2 in purine
+630	146	HA	h1a	0.101	H6 in purine
+631	146	HA	h1a	0.086	H8 in purine
+632	240	H	h1n	0.413	H9 in purine
+633	202	S	s2	-0.03	S in thiazole
+634	506	CR	c3a53	0.242	C2 in thiazole
+635	352	NB	n2a5	-0.515	N in thiazole
+636	507	CV	c3a52	0.228	C4 in thiazole
+637	508	CW	c3a51	-0.299	C5 in thiazole
+638	146	HA	h1a	0.101	H2 in thiazole
+639	146	HA	h1a	0.068	H4 in thiazole
+640	146	HA	h1a	0.205	H5 in thiazole
+641	311	NC	n2a6	-0.951	N in 1,3,5-triazine
+642	531	CQ	c3a6n	0.965	C in 1,3,5-triazine
+643	146	HA	h1a	-0.014	H in 1,3,5-triazine
+644	145	CA	c3a	0.13	C5 in serotonin
+645	135	CT	c4	0.052	C on C3 in serotonin
+646	311	NC	n2a6	-0.599	N in 1,10-phenanthroline
+647	145	CA	c3a	0.392	C2 in 1,10-phenanthroline
+648	145	CA	c3a	-0.348	C3 in 1,10-phenanthroline
+649	145	CA	c3a	0.02	C4 in 1,10-phenanthroline
+650	145	CA	c3a	-0.042	C12 in 1,10-phenanthroline
+651	145	CA	c3a	0.347	C11 in 1,10-phenanthroline
+652	145	CA	c3a	-0.196	C5 in 1,10-phenanthroline
+653	146	HA	h1a	0.032	H2 in 1,10-phenanthroline
+654	146	HA	h1a	0.146	H3 in 1,10-phenanthroline
+655	146	HA	h1a	0.108	H4 in 1,10-phenanthroline
+656	146	HA	h1a	0.14	H5 in 1,10-phenanthroline
+657	319	NA	n3ah1	0.122	N1 in 1-methylimidazole
+658	506	CR	c3a53	0.166	C2 in 1-methylimidazole
+659	352	NB	n2a5	-0.58	N3 in 1-methylimidazole
+660	507	CV	c3a52	0.173	C4 in 1-methylimidazole
+661	508	CW	c3a51	-0.395	C5 in 1-methylimidazole
+662	135	CT	c4	-0.199	C1 in 1-methylimidazole
+663	146	HA	h1a	0.118	H2 in 1-methylimidazole
+664	146	HA	h1a	0.093	H4 in 1-methylimidazole
+665	146	HA	h1a	0.208	H5 in 1-methylimidazole
+666	140	HC	h1	0.098	HC1 in 1-methylimidazole
+667	135	CT	c4	-0.139	C1 in 1-ethylimidazole
+668	135	CT	c4	-0.079	C1 in 1-isopropylimidazole
+669	135	CT	c4	0.099	C1 in 1-MeO-Me-imidazole
+670	135	CT	c4	-0.168	CH3, 2-methyl pyridine
+671	135	CT	c4	-0.108	CH2, 2-ethyl pyridine
+672	135	CT	c4	-0.189	CH3, 3-methyl pyridazine
+673	135	CT	c4	-0.129	CH2, 3-ethyl pyridazine
+674	135	CT	c4	-0.169	CH3, 4-methyl pyrimidine
+675	135	CT	c4	-0.109	CH2, 4-ethyl pyrimidine
+676	135	CT	c4	-0.138	CH3, 2-methyl pyrazine
+677	135	CT	c4	-0.078	CH2, 2-ethyl pyrazine
+678	135	CT	c4	-0.025	CH3, 2-methyl pyrrole
+679	135	CT	c4	0.035	CH2, 2-ethyl pyrrole
+680	135	CT	c4	-0.038	CH3, 2-methyl furan
+681	135	CT	c4	0.022	CH2, 2-ethyl furan
+682	200	SH	s2h	-0.334	S in 6-mercaptopurine
+683	204	HS	hs	0.255	H(S) in 6-mercaptopurine
+684	145	CA	c3a	0.523	C6 in 6-mercaptopurine
+685	685	C$	c3o4	0.5	C: C=O beta-lactam
+686	686	N$	n34	-0.14	N: beta-lactam; O is 236
+687	687	CY	c441	0.2275	CH(N): penicillin
+688	687	CY	c441	0.14	CH(CO): penicillin
+689	135	CT	c4	-0.008	CH3, 3-methyl indole
+690	519	C!	c3ab	0.588	2-phenyl pyridine C2
+691	519	C!	c3ab	-0.103	2-phenyl pyridine C2'
+692	519	C!	c3ab	-0.332	3-phenyl pyridine C3
+693	519	C!	c3ab	0.04	3-phenyl pyridine C3'
+694	519	C!	c3ab	0.342	4-phenyl pyridine C4
+695	519	C!	c3ab	-0.05	4-phenyl pyridine C4'
+696	202	S	s2	-0.205	S in diphenylthioether
+697	697	Ac	ac+3	3	Ac+3 Actinide params -
+698	698	Th	th+4	4	Th+4
+699	699	Am	am+3	3	Am+3 F. van Veggel
+700	700	C+	c3+	0.619	C+ in t-butyl+ B3LYP/6-31G*
+701	135	CT	c4	-0.395	C in t-butyl+ charges
+702	140	HC	h1	0.174	H in t-butyl+
+703	703	La	la+3	3	La+3
+704	704	Nd	nd+3	3	Nd+3 Lanthanide params -
+705	705	Eu	eu+3	3	Eu+3 F. van Veggel, Chem Eur J
+706	706	Gd	gd+3	3	Gd+3 5, 90 (1999).
+707	707	Yb	yb+3	3	Yb+3 see also JPC-A 104, 7659 (2000)
+708	141	CM	c3=	-0.344	C in Cl..CH3..Cl- TS
+709	151	Cl	cl1	-0.628	Cl charges: JACS 117,2024 (95)
+710	144	HC	h1=	0.2	H in Cl..CH3..Cl- TS
+711	687	CY	c441	-0.12	CH2 C: cyclopropane
+712	687	CY	c441	-0.06	CHR C: cyclopropane
+713	687	CY	c441	0	CR2 C: cyclopropane
+714	145	CA	c3a	-0.23	C in C5H5- cyclopentadienyl anion
+715	146	HA	h1a	0.03	H in C5H5- cyclopentadienyl anion
+716	145	CA	c3a	-0.099	C in C5H5 cyclopentadienyl radical
+717	146	HA	h1a	0.099	H in C5H5 cyclopentadienyl radical
+718	145	CA	c3a	0.22	C(F) fluorobenzene
+719	719	F	f1a	-0.22	F fluorobenzene
+720	145	CA	c3a	0.13	C(F) hexafluorobenzene
+721	719	F	f1a	-0.13	F hexafluorobenzene
+722	722	Br	br1	-0.22	Br alkyl bromide (UA)
+723	723	C2		0.22	CH2 alkyl bromide (UA)
+724	145	CA	c3a	0.15	C(CF3) trifluoromethylbenzene
+725	161	CT	c4f	0.45	CF3
+726	164	F	f1	-0.2	F
+727	145	CA	c3a	0.2	C(F) difluorobenzenes
+728	719	F	f1a	-0.2	F difluorobenzenes
+729	145	CA	c3a	0.2	C(Br) bromobenzene
+730	722	Br	br1	-0.2	Br bromobenzene
+731	145	CA	c3a	0.1	C(I) iodobenzene - tentative
+732	732	I	i1	-0.1	I iodobenzene - tentative
+733	687	CY	c441	0.055	all-atom C: CH, cyclopropyl/butyl benzene
+734	200	SH	s2h	-0.22	all-atom S: thiophenol (HS is #204)
+735	145	CA	c3a	0.065	C(S) thiophenol
+736	145	CA	c3a	0.013	CG of Benzamidine
+737	145	CA	c3a	-0.106	CD of Benzamidine
+738	145	CA	c3a	-0.09	CE of Benzamidine
+739	145	CA	c3a	-0.119	CZ of Benzamidine
+740	146	HA	h1a	0.141	HD of Benzamidine
+741	146	HA	h1a	0.129	HE of Benzamidine
+742	302	CA	c3a+	0.827	C+ of Benzamidine
+743	300	N2	n3ch	-0.885	N-H2 of Benzamidine
+744	240	H	h1n	0.426	H1-N of Benzamidine
+745	240	H	h1n	0.465	H2-N of Benzamidine
+746	146	HA	h1a	0.119	H-CG of Benzamidine
+747	135	CT	c4	-0.02	CH3 in neutral MeGDN
+748	135	CT	c4	0.04	CD of neutral ARG
+749	749	NY	n3y	-0.62	NE
+750	311	NC	n2a6	-0.785	N1    (HN=CZ)
+751	749	NY	n3y	-0.785	N2    (H2N-CZ)
+752	302	CA	c3a+	0.55	CZ
+753	262	NZ	n1	-0.56	N IN RCN all-atom nitriles
+754	754	CZ	c2n	0.46	C IN RCN
+755	755	CT	c4n	-0.08	C of CH3 in CH3CN
+756	755	CT	c4n	-0.02	C of CH2 in RCH2CN
+757	755	CT	c4n	0.04	C of CH in R2CHCN
+758	755	CT	c4n	0.1	C of C in R3CCN
+759	759	HC	h1cn	0.06	HC-CT-CN alpha-H in nitriles
+760	760	NO	n3o2	0.54	N in nitro R-NO2
+761	761	ON	o1n1	-0.37	O in nitro R-NO2
+762	135	CT	c4	0.02	CT-NO2 nitromethane
+763	759	HC	h1cn	0.06	HC-CT-NO2 alpha-H in nitroalkanes
+764	135	CT	c4	0.08	CT-NO2 nitroethane
+765	135	CT	c4	0.14	CT-NO2 2-nitropropane
+766	135	CT	c4	0.2	CT-NO2 2-methyl-2-nitropropane
+767	760	NO	n3o2	0.65	N in nitro Ar-NO2
+768	145	CA	c3a	0.09	C(NO2) nitrobenzene
+769	755	CT	c4n	0.035	C of CH2 in PhCH2CN
+770	311	NC	n2a6	-0.9	N in neutral benzamidine
+771	236	O	o1=	-0.5	propylene carbonate O
+772	231	C	c3o	0.86	C=O Lucienne's
+773	395	OS	o1p	-0.45	OS parameters
+774	135	CT	c4	0.21	C in CH2
+775	135	CT	c4	0.16	C in CH
+776	135	CT	c4	-0.1	C in CH3
+777	279	HC	h1co	0.03	H in CH2
+778	279	HC	h1co	0.03	H in CH
+779	279	HC	h1co	0.06	H in CH3
+780	177	OS	o2e	-0.78	O-(POn)2 in GTP (JT-R 10/18/05)
+781	781	P+	p4+	0.9684	phosphonium R4P+
+782	135	CT	c4	-0.5081	CH3PR3+ 6-31G* CHELPG
+783	135	CT	c4	-0.008	RCH2PR3+
+784	140	HC	h1	0.172	H in CH3PR3+
+785	393	P	p4	1.34	P in PF6-
+786	786	F	f1p	-0.39	F in PF6-
+787	787	N	n3+	0.794	N in NO3- F. van Veggel
+788	788	O	o1n	-0.598	O in NO3- r(NO) =
+790	145	CA	c3a	0.15	C(CF3) trifluoromethylbenzene test
+791	161	CT	c4f	0.45	CF3  test
+792	164	F	f1	-0.2	F  test
+795	795	OW	o2w4f	0	O TIP4F Water Unpublished
+796	98	HW	hw	0.511	H TIP4F Water
+797	99	LP	lp	-1.022	M TIP4F Water
+900	900	NT	n3	-0.9	N primary amines
+901	900	NT	n3	-0.78	N secondary amines
+902	900	NT	n3	-0.63	N tertiary amines
+903	135	CT	c4	0	CH3(N) primary aliphatic amines, H(C) type 911
+904	135	CT	c4	0.02	CH3(N) secondary aliphatic amines, H(C) type 911
+905	135	CT	c4	0.03	CH3(N) tertiary aliphatic amines, H(C) type 911
+906	135	CT	c4	0.06	CH2(N) primary aliphatic amines, H(C) type 911
+907	135	CT	c4	0.08	CH2(N) secondary aliphatic amines, H(C) type 911
+908	135	CT	c4	0.09	CH2(N) tertiary aliphatic amines, H(C) type 911
+909	240	H	h1n	0.36	H(N) primary amines
+910	240	H	h1n	0.38	H(N) secondary amines
+911	759	HC	h1cn	0.06	H(C) for Carbons directly bonded to N in amines, diamine
+912	135	CT	c4	0.12	CH primary isopropyl amine
+913	135	CT	c4	0.18	C primary t-butyl amine
+914	135	CT	c4	0.14	CH secondary isopropyl amine
+915	135	CT	c4	0.15	CH tertiary isopropyl amine
+916	145	CA	c3a	0.18	C(NH2) aniline
+917	145	CA	c3a	0.2	C(NHR) N-methylaniline
+918	145	CA	c3a	0.21	C(NR2) N,N-dimethylaniline
+919	135	CT	c4	0.115	C in CH2NH2 - benzyl amines; C(CH2NH2) is #221
+920	135	CT	c4	0.175	C in CHRNH2 - benzyl amines
+921	135	CT	c4	0.235	C in CR2NH2 - benzyl amines
+922	135	CT	c4	0.195	C in CH2OR - benzyl ethers; C(CH2OR) is #221
+923	135	CT	c4	0.1525	C in CH2SR - benzyl sulfides; C(CH2SR) is #221
+924	135	CT	c4	0.135	C in CH2NHR - benzyl amines; C(CH2NH2) is #221
+925	925	CZ	c2ct	-0.21	alkyne RC%CH terminal C acetylene
+926	279	HC	h1co	0.2	alkyne RC%CH terminal H
+927	927	CZ	c2c2	0.01	alkyne RC%CH C2 R-with 2 or 3 H
+928	928	CZ	c2c1	0.01	alkyne RC%CH C2 R-with 1 H
+929	929	CZ	c2ca	0.01	alkyne RC%CH C2 R-with no H or R=Phenyl
+930	759	HC	h1cn	0.06	alkyne RC%CH H on C3 (for C3 use 135-139)
+931	189	CO	c4o2	0.45	C1' of (ade, gua) by Deping
+932	189	CO	c4o2	0.48	C1' of cyt by Deping
+933	189	CO	c4o2	0.51	C1' of (ura, thy) by Deping
+934	154	OH	o2h	-0.655	O5' by Deping
+935	155	HO	h1o	0.39	H(3') OH by Deping
+936	936	N*	n35h	-0.5	Adenine N9 Guanine nucleosides
+937	936	N*	n35h	-0.56	Cytosine N1 nucleoside
+938	936	N*	n35h	-0.6	Uracil N1 Thymine nucleosides
+939	927	CZ	c2c2	0	alkyne RC%CR - only did MC for MeCCMe
+940	286	N3	n4h	-0.1	N (R3NH+)
+941	289	H3	h1n4	0.29	H (R3NH+)
+942	135	CT	c4	0.09	C in CH3NHR2+
+943	135	CT	c4	0.15	C in RCH2NHR2+
+944	135	CT	c4	0.21	C in R2CHNHR2+
+945	135	CT	c4	0.27	C in R3CNHR2+
+946	508	CW	c3a51	0.096	C2 in 2-phenylfuran
+947	568	CS	c3a5o	-0.039	C3 in 3-phenylfuran
+948	519	C!	c3ab	0.027	C2' in 2-phenylfuran
+949	519	C!	c3ab	0.011	C3' in 2-phenylfuran
+950	140	HC	h1	0.074	glycine zwit. 6-31G* CHELPG charges
+951	135	CT	c4	-0.029	glycine zwit. 6-31G* CHELPG charges
+952	231	C	c3o	0.7	glycine zwit. 6-31G* CHELPG charges
+953	286	N3	n4h	-0.352	glycine zwit. 6-31G* CHELPG charges
+954	272	O2	o1a	-0.709	glycine zwit. 6-31G* CHELPG charges
+955	289	H3	h1n4	0.317	glycine zwit. 6-31G* CHELPG charges
+956	164	F	f1	-0.22	F in monoalkyl fluorides tentative
+957	135	CT	c4	0.02	RCH2F   tentative
+958	140	HC	h1	0.1	H in RCHF tentative
+959	135	CT	c4	0.12	R2CHF   tentative
+960	135	CT	c4	0.22	R3CF   tentative
+961	135	CT	c4	0.36	CF3 perfluoroalkanes JPC A, 105, 4118
+962	135	CT	c4	0.24	CF2 perfluoroalkanes
+963	135	CT	c4	0.12	CF perfluoroalkanes
+964	964	CT	c4f4	0.48	CF4
+965	965	F	f1c	-0.12	F F in perfluoroalkanes
+966	161	CT	c4f	0.25	CF2H difluoromethylbenzene
+967	140	HC	h1	0.15	H in CF2H
+968	135	CT	c4	-0.08	FCH2COO- fluoroacetate tentative
+969	135	CT	c4	-0.106	ClCH2COO- chloroacetate
+970	151	Cl	cl1	-0.2	Cl in alkyl chlorides repeat of 151
+971	135	CT	c4	-0.006	RCH2Cl   152
+972	140	HC	h1	0.103	H in RCHCl 153
+973	135	CT	c4	0.097	R2CHCl   tentative
+974	135	CT	c4	0.2	R3CCl   tentative
+975	722	Br	br1	-0.2	Br in alkyl bromides JPCB 16264 (2004)
+976	135	CT	c4	-0.006	RCH2Br
+977	140	HC	h1	0.103	H in RCHBr
+978	135	CT	c4	0.097	R2CHBr   tentative
+979	135	CT	c4	0.2	R3CBr   tentative
+980	164	F	f1	-0.08	F in acyl fluoride tentative
+981	151	Cl	cl1	-0.08	Cl in acyl chloride tentative
+982	722	Br	br1	-0.08	Br in acyl bromide tentative
+983	145	CA	c3a	0.1	C(OCF3): trifluoroanisole
+984	177	OS	o2e	-0.25	O: trifluoroanisole
+985	135	CT	c4	0.6	C in CF3: trifluoroanisole
+986	986	F	f1ao	-0.15	F: trifluoroanisole
+987	237	N	n3am	-0.025	N: N-methyl,N-phenylacetamide
+988	145	CA	c3a	-0.045	ipso C in N-methyl,N-phenylacetamide
+989	135	CT	c4	0.145	C in CH2NR2 - benzyl amines; C(CH2NH2) is #221
+990	231	C	c3o	0.888	C in hydroxamic acid jtr 11/98
+991	231	C	c3o	1.003	C in aromatic hydroxamic aciT
+992	236	O	o1=	-0.658	O in hydroxamic acid
+993	237	N	n3am	-0.634	N in hydroxamic acid
+994	240	H	h1n	0.411	HN in hydroxamic acid
+995	154	OH	o2h	-0.442	OH in hydroxamic acid
+996	155	HO	h1o	0.435	HO in hydroxamic acid
+997	135	CT	c4	0.225	C in CHROR - benzyl ethers; C(CHROR) is #221
+998	135	CT	c4	0.255	C in CRROR - benzyl ethers; C(CRROR) is #221
+1000	519	C!	c3ab	-0.034	3-phenyl pyrrole C3
+1001	519	C!	c3ab	0.003	3-phenyl pyrrole C3'
+1002	519	C!	c3ab	0.3	4-phenyl imidazole C4
+1003	519	C!	c3ab	-0.04	4-phenyl imidazole C4'
+1004	145	CA	c3a	-0.0575	diphenylmethane Cipso
+1005	1005	Zn	zn4	2	JACS 113, 8262 (1991)
+1011	135	CT	c4	-0.07	C(I) iodoalkane - tentative - primary
+1012	135	CT	c4	0.03	C(I) iodoalkane - tentative - secondary
+1013	135	CT	c4	0.13	C(I) iodoalkane - tentative - tertiary
+1014	732	I	i1	-0.13	I iodoalkane - tentative
+1015	140	HC	h1	0.1	H in RCHI
+1021	237	N	n3am	-0.685	N of secondary N-phenyl sulfonamide
+1022	145	CA	c3a	0.155	benzene C on N of N-phenyl sulfonamide
+1032	145	CA	c3a	-0.1	ipso C in benzoate ion
+1033	237	N	n3am	-0.427	N: N-phenylurea
+1034	145	CA	c3a	0.218	ipso C in N-phenylurea
+1035	231	C	c3o	0.6	C: C=O in tert amide. Acyl R in amides
+1036	236	O	o1=	-0.6	O: C=O in tert amide. is neutral - use
+1037	1037	NM	n3c3	-0.36	N: tertiary amide JCC 25, 1322 (2004)
+1038	135	CT	c4	0	C on N: tertiary amide CH3
+1039	135	CT	c4	0.06	C on N: tertiary amide CH2R
+1040	135	CT	c4	0.12	C on N: tertiary amide CHR2
+1041	135	CT	c4	0.18	C on N: tertiary amide CR3
+1042	279	HC	h1co	0.06	H on CT:tertiary amide
+1043	231	C	c3o	0.57	C: C=O in tert formamide.
+1044	236	O	o1=	-0.57	O: C=O in tert formamide.
+1045	279	HC	h1co	0	H on CO: tert formamide
+1049	135	CT	c4	0.02	CH; Calpha in beta-2-peptides
+1050	135	CT	c4	-0.04	CH2; Calpha in all (M, N-ter)
+1051	135	CT	c4	0	CH2; Cbeta in b-Gly (M, C-ter)
+1052	135	CT	c4	0.06	CH; Cbeta in most (M, C-ter)
+1053	135	CT	c4	-0.07	CH; Cbeta in b-Pro (M, C-ter)
+1054	135	CT	c4	-0.14	CH2; Calpha for all (C-ter)
+1055	135	CT	c4	0.17	CH; Cbeta for most (N-ter)
+1056	135	CT	c4	0.11	CH; Cbeta for b-Gly (N-ter)
+1057	135	CT	c4	0.15	CH; Cbeta for b-Pro (N-ter)
+1058	135	CT	c4	0.17	CH2; Cepsilon for b-Pro (N-ter)
+1060	1060	Si	si4	1	Si in tetraalkylsilane R4Si
+1061	1060	Si	si4	0.85	Si in R3SiH
+1062	1060	Si	si4	0.7	Si in R2SiH2
+1063	1060	Si	si4	0.55	Si in RSiH3
+1064	1064	H	h1si	-0.1	H on Si in silane
+1065	135	CT	c4	-0.43	CH3 on Si in silane
+1066	135	CT	c4	-0.37	CH2 on Si in silane
+1067	135	CT	c4	-0.31	CH on Si in silane
+1068	135	CT	c4	-0.25	C on Si in silane (t-butyl)
+1100	1100	F	f-	-1	F- 1100-1114 provide
+1101	1101	Cl	cl-	-1	Cl- sigmas that yield the
+1102	1102	Br	br-	-1	Br- correct free energies
+1103	1103	I	i-	-1	I- of hydration for
+1106	1106	Li	li+	1	Li+ The epsilons are
+1107	1107	Na	na+	1	Na+ unchanged from
+1108	1108	K	k+	1	K+ 400-414.
+1109	1109	Rb	rb+	1	Rb+
+1110	1110	Cs	cs+	1	Cs+
+1111	1111	Mg	mg+2	2	Mg++
+1112	1112	Ca	ca+2	2	Ca++
+1113	1113	Sr	sr+2	2	Sr++
+1114	1114	Ba	ba+2	2	Ba++
+1120	135	CT	c4	-0.05	C in CH3NR3+ July 2005
+1121	135	CT	c4	0.05	C in RCH2NR3+ WLJ
+1122	135	CT	c4	0.15	C in R2CHNR3+
+1123	135	CT	c4	0.25	C in R3CNR3+
+1124	140	HC	h1	0.1	H in CH3NR3+
+1125	286	N3	n4  	0.115	N (ArNR3+) Anilinium Ion
+1126	145	CA	c3a	0.135	Cipso (ArNR3+)
+1127	286	N3	n4h	0.015	N (ArNR2H+)
+1128	145	CA	c3a	0.155	Cipso (ArNR2H+)
+1153	144	HC	h1=	0.15	allene H
+1154	1154	CM	c31=	-0.25	allene C1 CH2
+1155	1154	CM	c31=	-0.1	allene C1 CHR
+1156	1154	CM	c31=	0.05	allene C1 CR2
+1157	1157	C:	c2	-0.1	allene C2
+1158	1157	C:	c2	0.2	ketene C2
+1159	236	O	o1=	-0.25	ketene O
+1200	135	CT	c4	0.088	CB in N-Me HIS
+1233	202	S	s2	0	S thiazole jlj0003
+1234	506	CR	c3a53	0.35	C2 thiazole jlj0003
+1235	352	NB	n2a5	-0.4	N thiazole jlj0003
+1236	507	CV	c3a52	0	C4 thiazole jlj0003
+1237	508	CW	c3a51	-0.15	C5 thiazole jlj0003
+1239	146	HA	h1a	0.2	H4 thiazole jlj0003
+1240	146	HA	h1a	0.2	H5 thiazole jlj0003
+2001	519	C!	c3ab	0.051376	2-phenylthiophene
+2002	508	CW	c3a51	-0.114723	2-phenylthiophene
+2003	202	S	s2	0.0463	2-phenylthiophene
+2004	508	CW	c3a51	-0.230209	2-phenylthiophene
+2005	544	CS	c3a5n	-0.148018	2-phenylthiophene
+2006	544	CS	c3a5n	-0.151445	2-phenylthiophene
+2007	146	HA	h1a	0.194335	2-phenylthiophene
+2008	146	HA	h1a	0.177813	2-phenylthiophene
+2009	146	HA	h1a	0.174571	2-phenylthiophene
+2010	519	C!	c3ab	0.022585	3-phenylthiophene
+2011	544	CS	c3a5n	-0.049432	3-phenylthiophene
+2012	544	CS	c3a5n	-0.137173	3-phenylthiophene
+2013	2013	CW	c3a5s	-0.266527	3-phenylthiophene
+2014	202	S	s2	0.144629	3-phenylthiophene
+2015	2013	CW	c3a5s	-0.256887	3-phenylthiophene
+2016	146	HA	h1a	0.168289	3-phenylthiophene
+2017	146	HA	h1a	0.187422	3-phenylthiophene
+2018	146	HA	h1a	0.187093	3-phenylthiophene
+2019	519	C!	c3ab	0.079559	2-imid
+2020	506	CR	c3a53	0.156596	2-imid
+2021	352	NB	n2a5	-0.296503	2-imid
+2022	508	CW	c3a51	-0.111074	2-imid
+2023	508	CW	c3a51	-0.084449	2-imid
+2024	319	NA	n3ah1	-0.554638	2-imid
+2025	146	HA	h1a	0.19636	2-imid
+2026	146	HA	h1a	0.19345	2-imid
+2027	240	H	h1n	0.420698	2-imid
+2028	519	C!	c3ab	0.048856	4-imid
+2029	508	CW	c3a51	-0.015307	4-imid
+2030	352	NB	n2a5	-0.299814	4-imid
+2031	506	CR	c3a53	0.076767	4-imid
+2032	319	NA	n3ah1	-0.589598	4-imid
+2033	508	CW	c3a51	-0.061437	4-imid
+2034	146	HA	h1a	0.218596	4-imid
+2035	240	H	h1n	0.426406	4-imid
+2036	146	HA	h1a	0.19553	4-imid
+2037	519	C!	c3ab	0.04326	5-imid
+2038	508	CW	c3a51	0.006801	5-imid
+2039	508	CW	c3a51	-0.082856	5-imid
+2040	352	NB	n2a5	-0.325093	5-imid
+2041	506	CR	c3a53	0.082332	5-imid
+2042	319	NA	n3ah1	-0.563033	5-imid
+2043	146	HA	h1a	0.197209	5-imid
+2044	146	HA	h1a	0.218639	5-imid
+2045	240	H	h1n	0.422743	5-imid
+2046	519	C!	c3ab	0.128859	2-imid
+2047	506	CR	c3a53	0.189226	2-imid
+2048	352	NB	n2a5	-0.344337	2-imid
+2049	507	CV	c3a52	-0.104294	2-imid
+2050	508	CW	c3a51	-0.096376	2-imid
+2051	177	OS	o2e	-0.200984	2-imid
+2052	146	HA	h1a	0.207251	2-imid
+2053	146	HA	h1a	0.220656	2-imid
+2054	519	C!	c3ab	0.071219	4-oxo
+2055	508	CW	c3a51	-0.003639	4-oxo
+2056	352	NB	n2a5	-0.339145	4-oxo
+2057	506	CR	c3a53	0.086529	4-oxo
+2058	177	OS	o2e	-0.203085	4-oxo
+2059	141	CM	c3=	-0.083882	4-oxo
+2060	146	HA	h1a	0.2489	4-oxo
+2061	146	HA	h1a	0.223104	4-oxo
+2062	519	C!	c3ab	0.088352	5-oxo
+2063	508	CW	c3a51	0.013775	5-oxo
+2064	508	CW	c3a51	-0.096223	5-oxo
+2065	352	NB	n2a5	-0.345733	5-oxo
+2066	506	CR	c3a53	0.085515	5-oxo
+2067	177	OS	o2e	-0.201138	5-oxo
+2068	146	HA	h1a	0.208198	5-oxo
+2069	146	HA	h1a	0.247255	5-oxo
+2070	519	C!	c3ab	0.092734	2-thia
+2071	506	CR	c3a53	0.017397	2-thia
+2072	352	NB	n2a5	-0.233496	2-thia
+2073	507	CV	c3a52	-0.068939	2-thia
+2074	508	CW	c3a51	-0.292876	2-thia
+2075	202	S	s2	0.087881	2-thia
+2076	146	HA	h1a	0.198881	2-thia
+2077	146	HA	h1a	0.198418	2-thia
+2078	519	C!	c3ab	0.067072	4-thia
+2079	508	CW	c3a51	0.019983	4-thia
+2080	352	NB	n2a5	-0.197955	4-thia
+2081	506	CR	c3a53	-0.10809	4-thia
+2082	202	S	s2	0.089622	4-thia
+2083	141	CM	c3=	-0.282376	4-thia
+2084	146	HA	h1a	0.211295	4-thia
+2085	146	HA	h1a	0.200448	4-thia
+2086	519	C!	c3ab	0.064021	5-thia
+2087	508	CW	c3a51	-0.165219	5-thia
+2088	508	CW	c3a51	-0.075742	5-thia
+2089	352	NB	n2a5	-0.216364	5-thia
+2090	506	CR	c3a53	-0.107629	5-thia
+2091	202	S	s2	0.088715	5-thia
+2092	146	HA	h1a	0.201329	5-thia
+2093	146	HA	h1a	0.210888	5-thia
+2094	519	C!	c3ab	0.055706	isoimid
+2095	508	CW	c3a51	-0.033911	isoimid
+2096	352	NB	n2a5	-0.097244	isoimid
+2097	319	NA	n3ah1	-0.439139	isoimid
+2098	508	CW	c3a51	-0.057205	isoimid
+2099	544	CS	c3a5n	-0.230012	isoimid
+2100	240	H	h1n	0.427732	isoimid
+2101	146	HA	h1a	0.1923	isoimid
+2102	146	HA	h1a	0.181772	isoimid
+2103	519	C!	c3ab	0.025126	4-isoimid
+2104	544	CS	c3a5n	-0.14702	4-isoimid
+2105	508	CW	c3a51	-0.109438	4-isoimid
+2106	352	NB	n2a5	-0.114227	4-isoimid
+2107	319	NA	n3ah1	-0.445894	4-isoimid
+2108	508	CW	c3a51	-0.032672	4-isoimid
+2109	146	HA	h1a	0.19928	4-isoimid
+2110	240	H	h1n	0.430099	4-isoimid
+2111	146	HA	h1a	0.194746	4-isoimid
+2112	519	C!	c3ab	0.050608	5-isoimid
+2113	508	CW	c3a51	0.04102	5-isoimid
+2114	544	CS	c3a5n	-0.228277	5-isoimid
+2115	508	CW	c3a51	-0.135277	5-isoimid
+2116	352	NB	n2a5	-0.103683	5-isoimid
+2117	319	NA	n3ah1	-0.427055	5-isoimid
+2118	146	HA	h1a	0.180214	5-isoimid
+2119	146	HA	h1a	0.197121	5-isoimid
+2120	240	H	h1n	0.42533	5-isoimid
+2121	519	C!	c3ab	0.084556	3-isoxazole
+2122	508	CW	c3a51	0.071016	3-isoxazole
+2123	352	NB	n2a5	-0.237073	3-isoxazole
+2124	177	OS	o2e	-0.046115	3-isoxazole
+2125	141	CM	c3=	-0.047458	3-isoxazole
+2126	544	CS	c3a5n	-0.238098	3-isoxazole
+2127	146	HA	h1a	0.220279	3-isoxazole
+2128	146	HA	h1a	0.192893	3-isoxazole
+2129	519	C!	c3ab	0.049972	4-isoxazole
+2130	544	CS	c3a5n	-0.138962	4-isoxazole
+2131	508	CW	c3a51	-0.017863	4-isoxazole
+2132	352	NB	n2a5	-0.243805	4-isoxazole
+2133	177	OS	o2e	-0.043685	4-isoxazole
+2134	141	CM	c3=	-0.039273	4-isoxazole
+2135	146	HA	h1a	0.211936	4-isoxazole
+2136	146	HA	h1a	0.221683	4-isoxazole
+2137	519	C!	c3ab	0.104023	5-phenylisoxazole
+2138	508	CW	c3a51	0.115124	5-phenylisoxazole
+2139	177	OS	o2e	-0.089482	5-phenylisoxazole
+2140	352	NB	n2a5	-0.234913	5-phenylisoxazole
+2141	550	CU	c3a55	-0.007074	5-phenylisoxazole
+2142	544	CS	c3a5n	-0.295788	5-phenylisoxazole
+2143	146	HA	h1a	0.212051	5-phenylisoxazole
+2144	146	HA	h1a	0.196061	5-phenylisoxazole
+2145	519	C!	c3ab	0.084768	3-isothiazole
+2146	508	CW	c3a51	0.196963	3-isothiazole
+2147	352	NB	n2a5	-0.494493	3-isothiazole
+2148	202	S	s2	0.263192	3-isothiazole
+2149	141	CM	c3=	-0.239864	3-isothiazole
+2150	544	CS	c3a5n	-0.193331	3-isothiazole
+2151	146	HA	h1a	0.197405	3-isothiazole
+2152	146	HA	h1a	0.18536	3-isothiazole
+2153	519	C!	c3ab	0.043205	4-isothiazole
+2154	544	CS	c3a5n	-0.101471	4-isothiazole
+2155	508	CW	c3a51	0.11302	4-isothiazole
+2156	352	NB	n2a5	-0.4904	4-isothiazole
+2157	202	S	s2	0.255978	4-isothiazole
+2158	141	CM	c3=	-0.232	4-isothiazole
+2159	146	HA	h1a	0.212571	4-isothiazole
+2160	146	HA	h1a	0.199097	4-isothiazole
+2161	519	C!	c3ab	0.070821	5-isothiazole
+2162	508	CW	c3a51	-0.112703	5-isothiazole
+2163	544	CS	c3a5n	-0.207733	5-isothiazole
+2164	508	CW	c3a51	0.097948	5-isothiazole
+2165	352	NB	n2a5	-0.490111	5-isothiazole
+2166	202	S	s2	0.248672	5-isothiazole
+2167	146	HA	h1a	0.184326	5-isothiazole
+2168	146	HA	h1a	0.208779	5-isothiazole
+2169	519	C!	c3ab	0.177216	N-imid
+2170	319	NA	n3ah1	-0.304858	N-imid
+2171	506	CR	c3a53	0.050634	N-imid
+2172	352	NB	n2a5	-0.315135	N-imid
+2173	508	CW	c3a51	-0.111018	N-imid
+2174	508	CW	c3a51	-0.110908	N-imid
+2175	146	HA	h1a	0.220044	N-imid
+2176	146	HA	h1a	0.197894	N-imid
+2177	146	HA	h1a	0.19613	N-imid
+2178	519	C!	c3ab	0.192673	N-isoimid
+2179	319	NA	n3ah1	-0.197363	N-isoimid
+2180	352	NB	n2a5	-0.116811	N-isoimid
+2181	508	CW	c3a51	-0.132469	N-isoimid
+2182	544	CS	c3a5n	-0.248239	N-isoimid
+2183	508	CW	c3a51	-0.071983	N-isoimid
+2184	146	HA	h1a	0.197612	N-isoimid
+2185	146	HA	h1a	0.182669	N-isoimid
+2186	146	HA	h1a	0.193911	N-isoimid
+2187	519	C!	c3ab	0.061814	2-NCCNCC (2-pyrazinyl)
+2188	519	C!	c3ab	0.039175	2-NCCNCC (2-pyrazinyl)
+2189	145	CA	c3a	-0.053425	2-NCCNCC (2-pyrazinyl)
+2190	311	NC	n2a6	-0.252298	2-NCCNCC (2-pyrazinyl)
+2191	145	CA	c3a	-0.063802	2-NCCNCC (2-pyrazinyl)
+2192	145	CA	c3a	-0.065209	2-NCCNCC (2-pyrazinyl)
+2193	311	NC	n2a6	-0.231731	2-NCCNCC (2-pyrazinyl)
+2194	146	HA	h1a	0.190232	2-NCCNCC (2-pyrazinyl)
+2195	146	HA	h1a	0.189751	2-NCCNCC (2-pyrazinyl)
+2196	146	HA	h1a	0.185494	2-NCCNCC (2-pyrazinyl)
+2197	519	C!	c3ab	0.098773	2-NCNCCC (2-pyrimidyl)
+2198	519	C!	c3ab	0.268292	2-NCNCCC (2-pyrimidyl)
+2199	311	NC	n2a6	-0.40888	2-NCNCCC (2-pyrimidyl)
+2200	145	CA	c3a	0.083044	2-NCNCCC (2-pyrimidyl)
+2201	145	CA	c3a	-0.261914	2-NCNCCC (2-pyrimidyl)
+2202	145	CA	c3a	0.066861	2-NCNCCC (2-pyrimidyl)
+2203	311	NC	n2a6	-0.378562	2-NCNCCC (2-pyrimidyl)
+2204	146	HA	h1a	0.185378	2-NCNCCC (2-pyrimidyl)
+2205	146	HA	h1a	0.166306	2-NCNCCC (2-pyrimidyl)
+2206	146	HA	h1a	0.180703	2-NCNCCC (2-pyrimidyl)
+2207	519	C!	c3ab	0.118599	2-NCNCNC (2-1,3,5-triazinyl)
+2208	519	C!	c3ab	0.33638	2-NCNCNC (2-1,3,5-triazinyl)
+2209	311	NC	n2a6	-0.449948	2-NCNCNC (2-1,3,5-triazinyl)
+2210	531	CQ	c3a6n	0.232121	2-NCNCNC (2-1,3,5-triazinyl)
+2211	311	NC	n2a6	-0.45643	2-NCNCNC (2-1,3,5-triazinyl)
+2212	531	CQ	c3a6n	0.230773	2-NCNCNC (2-1,3,5-triazinyl)
+2213	311	NC	n2a6	-0.447273	2-NCNCNC (2-1,3,5-triazinyl)
+2214	146	HA	h1a	0.218095	2-NCNCNC (2-1,3,5-triazinyl)
+2215	146	HA	h1a	0.217682	2-NCNCNC (2-1,3,5-triazinyl)
+2216	519	C!	c3ab	0.062359	3-NNCCCC (3-pyridazinyl)
+2217	519	C!	c3ab	-0.022184	3-NNCCCC (3-pyridazinyl)
+2218	145	CA	c3a	-0.141837	3-NNCCCC (3-pyridazinyl)
+2219	145	CA	c3a	-0.147202	3-NNCCCC (3-pyridazinyl)
+2220	145	CA	c3a	-0.123657	3-NNCCCC (3-pyridazinyl)
+2221	311	NC	n2a6	-0.094558	3-NNCCCC (3-pyridazinyl)
+2222	311	NC	n2a6	-0.052087	3-NNCCCC (3-pyridazinyl)
+2223	146	HA	h1a	0.166523	3-NNCCCC (3-pyridazinyl)
+2224	146	HA	h1a	0.160928	3-NNCCCC (3-pyridazinyl)
+2225	146	HA	h1a	0.191717	3-NNCCCC (3-pyridazinyl)
+2226	519	C!	c3ab	0.080407	3-NNCCNC (3-1,2,5-triazinyl)
+2227	519	C!	c3ab	-0.083951	3-NNCCNC (3-1,2,5-triazinyl)
+2228	311	NC	n2a6	0.034908	3-NNCCNC (3-1,2,5-triazinyl)
+2229	311	NC	n2a6	-0.161658	3-NNCCNC (3-1,2,5-triazinyl)
+2230	531	CQ	c3a6n	-0.001172	3-NNCCNC (3-1,2,5-triazinyl)
+2231	311	NC	n2a6	-0.283826	3-NNCCNC (3-1,2,5-triazinyl)
+2232	145	CA	c3a	-0.007358	3-NNCCNC (3-1,2,5-triazinyl)
+2233	146	HA	h1a	0.225204	3-NNCCNC (3-1,2,5-triazinyl)
+2234	146	HA	h1a	0.197446	3-NNCCNC (3-1,2,5-triazinyl)
+2235	519	C!	c3ab	0.117036	3-NNCNCC (3-1,2,4-triazinyl)
+2236	519	C!	c3ab	0.123333	3-NNCNCC (3-1,2,4-triazinyl)
+2237	311	NC	n2a6	-0.299151	3-NNCNCC (3-1,2,4-triazinyl)
+2238	145	CA	c3a	0.002847	3-NNCNCC (3-1,2,4-triazinyl)
+2239	145	CA	c3a	-0.208711	3-NNCNCC (3-1,2,4-triazinyl)
+2240	311	NC	n2a6	0.024366	3-NNCNCC (3-1,2,4-triazinyl)
+2241	311	NC	n2a6	-0.156104	3-NNCNCC (3-1,2,4-triazinyl)
+2242	146	HA	h1a	0.19418	3-NNCNCC (3-1,2,4-triazinyl)
+2243	146	HA	h1a	0.202205	3-NNCNCC (3-1,2,4-triazinyl)
+2244	519	C!	c3ab	0.138619	3-NNCNNC (3-1,2,4,5-tetrazinyl
+2245	519	C!	c3ab	-0.017509	3-NNCNNC (3-1,2,4,5-tetrazinyl
+2246	311	NC	n2a6	-0.048732	3-NNCNNC (3-1,2,4,5-tetrazinyl
+2247	311	NC	n2a6	-0.055035	3-NNCNNC (3-1,2,4,5-tetrazinyl
+2248	531	CQ	c3a6n	-0.153272	3-NNCNNC (3-1,2,4,5-tetrazinyl
+2249	311	NC	n2a6	-0.041681	3-NNCNNC (3-1,2,4,5-tetrazinyl
+2250	311	NC	n2a6	-0.061471	3-NNCNNC (3-1,2,4,5-tetrazinyl
+2251	146	HA	h1a	0.23908	3-NNCNNC (3-1,2,4,5-tetrazinyl
+2252	519	C!	c3ab	0.061808	4-NCNCCC (4-pyrimidyl)
+2253	519	C!	c3ab	0.168749	4-NCNCCC (4-pyrimidyl)
+2254	145	CA	c3a	-0.245743	4-NCNCCC (4-pyrimidyl)
+2255	145	CA	c3a	0.068831	4-NCNCCC (4-pyrimidyl)
+2256	311	NC	n2a6	-0.397694	4-NCNCCC (4-pyrimidyl)
+2257	531	CQ	c3a6n	0.159557	4-NCNCCC (4-pyrimidyl)
+2258	311	NC	n2a6	-0.379108	4-NCNCCC (4-pyrimidyl)
+2259	146	HA	h1a	0.170745	4-NCNCCC (4-pyrimidyl)
+2260	146	HA	h1a	0.181495	4-NCNCCC (4-pyrimidyl)
+2261	146	HA	h1a	0.211359	4-NCNCCC (4-pyrimidyl)
+2262	519	C!	c3ab	0.036996	4-NNCCCC (4-pyridazinyl)
+2263	519	C!	c3ab	-0.033252	4-NNCCCC (4-pyridazinyl)
+2264	145	CA	c3a	-0.140222	4-NNCCCC (4-pyridazinyl)
+2265	145	CA	c3a	-0.125943	4-NNCCCC (4-pyridazinyl)
+2266	311	NC	n2a6	-0.077577	4-NNCCCC (4-pyridazinyl)
+2267	311	NC	n2a6	-0.086655	4-NNCCCC (4-pyridazinyl)
+2268	145	CA	c3a	-0.115101	4-NNCCCC (4-pyridazinyl)
+2269	146	HA	h1a	0.166844	4-NNCCCC (4-pyridazinyl)
+2270	146	HA	h1a	0.185852	4-NNCCCC (4-pyridazinyl)
+2271	146	HA	h1a	0.189058	4-NNCCCC (4-pyridazinyl)
+2272	519	C!	c3ab	0.085702	4-NNNCCC (4-1,2,3-triazinyl)
+2273	519	C!	c3ab	0.06954	4-NNNCCC (4-1,2,3-triazinyl)
+2274	145	CA	c3a	-0.202134	4-NNNCCC (4-1,2,3-triazinyl)
+2275	145	CA	c3a	-0.03484	4-NNNCCC (4-1,2,3-triazinyl)
+2276	311	NC	n2a6	-0.250457	4-NNNCCC (4-1,2,3-triazinyl)
+2277	311	NC	n2a6	0.182341	4-NNNCCC (4-1,2,3-triazinyl)
+2278	311	NC	n2a6	-0.2258	4-NNNCCC (4-1,2,3-triazinyl)
+2279	146	HA	h1a	0.179395	4-NNNCCC (4-1,2,3-triazinyl)
+2280	146	HA	h1a	0.196253	4-NNNCCC (4-1,2,3-triazinyl)
+2281	519	C!	c3ab	0.146335	4-NNNCNC (4-1,2,3,5-tetrazinyl
+2282	519	C!	c3ab	0.224579	4-NNNCNC (4-1,2,3,5-tetrazinyl
+2283	311	NC	n2a6	-0.363621	4-NNNCNC (4-1,2,3,5-tetrazinyl
+2284	531	CQ	c3a6n	0.118036	4-NNNCNC (4-1,2,3,5-tetrazinyl
+2285	311	NC	n2a6	-0.340843	4-NNNCNC (4-1,2,3,5-tetrazinyl
+2286	311	NC	n2a6	0.305806	4-NNNCNC (4-1,2,3,5-tetrazinyl
+2287	311	NC	n2a6	-0.321824	4-NNNCNC (4-1,2,3,5-tetrazinyl
+2288	146	HA	h1a	0.231531	4-NNNCNC (4-1,2,3,5-tetrazinyl
+2289	519	C!	c3ab	0.034123	5-NCNCCC (5-pyrimidyl)
+2290	519	C!	c3ab	-0.139368	5-NCNCCC (5-pyrimidyl)
+2291	145	CA	c3a	0.078814	5-NCNCCC (5-pyrimidyl)
+2292	311	NC	n2a6	-0.399966	5-NCNCCC (5-pyrimidyl)
+2293	531	CQ	c3a6n	0.16073	5-NCNCCC (5-pyrimidyl)
+2294	311	NC	n2a6	-0.391059	5-NCNCCC (5-pyrimidyl)
+2295	145	CA	c3a	0.073747	5-NCNCCC (5-pyrimidyl)
+2296	146	HA	h1a	0.184642	5-NCNCCC (5-pyrimidyl)
+2297	146	HA	h1a	0.2148	5-NCNCCC (5-pyrimidyl)
+2298	146	HA	h1a	0.183537	5-NCNCCC (5-pyrimidyl)
+2299	519	C!	c3ab	0.084067	5-NNCNCC (5-1,2,4-triazinyl)
+2300	519	C!	c3ab	0.109344	5-NNCNCC (5-1,2,4-triazinyl)
+2301	145	CA	c3a	-0.198811	5-NNCNCC (5-1,2,4-triazinyl)
+2302	311	NC	n2a6	0.034317	5-NNCNCC (5-1,2,4-triazinyl)
+2303	311	NC	n2a6	-0.180956	5-NNCNCC (5-1,2,4-triazinyl)
+2304	531	CQ	c3a6n	0.017527	5-NNCNCC (5-1,2,4-triazinyl)
+2305	311	NC	n2a6	-0.290251	5-NNCNCC (5-1,2,4-triazinyl)
+2306	146	HA	h1a	0.201661	5-NNCNCC (5-1,2,4-triazinyl)
+2307	146	HA	h1a	0.223103	5-NNCNCC (5-1,2,4-triazinyl)
+2308	519	C!	c3ab	0.058092	5-NNNCCC (5-1,2,3-triazinyl)
+2309	519	C!	c3ab	-0.077572	5-NNNCCC (5-1,2,3-triazinyl)
+2310	145	CA	c3a	-0.054014	5-NNNCCC (5-1,2,3-triazinyl)
+2311	311	NC	n2a6	-0.200209	5-NNNCCC (5-1,2,3-triazinyl)
+2312	311	NC	n2a6	0.137509	5-NNNCCC (5-1,2,3-triazinyl)
+2313	311	NC	n2a6	-0.209181	5-NNNCCC (5-1,2,3-triazinyl)
+2314	145	CA	c3a	-0.048436	5-NNNCCC (5-1,2,3-triazinyl)
+2315	146	HA	h1a	0.196097	5-NNNCCC (5-1,2,3-triazinyl)
+2316	146	HA	h1a	0.197714	5-NNNCCC (5-1,2,3-triazinyl)
+2317	519	C!	c3ab	0.110514	5-NNNNCC (5-1,2,3,4-tetrazinyl
+2318	519	C!	c3ab	0.001462	5-NNNNCC (5-1,2,3,4-tetrazinyl
+2319	145	CA	c3a	-0.125272	5-NNNNCC (5-1,2,3,4-tetrazinyl
+2320	311	NC	n2a6	-0.098266	5-NNNNCC (5-1,2,3,4-tetrazinyl
+2321	311	NC	n2a6	-0.005721	5-NNNNCC (5-1,2,3,4-tetrazinyl
+2322	311	NC	n2a6	-0.001504	5-NNNNCC (5-1,2,3,4-tetrazinyl
+2323	311	NC	n2a6	-0.093578	5-NNNNCC (5-1,2,3,4-tetrazinyl
+2324	146	HA	h1a	0.212365	5-NNNNCC (5-1,2,3,4-tetrazinyl
+2325	519	C!	c3ab	0.046072	2-phenylpyridine
+2326	519	C!	c3ab	0.137657	2-phenylpyridine
+2327	145	CA	c3a	-0.195816	2-phenylpyridine
+2328	145	CA	c3a	-0.093021	2-phenylpyridine
+2329	145	CA	c3a	-0.195912	2-phenylpyridine
+2330	145	CA	c3a	0.08818	2-phenylpyridine
+2331	311	NC	n2a6	-0.359054	2-phenylpyridine
+2332	146	HA	h1a	0.152211	2-phenylpyridine
+2333	146	HA	h1a	0.148067	2-phenylpyridine
+2334	146	HA	h1a	0.154596	2-phenylpyridine
+2335	135	CT	c4	-0.181475	2-phenylpyridine
+2336	140	HC	h1	0.109568	2-phenylpyridine
+2337	140	HC	h1	0.094774	2-phenylpyridine
+2338	140	HC	h1	0.094151	2-phenylpyridine
+2339	519	C!	c3ab	0.044957	2-phenylpyridine
+2340	519	C!	c3ab	0.121046	2-phenylpyridine
+2341	145	CA	c3a	-0.184588	2-phenylpyridine
+2342	145	CA	c3a	-0.096557	2-phenylpyridine
+2343	145	CA	c3a	-0.136754	2-phenylpyridine
+2344	145	CA	c3a	0.025866	2-phenylpyridine
+2345	311	NC	n2a6	-0.343623	2-phenylpyridine
+2346	146	HA	h1a	0.152585	2-phenylpyridine
+2347	146	HA	h1a	0.149227	2-phenylpyridine
+2348	135	CT	c4	-0.179705	2-phenylpyridine
+2349	146	HA	h1a	0.1727	2-phenylpyridine
+2350	140	HC	h1	0.087543	2-phenylpyridine
+2351	140	HC	h1	0.093556	2-phenylpyridine
+2352	140	HC	h1	0.093747	2-phenylpyridine
+2353	519	C!	c3ab	0.046107	2-phenylpyridine
+2354	519	C!	c3ab	0.135229	2-phenylpyridine
+2355	145	CA	c3a	-0.188109	2-phenylpyridine
+2356	145	CA	c3a	-0.035801	2-phenylpyridine
+2357	145	CA	c3a	-0.200561	2-phenylpyridine
+2358	145	CA	c3a	0.03341	2-phenylpyridine
+2359	311	NC	n2a6	-0.362448	2-phenylpyridine
+2360	146	HA	h1a	0.153167	2-phenylpyridine
+2361	135	CT	c4	-0.190547	2-phenylpyridine
+2362	146	HA	h1a	0.154452	2-phenylpyridine
+2363	146	HA	h1a	0.171714	2-phenylpyridine
+2364	140	HC	h1	0.089469	2-phenylpyridine
+2365	140	HC	h1	0.097091	2-phenylpyridine
+2366	140	HC	h1	0.096828	2-phenylpyridine
+2367	519	C!	c3ab	0.040157	2-phenylpyridine
+2368	519	C!	c3ab	0.107763	2-phenylpyridine
+2369	145	CA	c3a	-0.119176	2-phenylpyridine
+2370	145	CA	c3a	-0.101458	2-phenylpyridine
+2371	145	CA	c3a	-0.192194	2-phenylpyridine
+2372	145	CA	c3a	0.003654	2-phenylpyridine
+2373	311	NC	n2a6	-0.313311	2-phenylpyridine
+2374	135	CT	c4	-0.179723	2-phenylpyridine
+2375	146	HA	h1a	0.148803	2-phenylpyridine
+2376	146	HA	h1a	0.154012	2-phenylpyridine
+2377	146	HA	h1a	0.172107	2-phenylpyridine
+2378	140	HC	h1	0.084648	2-phenylpyridine
+2379	140	HC	h1	0.095625	2-phenylpyridine
+2380	140	HC	h1	0.099094	2-phenylpyridine
+2381	519	C!	c3ab	0.014684	3-phenylpyridine
+2382	519	C!	c3ab	-0.093224	3-phenylpyridine
+2383	145	CA	c3a	-0.081546	3-phenylpyridine
+2384	145	CA	c3a	-0.204386	3-phenylpyridine
+2385	145	CA	c3a	0.019061	3-phenylpyridine
+2386	311	NC	n2a6	-0.343356	3-phenylpyridine
+2387	145	CA	c3a	0.088381	3-phenylpyridine
+2388	146	HA	h1a	0.152341	3-phenylpyridine
+2389	146	HA	h1a	0.154919	3-phenylpyridine
+2390	146	HA	h1a	0.17018	3-phenylpyridine
+2391	135	CT	c4	-0.180352	3-phenylpyridine
+2392	140	HC	h1	0.108994	3-phenylpyridine
+2393	140	HC	h1	0.094217	3-phenylpyridine
+2394	140	HC	h1	0.100085	3-phenylpyridine
+2395	519	C!	c3ab	0.01399	3-phenylpyridine
+2396	519	C!	c3ab	-0.094849	3-phenylpyridine
+2397	145	CA	c3a	-0.082812	3-phenylpyridine
+2398	145	CA	c3a	-0.193254	3-phenylpyridine
+2399	145	CA	c3a	0.068648	3-phenylpyridine
+2400	311	NC	n2a6	-0.333735	3-phenylpyridine
+2401	145	CA	c3a	0.027679	3-phenylpyridine
+2402	146	HA	h1a	0.150097	3-phenylpyridine
+2403	146	HA	h1a	0.155811	3-phenylpyridine
+2404	135	CT	c4	-0.183114	3-phenylpyridine
+2405	146	HA	h1a	0.17258	3-phenylpyridine
+2406	140	HC	h1	0.110318	3-phenylpyridine
+2407	140	HC	h1	0.094315	3-phenylpyridine
+2408	140	HC	h1	0.094326	3-phenylpyridine
+2409	519	C!	c3ab	0.015618	3-phenylpyridine
+2410	519	C!	c3ab	-0.082686	3-phenylpyridine
+2411	145	CA	c3a	-0.088752	3-phenylpyridine
+2412	145	CA	c3a	-0.13343	3-phenylpyridine
+2413	145	CA	c3a	0.007395	3-phenylpyridine
+2414	311	NC	n2a6	-0.320573	3-phenylpyridine
+2415	145	CA	c3a	0.01136	3-phenylpyridine
+2416	146	HA	h1a	0.151021	3-phenylpyridine
+2417	135	CT	c4	-0.179545	3-phenylpyridine
+2418	146	HA	h1a	0.171291	3-phenylpyridine
+2419	146	HA	h1a	0.172266	3-phenylpyridine
+2420	140	HC	h1	0.089496	3-phenylpyridine
+2421	140	HC	h1	0.092852	3-phenylpyridine
+2422	140	HC	h1	0.093685	3-phenylpyridine
+2423	519	C!	c3ab	0.0149	3-phenylpyridine
+2424	519	C!	c3ab	-0.097562	3-phenylpyridine
+2425	145	CA	c3a	-0.018997	3-phenylpyridine
+2426	145	CA	c3a	-0.198843	3-phenylpyridine
+2427	145	CA	c3a	0.014451	3-phenylpyridine
+2428	311	NC	n2a6	-0.339418	3-phenylpyridine
+2429	145	CA	c3a	0.026415	3-phenylpyridine
+2430	135	CT	c4	-0.189852	3-phenylpyridine
+2431	146	HA	h1a	0.155105	3-phenylpyridine
+2432	146	HA	h1a	0.170125	3-phenylpyridine
+2433	146	HA	h1a	0.174773	3-phenylpyridine
+2434	140	HC	h1	0.087954	3-phenylpyridine
+2435	140	HC	h1	0.103368	3-phenylpyridine
+2436	140	HC	h1	0.097583	3-phenylpyridine
+2437	145	CA	c3a	-0.035915	benzyloxazolidinone
+2438	135	CT	c4	-0.146899	benzyloxazolidinone
+2439	135	CT	c4	0.072565	benzyloxazolidinone
+2440	140	HC	h1	0.100639	benzyloxazolidinone
+2441	140	HC	h1	0.112091	benzyloxazolidinone
+2442	140	HC	h1	0.147309	benzyloxazolidinone
+2443	177	OS	o2e	-0.307264	benzyloxazolidinone
+2444	135	CT	c4	0.113907	benzyloxazolidinone
+2445	231	C	c3o	0.723822	benzyloxazolidinone
+2446	237	N	n3am	-1.116606	benzyloxazolidinone
+2447	140	HC	h1	0.116955	benzyloxazolidinone
+2448	140	HC	h1	0.098541	benzyloxazolidinone
+2449	236	O	o1=	-0.409538	benzyloxazolidinone
+2450	240	H	h1n	0.530395	benzyloxazolidinone
+2451	145	CA	c3a	-0.032649	desacetamido-linezolid
+2452	135	CT	c4	-0.148566	desacetamido-linezolid
+2453	135	CT	c4	0.070486	desacetamido-linezolid
+2454	140	HC	h1	0.103569	desacetamido-linezolid
+2455	140	HC	h1	0.111763	desacetamido-linezolid
+2456	140	HC	h1	0.152429	desacetamido-linezolid
+2457	177	OS	o2e	-0.298186	desacetamido-linezolid
+2458	135	CT	c4	0.056694	desacetamido-linezolid
+2459	231	C	c3o	0.677492	desacetamido-linezolid
+2460	237	N	n3am	-0.79488	desacetamido-linezolid
+2461	140	HC	h1	0.126201	desacetamido-linezolid
+2462	140	HC	h1	0.109619	desacetamido-linezolid
+2463	236	O	o1=	-0.394075	desacetamido-linezolid
+2464	519	C!	c3ab	0.260556	desacetamido-linezolid
+2465	145	CA	c3a	-0.216071	desacetamido-linezolid
+2466	145	CA	c3a	0.096475	desacetamido-linezolid
+2467	519	C!	c3ab	0.075846	desacetamido-linezolid
+2468	145	CA	c3a	-0.134753	desacetamido-linezolid
+2469	145	CA	c3a	-0.149107	desacetamido-linezolid
+2470	146	HA	h1a	0.156761	desacetamido-linezolid
+2471	986	F	f1ao	-0.068286	desacetamido-linezolid
+2472	900	NT	n3	-0.509508	desacetamido-linezolid
+2473	146	HA	h1a	0.157314	desacetamido-linezolid
+2474	146	HA	h1a	0.172023	desacetamido-linezolid
+2475	135	CT	c4	-0.023022	desacetamido-linezolid
+2476	135	CT	c4	-0.020073	desacetamido-linezolid
+2477	135	CT	c4	0.007649	desacetamido-linezolid
+2478	140	HC	h1	0.108692	desacetamido-linezolid
+2479	140	HC	h1	0.081546	desacetamido-linezolid
+2480	135	CT	c4	0.006803	desacetamido-linezolid
+2481	140	HC	h1	0.080486	desacetamido-linezolid
+2482	140	HC	h1	0.11151	desacetamido-linezolid
+2483	177	OS	o2e	-0.351591	desacetamido-linezolid
+2484	140	HC	h1	0.092652	desacetamido-linezolid
+2485	140	HC	h1	0.115305	desacetamido-linezolid
+2486	140	HC	h1	0.093034	desacetamido-linezolid
+2487	140	HC	h1	0.115858	desacetamido-linezolid
+2488	145	CA	c3a	-0.034719	CH2-oxazolidinone-phenyl
+2489	135	CT	c4	-0.148684	CH2-oxazolidinone-phenyl
+2490	135	CT	c4	0.070141	CH2-oxazolidinone-phenyl
+2491	140	HC	h1	0.102706	CH2-oxazolidinone-phenyl
+2492	140	HC	h1	0.112657	CH2-oxazolidinone-phenyl
+2493	140	HC	h1	0.150393	CH2-oxazolidinone-phenyl
+2494	177	OS	o2e	-0.301297	CH2-oxazolidinone-phenyl
+2495	135	CT	c4	0.059593	CH2-oxazolidinone-phenyl
+2496	231	C	c3o	0.677565	CH2-oxazolidinone-phenyl
+2497	237	N	n3am	-0.797603	CH2-oxazolidinone-phenyl
+2498	140	HC	h1	0.125072	CH2-oxazolidinone-phenyl
+2499	140	HC	h1	0.106684	CH2-oxazolidinone-phenyl
+2500	236	O	o1=	-0.396526	CH2-oxazolidinone-phenyl
+2501	519	C!	c3ab	0.238652	CH2-oxazolidinone-phenyl
+2502	145	CA	c3a	-0.177447	CH2-oxazolidinone-phenyl
+2503	145	CA	c3a	-0.116355	CH2-oxazolidinone-phenyl
+2504	145	CA	c3a	-0.157162	CH2-oxazolidinone-phenyl
+2505	145	CA	c3a	-0.114064	CH2-oxazolidinone-phenyl
+2506	145	CA	c3a	-0.143886	CH2-oxazolidinone-phenyl
+2507	146	HA	h1a	0.138901	CH2-oxazolidinone-phenyl
+2508	146	HA	h1a	0.144885	CH2-oxazolidinone-phenyl
+2509	146	HA	h1a	0.144535	CH2-oxazolidinone-phenyl
+2510	146	HA	h1a	0.149199	CH2-oxazolidinone-phenyl
+2511	146	HA	h1a	0.166762	CH2-oxazolidinone-phenyl
+2512	519	C!	c3ab	0.014011	5-phenyl-1,3-benzodioxole
+2513	519	C!	c3ab	-0.031806	5-phenyl-1,3-benzodioxole
+2514	145	CA	c3a	-0.125888	5-phenyl-1,3-benzodioxole
+2515	145	CA	c3a	-0.121057	5-phenyl-1,3-benzodioxole
+2516	349	CB	c3aa	0.029812	5-phenyl-1,3-benzodioxole
+2517	349	CB	c3aa	0.028006	5-phenyl-1,3-benzodioxole
+2518	145	CA	c3a	-0.10968	5-phenyl-1,3-benzodioxole
+2519	146	HA	h1a	0.154735	5-phenyl-1,3-benzodioxole
+2520	146	HA	h1a	0.161733	5-phenyl-1,3-benzodioxole
+2521	177	OS	o2e	-0.267523	5-phenyl-1,3-benzodioxole
+2522	189	CO	c4o2	0.151222	5-phenyl-1,3-benzodioxole
+2523	177	OS	o2e	-0.267785	5-phenyl-1,3-benzodioxole
+2524	140	HC	h1	0.110808	5-phenyl-1,3-benzodioxole
+2525	140	HC	h1	0.110842	5-phenyl-1,3-benzodioxole
+2526	146	HA	h1a	0.162569	5-phenyl-1,3-benzodioxole
+2527	519	C!	c3ab	0.26586	1-phenyluracil
+2528	237	N	n3am	-0.570056	1-phenyluracil
+2529	231	C	c3o	0.754788	1-phenyluracil
+2530	237	N	n3am	-0.994527	1-phenyluracil
+2531	231	C	c3o	0.594367	1-phenyluracil
+2532	2532	C=	c3u	-0.306839	1-phenyluracil
+2533	141	CM	c3=	0.164285	1-phenyluracil
+2534	236	O	o1=	-0.410576	1-phenyluracil
+2535	240	H	h1n	0.517052	1-phenyluracil
+2536	236	O	o1=	-0.400519	1-phenyluracil
+2537	146	HA	h1a	0.20115	1-phenyluracil
+2538	146	HA	h1a	0.185016	1-phenyluracil
+2539	519	C!	c3ab	0.055366	5-phenyluracil
+2540	519	C!	c3ab	-0.188004	5-phenyluracil
+2541	231	C	c3o	0.60705	5-phenyluracil
+2542	237	N	n3am	-0.992961	5-phenyluracil
+2543	231	C	c3o	0.782981	5-phenyluracil
+2544	237	N	n3am	-0.848822	5-phenyluracil
+2545	141	CM	c3=	0.203367	5-phenyluracil
+2546	236	O	o1=	-0.39434	5-phenyluracil
+2547	240	H	h1n	0.517689	5-phenyluracil
+2548	236	O	o1=	-0.417979	5-phenyluracil
+2549	240	H	h1n	0.491466	5-phenyluracil
+2550	146	HA	h1a	0.184187	5-phenyluracil
+2551	519	C!	c3ab	0.064172	6-phenyluracil
+2552	519	C!	c3ab	0.31628	6-phenyluracil
+2553	141	CM	c3=	-0.306363	6-phenyluracil
+2554	231	C	c3o	0.603176	6-phenyluracil
+2555	237	N	n3am	-0.998932	6-phenyluracil
+2556	231	C	c3o	0.796022	6-phenyluracil
+2557	237	N	n3am	-0.857078	6-phenyluracil
+2558	146	HA	h1a	0.198208	6-phenyluracil
+2559	236	O	o1=	-0.399885	6-phenyluracil
+2560	240	H	h1n	0.514546	6-phenyluracil
+2561	236	O	o1=	-0.419937	6-phenyluracil
+2562	240	H	h1n	0.48979	6-phenyluracil
+2563	519	C!	c3ab	0.05465	6-methyl,5-phenyluracil
+2564	519	C!	c3ab	-0.201103	6-methyl,5-phenyluracil
+2565	231	C	c3o	0.605316	6-methyl,5-phenyluracil
+2566	237	N	n3am	-0.993241	6-methyl,5-phenyluracil
+2567	231	C	c3o	0.791124	6-methyl,5-phenyluracil
+2568	237	N	n3am	-0.858091	6-methyl,5-phenyluracil
+2569	141	CM	c3=	0.277329	6-methyl,5-phenyluracil
+2570	236	O	o1=	-0.393797	6-methyl,5-phenyluracil
+2571	240	H	h1n	0.5167	6-methyl,5-phenyluracil
+2572	236	O	o1=	-0.422392	6-methyl,5-phenyluracil
+2573	240	H	h1n	0.489145	6-methyl,5-phenyluracil
+2574	135	CT	c4	-0.220916	6-methyl,5-phenyluracil
+2575	140	HC	h1	0.13543	6-methyl,5-phenyluracil
+2576	140	HC	h1	0.105044	6-methyl,5-phenyluracil
+2577	140	HC	h1	0.114799	6-methyl,5-phenyluracil
+2578	519	C!	c3ab	0.061213	5-methyl,6-phenyluracil
+2579	519	C!	c3ab	0.298796	5-methyl,6-phenyluracil
+2580	141	CM	c3=	-0.221019	5-methyl,6-phenyluracil
+2581	231	C	c3o	0.601466	5-methyl,6-phenyluracil
+2582	237	N	n3am	-0.993797	5-methyl,6-phenyluracil
+2583	231	C	c3o	0.792811	5-methyl,6-phenyluracil
+2584	237	N	n3am	-0.854017	5-methyl,6-phenyluracil
+2585	135	CT	c4	-0.169527	5-methyl,6-phenyluracil
+2586	236	O	o1=	-0.402061	5-methyl,6-phenyluracil
+2587	240	H	h1n	0.514547	5-methyl,6-phenyluracil
+2588	236	O	o1=	-0.422362	5-methyl,6-phenyluracil
+2589	240	H	h1n	0.489821	5-methyl,6-phenyluracil
+2590	140	HC	h1	0.093865	5-methyl,6-phenyluracil
+2591	140	HC	h1	0.116684	5-methyl,6-phenyluracil
+2592	140	HC	h1	0.09358	5-methyl,6-phenyluracil
+2593	519	C!	c3ab	0.112609	3-phenylmaleic anhydride
+2594	2532	C=	c3u	-0.070932	3-phenylmaleic anhydride
+2595	2532	C=	c3u	-0.229481	3-phenylmaleic anhydride
+2596	231	C	c3o	0.44794	3-phenylmaleic anhydride
+2597	177	OS	o2e	-0.282762	3-phenylmaleic anhydride
+2598	231	C	c3o	0.465368	3-phenylmaleic anhydride
+2599	146	HA	h1a	0.207343	3-phenylmaleic anhydride
+2600	236	O	o1=	-0.325002	3-phenylmaleic anhydride
+2601	236	O	o1=	-0.325084	3-phenylmaleic anhydride
+2602	519	C!	c3ab	0.093688	3-phenylmaleimide
+2603	2532	C=	c3u	-0.059386	3-phenylmaleimide
+2604	2532	C=	c3u	-0.207513	3-phenylmaleimide
+2605	231	C	c3o	0.59864	3-phenylmaleimide
+2606	237	N	n3am	-1.015844	3-phenylmaleimide
+2607	231	C	c3o	0.610899	3-phenylmaleimide
+2608	146	HA	h1a	0.197084	3-phenylmaleimide
+2609	236	O	o1=	-0.359425	3-phenylmaleimide
+2610	236	O	o1=	-0.363945	3-phenylmaleimide
+2611	240	H	h1n	0.505804	3-phenylmaleimide
+2612	519	C!	c3ab	0.044166	1-isoquinolinyl
+2613	519	C!	c3ab	0.146474	1-isoquinolinyl
+2614	145	CA	c3a	-0.087016	1-isoquinolinyl
+2615	145	CA	c3a	-0.009208	1-isoquinolinyl
+2616	145	CA	c3a	-0.179689	1-isoquinolinyl
+2617	145	CA	c3a	-0.008993	1-isoquinolinyl
+2618	311	NC	n2a6	-0.323586	1-isoquinolinyl
+2619	145	CA	c3a	-0.10888	1-isoquinolinyl
+2620	145	CA	c3a	-0.137853	1-isoquinolinyl
+2621	146	HA	h1a	0.155288	1-isoquinolinyl
+2622	146	HA	h1a	0.176736	1-isoquinolinyl
+2623	145	CA	c3a	-0.145177	1-isoquinolinyl
+2624	145	CA	c3a	-0.119761	1-isoquinolinyl
+2625	146	HA	h1a	0.157857	1-isoquinolinyl
+2626	146	HA	h1a	0.147435	1-isoquinolinyl
+2627	146	HA	h1a	0.144793	1-isoquinolinyl
+2628	146	HA	h1a	0.147414	1-isoquinolinyl
+2629	519	C!	c3ab	0.016971	4-phenylquinoline
+2630	519	C!	c3ab	0.02043	4-phenylquinoline
+2631	145	CA	c3a	-0.073867	4-phenylquinoline
+2632	145	CA	c3a	0.089877	4-phenylquinoline
+2633	311	NC	n2a6	-0.33312	4-phenylquinoline
+2634	145	CA	c3a	0.036223	4-phenylquinoline
+2635	145	CA	c3a	-0.19144	4-phenylquinoline
+2636	145	CA	c3a	-0.118599	4-phenylquinoline
+2637	145	CA	c3a	-0.113759	4-phenylquinoline
+2638	146	HA	h1a	0.172601	4-phenylquinoline
+2639	146	HA	h1a	0.159556	4-phenylquinoline
+2640	145	CA	c3a	-0.141762	4-phenylquinoline
+2641	145	CA	c3a	-0.127337	4-phenylquinoline
+2642	146	HA	h1a	0.152272	4-phenylquinoline
+2643	146	HA	h1a	0.145335	4-phenylquinoline
+2644	146	HA	h1a	0.147116	4-phenylquinoline
+2645	146	HA	h1a	0.159504	4-phenylquinoline
+2646	519	C!	c3ab	0.017818	4-phenylisoquinoline
+2647	519	C!	c3ab	-0.081818	4-phenylisoquinoline
+2648	145	CA	c3a	0.008999	4-phenylisoquinoline
+2649	145	CA	c3a	-0.094344	4-phenylisoquinoline
+2650	145	CA	c3a	0.037791	4-phenylisoquinoline
+2651	311	NC	n2a6	-0.325196	4-phenylisoquinoline
+2652	145	CA	c3a	0.002846	4-phenylisoquinoline
+2653	145	CA	c3a	-0.134352	4-phenylisoquinoline
+2654	145	CA	c3a	-0.109892	4-phenylisoquinoline
+2655	146	HA	h1a	0.171553	4-phenylisoquinoline
+2656	146	HA	h1a	0.175386	4-phenylisoquinoline
+2657	145	CA	c3a	-0.121307	4-phenylisoquinoline
+2658	145	CA	c3a	-0.142903	4-phenylisoquinoline
+2659	146	HA	h1a	0.155801	4-phenylisoquinoline
+2660	146	HA	h1a	0.146121	4-phenylisoquinoline
+2661	146	HA	h1a	0.145961	4-phenylisoquinoline
+2662	146	HA	h1a	0.147537	4-phenylisoquinoline
+2663	519	C!	c3ab	0.025717	3-phenylindole
+2664	519	C!	c3ab	-0.124414	3-phenylindole
+2665	349	CB	c3aa	-0.081532	3-phenylindole
+2666	508	CW	c3a51	0.035282	3-phenylindole
+2667	349	CB	c3aa	0.114815	3-phenylindole
+2668	319	NA	n3ah1	-0.626196	3-phenylindole
+2669	240	H	h1n	0.429092	3-phenylindole
+2670	146	HA	h1a	0.181568	3-phenylindole
+2671	145	CA	c3a	-0.087318	3-phenylindole
+2672	145	CA	c3a	-0.171267	3-phenylindole
+2673	145	CA	c3a	-0.122263	3-phenylindole
+2674	145	CA	c3a	-0.15183	3-phenylindole
+2675	146	HA	h1a	0.159433	3-phenylindole
+2676	146	HA	h1a	0.138315	3-phenylindole
+2677	146	HA	h1a	0.137599	3-phenylindole
+2678	146	HA	h1a	0.142998	3-phenylindole
+2679	519	C!	c3ab	0.241654	1-phenylbenzimidazole
+2680	319	NA	n3ah1	-0.340989	1-phenylbenzimidazole
+2681	349	CB	c3aa	0.016603	1-phenylbenzimidazole
+2682	506	CR	c3a53	0.117893	1-phenylbenzimidazole
+2683	349	CB	c3aa	0.018997	1-phenylbenzimidazole
+2684	352	NB	n2a5	-0.344443	1-phenylbenzimidazole
+2685	146	HA	h1a	0.208013	1-phenylbenzimidazole
+2686	2686	CA	c3ai	-0.149087	1-phenylbenzimidazole
+2687	145	CA	c3a	-0.128706	1-phenylbenzimidazole
+2688	145	CA	c3a	-0.156336	1-phenylbenzimidazole
+2689	2686	CA	c3ai	-0.076933	1-phenylbenzimidazole
+2690	146	HA	h1a	0.149468	1-phenylbenzimidazole
+2691	146	HA	h1a	0.143132	1-phenylbenzimidazole
+2692	146	HA	h1a	0.146387	1-phenylbenzimidazole
+2693	146	HA	h1a	0.154348	1-phenylbenzimidazole
+2694	519	C!	c3ab	0.103553	2-phenyltetrazole
+2695	506	CR	c3a53	0.172293	2-phenyltetrazole
+2696	319	NA	n3ah1	-0.481204	2-phenyltetrazole
+2697	352	NB	n2a5	-0.061809	2-phenyltetrazole
+2698	352	NB	n2a5	0.082335	2-phenyltetrazole
+2699	352	NB	n2a5	-0.275257	2-phenyltetrazole
+2700	240	H	h1n	0.460089	2-phenyltetrazole
+2701	519	C!	c3ab	0.135807	2-phenylbenzoxazole
+2702	506	CR	c3a53	0.233317	2-phenylbenzoxazole
+2703	352	NB	n2a5	-0.318757	2-phenylbenzoxazole
+2704	349	CB	c3aa	-0.015697	2-phenylbenzoxazole
+2705	349	CB	c3aa	0.022275	2-phenylbenzoxazole
+2706	177	OS	o2e	-0.209628	2-phenylbenzoxazole
+2707	145	CA	c3a	-0.073645	2-phenylbenzoxazole
+2708	145	CA	c3a	-0.156113	2-phenylbenzoxazole
+2709	145	CA	c3a	-0.1207	2-phenylbenzoxazole
+2710	145	CA	c3a	-0.122551	2-phenylbenzoxazole
+2711	146	HA	h1a	0.163626	2-phenylbenzoxazole
+2712	146	HA	h1a	0.149213	2-phenylbenzoxazole
+2713	146	HA	h1a	0.148297	2-phenylbenzoxazole
+2714	146	HA	h1a	0.164557	2-phenylbenzoxazole
+2715	519	C!	c3ab	0.146693	4-aza,2-phenylbenzoxazole
+2716	506	CR	c3a53	0.233843	4-aza,2-phenylbenzoxazole
+2717	352	NB	n2a5	-0.272809	4-aza,2-phenylbenzoxazole
+2718	349	CB	c3aa	0.073781	4-aza,2-phenylbenzoxazole
+2719	349	CB	c3aa	-0.033365	4-aza,2-phenylbenzoxazole
+2720	177	OS	o2e	-0.20088	4-aza,2-phenylbenzoxazole
+2721	311	NC	n2a6	-0.164152	4-aza,2-phenylbenzoxazole
+2722	145	CA	c3a	-0.043022	4-aza,2-phenylbenzoxazole
+2723	145	CA	c3a	-0.18062	4-aza,2-phenylbenzoxazole
+2724	145	CA	c3a	-0.073195	4-aza,2-phenylbenzoxazole
+2725	146	HA	h1a	0.181143	4-aza,2-phenylbenzoxazole
+2726	146	HA	h1a	0.162918	4-aza,2-phenylbenzoxazole
+2727	146	HA	h1a	0.169662	4-aza,2-phenylbenzoxazole
+2728	519	C!	c3ab	0.144314	5-aza,2-phenylbenzoxazole
+2729	506	CR	c3a53	0.225741	5-aza,2-phenylbenzoxazole
+2730	352	NB	n2a5	-0.285787	5-aza,2-phenylbenzoxazole
+2731	349	CB	c3aa	-0.08226	5-aza,2-phenylbenzoxazole
+2732	349	CB	c3aa	0.058448	5-aza,2-phenylbenzoxazole
+2733	177	OS	o2e	-0.204952	5-aza,2-phenylbenzoxazole
+2734	145	CA	c3a	0.096573	5-aza,2-phenylbenzoxazole
+2735	311	NC	n2a6	-0.366483	5-aza,2-phenylbenzoxazole
+2736	145	CA	c3a	0.033841	5-aza,2-phenylbenzoxazole
+2737	145	CA	c3a	-0.173808	5-aza,2-phenylbenzoxazole
+2738	146	HA	h1a	0.196577	5-aza,2-phenylbenzoxazole
+2739	146	HA	h1a	0.181233	5-aza,2-phenylbenzoxazole
+2740	146	HA	h1a	0.176561	5-aza,2-phenylbenzoxazole
+2741	519	C!	c3ab	0.148309	6-aza-2-phenylbenzoxazole
+2742	506	CR	c3a53	0.255356	6-aza-2-phenylbenzoxazole
+2743	352	NB	n2a5	-0.329112	6-aza-2-phenylbenzoxazole
+2744	349	CB	c3aa	0.028856	6-aza-2-phenylbenzoxazole
+2745	349	CB	c3aa	-0.044448	6-aza-2-phenylbenzoxazole
+2746	177	OS	o2e	-0.195533	6-aza-2-phenylbenzoxazole
+2747	145	CA	c3a	-0.129876	6-aza-2-phenylbenzoxazole
+2748	145	CA	c3a	-0.016404	6-aza-2-phenylbenzoxazole
+2749	311	NC	n2a6	-0.303185	6-aza-2-phenylbenzoxazole
+2750	145	CA	c3a	0.036855	6-aza-2-phenylbenzoxazole
+2751	146	HA	h1a	0.17501	6-aza-2-phenylbenzoxazole
+2752	146	HA	h1a	0.181204	6-aza-2-phenylbenzoxazole
+2753	146	HA	h1a	0.192968	6-aza-2-phenylbenzoxazole
+2754	519	C!	c3ab	0.146636	7-aza-2-phenylbenzoxazole
+2755	506	CR	c3a53	0.237004	7-aza-2-phenylbenzoxazole
+2756	352	NB	n2a5	-0.304855	7-aza-2-phenylbenzoxazole
+2757	349	CB	c3aa	-0.05594	7-aza-2-phenylbenzoxazole
+2758	349	CB	c3aa	0.126922	7-aza-2-phenylbenzoxazole
+2759	177	OS	o2e	-0.186166	7-aza-2-phenylbenzoxazole
+2760	145	CA	c3a	-0.032326	7-aza-2-phenylbenzoxazole
+2761	145	CA	c3a	-0.209459	7-aza-2-phenylbenzoxazole
+2762	145	CA	c3a	0.001438	7-aza-2-phenylbenzoxazole
+2763	311	NC	n2a6	-0.23966	7-aza-2-phenylbenzoxazole
+2764	146	HA	h1a	0.170451	7-aza-2-phenylbenzoxazole
+2765	146	HA	h1a	0.162548	7-aza-2-phenylbenzoxazole
+2766	146	HA	h1a	0.183406	7-aza-2-phenylbenzoxazole
+2767	568	CS	c3a5o	-0.143	3 or 4-methyl,phenylfurans
+2768	508	CW	c3a51	0.008	2 or 5-methyl,phenylfurans
+2769	519	C!	c3ab	0.034986	2-phenylpyrrole
+2770	508	CW	c3a51	0.023888	2-phenylpyrrole
+2771	544	CS	c3a5n	-0.183173	2-phenylpyrrole
+2772	544	CS	c3a5n	-0.228906	2-phenylpyrrole
+2773	508	CW	c3a51	-0.062438	2-phenylpyrrole
+2774	319	NA	n3ah1	-0.477669	2-phenylpyrrole
+2775	146	HA	h1a	0.151082	2-phenylpyrrole
+2776	146	HA	h1a	0.1676	2-phenylpyrrole
+2777	146	HA	h1a	0.191331	2-phenylpyrrole
+2778	240	H	h1n	0.383299	2-phenylpyrrole
+2779	519	C!	c3ab	0.033877	2-phenyl,N-methylpyrrole
+2780	508	CW	c3a51	0.023169	2-phenyl,N-methylpyrrole
+2781	544	CS	c3a5n	-0.191667	2-phenyl,N-methylpyrrole
+2782	568	CS	c3a5o	-0.215809	2-phenyl,N-methylpyrrole
+2783	508	CW	c3a51	-0.066124	2-phenyl,N-methylpyrrole
+2784	319	NA	n3ah1	-0.344577	2-phenyl,N-methylpyrrole
+2785	146	HA	h1a	0.160001	2-phenyl,N-methylpyrrole
+2786	146	HA	h1a	0.160213	2-phenyl,N-methylpyrrole
+2787	146	HA	h1a	0.181212	2-phenyl,N-methylpyrrole
+2788	135	CT	c4	-0.028991	2-phenyl,N-methylpyrrole
+2789	140	HC	h1	0.096232	2-phenyl,N-methylpyrrole
+2790	140	HC	h1	0.096232	2-phenyl,N-methylpyrrole
+2791	140	HC	h1	0.096232	2-phenyl,N-methylpyrrole
+2792	519	C!	c3ab	5.4e-05	3-phenyl,N-methylpyrrole
+2793	568	CS	c3a5o	-0.113227	3-phenyl,N-methylpyrrole
+2794	568	CS	c3a5o	-0.19906	3-phenyl,N-methylpyrrole
+2795	508	CW	c3a51	-0.073731	3-phenyl,N-methylpyrrole
+2796	319	NA	n3ah1	-0.349483	3-phenyl,N-methylpyrrole
+2797	508	CW	c3a51	-0.05182	3-phenyl,N-methylpyrrole
+2798	146	HA	h1a	0.159432	3-phenyl,N-methylpyrrole
+2799	146	HA	h1a	0.183253	3-phenyl,N-methylpyrrole
+2800	146	HA	h1a	0.181962	3-phenyl,N-methylpyrrole
+2801	135	CT	c4	-0.026433	3-phenyl,N-methylpyrrole
+2802	140	HC	h1	0.096351	3-phenyl,N-methylpyrrole
+2803	140	HC	h1	0.096351	3-phenyl,N-methylpyrrole
+2804	140	HC	h1	0.096351	3-phenyl,N-methylpyrrole
+2805	519	C!	c3ab	0.024671	4-phenylpyridine-N-oxide
+2806	519	C!	c3ab	-0.080527	4-phenylpyridine-N-oxide
+2807	2686	CA	c3ai	-0.109116	4-phenylpyridine-N-oxide
+2808	2686	CA	c3ai	-0.226065	4-phenylpyridine-N-oxide
+2809	237	N	n3am	0.575629	4-phenylpyridine-N-oxide
+2810	2686	CA	c3ai	-0.226063	4-phenylpyridine-N-oxide
+2811	2686	CA	c3ai	-0.109113	4-phenylpyridine-N-oxide
+2812	146	HA	h1a	0.18391	4-phenylpyridine-N-oxide
+2813	146	HA	h1a	0.208416	4-phenylpyridine-N-oxide
+2814	761	ON	o1n1	-0.634069	4-phenylpyridine-N-oxide
+2815	146	HA	h1a	0.208413	4-phenylpyridine-N-oxide
+2816	146	HA	h1a	0.183914	4-phenylpyridine-N-oxide
+2817	145	CA	c3a	-0.053821	4-benzylpyridine-N-oxide
+2818	135	CT	c4	-0.08806	
+2819	145	CA	c3a	-0.130146	
+2820	140	HC	h1	0.111136	
+2821	140	HC	h1	0.111136	
+2822	2686	CA	c3ai	-0.116414	
+2823	2686	CA	c3ai	-0.227078	
+2824	237	N	n3am	0.573698	
+2825	2686	CA	c3ai	-0.22524	
+2826	2686	CA	c3ai	-0.103998	
+2827	146	HA	h1a	0.181911	
+2828	146	HA	h1a	0.206987	
+2829	761	ON	o1n1	-0.637932	
+2830	146	HA	h1a	0.207972	
+2831	146	HA	h1a	0.189851	
+2832	145	CA	c3a	-0.040224	2-benzylpyridine
+2833	135	CT	c4	-0.077155	2-benzylpyridine
+2834	145	CA	c3a	0.085451	2-benzylpyridine
+2835	140	HC	h1	0.115468	2-benzylpyridine
+2836	140	HC	h1	0.115468	2-benzylpyridine
+2837	145	CA	c3a	-0.210958	2-benzylpyridine
+2838	145	CA	c3a	-0.100476	2-benzylpyridine
+2839	145	CA	c3a	-0.212271	2-benzylpyridine
+2840	145	CA	c3a	0.027245	2-benzylpyridine
+2841	311	NC	n2a6	-0.358124	2-benzylpyridine
+2842	146	HA	h1a	0.157345	2-benzylpyridine
+2843	146	HA	h1a	0.15548	2-benzylpyridine
+2844	146	HA	h1a	0.161709	2-benzylpyridine
+2845	146	HA	h1a	0.181042	2-benzylpyridine
+2846	145	CA	c3a	-0.055702	3-benzylpyridine
+2847	135	CT	c4	-0.083194	3-benzylpyridine
+2848	145	CA	c3a	-0.139943	3-benzylpyridine
+2849	140	HC	h1	0.109278	3-benzylpyridine
+2850	140	HC	h1	0.109278	3-benzylpyridine
+2851	145	CA	c3a	-0.10115	3-benzylpyridine
+2852	145	CA	c3a	-0.205573	3-benzylpyridine
+2853	145	CA	c3a	0.004201	3-benzylpyridine
+2854	311	NC	n2a6	-0.343347	3-benzylpyridine
+2855	145	CA	c3a	0.021632	3-benzylpyridine
+2856	146	HA	h1a	0.155816	3-benzylpyridine
+2857	146	HA	h1a	0.162396	3-benzylpyridine
+2858	146	HA	h1a	0.179349	3-benzylpyridine
+2859	146	HA	h1a	0.186959	3-benzylpyridine
+2860	145	CA	c3a	-0.052729	4-benzylpyridine
+2861	135	CT	c4	-0.094628	4-benzylpyridine
+2862	145	CA	c3a	-0.034956	4-benzylpyridine
+2863	140	HC	h1	0.111854	4-benzylpyridine
+2864	140	HC	h1	0.111854	4-benzylpyridine
+2865	145	CA	c3a	-0.206573	4-benzylpyridine
+2866	145	CA	c3a	0.01309	4-benzylpyridine
+2867	311	NC	n2a6	-0.357317	4-benzylpyridine
+2868	145	CA	c3a	0.013484	4-benzylpyridine
+2869	145	CA	c3a	-0.19479	4-benzylpyridine
+2870	146	HA	h1a	0.162026	4-benzylpyridine
+2871	146	HA	h1a	0.179522	4-benzylpyridine
+2872	146	HA	h1a	0.18045	4-benzylpyridine
+2873	146	HA	h1a	0.168715	4-benzylpyridine
+2905	519	C!	c3ab	0.018504	3-phenyl-4-pyridinone
+2906	2906	CM	c3ao1	-0.247323	3-phenyl-4-pyridinone
+2907	231	C	c3o	0.379898	3-phenyl-4-pyridinone
+2908	2906	CM	c3ao1	-0.245497	3-phenyl-4-pyridinone
+2909	141	CM	c3=	0.091486	3-phenyl-4-pyridinone
+2910	2910	N	n3ah	-0.717208	3-phenyl-4-pyridinone
+2911	141	CM	c3=	0.159615	3-phenyl-4-pyridinone
+2912	236	O	o1=	-0.417623	3-phenyl-4-pyridinone
+2913	144	HC	h1=	0.188373	3-phenyl-4-pyridinone
+2914	144	HC	h1=	0.168728	3-phenyl-4-pyridinone
+2915	240	H	h1n	0.447344	3-phenyl-4-pyridinone
+2916	144	HC	h1=	0.173704	3-phenyl-4-pyridinone
+2917	519	C!	c3ab	0.036376	2-phenyl-4-pyridinone
+2918	2906	CM	c3ao1	0.228434	2-phenyl-4-pyridinone
+2919	141	CM	c3=	-0.294124	2-phenyl-4-pyridinone
+2920	231	C	c3o	0.372876	2-phenyl-4-pyridinone
+2921	2906	CM	c3ao1	-0.306145	2-phenyl-4-pyridinone
+2922	141	CM	c3=	0.126815	2-phenyl-4-pyridinone
+2923	2910	N	n3ah	-0.69605	2-phenyl-4-pyridinone
+2924	144	HC	h1=	0.175079	2-phenyl-4-pyridinone
+2925	236	O	o1=	-0.421867	2-phenyl-4-pyridinone
+2926	144	HC	h1=	0.173115	2-phenyl-4-pyridinone
+2927	144	HC	h1=	0.168144	2-phenyl-4-pyridinone
+2928	240	H	h1n	0.437348	2-phenyl-4-pyridinone
+2929	519	C!	c3ab	0.028446	3-phenyl-2-pyridinone
+2930	2906	CM	c3ao1	-0.136186	3-phenyl-2-pyridinone
+2931	231	C	c3o	0.53874	3-phenyl-2-pyridinone
+2932	237	N	n3am	-0.764842	3-phenyl-2-pyridinone
+2933	141	CM	c3=	0.134656	3-phenyl-2-pyridinone
+2934	141	CM	c3=	-0.236254	3-phenyl-2-pyridinone
+2935	2906	CM	c3ao1	-0.054451	3-phenyl-2-pyridinone
+2936	236	O	o1=	-0.445468	3-phenyl-2-pyridinone
+2937	240	H	h1n	0.453515	3-phenyl-2-pyridinone
+2938	144	HC	h1=	0.169089	3-phenyl-2-pyridinone
+2939	144	HC	h1=	0.160772	3-phenyl-2-pyridinone
+2940	144	HC	h1=	0.151983	3-phenyl-2-pyridinone
+2941	519	C!	c3ab	0.01395	4-phenyl-2-pyridinone
+2942	2906	CM	c3ao1	0.053298	4-phenyl-2-pyridinone
+2943	141	CM	c3=	-0.244798	4-phenyl-2-pyridinone
+2944	231	C	c3o	0.530305	4-phenyl-2-pyridinone
+2945	237	N	n3am	-0.774482	4-phenyl-2-pyridinone
+2946	141	CM	c3=	0.139008	4-phenyl-2-pyridinone
+2947	141	CM	c3=	-0.228304	4-phenyl-2-pyridinone
+2948	144	HC	h1=	0.173379	4-phenyl-2-pyridinone
+2949	236	O	o1=	-0.448271	4-phenyl-2-pyridinone
+2950	240	H	h1n	0.452174	4-phenyl-2-pyridinone
+2951	144	HC	h1=	0.169411	4-phenyl-2-pyridinone
+2952	144	HC	h1=	0.164331	4-phenyl-2-pyridinone
+2953	519	C!	c3ab	0.255546	1-phenyltriazole
+2954	319	NA	n3ah1	-0.242218	1-phenyltriazole
+2955	508	CW	c3a51	-0.109178	1-phenyltriazole
+2956	550	CU	c3a55	-0.18552	1-phenyltriazole
+2957	352	NB	n2a5	-0.193244	1-phenyltriazole
+2958	352	NB	n2a5	0.043859	1-phenyltriazole
+2959	146	HA	h1a	0.21705	1-phenyltriazole
+2960	146	HA	h1a	0.213704	1-phenyltriazole
+2961	519	C!	c3ab	0.062076	4-phenyl-1,2,3-triazole
+2962	550	CU	c3a55	-0.061796	4-phenyl-1,2,3-triazole
+2963	352	NB	n2a5	-0.20278	4-phenyl-1,2,3-triazole
+2964	352	NB	n2a5	0.128236	4-phenyl-1,2,3-triazole
+2965	319	NA	n3ah1	-0.556473	4-phenyl-1,2,3-triazole
+2966	508	CW	c3a51	-0.059398	4-phenyl-1,2,3-triazole
+2967	2967	H	h1n1	0.466646	4-phenyl-1,2,3-triazole
+2968	146	HA	h1a	0.223489	4-phenyl-1,2,3-triazole
+2969	519	C!	c3ab	0.075323	5-phenyltriazole
+2970	508	CW	c3a51	0.034367	5-phenyltriazole
+2971	550	CU	c3a55	-0.16402	5-phenyltriazole
+2972	352	NB	n2a5	-0.223077	5-phenyltriazole
+2973	352	NB	n2a5	0.11465	5-phenyltriazole
+2974	319	NA	n3ah1	-0.515507	5-phenyltriazole
+2975	146	HA	h1a	0.215346	5-phenyltriazole
+2976	240	H	h1n	0.462918	5-phenyltriazole
+2977	519	C!	c3ab	0.079048	2-phenylbenzofuran
+2978	508	CW	c3a51	0.063135	2-phenylbenzofuran
+2979	544	CS	c3a5n	-0.203498	2-phenylbenzofuran
+2980	349	CB	c3aa	-0.113422	2-phenylbenzofuran
+2981	349	CB	c3aa	0.055141	2-phenylbenzofuran
+2982	177	OS	o2e	-0.163433	2-phenylbenzofuran
+2983	146	HA	h1a	0.189568	2-phenylbenzofuran
+2984	145	CA	c3a	-0.095472	2-phenylbenzofuran
+2985	145	CA	c3a	-0.146302	2-phenylbenzofuran
+2986	145	CA	c3a	-0.122638	2-phenylbenzofuran
+2987	145	CA	c3a	-0.167968	2-phenylbenzofuran
+2988	146	HA	h1a	0.151354	2-phenylbenzofuran
+2989	146	HA	h1a	0.161842	2-phenylbenzofuran
+2990	146	HA	h1a	0.157622	2-phenylbenzofuran
+2991	146	HA	h1a	0.155023	2-phenylbenzofuran
+2992	519	C!	c3ab	0.040209	3-phenylbenzofuran
+2993	544	CS	c3a5n	-0.102345	3-phenylbenzofuran
+2994	349	CB	c3aa	-0.099161	3-phenylbenzofuran
+2995	349	CB	c3aa	0.043646	3-phenylbenzofuran
+2996	177	OS	o2e	-0.160865	3-phenylbenzofuran
+2997	508	CW	c3a51	-0.038644	3-phenylbenzofuran
+2998	145	CA	c3a	-0.095501	3-phenylbenzofuran
+2999	145	CA	c3a	-0.146138	3-phenylbenzofuran
+3000	146	HA	h1a	0.217822	3-phenylbenzofuran
+3001	145	CA	c3a	-0.123028	3-phenylbenzofuran
+3002	145	CA	c3a	-0.167159	3-phenylbenzofuran
+3003	146	HA	h1a	0.154873	3-phenylbenzofuran
+3004	146	HA	h1a	0.162659	3-phenylbenzofuran
+3005	146	HA	h1a	0.157846	3-phenylbenzofuran
+3006	146	HA	h1a	0.155785	3-phenylbenzofuran
+3007	519	C!	c3ab	0.07262	2-phenylbenzimidazole
+3008	506	CR	c3a53	0.261045	2-phenylbenzimidazole
+3009	319	NA	n3ah1	-0.630723	2-phenylbenzimidazole
+3010	349	CB	c3aa	0.055991	2-phenylbenzimidazole
+3011	349	CB	c3aa	0.018209	2-phenylbenzimidazole
+3012	352	NB	n2a5	-0.332566	2-phenylbenzimidazole
+3013	2967	H	h1n1	0.473878	2-phenylbenzimidazole
+3014	145	CA	c3a	-0.165364	2-phenylbenzimidazole
+3015	145	CA	c3a	-0.079155	2-phenylbenzimidazole
+3016	145	CA	c3a	-0.166111	2-phenylbenzimidazole
+3017	145	CA	c3a	-0.130055	2-phenylbenzimidazole
+3018	146	HA	h1a	0.152816	2-phenylbenzimidazole
+3019	146	HA	h1a	0.162929	2-phenylbenzimidazole
+3020	146	HA	h1a	0.155333	2-phenylbenzimidazole
+3021	146	HA	h1a	0.151154	2-phenylbenzimidazole
+3022	519	C!	c3ab	0.00497	5-phenylbenzofuran
+3023	519	C!	c3ab	-0.062195	5-phenylbenzofuran
+3024	145	CA	c3a	-0.107399	5-phenylbenzofuran
+3025	145	CA	c3a	-0.144717	5-phenylbenzofuran
+3026	349	CB	c3aa	0.058401	5-phenylbenzofuran
+3027	349	CB	c3aa	-0.128966	5-phenylbenzofuran
+3028	145	CA	c3a	-0.090045	5-phenylbenzofuran
+3029	146	HA	h1a	0.161154	5-phenylbenzofuran
+3030	146	HA	h1a	0.166133	5-phenylbenzofuran
+3031	177	OS	o2e	-0.179249	5-phenylbenzofuran
+3032	544	CS	c3a5n	-0.198905	5-phenylbenzofuran
+3033	146	HA	h1a	0.150554	5-phenylbenzofuran
+3034	508	CW	c3a51	-0.046823	5-phenylbenzofuran
+3035	146	HA	h1a	0.203834	5-phenylbenzofuran
+3036	146	HA	h1a	0.213255	5-phenylbenzofuran
+3037	519	C!	c3ab	0.013301	6-phenylbenzofuran
+3038	519	C!	c3ab	-0.01044	6-phenylbenzofuran
+3039	145	CA	c3a	-0.158433	6-phenylbenzofuran
+3040	145	CA	c3a	-0.104854	6-phenylbenzofuran
+3041	349	CB	c3aa	-0.127482	6-phenylbenzofuran
+3042	349	CB	c3aa	0.05663	6-phenylbenzofuran
+3043	145	CA	c3a	-0.132173	6-phenylbenzofuran
+3044	146	HA	h1a	0.15708	6-phenylbenzofuran
+3045	146	HA	h1a	0.148791	6-phenylbenzofuran
+3046	544	CS	c3a5n	-0.199779	6-phenylbenzofuran
+3047	177	OS	o2e	-0.179709	6-phenylbenzofuran
+3048	146	HA	h1a	0.166504	6-phenylbenzofuran
+3049	508	CW	c3a51	-0.046076	6-phenylbenzofuran
+3050	146	HA	h1a	0.203602	6-phenylbenzofuran
+3051	146	HA	h1a	0.213038	6-phenylbenzofuran
+3052	519	C!	c3ab	-0.006317	5-phenylindole
+3053	519	C!	c3ab	-0.086697	5-phenylindole
+3054	145	CA	c3a	-0.100352	5-phenylindole
+3055	145	CA	c3a	-0.176312	5-phenylindole
+3056	349	CB	c3aa	0.142113	5-phenylindole
+3057	349	CB	c3aa	-0.114398	5-phenylindole
+3058	145	CA	c3a	-0.076593	5-phenylindole
+3059	146	HA	h1a	0.153262	5-phenylindole
+3060	146	HA	h1a	0.158628	5-phenylindole
+3061	319	NA	n3ah1	-0.655668	5-phenylindole
+3062	544	CS	c3a5n	-0.209347	5-phenylindole
+3063	146	HA	h1a	0.145107	5-phenylindole
+3064	508	CW	c3a51	0.010258	5-phenylindole
+3065	2967	H	h1n1	0.431656	5-phenylindole
+3066	146	HA	h1a	0.197678	5-phenylindole
+3067	146	HA	h1a	0.186979	5-phenylindole
+3068	519	C!	c3ab	0.000479	6-phenylindole
+3069	519	C!	c3ab	-0.008947	6-phenylindole
+3070	145	CA	c3a	-0.177888	6-phenylindole
+3071	145	CA	c3a	-0.095108	6-phenylindole
+3072	349	CB	c3aa	-0.110378	6-phenylindole
+3073	349	CB	c3aa	0.137463	6-phenylindole
+3074	145	CA	c3a	-0.16019	6-phenylindole
+3075	146	HA	h1a	0.15234	6-phenylindole
+3076	146	HA	h1a	0.142989	6-phenylindole
+3077	544	CS	c3a5n	-0.211543	6-phenylindole
+3078	319	NA	n3ah1	-0.657186	6-phenylindole
+3079	146	HA	h1a	0.158228	6-phenylindole
+3080	508	CW	c3a51	0.013885	6-phenylindole
+3081	146	HA	h1a	0.18665	6-phenylindole
+3082	146	HA	h1a	0.198035	6-phenylindole
+3083	240	H	h1n	0.431168	6-phenylindole
+3084	519	C!	c3ab	0.203778	1-phenylindole
+3085	319	NA	n3ah1	-0.389091	1-phenylindole
+3086	349	CB	c3aa	0.10433	1-phenylindole
+3087	508	CW	c3a51	-0.008597	1-phenylindole
+3088	349	CB	c3aa	-0.108258	1-phenylindole
+3089	544	CS	c3a5n	-0.2152	1-phenylindole
+3090	146	HA	h1a	0.188814	1-phenylindole
+3091	146	HA	h1a	0.197053	1-phenylindole
+3092	145	CA	c3a	-0.16597	1-phenylindole
+3093	145	CA	c3a	-0.122462	1-phenylindole
+3094	145	CA	c3a	-0.187858	1-phenylindole
+3095	145	CA	c3a	-0.09861	1-phenylindole
+3096	146	HA	h1a	0.161689	1-phenylindole
+3097	146	HA	h1a	0.149921	1-phenylindole
+3098	146	HA	h1a	0.149219	1-phenylindole
+3099	146	HA	h1a	0.14124	1-phenylindole
+3100	519	C!	c3ab	0.26341	1-phenyl,5-azabenzimidazole
+3101	319	NA	n3ah1	-0.351694	1-phenyl,5-azabenzimidazole
+3102	349	CB	c3aa	0.046968	1-phenyl,5-azabenzimidazole
+3103	506	CR	c3a53	0.116573	1-phenyl,5-azabenzimidazole
+3104	349	CB	c3aa	-0.044295	1-phenyl,5-azabenzimidazole
+3105	352	NB	n2a5	-0.335465	1-phenyl,5-azabenzimidazole
+3106	146	HA	h1a	0.223488	1-phenyl,5-azabenzimidazole
+3107	145	CA	c3a	-0.210907	1-phenyl,5-azabenzimidazole
+3108	145	CA	c3a	0.017693	1-phenyl,5-azabenzimidazole
+3109	311	NC	n2a6	-0.387665	1-phenyl,5-azabenzimidazole
+3110	145	CA	c3a	0.108255	1-phenyl,5-azabenzimidazole
+3111	146	HA	h1a	0.170989	1-phenyl,5-azabenzimidazole
+3112	146	HA	h1a	0.183058	1-phenyl,5-azabenzimidazole
+3113	146	HA	h1a	0.199592	1-phenyl,5-azabenzimidazole
+3114	519	C!	c3ab	0.259489	1-phenyl, 4-azabenzimidazole
+3115	319	NA	n3ah1	-0.342774	1-phenyl, 4-azabenzimidazole
+3116	349	CB	c3aa	-0.034472	1-phenyl, 4-azabenzimidazole
+3117	506	CR	c3a53	0.116184	1-phenyl, 4-azabenzimidazole
+3118	349	CB	c3aa	0.084955	1-phenyl, 4-azabenzimidazole
+3119	352	NB	n2a5	-0.317585	1-phenyl, 4-azabenzimidazole
+3120	146	HA	h1a	0.222794	1-phenyl, 4-azabenzimidazole
+3121	145	CA	c3a	-0.09841	1-phenyl, 4-azabenzimidazole
+3122	145	CA	c3a	-0.200664	1-phenyl, 4-azabenzimidazole
+3123	145	CA	c3a	-0.050811	1-phenyl, 4-azabenzimidazole
+3124	311	NC	n2a6	-0.151903	1-phenyl, 4-azabenzimidazole
+3125	146	HA	h1a	0.165751	1-phenyl, 4-azabenzimidazole
+3126	146	HA	h1a	0.164948	1-phenyl, 4-azabenzimidazole
+3127	146	HA	h1a	0.182493	1-phenyl, 4-azabenzimidazole
+3128	519	C!	c3ab	0.261564	1-phenyl,6-azabenzimidazole
+3129	319	NA	n3ah1	-0.339132	1-phenyl,6-azabenzimidazole
+3130	349	CB	c3aa	-0.053061	1-phenyl,6-azabenzimidazole
+3131	506	CR	c3a53	0.136735	1-phenyl,6-azabenzimidazole
+3132	349	CB	c3aa	0.057293	1-phenyl,6-azabenzimidazole
+3133	352	NB	n2a5	-0.366031	1-phenyl,6-azabenzimidazole
+3134	146	HA	h1a	0.223524	1-phenyl,6-azabenzimidazole
+3135	145	CA	c3a	0.027034	1-phenyl,6-azabenzimidazole
+3136	311	NC	n2a6	-0.347962	1-phenyl,6-azabenzimidazole
+3137	145	CA	c3a	-0.019186	1-phenyl,6-azabenzimidazole
+3138	145	CA	c3a	-0.136028	1-phenyl,6-azabenzimidazole
+3139	146	HA	h1a	0.193255	1-phenyl,6-azabenzimidazole
+3140	146	HA	h1a	0.186479	1-phenyl,6-azabenzimidazole
+3141	146	HA	h1a	0.175516	1-phenyl,6-azabenzimidazole
+3142	519	C!	c3ab	0.261852	1-(2-methyl,5-aza)benzimidazol
+3143	319	NA	n3ah1	-0.355194	1-(2-methyl,5-aza)benzimidazol
+3144	349	CB	c3aa	0.048338	1-(2-methyl,5-aza)benzimidazol
+3145	506	CR	c3a53	0.18689	1-(2-methyl,5-aza)benzimidazol
+3146	349	CB	c3aa	-0.032879	1-(2-methyl,5-aza)benzimidazol
+3147	352	NB	n2a5	-0.356976	1-(2-methyl,5-aza)benzimidazol
+3148	135	CT	c4	-0.170269	1-(2-methyl,5-aza)benzimidazol
+3149	145	CA	c3a	-0.20987	1-(2-methyl,5-aza)benzimidazol
+3150	145	CA	c3a	0.015365	1-(2-methyl,5-aza)benzimidazol
+3151	311	NC	n2a6	-0.388484	1-(2-methyl,5-aza)benzimidazol
+3152	145	CA	c3a	0.106139	1-(2-methyl,5-aza)benzimidazol
+3153	146	HA	h1a	0.170779	1-(2-methyl,5-aza)benzimidazol
+3154	146	HA	h1a	0.182271	1-(2-methyl,5-aza)benzimidazol
+3155	146	HA	h1a	0.198577	1-(2-methyl,5-aza)benzimidazol
+3156	140	HC	h1	0.114486	1-(2-methyl,5-aza)benzimidazol
+3157	140	HC	h1	0.114486	1-(2-methyl,5-aza)benzimidazol
+3158	140	HC	h1	0.114486	1-(2-methyl,5-aza)benzimidazol
+3159	519	C!	c3ab	0.054285	2-phenylquinoline
+3160	519	C!	c3ab	0.166813	2-phenylquinoline
+3161	311	NC	n2a6	-0.374511	2-phenylquinoline
+3162	145	CA	c3a	0.117127	2-phenylquinoline
+3163	145	CA	c3a	-0.097517	2-phenylquinoline
+3164	145	CA	c3a	-0.086014	2-phenylquinoline
+3165	145	CA	c3a	-0.202687	2-phenylquinoline
+3166	145	CA	c3a	-0.119112	2-phenylquinoline
+3167	145	CA	c3a	-0.126791	2-phenylquinoline
+3168	146	HA	h1a	0.158233	2-phenylquinoline
+3169	146	HA	h1a	0.162601	2-phenylquinoline
+3170	145	CA	c3a	-0.133303	2-phenylquinoline
+3171	145	CA	c3a	-0.148115	2-phenylquinoline
+3172	146	HA	h1a	0.167572	2-phenylquinoline
+3173	146	HA	h1a	0.155769	2-phenylquinoline
+3174	146	HA	h1a	0.152938	2-phenylquinoline
+3175	146	HA	h1a	0.15271	2-phenylquinoline
+3176	519	C!	c3ab	0.070514	2-phenylquinoxaline
+3177	519	C!	c3ab	0.086892	2-phenylquinoxaline
+3178	311	NC	n2a6	-0.281612	2-phenylquinoxaline
+3179	145	CA	c3a	0.040358	2-phenylquinoxaline
+3180	145	CA	c3a	0.00923	2-phenylquinoxaline
+3181	311	NC	n2a6	-0.244006	2-phenylquinoxaline
+3182	145	CA	c3a	-0.044865	2-phenylquinoxaline
+3183	145	CA	c3a	-0.111589	2-phenylquinoxaline
+3184	145	CA	c3a	-0.107698	2-phenylquinoxaline
+3185	146	HA	h1a	0.19342	2-phenylquinoxaline
+3186	145	CA	c3a	-0.132954	2-phenylquinoxaline
+3187	145	CA	c3a	-0.136939	2-phenylquinoxaline
+3188	146	HA	h1a	0.170097	2-phenylquinoxaline
+3189	146	HA	h1a	0.159383	2-phenylquinoxaline
+3190	146	HA	h1a	0.159317	2-phenylquinoxaline
+3191	146	HA	h1a	0.170452	2-phenylquinoxaline
+3192	519	C!	c3ab	0.119055	2-phenylquinazoline
+3193	519	C!	c3ab	0.362475	2-phenylquinazoline
+3194	311	NC	n2a6	-0.495721	2-phenylquinazoline
+3195	145	CA	c3a	0.185273	2-phenylquinazoline
+3196	145	CA	c3a	-0.16701	2-phenylquinazoline
+3197	145	CA	c3a	0.156251	2-phenylquinazoline
+3198	311	NC	n2a6	-0.494773	2-phenylquinazoline
+3199	145	CA	c3a	-0.129562	2-phenylquinazoline
+3200	145	CA	c3a	-0.101461	2-phenylquinazoline
+3201	146	HA	h1a	0.187725	2-phenylquinazoline
+3202	145	CA	c3a	-0.111952	2-phenylquinazoline
+3203	145	CA	c3a	-0.154695	2-phenylquinazoline
+3204	146	HA	h1a	0.171552	2-phenylquinazoline
+3205	146	HA	h1a	0.158981	2-phenylquinazoline
+3206	146	HA	h1a	0.156914	2-phenylquinazoline
+3207	146	HA	h1a	0.15695	2-phenylquinazoline
+3208	519	C!	c3ab	0.064929	4-phenylquinazoline
+3209	519	C!	c3ab	0.241516	4-phenylquinazoline
+3210	145	CA	c3a	-0.14675	4-phenylquinazoline
+3211	145	CA	c3a	0.145138	4-phenylquinazoline
+3212	311	NC	n2a6	-0.435918	4-phenylquinazoline
+3213	531	CQ	c3a6n	0.212076	4-phenylquinazoline
+3214	311	NC	n2a6	-0.45172	4-phenylquinazoline
+3215	145	CA	c3a	-0.101734	4-phenylquinazoline
+3216	145	CA	c3a	-0.130668	4-phenylquinazoline
+3217	146	HA	h1a	0.218807	4-phenylquinazoline
+3218	145	CA	c3a	-0.156605	4-phenylquinazoline
+3219	145	CA	c3a	-0.113038	4-phenylquinazoline
+3220	146	HA	h1a	0.164572	4-phenylquinazoline
+3221	146	HA	h1a	0.157469	4-phenylquinazoline
+3222	146	HA	h1a	0.158673	4-phenylquinazoline
+3223	146	HA	h1a	0.173254	4-phenylquinazoline
+3224	519	C!	c3ab	0.035298	4-phenylcinnoline
+3225	519	C!	c3ab	-0.023375	4-phenylcinnoline
+3226	145	CA	c3a	-0.046505	4-phenylcinnoline
+3227	145	CA	c3a	-0.02562	4-phenylcinnoline
+3228	311	NC	n2a6	-0.093704	4-phenylcinnoline
+3229	311	NC	n2a6	-0.060023	4-phenylcinnoline
+3230	145	CA	c3a	-0.135164	4-phenylcinnoline
+3231	145	CA	c3a	-0.137989	4-phenylcinnoline
+3232	145	CA	c3a	-0.102155	4-phenylcinnoline
+3233	146	HA	h1a	0.19621	4-phenylcinnoline
+3234	145	CA	c3a	-0.127263	4-phenylcinnoline
+3235	145	CA	c3a	-0.139349	4-phenylcinnoline
+3236	146	HA	h1a	0.166672	4-phenylcinnoline
+3237	146	HA	h1a	0.157944	4-phenylcinnoline
+3238	146	HA	h1a	0.160735	4-phenylcinnoline
+3239	146	HA	h1a	0.17429	4-phenylcinnoline
+3240	519	C!	c3ab	0.261598	9-phenylpurine
+3241	319	NA	n3ah1	-0.309683	9-phenylpurine
+3242	349	CB	c3aa	0.171515	9-phenylpurine
+3243	506	CR	c3a53	0.115451	9-phenylpurine
+3244	349	CB	c3aa	-0.106512	9-phenylpurine
+3245	352	NB	n2a5	-0.310623	9-phenylpurine
+3246	146	HA	h1a	0.231071	9-phenylpurine
+3247	311	NC	n2a6	-0.381041	9-phenylpurine
+3248	531	CQ	c3a6n	0.190655	9-phenylpurine
+3249	311	NC	n2a6	-0.46466	9-phenylpurine
+3250	145	CA	c3a	0.178198	9-phenylpurine
+3251	146	HA	h1a	0.21758	9-phenylpurine
+3252	146	HA	h1a	0.20645	9-phenylpurine
+3253	519	C!	c3ab	0.01857	3-phenylquinoline
+3254	519	C!	c3ab	-0.097059	3-phenylquinoline
+3255	145	CA	c3a	-0.075607	3-phenylquinoline
+3256	145	CA	c3a	-0.09344	3-phenylquinoline
+3257	145	CA	c3a	0.092737	3-phenylquinoline
+3258	311	NC	n2a6	-0.343605	3-phenylquinoline
+3259	145	CA	c3a	0.048926	3-phenylquinoline
+3260	145	CA	c3a	-0.127555	3-phenylquinoline
+3261	145	CA	c3a	-0.117958	3-phenylquinoline
+3262	146	HA	h1a	0.16043	3-phenylquinoline
+3263	146	HA	h1a	0.184132	3-phenylquinoline
+3264	145	CA	c3a	-0.146403	3-phenylquinoline
+3265	145	CA	c3a	-0.13396	3-phenylquinoline
+3266	146	HA	h1a	0.153025	3-phenylquinoline
+3267	146	HA	h1a	0.153352	3-phenylquinoline
+3268	146	HA	h1a	0.155986	3-phenylquinoline
+3269	146	HA	h1a	0.168429	3-phenylquinoline
+3270	519	C!	c3ab	0.008479	5-phenylquinoline
+3271	519	C!	c3ab	-0.025521	5-phenylquinoline
+3272	145	CA	c3a	-0.077789	5-phenylquinoline
+3273	145	CA	c3a	0.094807	5-phenylquinoline
+3274	145	CA	c3a	-0.120669	5-phenylquinoline
+3275	145	CA	c3a	-0.137749	5-phenylquinoline
+3276	145	CA	c3a	-0.12906	5-phenylquinoline
+3277	145	CA	c3a	-0.080578	5-phenylquinoline
+3278	311	NC	n2a6	-0.354442	5-phenylquinoline
+3279	146	HA	h1a	0.155949	5-phenylquinoline
+3280	146	HA	h1a	0.159497	5-phenylquinoline
+3281	145	CA	c3a	-0.214201	5-phenylquinoline
+3282	145	CA	c3a	0.039942	5-phenylquinoline
+3283	146	HA	h1a	0.166206	5-phenylquinoline
+3284	146	HA	h1a	0.16456	5-phenylquinoline
+3285	146	HA	h1a	0.181016	5-phenylquinoline
+3286	146	HA	h1a	0.169554	5-phenylquinoline
+3287	519	C!	c3ab	0.008059	6-phenylquinoline
+3288	519	C!	c3ab	-0.036442	6-phenylquinoline
+3289	145	CA	c3a	-0.116427	6-phenylquinoline
+3290	145	CA	c3a	-0.094468	6-phenylquinoline
+3291	145	CA	c3a	0.09637	6-phenylquinoline
+3292	145	CA	c3a	-0.101016	6-phenylquinoline
+3293	145	CA	c3a	-0.122179	6-phenylquinoline
+3294	145	CA	c3a	-0.101016	6-phenylquinoline
+3295	311	NC	n2a6	-0.348809	6-phenylquinoline
+3296	146	HA	h1a	0.163896	6-phenylquinoline
+3297	146	HA	h1a	0.158643	6-phenylquinoline
+3298	145	CA	c3a	-0.08626	6-phenylquinoline
+3299	145	CA	c3a	-0.08626	6-phenylquinoline
+3300	146	HA	h1a	0.163896	6-phenylquinoline
+3301	146	HA	h1a	0.173067	6-phenylquinoline
+3302	146	HA	h1a	0.173067	6-phenylquinoline
+3303	146	HA	h1a	0.155882	6-phenylquinoline
+3304	519	C!	c3ab	0.012914	7-phenylquinoline
+3305	519	C!	c3ab	-0.02251	7-phenylquinoline
+3306	145	CA	c3a	-0.108408	7-phenylquinoline
+3307	145	CA	c3a	0.096589	7-phenylquinoline
+3308	145	CA	c3a	-0.094887	7-phenylquinoline
+3309	145	CA	c3a	-0.129025	7-phenylquinoline
+3310	145	CA	c3a	-0.135093	7-phenylquinoline
+3311	311	NC	n2a6	-0.349095	7-phenylquinoline
+3312	145	CA	c3a	-0.083401	7-phenylquinoline
+3313	146	HA	h1a	0.15441	7-phenylquinoline
+3314	146	HA	h1a	0.15576	7-phenylquinoline
+3315	145	CA	c3a	0.03914	7-phenylquinoline
+3316	145	CA	c3a	-0.211327	7-phenylquinoline
+3317	146	HA	h1a	0.171271	7-phenylquinoline
+3318	146	HA	h1a	0.181862	7-phenylquinoline
+3319	146	HA	h1a	0.164044	7-phenylquinoline
+3320	146	HA	h1a	0.157757	7-phenylquinoline
+3321	519	C!	c3ab	0.025132	8-phenylquinoline
+3322	519	C!	c3ab	-0.006788	8-phenylquinoline
+3323	145	CA	c3a	0.113852	8-phenylquinoline
+3324	145	CA	c3a	-0.09577	8-phenylquinoline
+3325	145	CA	c3a	-0.133467	8-phenylquinoline
+3326	145	CA	c3a	-0.147802	8-phenylquinoline
+3327	145	CA	c3a	-0.121367	8-phenylquinoline
+3328	311	NC	n2a6	-0.349984	8-phenylquinoline
+3329	145	CA	c3a	-0.085499	8-phenylquinoline
+3330	146	HA	h1a	0.153004	8-phenylquinoline
+3331	146	HA	h1a	0.16143	8-phenylquinoline
+3332	145	CA	c3a	0.040229	8-phenylquinoline
+3333	145	CA	c3a	-0.211667	8-phenylquinoline
+3334	146	HA	h1a	0.154071	8-phenylquinoline
+3335	146	HA	h1a	0.18266	8-phenylquinoline
+3336	146	HA	h1a	0.164035	8-phenylquinoline
+3337	146	HA	h1a	0.157931	8-phenylquinoline
+3338	519	C!	c3ab	0.072654	2-phenylbenzimidazole
+3339	506	CR	c3a53	0.261969	2-phenylbenzimidazole
+3340	352	NB	n2a5	-0.338858	2-phenylbenzimidazole
+3341	349	CB	c3aa	0.021212	2-phenylbenzimidazole
+3342	349	CB	c3aa	0.058823	2-phenylbenzimidazole
+3343	319	NA	n3ah1	-0.630302	2-phenylbenzimidazole
+3344	145	CA	c3a	-0.079441	2-phenylbenzimidazole
+3345	145	CA	c3a	-0.165898	2-phenylbenzimidazole
+3346	145	CA	c3a	-0.130278	2-phenylbenzimidazole
+3347	145	CA	c3a	-0.165119	2-phenylbenzimidazole
+3348	146	HA	h1a	0.162862	2-phenylbenzimidazole
+3349	146	HA	h1a	0.155334	2-phenylbenzimidazole
+3350	146	HA	h1a	0.151209	2-phenylbenzimidazole
+3351	146	HA	h1a	0.152992	2-phenylbenzimidazole
+3352	240	H	h1n	0.472842	2-phenylbenzimidazole
+3353	145	CA	c3a	-0.04248	2-phenylazetidine
+3354	3354	CY	c44	0.162112	2-phenylazetidine
+3355	140	HC	h1	0.113993	2-phenylazetidine
+3356	3354	CY	c44	-0.216298	2-phenylazetidine
+3357	686	N$	n34	-0.910369	2-phenylazetidine
+3358	3354	CY	c44	0.062721	2-phenylazetidine
+3359	140	HC	h1	0.107172	2-phenylazetidine
+3360	140	HC	h1	0.107172	2-phenylazetidine
+3361	240	H	h1n	0.402579	2-phenylazetidine
+3362	140	HC	h1	0.106699	2-phenylazetidine
+3363	140	HC	h1	0.106699	2-phenylazetidine
+3364	145	CA	c3a	-0.065262	3-phenylazetidine
+3365	3354	CY	c44	-0.129703	3-phenylazetidine
+3366	140	HC	h1	0.121728	3-phenylazetidine
+3367	3354	CY	c44	0.076132	3-phenylazetidine
+3368	3354	CY	c44	0.076137	3-phenylazetidine
+3369	686	N$	n34	-0.925014	3-phenylazetidine
+3370	140	HC	h1	0.110267	3-phenylazetidine
+3371	140	HC	h1	0.110267	3-phenylazetidine
+3372	140	HC	h1	0.11027	3-phenylazetidine
+3373	140	HC	h1	0.11027	3-phenylazetidine
+3374	240	H	h1n	0.404907	3-phenylazetidine
+3375	519	C!	c3ab	0.149532	N-phenylisoindoline
+3376	900	NT	n3	-0.595724	N-phenylisoindoline
+3377	135	CT	c4	0.079042	N-phenylisoindoline
+3378	135	CT	c4	0.07904	N-phenylisoindoline
+3379	145	CA	c3a	-0.104513	N-phenylisoindoline
+3380	140	HC	h1	0.10723	N-phenylisoindoline
+3381	140	HC	h1	0.10723	N-phenylisoindoline
+3382	145	CA	c3a	-0.104548	N-phenylisoindoline
+3383	140	HC	h1	0.107229	N-phenylisoindoline
+3384	140	HC	h1	0.107229	N-phenylisoindoline
+3385	145	CA	c3a	-0.124492	N-phenylisoindoline
+3386	145	CA	c3a	-0.146872	N-phenylisoindoline
+3387	145	CA	c3a	-0.146872	N-phenylisoindoline
+3388	145	CA	c3a	-0.124492	N-phenylisoindoline
+3389	146	HA	h1a	0.155208	N-phenylisoindoline
+3390	146	HA	h1a	0.150283	N-phenylisoindoline
+3391	146	HA	h1a	0.150283	N-phenylisoindoline
+3392	146	HA	h1a	0.155208	N-phenylisoindoline
+3393	519	C!	c3ab	0.108767	N-phenyl-tetrahydroisoquinolin
+3394	900	NT	n3	-0.55617	N-phenyl-tetrahydroisoquinolin
+3395	135	CT	c4	0.074987	N-phenyl-tetrahydroisoquinolin
+3396	135	CT	c4	0.035479	N-phenyl-tetrahydroisoquinolin
+3397	145	CA	c3a	-0.085348	N-phenyl-tetrahydroisoquinolin
+3398	140	HC	h1	0.100795	N-phenyl-tetrahydroisoquinolin
+3399	140	HC	h1	0.100795	N-phenyl-tetrahydroisoquinolin
+3400	135	CT	c4	-0.13567	N-phenyl-tetrahydroisoquinolin
+3401	140	HC	h1	0.09382	N-phenyl-tetrahydroisoquinolin
+3402	140	HC	h1	0.09382	N-phenyl-tetrahydroisoquinolin
+3403	145	CA	c3a	-0.068099	N-phenyl-tetrahydroisoquinolin
+3404	145	CA	c3a	-0.142613	N-phenyl-tetrahydroisoquinolin
+3405	145	CA	c3a	-0.147393	N-phenyl-tetrahydroisoquinolin
+3406	140	HC	h1	0.109663	N-phenyl-tetrahydroisoquinolin
+3407	140	HC	h1	0.109663	N-phenyl-tetrahydroisoquinolin
+3408	145	CA	c3a	-0.142613	N-phenyl-tetrahydroisoquinolin
+3409	145	CA	c3a	-0.147393	N-phenyl-tetrahydroisoquinolin
+3410	146	HA	h1a	0.149218	N-phenyl-tetrahydroisoquinolin
+3411	146	HA	h1a	0.149537	N-phenyl-tetrahydroisoquinolin
+3412	146	HA	h1a	0.149218	N-phenyl-tetrahydroisoquinolin
+3413	146	HA	h1a	0.149537	N-phenyl-tetrahydroisoquinolin
+3414	519	C!	c3ab	0.149959	N-phenylazetidine
+3415	686	N$	n34	-0.859788	N-phenylazetidine
+3416	3354	CY	c44	0.137853	N-phenylazetidine
+3417	3354	CY	c44	0.137855	N-phenylazetidine
+3418	3354	CY	c44	-0.206694	N-phenylazetidine
+3419	140	HC	h1	0.105508	N-phenylazetidine
+3420	140	HC	h1	0.105508	N-phenylazetidine
+3421	140	HC	h1	0.105507	N-phenylazetidine
+3422	140	HC	h1	0.105507	N-phenylazetidine
+3423	140	HC	h1	0.109392	N-phenylazetidine
+3424	140	HC	h1	0.109392	N-phenylazetidine
+3425	519	C!	c3ab	-0.025899	4-phenyl-(1,3-benzodioxole)
+3426	519	C!	c3ab	-0.009767	4-phenyl-(1,3-benzodioxole)
+3427	349	CB	c3aa	0.04291	4-phenyl-(1,3-benzodioxole)
+3428	349	CB	c3aa	0.030439	4-phenyl-(1,3-benzodioxole)
+3429	145	CA	c3a	-0.1272	4-phenyl-(1,3-benzodioxole)
+3430	145	CA	c3a	-0.134544	4-phenyl-(1,3-benzodioxole)
+3431	145	CA	c3a	-0.0903	4-phenyl-(1,3-benzodioxole)
+3432	177	OS	o2e	-0.283759	4-phenyl-(1,3-benzodioxole)
+3433	177	OS	o2e	-0.282191	4-phenyl-(1,3-benzodioxole)
+3434	146	HA	h1a	0.169616	4-phenyl-(1,3-benzodioxole)
+3435	146	HA	h1a	0.158982	4-phenyl-(1,3-benzodioxole)
+3436	146	HA	h1a	0.159546	4-phenyl-(1,3-benzodioxole)
+3437	189	CO	c4o2	0.159287	4-phenyl-(1,3-benzodioxole)
+3438	140	HC	h1	0.116441	4-phenyl-(1,3-benzodioxole)
+3439	140	HC	h1	0.116441	4-phenyl-(1,3-benzodioxole)
+3440	519	C!	c3ab	0.050078	4-phenyl-5-aza-benzofuran
+3441	519	C!	c3ab	0.189045	4-phenyl-5-aza-benzofuran
+3442	349	CB	c3aa	-0.170766	4-phenyl-5-aza-benzofuran
+3443	349	CB	c3aa	0.087262	4-phenyl-5-aza-benzofuran
+3444	145	CA	c3a	-0.201637	4-phenyl-5-aza-benzofuran
+3445	145	CA	c3a	0.036383	4-phenyl-5-aza-benzofuran
+3446	311	NC	n2a6	-0.38003	4-phenyl-5-aza-benzofuran
+3447	544	CS	c3a5n	-0.184608	4-phenyl-5-aza-benzofuran
+3448	177	OS	o2e	-0.173057	4-phenyl-5-aza-benzofuran
+3449	146	HA	h1a	0.178212	4-phenyl-5-aza-benzofuran
+3450	146	HA	h1a	0.190984	4-phenyl-5-aza-benzofuran
+3451	508	CW	c3a51	-0.050965	4-phenyl-5-aza-benzofuran
+3452	146	HA	h1a	0.212007	4-phenyl-5-aza-benzofuran
+3453	146	HA	h1a	0.217093	4-phenyl-5-aza-benzofuran
+3454	519	C!	c3ab	0.060726	6-phenyl-5-aza-benzofuran
+3455	519	C!	c3ab	0.162132	6-phenyl-5-aza-benzofuran
+3456	145	CA	c3a	-0.193055	6-phenyl-5-aza-benzofuran
+3457	349	CB	c3aa	0.089852	6-phenyl-5-aza-benzofuran
+3458	349	CB	c3aa	-0.189396	6-phenyl-5-aza-benzofuran
+3459	145	CA	c3a	0.103571	6-phenyl-5-aza-benzofuran
+3460	311	NC	n2a6	-0.414854	6-phenyl-5-aza-benzofuran
+3461	146	HA	h1a	0.176775	6-phenyl-5-aza-benzofuran
+3462	177	OS	o2e	-0.173463	6-phenyl-5-aza-benzofuran
+3463	544	CS	c3a5n	-0.187304	6-phenyl-5-aza-benzofuran
+3464	146	HA	h1a	0.187498	6-phenyl-5-aza-benzofuran
+3465	508	CW	c3a51	-0.046471	6-phenyl-5-aza-benzofuran
+3466	146	HA	h1a	0.207055	6-phenyl-5-aza-benzofuran
+3467	146	HA	h1a	0.216934	6-phenyl-5-aza-benzofuran
+3468	519	C!	c3ab	0.067097	7-phenyl-6-aza-benzofuran
+3469	519	C!	c3ab	0.15069	7-phenyl-6-aza-benzofuran
+3470	349	CB	c3aa	0.002642	7-phenyl-6-aza-benzofuran
+3471	349	CB	c3aa	-0.086912	7-phenyl-6-aza-benzofuran
+3472	145	CA	c3a	-0.167985	7-phenyl-6-aza-benzofuran
+3473	145	CA	c3a	-0.023121	7-phenyl-6-aza-benzofuran
+3474	311	NC	n2a6	-0.310571	7-phenyl-6-aza-benzofuran
+3475	177	OS	o2e	-0.170767	7-phenyl-6-aza-benzofuran
+3476	544	CS	c3a5n	-0.208529	7-phenyl-6-aza-benzofuran
+3477	146	HA	h1a	0.161035	7-phenyl-6-aza-benzofuran
+3478	146	HA	h1a	0.188071	7-phenyl-6-aza-benzofuran
+3479	508	CW	c3a51	-0.027618	7-phenyl-6-aza-benzofuran
+3480	146	HA	h1a	0.208487	7-phenyl-6-aza-benzofuran
+3481	146	HA	h1a	0.217484	7-phenyl-6-aza-benzofuran
+3482	519	C!	c3ab	0.051973	5-phenyl-6-aza-benzofuran
+3483	519	C!	c3ab	0.092348	5-phenyl-6-aza-benzofuran
+3484	145	CA	c3a	-0.154267	5-phenyl-6-aza-benzofuran
+3485	349	CB	c3aa	-0.088134	5-phenyl-6-aza-benzofuran
+3486	349	CB	c3aa	-0.01213	5-phenyl-6-aza-benzofuran
+3487	145	CA	c3a	0.048312	5-phenyl-6-aza-benzofuran
+3488	311	NC	n2a6	-0.323171	5-phenyl-6-aza-benzofuran
+3489	146	HA	h1a	0.161191	5-phenyl-6-aza-benzofuran
+3490	544	CS	c3a5n	-0.206277	5-phenyl-6-aza-benzofuran
+3491	177	OS	o2e	-0.17138	5-phenyl-6-aza-benzofuran
+3492	146	HA	h1a	0.202506	5-phenyl-6-aza-benzofuran
+3493	508	CW	c3a51	-0.027103	5-phenyl-6-aza-benzofuran
+3494	146	HA	h1a	0.208853	5-phenyl-6-aza-benzofuran
+3495	146	HA	h1a	0.217279	5-phenyl-6-aza-benzofuran
+3496	519	C!	c3ab	0.063161	6-phenyl-7-aza-benzofuran
+3497	519	C!	c3ab	0.156158	6-phenyl-7-aza-benzofuran
+3498	311	NC	n2a6	-0.305196	6-phenyl-7-aza-benzofuran
+3499	349	CB	c3aa	0.18947	6-phenyl-7-aza-benzofuran
+3500	349	CB	c3aa	-0.175675	6-phenyl-7-aza-benzofuran
+3501	145	CA	c3a	-0.057619	6-phenyl-7-aza-benzofuran
+3502	145	CA	c3a	-0.225727	6-phenyl-7-aza-benzofuran
+3503	146	HA	h1a	0.168912	6-phenyl-7-aza-benzofuran
+3504	177	OS	o2e	-0.165948	6-phenyl-7-aza-benzofuran
+3505	544	CS	c3a5n	-0.195679	6-phenyl-7-aza-benzofuran
+3506	146	HA	h1a	0.156017	6-phenyl-7-aza-benzofuran
+3507	508	CW	c3a51	-0.034271	6-phenyl-7-aza-benzofuran
+3508	146	HA	h1a	0.206701	6-phenyl-7-aza-benzofuran
+3509	146	HA	h1a	0.219696	6-phenyl-7-aza-benzofuran
+3510	519	C!	c3ab	0.05191	5-phenyl-4-aza-benzofuran
+3511	519	C!	c3ab	0.107544	5-phenyl-4-aza-benzofuran
+3512	311	NC	n2a6	-0.278193	5-phenyl-4-aza-benzofuran
+3513	349	CB	c3aa	0.006179	5-phenyl-4-aza-benzofuran
+3514	349	CB	c3aa	-0.003588	5-phenyl-4-aza-benzofuran
+3515	145	CA	c3a	-0.088096	5-phenyl-4-aza-benzofuran
+3516	145	CA	c3a	-0.177579	5-phenyl-4-aza-benzofuran
+3517	146	HA	h1a	0.170846	5-phenyl-4-aza-benzofuran
+3518	544	CS	c3a5n	-0.185623	5-phenyl-4-aza-benzofuran
+3519	177	OS	o2e	-0.167452	5-phenyl-4-aza-benzofuran
+3520	146	HA	h1a	0.172588	5-phenyl-4-aza-benzofuran
+3521	508	CW	c3a51	-0.042557	5-phenyl-4-aza-benzofuran
+3522	146	HA	h1a	0.216658	5-phenyl-4-aza-benzofuran
+3523	146	HA	h1a	0.217362	5-phenyl-4-aza-benzofuran
+3524	519	C!	c3ab	0.118513	5-phenyl-4,6-diaza-benzofuran
+3525	519	C!	c3ab	0.309917	5-phenyl-4,6-diaza-benzofuran
+3526	311	NC	n2a6	-0.402087	5-phenyl-4,6-diaza-benzofuran
+3527	349	CB	c3aa	0.083893	5-phenyl-4,6-diaza-benzofuran
+3528	349	CB	c3aa	-0.077536	5-phenyl-4,6-diaza-benzofuran
+3529	145	CA	c3a	0.155923	5-phenyl-4,6-diaza-benzofuran
+3530	311	NC	n2a6	-0.465598	5-phenyl-4,6-diaza-benzofuran
+3531	544	CS	c3a5n	-0.193192	5-phenyl-4,6-diaza-benzofuran
+3532	177	OS	o2e	-0.158859	5-phenyl-4,6-diaza-benzofuran
+3533	146	HA	h1a	0.207781	5-phenyl-4,6-diaza-benzofuran
+3534	508	CW	c3a51	-0.021359	5-phenyl-4,6-diaza-benzofuran
+3535	146	HA	h1a	0.221191	5-phenyl-4,6-diaza-benzofuran
+3536	146	HA	h1a	0.221409	5-phenyl-4,6-diaza-benzofuran
+3537	519	C!	c3ab	0.129523	6-phenyl-5,7-diaza-benzofuran
+3538	519	C!	c3ab	0.36805	6-phenyl-5,7-diaza-benzofuran
+3539	311	NC	n2a6	-0.419027	6-phenyl-5,7-diaza-benzofuran
+3540	349	CB	c3aa	0.255592	6-phenyl-5,7-diaza-benzofuran
+3541	349	CB	c3aa	-0.239037	6-phenyl-5,7-diaza-benzofuran
+3542	145	CA	c3a	0.192692	6-phenyl-5,7-diaza-benzofuran
+3543	311	NC	n2a6	-0.539628	6-phenyl-5,7-diaza-benzofuran
+3544	177	OS	o2e	-0.159255	6-phenyl-5,7-diaza-benzofuran
+3545	544	CS	c3a5n	-0.182108	6-phenyl-5,7-diaza-benzofuran
+3546	146	HA	h1a	0.193547	6-phenyl-5,7-diaza-benzofuran
+3547	508	CW	c3a51	-0.034043	6-phenyl-5,7-diaza-benzofuran
+3548	146	HA	h1a	0.210112	6-phenyl-5,7-diaza-benzofuran
+3549	146	HA	h1a	0.223581	6-phenyl-5,7-diaza-benzofuran
+3550	519	C!	c3ab	0.042266	4-phenyl-5-aza-indole
+3551	519	C!	c3ab	0.20192	4-phenyl-5-aza-indole
+3552	349	CB	c3aa	-0.151332	4-phenyl-5-aza-indole
+3553	349	CB	c3aa	0.161161	4-phenyl-5-aza-indole
+3554	145	CA	c3a	-0.229595	4-phenyl-5-aza-indole
+3555	145	CA	c3a	0.04532	4-phenyl-5-aza-indole
+3556	311	NC	n2a6	-0.416639	4-phenyl-5-aza-indole
+3557	544	CS	c3a5n	-0.195076	4-phenyl-5-aza-indole
+3558	319	NA	n3ah1	-0.649779	4-phenyl-5-aza-indole
+3559	146	HA	h1a	0.169465	4-phenyl-5-aza-indole
+3560	146	HA	h1a	0.183037	4-phenyl-5-aza-indole
+3561	508	CW	c3a51	0.007677	4-phenyl-5-aza-indole
+3562	146	HA	h1a	0.195081	4-phenyl-5-aza-indole
+3563	146	HA	h1a	0.200703	4-phenyl-5-aza-indole
+3564	240	H	h1n	0.43579	4-phenyl-5-aza-indole
+3565	519	C!	c3ab	0.046533	7-phenyl-6-aza-indole
+3566	519	C!	c3ab	0.105845	7-phenyl-6-aza-indole
+3567	349	CB	c3aa	0.080249	7-phenyl-6-aza-indole
+3568	349	CB	c3aa	-0.076187	7-phenyl-6-aza-indole
+3569	145	CA	c3a	-0.149696	7-phenyl-6-aza-indole
+3570	145	CA	c3a	-0.056595	7-phenyl-6-aza-indole
+3571	311	NC	n2a6	-0.290877	7-phenyl-6-aza-indole
+3572	319	NA	n3ah1	-0.634575	7-phenyl-6-aza-indole
+3573	544	CS	c3a5n	-0.220107	7-phenyl-6-aza-indole
+3574	146	HA	h1a	0.154609	7-phenyl-6-aza-indole
+3575	146	HA	h1a	0.183878	7-phenyl-6-aza-indole
+3576	508	CW	c3a51	0.027401	7-phenyl-6-aza-indole
+3577	2967	H	h1n1	0.436695	7-phenyl-6-aza-indole
+3578	146	HA	h1a	0.201646	7-phenyl-6-aza-indole
+3579	146	HA	h1a	0.191184	7-phenyl-6-aza-indole
+3580	519	C!	c3ab	0.070843	4-(5,7-diaza)benzofuran
+3581	519	C!	c3ab	0.26506	4-(5,7-diaza)benzofuran
+3582	349	CB	c3aa	-0.218089	4-(5,7-diaza)benzofuran
+3583	349	CB	c3aa	0.21364	4-(5,7-diaza)benzofuran
+3584	311	NC	n2a6	-0.350958	4-(5,7-diaza)benzofuran
+3585	531	CQ	c3a6n	0.200525	4-(5,7-diaza)benzofuran
+3586	311	NC	n2a6	-0.469828	4-(5,7-diaza)benzofuran
+3587	544	CS	c3a5n	-0.180254	4-(5,7-diaza)benzofuran
+3588	177	OS	o2e	-0.155745	4-(5,7-diaza)benzofuran
+3589	146	HA	h1a	0.224488	4-(5,7-diaza)benzofuran
+3590	508	CW	c3a51	-0.03819	4-(5,7-diaza)benzofuran
+3591	146	HA	h1a	0.21451	4-(5,7-diaza)benzofuran
+3592	146	HA	h1a	0.223999	4-(5,7-diaza)benzofuran
+3593	519	C!	c3ab	0.091434	7-phenyl-(4,6-diaza)benzofuran
+3594	519	C!	c3ab	0.245479	7-phenyl-(4,6-diaza)benzofuran
+3595	349	CB	c3aa	-0.059547	7-phenyl-(4,6-diaza)benzofuran
+3596	349	CB	c3aa	0.0444	7-phenyl-(4,6-diaza)benzofuran
+3597	311	NC	n2a6	-0.340015	7-phenyl-(4,6-diaza)benzofuran
+3598	531	CQ	c3a6n	0.153327	7-phenyl-(4,6-diaza)benzofuran
+3599	311	NC	n2a6	-0.421585	7-phenyl-(4,6-diaza)benzofuran
+3600	177	OS	o2e	-0.158755	7-phenyl-(4,6-diaza)benzofuran
+3601	544	CS	c3a5n	-0.19297	7-phenyl-(4,6-diaza)benzofuran
+3602	146	HA	h1a	0.219104	7-phenyl-(4,6-diaza)benzofuran
+3603	508	CW	c3a51	-0.024045	7-phenyl-(4,6-diaza)benzofuran
+3604	146	HA	h1a	0.221908	7-phenyl-(4,6-diaza)benzofuran
+3605	146	HA	h1a	0.221266	7-phenyl-(4,6-diaza)benzofuran
+3606	519	C!	c3ab	0.095775	5-phenyl-6-aza-indolizine
+3607	519	C!	c3ab	0.233943	5-phenyl-6-aza-indolizine
+3608	319	NA	n3ah1	-0.20708	5-phenyl-6-aza-indolizine
+3609	349	CB	c3aa	0.006069	5-phenyl-6-aza-indolizine
+3610	145	CA	c3a	-0.142092	5-phenyl-6-aza-indolizine
+3611	145	CA	c3a	-0.056499	5-phenyl-6-aza-indolizine
+3612	311	NC	n2a6	-0.302712	5-phenyl-6-aza-indolizine
+3613	508	CW	c3a51	-0.145622	5-phenyl-6-aza-indolizine
+3614	544	CS	c3a5n	-0.24552	5-phenyl-6-aza-indolizine
+3615	146	HA	h1a	0.174383	5-phenyl-6-aza-indolizine
+3616	146	HA	h1a	0.190905	5-phenyl-6-aza-indolizine
+3617	544	CS	c3a5n	-0.158172	5-phenyl-6-aza-indolizine
+3618	146	HA	h1a	0.206492	5-phenyl-6-aza-indolizine
+3619	146	HA	h1a	0.182272	5-phenyl-6-aza-indolizine
+3620	146	HA	h1a	0.167861	5-phenyl-6-aza-indolizine
+3621	519	C!	c3ab	0.074776	4-phenyl-5-aza-indole
+3622	519	C!	c3ab	0.213076	4-phenyl-5-aza-indole
+3623	349	CB	c3aa	-0.080771	4-phenyl-5-aza-indole
+3624	319	NA	n3ah1	-0.015442	4-phenyl-5-aza-indole
+3625	141	CM	c3=	-0.143307	4-phenyl-5-aza-indole
+3626	141	CM	c3=	-0.03237	4-phenyl-5-aza-indole
+3627	311	NC	n2a6	-0.378994	4-phenyl-5-aza-indole
+3628	544	CS	c3a5n	-0.227476	4-phenyl-5-aza-indole
+3629	508	CW	c3a51	-0.196201	4-phenyl-5-aza-indole
+3630	146	HA	h1a	0.190224	4-phenyl-5-aza-indole
+3631	146	HA	h1a	0.197073	4-phenyl-5-aza-indole
+3632	544	CS	c3a5n	-0.159129	4-phenyl-5-aza-indole
+3633	146	HA	h1a	0.173183	4-phenyl-5-aza-indole
+3634	146	HA	h1a	0.183468	4-phenyl-5-aza-indole
+3635	146	HA	h1a	0.20189	4-phenyl-5-aza-indole
+3636	519	C!	c3ab	0.053192	5-phenyl-1,6-naphthyridine
+3637	519	C!	c3ab	0.168113	5-phenyl-1,6-naphthyridine
+3638	145	CA	c3a	-0.146655	5-phenyl-1,6-naphthyridine
+3639	145	CA	c3a	0.127344	5-phenyl-1,6-naphthyridine
+3640	145	CA	c3a	-0.176978	5-phenyl-1,6-naphthyridine
+3641	145	CA	c3a	0.013775	5-phenyl-1,6-naphthyridine
+3642	311	NC	n2a6	-0.350572	5-phenyl-1,6-naphthyridine
+3643	145	CA	c3a	-0.056591	5-phenyl-1,6-naphthyridine
+3644	311	NC	n2a6	-0.367258	5-phenyl-1,6-naphthyridine
+3645	146	HA	h1a	0.181951	5-phenyl-1,6-naphthyridine
+3646	146	HA	h1a	0.187674	5-phenyl-1,6-naphthyridine
+3647	145	CA	c3a	-0.222024	5-phenyl-1,6-naphthyridine
+3648	145	CA	c3a	0.06469	5-phenyl-1,6-naphthyridine
+3649	146	HA	h1a	0.169665	5-phenyl-1,6-naphthyridine
+3650	146	HA	h1a	0.16925	5-phenyl-1,6-naphthyridine
+3651	146	HA	h1a	0.184422	5-phenyl-1,6-naphthyridine
+3652	519	C!	c3ab	0.059928	1-phenyl-2,7-naphthyridine
+3653	519	C!	c3ab	0.186689	1-phenyl-2,7-naphthyridine
+3654	145	CA	c3a	-0.152993	1-phenyl-2,7-naphthyridine
+3655	145	CA	c3a	0.023674	1-phenyl-2,7-naphthyridine
+3656	145	CA	c3a	-0.206867	1-phenyl-2,7-naphthyridine
+3657	145	CA	c3a	0.027309	1-phenyl-2,7-naphthyridine
+3658	311	NC	n2a6	-0.362504	1-phenyl-2,7-naphthyridine
+3659	145	CA	c3a	0.073842	1-phenyl-2,7-naphthyridine
+3660	145	CA	c3a	-0.205574	1-phenyl-2,7-naphthyridine
+3661	146	HA	h1a	0.16909	1-phenyl-2,7-naphthyridine
+3662	146	HA	h1a	0.18604	1-phenyl-2,7-naphthyridine
+3663	311	NC	n2a6	-0.363311	1-phenyl-2,7-naphthyridine
+3664	145	CA	c3a	0.017827	1-phenyl-2,7-naphthyridine
+3665	146	HA	h1a	0.194811	1-phenyl-2,7-naphthyridine
+3666	146	HA	h1a	0.18333	1-phenyl-2,7-naphthyridine
+3667	146	HA	h1a	0.168712	1-phenyl-2,7-naphthyridine
+3668	519	C!	c3ab	0.143336	2-phenylpteridine
+3669	519	C!	c3ab	0.392499	2-phenylpteridine
+3670	311	NC	n2a6	-0.483938	2-phenylpteridine
+3671	531	CQ	c3a6n	0.269455	2-phenylpteridine
+3672	145	CA	c3a	-0.149577	2-phenylpteridine
+3673	145	CA	c3a	0.187775	2-phenylpteridine
+3674	311	NC	n2a6	-0.474905	2-phenylpteridine
+3675	311	NC	n2a6	-0.259808	2-phenylpteridine
+3676	311	NC	n2a6	-0.15913	2-phenylpteridine
+3677	146	HA	h1a	0.20576	2-phenylpteridine
+3678	145	CA	c3a	0.015719	2-phenylpteridine
+3679	145	CA	c3a	-0.094854	2-phenylpteridine
+3680	146	HA	h1a	0.205287	2-phenylpteridine
+3681	146	HA	h1a	0.202382	2-phenylpteridine
+3682	519	C!	c3ab	0.061204	2-phenyl-1,5-naphthyridine
+3683	519	C!	c3ab	0.165468	2-phenyl-1,5-naphthyridine
+3684	311	NC	n2a6	-0.363727	2-phenyl-1,5-naphthyridine
+3685	145	CA	c3a	0.059702	2-phenyl-1,5-naphthyridine
+3686	145	CA	c3a	0.030554	2-phenyl-1,5-naphthyridine
+3687	145	CA	c3a	-0.068541	2-phenyl-1,5-naphthyridine
+3688	145	CA	c3a	-0.191154	2-phenyl-1,5-naphthyridine
+3689	145	CA	c3a	-0.068324	2-phenyl-1,5-naphthyridine
+3690	311	NC	n2a6	-0.329997	2-phenyl-1,5-naphthyridine
+3691	146	HA	h1a	0.167956	2-phenyl-1,5-naphthyridine
+3692	145	CA	c3a	-0.197045	2-phenyl-1,5-naphthyridine
+3693	145	CA	c3a	0.029958	2-phenyl-1,5-naphthyridine
+3694	146	HA	h1a	0.173739	2-phenyl-1,5-naphthyridine
+3695	146	HA	h1a	0.169904	2-phenyl-1,5-naphthyridine
+3696	146	HA	h1a	0.184479	2-phenyl-1,5-naphthyridine
+3697	146	HA	h1a	0.175825	2-phenyl-1,5-naphthyridine
+3698	519	C!	c3ab	0.022353	4-phenyl-1,8-naphthyridine
+3699	519	C!	c3ab	0.038158	4-phenyl-1,8-naphthyridine
+3700	145	CA	c3a	-0.153032	4-phenyl-1,8-naphthyridine
+3701	531	CQ	c3a6n	0.249436	4-phenyl-1,8-naphthyridine
+3702	311	NC	n2a6	-0.337232	4-phenyl-1,8-naphthyridine
+3703	145	CA	c3a	0.068385	4-phenyl-1,8-naphthyridine
+3704	145	CA	c3a	-0.212497	4-phenyl-1,8-naphthyridine
+3705	145	CA	c3a	-0.066713	4-phenyl-1,8-naphthyridine
+3706	311	NC	n2a6	-0.34066	4-phenyl-1,8-naphthyridine
+3707	146	HA	h1a	0.190039	4-phenyl-1,8-naphthyridine
+3708	146	HA	h1a	0.171862	4-phenyl-1,8-naphthyridine
+3709	145	CA	c3a	-0.223197	4-phenyl-1,8-naphthyridine
+3710	145	CA	c3a	0.069289	4-phenyl-1,8-naphthyridine
+3711	146	HA	h1a	0.166854	4-phenyl-1,8-naphthyridine
+3712	146	HA	h1a	0.168539	4-phenyl-1,8-naphthyridine
+3713	146	HA	h1a	0.188416	4-phenyl-1,8-naphthyridine
+3714	519	C!	c3ab	0.049272	8-methyl,2-phenyl-1,5-naphthyr
+3715	519	C!	c3ab	0.135637	8-methyl,2-phenyl-1,5-naphthyr
+3716	311	NC	n2a6	-0.320361	8-methyl,2-phenyl-1,5-naphthyr
+3717	145	CA	c3a	0.040281	8-methyl,2-phenyl-1,5-naphthyr
+3718	145	CA	c3a	0.043387	8-methyl,2-phenyl-1,5-naphthyr
+3719	145	CA	c3a	-0.072197	8-methyl,2-phenyl-1,5-naphthyr
+3720	145	CA	c3a	-0.187241	8-methyl,2-phenyl-1,5-naphthyr
+3721	145	CA	c3a	0.004037	8-methyl,2-phenyl-1,5-naphthyr
+3722	311	NC	n2a6	-0.350127	8-methyl,2-phenyl-1,5-naphthyr
+3723	146	HA	h1a	0.172136	8-methyl,2-phenyl-1,5-naphthyr
+3724	145	CA	c3a	-0.206612	8-methyl,2-phenyl-1,5-naphthyr
+3725	145	CA	c3a	0.042652	8-methyl,2-phenyl-1,5-naphthyr
+3726	135	CT	c4	-0.196862	8-methyl,2-phenyl-1,5-naphthyr
+3727	146	HA	h1a	0.17019	8-methyl,2-phenyl-1,5-naphthyr
+3728	146	HA	h1a	0.18345	8-methyl,2-phenyl-1,5-naphthyr
+3729	146	HA	h1a	0.175622	8-methyl,2-phenyl-1,5-naphthyr
+3730	140	HC	h1	0.105579	8-methyl,2-phenyl-1,5-naphthyr
+3731	140	HC	h1	0.105579	8-methyl,2-phenyl-1,5-naphthyr
+3732	140	HC	h1	0.105579	8-methyl,2-phenyl-1,5-naphthyr
+3733	519	C!	c3ab	0.05472	1-phenyl-3-aza-isoquinoline
+3734	519	C!	c3ab	0.034846	1-phenyl-3-aza-isoquinoline
+3735	145	CA	c3a	-0.060468	1-phenyl-3-aza-isoquinoline
+3736	145	CA	c3a	-0.070321	1-phenyl-3-aza-isoquinoline
+3737	145	CA	c3a	-0.083156	1-phenyl-3-aza-isoquinoline
+3738	311	NC	n2a6	-0.106396	1-phenyl-3-aza-isoquinoline
+3739	311	NC	n2a6	-0.106897	1-phenyl-3-aza-isoquinoline
+3740	145	CA	c3a	-0.114402	1-phenyl-3-aza-isoquinoline
+3741	145	CA	c3a	-0.124014	1-phenyl-3-aza-isoquinoline
+3742	146	HA	h1a	0.191569	1-phenyl-3-aza-isoquinoline
+3743	145	CA	c3a	-0.134401	1-phenyl-3-aza-isoquinoline
+3744	145	CA	c3a	-0.130049	1-phenyl-3-aza-isoquinoline
+3745	146	HA	h1a	0.17027	1-phenyl-3-aza-isoquinoline
+3746	146	HA	h1a	0.159196	1-phenyl-3-aza-isoquinoline
+3747	146	HA	h1a	0.15824	1-phenyl-3-aza-isoquinoline
+3748	146	HA	h1a	0.161262	1-phenyl-3-aza-isoquinoline
+3749	519	C!	c3ab	0.051427	1-phenyl-(6-aza)-isoquinoline
+3750	519	C!	c3ab	0.133943	1-phenyl-(6-aza)-isoquinoline
+3751	145	CA	c3a	-0.059256	1-phenyl-(6-aza)-isoquinoline
+3752	145	CA	c3a	-0.071527	1-phenyl-(6-aza)-isoquinoline
+3753	145	CA	c3a	-0.171368	1-phenyl-(6-aza)-isoquinoline
+3754	145	CA	c3a	-0.016362	1-phenyl-(6-aza)-isoquinoline
+3755	311	NC	n2a6	-0.297809	1-phenyl-(6-aza)-isoquinoline
+3756	145	CA	c3a	-0.162546	1-phenyl-(6-aza)-isoquinoline
+3757	145	CA	c3a	0.023915	1-phenyl-(6-aza)-isoquinoline
+3758	146	HA	h1a	0.168941	1-phenyl-(6-aza)-isoquinoline
+3759	146	HA	h1a	0.186995	1-phenyl-(6-aza)-isoquinoline
+3760	145	CA	c3a	-0.02328	1-phenyl-(6-aza)-isoquinoline
+3761	311	NC	n2a6	-0.311253	1-phenyl-(6-aza)-isoquinoline
+3762	146	HA	h1a	0.177122	1-phenyl-(6-aza)-isoquinoline
+3763	146	HA	h1a	0.185111	1-phenyl-(6-aza)-isoquinoline
+3764	146	HA	h1a	0.185948	1-phenyl-(6-aza)-isoquinoline
+3765	519	C!	c3ab	0.062827	1-phenyl-(8-aza)-isoquinoline
+3766	519	C!	c3ab	0.16073	1-phenyl-(8-aza)-isoquinoline
+3767	145	CA	c3a	0.033639	1-phenyl-(8-aza)-isoquinoline
+3768	145	CA	c3a	-0.069333	1-phenyl-(8-aza)-isoquinoline
+3769	145	CA	c3a	-0.186172	1-phenyl-(8-aza)-isoquinoline
+3770	145	CA	c3a	-0.010912	1-phenyl-(8-aza)-isoquinoline
+3771	311	NC	n2a6	-0.305454	1-phenyl-(8-aza)-isoquinoline
+3772	311	NC	n2a6	-0.285773	1-phenyl-(8-aza)-isoquinoline
+3773	145	CA	c3a	-0.094845	1-phenyl-(8-aza)-isoquinoline
+3774	146	HA	h1a	0.166009	1-phenyl-(8-aza)-isoquinoline
+3775	146	HA	h1a	0.186019	1-phenyl-(8-aza)-isoquinoline
+3776	145	CA	c3a	0.016292	1-phenyl-(8-aza)-isoquinoline
+3777	145	CA	c3a	-0.190604	1-phenyl-(8-aza)-isoquinoline
+3778	146	HA	h1a	0.187368	1-phenyl-(8-aza)-isoquinoline
+3779	146	HA	h1a	0.167358	1-phenyl-(8-aza)-isoquinoline
+3780	146	HA	h1a	0.162849	1-phenyl-(8-aza)-isoquinoline
+3781	519	C!	c3ab	0.047203	3-phenyl-isoquinoline
+3782	519	C!	c3ab	0.116027	3-phenyl-isoquinoline
+3783	145	CA	c3a	-0.185214	3-phenyl-isoquinoline
+3784	145	CA	c3a	-0.005866	3-phenyl-isoquinoline
+3785	145	CA	c3a	-0.101793	3-phenyl-isoquinoline
+3786	145	CA	c3a	0.058949	3-phenyl-isoquinoline
+3787	311	NC	n2a6	-0.361817	3-phenyl-isoquinoline
+3788	146	HA	h1a	0.163859	3-phenyl-isoquinoline
+3789	145	CA	c3a	-0.144401	3-phenyl-isoquinoline
+3790	145	CA	c3a	-0.112815	3-phenyl-isoquinoline
+3791	146	HA	h1a	0.183324	3-phenyl-isoquinoline
+3792	145	CA	c3a	-0.125448	3-phenyl-isoquinoline
+3793	145	CA	c3a	-0.151639	3-phenyl-isoquinoline
+3794	146	HA	h1a	0.156187	3-phenyl-isoquinoline
+3795	146	HA	h1a	0.153624	3-phenyl-isoquinoline
+3796	146	HA	h1a	0.154232	3-phenyl-isoquinoline
+3797	146	HA	h1a	0.155587	3-phenyl-isoquinoline
+3798	519	C!	c3ab	0.023609	3-phenyl-6-aza-isoquinoline
+3799	519	C!	c3ab	0.107163	3-phenyl-6-aza-isoquinoline
+3800	145	CA	c3a	-0.105123	3-phenyl-6-aza-isoquinoline
+3801	145	CA	c3a	-0.091235	3-phenyl-6-aza-isoquinoline
+3802	145	CA	c3a	-0.073903	3-phenyl-6-aza-isoquinoline
+3803	145	CA	c3a	0.045014	3-phenyl-6-aza-isoquinoline
+3804	311	NC	n2a6	-0.327563	3-phenyl-6-aza-isoquinoline
+3805	146	HA	h1a	0.163743	3-phenyl-6-aza-isoquinoline
+3806	145	CA	c3a	0.029051	3-phenyl-6-aza-isoquinoline
+3807	145	CA	c3a	-0.167568	3-phenyl-6-aza-isoquinoline
+3808	146	HA	h1a	0.188608	3-phenyl-6-aza-isoquinoline
+3809	311	NC	n2a6	-0.312285	3-phenyl-6-aza-isoquinoline
+3810	145	CA	c3a	-0.019648	3-phenyl-6-aza-isoquinoline
+3811	146	HA	h1a	0.186498	3-phenyl-6-aza-isoquinoline
+3812	146	HA	h1a	0.184893	3-phenyl-6-aza-isoquinoline
+3813	146	HA	h1a	0.168746	3-phenyl-6-aza-isoquinoline
+3814	519	C!	c3ab	0.05796	3-phenyl-7-aza-isoquinoline
+3815	519	C!	c3ab	0.141493	3-phenyl-7-aza-isoquinoline
+3816	145	CA	c3a	-0.197143	3-phenyl-7-aza-isoquinoline
+3817	145	CA	c3a	0.024873	3-phenyl-7-aza-isoquinoline
+3818	145	CA	c3a	-0.169088	3-phenyl-7-aza-isoquinoline
+3819	145	CA	c3a	0.086736	3-phenyl-7-aza-isoquinoline
+3820	311	NC	n2a6	-0.370314	3-phenyl-7-aza-isoquinoline
+3821	146	HA	h1a	0.168669	3-phenyl-7-aza-isoquinoline
+3822	145	CA	c3a	-0.20082	3-phenyl-7-aza-isoquinoline
+3823	145	CA	c3a	0.070987	3-phenyl-7-aza-isoquinoline
+3824	146	HA	h1a	0.187804	3-phenyl-7-aza-isoquinoline
+3825	145	CA	c3a	0.015537	3-phenyl-7-aza-isoquinoline
+3826	311	NC	n2a6	-0.355562	3-phenyl-7-aza-isoquinoline
+3827	146	HA	h1a	0.169065	3-phenyl-7-aza-isoquinoline
+3828	146	HA	h1a	0.184163	3-phenyl-7-aza-isoquinoline
+3829	146	HA	h1a	0.185642	3-phenyl-7-aza-isoquinoline
+3830	519	C!	c3ab	0.053532	3-phenyl-8-aza-isoquinoline
+3831	519	C!	c3ab	0.110606	3-phenyl-8-aza-isoquinoline
+3832	145	CA	c3a	-0.178753	3-phenyl-8-aza-isoquinoline
+3833	145	CA	c3a	-0.066651	3-phenyl-8-aza-isoquinoline
+3834	145	CA	c3a	0.022011	3-phenyl-8-aza-isoquinoline
+3835	145	CA	c3a	0.071286	3-phenyl-8-aza-isoquinoline
+3836	311	NC	n2a6	-0.332057	3-phenyl-8-aza-isoquinoline
+3837	146	HA	h1a	0.165418	3-phenyl-8-aza-isoquinoline
+3838	145	CA	c3a	-0.091349	3-phenyl-8-aza-isoquinoline
+3839	311	NC	n2a6	-0.301152	3-phenyl-8-aza-isoquinoline
+3840	146	HA	h1a	0.199659	3-phenyl-8-aza-isoquinoline
+3841	145	CA	c3a	-0.190073	3-phenyl-8-aza-isoquinoline
+3842	145	CA	c3a	0.020295	3-phenyl-8-aza-isoquinoline
+3843	146	HA	h1a	0.162964	3-phenyl-8-aza-isoquinoline
+3844	146	HA	h1a	0.167861	3-phenyl-8-aza-isoquinoline
+3845	146	HA	h1a	0.186403	3-phenyl-8-aza-isoquinoline
+3846	519	C!	c3ab	0.058448	3-phenyl-5-aza-isoquinoline
+3847	519	C!	c3ab	0.130928	3-phenyl-5-aza-isoquinoline
+3848	145	CA	c3a	-0.172	3-phenyl-5-aza-isoquinoline
+3849	145	CA	c3a	0.129081	3-phenyl-5-aza-isoquinoline
+3850	145	CA	c3a	-0.165285	3-phenyl-5-aza-isoquinoline
+3851	145	CA	c3a	0.070033	3-phenyl-5-aza-isoquinoline
+3852	311	NC	n2a6	-0.361731	3-phenyl-5-aza-isoquinoline
+3853	146	HA	h1a	0.1806	3-phenyl-5-aza-isoquinoline
+3854	311	NC	n2a6	-0.35817	3-phenyl-5-aza-isoquinoline
+3855	145	CA	c3a	-0.057072	3-phenyl-5-aza-isoquinoline
+3856	146	HA	h1a	0.18482	3-phenyl-5-aza-isoquinoline
+3857	145	CA	c3a	0.063677	3-phenyl-5-aza-isoquinoline
+3858	145	CA	c3a	-0.219227	3-phenyl-5-aza-isoquinoline
+3859	146	HA	h1a	0.185539	3-phenyl-5-aza-isoquinoline
+3860	146	HA	h1a	0.168337	3-phenyl-5-aza-isoquinoline
+3861	146	HA	h1a	0.162022	3-phenyl-5-aza-isoquinoline
+3862	519	C!	c3ab	0.119048	3-phenyl-4-aza-isoquinoline
+3863	519	C!	c3ab	0.362424	3-phenyl-4-aza-isoquinoline
+3864	311	NC	n2a6	-0.495839	3-phenyl-4-aza-isoquinoline
+3865	145	CA	c3a	0.185324	3-phenyl-4-aza-isoquinoline
+3866	145	CA	c3a	-0.167048	3-phenyl-4-aza-isoquinoline
+3867	145	CA	c3a	0.156141	3-phenyl-4-aza-isoquinoline
+3868	311	NC	n2a6	-0.494537	3-phenyl-4-aza-isoquinoline
+3869	145	CA	c3a	-0.129605	3-phenyl-4-aza-isoquinoline
+3870	145	CA	c3a	-0.10145	3-phenyl-4-aza-isoquinoline
+3871	146	HA	h1a	0.187675	3-phenyl-4-aza-isoquinoline
+3872	145	CA	c3a	-0.11194	3-phenyl-4-aza-isoquinoline
+3873	145	CA	c3a	-0.154624	3-phenyl-4-aza-isoquinoline
+3874	146	HA	h1a	0.171566	3-phenyl-4-aza-isoquinoline
+3875	146	HA	h1a	0.158981	3-phenyl-4-aza-isoquinoline
+3876	146	HA	h1a	0.156944	3-phenyl-4-aza-isoquinoline
+3877	146	HA	h1a	0.156942	3-phenyl-4-aza-isoquinoline
+3878	519	C!	c3ab	0.047203	3-phenyl-cinnoline
+3879	519	C!	c3ab	0.116027	3-phenyl-cinnoline
+3880	145	CA	c3a	-0.185214	3-phenyl-cinnoline
+3881	145	CA	c3a	-0.005866	3-phenyl-cinnoline
+3882	145	CA	c3a	-0.101793	3-phenyl-cinnoline
+3883	145	CA	c3a	0.058949	3-phenyl-cinnoline
+3884	311	NC	n2a6	-0.361817	3-phenyl-cinnoline
+3885	146	HA	h1a	0.163859	3-phenyl-cinnoline
+3886	145	CA	c3a	-0.144401	3-phenyl-cinnoline
+3887	145	CA	c3a	-0.112815	3-phenyl-cinnoline
+3888	146	HA	h1a	0.183324	3-phenyl-cinnoline
+3889	145	CA	c3a	-0.125448	3-phenyl-cinnoline
+3890	145	CA	c3a	-0.151639	3-phenyl-cinnoline
+3891	146	HA	h1a	0.156187	3-phenyl-cinnoline
+3892	146	HA	h1a	0.153624	3-phenyl-cinnoline
+3893	146	HA	h1a	0.154232	3-phenyl-cinnoline
+3894	519	C!	c3ab	0.102255	4-phenylpteridine
+3895	519	C!	c3ab	0.288719	4-phenylpteridine
+3896	145	CA	c3a	-0.124873	4-phenylpteridine
+3897	531	CQ	c3a6n	0.21965	4-phenylpteridine
+3898	311	NC	n2a6	-0.402755	4-phenylpteridine
+3899	531	CQ	c3a6n	0.236558	4-phenylpteridine
+3900	311	NC	n2a6	-0.45427	4-phenylpteridine
+3901	311	NC	n2a6	-0.171037	4-phenylpteridine
+3902	311	NC	n2a6	-0.250078	4-phenylpteridine
+3903	146	HA	h1a	0.228727	4-phenylpteridine
+3904	145	CA	c3a	-0.08886	4-phenylpteridine
+3905	145	CA	c3a	0.007879	4-phenylpteridine
+3906	146	HA	h1a	0.203065	4-phenylpteridine
+3907	146	HA	h1a	0.20502	4-phenylpteridine
+3908	519	C!	c3ab	0.053564	2,3-dihydro-5-aza-benzofuran
+3909	519	C!	c3ab	0.198663	2,3-dihydro-5-aza-benzofuran
+3910	145	CA	c3a	-0.236936	2,3-dihydro-5-aza-benzofuran
+3911	349	CB	c3aa	0.162636	2,3-dihydro-5-aza-benzofuran
+3912	145	CA	c3a	-0.219423	2,3-dihydro-5-aza-benzofuran
+3913	145	CA	c3a	0.070706	2,3-dihydro-5-aza-benzofuran
+3914	311	NC	n2a6	-0.432187	2,3-dihydro-5-aza-benzofuran
+3915	135	CT	c4	-0.144715	2,3-dihydro-5-aza-benzofuran
+3916	177	OS	o2e	-0.299909	2,3-dihydro-5-aza-benzofuran
+3917	146	HA	h1a	0.190205	2,3-dihydro-5-aza-benzofuran
+3918	146	HA	h1a	0.186233	2,3-dihydro-5-aza-benzofuran
+3919	135	CT	c4	-0.005655	2,3-dihydro-5-aza-benzofuran
+3920	140	HC	h1	0.125336	2,3-dihydro-5-aza-benzofuran
+3921	140	HC	h1	0.113072	2,3-dihydro-5-aza-benzofuran
+3922	140	HC	h1	0.125336	2,3-dihydro-5-aza-benzofuran
+3923	140	HC	h1	0.113072	2,3-dihydro-5-aza-benzofuran
+3924	519	C!	c3ab	0.076807	2,3-dihyro-6-aza-benzofuran
+3925	519	C!	c3ab	0.119915	2,3-dihyro-6-aza-benzofuran
+3926	349	CB	c3aa	0.075109	2,3-dihyro-6-aza-benzofuran
+3927	145	CA	c3a	-0.144804	2,3-dihyro-6-aza-benzofuran
+3928	145	CA	c3a	-0.156571	2,3-dihyro-6-aza-benzofuran
+3929	145	CA	c3a	-0.029699	2,3-dihyro-6-aza-benzofuran
+3930	311	NC	n2a6	-0.310387	2,3-dihyro-6-aza-benzofuran
+3931	177	OS	o2e	-0.300981	2,3-dihyro-6-aza-benzofuran
+3932	135	CT	c4	-0.158975	2,3-dihyro-6-aza-benzofuran
+3933	146	HA	h1a	0.165963	2,3-dihyro-6-aza-benzofuran
+3934	146	HA	h1a	0.184854	2,3-dihyro-6-aza-benzofuran
+3935	135	CT	c4	-0.002519	2,3-dihyro-6-aza-benzofuran
+3936	140	HC	h1	0.127372	2,3-dihyro-6-aza-benzofuran
+3937	140	HC	h1	0.113272	2,3-dihyro-6-aza-benzofuran
+3938	140	HC	h1	0.127372	2,3-dihyro-6-aza-benzofuran
+3939	140	HC	h1	0.113272	2,3-dihyro-6-aza-benzofuran
+3940	519	C!	c3ab	0.065014	2-phenyl-N-methyl-imidazole
+3941	506	CR	c3a53	0.133291	2-phenyl-N-methyl-imidazole
+3942	352	NB	n2a5	-0.322113	2-phenyl-N-methyl-imidazole
+3943	550	CU	c3a55	-0.096724	2-phenyl-N-methyl-imidazole
+3944	508	CW	c3a51	-0.166324	2-phenyl-N-methyl-imidazole
+3945	319	NA	n3ah1	-0.320238	2-phenyl-N-methyl-imidazole
+3946	146	HA	h1a	0.200203	2-phenyl-N-methyl-imidazole
+3947	146	HA	h1a	0.203216	2-phenyl-N-methyl-imidazole
+3948	135	CT	c4	-0.026425	2-phenyl-N-methyl-imidazole
+3949	140	HC	h1	0.110033	2-phenyl-N-methyl-imidazole
+3950	140	HC	h1	0.110033	2-phenyl-N-methyl-imidazole
+3951	140	HC	h1	0.110033	2-phenyl-N-methyl-imidazole
+3952	519	C!	c3ab	0.044236	5-phenyl-N-methyl-imidazole
+3953	508	CW	c3a51	-0.069107	5-phenyl-N-methyl-imidazole
+3954	550	CU	c3a55	-0.063567	5-phenyl-N-methyl-imidazole
+3955	352	NB	n2a5	-0.384046	5-phenyl-N-methyl-imidazole
+3956	506	CR	c3a53	0.036598	5-phenyl-N-methyl-imidazole
+3957	319	NA	n3ah1	-0.290599	5-phenyl-N-methyl-imidazole
+3958	146	HA	h1a	0.203697	5-phenyl-N-methyl-imidazole
+3959	146	HA	h1a	0.222998	5-phenyl-N-methyl-imidazole
+3960	135	CT	c4	-0.032883	5-phenyl-N-methyl-imidazole
+3961	140	HC	h1	0.11089	5-phenyl-N-methyl-imidazole
+3962	140	HC	h1	0.11089	5-phenyl-N-methyl-imidazole
+3963	140	HC	h1	0.11089	5-phenyl-N-methyl-imidazole
+3964	519	C!	c3ab	0.021262	4-phenyl-N-methylpyrazole
+3965	544	CS	c3a5n	-0.163246	4-phenyl-N-methylpyrazole
+3966	550	CU	c3a55	-0.135582	4-phenyl-N-methylpyrazole
+3967	352	NB	n2a5	-0.077322	4-phenyl-N-methylpyrazole
+3968	319	NA	n3ah1	-0.348168	4-phenyl-N-methylpyrazole
+3969	508	CW	c3a51	-0.020351	4-phenyl-N-methylpyrazole
+3970	146	HA	h1a	0.200714	4-phenyl-N-methylpyrazole
+3971	135	CT	c4	-0.008957	4-phenyl-N-methylpyrazole
+3972	146	HA	h1a	0.205871	4-phenyl-N-methylpyrazole
+3973	140	HC	h1	0.108592	4-phenyl-N-methylpyrazole
+3974	140	HC	h1	0.108592	4-phenyl-N-methylpyrazole
+3975	140	HC	h1	0.108592	4-phenyl-N-methylpyrazole
+3976	519	C!	c3ab	0.150496	2-phenyl-1,3,4-oxadiazole
+3977	506	CR	c3a53	0.095954	2-phenyl-1,3,4-oxadiazole
+3978	352	NB	n2a5	-0.188427	2-phenyl-1,3,4-oxadiazole
+3979	352	NB	n2a5	-0.131195	2-phenyl-1,3,4-oxadiazole
+3980	506	CR	c3a53	-0.050498	2-phenyl-1,3,4-oxadiazole
+3981	177	OS	o2e	-0.143645	2-phenyl-1,3,4-oxadiazole
+3982	146	HA	h1a	0.267316	2-phenyl-1,3,4-oxadiazole
+3983	519	C!	c3ab	0.050255	1,3-dihydro-4-phenyl-imidazol-2-one
+3984	508	CW	c3a51	0.114393	1,3-dihydro-4-phenyl-imidazol-2-one
+3985	508	CW	c3a51	0.027499	1,3-dihydro-4-phenyl-imidazol-2-one
+3986	237	N	n3am	-0.851176	1,3-dihydro-4-phenyl-imidazol-2-one
+3987	231	C	c3o	0.744428	1,3-dihydro-4-phenyl-imidazol-2-one
+3988	237	N	n3am	-0.818483	1,3-dihydro-4-phenyl-imidazol-2-one
+3989	146	HA	h1a	0.211284	1,3-dihydro-4-phenyl-imidazol-2-one
+3990	240	H	h1n	0.509393	1,3-dihydro-4-phenyl-imidazol-2-one
+3991	236	O	o1=	-0.494085	1,3-dihydro-4-phenyl-imidazol-2-one
+3992	240	H	h1n	0.506494	1,3-dihydro-4-phenyl-imidazol-2-one
+3993	519	C!	c3ab	0.046756	2-phenylindole
+3994	508	CW	c3a51	0.106559	2-phenylindole
+3995	544	CS	c3a5n	-0.198113	2-phenylindole
+3996	349	CB	c3aa	-0.106854	2-phenylindole
+3997	349	CB	c3aa	0.133947	2-phenylindole
+3998	319	NA	n3ah1	-0.617002	2-phenylindole
+3999	146	HA	h1a	0.174951	2-phenylindole
+4000	145	CA	c3a	-0.084861	2-phenylindole
+4001	145	CA	c3a	-0.179788	2-phenylindole
+4002	145	CA	c3a	-0.115857	2-phenylindole
+4003	145	CA	c3a	-0.188815	2-phenylindole
+4004	146	HA	h1a	0.145501	2-phenylindole
+4005	146	HA	h1a	0.154158	2-phenylindole
+4006	146	HA	h1a	0.149257	2-phenylindole
+4007	146	HA	h1a	0.150209	2-phenylindole
+4008	240	H	h1n	0.429952	2-phenylindole
+4009	519	C!	c3ab	0.289979	N-phenyloxazolidin-2-one
+4010	237	N	n3am	-0.841573	N-phenyloxazolidin-2-one
+4011	231	C	c3o	0.717861	N-phenyloxazolidin-2-one
+4012	177	OS	o2e	-0.317893	N-phenyloxazolidin-2-one
+4013	135	CT	c4	0.005086	N-phenyloxazolidin-2-one
+4014	135	CT	c4	0.060495	N-phenyloxazolidin-2-one
+4015	140	HC	h1	0.129072	N-phenyloxazolidin-2-one
+4016	140	HC	h1	0.129072	N-phenyloxazolidin-2-one
+4017	140	HC	h1	0.121425	N-phenyloxazolidin-2-one
+4018	140	HC	h1	0.121425	N-phenyloxazolidin-2-one
+4019	236	O	o1=	-0.41495	N-phenyloxazolidin-2-one
+4020	519	C!	c3ab	0.271498	N-phenyloxazol-2-one
+4021	237	N	n3am	-0.597225	N-phenyloxazol-2-one
+4022	231	C	c3o	0.619431	N-phenyloxazol-2-one
+4023	177	OS	o2e	-0.213827	N-phenyloxazol-2-one
+4024	508	CW	c3a51	-0.083375	N-phenyloxazol-2-one
+4025	508	CW	c3a51	-0.035816	N-phenyloxazol-2-one
+4026	146	HA	h1a	0.241854	N-phenyloxazol-2-one
+4027	146	HA	h1a	0.221975	N-phenyloxazol-2-one
+4028	236	O	o1=	-0.424517	N-phenyloxazol-2-one
+4029	519	C!	c3ab	0.265982	N-phenylimidazolidin-2-one
+4030	237	N	n3am	-0.781303	N-phenylimidazolidin-2-one
+4031	135	CT	c4	0.091021	N-phenylimidazolidin-2-one
+4032	135	CT	c4	0.147566	N-phenylimidazolidin-2-one
+4033	237	N	n3am	-1.116733	N-phenylimidazolidin-2-one
+4034	231	C	c3o	0.876603	N-phenylimidazolidin-2-one
+4035	140	HC	h1	0.112634	N-phenylimidazolidin-2-one
+4036	140	HC	h1	0.112634	N-phenylimidazolidin-2-one
+4037	140	HC	h1	0.106673	N-phenylimidazolidin-2-one
+4038	140	HC	h1	0.106673	N-phenylimidazolidin-2-one
+4039	240	H	h1n	0.549215	N-phenylimidazolidin-2-one
+4040	236	O	o1=	-0.470965	N-phenylimidazolidin-2-one
+4041	519	C!	c3ab	0.138744	3-phenyl-1,2,4-oxadiazole
+4042	231	C	c3o	0.279125	3-phenyl-1,2,4-oxadiazole
+4043	352	NB	n2a5	-0.554626	3-phenyl-1,2,4-oxadiazole
+4044	506	CR	c3a53	0.230266	3-phenyl-1,2,4-oxadiazole
+4045	177	OS	o2e	-0.08248	3-phenyl-1,2,4-oxadiazole
+4046	352	NB	n2a5	-0.287208	3-phenyl-1,2,4-oxadiazole
+4047	146	HA	h1a	0.276179	3-phenyl-1,2,4-oxadiazole
+4048	519	C!	c3ab	0.180133	5-phenyl-1,2,4-oxadiazole
+4049	506	CR	c3a53	0.355031	5-phenyl-1,2,4-oxadiazole
+4050	352	NB	n2a5	-0.578602	5-phenyl-1,2,4-oxadiazole
+4051	231	C	c3o	0.180487	5-phenyl-1,2,4-oxadiazole
+4052	352	NB	n2a5	-0.280419	5-phenyl-1,2,4-oxadiazole
+4053	177	OS	o2e	-0.098145	5-phenyl-1,2,4-oxadiazole
+4054	146	HA	h1a	0.241514	5-phenyl-1,2,4-oxadiazole
+4055	519	C!	c3ab	0.124588	2-phenyl-1,3,4-thiadiazole
+4056	506	CR	c3a53	-0.017446	2-phenyl-1,3,4-thiadiazole
+4057	352	NB	n2a5	-0.13715	2-phenyl-1,3,4-thiadiazole
+4058	352	NB	n2a5	-0.029872	2-phenyl-1,3,4-thiadiazole
+4059	506	CR	c3a53	-0.189912	2-phenyl-1,3,4-thiadiazole
+4060	202	S	s2	0.015899	2-phenyl-1,3,4-thiadiazole
+4061	146	HA	h1a	0.233893	2-phenyl-1,3,4-thiadiazole

@@ -5,7 +5,7 @@
 #  date:	October 27, 2019.
 #  purpose:	Matrix operations; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -193,13 +193,35 @@ sub vprint {
 
 sub mprint {
   my $m = shift(@_);
+  my $header = shift(@_);
   my @dim = EMC::Matrix::mdim($m);
   my $i = 1;
 
   #print(join(" x ", EMC::Matrix::mdim($m)), " matrix\n");
-  for ($i=0; $i<@dim[1]; ++$i) { 
-    printf("%s%s", $i ? "\t" : "      |\t", $i+1); };
-  print("\n");
+
+  if (ref($header) eq "ARRAY") {
+    if (ref($header->[0]) eq "ARRAY") {
+      my $n = scalar(@{$header->[0]});
+      for (my $i=0; $i<$n; ++$i) {
+	print(" " x 6, "|");
+	foreach (@{$header}) {
+	  print("\t", $_->[$i]);
+	}
+	print("\n");
+      }
+    } else {
+      print(" " x 6, "|");
+      foreach (@{$header}) {
+	print("\t", $_->[$i]);
+      }
+    }
+  } else {
+    print(" " x 6, "|");
+    for ($i=0; $i<@dim[1]; ++$i) { 
+      printf("\t%s", $i+1);
+    }
+    print("\n");
+  }
   for ($i=0; $i<=@dim[1]; ++$i) {
     print("--------"); };
   print("\n");
@@ -229,14 +251,21 @@ sub mreduce {
 
 
 sub msolve {
-  my ($a, $cut, $show, $issues, $svd, $mm) = @_[0,1,2,3,4,5];
+  my $a = shift(@_);
+  my $attr; $attr = shift(@_) if (ref(@_[0]) eq "HASH");
+  my $cut = defined($attr->{cut}) ? $attr->{cut} : @_[0];
+  my $show = defined($attr->{show}) ? $attr->{show} : @_[1];
+  my $issues = defined($attr->{issues}) ? $attr->{issues} : @_[2];
+  my $svd = defined($attr->{svd}) ? $attr->{svd} : @_[3];
+  my $mm = defined($attr->{svd}) ? $attr->{m} : @_[4];
+  
   my $m = EMC::Matrix::mcopy($a);
   my $nrows = $#{$a};
   my $ncols = $#{$a->[0]};
   my $eps = $cut>0 ? $cut : 1e-6;
   my $i = 0;
   my @issues;
-
+  
   $$mm = $m if (defined($mm));
   $$svd = 0 if (defined($svd));
   EMC::Matrix::mprint($m) if ($show);
@@ -309,8 +338,7 @@ sub msolve {
     splice(@{$m}, $i--, 1) if ($f);
   }
   return undef if ($#{$m}!=$ncols-1);
-  my $sol = [];
-  foreach (@{$m}) { push(@{$sol}, @{$_}[-1]); }
+  my $sol = [map({@{$_}[-1]} @{$m})];
   return EMC::Matrix::vround($sol, $eps, 0);
 }
 

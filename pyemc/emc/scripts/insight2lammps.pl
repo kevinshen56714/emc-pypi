@@ -4,11 +4,11 @@
 #  author:	Pieter J. in 't Veld
 #  date:	March 5, April 27, September 29, 2008, October 25, 2010,
 #  		July 6, 2011, August 14, 2012, April 30, August 27, 2013, 
-#  		August 19, 2014, August 15, 2018.
+#  		August 19, 2014, August 15, 2018, October 2, 2024.
 #  purpose:	translation of Accelrys InsightII .mdf and .arc formats
 #  		to lammps input files; part of EMC distribution
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -31,6 +31,7 @@
 #    20180815	Added -type and updated -class to allow for explicit force
 #    		field files
 #    20180820	Improved triclinic recognition
+#    20241002	Improved EMC .car interpretation
 #
 
 %Selection = (
@@ -183,7 +184,7 @@ sub initialize {
   program_header() if ($info);
   if ($type ne "") {
     if (!defined($Class{$type})) {
-      print("Error: '$type' is not a valid force field type\n"); exit;
+      print("Error: '$type' is not a valid force field type\n\n"); exit;
     }
     $selection = $type;
     $class = $Class{$selection} if ($class eq "");
@@ -191,14 +192,14 @@ sub initialize {
     if ($class eq "") {
       $selection = $Selection{$forcefield} if ($selection eq "");
       if ($selection eq "") {
-	print("Error: '$forcefield' is not a valid force field\n"); exit;
+	print("Error: '$forcefield' is not a valid force field\n\n"); exit;
       }
       $class = $Class{$selection} if ($class eq "");
     } else {
       my %allowed;
       foreach (keys(%Class)) { $allowed{$Class{$_}} = $_; }
       if (!defined($allowed{$class})) {
-	print("Error: '$class' is not a valid force field class\n"); exit;
+	print("Error: '$class' is not a valid force field class\n\n"); exit;
       }
       $selection = $allowed{$class};
     }
@@ -208,7 +209,7 @@ sub initialize {
   elsif ($class eq "class2") {
     %Class = %Class2; %AutoClass = %AutoClass2; %NCoeffs = %NCoeffs2; }
   else {
-    print("Error: $class is not a valid force field class\n"); exit; }
+    print("Error: $class is not a valid force field class\n\n"); exit; }
   my @arg = split("/", `which $script.pl`); pop(@arg);
   @forcefield_source = (
     "", ".", $ENV{HOME}."/forcefields/$forcefield",
@@ -266,7 +267,7 @@ sub open_file {
 
   open($file, $name);
   if (!scalar(stat($file))) {
-    printf("Error: cannot open $name\n"); exit; }
+    printf("Error: cannot open $name\n\n"); exit; }
   return $file;
 }
 
@@ -280,7 +281,7 @@ sub open_forcefield {
     last if (scalar(stat($ForceField)));
   }
   if (!scalar(stat($ForceField))) {
-    print("Error: cannot find $forcefield force field\n"); exit; }
+    print("Error: cannot find $forcefield force field\n\n"); exit; }
   $ForceFieldNonbond = "";
   $ForceFieldNonbondType = "";
   $ForceFieldNonbondMixing = "";
@@ -794,7 +795,7 @@ sub v_map { return (
 sub v_zero { return (
     zero(@_[0]), zero(@_[1]), zero(@_[2])); }
 sub vs_add { return (
-    @_[0]+@_[3], @_[1]+@_[3], @_[2]+@_[3]); }
+    @_[0] ? @_[0]+@_[3] : 0, @_[1] ? @_[1]+@_[3] : 0, @_[2] ? @_[2]+@_[3] : 0);}
 sub vs_mult { return (
     @_[0]*@_[3], @_[1]*@_[3], @_[2]*@_[3]); }
 sub m_inverse { return (
@@ -824,7 +825,7 @@ sub read_car_header {
   my $file = shift(@_);
   my $seek = tell($file);
   my %flag =
-    ("Materials" => 1, "Configurations" => 1,
+    ("Materials" => 1, "Configurations" => 1, "Created" => 1,
       "PBC=OFF" => 1, "PBC=ON" => 1, "PBC" => 1);
   my $small = 5e-9;
 
@@ -833,7 +834,7 @@ sub read_car_header {
     chop;
     my @arg = split(" ");
     next if ($arg[0] eq "end");
-    last if (!($flag{$arg[0]}||(substr($_,0,1) eq "!")));
+    last if (!(defined($flag{$arg[0]})||(substr($_,0,1) eq "!")));
     $seek = tell($file);
     if ($arg[0] eq "PBC=OFF") { $PBCFlag = 0; @PBC = (0, 0, 0, 90, 90, 90) if (!$PBC[0]); }
     if ($arg[0] eq "PBC") { $PBCFlag = 1; @PBC = @arg[1 .. 7]; }
@@ -1212,7 +1213,7 @@ sub write_lammps_atoms {
       ++$imol if ($n>1);
     }
     if (eof($file)) { 
-      print("Error: unexpected eof for $FileName[$id].\n"); exit; }
+      print("Error: unexpected eof for $FileName[$id].\n\n"); exit; }
     @arg = read_car_next($file, $last); $last = @arg[-1];
     my $i; for ($i=0; $i<3; ++$i) { $pos[$i] = $arg[$i+1]+$offset[$i+3*$id]; }
     printf($LAMMPS "%8d", $n);					# atom

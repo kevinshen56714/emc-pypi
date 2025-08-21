@@ -5,7 +5,7 @@
 #  date:	September 20, 2022.
 #  purpose:	Environment structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -587,7 +587,12 @@ sub set_item_variables {
 
   $variables->{data} = [] if (!defined($variables->{data}));
   foreach (@{$data}) {
-    my @arg = split(" ");
+    my @arg;
+    
+    foreach (split(" ")) {
+      last if (substr($_,0,1) eq "#");
+      push(@arg, $_);
+    }
     next if (!scalar(@arg));
     push(@{$variables->{data}}, [shift(@arg), join(" ", @arg)]);
   }
