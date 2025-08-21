@@ -7,11 +7,11 @@
 #		December 2, 19, 2017, February 24, May 26, 31, July 5,
 #		October 29, 2018, August 17, 2019, May 23, 2020, April 4,
 #		August 20, 2022, September 3, December 19, 2023, 
-#		January 3-19, July 9, 2024.
+#		January 3-19, July 9, August 14, 2024.
 #  purpose:	execute job in LSF, PBS, or Slurm queues or directly on local
 #		host; part of EMC work flow
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License v3 as stated in LICENSE file in EMC
 #  root directory
 #
@@ -55,18 +55,23 @@
 #    20240709	- Added 'export OMPI_MCA_hwloc_base_binding_policy=none' before
 #    		  mpiexec to force a bind to none of processes on one node by
 #    		  OpenMPI
+#    20240814	- Corrected slurm_run() to call sbatch
+#    20241002	- Added -bind option
+#    20241019	- Added --use-hwthread-cpus to mpiexec when using local mode
 #
 
 # Script version
 
 version=3.7;
-date="July 9, 2024";
+date="October 19, 2024";
 script=$(basename "$0");
 
 
 # Variables
 
 account=none;
+
+bind=default;
 
 headnode="default";
 
@@ -246,6 +251,7 @@ script_help() {
   echo -e "  -help\t\tthis message";
   echo -e "  -account\tset account to charge to [${account}]";
   echo -e "  -backfill\tset backfill mode; can scatter processes (PBS only)";
+  echo -e "  -bind\t\tset binding policy for processes [${bind}]";
   echo -e "  -exclude\tset nodes to be excluded during run (LSF only) []";
   echo -e "  -file\t\tdefine newest file name by means of wildcards";
   echo -e "  -headnode\tset alternate stageout head node [${headnode}]";
@@ -305,50 +311,63 @@ run_init() {
   mpiexec=();
   user=();
   while [ "$1" != "" ]; do
-    case "$1" in
-      -account)		shift; account="$1";;
-      -backfill)	mode=1;;
-      -exclude)		shift; exclude=$1;;
-      -file)		shift; commands+=(-file "$(single "$1")");;
-      -help)		help=true;;
-      -headnode)	shift; headnode=$1;;
-      -input)		shift; commands+=(-input "$(single "$1")");;
-      -join)		shift; commands+=(-join "$(flag $1)");; 
-      -local)		system=${local};;
-      -memory)		shift; memory=$1;;
-      -mode)		shift; mode=$(int $1);;
-      -modules)		shift; commands+=(-modules "$(comma2colon "$1")");;
-      -mpiexec)		shift; mpiexec+=("$1");;
-      -mpiprocs)	shift; mpiprocs=$(int $1);;
-      -n)		shift; nprocs=$(int $1);;
-      -nodes)		shift; nodes=$(int $1);;
-      -output)		shift; commands+=(-output "$(single "$1")");;
-      -ppn)		shift; nppn=$(int $1);;
-      -ppt)		shift; nppt=$(int $1);;
-      -project)		shift; project=$1;;
-      -queue)		shift; queue=$1;;
-      -queue_project)	shift; queue_project="$1";;
-      -scratch)		shift; commands+=(-scratch "$1"); scratch="$1";;
-      -scratch_cd)	shift; commands+=(-scratch_cd $(flag "$1"));;
-      -single)		commands+=(-single);;
-      -sleep)		shift; sleep=$1;;
-      -starttime)	shift; starttime=$1;;
-      -sub)		shift; subscript=$1;;
-      -sync)		shift; sync=$(flag "$1"); commands+=(-sync $sync);;
-      -system)		shift; system=$1;;
-      -user)		fuser=1;;
-      -wait)		shift; wait=$1;;	
-      -walltime)	shift; walltime=$1;;
-      -work)		shift; commands+=(-work "$1"); work="$1";;
-      -*)		if [ "${fuser}" == 1 ]; then 
-			  user+=($1); shift; user+=($1);
-			else 
-			  script_help;
-			fi;;
-      *)		if [ ! -e "$(which $1)" ]; then
+    if [ ${fuser} != 0 ]; then
+      case "$1" in
+	-*) if [ ${fuser} == 2]; then
+	      user+=($1);
+	      fuser=1;
+	    else
+	      fuser=0;
+	    fi;;
+	*)  if [ ! -e "$(which $1)" -a ${fuser} == 1 ]; then
+	      user+=($1);
+	    fi;
+	    fuser=0;;
+      esac;
+    fi;
+    if [ ${fuser} == 0 ]; then
+      case "$1" in
+	-account)	shift; account="$1";;
+	-backfill)	mode=1;;
+	-bind)		shift; commands+=(-bind "$1");;
+	-exclude)	shift; exclude=$1;;
+	-file)		shift; commands+=(-file "$(single "$1")");;
+	-help)		help=true;;
+	-headnode)	shift; headnode=$1;;
+	-input)		shift; commands+=(-input "$(single "$1")");;
+	-join)		shift; commands+=(-join "$(flag $1)");; 
+	-local)		system=${local};;
+	-memory)	shift; memory=$1;;
+	-mode)		shift; mode=$(int $1);;
+	-modules)	shift; commands+=(-modules "$(comma2colon "$1")");;
+	-mpiexec)	shift; mpiexec+=("$1");;
+	-mpiprocs)	shift; mpiprocs=$(int $1);;
+	-n)		shift; nprocs=$(int $1);;
+	-nodes)		shift; nodes=$(int $1);;
+	-output)	shift; commands+=(-output "$(single "$1")");;
+	-ppn)		shift; nppn=$(int $1);;
+	-ppt)		shift; nppt=$(int $1);;
+	-project)	shift; project=$1;;
+	-queue)		shift; queue=$1;;
+	-queue_project)	shift; queue_project="$1";;
+	-scratch)	shift; commands+=(-scratch "$1"); scratch="$1";;
+	-scratch_cd)	shift; commands+=(-scratch_cd $(flag "$1"));;
+	-single)	commands+=(-single);;
+	-sleep)		shift; sleep=$1;;
+	-starttime)	shift; starttime=$1;;
+	-sub)		shift; subscript=$1;;
+	-sync)		shift; sync=$(flag "$1"); commands+=(-sync $sync);;
+	-system)	shift; system=$1;;
+	-user)		fuser=2;;
+	-wait)		shift; wait=$1;;	
+	-walltime)	shift; walltime=$1;;
+	-work)		shift; commands+=(-work "$1"); work="$1";;
+	-*)		script_help;;
+	*)		if [ ! -e "$(which $1)" ]; then
 			  echo "ERROR: '$1' not found"; echo; exit; fi;
 			commands+=($(quote "$(which $1)")); shift; break;;
-    esac;
+      esac;
+    fi;
     shift;
   done;
   if [ "${help}" == true ]; then script_help; fi;
@@ -577,11 +596,11 @@ slurm_run() {
 
   # note: add ALL to --export?
 
-  echo "qsub ${options}" "${user[@]}" \
+  echo "sbatch ${options}" "${user[@]}" \
     "-n ${nprocs}" \
     "--export=nprocs=${n},command=\"${command}\"" \
     "-e $(pwd)/${project}.e -o $(pwd)/${project}.o ${subscript}";
-  eval qsub ${options} ${user[@]} \
+  eval sbatch ${options} ${user[@]} \
     -n ${nprocs} \
     --export=nprocs=${n},command="\"${command}\"" \
     -e $(pwd)/${project}.e -o $(pwd)/${project}.o ${subscript};
@@ -622,6 +641,7 @@ sub_init() {
 
   while [ "$1" != "" ]; do
     case "$1" in
+      -bind)		shift; bind="$1";;
       -file)		shift; file="$(nosingle "$1")";;
       -input)		shift; input="$1";;
       -join)		shift; join=$(flag $1);;
@@ -697,21 +717,36 @@ sub_execute() {
   if [ "${single}" != "1" ]; then
     if [ "${system}" == "pbs" ]; then
       if [ "${nprocs}" != "" ]; then
+	if [ "${bind}" != "default" ]; then
+	  commands=(--bind-to ${bind} ${commands[@]});
+	fi;
 	commands=(mpiexec -n ${nprocs} ${commands[@]});
       fi;
     elif [ "${system}" == "slurm" ]; then
       if [ "${nprocs}" != "" ]; then
+	if [ "${bind}" != "default" ]; then
+	  commands=(--bind-to ${bind} ${commands[@]});
+	fi;
 	commands=(mpiexec -n ${nprocs} ${commands[@]});
       fi;
     elif [ "${system}" == "lsf" ]; then
       if [ "${nprocs}" == "" ]; then
+	if [ "${bind}" != "default" ]; then
+	  commands=(--bind-to ${bind} ${commands[@]});
+	fi;
 	commands=(mpiexec ${commands[@]});
       else
+	if [ "${bind}" != "default" ]; then
+	  commands=(--bind-to ${bind} ${commands[@]});
+	fi;
 	commands=(mpiexec -n ${nprocs} ${commands[@]});
       fi;
     elif [ "${system}" == "${local}" ]; then
       if [ ${nprocs} -gt 1 ]; then
-	commands=(mpiexec -n ${nprocs} ${commands[@]});
+	if [ "${bind}" != "default" ]; then
+	  commands=(--bind-to ${bind} ${commands[@]});
+	fi;
+	commands=(mpiexec -n ${nprocs} --use-hwthread-cpus ${commands[@]});
       fi;
     fi;
   fi;

@@ -1,0 +1,77 @@
+#!/usr/bin/env emc.pl
+#
+#  script:	setup.esh
+#  author:  	Pieter J. in 't Veld
+#  date:	March 20, 2025.
+#  purpose:	Example of a star NIPAM polymer in water with variable arm
+#  		lengths using a Flory-Schulz distribution averaging to length 4
+#
+
+# Options section
+
+ITEM	OPTIONS
+
+replace		true
+field		opls/2024/opls-aa
+number		true
+#ntotal		10000
+density		1
+pdb_licorice	true
+emc_execute	true
+
+ITEM	END	# OPTIONS
+
+# Groups section
+
+ITEM	GROUPS
+
+# Polymer
+
+m2		*CC(*)C(=O)N(C)C, &
+		1,m2:2, &
+		1,m4:1, 1,m4:2, 1,m4:3, 1,m4:4, &
+		1, t:1, 2,t:1
+
+m4		*CC(*)C(=O)NCNC(=O)C(*)C*, &
+		1, t:1, 2,t:1, 3,t:1, 4,t:1
+
+t		*C
+
+arm		alternate
+
+core		alternate
+
+star		block
+
+# Solvent
+
+water		O
+
+ITEM	END	# GROUPS
+
+# Clusters section
+
+ITEM	CLUSTERS
+
+polymer		star,20
+solvent		water,5000
+
+ITEM	END	# CLUSTERS
+
+# Polymers section
+
+ITEM	POLYMERS
+
+# sequential linkage refers to adding arms starting at the first connectivity 
+# point of group m4
+
+arm
+flory:avg=4	m2,$@
+
+core
+1		m4,1
+
+star		link=sequential
+1		core,1, arm,1, arm,1, arm,1, arm,1, t,4
+
+ITEM	END	# POLYMERS

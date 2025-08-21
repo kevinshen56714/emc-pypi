@@ -1,0 +1,2694 @@
+#EMC/FIELD/OPLS/2025
+#
+#  OPLS parameters using oplsaa.par, oplsaa.sb, and opls-aa.define
+#  converted by emc_opls.pl, v2.0, December 19, 2024 by Pieter J. in 't Veld
+#  created on Sun Jun 29 14:32:50 CEST 2025
+#
+
+# Define section
+
+ITEM	DEFINE
+
+FFMODE		OPLS
+FFTYPE		ATOMISTIC
+FFAPPLY		ALL
+FFINDEX		ELEMENTS
+FFDEPTH		5
+FFCHARGE	ALL
+FFSTRICT	TRUE
+VERSION		JAN 2007
+CREATED		JUNE 2025
+LENGTH		ANGSTROM
+ENERGY		KCAL/MOL
+DENSITY		G/CC
+MIX		GEOMETRIC
+RULE		ERROR
+RULE_NARGS	7
+NBONDED		3
+ANGLE		ERROR
+PAIR14		INCLUDE
+TORSION		ERROR
+SHAKE		NONE
+
+ITEM	END	# DEFINE
+
+# References section
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+1954	??	??	Wiley (Hirschfelder)
+1972	24	1013	Mol. Phys.
+1988	63	547	Mol. Phys.
+1984	106	6638	J. Am. Chem. Soc.
+1991	113	8262	J. Am. Chem. Soc.
+1996	118	11225	J. Am. Chem. Soc.
+1999	121	4827	J. Am. Chem. Soc.
+1983	79	926	J. Chem. Phys.
+1990	11	958	J. Comput. Chem.
+1997	18	1955	J. Comput. Chem.
+1986	90	1276	J. Phys. Chem.
+1986	90	2174	J. Phys. Chem.
+1986	90	6379	J. Phys. Chem.
+1990	94	1683	J. Phys. Chem.
+1991	95	3315	J. Phys. Chem.
+2001	105	4118	J. Phys. Chem. A
+1998	102	8049	J. Phys. Chem. B
+2004	18	16264	J. Phys. Chem. B
+1998	424	145	Theochem.
+2007	806	23	J. Mol. Struct. THEOCHEM
+2006	2	1499	J. Chem. Theory Comput.
+2009	5	1038	J. Chem. Theory Comput.
+
+ITEM	END	# REFERENCES
+
+# Mass section
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	index	comment
+
+ac+3	227.027	Ac	0	3	697	Actinide 3+ ion
+am+3	243.061	Am	0	3	699	Americium 3+ ion
+ar	39.948	Ar	0	0	103	Argon
+ba+2	137.327	Ba	0	2	1114	Barium 2+ ion
+br-	79.904	Br	0	-1	1102	Bromide 1- anion
+br1	79.904	Br	1	0	722	Bromide in alkanes (UA)
+c2	12.011	C	2	0	1157	Middle carbon in allenes
+c2c1	12.011	C	2	0	928	SP carbon in alkyne (RC#CH C2 R-with 1 H)
+c2c2	12.011	C	2	0	927	SP carbon in alkyne (RC#CH C2 R-with 2 or 3 H)
+c2ca	12.011	C	2	0	929	SP carbon in alkyne (RC#CH C2 R-with no H or R=phenyl)
+c2ct	12.011	C	2	0	925	Terminal SP carbon in acetylene
+c2n	12.011	C	2	0	754	SP carbon in cyano group
+c2na	12.011	C	2	0	261	SP carbon in benzonitrile
+c3+	12.011	C	3	0	700	SP2 carbon (C+ in t-butyl+)
+c31=	12.011	C	3	0	1154	SP2 carbon in allene (outer C)
+c3=	12.011	C	3	0	141	SP2 carbon in alkene
+c3a	12.011	C	3	0	145	Aromatic carbon
+c3a+	12.011	C	3	0	302	C: guanidinium C+
+c3a5	12.011	C	3	0	500	Aromatic carbon (CG in tryptophan 5-ring)
+c3a51	12.011	C	3	0	508	Aromatic carbon in 5-ring (histidine CG in HID, CD2 in HIE)
+c3a52	12.011	C	3	0	507	Aromatic carbon in 5-ring (histidine CD2 in HID, CG in HIE)
+c3a53	12.011	C	3	0	506	Aromatic carbon between 2 N in 5-ring (histidine CE1)
+c3a54	12.011	C	3	0	510	Aromatic carbon in 5-ring (histidine CG, CD2 in HIP)
+c3a55	12.011	C	3	0	550	Aromatic carbon next to 2 N in 5-ring (pyrazole C3)
+c3a5a	12.011	C	3	0	353	Aromatic carbon between 2 N in 5-ring (adenine C8)
+c3a5m	12.011	C	3	0	627	Aromatic carbon between 2 N in 5-ring (purine C8)
+c3a5n	12.011	C	3	0	544	Aromatic carbon in 5-ring with 1 N (pyrrole C3)
+c3a5o	12.011	C	3	0	568	Aromatic carbon in 5-ring with 1 O (furan C3)
+c3a5s	12.011	C	3	0	2013	Aromatic carbon (3-phenylthiophene)
+c3a6	12.011	C	3	0	501	CD in tryptophan shared 5- and 6-ring
+c3a6a	12.011	C	3	0	347	Aromatic carbon between 2 N in 6-ring (adenine C2)
+c3a6n	12.011	C	3	0	531	Aromatic carbon between 2 N in 6-ring
+c3aa	12.011	C	3	0	349	Adenine C4 (bridge C between 2 N in 5- and 6-ring)
+c3ab	12.011	C	3	0	519	Bridging aromatic carbon in biphenyl
+c3ai	12.011	C	3	0	2686	Aromatic carbon (1-phenylbenzimidazole shared 5- and 6-ring)
+c3am	12.011	C	3	0	231	C=O in amides
+c3ao	12.011	C	3	0	323	SP2 carbon C=O in 6-ring (uracil C5)
+c3ao1	12.011	C	3	0	2906	SP2 carbon C=O in 6-ring (3-phenyl-4-pyridone)
+c3ap	12.011	C	3	0	312	Aromatic carbon (diaminepyridine)
+c3as	12.011	C	3	0	145	Aromatic carbon in sulfates
+c3aso	12.011	C	3	0	145	Aromatic ortho carbon in sulfates
+c3at	12.011	C	3	0	502	CE C in TRP (aromatic carbon in 5- and 6-ring next to N)
+c3d	12.011	C	3	0	150	Diene =CH-CH=
+c3im	12.011	C	3	0	231	C=O in imides
+c3o	12.011	C	3	0	231	C=O in ketones
+c3o4	12.011	C	3	0	685	C=O in beta-lactam
+c3oa	12.011	C	3	0	231	C=O in deprotonated acids
+c3oe	12.011	C	3	0	231	C=O in esters
+c3oh	12.011	C	3	0	231	C=O in protonated acids
+c3ou	12.011	C	3	0	231	C=O in urea
+c3u	12.011	C	3	0	2532	SP2 carbon in uracil
+c4	12.011	C	4	0	135	SP3 carbon
+c44	12.011	C	4	0	3354	SP3 carbon in 4-ring (2-phenylazetidine)
+c441	12.011	C	4	0	687	SP3 carbon in 4-ring (penicillin CH(N))
+c4ac	12.011	C	4	0	421	SP3 carbon in acetonitrile ion (C1 in CH2CN-)
+c4ai	12.011	C	4	0	415	SP3 carbon in thiolate and alkoxide anions
+c4an	12.011	C	4	0	755	C of methyl group in acetonitrile
+c4br	12.011	C	4	0	135	SP3 carbon in bromo-alkanes
+c4cl	12.011	C	4	0	135	SP3 carbon in chloro-alkanes
+c4f	12.011	C	4	0	161	SP3 carbon in R-CF3
+c4f4	12.011	C	4	0	964	SP3 carbon in CF4
+c4h3	12.011	C	4	0	396	SP3 carbon C in methyl group
+c4i	12.011	C	4	0	135	SP3 carbon in iodo-alkanes
+c4n	12.011	C	4	0	135	SP3 carbon in amines
+c4ns	12.011	C	4	0	135	SP3 carbon in sulfonamides
+c4o	12.011	C	4	0	135	SP3 carbon in benzyl alcohols
+c4o2	12.011	C	3	0	189	C(H2O2): acetal OCH2O (SP3 carbon connected to 2 O and 1 H)
+c4oe	12.011	C	4	0	135	SP3 carbon in ethers and esters
+c4p	12.011	C	4	0	135	SP3 carbon in phosphates
+c4pm	12.011	C	4	0	135	SP3 carbon in phosphates
+c4s	12.011	C	4	0	135	SP3 carbon in sulfides
+c4sa	12.011	C	4	0	135	SP3 carbon in sulfonamides
+c4t	12.011	C	3	0	331	SP3 carbon in thymine C-C5
+ca+2	40.078	Ca	0	0	1112	Calcium 2+ ion
+cl-	35.4527	Cl	0	-1	1101	Chlorine 1- anion
+cl1	35.4527	Cl	1	0	151	Cl in alkyl chlorides
+cs+	132.905	Cs	0	1	1110	Cesium 1+ ion
+eu+3	151.964	Eu	0	3	705	Europium 3+ ion
+f-	18.998	F	0	-1	1100	Fluor 1- anion
+f1	18.998	F	1	0	164	Fluor in trifluoroethanol
+f1a	18.998	F	1	0	719	Fluor in fluorobenzene
+f1ao	18.998	F	1	0	986	Fluor in trifluoroanisole
+f1c	18.998	F	1	0	965	Fluor in perfluoroalkanes
+f1p	18.998	F	1	0	786	Fluor in hexafluorophosphate (PF6-)
+gd+3	157.25	Gd	0	3	706	Gadolinium 3+ ion
+h1	1.0079	H	1	0	140	Hydrogen in alkanes
+h1=	1.0079	H	1	0	144	Hydrogen in alkenes
+h1a	1.0079	H	1	0	146	Aromatic hydrogen (benzene H - 12 site)
+h1a1	1.0079	H	1	0	316	Aromatic hydrogen (diaminepyridine)
+h1a2	1.0079	H	1	0	345	Aromatic hydrogen (cytosine H-C6)
+h1a3	1.0079	H	1	0	355	Aromatic hydrogen (adenine H-C2 nucleoside)
+h1a4	1.0079	H	1	0	329	Aromatic hydrogen (uracil H-C5)
+h1cl	1.0079	H	1	0	140	Hydrogen in halocarbons
+h1cn	1.0079	H	1	0	759	Hydrogen on SP3 carbon next to cyanocarbon in nitriles
+h1co	1.0079	H	1	0	279	Hydrogen in aldehyde and formamide
+h1co2	1.0079	H	1	0	255	Hydrogen in formimide
+h1cp	1.0079	H	1	0	759	Hydrogen on SP3 methyl carbon in phosphonates
+h1cs	1.0079	H	1	0	759	Hydrogen on SP3 methyl carbon in sulfonamides
+h1n	1.0079	H	1	0	240	Hydrogen on nitrogen in primary amide
+h1n1	1.0079	H	1	0	2967	4-phenyl-1,2,3-triazole
+h1n2	1.0079	H	1	0	428	Hydrogen on N in CH3NH-
+h1n3	1.0079	H	1	0	289	Hydrogen in guanidinium
+h1n4	1.0079	H	1	0	289	Hydrogen in ammonium derivatives
+h1o	1.0079	H	1	0	155	Hydrogen in mono alcohols
+h1oh	1.0079	H	1	0	140	Hydrogen on SP3 carbon with alcohol OH
+h1r	1.0079	H	1	0	255	Hydrogen in RMIM+
+h1s	1.0079	H	1	0	204	Hydrogen in thiols
+h1si	1.0079	H	1	0	1064	Hydrogen on Si in silane
+h1w	1.0079	H	1	0	98	Hydrogen in water
+he	4.0026	He	0	0	101	Helium
+i-	126.904	I	0	-1	1103	Iodine 1- anion
+i1	126.904	I	1	0	732	Iodine in iodobenzene
+k+	39.098	K	0	1	1108	Potassium 1+ ion
+kr	83.8	Kr	0	0	104	Krypton
+la+3	138.905	La	0	3	703	Lanthanum 3+ ion
+li+	6.941	Li	0	1	1106	Lithium 1+ ion
+lp	1	Lp	1	0	99	Lone pair
+mg+2	24.305	Mg	0	2	1111	Magnesium 2+ ion
+n1	14.0067	N	1	0	262	Nitrogen in benzonitrile
+n1-	14.0067	N	1	0	424	Nitrogen in acetonitrile (CH3CN-)
+n2a5	14.0067	N	2	0	352	Nitrogen in 5-ring (adenine N7)
+n2a6	14.0067	N	2	0	311	Nitrogen in 6-ring (diaminopyridine N1)
+n2c	14.0067	N	2	0	427	Nitrogen in deprotonated amine (methylamine)
+n3	14.0067	N	3	0	900	Nitrogen in tertiary amines
+n3+	14.0067	N	3	0	787	Nitrogen in nitrate
+n34	14.0067	N	3	0	686	Nitrogen in beta-lactam
+n3a	14.0067	N	3	0	319	Nitrogen in aromatic ring
+n3a5h	14.0067	N	3	0	936	Protonated nitrogen in 5-ring (adenine N9)
+n3ah	14.0067	N	3	0	2910	Nitrogen in pyridone
+n3ah1	14.0067	N	3	0	319	Protonated nitrogen in 6-ring (uracil N1)
+n3am0	14.0067	N	3	0	237	Nitrogen in tertiary amides
+n3am1	14.0067	N	3	0	237	Nitrogen in secondary amides
+n3am2	14.0067	N	3	0	237	Nitrogen in primary amides
+n3c3	14.0067	N	3	0	1037	Nitrogen in tertiary amide
+n3ch	14.0067	N	3	0	300	Nitrogen in methylguanidinium
+n3ch2	14.0067	N	3	0	300	Nitrogen in guanidinium
+n3h	14.0067	N	3	0	900	Nitrogen in secondary amines
+n3h2	14.0067	N	3	0	900	Nitrogen in primary amines
+n3im1	14.0067	N	3	0	237	Nitrogen in secondary imides
+n3o2	14.0067	N	3	0	760	Nitrogen in nitro R-NO2
+n3sa0	14.0067	N	3	0	237	Nitrogen in tertiary sulfonamides
+n3sa1	14.0067	N	3	0	237	Nitrogen in secondary sulfonamides
+n3sa2	14.0067	N	3	0	237	Nitrogen in primary sulfonamides
+n3ur2	14.0067	N	3	0	237	Nitrogen in primary amides
+n3y	14.0067	N	3	0	749	Nitrogen in arginine next to amine group
+n4	14.0067	N	3	0	286	Nitrogen in ammonium ion with no protons
+n4h	14.0067	N	3	0	286	Nitrogen in ammonium ion with one proton
+n4h2	14.0067	N	3	0	286	Nitrogen in ammonium ion with two protons
+n4h3	14.0067	N	3	0	286	Nitrogen in ammonium ion with three protons
+n4h4	14.0067	N	3	0	286	Nitrogen in ammonium ion with four protons
+na+	22.99	Na	0	1	1107	Sodium 1+ ion
+nd+3	144.242	Nd	0	3	704	Neodymium 3+ ion
+ne	20.18	Ne	0	0	102	Neon
+o1=	15.9994	O	1	0	236	Oxygen in amides and ketones
+o1a	15.9994	O	1	0	272	Oxygen in deprotonated acids
+o1h-	15.9994	O	1	0	434	Oxygen in hydroxide (OH-, d(O-H) = 0.953 A)
+o1n	15.9994	O	1	0	788	Oxygen in nitrate ion (NO3-)
+o1n1	15.9994	O	1	0	761	Oxygen in nitro R-NO2
+o1p	15.9994	O	1	0	441	Oxygen in phosphate (O= in Me2PO4-)
+o1p=	15.9994	O	1	0	441	Oxygen in phosphate (O= in Me2PO4-)
+o1s	15.9994	O	1	0	497	Oxygen in sulfoxide
+o1s=	15.9994	O	1	0	475	Oxygen in sulfonamide
+o2	15.9994	O	2	0	177	Oxygen in ethers
+o2e	15.9994	O	2	0	177	Oxygen in ethers
+o2h	15.9994	O	2	0	154	Oxygen in alcohols
+o2ha	15.9994	O	2	0	268	Oxygen in protonated acids
+o2hh	15.9994	O	2	0	162	Oxygen in diols and phenols
+o2hi	15.9994	O	1	0	420	Oxygen in alkoxide (CH3O-)
+o2ht	15.9994	O	2	0	162	Oxygen in diols and phenols
+o2p	15.9994	O	1	0	395	Oxygen in phosphate (O- in Me2PO4-)
+o2s	15.9994	O	1	0	395	Oxygen in esters
+o2u	15.9994	O	2	0	437	Oxygen in uranium oxide (UO2+, d(U-O) = 1.80 A)
+o2w	15.9994	O	2	0	133	Oxygen in SPC/E water
+o2w3	15.9994	O	2	0	111	Oxygen in TIP3P water
+o2w3f	15.9994	O	2	0	116	Oxygen in TIP3F water (flexible model)
+o2w4	15.9994	O	2	0	113	Oxygen in TIP4P water
+o2w4f	15.9994	O	2	0	795	Oxygen in TIP4F water (flexible model)
+o2w5	15.9994	O	2	0	97	Oxygen in TIP5P water
+p4	30.974	P	4	0	393	Phosphorus in phosphates
+p4+	30.974	P	4	0	781	Phosphorus in phosphonium R4P+
+p41	30.974	P	4	0	393	Phosphorus in methylphosphate anion
+p42	30.974	P	4	0	393	Phosphorus in dimethylphosphate anion
+p43	30.974	P	4	0	393	Phosphorus in dimethyl methylphosphonate
+rb+	85.468	Rb	0	1	1109	Rubidium 1+ ion
+s2	32.066	S	2	0	202	Sulfur in organic sulfides
+s2-	32.066	S	2	0	417	Sulfur in CH3S-
+s2h	32.066	S	2	0	200	Sulfur in thiols
+s2h2	32.066	S	2	0	201	Sulfur in hydrogen sulfide
+s3	32.066	S	3	0	495	Sulfur in alkyl aryl sulfoxide
+s4	32.066	S	4	0	474	Sulfur in sulfone
+s4am	32.066	S	4	0	474	Sulfur in sulfonamide
+s4c	32.066	S	4	0	474	Sulfur in sulfonate anion
+si4	28.085	Si	4	0	1060	Silicon in tetraalkylsilane R4Si
+sr+2	87.62	Sr	0	2	1113	Strontium 2+ ion
+th+4	232.038	Th	0	4	698	Thorium 4+ ion
+u2	238.029	U	2	0	436	Uranium in UO2+
+xe	131.29	Xe	0	0	105	Xenon
+yb+3	173.04	Yb	0	3	707	Ytterbium 3+ ion
+zn4	65.39	Zn	4	0	1005	Zinc in metalloproteins (JACS 1991, 113, 8262)
+
+ITEM	END	# MASS
+
+# Equivalence section
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	improper
+
+ac+3	ac+3	ac+3	ac+3	ac+3	ac+3	ac+3
+am+3	am+3	am+3	am+3	am+3	am+3	am+3
+ar	ar	ar	ar	ar	ar	ar
+ba+2	ba+2	ba+2	ba+2	ba+2	ba+2	ba+2
+br-	br-	br-	br-	br-	br-	br-
+br1	br1	br1	br1	br1	br1	br1
+c2	c2	c2	c2	c2	c2	c2
+c2c1	c2c1	c2c1	c2n	c2n	c2n	c2n
+c2c2	c2c2	c2c2	c2n	c2n	c2n	c2n
+c2ca	c2ca	c2ca	c2n	c2n	c2n	c2n
+c2ct	c2ct	c2ct	c2n	c2n	c2n	c2n
+c2n	c2n	c2n	c2n	c2n	c2n	c2n
+c2na	c2na	c2na	c2n	c2n	c2n	c2n
+c3+	c3+	c3+	c3+	c3+	c3+	c3+
+c31=	c31=	c31=	c3=	c3=	c3=	c3=
+c3=	c3=	c3=	c3=	c3=	c3=	c3=
+c3a	c3a	c3a	c3a	c3a	c3a	c3a
+c3a+	c3a+	c3a+	c3a	c3a	c3a	c3a
+c3a5	c3a5	c3a5	c3a5	c3a5	c3a5	c3a5
+c3a51	c3a51	c3a51	c3a51	c3a51	c3a51	c3a51
+c3a52	c3a52	c3a52	c3a52	c3a52	c3a52	c3a52
+c3a53	c3a53	c3a53	c3a53	c3a53	c3a53	c3a53
+c3a54	c3a54	c3a54	c3a54	c3a54	c3a54	c3a54
+c3a55	c3a55	c3a55	c3a55	c3a55	c3a55	c3a55
+c3a5a	c3a5a	c3a5a	c3a5a	c3a5a	c3a5a	c3a5a
+c3a5m	c3a5m	c3a5m	c3a5a	c3a5a	c3a5a	c3a5a
+c3a5n	c3a5n	c3a5n	c3a5n	c3a5n	c3a5n	c3a5n
+c3a5o	c3a5o	c3a5o	c3a5n	c3a5n	c3a5n	c3a5n
+c3a5s	c3a5s	c3a5s	c3a51	c3a51	c3a51	c3a51
+c3a6	c3a6	c3a6	c3aa	c3aa	c3aa	c3aa
+c3a6a	c3a6a	c3a6a	c3a6n	c3a6n	c3a6n	c3a6n
+c3a6n	c3a6n	c3a6n	c3a6n	c3a6n	c3a6n	c3a6n
+c3aa	c3aa	c3aa	c3aa	c3aa	c3aa	c3aa
+c3ab	c3ab	c3ab	c3ab	c3ab	c3ab	c3ab
+c3ai	c3ai	c3ai	c3a	c3a	c3a	c3a
+c3am	c3am	c3am	c3o	c3o	c3o	c3o
+c3ao	c3ao	c3ao	c3=	c3=	c3=	c3=
+c3ao1	c3ao1	c3ao1	c3=	c3=	c3=	c3=
+c3ap	c3ap	c3ap	c3a	c3a	c3a	c3a
+c3as	c3as	c3as	c3a	c3a	c3a	c3a
+c3aso	c3aso	c3aso	c3a	c3a	c3a	c3a
+c3at	c3at	c3at	c3at	c3at	c3at	c3at
+c3d	c3d	c3d	c3u	c3u	c3u	c3u
+c3im	c3im	c3im	c3o	c3o	c3o	c3o
+c3o	c3o	c3o	c3o	c3o	c3o	c3o
+c3o4	c3o4	c3o4	c3o4	c3o4	c3o4	c3o4
+c3oa	c3oa	c3oa	c3o	c3o	c3o	c3o
+c3oe	c3oe	c3oe	c3o	c3o	c3o	c3o
+c3oh	c3oh	c3oh	c3o	c3o	c3o	c3o
+c3ou	c3ou	c3ou	c3o	c3o	c3o	c3o
+c3u	c3u	c3u	c3u	c3u	c3u	c3u
+c4	c4	c4	c4	c4	c4	c4
+c44	c44	c44	c44	c44	c44	c44
+c441	c441	c441	c44	c44	c44	c44
+c4ac	c4ac	c4ac	c4	c4	c4	c4
+c4ai	c4ai	c4ai	c4ai	c4ai	c4ai	c4ai
+c4an	c4an	c4an	c4	c4	c4	c4
+c4br	c4br	c4br	c4	c4	c4	c4
+c4cl	c4cl	c4cl	c4	c4	c4	c4
+c4f	c4f	c4f	c4	c4	c4	c4
+c4f4	c4f4	c4f4	c4	c4	c4	c4
+c4h3	c4h3	c4h3	c4	c4	c4	c4
+c4i	c4i	c4i	c4	c4	c4	c4
+c4n	c4n	c4n	c4	c4	c4	c4
+c4ns	c4ns	c4ns	c4	c4	c4	c4
+c4o	c4o	c4o	c4	c4	c4	c4
+c4o2	c4o2	c4o2	c4o2	c4o2	c4o2	c4o2
+c4oe	c4oe	c4oe	c4	c4	c4	c4
+c4p	c4p	c4p	c4	c4	c4	c4
+c4pm	c4pm	c4pm	c4	c4	c4	c4
+c4s	c4s	c4s	c4	c4	c4	c4
+c4sa	c4sa	c4sa	c4	c4	c4	c4
+c4t	c4t	c4t	c4	c4	c4	c4
+ca+2	ca+2	ca+2	ca+2	ca+2	ca+2	ca+2
+cl-	cl-	cl-	cl-	cl-	cl-	cl-
+cl1	cl1	cl1	cl1	cl1	cl1	cl1
+cs+	cs+	cs+	cs+	cs+	cs+	cs+
+eu+3	eu+3	eu+3	eu+3	eu+3	eu+3	eu+3
+f-	f-	f-	f-	f-	f-	f-
+f1	f1	f1	f1	f1	f1	f1
+f1a	f1a	f1a	f1	f1	f1	f1
+f1ao	f1ao	f1ao	f1	f1	f1	f1
+f1c	f1c	f1c	f1	f1	f1	f1
+f1p	f1p	f1p	f1	f1	f1	f1
+gd+3	gd+3	gd+3	gd+3	gd+3	gd+3	gd+3
+h1	h1	h1	h1	h1	h1	h1
+h1=	h1=	h1=	h1	h1	h1	h1
+h1a	h1a	h1a	h1a	h1a	h1a	h1a
+h1a1	h1a1	h1a1	h1a	h1a	h1a	h1a
+h1a2	h1a2	h1a2	h1a2	h1a2	h1a2	h1a2
+h1a3	h1a3	h1a3	h1a3	h1a3	h1a3	h1a3
+h1a4	h1a4	h1a4	h1	h1	h1	h1
+h1cl	h1cl	h1cl	h1	h1	h1	h1
+h1cn	h1cn	h1cn	h1	h1	h1	h1
+h1co	h1co	h1co	h1	h1	h1	h1
+h1co2	h1co2	h1co2	h1	h1	h1	h1
+h1cp	h1cp	h1cp	h1	h1	h1	h1
+h1cs	h1cs	h1cs	h1	h1	h1	h1
+h1n	h1n	h1n	h1n	h1n	h1n	h1n
+h1n1	h1n1	h1n1	h1n	h1n	h1n	h1n
+h1n2	h1n2	h1n2	h1n	h1n	h1n	h1n
+h1n3	h1n3	h1n3	h1n3	h1n3	h1n3	h1n3
+h1n4	h1n4	h1n4	h1n3	h1n3	h1n3	h1n3
+h1o	h1o	h1o	h1o	h1o	h1o	h1o
+h1oh	h1oh	h1oh	h1	h1	h1	h1
+h1r	h1r	h1r	h1	h1	h1	h1
+h1s	h1s	h1s	h1s	h1s	h1s	h1s
+h1si	h1si	h1si	h1n	h1n	h1n	h1n
+h1w	h1w	h1w	h1w	h1w	h1w	h1w
+he	he	he	he	he	he	he
+i-	i-	i-	i-	i-	i-	i-
+i1	i1	i1	i1	i1	i1	i1
+k+	k+	k+	k+	k+	k+	k+
+kr	kr	kr	kr	kr	kr	kr
+la+3	la+3	la+3	la+3	la+3	la+3	la+3
+li+	li+	li+	li+	li+	li+	li+
+lp	lp	lp	lp	lp	lp	lp
+mg+2	mg+2	mg+2	mg+2	mg+2	mg+2	mg+2
+n1	n1	n1	n1	n1	n1	n1
+n1-	n1-	n1-	n1	n1	n1	n1
+n2a5	n2a5	n2a5	n2a5	n2a5	n2a5	n2a5
+n2a6	n2a6	n2a6	n2a6	n2a6	n2a6	n2a6
+n2c	n2c	n2c	n4	n4	n4	n4
+n3	n3	n3	n3	n3	n3	n3
+n3+	n3+	n3+	n3am0	n3am0	n3am0	n3am0
+n34	n34	n34	n34	n34	n34	n34
+n3a	n3a	n3a	n3a	n3a	n3a	n3a
+n3a5h	n3a5h	n3a5h	n3a5h	n3a5h	n3a5h	n3a5h
+n3ah	n3ah	n3ah	n3am0	n3am0	n3am0	n3am0
+n3ah1	n3ah1	n3ah1	n3a	n3a	n3a	n3a
+n3am0	n3am0	n3am0	n3am0	n3am0	n3am0	n3am0
+n3am1	n3am1	n3am1	n3am0	n3am0	n3am0	n3am0
+n3am2	n3am2	n3am2	n3am0	n3am0	n3am0	n3am0
+n3c3	n3c3	n3c3	n3c3	n3c3	n3c3	n3c3
+n3ch	n3ch	n3ch	n3ch	n3ch	n3ch	n3ch
+n3ch2	n3ch2	n3ch2	n3ch	n3ch	n3ch	n3ch
+n3h	n3h	n3h	n3	n3	n3	n3
+n3h2	n3h2	n3h2	n3	n3	n3	n3
+n3im1	n3im1	n3im1	n3am0	n3am0	n3am0	n3am0
+n3o2	n3o2	n3o2	n3o2	n3o2	n3o2	n3o2
+n3sa0	n3sa0	n3sa0	n3am0	n3am0	n3am0	n3am0
+n3sa1	n3sa1	n3sa1	n3am0	n3am0	n3am0	n3am0
+n3sa2	n3sa2	n3sa2	n3am0	n3am0	n3am0	n3am0
+n3ur2	n3ur2	n3ur2	n3am0	n3am0	n3am0	n3am0
+n3y	n3y	n3y	n3y	n3y	n3y	n3y
+n4	n4	n4	n4	n4	n4	n4
+n4h	n4h	n4h	n4	n4	n4	n4
+n4h2	n4h2	n4h2	n4	n4	n4	n4
+n4h3	n4h3	n4h3	n4	n4	n4	n4
+n4h4	n4h4	n4h4	n4	n4	n4	n4
+na+	na+	na+	na+	na+	na+	na+
+nd+3	nd+3	nd+3	nd+3	nd+3	nd+3	nd+3
+ne	ne	ne	ne	ne	ne	ne
+o1=	o1=	o1=	o1=	o1=	o1=	o1=
+o1a	o1a	o1a	o1a	o1a	o1a	o1a
+o1h-	o1h-	o1h-	o2h	o2h	o2h	o2h
+o1n	o1n	o1n	o1=	o1=	o1=	o1=
+o1n1	o1n1	o1n1	o1n1	o1n1	o1n1	o1n1
+o1p	o1p	o1p	o1a	o1a	o1a	o1a
+o1p=	o1p=	o1p=	o1a	o1a	o1a	o1a
+o1s	o1s	o1s	o1s	o1s	o1s	o1s
+o1s=	o1s=	o1s=	o1s	o1s	o1s	o1s
+o2	o2	o2	o2	o2	o2	o2
+o2e	o2e	o2e	o2	o2	o2	o2
+o2h	o2h	o2h	o2h	o2h	o2h	o2h
+o2ha	o2ha	o2ha	o2h	o2h	o2h	o2h
+o2hh	o2hh	o2hh	o2h	o2h	o2h	o2h
+o2hi	o2hi	o2hi	o2h	o2h	o2h	o2h
+o2ht	o2ht	o2ht	o2h	o2h	o2h	o2h
+o2p	o2p	o2p	o2	o2	o2	o2
+o2s	o2s	o2s	o2	o2	o2	o2
+o2u	o2u	o2u	o2u	o2u	o2u	o2u
+o2w	o2w	o2w	o2w	o2w	o2w	o2w
+o2w3	o2w3	o2w3	o2w	o2w	o2w	o2w
+o2w3f	o2w3f	o2w3f	o2w	o2w	o2w	o2w
+o2w4	o2w4	o2w4	o2w	o2w	o2w	o2w
+o2w4f	o2w4f	o2w4f	o2w	o2w	o2w	o2w
+o2w5	o2w5	o2w5	o2w	o2w	o2w	o2w
+p4	p4	p4	p4	p4	p4	p4
+p4+	p4+	p4+	p4+	p4+	p4+	p4+
+p41	p41	p41	p4	p4	p4	p4
+p42	p42	p42	p4	p4	p4	p4
+p43	p43	p43	p4	p4	p4	p4
+rb+	rb+	rb+	rb+	rb+	rb+	rb+
+s2	s2	s2	s2	s2	s2	s2
+s2-	s2-	s2-	s2h	s2h	s2h	s2h
+s2h	s2h	s2h	s2h	s2h	s2h	s2h
+s2h2	s2h2	s2h2	s2h	s2h	s2h	s2h
+s3	s3	s3	s3	s3	s3	s3
+s4	s4	s4	s4	s4	s4	s4
+s4am	s4am	s4am	s4	s4	s4	s4
+s4c	s4c	s4c	s4	s4	s4	s4
+si4	si4	si4	si4	si4	si4	si4
+sr+2	sr+2	sr+2	sr+2	sr+2	sr+2	sr+2
+th+4	th+4	th+4	th+4	th+4	th+4	th+4
+u2	u2	u2	u2	u2	u2	u2
+xe	xe	xe	xe	xe	xe	xe
+yb+3	yb+3	yb+3	yb+3	yb+3	yb+3	yb+3
+zn4	zn4	zn4	zn4	zn4	zn4	zn4
+
+ITEM	END	# EQUIVALENCE
+
+# Increment section
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+br1	c4br	-0.2	0.2
+c2na	c3a	-0.035	0.035
+c2na	n1	0.43	-0.43
+c3=	c3=	0	0
+c3=	c4	0	0
+c3=	cl1	0.12	-0.12
+c3=	h1=	-0.115	0.115
+c3a	c3a	0	0
+c3a	c3ab	0	0
+c3a	c3am	-0.115	0.115
+c3a	c3as	0	0
+c3a	c3aso	0	0
+c3a	c3o	-0.115	0.115
+c3a	c3oa	-0.115	0.115
+c3a	c3oe	-0.115	0.115
+c3a	c3oh	-0.115	0.115
+c3a	c4	-0.115	0.115
+c3a	c4f	0.15	-0.15
+c3a	c4n	-0.055	0.055
+c3a	c4o	-0.055	0.055
+c3a	c4oe	-0.055	0.055
+c3a	c4s	-0.055	0.055
+c3a	cl1	0.18	-0.18
+c3a	h1a	-0.115	0.115
+c3a	n3	0.21	-0.21
+c3a	n3am1	0.085	-0.085
+c3a	n3h	0.2	-0.2
+c3a	n3h2	0.18	-0.18
+c3a	o2e	0.085	-0.085
+c3a	o2hh	0.15	-0.15
+c3a	o2p	0.14	-0.14
+c3a	o2s	0.135	-0.135
+c3a	s2	0.1025	-0.1025
+c3a	s2h	0.065	-0.065
+c3a	s3	0.0875	-0.0875
+c3a	s4	0	0
+c3a	s4am	0	0
+c3a+	n3ch	0.213333	0.12
+c3a+	n3ch2	0.213333	0.12
+c3a51	c3a51	0	0
+c3a51	h1a	-0.27	0.27
+c3a51	n3a	0.03	-0.03
+c3a53	h1a	-0.21	0.21
+c3a53	n3a	0.06	-0.06
+c3ab	c3ab	0	0
+c3am	c4	0	0
+c3am	h1co	0	0
+c3am	n3am0	0	0
+c3am	n3am1	0	0
+c3am	n3am2	0	0
+c3am	o1=	0.5	-0.5
+c3as	c3aso	0	0
+c3as	c4s	-0.115	0.115
+c3as	o2s	-0.1	0.1
+c3as	s4	-0.4	0.4
+c3aso	h1a	-0.21	0.21
+c3im	c4	-0.06	0.06
+c3im	n3im1	0.06	-0.06
+c3im	o1=	0.42	-0.42
+c3o	c4	0	0
+c3o	h1co	0	0
+c3o	o1=	0.47	-0.47
+c3oa	c4	0.1	-0.1
+c3oa	h1	0.1	-0.1
+c3oa	o1a	0.3	-0.8
+c3oe	c4	0	0
+c3oe	n3am1	0	0
+c3oe	n3am2	0	0
+c3oe	o1=	0.43	-0.43
+c3oe	o2s	0.08	-0.08
+c3oh	c4	0	0
+c3oh	h1	0	0
+c3oh	o1=	0.44	-0.44
+c3oh	o2ha	0.08	-0.08
+c3ou	n3ur2	-0.124	0.124
+c3ou	o1=	0.39	-0.39
+c4	c4	0	0
+c4	c4br	0	0
+c4	c4cl	0	0
+c4	c4i	0	0
+c4	c4n	0	0
+c4	c4ns	0	0
+c4	c4o	0	0
+c4	c4o2	0	0
+c4	c4oe	0	0
+c4	c4p	0	0
+c4	c4pm	0	0
+c4	c4s	0	0
+c4	c4sa	0	0
+c4	f1	0.205	-0.205
+c4	h1	-0.06	0.06
+c4	h1cn	-0.06	0.06
+c4	h1oh	-0.04	0.04
+c4	n3am0	0.07	-0.07
+c4	n3am1	0.2	-0.2
+c4	n3h2	0.18	-0.18
+c4	n4	0.25	0
+c4	n4h	0.27	-0.03
+c4	n4h2	0.29	-0.05
+c4	n4h3	0.31	-0.03
+c4	o2h	0.265	-0.265
+c4	o2hh	0.265	-0.265
+c4	o2ht	0.265	-0.265
+c4	si4	-0.25	0.25
+c4*	c4*	0	0
+c4br	h1	-0.103	0.103
+c4cl	cl1	0.2	-0.2
+c4cl	h1	-0.103	0.103
+c4f	f1	0.2	-0.2
+c4i	h1	-0.1	0.1
+c4i	i1	0.13	-0.13
+c4n	h1	-0.06	0.06
+c4n	h1cn	-0.06	0.06
+c4n	h1r	-0.18	0.18
+c4n	n3	0.21	-0.21
+c4n	n3a	0.19	0.31
+c4n	n3ch	0.38	-0.38
+c4n	n3h	0.2	-0.2
+c4n	n3h2	0.18	-0.18
+c4ns	h1cs	-0.03	0.03
+c4ns	n3sa1	0.27	-0.27
+c4o	h1	-0.06	0.06
+c4o	o2h	0.265	-0.265
+c4o2	h1	-0.1	0.1
+c4o2	o2e	0.2	-0.2
+c4o2	o2hh	0.265	-0.265
+c4oe	c4oe	0	0
+c4oe	h1	-0.03	0.03
+c4oe	h1co	-0.03	0.03
+c4oe	o2e	0.2	-0.2
+c4oe	o2s	0.25	-0.25
+c4p	h1	0.03	-0.03
+c4p	h1cp	0.1	-0.1
+c4p	o2p	0.21	-0.21
+c4p	p43	-0.81	0.81
+c4pm	h1	0.1	-0.1
+c4pm	o2p	0.14	-0.14
+c4s	h1	-0.06	0.06
+c4s	o2s	-0.1	0.1
+c4s	s2	0.2175	-0.2175
+c4s	s2h	0.18	-0.18
+c4s	s3	0.145	-0.145
+c4s	s4	0	0
+c4s	s4c	-0.08	0.08
+c4sa	h1	-0.18	0.18
+c4sa	s4am	0	0
+h1n	n3am1	0.3	-0.3
+h1n	n3am2	0.38	-0.38
+h1n	n3h	0.38	-0.38
+h1n	n3h2	0.36	-0.36
+h1n	n3im1	0.37	-0.37
+h1n	n3sa1	0.41	-0.41
+h1n	n3sa2	0.44	-0.44
+h1n	n3ur2	0.333	-0.333
+h1n3	n3ch	0.44	-0.44
+h1n3	n3ch2	0.46	-0.46
+h1n4	n4h	0.29	-0.01
+h1n4	n4h2	0.31	-0.05
+h1n4	n4h3	0.33	-0.09
+h1n4	n4h4	0.35	-0.1
+h1o	o1h-	0.3	-1.3
+h1o	o2h	0.418	-0.418
+h1o	o2ha	0.45	-0.45
+h1o	o2hh	0.435	-0.435
+h1o	o2ht	0.465	-0.465
+h1s	s2h	0.155	-0.155
+h1s	s2h2	0.235	-0.235
+h1si	si4	-0.1	0.1
+h1w	o2w	0.4238	-0.4238
+n3sa1	s4am	-0.12	0.12
+n3sa2	s4am	-0.12	0.12
+o1p	p41	-1.12	0.453333
+o1p	p42	-0.92	0.42
+o1p=	p43	-0.97	-0.03
+o1s	s3	-0.42	0.42
+o1s	s4	-0.65	0.316667
+o1s	s4c	-0.55	0.216667
+o1s=	s4	-0.687	0.687
+o1s=	s4am	-0.68	0.68
+o2p	p41	-0.56	0.56
+o2p	p42	-0.39	0.39
+o2p	p43	-0.42	0.42
+o2s	s4	-0.38	0.38
+s2	s2	0	0
+
+ITEM	END	# INCREMENT
+
+# Nonbond section
+
+ITEM	NONBOND
+
+# type1	type2	sigma	epsilon
+
+ac+3	ac+3	3.473	0.054
+am+3	am+3	3.3	0.05
+ar	ar	3.401	0.2339
+ba+2	ba+2	4.18	0.047096
+br-	br-	4.51	0.09
+br1	br1	3.47	0.47
+c2	c2	3.3	0.086
+c2c1	c2c1	3.3	0.135
+c2c2	c2c2	3.3	0.21
+c2ca	c2ca	3.3	0.1
+c2ct	c2ct	3.3	0.086
+c2n	c2n	3.3	0.066
+c2na	c2na	3.65	0.15
+c3+	c3+	3.55	0.076
+c31=	c31=	3.3	0.086
+c3=	c3=	3.55	0.076
+c3a	c3a	3.55	0.07
+c3a+	c3a+	3.55	0.05
+c3a5	c3a5	3.55	0.07
+c3a51	c3a51	3.55	0.07
+c3a52	c3a52	3.55	0.07
+c3a53	c3a53	3.55	0.07
+c3a54	c3a54	3.55	0.07
+c3a55	c3a55	3.55	0.07
+c3a5a	c3a5a	3.5	0.08
+c3a5m	c3a5m	3.55	0.07
+c3a5n	c3a5n	3.55	0.07
+c3a5o	c3a5o	3.55	0.076
+c3a5s	c3a5s	3.55	0.076
+c3a6	c3a6	3.55	0.07
+c3a6a	c3a6a	3.5	0.08
+c3a6n	c3a6n	3.55	0.07
+c3aa	c3aa	3.5	0.08
+c3ab	c3ab	3.55	0.07
+c3ai	c3ai	3.55	0.076
+c3am	c3am	3.75	0.105
+c3ao	c3ao	3.5	0.08
+c3ao1	c3ao1	3.55	0.07
+c3ap	c3ap	3.5	0.08
+c3as	c3as	3.55	0.07
+c3aso	c3aso	3.55	0.07
+c3at	c3at	3.55	0.07
+c3d	c3d	3.55	0.076
+c3im	c3im	3.75	0.105
+c3o	c3o	3.75	0.105
+c3o4	c3o4	3.75	0.105
+c3oa	c3oa	3.75	0.105
+c3oe	c3oe	3.75	0.105
+c3oh	c3oh	3.75	0.105
+c3ou	c3ou	3.75	0.105
+c3u	c3u	3.55	0.07
+c4	c4	3.5	0.066
+c44	c44	3.55	0.07
+c441	c441	3.5	0.066
+c4ac	c4ac	4.2	0.3
+c4ai	c4ai	4.2	0.3
+c4an	c4an	3.3	0.066
+c4br	c4br	3.5	0.066
+c4cl	c4cl	3.5	0.066
+c4f	c4f	3.25	0.062
+c4f4	c4f4	3.5	0.097
+c4h3	c4h3	3.55	0.066
+c4i	c4i	3.5	0.066
+c4n	c4n	3.5	0.066
+c4ns	c4ns	3.5	0.066
+c4o	c4o	3.5	0.066
+c4o2	c4o2	3.5	0.066
+c4oe	c4oe	3.5	0.066
+c4p	c4p	3.5	0.066
+c4pm	c4pm	3.5	0.066
+c4s	c4s	3.5	0.066
+c4sa	c4sa	3.5	0.066
+c4t	c4t	3.5	0.08
+ca+2	ca+2	3.47	0.449657
+cl-	cl-	4.18	0.11779
+cl1	cl1	3.4	0.3
+cs+	cs+	4.82	8.1e-05
+eu+3	eu+3	3.3	0.05
+f-	f-	3.08	0.72
+f1	f1	2.94	0.061
+f1a	f1a	2.85	0.061
+f1ao	f1ao	2.9	0.06
+f1c	f1c	2.95	0.053
+f1p	f1p	3.1181	0.061
+gd+3	gd+3	3.3	0.05
+h1	h1	2.5	0.03
+h1=	h1=	2.42	0.03
+h1a	h1a	2.42	0.03
+h1a1	h1a1	2.5	0.05
+h1a2	h1a2	2.5	0.05
+h1a3	h1a3	2.5	0.05
+h1a4	h1a4	2.5	0.05
+h1cl	h1cl	2.5	0.03
+h1cn	h1cn	2.5	0.015
+h1co	h1co	2.42	0.015
+h1co2	h1co2	2.5	0.02
+h1cp	h1cp	2.5	0.015
+h1cs	h1cs	2.5	0.015
+h1n	h1n	1	0
+h1n1	h1n1	2.42	0.03
+h1n2	h1n2	2.5	0.05
+h1n3	h1n3	1	0
+h1n4	h1n4	1	0
+h1o	h1o	2.5	0
+h1oh	h1oh	2.5	0.03
+h1r	h1r	2.5	0.02
+h1s	h1s	2.5	0
+h1si	h1si	2.5	0.03
+h1w	h1w	2.5	0
+he	he	2.556	0.02
+i-	i-	5.15	0.07
+i1	i1	3.75	0.6
+k+	k+	4.06	0.000328
+kr	kr	3.624	0.317
+la+3	la+3	3.75	0.06
+li+	li+	2.7	0.018279
+lp	lp	1	0
+mg+2	mg+2	2.91	0.875044
+n1	n1	3.2	0.17
+n1-	n1-	3.4	0.25
+n2a5	n2a5	3.25	0.17
+n2a6	n2a6	3.25	0.17
+n2c	n2c	3.4	0.25
+n3	n3	3.3	0.17
+n3+	n3+	3.15	0.17
+n34	n34	3.25	0.17
+n3a	n3a	3.25	0.17
+n3a5h	n3a5h	3.25	0.17
+n3ah	n3ah	3.3	0.17
+n3ah1	n3ah1	3.25	0.17
+n3am0	n3am0	3.25	0.17
+n3am1	n3am1	3.25	0.17
+n3am2	n3am2	3.25	0.17
+n3c3	n3c3	3.25	0.17
+n3ch	n3ch	3.25	0.17
+n3ch2	n3ch2	3.25	0.17
+n3h	n3h	3.3	0.17
+n3h2	n3h2	3.3	0.17
+n3im1	n3im1	3.25	0.17
+n3o2	n3o2	3.25	0.12
+n3sa0	n3sa0	3.25	0.17
+n3sa1	n3sa1	3.25	0.17
+n3sa2	n3sa2	3.25	0.17
+n3ur2	n3ur2	3.25	0.17
+n3y	n3y	3.25	0.17
+n4	n4	3.25	0.17
+n4h	n4h	3.25	0.17
+n4h2	n4h2	3.25	0.17
+n4h3	n4h3	3.25	0.17
+n4h4	n4h4	3.25	0.17
+na+	na+	3.35	0.002772
+nd+3	nd+3	3.473	0.054
+ne	ne	2.78	0.069
+o1=	o1=	2.96	0.21
+o1a	o1a	2.96	0.21
+o1h-	o1h-	3.2	0.25
+o1n	o1n	2.86	0.21
+o1n1	o1n1	2.96	0.17
+o1p	o1p	3.15	0.2
+o1p=	o1p=	3.15	0.2
+o1s	o1s	2.93	0.28
+o1s=	o1s=	2.96	0.17
+o2	o2	2.9	0.14
+o2e	o2e	2.9	0.14
+o2h	o2h	3.12	0.17
+o2ha	o2ha	3	0.17
+o2hh	o2hh	3.07	0.17
+o2hi	o2hi	3.15	0.25
+o2ht	o2ht	3.07	0.17
+o2p	o2p	3	0.17
+o2s	o2s	3	0.17
+o2u	o2u	3.11815	0.2
+o2w	o2w	3.16557	0.1554
+o2w3	o2w3	3.15061	0.1521
+o2w3f	o2w3f	3.176	0.15
+o2w4	o2w4	3.15365	0.155
+o2w4f	o2w4f	3.27	0.1
+o2w5	o2w5	3.12	0.16
+p4	p4	3.74	0.2
+p4+	p4+	3.74	0.2
+p41	p41	3.74	0.2
+p42	p42	3.74	0.2
+p43	p43	3.74	0.2
+rb+	rb+	4.32	0.000171
+s2	s2	3.55	0.25
+s2-	s2-	4.25	0.5
+s2h	s2h	3.55	0.25
+s2h2	s2h2	3.7	0.25
+s3	s3	3.56	0.395
+s4	s4	3.55	0.25
+s4am	s4am	3.55	0.25
+s4c	s4c	3.55	0.25
+si4	si4	4	0.1
+sr+2	sr+2	3.82	0.118226
+th+4	th+4	3.3	0.05
+u2	u2	2.81524	0.4
+xe	xe	3.935	0.433
+yb+3	yb+3	2.95	0.04
+zn4	zn4	1.96	0.0125
+
+ITEM	END	# NONBOND
+
+# Bond section
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+br1	c2n	330	1.784
+br1	c3=	300	1.9
+br1	c3a	300	1.87
+br1	c3o	300	1.98
+br1	c4	245	1.945
+br1	si4	151	2.19
+c2	c3=	700	1.305
+c2	o1=	700	1.171
+c2n	c2n	1150	1.21
+c2n	cl1	330	1.637
+c2n	f1	450	1.279
+c2n	h1	420	1.08
+c2n	n1	650	1.157
+c2n	s2	300	1.685
+c3+	c4	532.8	1.46
+c3+	h1	532.8	1.084
+c3=	c3=	549	1.34
+c3=	c4	317	1.51
+c3=	c44	317	1.51
+c3=	cl1	300	1.725
+c3=	f1	420	1.34
+c3=	h1	340	1.08
+c3=	h1a2	367	1.08
+c3=	n3a	448	1.365
+c3=	n3a5h	448	1.365
+c3=	o2	450	1.37
+c3=	o2h	450	1.37
+c3=	s2	250	1.76
+c2n	c3a	400	1.451
+c3=	c3a	427	1.433
+c3a	c3a	469	1.4
+c3a	c3a51	546	1.367
+c3a	c3a55	469	1.421
+c3a	c3aa	469	1.404
+c3a	c3at	469	1.4
+c3a	c4	317	1.51
+c3a	c44	317	1.49
+c3a	cl1	300	1.725
+c3a	f1	420	1.354
+c3a	h1a	367	1.08
+c3a	i1	250	2.08
+c3a	n1	400	1.41
+c3a	n2a5	414	1.391
+c3a	n2a6	483	1.339
+c3a	n3	481	1.34
+c3a	n3a	427	1.381
+c3a	n3am0	427	1.381
+c3a	n3ch	481	1.34
+c3a	n3o2	400	1.46
+c3a	n3y	382	1.385
+c3a	n4	400	1.45
+c3a	o2	450	1.364
+c3a	o2h	450	1.364
+c3a	p4	220	1.78
+c3a	s2	250	1.76
+c3a	s2h	250	1.74
+c3a	s3	340	1.79
+c3a	s4	340	1.77
+c3a5	c3a51	546	1.352
+c3a5	c3aa	388	1.459
+c3a5	c4	317	1.495
+c3a5	h1	340	1.08
+c3a51	c3a51	512	1.375
+c3a51	h1a	367	1.08
+c3a51	h1a2	367	1.08
+c3a51	n2a5	410	1.394
+c3a51	n3a	427	1.381
+c3a51	n3am0	427	1.381
+c3a51	o2	340	1.36
+c3a51	s2	250	1.74
+c3a51	c3a52	520	1.37
+c3a52	h1a	367	1.08
+c3a52	h1a2	367	1.08
+c3a52	n2a5	410	1.394
+c3a53	c3a5n	520	1.37
+c3a53	h1a	367	1.08
+c3a53	h1a3	367	1.08
+c3a53	n2a5	488	1.335
+c3a53	n2a6	461	1.354
+c3a53	n3a	477	1.343
+c3a53	n3ch	481	1.34
+c3a53	o2	462	1.357
+c3a53	s2	250	1.76
+c3a54	c3a54	520	1.37
+c3a54	h1a	367	1.08
+c3a54	n3a	427	1.381
+c3a51	c3a55	520	1.37
+c3a55	h1a	367	1.08
+c3a55	n2a5	410	1.32
+c3a55	n3am0	427	1.381
+c3a5a	h1a	340	1.08
+c3a5a	h1a3	367	1.08
+c3a5a	n2a5	529	1.304
+c3a5a	n3a	440	1.371
+c3a5a	n3a5h	440	1.371
+c3a51	c3a5n	546	1.367
+c3a55	c3a5n	469	1.424
+c3a5n	c3a5n	469	1.424
+c3a5n	c4	317	1.495
+c3a5n	h1a	367	1.08
+c3a6n	h1a	367	1.08
+c3a6n	h1a3	367	1.08
+c3a6n	n2a6	502	1.324
+c3a6n	n3am0	427	1.381
+c3a6n	n3ch	481	1.34
+c3a5n	c3aa	469	1.424
+c3aa	c3aa	520	1.37
+c3aa	c3at	447	1.419
+c3aa	c4	317	1.51
+c3aa	n2a5	414	1.391
+c3aa	n2a6	461	1.354
+c3aa	n3a	436	1.374
+c3aa	n3a5h	436	1.374
+c3aa	o2	340	1.36
+c3=	c3ab	385	1.46
+c3a	c3ab	469	1.4
+c3a51	c3ab	385	1.46
+c3a52	c3ab	385	1.46
+c3a53	c3ab	385	1.46
+c3a55	c3ab	385	1.46
+c3a5n	c3ab	385	1.46
+c3ab	c3ab	385	1.46
+c3ab	n2a6	483	1.339
+c3ab	n3a	385	1.44
+c3at	n3a	428	1.38
+c2n	c3o	400	1.444
+c3=	c3o	410	1.444
+c3a	c3o	400	1.49
+c3a51	c3o	400	1.49
+c3aa	c3o	447	1.419
+c3ab	c3o	385	1.46
+c3o	c3o	350	1.51
+c3o	c3u	385	1.46
+c3o	c4	317	1.522
+c3o	c4ai	317	1.522
+c3o	cl1	300	1.79
+c3o	f1	420	1.357
+c3o	h1	340	1.09
+c3o	n2a6	457	1.358
+c3o	n3	317	1.522
+c3o	n3a	418	1.388
+c3o	n3a5h	424	1.383
+c3o	n3am0	490	1.335
+c3o	n3c3	490	1.335
+c3o	o1=	570	1.229
+c3o	o1a	656	1.25
+c3o	o2	214	1.327
+c3o	o2h	450	1.364
+c3o4	c44	317	1.522
+c3o4	n34	490	1.335
+c3o4	o1=	570	1.229
+c2n	c3u	400	1.426
+c3=	c3u	549	1.34
+c3a51	c3u	549	1.365
+c3u	c3u	385	1.46
+c3u	c4	317	1.51
+c3u	h1	340	1.08
+c2n	c4	390	1.47
+c3a51	c4	317	1.504
+c3a52	c4	317	1.504
+c3a54	c4	317	1.504
+c4	c4	268	1.529
+c4	c44	280	1.51
+c4	cl1	245	1.781
+c4	f1	367	1.36
+c4	h1	340	1.09
+c4	i1	200	2.19
+c4	n1	390	1.43
+c4	n2a6	337	1.449
+c4	n3	382	1.448
+c4	n34	337	1.449
+c4	n3a	337	1.475
+c4	n3a5h	337	1.475
+c4	n3am0	337	1.449
+c4	n3c3	337	1.449
+c4	n3ch	337	1.463
+c4	n3o2	375	1.49
+c4	n3y	382	1.448
+c4	n4	367	1.471
+c4	o2	320	1.41
+c4	o2h	320	1.41
+c4	p4	212	1.843
+c4	p4+	212	1.82
+c4	s2	222	1.81
+c4	s2h	222	1.81
+c4	s3	340	1.79
+c4	s4	340	1.77
+c4	si4	187	1.86
+c2n	c44	400	1.451
+c44	c44	260	1.52
+c44	h1	340	1.088
+c44	n3	382	1.448
+c44	n34	337	1.449
+c44	n3am0	337	1.449
+c44	s2	222	1.81
+c3=	c4ai	317	1.51
+c4	c4ai	260	1.526
+c4ai	c4ai	260	1.526
+c4ai	c4o2	260	1.526
+c4ai	n3	382	1.448
+c4ai	n3a5h	337	1.475
+c4ai	n3am0	337	1.449
+c4ai	n3ch	337	1.463
+c4ai	n4	367	1.471
+c4ai	o2	320	1.425
+c4ai	o2h	386	1.425
+c4ai	s2	222	1.81
+c4ai	s2h	222	1.81
+c4ai	s4	222	1.81
+c4	c4o2	268	1.529
+c4o2	h1	340	1.09
+c4o2	n3a5h	337	1.475
+c4o2	o2	320	1.38
+c4o2	o2h	320	1.38
+cl1	o2	200	1.69
+cl1	si4	223	2.02
+f1	si4	461	1.57
+h1	si4	166	1.48
+h1n	n2a6	434	1.01
+h1n	n3	434	1.01
+h1n	n3a	434	1.01
+h1n	n3a5h	434	1.01
+h1n	n3am0	434	1.01
+h1n	n3ch	434	1.01
+h1n	n3y	434	1.01
+h1n	n4	434	1.01
+h1n	si4	166	1.48
+h1n3	n3ch	434	1.01
+h1n3	n4	434	1.01
+h1o	o2	553	0.945
+h1o	o2h	553	0.945
+h1s	s2h	274	1.336
+h1w	o2w	600	0.9572
+i1	si4	108	2.44
+lp	o2w	900	0.175
+n1	n1	550	1.12
+n2a5	n2a5	400	1.28
+n2a5	o2	462	1.399
+n2a5	s2	250	1.73
+n1	n2a6	550	1.24
+n2a6	n2a6	500	1.32
+n2a6	o1n1	550	1.21
+n3	n3	350	1.445
+n3	o2	320	1.45
+n3	o2h	320	1.45
+n3	s4	340	1.77
+n3	si4	266	1.74
+n2a5	n3a	400	1.349
+n3am0	o1n1	500	1.27
+n3am0	o2h	400	1.38
+n3am0	s4	434	1.67
+n3am0	zn4	40	2.05
+n3o2	o1n1	550	1.225
+o1=	p4	525	1.48
+o1a	p4	525	1.48
+o1s	s3	700	1.53
+o1s	s4	700	1.44
+o2	o2	250	1.47
+o2	p4	230	1.61
+o2	s4	230	1.61
+o2	si4	374	1.64
+o2	o2h	250	1.47
+o2h	p4	230	1.61
+o2h	si4	374	1.64
+o2h	zn4	94	1.8
+o2u	u2	500	1.8
+o2w	zn4	40	2.05
+p4	si4	108	2.25
+s2	s2	166	2.038
+s2	si4	144	2.15
+si4	si4	94	2.32
+
+ITEM	END	# BOND
+
+# Angle_auto section
+
+ITEM	ANGLE_AUTO
+
+# type1	type2	type3	k	theta0
+
+c*	o2*	s4*	100	120.5
+c3*	c3*	s3	85	119.4
+c3*	s3	c3*	62	96
+c3*	s3	o1s	74	107
+c3a	c4	n3*	80	111.2
+c3a*	n3a*	c4*	70	125.8
+c3a*	o2*	c3a*	70	106.5
+c3a*	s4	c3a*	78.7	104.4
+c3a5*	c3a5*	h1a*	35	120
+c4	c4	n3a*	50	109.5
+n3*	c4	n3*	70	109.5
+o1*	s4*	o2*	100	108.23
+
+ITEM	END	# ANGLE_AUTO
+
+# Angle section
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+br1	c3=	c3=	75	120
+br1	c3=	h1	60	114
+br1	c3a	c3a	75	120
+br1	c3o	c4	75	109
+br1	c3o	o1=	75	119
+br1	c4	br1	78	111.7
+br1	c4	c3a	69	110
+br1	c4	c3o	69	109.8
+br1	c4	c4	69	110
+br1	c4	h1	51	107.6
+br1	si4	c4	35	110.5
+c2	c3=	c3a	80	122
+c2	c3=	c4	80	122
+c2	c3=	f1	80	125
+c2	c3=	h1	40	121
+c2n	c2n	h1	112	180
+c2n	c2n	s2	140	180
+c2n	c4	h1	35	108.5
+c3+	c4	c4	63	105
+c3+	c4	h1	35	105
+c3=	c2	c3=	160	180
+c3=	c2	o1=	160	180
+c3=	c2n	n1	150	180
+c3=	c3=	c4	70	124
+c3=	c3=	c44	70	124
+c3=	c3=	cl1	75	121.5
+c3=	c3=	f1	80	121.5
+c3=	c3=	h1	35	120
+c3=	c3=	h1a2	35	119.7
+c3=	c3=	n3a	70	121.2
+c3=	c3=	n3a5h	70	121.2
+c3=	c3=	o2	70	123
+c3=	c3=	o2h	70	123
+c3=	c3=	s2	85	119.4
+c3=	c3a	n2a6	70	121.5
+c3=	c3a	n3a	70	121.5
+c3=	c3a	n3ch	70	120.1
+c3=	c3o	n3a	70	114.1
+c3=	c3o	n3am0	70	115.5
+c3=	c3o	o1=	80	125.3
+c3=	c3u	c4	70	124
+c3=	c3u	h1	35	120
+c3=	c4	c3=	63	112.4
+c3=	c4	c4	63	111.1
+c3=	c4	f1	50	109.5
+c3=	c4	h1	35	109.5
+c3=	c44	c44	63	114
+c3=	c44	h1	35	109.5
+c3=	n3a	h1n	35	119.2
+c3=	n3a5h	c4	70	121.2
+c3=	n3a5h	c4o2	70	121.2
+c3=	n3a5h	h1n	35	119.2
+c3=	o2	c4	75	111
+c3=	o2h	h1o	35	109
+c2n	c2n	c3a	160	180
+c3a	c2n	n1	150	180
+c3=	c3=	c3a	85	117
+c3a	c3=	c4	85	119.7
+c3a	c3=	h1	35	123.3
+c2n	c3a	c3a	70	120
+c3=	c3a	c3a	70	124
+c3a	c3a	c3a	63	120
+c3a	c3a	c3a51	70	107.4
+c3a	c3a	c3aa	63	120
+c3a	c3a	c3at	85	120
+c3a	c3a	c4	70	120
+c3a	c3a	cl1	75	120
+c3a	c3a	f1	80	120
+c3a	c3a	h1a	35	120
+c3a	c3a	i1	75	120
+c3a	c3a	n1	80	120
+c3a	c3a	n2a5	70	108.7
+c3a	c3a	n2a6	70	124
+c3a	c3a	n3	70	120
+c3a	c3a	n3a	70	108.7
+c3a	c3a	n3am0	70	120
+c3a	c3a	n3ch	70	120.1
+c3a	c3a	n3o2	85	120
+c3a	c3a	n4	70	120
+c3a	c3a	o2	70	120
+c3a	c3a	o2h	70	120
+c3a	c3a	p4	85	119.4
+c3a	c3a	s2	85	119.4
+c3a	c3a	s2h	70	120
+c3a	c3a	s4	85	119.4
+c3a	c3a51	c3a5n	70	132.1
+c3a	c3a51	h1a	35	130.7
+c3a	c3a51	n3a	70	121.6
+c3a	c3a52	n2a5	70	111
+c3a	c3a55	h1a	35	128.6
+c3a	c3aa	c3a	85	134.9
+c3a	c3aa	c3a5n	85	134.9
+c3a	c3aa	c3aa	85	117.3
+c3a	c3aa	c3at	85	116.2
+c3a	c3aa	c4	70	120
+c3a	c3aa	n2a5	70	132.4
+c3a	c3ab	c3a	63	120
+c3a	c3ab	c3a51	63	120
+c3a	c3ab	c3a52	63	120
+c3a	c3ab	c3a53	63	120
+c3a	c3ab	c3a55	63	120
+c3a	c3ab	c3a5n	63	120
+c3a	c3ab	n2a6	70	124
+c3a	c3at	c3aa	85	122.7
+c3a	c3at	n3a	70	132.8
+c3a	c3o	c3a	85	120
+c3a	c3o	c4	70	116
+c3a	c3o	h1	35	115
+c3a	c3o	n3am0	70	115.5
+c3a	c3o	o1=	80	120.4
+c3a	c3o	o1a	70	117
+c3a	c3o	o2	81	111.4
+c3a	c3o	o2h	70	120
+c3=	c4	c3a	40	109.5
+c3a	c4	c3a	40	109.5
+c3a	c4	c4	63	114
+c3a	c4	f1	50	109.5
+c3a	c4	h1	35	109.5
+c3a	c4	n3	80	111.2
+c3a	c4	n3a	80	111.2
+c3a	c4	o2	50	109.5
+c3a	c4	o2h	50	109.5
+c3a	c4	p4	43	109.5
+c3a	c4	s2	50	114.7
+c2n	n1	c3a	170	180
+c3a	n2a5	c3a	70	125.2
+c3a	n2a6	c3a	70	117
+c3a	n2a6	c3a6n	70	118.6
+c3a	n2a6	c3aa	70	112.2
+c3a	n2a6	c4	50	118
+c3a	n2a6	h1n	35	113
+c3a	n2a6	n2a6	70	117
+c3a	n3	c3a	50	116
+c3a	n3	c4	50	116
+c3a	n3	c44	50	109.5
+c3a	n3	h1n	35	116
+c3a	n3	s4	50	108.6
+c3a	n3a	c3a	70	125.2
+c3a	n3a	c3a5a	70	109.8
+c3a	n3a	h1n	35	118
+c3a	n3a	n2a5	70	118.4
+c3a	n3am0	c3a	70	118
+c3a	n3am0	c3a51	70	118
+c3a	n3am0	c3a55	70	118
+c3a	n3am0	c3a5n	70	118
+c3a	n3am0	c4	50	118
+c3a	n3am0	h1n	35	119.8
+c3a	n3am0	o1n1	70	121
+c3a	n3ch	c4	50	123.2
+c3a	n3ch	h1n	35	120
+c3a	n3ch	h1n3	35	120
+c3a	n3o2	o1n1	80	117.5
+c3a	n3y	c4	50	120.5
+c3a	n3y	h1n	50	112.5
+c3a	n4	c4	55	114
+c3a	n4	h1n3	35	109.5
+c3=	o2	c3a	75	111
+c3a	o2	c4	75	111
+c3a	o2	p4	100	120.5
+c3a	o2h	h1o	35	113
+c3a	p4	o1=	45	109.5
+c3a	p4	o2	45	109.5
+c3a	p4	o2h	45	109.5
+c3=	s2	c3a	62	104.2
+c3a	s2	c4	62	104.2
+c3a	s2h	h1s	50	96
+c3a	s4	c4	62	102
+c3a	s4	n3am0	100	103
+c3a	s4	o1s	74	107.2
+c3a5	c3a51	h1a	35	120
+c3a5	c3a51	n3a	70	108.7
+c3a	c3aa	c3a5	85	134.9
+c3a5	c3aa	c3at	85	108.8
+c3a5	c4	c4	63	115.6
+c3a5	c4	h1	35	109.5
+c3a51	c3a	h1a	35	126.9
+c3a51	c3a5	h1	35	126.8
+c3a51	c3a51	n2a5	70	120
+c3a51	c3a51	n3a	70	120
+c3a51	c3a52	h1a	35	128.2
+c3a51	c3a52	n2a5	70	111
+c3a51	c3a5n	c3a51	70	103.8
+c3a51	c3a5n	h1	35	126.8
+c3a51	c3a5n	h1a	35	125.7
+c3a51	c3o	n3	70	116
+c3a51	c3o	o1=	80	120.4
+c3a51	c3u	h1	35	122
+c3a51	c4	h1	35	109.5
+c3a51	c4	s2	50	114.7
+c3a51	n2a5	n3a	70	104.1
+c3a51	n3a	c3a51	70	109.8
+c3a51	n3a	h1n	35	120
+c3a51	n3a	n2a5	56	113.1
+c3a51	n3am0	h1n	35	119.8
+c3a51	o2	c3a51	70	106.5
+c3a51	o2	n2a5	70	108.9
+c3a51	s2	c3a51	74	97
+c3a52	c3a51	h1a	35	130.7
+c3a52	c3a51	n3a	70	106.3
+c3a52	c3a51	o2	70	108
+c3a52	c3a51	s2	70	111
+c3a52	c4	h1	35	109.5
+c3a51	c3a5n	c3a53	70	110.4
+c3a51	n2a5	c3a53	70	110
+c3a52	n2a5	c3a53	70	110
+c3a53	n2a5	n2a5	70	109
+c3a51	n3a	c3a53	70	109.8
+c3a53	n3a	c3a54	70	109.8
+c3a53	n3a	h1n	35	120
+c3a53	n3a	n2a5	56	113.1
+c3a51	o2	c3a53	70	104
+c3a53	o2	c3a53	70	107
+c3a51	s2	c3a53	74	90
+c3a53	s4	c4	62	102
+c3a54	c3a54	h1a	35	130.7
+c3a54	c3a54	n3a	70	106.3
+c3a54	c4	h1	35	109.5
+c3a54	n3a	h1n	35	120
+c3a55	c3a	h1a	35	128.2
+c3a51	c3a5n	c3a55	70	103.8
+c3a55	n2a5	n3a	70	104.1
+c3a55	n2a5	o2	70	105.3
+c3a55	n3am0	h1n	35	119.8
+c3a5a	n3a	c4	70	128.8
+c3a5a	n3a	h1n	30	128.8
+c3a5a	n3a5h	c4	70	128.8
+c3a5a	n3a5h	c4o2	70	128.8
+c3a5a	n3a5h	h1n	30	128.8
+c3a5n	c3a51	c4	70	132.1
+c3a5n	c3a51	h1a	35	132.1
+c3a5n	c3a51	n2a5	70	111.9
+c3a5n	c3a51	n3a	70	107.7
+c3a5n	c3a51	o2	70	110.6
+c3a5n	c3a51	s2	70	111
+c3a5n	c3a53	n2a6	70	127.7
+c3a5n	c3a53	n3a	70	106.2
+c3a5n	c3a55	n2a5	70	111.9
+c3a51	c3a5n	c3a5n	70	107.3
+c3a5n	c3a5n	h1a	35	127.5
+c3a5n	c3o	o1=	80	128.2
+c3a5n	c4	c4	63	115.6
+c3a5n	c4	h1	35	109.5
+c3a5n	n3am0	h1n	35	119.8
+c3a53	n2a6	c3a6n	70	111
+c3a6n	n2a6	c3a6n	70	118.6
+c3a6n	n3am0	h1n	35	118
+c3a6n	n3ch	h1n	35	120
+c3a51	c3a	c3aa	63	106.4
+c3aa	c3a	c4	70	128.6
+c3aa	c3a	h1a	35	120
+c3aa	c3a	n2a6	70	117.3
+c3aa	c3a	n3a	70	108.7
+c3aa	c3a	n3ch	70	123.5
+c3a51	c3a5	c3aa	85	106.4
+c3aa	c3a5	c4	70	128.6
+c3aa	c3a5	h1	35	126.8
+c3a51	c3a5n	c3aa	85	106.4
+c3aa	c3a5n	c4	70	128.6
+c3aa	c3a5n	h1	35	126.8
+c3aa	c3a5n	h1a	35	120
+c3aa	c3aa	c4	70	120
+c3aa	c3aa	n2a5	70	111
+c3aa	c3aa	n2a6	70	127.7
+c3aa	c3aa	n3a	70	106.2
+c3aa	c3aa	n3a5h	70	106.2
+c3aa	c3aa	n3am0	70	127.7
+c3aa	c3at	n3a	70	104.4
+c3aa	c3o	n3a	70	111.3
+c3aa	c3o	n3am0	70	111.3
+c3aa	c3o	o1=	80	128.8
+c3aa	c4	c4	63	114
+c3aa	c4	h1	35	109.5
+c3a53	n2a5	c3aa	70	110
+c3a5a	n2a5	c3aa	70	103.8
+c3a6n	n2a6	c3aa	70	111
+c3a53	n3a	c3aa	70	109.8
+c3a5a	n3a	c3aa	70	105.4
+c3aa	n3a	c4	70	125.8
+c3aa	n3a	h1n	30	125.8
+c3aa	n3a	n2a5	56	113.1
+c3a5a	n3a5h	c3aa	70	105.4
+c3aa	n3a5h	c4	70	125.8
+c3aa	n3a5h	c4o2	70	125.8
+c3aa	n3a5h	h1n	30	125.8
+c3a51	o2	c3aa	70	106.5
+c3a53	o2	c3aa	70	106.5
+c3a	c3a	c3ab	63	120
+c3ab	c3a	h1a	35	120
+c3ab	c3a	n2a6	70	124
+c3a5n	c3a51	c3ab	70	132.1
+c3ab	c3a51	n3a	70	121.6
+c3ab	c3a51	o2	70	121.6
+c3ab	c3a53	n2a5	70	130
+c3ab	c3a53	o2	70	122
+c3a51	c3a5n	c3ab	70	125.7
+c3a5n	c3a5n	c3ab	70	127.5
+c3a	c3ab	c3ab	63	120
+c3ab	c3ab	n2a6	70	124
+c3a	n2a6	c3ab	70	117
+c3at	c3a	h1a	35	120
+c3a5n	c3aa	c3at	85	108.8
+c3a51	n3a	c3at	70	111.6
+c3at	n3a	h1n	35	123.1
+c3=	c3=	c3o	85	120.7
+c3o	c3=	c4	70	119.7
+c3o	c3=	c44	70	119.7
+c3o	c3=	c4ai	85	119.7
+c3o	c3=	f1	80	121.5
+c3o	c3=	h1	35	119.7
+c3a	c3a	c3o	85	120
+c3o	c3a	c4	70	119.7
+c3o	c3a	h1a	35	120
+c3a5n	c3a51	c3o	85	120
+c3o	c3a51	n3a	85	120
+c3a51	c3a5n	c3o	70	130
+c3a51	c3aa	c3o	70	130
+c3aa	c3aa	c3o	85	119.2
+c3o	c3aa	n2a5	70	130
+c3o	c3o	c4	80	117.2
+c3o	c3o	n3am0	70	116.6
+c3o	c3o	o1=	80	121.4
+c3=	c3u	c3o	70	118.7
+c3a	c4	c3o	63	112
+c3o	c4	c3o	63	111.1
+c3o	c4	c4	63	111.1
+c3o	c4	c4ai	63	109.5
+c3o	c4	cl1	69	109.8
+c3o	c4	f1	50	109.5
+c3o	c4	h1	35	109.5
+c3o	c4	n2a6	63	110.1
+c3o	c4	n3	80	111.2
+c3o	c4	n34	80	113
+c3o	c4	n3am0	63	110.1
+c3o	c4	n4	80	111.2
+c3o	c4	o2	50	109.5
+c3a	n2a6	c3o	70	120.5
+c3a	n3	c3o	63	112
+c3o	n3	c4	63	111.1
+c3=	n3a	c3o	70	121.6
+c3a	n3a	c3o	70	125.2
+c3o	n3a	c3o	70	126.4
+c3o	n3a	h1n	35	116.8
+c3=	n3a5h	c3o	70	121.6
+c3o	n3a5h	c4	70	117.6
+c3o	n3a5h	c4o2	70	117.6
+c3o	n3a5h	h1n	35	119.2
+c3a	n3am0	c3o	50	121.9
+c3a6n	n3am0	c3o	70	125.2
+c3o	n3am0	c3o	70	126.4
+c3o	n3am0	c4	50	121.9
+c3o	n3am0	c44	55	128
+c3o	n3am0	c4ai	50	121.9
+c3o	n3am0	h1n	35	119.8
+c3o	n3am0	o2h	46	115.7
+c3o	n3am0	zn4	20	126
+c3o	n3c3	c4	50	121.9
+c3a	o2	c3o	83	116.9
+c3o	o2	c4	83	116.9
+c3o	o2	c4ai	83	116.9
+c3o	o2h	h1o	35	113
+c3o4	c44	c44	63	85
+c3o4	c44	h1	37.5	110
+c3o4	c44	n3am0	70	117
+c3o4	n34	c4	55	127
+c3o4	n34	c44	50	94
+c3u	c3=	c4	70	124
+c3u	c3=	h1	35	120
+c3u	c3=	o2	70	123
+c3u	c3=	o2h	70	123
+c3u	c3a51	h1a	35	130.7
+c3u	c3a51	o2	70	110
+c3u	c3o	c4	70	116
+c3u	c3o	h1	80	116
+c3u	c3o	o1=	80	124
+c3=	c3u	c3u	70	124
+c3a51	c3u	c3u	35	106
+c3u	c3u	c4	70	124
+c3u	c3u	h1	35	120
+c3u	c4	h1	35	109.5
+c2n	c2n	c4	150	180
+c4	c2n	n1	150	180
+c4	c3+	c4	172.8	120
+c4	c3+	h1	144	120
+c4	c3=	c4	70	130
+c4	c3=	h1	35	117
+c4	c3=	n3a	70	120
+c4	c3=	n3a5h	70	120
+c4	c3a	n2a6	70	116
+c4	c3a	n3a	70	120
+c3a51	c3a5	c4	70	125
+c3a51	c3a51	c4	70	120
+c3a52	c3a51	c4	70	130.7
+c4	c3a51	n2a5	70	118.9
+c4	c3a51	n3a	70	121.6
+c4	c3a51	o2	70	121.6
+c3a51	c3a52	c4	70	130.7
+c4	c3a52	n2a5	70	124.5
+c4	c3a53	n2a5	70	125
+c4	c3a53	n3a	70	125
+c3a54	c3a54	c4	70	130.7
+c4	c3a54	n3a	70	121.6
+c4	c3a55	n2a5	70	118.9
+c3a51	c3a5n	c4	70	125
+c4	c3a6n	n2a6	70	115.5
+c4	c3o	c4	70	116
+c4	c3o	cl1	75	109
+c4	c3o	f1	80	111
+c4	c3o	h1	35	115
+c4	c3o	n3	70	116
+c4	c3o	n3am0	70	116.6
+c4	c3o	n3c3	70	116.6
+c4	c3o	o1=	80	120.4
+c4	c3o	o1a	70	117
+c4	c3o	o2	81	111.4
+c4	c3o	o2h	70	108
+c2n	c4	c4	58.35	112.7
+c3a51	c4	c4	63	114
+c3a52	c4	c4	63	114
+c3a54	c4	c4	63	114
+c4	c4	c4	58.35	112.7
+c4	c4	cl1	69	109.8
+c4	c4	f1	50	109.5
+c4	c4	h1	37.5	110.7
+c4	c4	i1	75	112
+c4	c4	n2a6	65	109
+c4	c4	n3	56.2	109.47
+c4	c4	n34	80	110
+c4	c4	n3a5h	50	109.5
+c4	c4	n3am0	80	109.7
+c4	c4	n3c3	80	109.7
+c4	c4	n3ch	80	111.2
+c4	c4	n3o2	63	111.1
+c4	c4	n3y	80	111.2
+c4	c4	n4	80	111.2
+c4	c4	o2	50	109.5
+c4	c4	o2h	50	109.5
+c4	c4	p4	43	109.5
+c4	c4	p4+	43	109.5
+c4	c4	s2	50	114.7
+c4	c4	s2h	50	108.6
+c4	c4	s3	50	108.6
+c4	c4	s4	50	108.6
+c4	c4	si4	60	112
+c4	c44	c44	37.5	117.2
+c4	c44	h1	35	114.3
+c4	c4o2	h1	37.5	110.7
+c4	c4o2	n3a5h	50	109.5
+c4	c4o2	o2	50	109.5
+c4	c4o2	o2h	50	109.5
+c2n	n1	c4	150	180
+c4	n2a6	n1	70	120
+c4	n2a6	n2a6	70	117
+c4	n2a6	o1n1	70	114
+c4	n3	c4	51.8	107.2
+c4	n3	h1n	35	109.5
+c4	n3	s4	50	108.6
+c4	n34	c44	50	126
+c4	n3a	n2a5	70	118.4
+c4	n3am0	c4	50	118
+c4	n3am0	h1n	38	118.4
+c4	n3am0	s4	50	120
+c4	n3c3	c4	50	118
+c4	n3ch	c4	50	118
+c4	n3ch	h1n	35	118.4
+c4	n3ch	h1n3	35	118.4
+c4	n3o2	o1n1	80	117.5
+c4	n3y	h1n	35	109.5
+c4	n4	c4	50	113
+c4	n4	h1n3	35	109.5
+c4	o2	c4	60	109.5
+c4	o2	p4	100	120.5
+c4	o2	si4	40	130
+c4	o2h	h1o	55	108.5
+c4	o2h	p4	100	120.5
+c4	p4	o1=	45	109.5
+c4	p4	o1a	45	109.5
+c4	p4	o2	45	109.5
+c4	p4+	c4	45	109.5
+c2n	s2	c4	65	100
+c4	s2	c4	62	98.9
+c4	s2	c44	62	94
+c4	s2	lp	150	96.7
+c4	s2	s2	68	103.7
+c4	s2h	h1s	44	96
+c4	s2h	lp	150	96.7
+c4	s3	c4	62	96
+c4	s3	o1s	74	107
+c4	s4	c4	62	102
+c4	s4	n3	62	102
+c4	s4	n3am0	100	103
+c4	s4	o1s	74	108.9
+c4	si4	c4	60	110
+c4	si4	cl1	35	110.5
+c4	si4	f1	35	110.5
+c4	si4	h1	35	110.5
+c4	si4	h1n	35	110.5
+c4	si4	i1	35	110.5
+c4	si4	o2	60	100
+c4	si4	si4	50	112
+c44	c3o4	n34	70	91
+c44	c3o4	o1=	80	134
+c44	c4	h1	37.5	110.7
+c44	c44	c44	30	79.2
+c44	c44	h1	37.5	117.2
+c44	c44	n3	37.5	117.2
+c44	c44	n34	80	89
+c44	c44	n3am0	37.5	126
+c44	c44	s2	55	128
+c44	n3am0	h1n	40	113
+c4ai	c3o	n3am0	70	116.6
+c4ai	c3o	o1=	80	120.4
+c4ai	c3o	o1a	70	117
+c4ai	c4	c4ai	40	109.5
+c4ai	c4	n3	56.2	109.47
+c4ai	c4o2	c4ai	40	109.5
+c4ai	c4o2	o2	80	109.5
+c4	n3	c4ai	51.8	107.2
+c4ai	n3	c4ai	51.8	107.2
+c4ai	n3	h1n	43.2	108.1
+c3a5a	n3a5h	c4ai	70	128.8
+c3aa	n3a5h	c4ai	70	125.8
+c4ai	n3am0	h1n	38	118.4
+c3a	n3ch	c4ai	50	123.2
+c4ai	n4	h1n3	35	109.5
+c4ai	o2	c4o2	100	113
+c4ai	o2	p4	100	120.5
+c4ai	o2h	h1o	55	108.5
+c4ai	s2	lp	150	96.7
+c4ai	s2	s2	68	103.7
+c4ai	s2h	h1s	44	96
+c4ai	s2h	lp	150	96.7
+c4	c4	c4o2	58.35	112.7
+c4o2	c4	h1	37.5	110.7
+c4o2	c4	o2h	50	109.5
+c4	o2	c4o2	60	109.5
+c4o2	o2h	h1o	55	108.5
+cl1	c3=	h1	60	114
+cl1	c3a	n2a6	75	120
+cl1	c3o	o1=	75	119
+cl1	c4	cl1	78	111.7
+cl1	c4	h1	51	107.6
+f1	c3=	f1	80	108
+f1	c3=	h1	50	112
+f1	c3o	o1=	80	121
+f1	c4	f1	77	109.1
+f1	c4	h1	40	107
+f1	c4	s4	50	109.5
+h1	c3=	h1	35	117
+h1	c3=	n3a	35	119.1
+h1	c3=	n3a5h	35	119.1
+h1	c3=	o2	35	114.5
+h1	c3o	n2a6	35	122
+h1	c3o	n3am0	40	114
+h1	c3o	o1=	35	123
+h1	c3o	o2	40	115
+h1	c3o	o2h	40	115
+h1	c4	h1	33	107.8
+h1	c4	i1	75	111
+h1	c4	n1	35	108.5
+h1	c4	n2a6	35	109.5
+h1	c4	n3	35	109.5
+h1	c4	n34	35	109.5
+h1	c4	n3a	35	109.5
+h1	c4	n3a5h	35	109.5
+h1	c4	n3am0	35	109.5
+h1	c4	n3c3	35	109.5
+h1	c4	n3ch	35	109.5
+h1	c4	n3o2	35	105
+h1	c4	n3y	35	109.5
+h1	c4	n4	35	109.5
+h1	c4	o2	35	109.5
+h1	c4	o2h	35	109.5
+h1	c4	p4	41	109.5
+h1	c4	p4+	41	109.5
+h1	c4	s2	35	109.5
+h1	c4	s2h	35	109.5
+h1	c4	s3	35	109.5
+h1	c4	s4	35	109.5
+h1	c4	si4	35	109.5
+h1	c44	h1	35	114.3
+h1	c44	n3	35	114.3
+h1	c44	n34	35	111
+h1	c44	n3am0	35	108
+h1	c44	s2	37.5	108
+h1	c4o2	h1	33	109.5
+h1	c4o2	n3a5h	35	109.5
+h1	c4o2	o2	35	109.5
+h1	c4o2	o2h	35	109.5
+h1	si4	h1	35	109.5
+h1a	c3a	n2a5	35	119.1
+h1a	c3a	n2a6	35	116
+h1a	c3a	n3a	35	120
+h1a	c3a	n3am0	35	119.1
+h1a	c3a51	n3a	35	121.6
+h1a	c3a51	o2	35	113.4
+h1a	c3a51	s2	35	125
+h1a	c3a52	n2a5	35	120
+h1a	c3a53	n2a5	35	120
+h1a	c3a53	n3a	35	120
+h1a	c3a53	o2	35	117
+h1a	c3a53	s2	35	125
+h1a	c3a54	n3a	35	120
+h1a	c3a55	n2a5	35	118.9
+h1a	c3a5a	n2a5	35	120
+h1a	c3a5a	n3a	35	120
+h1a	c3a5a	n3a5h	35	120
+h1a	c3a6n	n2a6	35	115.45
+h1a2	c3=	n3a	35	119.1
+h1a2	c3=	n3a5h	35	119.1
+h1a2	c3a51	n3a	35	120
+h1a3	c3a5a	n2a5	35	123.05
+h1a3	c3a5a	n3a	35	123.05
+h1a3	c3a5a	n3a5h	35	123.05
+h1a3	c3a6n	n2a6	35	115.45
+h1n	n3	h1n	43.6	106.4
+h1n	n3	s4	35	115
+h1n	n3a	n2a5	56	118.4
+h1n	n3am0	h1n	35	120
+h1n	n3am0	o2h	35	110.2
+h1n	n3am0	s4	100	111
+h1n	n3ch	h1n	35	113
+h1n	n3y	h1n	43.6	106.4
+h1n	n4	h1n	43.6	109.5
+h1n	si4	h1n	35	109.5
+h1n3	n3am0	h1n3	35	120
+h1n3	n3ch	h1n3	35	120
+h1n3	n4	h1n3	35	109.5
+h1o	o2h	n3am0	49	105.4
+h1o	o2h	p4	55	108.5
+h1o	o2h	zn4	100	126
+h1s	s2h	h1s	35	92.07
+h1s	s2h	lp	150	96.7
+h1w	o2w	h1w	75	109.5
+h1w	o2w	lp	50	54.75
+lp	s2	lp	10	160
+lp	s2	s2	150	96.7
+lp	s2h	lp	10	160
+n2a5	c3a53	n3	70	126.1
+n2a5	c3a53	o2	70	115
+n2a5	c3a53	s2	70	113.6
+n2a5	c3a53	s4	70	120
+n2a6	c3a	n3	70	116
+n2a6	c3a	n3y	70	124.1
+n2a6	c3a	o2h	70	120
+n2a6	c3a6n	n2a6	70	129.1
+n2a6	c3o	o1=	80	122.5
+n1	n1	n2a6	100	180
+n3	c3a53	s2	70	120.2
+n3	c3o	o1=	80	120.4
+n3	c4	s2	50	114.7
+n3	s4	o1s	74	108.9
+n34	c3o4	o1=	80	134
+n34	c44	s2	55	109
+n3a	c3=	o2	70	120
+n3a	c3=	s2	85	119.4
+n2a5	c3a	n3a	70	123.3
+n2a6	c3a	n3a	70	123.3
+n2a5	c3a53	n3a	70	120
+n2a6	c3a53	n3a	70	126.2
+n3a	c3a53	n3a	70	120
+n3a	c3a53	s4	70	120
+n2a5	c3a5a	n3a	70	113.9
+n2a6	c3aa	n3a	70	126.2
+n2a6	c3o	n3a	70	118.6
+n3a	c3o	n3a	70	118.6
+n3a	c3o	o1=	80	120.6
+n3a5h	c3=	o2	70	120
+n3a5h	c3=	s2	85	119.4
+n2a5	c3a5a	n3a5h	70	113.9
+n2a6	c3aa	n3a5h	70	126.2
+n2a6	c3o	n3a5h	70	118.6
+n3a	c3o	n3a5h	70	115.4
+n3a5h	c3o	o1=	80	120.9
+n3a5h	c4	o2	50	109.5
+n3a5h	c4o2	o2	50	109.5
+n3am0	c3a51	s2	70	125
+n2a5	c3a53	n3am0	70	126.2
+n3am0	c3a53	s2	70	125
+n2a6	c3a6n	n3am0	70	123.3
+n3am0	c3a6n	n3ch	70	116
+n2a5	c3aa	n3am0	70	126.2
+n3am0	c3o	n3am0	70	114.2
+n3am0	c3o	o1=	80	122.9
+n3am0	c3o	o2	81	111.4
+n3am0	c4	o2	50	109.5
+n3am0	s4	o1s	120	107
+n3am0	zn4	n3am0	20	109.5
+n3am0	zn4	o1=	20	109.5
+n3c3	c3o	o1=	80	122.9
+n1	c2n	n3ch	150	180
+n2a6	c3a	n3ch	70	119.3
+n3a	c3a	n3ch	70	116
+n3ch	c3a	n3ch	70	120
+n2a6	c3a6n	n3ch	70	119.3
+n3y	c3a	n3y	70	111.8
+o1=	c3o	o1=	80	126
+o1=	c3o	o1a	80	126
+o1=	c3o	o2	83	123.4
+o1=	c3o	o2h	80	121
+o1=	p4	o2	100	108.23
+o1=	p4	o2h	100	108.23
+o1a	c3o	o1a	80	126
+o1a	p4	o1a	140	119.9
+o1a	p4	o2	100	108.23
+o1a	p4	o2h	45	108.23
+o1n1	n3o2	o1n1	80	125
+o1s	s4	o1s	104	119
+o2	c4o2	o2	92.6	111.55
+o2	p4	o2	45	102.6
+o2	si4	o2	60	110
+o2	c4o2	o2h	92.6	111.55
+o2	p4	o2h	45	102.6
+o2h	p4	o2h	45	102.6
+o2u	u2	o2u	150	180
+p4	o2	p4	100	120.5
+si4	o2	si4	20	145
+
+ITEM	END	# ANGLE
+
+# Torsion_auto section
+
+ITEM	TORSION_AUTO
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+o1s	s4	*	*	0	1	0
+*	c2n	c2n	*	0	1	0
+*	c3=	c3=	*	14	2	0
+*	c3=	c3a51	*	2.17	2	0
+*	c3=	c3a55	*	2.17	2	0
+*	c3=	c3a5n	*	2.17	2	0
+*	c3a	c3a	*	7.25	2	0
+*	c3a	c3aa	*	7	2	0
+c2n	n1	c3a	*	0	1	0
+*	c3a	n2a6	*	7.25	2	0
+h1n	n3ch	c3a	*	2.03	2	0
+o1s	s4	c3a	*	0	1	0
+*	c3a5	c3a51	*	13.05	2	0
+*	c3a5	c3aa	*	3.35	2	0
+c4	c4	c3a5	*	0	1	0
+h1	c4	c3a5	*	0	1	0
+*	c3a51	c3a51	*	10.75	2	0
+h1a	c3a55	c3a51	*	7.25	2	0
+c4	c4	c3a51	*	0	1	0
+cl1	c4	c3a51	*	-0.4	2	0
+f1	c4	c3a51	*	0.45	2	0
+h1	c4	c3a51	*	0	1	0
+*	c3a51	n2a5	*	10	2	0
+*	c3a51	n3a	*	2.8	2	0
+h1n	n3a	c3a51	*	5	2	0
+*	c3a51	n3am0	*	2.17	2	0
+*	c3a51	c3a52	*	10.75	2	0
+c4	c4	c3a52	*	0	1	0
+h1	c4	c3a52	*	0	1	0
+*	c3a52	n2a5	*	4.8	2	0
+*	c3a53	c3a5n	*	7.25	2	0
+c4	c4	c3a53	*	0	1	0
+h1	c4	c3a53	*	0	1	0
+*	c3a53	n2a5	*	7.25	2	0
+*	c3a53	n2a6	*	7.25	2	0
+*	c3a53	n3a	*	4.65	2	0
+h1n	n3a	c3a53	*	5	2	0
+h1a	c3a51	c3a55	*	7.25	2	0
+c4	c4	c3a55	*	0	1	0
+h1	c4	c3a55	*	0	1	0
+*	c3a55	n2a5	*	7.25	2	0
+*	c3a55	n3am0	*	2.17	2	0
+c4	c4	c3a5a	*	0	1	0
+h1	c4	c3a5a	*	0	1	0
+*	c3a5a	n2a5	*	10	2	0
+*	c3a5a	n2a6	*	10	2	0
+*	c3a5a	n3a	*	10	2	0
+*	c3a51	c3a5n	*	7.25	2	0
+c4	c4	c3a5n	*	0	1	0
+cl1	c4	c3a5n	*	-0.4	2	0
+f1	c4	c3a5n	*	0.45	2	0
+h1	c4	c3a5n	*	0	1	0
+*	c3a5n	n3am0	*	2.17	2	0
+c4	c4	c3a6n	*	0	1	0
+h1	c4	c3a6n	*	0	1	0
+*	c3a6n	n2a6	*	7.25	2	0
+*	c3a6n	n3am0	*	7.25	2	0
+h1n	n3am0	c3a6n	*	7.25	2	0
+h1n	n3ch	c3a6n	*	2.03	2	0
+*	c3a5n	c3aa	*	7.25	2	0
+*	c3aa	c3aa	*	7.25	2	0
+*	c3aa	c3at	*	6	2	0
+*	c3aa	n2a5	*	7.25	2	0
+*	c3aa	n2a6	*	7.25	2	0
+*	c3aa	n3a	*	7.25	2	0
+h1n	n3a	c3aa	*	5	2	0
+*	c3aa	n3am0	*	7.25	2	0
+*	c3at	n3a	*	3.05	2	0
+*	c3a5n	c3o	*	7.25	2	0
+*	c3aa	c3o	*	7	2	0
+*	c3o4	c44	*	0	1	0
+c2n	c2n	c4	*	0	1	0
+n1	c2n	c4	*	0	1	0
+o1=	c3o	c4	*	0	1	0
+c2n	n1	c4	*	0	1	0
+h1n	n3am0	c4	*	0	1	0
+n3am0	s4	c4	*	0	1	0
+o1s	s4	c4	*	0	1	0
+*	c44	c44	*	0	1	0
+n3am0	c44	c44	*	0	1	0
+*	c44	n34	*	0	1	0
+*	c44	s2	*	0	1	0
+h1a	c3a53	n2a5	*	10	2	0
+*	n2a5	n2a5	*	10	2	0
+c44	c44	n34	*	0	1	0
+h1a	c3a53	n3a	*	10	2	0
+*	n2a5	n3a	*	10	2	0
+c3a	c3a	n3am0	*	2.1	2	0
+o1s	s4	n3am0	*	0	1	0
+*	n3am0	zn4	*	0	1	0
+*	o1=	zn4	*	0	1	0
+c*	c*	s3	o1s	0	1	0
+c*	c3=	c3ab	c3a	2.17	2	0
+c*	c3a	c3aa	c*	7	2	0
+c*	c3a	c3aa	n*	7	2	0
+c*	c3a	s2h	h1s	1.1	2	0
+c*	c3a51	c3a51	c*	10.75	2	0
+c*	c3a51	c3a51	h*	10.75	2	0
+c*	c3a51	c3a51	h1a	10.75	2	0
+c*	c3a51	c3a52	h1a	10.75	2	0
+c*	c3a51	c3a53	n*	2.17	2	0
+c*	c3a51	c3a5n	h1a	7.25	2	0
+c*	c3a51	c3ab	c3a	2.17	2	0
+c*	c3a51	n3a	c*	5	2	0
+c*	c3a51	n3a	n*	5	2	0
+c*	c3a51	c3a52	c*	10.75	2	0
+c*	c3a52	c3a51	h1a	10.75	2	0
+c*	c3a52	c3ab	c3a	2.17	2	0
+c*	c3a55	c3ab	c3a	2.17	2	0
+c*	c3a55	c3ab	n2a6	2.17	2	0
+c*	c3a51	c3a5n	c*	7.25	2	0
+c*	c3a5n	c3a51	h*	7.25	2	0
+c*	c3a5n	c3a51	n*	7.25	2	0
+c*	c3a5n	c3a52	c3a51	2.17	2	0
+c*	c3a5n	c3a52	n2a5	2.17	2	0
+c*	c3a5n	c3a53	n*	2.17	2	0
+c*	c3a5n	c3a5n	c3a5n	2.17	2	0
+c*	c3a5n	c3a5n	n3a	2.17	2	0
+c*	c3a5n	c3a5n	o2	2.17	2	0
+c*	c3a5n	c3ab	c3a	2.17	2	0
+c*	c3aa	c3a	n*	7	2	0
+c*	c3aa	c3aa	c*	7.25	2	0
+c*	c3aa	c3aa	n*	7.25	2	0
+c*	c3aa	c3o	n*	7	2	0
+c*	c3aa	c3o	o1=	7	2	0
+c*	c3aa	n2a5	c*	7.25	2	0
+c*	c3aa	n2a6	c*	7.25	2	0
+c*	c3aa	n3a	c*	7.25	2	0
+c*	c3o	c4	c*	1.454	1	0	-0.144	2	0	-0.775	3	0
+c*	c3u	c3u	h1a	7.25	2	0
+c*	c4	c4	c4	1.3	1	0	-0.05	2	0	0.2	3	0
+c*	c4	n3	c*	0.416	1	0	-0.128	2	0	0.695	3	0
+c*	c4	n3	h1n	-0.19	1	0	-0.417	2	0	0.418	3	0
+c*	c4	n34	c*	0	1	0
+c*	c4	n3a	c*	0	1	0
+c*	c4	n3a5h	c*	0	1	0
+c*	c4	o2*	c4	0.65	1	0	-0.25	2	0	0.67	3	0
+c*	c4	o2*	s4*	-1.42	1	0	-0.62	2	0	0.1	3	0
+c*	c4	s2	c4	0.925	1	0	-0.576	2	0	0.677	3	0
+c*	n2a5	c3a53	n*	10	2	0
+c*	n2a6	c3a	n*	7.25	2	0
+c*	n2a6	c3a6n	h1a	7.25	2	0
+c*	n2a6	c3a6n	n*	7.25	2	0
+c*	n2a6	c3aa	n*	7.25	2	0
+c*	n34	c4	h1	0	1	0
+c*	n34	c44	h1	0	1	0
+c*	n3a	c3a51	h*	5	2	0
+c*	n3a	c3a53	n*	10	2	0
+c*	n3a	c3aa	n*	7.25	2	0
+c*	n3a	c4	c4	1	1	0	-0.35	2	0
+c*	n3a	c4	h*	0	1	0
+c*	n3a	c4	o2	1.5	1	0	-1.5	2	0
+c*	n3a5h	c4	c4	1	1	0	-0.35	2	0
+c*	n3a5h	c4	h*	0	1	0
+c*	n3a5h	c4	o2	1.5	1	0	-1.5	2	0
+c*	n3am0	c3a6n	h1a	7.25	2	0
+c*	n3am0	c3a6n	n*	7.25	2	0
+c*	o2	c4	h1	0.76	3	0
+c*	o2	p4	o1a	0.562	3	0
+c*	o2	p4	o2	-0.375	1	0	-1.358	2	0	0.004	3	0
+c*	s4	n3*	c4*	2.074	1	0	-2.966	2	0	2.473	3	0
+c*	s4	n3*	h1n	1.671	1	0	-4.901	2	0	0.669	3	0
+c*	s3	c3*	c3*	-0.9	2	0
+c3*	n3*	c4	n3*	0.462	2	0
+c3*	n3am*	c3o	c4	2.3	1	0	6.089	2	0
+c3*	n3am*	c3o	o1=	6.089	2	0
+c3*	o2	c4	c4	-1.22	1	0	-0.126	2	0	0.422	3	0
+c3=	c3=	c4	o*	0.5	1	0
+c3=	c3u	c4	o*	0.5	1	0
+c3a	c3a	c3a	n*	7.25	2	0
+c3a	c3a	c3a	o*	7.25	2	0
+c3a	c3a	c3a	s*	7.25	2	0
+c*	c4	c3a	c3a	0	1	0
+c3a	c3a	c4	n*	0	1	0
+c3a	c3a	c4	o*	0	1	0
+c3a	c3a	c4	s*	0	1	0
+c3a	c3a	o2*	s4*	2.99	2	0
+c3a	c3ab	c3a55	n*	2.17	2	0
+c3*	n3*	c4	c3a	0	1	0
+c3a	n3*	c3o	o2*	2.1	2	0
+c3a*	c3a*	o2*	c3a*	7.25	2	0
+c3a*	c3a*	s4	c3a*	-0.45	2	180
+c3a*	s4	c4*	c4*	0	1	0
+c3a51	c3a52	c3a5n	n*	2.17	2	0
+c3a51	s2	c3a53	n*	7.25	2	0
+c3a5n	c3a5n	c3a5n	n*	2.17	2	0
+c3o	c4	c4	s*	-4.344	1	0	-1.714	2	0
+c3u	c3=	c4	o*	0.5	1	0
+c4	c3=	c3o	o*	0.9	1	0	0.23	2	0	-0.505	3	0
+c4	c3=	c4	o*	1.711	1	0	-0.5	2	0	0.663	3	0
+c4	c3a	c3a	n*	7.25	2	0
+c4	c3a	c3a	o*	7.25	2	0
+c4	c3a	c3a	s*	7.25	2	0
+c4	c3o	n2a6	o*	14	2	0
+c4	c3u	c3o	o*	0.9	1	0	0.23	2	0	-0.505	3	0
+c4	c4	c3o	o1=	0.82	2	0
+c4	c4	c3o	o1a	0.82	2	0
+c4	c4	c4	o*	1.711	1	0	-0.5	2	0	0.663	3	0
+c4	c4	c4o2	o*	1.711	1	0	-0.5	2	0	0.663	3	0
+c4	c4*	o2	c4*	0.65	1	0	-0.25	2	0	0.67	3	0
+c4	c4*	o2h	h1o	-0.356	1	0	-0.174	2	0	0.492	3	0
+c4	o2	c4	n*	-0.5	1	0	-1.5	2	0	1	3	0
+c4	o2	c4	o*	-0.521	1	0	-2.018	2	0	1.996	3	0
+c4*	c4	n4	h1n	0.3	3	0
+h*	c3a51	c3a51	h1a	10.75	2	0
+h*	c3a51	n3a	n*	5	2	0
+h1	c3=	c4	o*	0.468	3	0
+h1	c3o	n2a6	o*	14	2	0
+h1	c4	c4	n3a*	0.2	3	0
+h1	c4	c4*	o2h	0.468	3	0
+h1	c4	o2*	s4*	0.3	3	0
+h1	c4*	c4*	h1	0.3	3	0
+h1	c4*	o2h	h1o	0.3524	3	0
+h1a	c3=	c3ab	n*	7.25	2	0
+h1a	c3a	c3a	n*	7.25	2	0
+h1a	c3a	c3a	o*	7.25	2	0
+h1a	c3a	c3a	s*	7.25	2	0
+h1a	c3a51	c3a51	n*	10.75	2	0
+h1a	c3a5n	c3a51	n*	7.25	2	0
+h1n	n3ch	c3a	n*	2.03	2	0
+h1n*	n3ch	c3a	n3ch	3.9	2	0
+h1	c4	n3ch	h1n*	0	1	0
+h1s	s2h	c3a	n*	-3	1	0
+n*	c3a	c3a	n*	7.25	2	0
+n*	c3a	c3a	o*	7.25	2	0
+n*	c3a	c3aa	n*	7	2	0
+n*	c3a51	c3a51	n*	10.75	2	0
+n*	c3a53	c3o	o1=	0	1	0
+n*	c3a55	c3ab	n2a6	2.17	2	0
+n*	c3a5n	c3a52	n2a5	2.17	2	0
+n*	c3a5n	c3a5n	n3a	2.17	2	0
+n*	c3a5n	c3a5n	o2	2.17	2	0
+n*	c3aa	c3aa	n*	7.25	2	0
+n*	c3aa	c3o	o1=	7	2	0
+n*	c3aa	c3o	n*	7	2	0
+n3	c4	c3o	o1=	0.82	2	0
+n3	c4	c3o	o1a	0.82	2	0
+n3am0	c4	c4	s*	1.428	1	0	0.086	2	0	0.029	3	0
+n4	c4	c4	o*	1.711	1	0	-0.5	2	0	0.663	3	0
+o*	c3a	c3a	o*	7.25	2	0
+o*	c3a53	c3o	o1=	0	1	0
+s*	c3a	c3a	s*	7.25	2	0
+
+ITEM	END	# TORSION_AUTO
+
+# Torsion section
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+br1	c3a	c3a	c3a	7.25	2	0
+br1	c3a	c3a	h1a	7.25	2	0
+br1	c3o	c4	c4	0	1	0
+br1	c3o	c4	h1	0.36	3	0
+br1	c4	c3a	c3a	0.4	3	0
+br1	c4	c4	c4	0.4	3	0
+br1	c4	c4	h1	0.4	3	0
+c2	c3=	c4	h1	-0.25	3	0
+c2n	c2n	c4	h1	0	1	0
+c2n	c4	c4	h1	0.366	3	0
+c2n	n1	c4	h1	0	1	0
+c3=	c2	c3=	c4	0	1	0
+c3=	c2	c3=	h1	0	1	0
+c3=	c3=	c3o	n3am0	2	1	0
+c3=	c3=	c3o	n3c3	2	1	0
+c3=	c3=	c3o	o1=	2.5	1	0	6	2	0
+c3=	c3=	c3o	o2h	3.2	1	0	-3	2	0
+c3=	c3=	c4	c4	0.346	1	0	0.405	2	0	-0.904	3	0
+c3=	c3=	c4	f1	0.5	1	0
+c3=	c3=	c4	h1	-0.372	3	0
+c3=	c3=	o2	c4	-3.5	1	0	3	2	0
+c3=	c3=	o2h	h1o	1.682	2	0
+c3=	c3o	n3am0	h1n	4.9	2	0
+c3=	c3u	c3o	c4	0.8	1	0	-3	2	0
+c3=	c3u	c3o	o1=	2.5	1	0	6	2	0
+c3=	c3u	c3o	o2h	3.2	1	0	-3	2	0
+c3=	c3u	c3u	c3=	1.423	1	0	4.055	2	0	0.858	3	0
+c3=	c3u	c3u	c4	-0.372	3	0
+c3=	c3u	c3u	h1	-0.372	3	0
+c3=	c3u	c4	h1	-0.372	3	0
+c3=	c4	c4	h1	0.366	3	0
+c3=	c4	o2h	h1o	-0.9	1	0
+c3=	n3am0	c3ab	n2a6	2.17	2	0
+c3=	n3am0	c3o	o1=	6.089	2	0
+c3=	o2	c4	h1	0.76	3	0
+c3=	c3=	c3a	c3a	1.241	1	0	3.353	2	0	-0.286	3	0
+c3a	c3a	c3=	c4	0.205	1	0	-0.531	2	0
+c3a	c3a	c3a	c3a	7.25	2	0
+c3a	c3a	c3a	c3aa	7.25	2	0
+c3a	c3a	c3a	c4	7.25	2	0
+c3a	c3a	c3a	cl1	7.25	2	0
+c3a	c3a	c3a	f1	7.25	2	0
+c3a	c3a	c3a	h1a	7.25	2	0
+c3a	c3a	c3a	i1	7.25	2	0
+c3a	c3a	c3a	n3ch	1.62	2	0	-0.44	4	0
+c3a	c3a	c3ab	n2a6	7.25	2	0
+c3a	c3a	c3o	c4	0.2	2	0
+c3a	c3a	c3o	h1	0.2	2	0
+c3a	c3a	c3o	n3am0	1.1	2	0
+c3a	c3a	c3o	o1=	2.1	2	0
+c3a	c3a	c3o	o2	2.1	2	0
+c3a	c3a	c3o	o2h	2.1	2	0
+c3a	c3a	c4	c4	0	1	0
+c3a	c3a	c4	cl1	-0.4	2	0
+c3a	c3a	c4	f1	0.45	2	0
+c3a	c3a	c4	h1	0	1	0
+c3a	c3a	c4	p4	0	1	0
+c2n	n1	c3a	c3a	0	1	0
+c3a	c3a	n2a6	c3a	7.25	2	0
+c3a	c3a	n3	c3a51	2.1	2	0
+c3a	c3a	n3	c3a53	2.1	2	0
+c3a	c3a	n3	c3a6n	2.1	2	0
+c3a	c3a	n3	c4	-7.582	1	0	3.431	2	0	3.198	3	0
+c3a	c3a	n3	h1n	2.03	2	0
+c3a	c3a	n3am0	c3a51	2.1	2	0
+c3a	c3a	n3am0	c3a53	2.1	2	0
+c3a	c3a	n3am0	c3a6n	2.1	2	0
+c3a	c3a	n3am0	c4	2.1	2	0
+c3a	c3a	n3am0	h1n	2.1	2	0
+c3a	c3a	n3ch	h1n	3.9	2	0
+c3a	c3a	n3o2	o1n1	1.15	2	0
+c3a	c3a	n4	c4	0	1	0
+c3a	c3a	n4	h1n3	0	1	0
+c3a	c3a	o2	c4	3	2	0
+c3a	c3a	o2	p4	2.99	2	0
+c3a	c3a	o2h	h1o	1.682	2	0
+c3a	c3a	s2	c4	0.6	2	0
+c3a	c3a	s2h	h1s	1.1	2	0
+c3a	c3a	s4	c4	-0.9	2	0
+c3a	c3a	s4	n3am0	1.656	1	0	-0.768	2	0	-0.117	3	0
+c3a	c3a	c3ab	c3a	7.25	2	0
+c3a	c3ab	c3a	h1a	7.25	2	0
+c3a	c3ab	c3a	n2a6	7.25	2	0
+c3a	c3ab	c3a51	n3a	2.17	2	0
+c3a	c3ab	c3a51	o2	2.17	2	0
+c3a	c3ab	c3a51	s2	2.17	2	0
+c3a	c3ab	c3a52	n2a5	2.17	2	0
+c3a	c3ab	c3a53	n2a5	2.17	2	0
+c3a	c3ab	c3a53	n3a	2.17	2	0
+c3a	c3ab	c3a53	o2	2.17	2	0
+c3a	c3ab	c3a53	s2	2.17	2	0
+c3a	c3ab	c3a55	n2a5	2.17	2	0
+c3a	c3ab	c3ab	c3a	2.17	2	0
+c3a	c3ab	c3ab	n2a6	2.17	2	0
+c3a	c3ab	n2a6	c3a	7.25	2	0
+c3a	c3ab	n3a	c3a51	2.17	2	0
+c3a	c3ab	n3a	n2a5	2.17	2	0
+c3=	n3am0	c3ab	c3a	2.17	2	0
+c3a	c3ab	c3o	c3a	2.17	2	0
+c3a	c3o	c4	h1	0.275	3	0
+c3a	c3o	n3am0	c3a	2.3	1	0	6.089	2	0
+c3a	c3o	n3am0	c3a51	2.3	1	0	6.089	2	0
+c3a	c3o	n3am0	c3a5n	2.3	1	0	6.089	2	0
+c3a	c3o	n3am0	h1n	4.9	2	0
+c3a	c3o	o2	c4	4	1	0	5	2	0
+c3a	c3o	o2h	h1o	4	1	0	5	2	0
+c3a	c4	c3o	o1=	0.546	2	0
+c3a	c4	c4	h1	0.462	3	0
+c3a	c4	c4	n3	-0.8	1	0
+c3a	c4	c4	n3am0	0.845	1	0	-0.962	2	0	0.713	3	0
+c3a	c4	c4	n4	1	1	0
+c3a	c4	n3am0	c3a6n	0	1	0
+c3a	c4	o2h	h1o	-0.9	1	0
+c3a	c4	p4	o1a	0	1	0
+c3a	c4	p4	o2	2.25	1	0
+c3a	n2a6	c3a	h1a	7.25	2	0
+c3a	n2a6	n2a6	c3a	7.25	2	0
+c3a	n2a6	n2a6	c4	7.25	2	0
+c3a	n3	c3a53	n2a5	2.1	2	0
+c3a	n3	c3a53	s2	2.1	2	0
+c3a	n3	c4	h1	0.56	3	0
+c3a	n34	c3o4	c44	2.3	1	0	6.089	2	0
+c3a	n34	c3o4	o1=	6.089	2	0
+c3a	n3am0	c3a51	o2	2.1	2	0
+c3a	n3am0	c3a51	s2	2.1	2	0
+c3a	n3am0	c3a53	n2a5	2.1	2	0
+c3a	n3am0	c3a53	o2	2.1	2	0
+c3a	n3am0	c3a53	s2	2.1	2	0
+c3a	n3am0	c3o	c3a51	2.3	1	0	6.089	2	0
+c3a	n3am0	c3o	c3a5n	2.3	1	0	6.089	2	0
+c3a	n3am0	c3o	c4	2.3	1	0	6.089	2	0
+c3a	n3am0	c3o	o1=	6.089	2	0
+c3a	n3am0	c4	h1	0	1	0
+c3a	n3c3	c4	h1	0	1	0
+c3a	n3ch	c4	c4	1.829	1	0	0.243	2	0	-0.498	3	0
+c3a	n3ch	c4	h1	0.177	3	0
+c3a	n4	c3a53	n2a5	2.1	2	0
+c3a	n4	c4	h1	0.462	3	0
+c3a	o2	c3o	c4	1.5	1	0	5	2	0
+c3a	o2	c3o	o1=	5	2	0
+c3a	o2	c4	h1	0.76	3	0
+c3a	o2	p4	o1=	0	1	0
+c3a	s2	c4	h1	0.647	3	0
+c3a	s4	c4	h1	0.35	3	0
+c3a	s4	n3am0	c4	2.074	1	0	-2.966	2	0	2.473	3	0
+c3a	s4	n3am0	h1n	1.671	1	0	-4.901	2	0	0.669	3	0
+c3a5	c4	c4	h1	0.462	3	0
+c3a5	c4	c4	n3am0	0.845	1	0	-0.962	2	0	0.713	3	0
+c3a51	c3a5	c4	h1	-0.48	3	0
+c3a51	c3a5n	c3o	n3am0	1.1	2	0
+c3a51	c3a5n	c3o	o1=	2.1	2	0
+c3a51	c3o	n3am0	c3a51	2.3	1	0	6.089	2	0
+c3a51	c4	c4	h1	0.462	3	0
+c3a51	o2	c3a51	h1a	7.25	2	0
+c3a51	o2	c3a53	n2a5	7.25	2	0
+c3a51	s2	c3a53	n2a5	7.25	2	0
+c3a52	c4	c4	h1	0.462	3	0
+c3a52	n2a5	c3a53	s2	7.25	2	0
+c3a53	c4	c4	h1	0.462	3	0
+c3a51	c3a52	n2a5	c3a53	7.25	2	0
+c3a53	n2a5	c3a52	h1a	7.25	2	0
+c3a51	c3a55	n2a5	c3a53	7.25	2	0
+c3a53	n3a	c4	c4	-1	1	0	-0.35	2	0
+c3a53	n3a	c4	o2	-1.5	1	0	-1.5	2	0
+c3a53	n3a5h	c4	c4	-1	1	0	-0.35	2	0
+c3a53	n3a5h	c4	o2	-1.5	1	0	-1.5	2	0
+c3a53	o2	c3a51	c3a55	7.25	2	0
+c3a52	c3a51	s2	c3a53	7.25	2	0
+c3a53	s2	c3a51	c3a55	7.25	2	0
+c3a53	s2	c3a51	h1a	7.25	2	0
+c3a55	c4	c4	h1	0.462	3	0
+c3a55	n2a5	c3a53	o2	7.25	2	0
+c3a55	n2a5	c3a53	s2	7.25	2	0
+c3a5a	c4	c4	h1	0.462	3	0
+c3a5a	n3a	c4	c4	2.756	1	0	-0.872	2	0	-3.68	3	0
+c3a5a	n3a	c4	o2	-1.5	1	0	-1.5	2	0
+c3a5a	n3a5h	c4	c4	-1	1	0	-0.35	2	0
+c3a5a	n3a5h	c4	o2	3.132	1	0	-1.491	2	0	2.744	3	0
+c3a51	o2	c3a51	c3a5n	7.25	2	0
+c3a5n	c3a5n	c3o	n3am0	1.1	2	0
+c3a5n	c3a5n	c3o	o1=	2.1	2	0
+c3a51	n3am0	c3o	c3a5n	2.3	1	0	6.089	2	0
+c3a5n	c3o	n3am0	c3a5n	2.3	1	0	6.089	2	0
+c3a5n	c3o	n3am0	h1n	4.9	2	0
+c3a5n	c4	c4	h1	0.462	3	0
+c3a51	c3o	n3am0	c3a5n	2.3	1	0	6.089	2	0
+c3a6n	c4	c4	h1	0.462	3	0
+c3a6n	n3am0	c4	c4	0	1	0
+c3aa	c3a	c3a	h1a	7.25	2	0
+c3aa	c3a	n3ch	h1n	2.03	2	0
+c3aa	c3a5	c4	c4	0	1	0
+c3aa	c3a5	c4	h1	0	1	0
+c3a	c3a	c3a	c3ab	7.25	2	0
+c3ab	c3a	c3a	h1a	7.25	2	0
+c3ab	c3a	c3a	n2a6	7.25	2	0
+c3a	c3a	c3ab	c3ab	7.25	2	0
+c3ab	c3ab	c3a	h1a	7.25	2	0
+c3ab	c3ab	c3a	n2a6	7.25	2	0
+c3a	n2a6	c3ab	c3ab	7.25	2	0
+c3o	c3=	c3=	h1	14	2	0
+c3o	c3=	c3=	n3am0	14	2	0
+c3ab	c3ab	c3=	c3o	7.25	2	0
+c3o	c3o	c4	h1	0.085	3	0
+c3o	c3o	n3am0	c4	0.4	1	0	4.9	2	0
+c3o	c3o	n3am0	h1n	4.9	2	0
+c3o	c3o	o2h	h1o	3	1	0	5.5	2	0
+c3o	c3u	c3u	c3o	7.25	2	0
+c3a	c4	c4	c3o	-1.697	1	0	-0.456	2	0	0.585	3	0
+c3a5	c4	c4	c3o	-1.697	1	0	-0.456	2	0	0.585	3	0
+c3o	c4	c4	c3o	-0.55	1	0	1	3	0
+c3o	c4	c4	c4	-2.06	1	0	-0.313	2	0	0.315	3	0
+c3o	c4	c4	h1	-0.1	3	0
+c3o	c4	c4	n3am0	-9	1	0	2	2	0	0.8	3	0
+c3o	c4	c4	o2h	-6.18	1	0
+c3o	c4	n3am0	c3o	-2.365	1	0	0.912	2	0	-0.85	3	0
+c3o	c4	n3am0	c4	-1.737	1	0	1.251	2	0	-3.501	3	0
+c3o	c4	n3am0	h1n	0	1	0
+c3o	c4	n3c3	c4	-1.737	1	0	1.251	2	0	-3.501	3	0
+c3o	n2a6	o2	c4	3	1	0	3	2	0
+c3o	n2a6	o2h	h1o	3	1	0	3	2	0
+c3a	c3a	n3am0	c3o	2.1	2	0
+c3a51	c3a51	n3am0	c3o	3	2	0
+c3a	c3ab	n3am0	c3o	2.17	2	0
+c3ab	c3ab	n3am0	c3o	7.25	2	0
+c3o	n3am0	c3ab	n2a6	2.17	2	0
+c3o	n3am0	c3o	n3am0	2.3	1	0	6.089	2	0
+c3o	n3am0	c4	c4	0.462	2	0
+c3o	n3am0	c4	h1	0	1	0
+c3o	n3am0	c44	c3o4	-1.396	1	0	-0.427	2	0
+c3o	n3am0	c44	c44	-1.396	1	0	-0.427	2	0
+c3o	n3am0	c44	h1	0	1	0
+c3o	n3am0	o2h	h1o	5.519	1	0	-6.7	2	0	0.581	3	0
+c3o	n3c3	c4	c4	-1.396	1	0	-0.427	2	0
+c3o	n3c3	c4	h1	-0.139	3	0
+c3a	c3a	o2	c3o	2.5	2	0
+c3o	o2	c4	c4	-1.22	1	0	-0.126	2	0	0.422	3	0
+c3o	o2	c4	h1	0.198	3	0
+c3o4	c44	n3am0	h1n	0	1	0
+c3u	c3=	c4	c4	0.346	1	0	0.405	2	0	-0.904	3	0
+c3u	c3=	c4	h1	-0.372	3	0
+c3u	c3=	o2	c4	-3.5	1	0	3	2	0
+c3u	c3u	c3=	h1	14	2	0
+c3u	c3u	c4	h1	-0.372	3	0
+c3u	c4	o2h	h1o	-0.9	1	0
+c4	c2n	c2n	c4	0	1	0
+c4	c2n	c2n	h1	0	1	0
+c4	c3+	c4	c4	-1	2	0
+c4	c3=	c3=	c4	14	2	0
+c4	c3=	c3=	h1	14	2	0
+c4	c3=	c3=	o2	14	2	0
+c4	c3=	c3=	o2h	14	2	0
+c4	c3=	c3u	h1	14	2	0
+c4	c3=	c4	c4	2.817	1	0	-0.169	2	0	0.543	3	0
+c4	c3=	c4	h1	0.3	3	0
+c4	c3=	o2	c4	0.65	1	0	-0.25	2	0	0.67	3	0
+c4	c3a	c3a	c4	7.25	2	0
+c4	c3a	c3a	h1a	7.25	2	0
+c4	c3o	c3o	c4	0.7	1	0	-1.5	2	0
+c4	c3o	c3o	h1	0.8	1	0	-0.76	2	0
+c4	c3o	c3o	n3am0	-0.5	1	0	0.2	2	0
+c4	c3o	c3o	o1=	0.5	2	0
+c4	c3o	c4	c4	1.454	1	0	-0.144	2	0	-0.775	3	0
+c4	c3o	c4	h1	0.275	3	0
+c4	c3o	n2a6	c4	14	2	0
+c4	c3o	n3am0	c4	2.3	1	0	6.089	2	0
+c4	c3o	n3am0	h1n	4.9	2	0
+c4	c3o	n3am0	o2h	4.542	1	0	6.603	2	0	1.045	3	0
+c4	c3o	n3c3	c4	4.9	2	0
+c4	c3o	o2	c4	4.669	1	0	5.124	2	0
+c4	c3o	o2h	h1o	1.5	1	0	5.5	2	0
+c4	c3=	c3u	c4	14	2	0
+c4	c3u	c3=	h1	14	2	0
+c4	c3u	c3u	c4	0.3	3	0
+c4	c3u	c3u	h1	0.3	3	0
+c2n	c2n	c4	c4	0	1	0
+c4	c4	c3+	h1	-1	2	0
+c4	c4	c3a	n2a6	-0.5	1	0	0.5	2	0	-0.5	3	0
+c3a51	c3a5	c4	c4	-0.714	1	0
+c4	c4	c3a51	n3a	1.7	1	0	-0.6	2	0
+c4	c4	c3a6n	n2a6	0.5	2	0	-0.5	3	0
+c4	c4	c3o	cl1	0	1	0
+c4	c4	c3o	f1	0	1	0
+c4	c4	c3o	h1	0	1	0
+c4	c4	c3o	n3am0	1.173	1	0	0.189	2	0	-1.2	3	0
+c4	c4	c3o	o1=	0	1	0
+c4	c4	c3o	o2	-0.553	3	0
+c4	c4	c3o	o2h	1	1	0	0.546	2	0	0.45	3	0
+c2n	c4	c4	c4	-0.65	2	0
+c4	c4	c4	c4	1.3	1	0	-0.05	2	0	0.2	3	0
+c4	c4	c4	cl1	0.4	3	0
+c4	c4	c4	f1	0.3	1	0	-0.4	2	0	0.4	3	0
+c4	c4	c4	h1	0.3	3	0
+c4	c4	c4	i1	0.4	3	0
+c4	c4	c4	n3	2.392	1	0	-0.674	2	0	0.55	3	0
+c4	c4	c4	n3a	-0.788	1	0	-0.8	2	0	0.4	3	0
+c4	c4	c4	n3am0	0.845	1	0	-0.962	2	0	0.713	3	0
+c4	c4	c4	n3c3	1.964	1	0	0.659	3	0
+c4	c4	c4	n4	2.732	1	0	-0.229	2	0	0.485	3	0
+c4	c4	c4	o2h	-1.552	1	0
+c4	c4	c4	s2	2.619	1	0	-0.62	2	0	0.258	3	0
+c4	c4	c4	s2h	1.262	1	0	-0.198	2	0	0.465	3	0
+c4	c4	c4	s4	1.262	1	0	-0.198	2	0	0.465	3	0
+c4	c4	c4	si4	0	1	0
+c4	c4	c4o2	h1	0.3	3	0
+c4	c4	n2a6	n1	0	1	0
+c4	c4	n3	c4	0.416	1	0	-0.128	2	0	0.695	3	0
+c4	c4	n3	h1n	-0.19	1	0	-0.417	2	0	0.418	3	0
+c4	c4	n3am0	c4	4.753	1	0	-0.734	2	0
+c4	c4	n3am0	c44	2.3	1	0	6.089	2	0
+c4	c4	n3am0	h1n	0	1	0
+c4	c4	n3am0	s4	2.929	1	0	-2.533	2	0	0.497	3	0
+c4	c4	n3c3	c4	4.753	1	0	-0.734	2	0
+c4	c4	n3ch	h1n	-0.19	1	0	-0.417	2	0	0.418	3	0
+c4	c4	n3ch	h1n3	-0.19	1	0	-0.417	2	0	0.418	3	0
+c4	c4	n3o2	o1n1	0.4	2	0
+c4	c4	n4	c4	1.4379	1	0	-0.1238	2	0	0.2639	3	0
+c4	c4	n4	h1n	0.347	3	0
+c4	c4	o2	c4	0.65	1	0	-0.25	2	0	0.67	3	0
+c4	c4	o2	p4	-1.42	1	0	-0.62	2	0	0.1	3	0
+c4	c4	o2h	h1o	-0.356	1	0	-0.174	2	0	0.492	3	0
+c4	c4	p4+	c4	1	1	0	-0.5	2	0	0.5	3	0
+c4	c4	s2	c4	0.925	1	0	-0.576	2	0	0.677	3	0
+c4	c4	s2	s2	1.941	1	0	-0.836	2	0	0.935	3	0
+c4	c4	s2h	h1s	-0.759	1	0	-0.282	2	0	0.68	3	0
+c4	c4	s4	c4	0	1	0
+c4	c4	s4	o1s	0	1	0
+c4	c4	si4	c4	1	1	0
+c4	c4	si4	h1n	0.26	3	0
+c4	c44	c44	c4	0	1	0
+c4	c44	c44	h1	0	1	0
+c4	c4o2	o2	c4	0.65	1	0	-0.25	2	0	0.67	3	0
+c4	n2a6	n1	n1	0	1	0
+c4	n2a6	n2a6	c4	7.25	2	0
+c4	n3	c4	h1	0.56	3	0
+c4	n3	n3	c4	0.3	3	0
+c4	n3	n3	h1n	0.3	3	0
+c4	n3	o2	c4	0.3	3	0
+c4	n3	o2h	h1o	0.3	3	0
+c4	n34	c3o4	c44	2.3	1	0	6.089	2	0
+c4	n34	c3o4	o1=	6.089	2	0
+c4	n3am0	c3a53	n2a5	2.1	2	0
+c4	n3am0	c3o	h1	2.3	1	0	6.089	2	0
+c4	n3am0	c3o	o1=	6.089	2	0
+c4	n3am0	c3o	o2	2.3	1	0	6.089	2	0
+c4	n3am0	c3o	o2h	2.3	1	0	6.089	2	0
+c4	n3am0	c4	h1	0	1	0
+c4	n3c3	c3o	o1=	4.9	2	0
+c4	n3c3	c4	h1	0	1	0
+c4	n3ch	c3a	n3ch	7.936	2	0
+c4	n3ch	c4	h1	0	1	0
+c4	n3y	c3a	n2a6	3.651	2	0
+c4	n4	c3a53	n2a5	2.1	2	0
+c4	n4	c4	h1	0.3017	3	0
+c4	o2	c3=	h1	0.76	3	0
+c4	o2	c3a	n2a6	0.4	1	0	5.5	2	0
+c4	o2	c3a6n	n2a6	5.2	2	0
+c4	o2	c3o	h1	4.669	1	0	5.124	2	0
+c4	o2	c3o	n3am0	-2	1	0	5	2	0
+c4	o2	c3o	o1=	5.124	2	0
+c4	o2	c4o2	h1	0.76	3	0
+c4	o2	c4o2	o2	-0.375	1	0	-1.358	2	0	0.004	3	0
+c4	o2	c4o2	o2h	-0.375	1	0	-1.358	2	0	0.004	3	0
+c4	o2	n3	h1n	0.3	3	0
+c4	o2	p4	c4	3.5	1	0	-3.3	2	0	1.5	3	0
+c4	o2	p4	o1a	0	1	0
+c4	p4+	c4	h1	0.3	3	0
+c4	s2	c3a	n2a6	1.6	1	0	5.1	2	0
+c4	s2	c3a6n	n2a6	4.8	2	0
+c4	s2	c4	h1	0.647	3	0
+c4	s2	s2	c4	-7.414	2	0	1.705	3	0
+c4	s4	c4	h1	0.35	3	0
+c4	si4	c4	h1	0.18	3	0
+c4	si4	o2	si4	0	1	0
+c44	c3o4	n34	c44	2.3	1	0	6.089	2	0
+c44	c3o4	n34	h1n	4.9	2	0
+c44	c44	c3o4	n34	0	1	0
+c44	c44	c3o4	o1=	0	1	0
+c44	c44	c4	h1	0.3	3	0
+c44	c44	c44	c44	0	1	0
+c44	c44	c44	h1	0	1	0
+c44	c44	n3am0	h1n	0	1	0
+c44	n34	c3o4	o1=	20	2	0
+c44	n3am0	c3o	o1=	6.089	2	0
+c4ai	c4	o2h	h1o	0.2	3	0
+c4	c4	c4	c4o2	1.3	1	0	-0.05	2	0	0.2	3	0
+c4o2	c4	c4	h1	0.3	3	0
+c4o2	o2	c4	h1	0.76	3	0
+cl1	c3=	c3=	cl1	-1.6	1	0	14	2	0
+cl1	c3=	c3=	h1	14	2	0
+cl1	c3a	c3a	h1a	7.25	2	0
+cl1	c3o	c4	h1	0.36	3	0
+cl1	c4	c3o	n3am0	0.65	1	0
+cl1	c4	c3o	o1=	-0.65	1	0
+cl1	c4	c4	cl1	-0.25	1	0
+cl1	c4	c4	h1	0.4	3	0
+cl1	c4	c4	n3	2	1	0
+f1	c3a	c3a	h1a	7.25	2	0
+f1	c3o	c4	h1	0.36	3	0
+f1	c4	c4	f1	-2.5	1	0	0.25	3	0
+f1	c4	c4	h1	0.4	3	0
+f1	c4	c4	o2h	0.5401	3	0
+h1	c3=	c3=	h1	14	2	0
+h1	c3=	c3=	o2	14	2	0
+h1	c3=	c3=	o2h	14	2	0
+h1	c3=	c3o	n3am0	0	1	0
+h1	c3=	c3o	n3c3	0	1	0
+h1	c3=	c3o	o1=	0	1	0
+h1	c3=	c4	h1	0.318	3	0
+h1	c3o	c3o	h1	0.3	3	0
+h1	c3o	c3o	n3am0	-0.9	1	0	0.3	2	0
+h1	c3o	c3o	o1=	0	1	0
+h1	c3o	c4	h1	0.36	3	0
+h1	c3o	o2h	h1o	1.5	1	0	5.5	2	0
+h1	c3=	c3u	h1	14	2	0
+h1	c3u	c3u	h1	0.3	3	0
+h1	c4	c3o	n3am0	0	1	0
+h1	c4	c3o	n3c3	0	1	0
+h1	c4	c3o	o1=	0	1	0
+h1	c4	c3o	o1a	0	1	0
+h1	c4	c3o	o2	0.132	3	0
+h1	c4	c3o	o2h	0	1	0
+h1	c4	c4	h1	0.3	3	0
+h1	c4	c4	i1	0.4	3	0
+h1	c4	c4	n3	-1.013	1	0	-0.709	2	0	0.473	3	0
+h1	c4	c4	n3am0	0.464	3	0
+h1	c4	c4	n3c3	0.464	3	0
+h1	c4	c4	n3ch	-0.582	3	0
+h1	c4	c4	n3o2	-0.225	3	0
+h1	c4	c4	n4	0.384	3	0
+h1	c4	c4	o2	0.468	3	0
+h1	c4	c4	o2h	0.468	3	0
+h1	c4	c4	p4+	0.3	3	0
+h1	c4	c4	s2	0.452	3	0
+h1	c4	c4	s2h	0.452	3	0
+h1	c4	c4	s4	0.452	3	0
+h1	c4	c4	si4	0.45	3	0
+h1	c4	c4o2	o2	0.468	3	0
+h1	c4	n3am0	s4	1.362	1	0	-1.457	2	0	0.149	3	0
+h1	c4	n3o2	o1n1	0	1	0
+h1	c4	o2	p4	0.3	3	0
+h1	c4	o2h	h1o	0.3524	3	0
+h1	c4	p4	o1a	0.25	3	0
+h1	c4	p4	o2	0.25	3	0
+h1	c4	s2	s2	0.558	3	0
+h1	c4	s2h	h1s	0.48	3	0
+h1	c4	s4	o1s	0.35	3	0
+h1	c4	si4	o2	0	1	0
+h1	c44	c3o4	n34	0	1	0
+h1	c44	c3o4	o1=	0	1	0
+h1	c44	c44	h1	0	1	0
+h1	n2a6	n1	n1	0	1	0
+h1a	c3=	c3ab	n3am0	7.25	2	0
+h1a	c3a	c3a	h1a	7.25	2	0
+h1a	c3a	c3a	i1	7.25	2	0
+h1a	c3a	c3a	n3	7.25	2	0
+h1a	c3a	c3a55	h1a	7.25	2	0
+h1a	c3a	c3ab	n2a6	7.25	2	0
+h1a	c3a51	c3a51	h1a	10.75	2	0
+h1a	c3a51	c3a51	s2	10.75	2	0
+h1a	c3a51	c3a52	n2a5	7.25	2	0
+h1a	c3a51	c3a55	n2a5	7.25	2	0
+h1a	c3a51	c3a52	h1a	10.75	2	0
+h1a	c3a52	c3a51	s2	10.75	2	0
+h1a	c3a55	c3a51	s2	10.75	2	0
+h1a	c3a51	c3a5n	h1a	7.25	2	0
+h1a	c3a5n	c3a5n	h1a	7.25	2	0
+h1	c3o	n2a6	h1n	14	2	0
+h1n	n3	c3a53	n2a5	2.1	2	0
+h1n	n3	c3a53	s2	2.1	2	0
+h1	c4	n3	h1n	0.4	3	0
+h1n	n3	n3	h1n	0.3	3	0
+h1n	n3	o2h	h1o	0.3	3	0
+h1n	n34	c3o4	o1=	4.9	2	0
+h1n	n3am0	c3a51	o2	2.1	2	0
+h1n	n3am0	c3a51	s2	2.1	2	0
+h1n	n3am0	c3a53	n2a5	2.1	2	0
+h1n	n3am0	c3a53	o2	2.1	2	0
+h1n	n3am0	c3a53	s2	2.1	2	0
+h1	c3o	n3am0	h1n	4.9	2	0
+h1n	n3am0	c3o	n3am0	4.9	2	0
+h1n	n3am0	c3o	o1=	4.9	2	0
+h1n	n3am0	c3o	o2	4.9	2	0
+h1n	n3am0	c3o	o2h	4.9	2	0
+h1	c4	n3am0	h1n	0	1	0
+h1	c44	n3am0	h1n	0	1	0
+h1n	n3am0	o2h	h1o	2.722	1	0	-5.154	2	0
+h1n	n3ch	c3a	n3ch	3.9	2	0
+h1	c4	n3ch	h1n	0	1	0
+h1	c4	n4	h1n	0.261	3	0
+h1	c4	si4	h1n	0.18	3	0
+h1	c4	n4	h1n3	0.3	3	0
+h1o	o2h	c3o	n3am0	-2	1	0	5	2	0
+h1o	o2h	c3o	o1=	5.5	2	0
+h1o	o2h	c4o2	o2	-1.257	1	0	-1.806	2	0	0.003	3	0
+h1o	o2h	p4	o1=	0	1	0
+h1o	o2h	p4	o2h	0	1	0
+n2a5	c3a52	c3a51	o2	7.25	2	0
+n2a5	c3a52	c3a51	s2	7.25	2	0
+n2a5	c3a55	c3a51	o2	7.25	2	0
+n2a5	c3a55	c3a51	s2	7.25	2	0
+n3	c4	c3o	o2h	5.26	1	0	0.82	2	0
+n3	c4	c4	n3	11.035	1	0	-0.968	2	0	0.27	3	0
+n3	c4	c4	o2h	8	1	0
+n3am0	c3o	c3o	o1=	0	1	0
+n3am0	c3o	c4	n3am0	1.816	1	0	1.222	2	0	1.581	3	0
+n3am0	c4	c3o	o1=	0	1	0
+n3am0	c4	c4	o2h	6.28	1	0	-1.467	2	0	2.03	3	0
+o1=	c3o	c3o	o1=	1.6	1	0	3.2	2	0
+o1=	c3o	n3am0	o2h	6.603	2	0
+o2	c4	c4	o2	-0.55	1	0
+o2	si4	o2	si4	0	1	0
+o2	c4	c4	o2h	4.319	1	0
+o2h	c4	c4	o2h	9.508	1	0
+si4	c4	c4	si4	5.2	1	0	-0.5	2	0
+
+ITEM	END	# TORSION
+
+# Improper section
+
+ITEM	IMPROPER
+
+# type1	type2	type3	type4	k	psi0
+
+c4	c3=	c3=	c4	-8	0
+c4	c3=	c3=	h1	-8	0
+h1	c3=	c3=	c4	-8	0
+
+ITEM	END	# IMPROPER
+

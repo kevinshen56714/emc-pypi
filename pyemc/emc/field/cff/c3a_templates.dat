@@ -1,0 +1,139 @@
+! c3s_templates.dat
+!
+! Template file of potential type assignment templates for the CFF forcefield
+!
+! **************************************************************************
+! *                                                                        *
+! * THIS  PROGRAM  AND ALL SUBROUTINES,  DATA,  AND FILES  USED BY IT      *
+! * ARE PROTECTED BY COPYRIGHT AND HENCE  MAY NOT BE USED, COPIED,         *
+! * MODIFIED, TRANSMITTED, INSPECTED, OR EXECUTED BY ANY MEANS INCLUDING   *
+! * THE  USE OF  ELECTRONIC DATA PROCESSING  EQUIPMENT,  XEROGRAPHY, OR    *
+! * ANY  OTHER  METHODS WITHOUT THE EXPRESS  WRITTEN  PERMISSION OF THE    *
+! * COPYRIGHT HOLDER.                                                      *
+! *                                                                        *
+! * Copyright (C) 2021 BASF SE, All Rights Reserved                        *
+! *                                                                        *
+! **************************************************************************
+!
+! Revision History:
+!       SD      20/03/2023      Creation of rules
+
+type: ?
+  ! anything	
+  template: (>*)
+end_type
+
+
+!
+! Aluminate in C3A
+!
+
+type:al4o
+  ! aluminate in ring
+  template: (>Al(-O)(-O)(-O)(-O))
+end_type
+
+type:al4o
+  ! aluminate in ring
+  template: (>Al(O)(O)(O)(O))
+  atom_test:2
+    formal_charge:-1
+  end_test
+end_type
+
+type:al4o
+  ! aluminate in ring
+  template: (>Al(O)(O)(O)(O))
+  atom_test:2
+    formal_charge:-1
+  end_test
+  atom_test:3
+    formal_charge:-1
+  end_test
+end_type
+
+type:al4o
+  ! aluminate in ring
+  template: (>Al(O)(O)(O)(O))
+end_type
+
+type:o2al
+  ! oxygen in aluminate ring
+  template: (>O(Al)(Al))
+end_type
+
+type:o1al
+  ! oxygen apical connected with hydrogen in aluminate ring
+  template: (>O(Al(O)(O)(O)))
+  atom_test:1
+    formal_charge:-1
+  end_test
+end_type
+
+type:o1al
+  ! oxygen apical in aluminate ring
+  template: (>O(Al(O)(O)(O)))
+  atom_test:1
+    formal_charge:-1
+  end_test
+  atom_test:3
+    formal_charge:-1
+  end_test
+end_type
+
+type:o2ha
+  ! oxygen in ALOH
+  template: (>O(-H)(-Al))
+end_type
+
+type: h1oa
+  ! hydrogen in ALOH
+  template: (H(-O(-Al)))
+end_type
+
+!
+! Hydroxyl ion in C3A
+!
+
+type:h1of
+  ! hydrogen bonded to oxygen
+  template: [H(-O)] 
+  atom_test:2 
+    formal_charge:-1 
+  end_test 
+end_type
+
+
+type: o1hf
+  ! oxygen in superficial or free hydroxyl ion
+  template [>O(-H)]
+end_type 
+
+!
+! Ca ion in C3A 
+! 
+
+type: ca3a
+  ! calcium ion
+  template: [>Ca]
+end_type
+
+
+
+!
+! Precedences
+!
+
+precedence:
+(?
+ (ca3a)
+ (al4o)
+ (o2al)
+ (o1al)
+ (o2ha)
+ (o1hf)
+ (h1oa)
+ (h1of)
+)
+end_precedence
+

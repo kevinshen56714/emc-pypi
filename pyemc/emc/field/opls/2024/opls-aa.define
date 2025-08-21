@@ -1,0 +1,4913 @@
+#
+#  file:	oplsaa.define
+#  author:	Pieter J. in 't Veld
+#  date:	November 16, 25, 2012, March 17, 24, 2013, December 30, 2014,
+#  		January 15, 2016, February 3, 2017, November 9, 2020,
+#		November 20-30, December 1-20, 2024.
+#  purpose:	OPLS-AA force field definitions and typing rules
+#  version:	2.0beta
+#
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
+#  Distributed under GNU Public License as stated in LICENSE file in EMCroot
+#  directory
+#
+#  rule keys:
+#  	~	any bond
+#	-	single bond
+#	:	partial bond
+#	=	double bond
+#	#	triple bond
+#	*	wildcard, specified number of bonds
+#	^	followed by a number indicates the number of ring members
+#
+#  type conventions (by character):
+#       1[-2]	lower case letters indicating element (mandatory)
+#  	2	number of connections (mandatory)
+#  	3	chemical indicator, e.g. e: ether, a: aromatic
+#  		or connected to element
+#  	4	can indicate number of ring members in case of aromatic
+#
+#  Empty lines are skipped
+#  Specified types represent numerical OPLS assignments
+#
+#  notes:
+#    20121116	- Creation date, v0.1beta
+#    20121125	- Addition of keywords DEFINE, MASS, REFERENCES, EXTRA,
+#    		  and PRECEDENCE
+#    20130317	- Addition of keywords EQUIVALENCE, BOND, ANGLE, TORSION,
+#    		  IMPROPER
+#    20130324	- Redefinition of EXTRA to include management of double
+#    		  torsions
+#    		- Addition of REDEFINE
+#    20141230	- Switch to v0.2beta
+#    		- Refinement of mass comments
+#    		- Refinement of existing rules to phase out ? as connectivity
+#    		- Additional rules for halogenides and acids
+#    		- Testing with simple compounds: alkanes, benzenes (see
+#    		  examples)
+#    20160115	- Corrected typing of acid side groups
+#    		- Corrected typing of alpha hydrogen for acid side groups
+#    20170203	- Switch to 0.3beta
+#    		- Corrected typing of alkenes
+#    		- Corrected dicarboxylic acid entries
+#    		- Added isocyanate entries
+#    20201109	- Added sulfone and ionic liquid entries
+#    20230814	- Added carbonate entries (DLV, Vigil/Sandia)
+#    20241120	- New inception
+#    		- Needs emc_opls.pl v2.0 and higher
+#    		- Complete redesign
+#    		- New type definitions
+#    		- Inclusion of bond increments and streams
+#    		- General rules based on stream derived rules
+#    		- Dropped ITEM keywords EXTRA, PRECEDENCE, and REDEFINE
+#    		- Added ITEM keyword STREAM and RULES
+#    		- Zero increment contribution is assumed between two GROUP
+#    		  blocks
+#    		- Use /* */ or (* *) for commenting out blocks in STREAM
+#    		- Latter only works at beginning of line
+#
+
+# Definitions
+
+ITEM	DEFINE
+
+FFMODE		OPLS
+FFTYPE		ATOMISTIC
+FFINDEX		ELEMENTS
+FFCHARGE	ALL
+FFDEPTH		10
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+1954	??	??	Wiley (Hirschfelder)
+1972	24	1013	Mol. Phys.
+1988	63	547	Mol. Phys.
+1984	106	6638	J. Am. Chem. Soc.
+1991	113	8262	J. Am. Chem. Soc.
+1996	118	11225	J. Am. Chem. Soc.
+1999	121	4827	J. Am. Chem. Soc.
+1983	79	926	J. Chem. Phys.
+1990	11	958	J. Comput. Chem.
+1997	18	1955	J. Comput. Chem.
+1986	90	1276	J. Phys. Chem.
+1986	90	2174	J. Phys. Chem.
+1986	90	6379	J. Phys. Chem.
+1990	94	1683	J. Phys. Chem.
+1991	95	3315	J. Phys. Chem.
+2001	105	4118	J. Phys. Chem. A
+1998	102	8049	J. Phys. Chem. B
+2004	18	16264	J. Phys. Chem. B
+1998	424	145	Theochem.
+2007	806	23	J. Mol. Struct. THEOCHEM
+2006	2	1499	J. Chem. Theory Comput.
+2009	5	1038	J. Chem. Theory Comput.
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# WARNING:
+#   - ordered by importance => alter with care
+#   - general rules below assume order as given
+#   - do not change the first entry of each source group unless
+#     absolute certainty exists
+#   - first per each source group appears as bonded type in equivalence table
+#   - sorting used in wildcard types for bonded interactions (auto types), e.g.
+#   - c4* stands for all types starting with c4
+
+# dest	src	mass	element	ncons	index	charge	sigma	epsilon	comment
+
+#
+# Actinide
+#
+
+# Ac
+
+ac+3	Ac	227.027	Ac	0	697	3	3.473	0.054	Actinide 3+ ion
+
+#
+# Americum
+#
+
+# Am
+
+am+3	Am	243.061	Am	0	699	3	3.3	0.05	Americium 3+ ion
+
+#
+# Argon
+#
+
+# Ar
+
+ar	Ar	39.948	Ar	0	103	0	3.401	0.2339	Argon
+
+#
+# Barium
+#
+
+# Ba
+
+#ba+2	Ba	137.327	Ba	0	414	0	3.81661	0.047096	Barium 2+ ion (old)
+ba+2	Ba	137.327	Ba	0	1114	2	4.18	0.047096	Barium 2+ ion
+
+#
+# Bromide
+#
+
+# Br
+
+br1	Br	79.904	Br	1	722	0	3.47	0.47	Bromide in alkanes (UA)
+br-	Br	79.904	Br	0	1102	-1	4.51	0.09	Bromide 1- anion
+
+#
+# Carbon
+#
+
+# C
+
+c3o	C	12.011	C	3	231	0	3.75	0.105	C=O in ketones
+c3oa	C	12.011	C	3	231	0	3.75	0.105	C=O in deprotonated acids
+c3oh	C	12.011	C	3	231	0	3.75	0.105	C=O in protonated acids
+c3oe	C	12.011	C	3	231	0	3.75	0.105	C=O in esters
+c3ou	C	12.011	C	3	231	0	3.75	0.105	C=O in urea
+c3am	C	12.011	C	3	231	0	3.75	0.105	C=O in amides
+c3im	C	12.011	C	3	231	0	3.75	0.105	C=O in imides
+
+# C!
+
+c3ab	C!	12.011	C	3	519	0	3.55	0.07	Bridging aromatic carbon in biphenyl
+
+# C$
+
+c3o4	C$	12.011	C	3	685	0	3.75	0.105	C=O in beta-lactam
+
+# C*
+
+c3a5	C*	12.011	C	3	500	0	3.55	0.07	Aromatic carbon (CG in tryptophan 5-ring)
+
+# C+
+
+c3+	C+	12.011	C	3	700	0	3.55	0.076	SP2 carbon (C+ in t-butyl+)
+
+# C2
+
+#c4h2	C2	12.011	C	2	723	0	3.905	0.118	CH2 alkyl bromide (UA)
+
+# C3
+
+c4ai	C3	12.011	C	4	415	0	4.2	0.3	SP3 carbon in thiolate and alkoxide anions
+
+# C:
+
+c2	C:	12.011	C	2	1157	0	3.3	0.086	Middle carbon in allenes
+
+# C=
+
+c3u	C=	12.011	C	3	2532	0	3.55	0.07	SP2 carbon in uracil
+c3d	C=	12.011	C	3	150	0	3.55	0.076	Diene =CH-CH=
+
+# CA
+
+c3a	CA	12.011	C	3	145	0	3.55	0.07	Aromatic carbon
+c3as	CA	12.011	C	3	145	0	3.55	0.07	Aromatic carbon in sulfates
+c3aso	CA	12.011	C	3	145	0	3.55	0.07	Aromatic ortho carbon in sulfates
+c3ai	CA	12.011	C	3	2686	0	3.55	0.076	Aromatic carbon (1-phenylbenzimidazole shared 5- and 6-ring)
+c3ap	CA	12.011	C	3	312	0	3.5	0.08	Aromatic carbon (diaminepyridine)
+c3a+	CA	12.011	C	3	302	0	3.55	0.05	C: guanidinium C+
+
+# CB
+
+c3aa	CB	12.011	C	3	349	0	3.5	0.08	Adenine C4 (bridge C between 2 N in 5- and 6-ring)
+c3a6	CB	12.011	C	3	501	0	3.55	0.07	CD in tryptophan shared 5- and 6-ring
+
+# CK
+
+c3a5a	CK	12.011	C	3	353	0	3.5	0.08	Aromatic carbon between 2 N in 5-ring (adenine C8)
+c3a5m	CK	12.011	C	3	627	0	3.55	0.07	Aromatic carbon between 2 N in 5-ring (purine C8)
+
+# CM
+
+c3=	CM	12.011	C	3	141	0	3.55	0.076	SP2 carbon in alkene
+c3ao	CM	12.011	C	3	323	0	3.5	0.08	SP2 carbon C=O in 6-ring (uracil C5)
+c3ao1	CM	12.011	C	3	2906	0	3.55	0.07	SP2 carbon C=O in 6-ring (3-phenyl-4-pyridone)
+c31=	CM	12.011	C	3	1154	0	3.3	0.086	SP2 carbon in allene (outer C)
+
+# CN
+
+c3at	CN	12.011	C	3	502	0	3.55	0.07	CE C in TRP (aromatic carbon in 5- and 6-ring next to N)
+
+# CO
+
+c4o2	CO	12.011	C	3	189	0	3.5	0.066	C(H2O2): acetal OCH2O (SP3 carbon connected to 2 O and 1 H)
+
+# CQ
+
+c3a6n	CQ	12.011	C	3	531	0	3.55	0.07	Aromatic carbon between 2 N in 6-ring
+c3a6a	CQ	12.011	C	3	347	0	3.5	0.08	Aromatic carbon between 2 N in 6-ring (adenine C2)
+
+# CR
+
+c3a53	CR	12.011	C	3	506	0	3.55	0.07	Aromatic carbon between 2 N in 5-ring (histidine CE1)
+
+# CS
+
+c3a5n	CS	12.011	C	3	544	0	3.55	0.07	Aromatic carbon in 5-ring with 1 N (pyrrole C3)
+C3a5o	CS	12.011	C	3	568	0	3.55	0.076	Aromatic carbon in 5-ring with 1 O (furan C3)
+
+# CT
+
+c4	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon
+c4n	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in amines
+c4ns	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in sulfonamides
+c4o	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in benzyl alcohols
+c4s	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in sulfides
+c4p	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in phosphates
+c4pm	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in phosphates
+c4sa	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in sulfonamides
+c4oe	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in ethers and esters
+c4br	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in bromo-alkanes
+c4cl	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in chloro-alkanes
+c4i	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in iodo-alkanes
+c4an	CT	12.011	C	4	755	0	3.3	0.066	C of methyl group in acetonitrile
+c4t	CT	12.011	C	3	331	0	3.5	0.08	SP3 carbon in thymine C-C5
+c4f	CT	12.011	C	4	161	0	3.25	0.062	SP3 carbon in R-CF3
+c4ac	CT	12.011	C	4	421	0	4.2	0.3	SP3 carbon in acetonitrile ion (C1 in CH2CN-)
+c4f4	CT	12.011	C	4	964	0	3.5	0.097	SP3 carbon in CF4
+c4h3	CT	12.011	C	4	396	0	3.55	0.066	SP3 carbon C in methyl group
+
+# CU
+
+c3a55	CU	12.011	C	3	550	0	3.55	0.07	Aromatic carbon next to 2 N in 5-ring (pyrazole C3)
+
+# CV
+
+c3a52	CV	12.011	C	3	507	0	3.55	0.07	Aromatic carbon in 5-ring (histidine CD2 in HID, CG in HIE)
+
+# CW
+
+c3a51	CW	12.011	C	3	508	0	3.55	0.07	Aromatic carbon in 5-ring (histidine CG in HID, CD2 in HIE)
+c3a5s	CW	12.011	C	3	2013	0	3.55	0.076	Aromatic carbon (3-phenylthiophene)
+
+# CX
+
+c3a54	CX	12.011	C	3	510	0	3.55	0.07	Aromatic carbon in 5-ring (histidine CG, CD2 in HIP)
+
+# CY
+
+c44	CY	12.011	C	4	3354	0	3.55	0.07	SP3 carbon in 4-ring (2-phenylazetidine)
+c441	CY	12.011	C	4	687	0	3.5	0.066	SP3 carbon in 4-ring (penicillin CH(N))
+
+# CZ
+
+c2n	CZ	12.011	C	2	754	0	3.3	0.066	SP carbon in cyano group
+c2na	CZ	12.011	C	2	261	0	3.65	0.15	SP carbon in benzonitrile
+c2ct	CZ	12.011	C	2	925	0	3.3	0.086	Terminal SP carbon in acetylene
+c2c2	CZ	12.011	C	2	927	0	3.3	0.21	SP carbon in alkyne (RC#CH C2 R-with 2 or 3 H)
+c2c1	CZ	12.011	C	2	928	0	3.3	0.135	SP carbon in alkyne (RC#CH C2 R-with 1 H)
+c2ca	CZ	12.011	C	2	929	0	3.3	0.1	SP carbon in alkyne (RC#CH C2 R-with no H or R=phenyl)
+
+#
+# Calcium
+#
+
+# Ca
+
+#ca+2	Ca	40.078	Ca	0	412	0	2.412031	0.449657	Calcium 2+ ion (old)
+ca+2	Ca	40.078	Ca	0	1112	0	3.47	0.449657	Calcium 2+ ion
+
+#
+# Chlorine
+#
+
+# Cl
+
+cl1	Cl	35.4527	Cl	1	151	0	3.4	0.3	Cl in alkyl chlorides
+#cl-	Cl	35.4527	Cl	0	401	-1	4.02	0.71	Chlorine 1- anion (old)
+cl-	Cl	35.4527	Cl	0	1101	-1	4.18	0.11779	Chlorine 1- anion
+
+#
+# Cesium
+#
+
+# Cs
+
+#cs+	Cs	132.905	Cs	0	410	1	6.2	0.0005	Cesium 1+ ion (old)
+cs+	Cs	132.905	Cs	0	1110	1	4.82	8.1e-05	Cesium 1+ ion
+
+#
+# Europium
+#
+
+# Eu
+
+eu+3	Eu	151.964	Eu	0	705	3	3.3	0.05	Europium 3+ ion
+
+#
+# Fluorine
+#
+
+# F
+
+f1	F	18.998	F	1	164	0	2.94	0.061	Fluor in trifluoroethanol
+f1a	F	18.998	F	1	719	0	2.85	0.061	Fluor in fluorobenzene
+f1ao	F	18.998	F	1	986	0	2.9	0.06	Fluor in trifluoroanisole
+f1c	F	18.998	F	1	965	0	2.95	0.053	Fluor in perfluoroalkanes
+#f-	F	18.998	F	0	400	-1	3.05	0.71	Fluor 1- anion (old)
+f-	F	18.998	F	0	1100	-1	3.08	0.72	Fluor 1- anion
+f1p	F	18.998	F	1	786	0	3.1181	0.061	Fluor in hexafluorophosphate (PF6-)
+
+#
+# Gadolinium
+#
+
+# Gd
+
+gd+3	Gd	157.25	Gd	0	706	3	3.3	0.05	Gadolinium 3+ ion
+
+#
+# Helium
+#
+
+# He
+
+he	He	4.0026	He	0	101	0	2.556	0.02	Helium
+
+#
+# Hydrogen
+#
+
+# H
+
+h1n	H	1.0079	H	1	240	0	1	0	Hydrogen on nitrogen in primary amide
+h1n1	H	1.0079	H	1	2967	0	2.42	0.03	4-phenyl-1,2,3-triazole
+h1si	H	1.0079	H	1	1064	0	2.5	0.03	Hydrogen on Si in silane
+h1n2	H	1.0079	H	1	428	0	2.5	0.05	Hydrogen on N in CH3NH-
+
+# H3
+
+h1n3	H3	1.0079	H	1	289	0	1	0	Hydrogen in guanidinium
+h1n4	H3	1.0079	H	1	289	0	1	0	Hydrogen in ammonium derivatives
+
+# H4
+
+h1a2	H4	1.0079	H	1	345	0	2.5	0.05	Aromatic hydrogen (cytosine H-C6)
+
+# H5
+
+h1a3	H5	1.0079	H	1	355	0	2.5	0.05	Aromatic hydrogen (adenine H-C2 nucleoside)
+
+# HA
+
+h1a	HA	1.0079	H	1	146	0	2.42	0.03	Aromatic hydrogen (benzene H - 12 site)
+h1a1	HA	1.0079	H	1	316	0	2.5	0.05	Aromatic hydrogen (diaminepyridine)
+
+# HC
+
+h1	HC	1.0079	H	1	140	0	2.5	0.03	Hydrogen in alkanes
+h1cl	HC	1.0079	H	1	140	0	2.5	0.03	Hydrogen in halocarbons
+h1oh	HC	1.0079	H	1	140	0	2.5	0.03	Hydrogen on SP3 carbon with alcohol OH
+h1a4	HC	1.0079	H	1	329	0	2.5	0.05	Aromatic hydrogen (uracil H-C5)
+h1=	HC	1.0079	H	1	144	0	2.42	0.03	Hydrogen in alkenes
+h1co	HC	1.0079	H	1	279	0	2.42	0.015	Hydrogen in aldehyde and formamide
+h1cn	HC	1.0079	H	1	759	0	2.5	0.015	Hydrogen on SP3 carbon next to cyanocarbon in nitriles
+h1cs	HC	1.0079	H	1	759	0	2.5	0.015	Hydrogen on SP3 methyl carbon in sulfonamides
+h1co2	HC	1.0079	H	1	255	0	2.5	0.02	Hydrogen in formimide
+h1cp	HC	1.0079	H	1	759	0	2.5	0.015	Hydrogen on SP3 methyl carbon in phosphonates
+h1r	HC	1.0079	H	1	255	0	2.5	0.02	Hydrogen in RMIM+
+
+# HO
+
+h1o	HO	1.0079	H	1	155	0	2.5	0	Hydrogen in mono alcohols
+
+# HS
+
+h1s	HS	1.0079	H	1	204	0	2.5	0	Hydrogen in thiols
+
+# HW
+
+h1w	HW	1.0079	H	1	98	0	2.5	0	Hydrogen in water
+
+#
+# Iodine
+#
+
+# I
+
+i1	I	126.904	I	1	732	0	3.75	0.6	Iodine in iodobenzene
+#i-	I	126.904	I	0	403	-1	4.81	0.71	I- 400-410 new OPLS:
+i-	I	126.904	I	0	1103	-1	5.15	0.07	Iodine 1- anion
+
+#
+# Krypton
+#
+
+# Kr
+
+kr	Kr	83.8	Kr	0	104	0	3.624	0.317	Krypton
+
+#
+# Lanthanum
+#
+
+# La
+
+la+3	La	138.905	La	0	703	3	3.75	0.06	Lanthanum 3+ ion
+
+#
+# Lithium
+#
+
+# Li
+
+#li+	Li	6.941	Li	0	406	1	2.87	0.0005	Lithium 1+ ion (old)
+li+	Li	6.941	Li	0	1106	1	2.7	0.018279	Lithium 1+ ion
+
+#
+# Lone pair
+#
+
+# LP
+
+lp	LP	1	Lp	1	99	0	1	0	Lone pair
+
+#
+# Magnesium
+#
+
+# Mg
+
+#mg+2	Mg	24.305	Mg	0	411	2	1.644471	0.875044	Magnesium 2+ ion (old)
+mg+2	Mg	24.305	Mg	0	1111	2	2.91	0.875044	Magnesium 2+ ion
+
+#
+# Neon
+#
+
+# Ne
+
+ne	Ne	20.18	Ne	0	102	0	2.78	0.069	Neon
+
+#
+# Nitrogen
+#
+
+# N
+
+n3am0	N	14.0067	N	3	237	0	3.25	0.17	Nitrogen in tertiary amides
+n3am1	N	14.0067	N	3	237	0	3.25	0.17	Nitrogen in secondary amides
+n3am2	N	14.0067	N	3	237	0	3.25	0.17	Nitrogen in primary amides
+n3sa0	N	14.0067	N	3	237	0	3.25	0.17	Nitrogen in tertiary sulfonamides
+n3sa1	N	14.0067	N	3	237	0	3.25	0.17	Nitrogen in secondary sulfonamides
+n3sa2	N	14.0067	N	3	237	0	3.25	0.17	Nitrogen in primary sulfonamides
+n3ur2	N	14.0067	N	3	237	0	3.25	0.17	Nitrogen in primary amides
+n3ah	N	14.0067	N	3	2910	0	3.3	0.17	Nitrogen in pyridone
+n3im1	N	14.0067	N	3	237	0	3.25	0.17	Nitrogen in secondary imides
+n3+	N	14.0067	N	3	787	0	3.15	0.17	Nitrogen in nitrate
+#nh4+	N	14.0067	N	0	405	1	5.34	0.0005	Ammonium 1+ ion (UA)
+
+# N$
+
+n34	N$	14.0067	N	3	686	0	3.25	0.17	Nitrogen in beta-lactam
+
+# N*
+
+n3a5h	N*	14.0067	N	3	936	0	3.25	0.17	Protonated nitrogen in 5-ring (adenine N9)
+
+# N2
+
+n3ch	N2	14.0067	N	3	300	0	3.25	0.17	Nitrogen in methylguanidinium
+n3ch2	N2	14.0067	N	3	300	0	3.25	0.17	Nitrogen in guanidinium
+
+# N3
+
+n4	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with no protons
+n4h	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with one proton
+n4h2	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with two protons
+n4h3	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with three protons
+n4h4	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with four protons
+n2c	N3	14.0067	N	2	427	0	3.4	0.25	Nitrogen in deprotonated amine (methylamine)
+
+# NA
+
+n3a	NA	14.0067	N	3	319	0	3.25	0.17	Nitrogen in aromatic ring
+n3ah1	NA	14.0067	N	3	319	0	3.25	0.17	Protonated nitrogen in 6-ring (uracil N1)
+
+# NB
+
+n2a5	NB	14.0067	N	2	352	0	3.25	0.17	Nitrogen in 5-ring (adenine N7)
+
+# NC
+
+n2a6	NC	14.0067	N	2	311	0	3.25	0.17	Nitrogen in 6-ring (diaminopyridine N1)
+
+# NM
+
+n3c3	NM	14.0067	N	3	1037	0	3.25	0.17	Nitrogen in tertiary amide
+
+# NO
+
+n3o2	NO	14.0067	N	3	760	0	3.25	0.12	Nitrogen in nitro R-NO2
+
+# NT
+
+n3	NT	14.0067	N	3	900	0	3.3	0.17	Nitrogen in tertiary amines
+n3h	NT	14.0067	N	3	900	0	3.3	0.17	Nitrogen in secondary amines
+n3h2	NT	14.0067	N	3	900	0	3.3	0.17	Nitrogen in primary amines
+
+# NY
+
+n3y	NY	14.0067	N	3	749	0	3.25	0.17	Nitrogen in arginine next to amine group
+
+# NZ
+
+n1	NZ	14.0067	N	1	262	0	3.2	0.17	Nitrogen in benzonitrile
+n1-	NZ	14.0067	N	1	424	0	3.4	0.25	Nitrogen in acetonitrile (CH3CN-)
+
+#
+# Neodynium
+#
+
+# Nd
+
+nd+3	Nd	144.242	Nd	0	704	3	3.473	0.054	Neodymium 3+ ion
+
+#
+# Oxygen
+#
+
+# O
+
+o1=	O	15.9994	O	1	236	0	2.96	0.21	Oxygen in amides and ketones
+o1n	O	15.9994	O	1	788	0	2.86	0.21	Oxygen in nitrate ion (NO3-)
+
+# O2
+
+o1a	O2	15.9994	O	1	272	0	2.96	0.21	Oxygen in deprotonated acids
+o1p	O2	15.9994	O	1	441	0	3.15	0.2	Oxygen in phosphate (O= in Me2PO4-)
+o1p=	O2	15.9994	O	1	441	0	3.15	0.2	Oxygen in phosphate (O= in Me2PO4-)
+
+# OH
+
+o2h	OH	15.9994	O	2	154	0	3.12	0.17	Oxygen in alcohols
+o2ha	OH	15.9994	O	2	268	0	3	0.17	Oxygen in protonated acids
+o2hh	OH	15.9994	O	2	162	0	3.07	0.17	Oxygen in diols and phenols
+o2ht	OH	15.9994	O	2	162	0	3.07	0.17	Oxygen in diols and phenols
+o2hi	OH	15.9994	O	1	420	0	3.15	0.25	Oxygen in alkoxide (CH3O-)
+o1h-	OH	15.9994	O	1	434	0	3.2	0.25	Oxygen in hydroxide (OH-, d(O-H) = 0.953 A)
+
+# ON
+
+o1n1	ON	15.9994	O	1	761	0	2.96	0.17	Oxygen in nitro R-NO2
+
+# OS
+
+o2	OS	15.9994	O	2	177	0	2.9	0.14	Oxygen in ethers
+o2e	OS	15.9994	O	2	177	0	2.9	0.14	Oxygen in ethers
+o2p	OS	15.9994	O	1	395	0	3	0.17	Oxygen in phosphate (O- in Me2PO4-)
+o2s	OS	15.9994	O	1	395	0	3	0.17	Oxygen in esters
+
+# OU
+
+o2u	OU	15.9994	O	2	437	0	3.11815	0.2	Oxygen in uranium oxide (UO2+, d(U-O) = 1.80 A)
+
+# OW
+
+o2w	OW	15.9994	O	2	133	0	3.16557	0.1554	Oxygen in SPC/E water
+o2w3	OW	15.9994	O	2	111	0	3.15061	0.1521	Oxygen in TIP3P water
+o2w3f	OW	15.9994	O	2	116	0	3.176	0.15	Oxygen in TIP3F water (flexible model)
+o2w4f	OW	15.9994	O	2	795	0	3.27	0.1	Oxygen in TIP4F water (flexible model)
+o2w4	OW	15.9994	O	2	113	0	3.15365	0.155	Oxygen in TIP4P water
+o2w5	OW	15.9994	O	2	97	0	3.12	0.16	Oxygen in TIP5P water
+
+# OY
+
+o1s	OY	15.9994	O	1	497	0	2.93	0.28	Oxygen in sulfoxide
+o1s=	OY	15.9994	O	1	475	0	2.96	0.17	Oxygen in sulfonamide
+
+#
+# Phosphorus
+#
+
+# P
+
+p4	P	30.974	P	4	393	0	3.74	0.2	Phosphorus in phosphates
+p41	P	30.974	P	4	393	0	3.74	0.2	Phosphorus in methylphosphate anion
+p42	P	30.974	P	4	393	0	3.74	0.2	Phosphorus in dimethylphosphate anion
+p43	P	30.974	P	4	393	0	3.74	0.2	Phosphorus in dimethyl methylphosphonate
+
+# P+
+
+p4+	P+	30.974	P	4	781	0	3.74	0.2	Phosphorus in phosphonium R4P+
+
+#
+# Potassium
+#
+
+# K
+
+#k+	K	39.098	K	0	408	1	5.17	0.0005	Potassium 1+ ion (old)
+k+	K	39.098	K	0	1108	1	4.06	0.000328	Potassium 1+ ion
+
+#
+# Rubidium
+#
+
+# Rb
+
+#rb+	Rb	85.468	Rb	0	409	1	5.6	0.0005	Rubidium 1+ ion (old)
+rb+	Rb	85.468	Rb	0	1109	1	4.32	0.000171	Rubidium 1+ ion
+
+#
+# Sodium
+#
+
+# Na
+
+#na+	Na	22.99	Na	0	407	1	4.07	0.0005	Sodium 1+ ion (old)
+na+	Na	22.99	Na	0	1107	1	3.35	0.002772	Sodium 1+ ion
+
+#
+# Sulfur
+#
+
+# S
+
+s2	S	32.066	S	2	202	0	3.55	0.25	Sulfur in organic sulfides
+
+# SH
+
+s2h	SH	32.066	S	2	200	0	3.55	0.25	Sulfur in thiols
+s2h2	SH	32.066	S	2	201	0	3.7	0.25	Sulfur in hydrogen sulfide
+s2-	SH	32.066	S	2	417	0	4.25	0.5	Sulfur in CH3S-
+
+# SY
+
+s4	SY	32.066	S	4	474	0	3.55	0.25	Sulfur in sulfone
+s4c	SY	32.066	S	4	474	0	3.55	0.25	Sulfur in sulfonate anion
+s4am	SY	32.066	S	4	474	0	3.55	0.25	Sulfur in sulfonamide
+
+# SZ
+
+s3	SZ	32.066	S	3	495	0	3.56	0.395	Sulfur in alkyl aryl sulfoxide
+
+
+#
+# Silicon
+#
+
+# Si
+
+si4	Si	28.085	Si	4	1060	0	4	0.1	Silicon in tetraalkylsilane R4Si
+
+#
+# Strontium
+#
+
+# Sr
+
+#sr+2	Sr	87.62	Sr	0	413	2	3.102688	0.118226	Strontium 2+ ion (old)
+sr+2	Sr	87.62	Sr	0	1113	2	3.82	0.118226	Strontium 2+ ion
+
+#
+# Thorium
+#
+
+# Th
+
+th+4	Th	232.038	Th	0	698	4	3.3	0.05	Thorium 4+ ion
+
+#
+# Uranium
+#
+
+# U
+
+u2	U	238.029	U	2	436	0	2.81524	0.4	Uranium in UO2+
+
+#
+# Xenon
+#
+
+# Xe
+
+xe	Xe	131.29	Xe	0	105	0	3.935	0.433	Xenon
+
+#
+# Ytterbium
+#
+
+# Yb
+
+yb+3	Yb	173.04	Yb	0	707	3	2.95	0.04	Ytterbium 3+ ion
+
+#
+# Zinc
+#
+
+# Zn
+
+zn4	Zn	65.39	Zn	4	1005	0	1.96	0.0125	Zinc in metalloproteins (JACS 1991, 113, 8262)
+
+ITEM	END	# MASS
+
+# Equivalence
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	improper
+
+#h1n3	h1n3	h1n3	h1n	h1n	h1n	h1n
+#h1n4	h1n4	h1n4	h1n	h1n	h1n	h1n
+
+ITEM	END	# EQUIVALENCE
+
+
+#########################################################################
+#									#
+# Noble gases								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+ar	Ar	-	-	0	[Ar]
+he	He	-	-	0	[He]
+kr	Kr	-	-	0	[Kr]
+ne	Ne	-	-	0	[Ne]
+xe	Xe	-	-	0	[Xe]
+
+ITEM	END	# RULES
+
+
+#########################################################################
+#									#
+# Ions and water							#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+#o2w	O	-	-	0	O(H)(H)
+br-	Br	-	-	-1	[Br-]
+cl-	Cl	-	-	-1	[Cl-]
+cs+	Cs	-	-	1	[Cs+]
+eu+3	Eu	-	-	3	[Eu+3]
+f-	F	-	-	-1	[F-]
+i-	I	-	-	-1	[I-]
+k+	K	-	-	1	[K+]
+la+3	La	-	-	3	[La+3]
+li+	Li	-	-	1	[Li+]
+mg+2	Mg	-	-	2	[Mg+2]
+na+	Na	-	-	1	[Na+]
+#nh4+	N	-	-	1	[N+](H)(H)(H)(H)
+nd+3	Nd	-	-	3	[Nd+3]
+sr+2	Sr	-	-	2	[Sr+2]
+th+4	Th	-	-	4	[Th+4]
+yb+3	Yb	-	-	3	[Yb+3]
+
+ITEM	END	# RULES
+
+# Stream
+
+ITEM	STREAM
+
+# 133-134
+
+RESI	SPCE	0		! H2O, water (SPC/E)
+GROUP				!
+ATOM	O	o2w	-0.8476	!  H1--O--H2
+ATOM	H1	h1w	0.4238	!
+ATOM	H2	h1w	0.4238	!
+
+CONECT	O	H1	H2
+
+RESI	HYDR	-1		! HO, hydroxide
+GROUP				!
+ATOM	O	o1h-	-1.3	!  H--O(-)
+ATOM	H	h1o	0.3	!
+
+CONECT	O	H
+
+UNLINK	o1h-	h1o
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Alkanes								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4	C	-	-	0	C(C)(C)(C)(C)
+c4	C	-	-	0	C(C)(C)(C)(H)
+c4	C	-	-	0	C(C)(C)(H)(H)
+c4	C	-	-	0	C(C)(H)(H)(H)
+c4	C	-	-	0	C(H)(H)(H)(H)
+c4	C	-	-	0	C(~*)(~*)(~*)(~*)
+h1	H	-	-	0	H(C)
+h1	H	-	-	0	H(~C)
+
+ITEM	END	# RULES
+
+# Increment section
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+c4*	c4*	0	0
+
+ITEM	END	# INCREMENT
+
+# Stream
+
+ITEM	STREAM
+
+# 138, 140
+
+RESI	METH	0		! CH4, methane
+GROUP				!
+ATOM	C1	c4	-0.24	!       H11
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H12--C1--H14
+ATOM	H13	h1	0.06	!        |
+ATOM	H14	h1	0.06	!       H13
+
+CONECT	C1	H11	H12	H13	H14
+
+# 135, 140
+
+RESI	ETHA	0		! C2H6, ethane
+GROUP				!
+ATOM	C1	c4	-0.18	!       H13
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--H12
+ATOM	H13	h1	0.06	!        |
+GROUP				!   H21--C2--H22
+ATOM	C2	c4	-0.18	!        |
+ATOM	H21	h1	0.06	!       H23	
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	H21	H22	H23
+
+#
+
+RESI	CPRO	0		! C3H6, cyclopropane
+GROUP				!
+ATOM	C1	c4	-0.12	!
+ATOM	H11	h1	0.06	!
+ATOM	H12	h1	0.06	!
+GROUP				!
+ATOM	C2	c4	-0.12	!
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+GROUP				!
+ATOM	C3	c4	-0.12	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+
+CONECT	C1	^3C2	H11	H12
+CONECT	C2	^3C3	H21	H22
+CONECT	C3	^3C1	H31	H32
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Alkenes								#
+#									#
+#########################################################################
+
+# Stream
+
+ITEM	STREAM
+
+# 142-143
+
+RESI	ETHE	0		! C2H4, ethylene
+GROUP				!
+ATOM	C1	c3=	-0.23	!     H11  H12
+ATOM	H11	h1=	0.115	!       \  /	
+ATOM	H12	h1=	0.115	!        C1
+GROUP				!        ||
+ATOM	C2	c3=	-0.23	!        C2
+ATOM	H21	h1=	0.115	!       /  \
+ATOM	H22	h1=	0.115	!     H21  H22
+
+CONECT	C1	=C2	H11	H12
+CONECT	C2	H21	H22
+
+# 142, 144
+
+RESI	PROE	0		! C3H6, propylene
+GROUP				!
+ATOM	C1	c3=	-0.23	!     H11  H12
+ATOM	H11	h1=	0.115	!       \  /	
+ATOM	H12	h1=	0.115	!        C1
+GROUP				!        ||
+ATOM	C2	c3=	-0.115	!   H21--C2
+ATOM	H21	h1=	0.115	!        |  
+GROUP				!   H31--C3--H33
+ATOM	C3	c4	-0.18	!        |
+ATOM	H31	h1	0.06	!       H32     
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C1	=C2	H11	H12
+CONECT	C2	C3	H21
+CONECT	C3	H31	H32	H33
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Aromatics								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c3a	C	-	-	0	^6c(^6:c)(^6:c)(C)
+c3a	C	-	-	0	^6c(^6:c)(^6:c)(H)
+c4	C	-	-	0	C(^6c)(C)(C)(C)
+c4	C	-	-	0	C(^6c)(C)(C)(H)
+c4	C	-	-	0	C(^6c)(C)(H)(H)
+
+ITEM	END	# RULES
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c*	c4	c4	c4	1.3	1	0	-0.05	2	0	0.2	3	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 145-146
+
+RESI	BENZ	0		! C6H6, benzene
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1
+ATOM	C2	c3a	-0.115	!         /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6--H6
+GROUP				!       ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	H6	h1a	0.115	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	H6
+
+# 148
+
+RESI	TOLU	0		! C7H8, toluene
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1          H71
+ATOM	C2	c3a	-0.115	!         /  \\         |
+ATOM	H2	h1a	0.115	!   H2--C2    C6--------C7--H73
+GROUP				!       ||    |         |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5   H72
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C7	c4	-0.065	!
+ATOM	H71	h1	0.06	!
+ATOM	H72	h1	0.06	!
+ATOM	H73	h1	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	H71	H72	H73
+
+# 260-262
+
+RESI	BZNI	0		! C7H5N, benzonitrile
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1
+ATOM	C2	c3a	-0.115	!         /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6--C##N
+GROUP				!       ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.035	!
+ATOM	C	c2na	0.395	!
+ATOM	N	n1	-0.43	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C
+CONECT	C	#N
+
+RESI	DIPH	0		! C12H10, diphenyl, biphenyl, phenylbenzene
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1              H12
+ATOM	H1	h1a	0.115	!          |               |
+GROUP				!          C1              C12
+ATOM	C2	c3a	-0.115	!         /  \\           /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6--------C7   C11--H11
+GROUP				!       ||    |         ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5        C8   C10--H10
+ATOM	H3	h1a	0.115	!         \  // \      /  \  //
+GROUP				!          C4    H5  H8    C9
+ATOM	C4	c3a	-0.115	!          |               |
+ATOM	H4	h1a	0.115	!          H4              H9
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3ab	0	!
+GROUP				!
+ATOM	C7	c3ab	0	!
+GROUP				!
+ATOM	C8	c3a	-0.115	!
+ATOM	H8	h1a	0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+GROUP				!
+ATOM	C11	c3a	-0.115	!
+ATOM	H11	h1a	0.115	!
+GROUP				!
+ATOM	C12	c3a	-0.115	!
+ATOM	H12	h1a	0.115	!
+GROUP				!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	^6:C8
+CONECT	C8	^6:C9	H8
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C11	H10
+CONECT	C11	^6:C12	H11
+CONECT	C12	^6:C7	H12
+
+# 147
+
+RESI	NAPH	0		! C10H8, naphtalene
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1    H7
+ATOM	H1	h1a	0.115	!          |     |
+GROUP				!          C1    C7
+ATOM	C2	c3a	-0.115	!         /  \\ /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6    C8--H8
+GROUP				!       ||    |     |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5    C9--H9
+ATOM	H3	h1a	0.115	!         \  // \  //
+GROUP				!          C4    C10
+ATOM	C4	c3a	-0.115	!          |      |
+ATOM	H4	h1a	0.115	!          H4    H10
+GROUP				!
+ATOM	C5	c3a	0	!
+GROUP				!
+ATOM	C6	c3a	0	!
+GROUP				!
+ATOM	C7	c3a	-0.115	!
+ATOM	H7	h1a	0.115	!
+GROUP				!
+ATOM	C8	c3a	-0.115	!
+ATOM	H8	h1a	0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	^6:C10
+CONECT	C6	^6:C7	^6:C1
+CONECT	C7	^6:C8	H7
+CONECT	C8	^6:C9	H8
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C5	H10
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Alcohols								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4	C	-	-	0	C(C)(C)(C)(O)
+c4	C	-	-	0	C(C)(C)(O)(H)
+c4	C	-	-	0	C(C)(O)(H)(H)
+c4	C	-	-	0	C(O)(H)(H)(H)
+c4o	C	-	-	0	C(^6c)(O(H))(C)(C)
+c4o	C	-	-	0	C(^6c)(O(H))(C)(H)
+o2h	O	-	-	0	O(C)(H)
+h1o	H	-	-	0	H(O(C))
+
+ITEM	END	# RULES
+
+# Stream
+
+ITEM	STREAM
+
+# 154-157
+
+RESI	MEOH	0		! CH4O, methanol
+GROUP
+ATOM	C1	c4	0.145	!       H11
+ATOM	H11	h1oh	0.04	!        |	
+ATOM	H12	h1oh	0.04	!   H12--C1--O--H
+ATOM	H13	h1oh	0.04	!        |
+ATOM	O	o2h	-0.683	!       H13
+ATOM	H	h1o	0.418	!
+
+CONECT	C1	O	H11	H12	H13
+CONECT	O	H
+
+# 154-155, 157
+
+RESI	ETOH	0		! C2H6O, ethanol
+GROUP
+ATOM	C1	c4	-0.18	!       H13
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--H12
+ATOM	H13	h1	0.06	!        |
+GROUP				!   H21--C2--O--H
+ATOM	C2	c4	0.145	!        |
+ATOM	H21	h1	0.06	!       H22
+ATOM	H22	h1	0.06	!
+ATOM	O	o2h	-0.683	!
+ATOM	H	h1o	0.418	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	O	H21	H22
+CONECT	O	H
+
+# 169-170
+
+RESI	ETDO	0		! C2H6O2, ethanediol
+GROUP
+ATOM	C1	c4	0.145	!       H12
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--O1--H1
+ATOM	O1	o2hh	-0.7	!        |
+ATOM	H1	h1o	0.435	!   H21--C2--O2--H2
+GROUP				!        |
+ATOM	C2	c4	0.145	!       H22        
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	O2	o2hh	-0.7	!
+ATOM	H2	h1o	0.435	!
+
+CONECT	C1	C2	O1	H11	H12
+CONECT	O1	H1
+CONECT	C2	O2	H21	H22
+CONECT	O2	H2
+
+# 169-170
+
+RESI	PRDO	0		! C3H8O2, 1,2-propanediol
+GROUP
+ATOM	C1	c4	0.145	!       H12
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--O1--H1
+ATOM	O1	o2hh	-0.7	!        |
+ATOM	H1	h1o	0.435	!   H21--C2--O2--H2
+GROUP				!        |
+ATOM	C2	c4	0.205	!   H31--C3--H32
+ATOM	H21	h1	0.06	!        |
+ATOM	O2	o2hh	-0.7	!       H33
+ATOM	H2	h1o	0.435	!
+GROUP				!
+ATOM	C3	c4	-0.18	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C1	C2	O1	H11	H12
+CONECT	O1	H1
+CONECT	C2	C3	O2	H21
+CONECT	O2	H2
+CONECT	C3	H31	H32	H33
+
+# 169-170
+
+RESI	BUDO	0		! C4H10O2, 2,3-butanediol
+GROUP
+ATOM	C1	c4	-0.18	!       H13
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--H12
+ATOM	H13	h1	0.06	!        |
+GROUP				!   H21--C2--O2--H2
+ATOM	C2	c4	0.205	!        |
+ATOM	H21	h1	0.06	!   H31--C3--O3--H3
+ATOM	O2	o2hh	-0.7	!        |
+ATOM	H2	h1o	0.435	!   H41--C4--H42
+GROUP				!        |
+ATOM	C3	c4	0.205	!       H43
+ATOM	H31	h1	0.06	!
+ATOM	O3	o2hh	-0.7	!
+ATOM	H3	h1o	0.435	!
+GROUP				!
+ATOM	C4	c4	-0.18	!
+ATOM	H41	h1	0.06	!
+ATOM	H42	h1	0.06	!
+ATOM	H43	h1	0.06	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	C3	O2	H21
+CONECT	O2	H2
+CONECT	C3	C4	O3	H31
+CONECT	O3	H3
+CONECT	C4	H41	H42	H43
+
+# 171-172
+
+RESI	PRTO	0		! C3H8O2, 1,2,3-propanetriol
+GROUP
+ATOM	C1	c4	0.145	!       H12
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--O1--H1
+ATOM	O1	o2ht	-0.73	!        |
+ATOM	H1	h1o	0.465	!   H21--C2--O2--H2
+GROUP				!        |
+ATOM	C2	c4	0.205	!   H31--C3--O3--H3
+ATOM	H21	h1	0.06	!        |
+ATOM	O2	o2ht	-0.73	!       H32
+ATOM	H2	h1o	0.465	!
+GROUP				!
+ATOM	C3	c4	0.145	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	O3	o2ht	-0.73	!
+ATOM	H3	h1o	0.465	!
+
+CONECT	C1	C2	O1	H11	H12
+CONECT	O1	H1
+CONECT	C2	C3	O2	H21
+CONECT	O2	H2
+CONECT	C3	O3	H31	H32
+CONECT	O3	H3
+
+# 171-172
+
+RESI	BUTO	0		! C4H10O3, 1,2,3-butanetriol
+GROUP
+ATOM	C1	c4	0.145	!       H12
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--O1--H1
+ATOM	O1	o2ht	-0.73	!        |
+ATOM	H1	h1o	0.465	!   H21--C2--O2--H2
+GROUP				!        |
+ATOM	C2	c4	0.205	!   H31--C3--O3--H3
+ATOM	H21	h1	0.06	!        |
+ATOM	O2	o2ht	-0.73	!   H41--C4--H42
+ATOM	H2	h1o	0.465	!        |
+GROUP				!       H43        
+ATOM	C3	c4	0.205	!
+ATOM	H31	h1	0.06	!
+ATOM	O3	o2ht	-0.73	!
+ATOM	H3	h1o	0.465	!
+GROUP				!
+ATOM	C4	c4	-0.18	!
+ATOM	H41	h1	0.06	!
+ATOM	H42	h1	0.06	!
+ATOM	H43	h1	0.06	!
+
+CONECT	C1	C2	O1	H11	H12
+CONECT	O1	H1
+CONECT	C2	C3	O2	H21
+CONECT	O2	H2
+CONECT	C3	C4	O3	H31
+CONECT	O3	H3
+CONECT	C4	H41	H42	H43
+
+# 166-168
+
+RESI	PHEN	0		! C6H6O, phenol
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1
+ATOM	C2	c3a	-0.115	!         /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6--O--H
+GROUP				!       ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.15	!
+ATOM	O	o2hh	-0.585	!
+ATOM	H	h1o	0.435	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	O
+CONECT	O	H
+
+# 218, 221
+
+RESI	BNMA	0		! C7H8O, benzyl methanol, benzyl alcohol
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1         H71
+ATOM	C2	c3a	-0.115	!         /  \\        |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-------C7--O--H
+GROUP				!       ||    |        |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5  H72
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.055	!
+ATOM	C7	c4o	0.2	!
+ATOM	H71	h1	0.06	!
+ATOM	H72	h1	0.06	!
+ATOM	O	o2h	-0.683	!
+ATOM	H	h1o	0.418	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	O	H71	H72
+CONECT	O	H
+
+# 219, 221
+
+RESI	BNEA	0		! C8H8O, benzyl ethanol
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1         H71 H81
+ATOM	C2	c3a	-0.115	!         /  \\        |   |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-------C7--C8--H83
+GROUP				!       ||    |        |   |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5   O  H82
+ATOM	H3	h1a	0.115	!         \  //        |
+GROUP				!          C4          H
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.055	!
+ATOM	C7	c4o	0.26	!
+ATOM	H71	h1	0.06	!
+ATOM	O	o2h	-0.683	!
+ATOM	H	h1o	0.418	!
+GROUP				!
+ATOM	C8	c4	-0.18	!
+ATOM	H81	h1	0.06	!
+ATOM	H82	h1	0.06	!
+ATOM	H83	h1	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	C8	O	H71
+CONECT	C8	H81	H82	H83
+CONECT	O	H
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Ketones								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c3o	C	-	-	0	C(C)(C)(=O)
+
+ITEM	END	# RULES
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c3a	c3a	c4	c*	0	1	0
+c*	c3o	c4	c*	1.454	1	0	-0.144	2	0	-0.775	3	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 280-281
+
+RESI	ACHY	0		! C2H4O, acetaldehyde
+GROUP
+ATOM	C1	c4	-0.18	!       H13
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--H12
+ATOM	H13	h1	0.06	!        |
+GROUP				!        C2
+ATOM	C2	c3o	0.47	!       / \\
+ATOM	H21	h1co	0	!    H21    O
+ATOM	O	o1=	-0.47	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	=O	H21
+
+# 232
+
+RESI	BZHY	0		! C8H8O, benzaldehyde
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1         H71
+ATOM	C2	c3a	-0.115	!         /  \\        |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-------C7==O
+GROUP				!       ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C7	c3o	0.585	!
+ATOM	H71	h1co	0	!
+ATOM	O	o1=	-0.47	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	=O	H71
+
+# 233
+
+RESI	ACPH	0		! C8H8O, acetophenone
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1             H81
+ATOM	C2	c3a	-0.115	!         /  \\            |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-------C7--C8--H83
+GROUP				!       ||    |        ||  |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5   O  H82
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C7	c3o	0.585	!
+ATOM	O	o1=	-0.47	!
+GROUP				!
+ATOM	C8	c4	-0.18	!
+ATOM	H81	h1	0.06	!
+ATOM	H82	h1	0.06	!
+ATOM	H83	h1	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	C8	=O
+CONECT	C8	H81	H82	H83
+
+# 231
+
+RESI	BZPH	0		! C13H10O, benzophenone
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1              H12
+ATOM	H1	h1a	0.115	!          |               |
+GROUP				!          C1       O      C12
+ATOM	C2	c3a	-0.115	!         /  \\     ||    /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6----C---C7   C11--H11
+GROUP				!       ||    |         ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5        C8   C10--H10
+ATOM	H3	h1a	0.115	!         \  // \      /  \  //
+GROUP				!          C4    H5  H8    C9
+ATOM	C4	c3a	-0.115	!          |               |
+ATOM	H4	h1a	0.115	!          H4              H9
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C	c3o	0.7	!
+ATOM	O	o1=	-0.47	!
+ATOM	C7	c3a	-0.115	!
+GROUP				!
+ATOM	C8	c3a	-0.115	!
+ATOM	H8	h1a	0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+GROUP				!
+ATOM	C11	c3a	-0.115	!
+ATOM	H11	h1a	0.115	!
+GROUP				!
+ATOM	C12	c3a	-0.115	!
+ATOM	H12	h1a	0.115	!
+GROUP				!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C
+CONECT	C	C7	=O
+CONECT	C7	^6:C8
+CONECT	C8	^6:C9	H8
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C11	H10
+CONECT	C11	^6:C12	H11
+CONECT	C12	^6:C7	H12
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Acids									#
+#									#
+#########################################################################
+
+# Stream
+
+ITEM	STREAM
+
+# 267-270
+
+RESI	FOAH	0		! CH2O2, formic acid
+GROUP				!
+ATOM	C1	c3oh	0.52	!  H1--O1
+ATOM	H11	h1	0	!       \
+ATOM	O1	o2ha	-0.53	!        C1--H11
+ATOM	H1	h1o	0.45	!       //
+ATOM	O2	o1=	-0.44	!      O2
+
+CONECT	C1	O1	=O2	H11
+CONECT	O1	H1
+
+# 267-270
+
+RESI	ACAH	0		! C2H5O2, acetic acid
+GROUP				!
+ATOM	C1	c3oh	0.52	!  H1--O1   H21
+ATOM	O1	o2ha	-0.53	!       \    |
+ATOM	H1	h1o	0.45	!        C1--C2--H23
+ATOM	O2	o1=	-0.44	!       //   |
+GROUP				!      O2   H22
+ATOM	C2	c4	-0.18	!
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	C1	C2	O1	=O2
+CONECT	O1	H1
+CONECT	C2	H21	H22	H23
+
+# 470
+
+RESI	BNAH	0		! C7H6O2, benzoic acid
+GROUP				!
+ATOM	C1	c3a	-0.115	!         H1
+ATOM	H1	h1a	0.115	!         |
+GROUP				!         C1         O6--H6
+ATOM	C2	c3a	-0.115	!        /  \\      /
+ATOM	H2	h1a	0.115	!  H2--C2    C6----C7
+GROUP				!      ||    |      \\
+ATOM	C3	c3a	-0.115	!  H3--C3    C5--H5  O7
+ATOM	H3	h1a	0.115	!        \  //
+GROUP				!         C4
+ATOM	C4	c3a	-0.115	!         |
+ATOM	H4	h1a	0.115	!         H4                    
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C7	c3oh	0.635	!
+ATOM	O7	o1=	-0.44	!
+ATOM	O6	o2ha	-0.53	!
+ATOM	H6	h1o	0.45	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	O6	=O7
+CONECT	O6	H6
+
+# 271-276
+
+RESI	FOAC	0		! CH2O2, formic acid
+GROUP				!
+ATOM	C1	c3oa	0.7	!      O1
+ATOM	O1	o1a	-0.8	!       \
+ATOM	O2	o1a	-0.8	!   (-)  C1--H11
+ATOM	H11	h1	-0.1	!       //
+				!      O2
+
+CONECT	C1	:O1	:O2	H11
+
+UNLINK	c3oa	o1a
+
+# 271-276
+
+RESI	ACAC	-1		! C2H5O2, acetic acid
+GROUP				!
+ATOM	C1	c3oa	0.7	!      O1   H21
+ATOM	O1	o1a	-0.8	!       \    |
+ATOM	O2	o1a	-0.8	!   (-)  C1--C2--H23
+ATOM	C2	c4	-0.28	!       //   |
+ATOM	H21	h1	0.06	!      O2   H22
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	C1	C2	:O1	:O2
+CONECT	C2	H21	H22	H23
+
+UNLINK	c3oa	o1a
+
+# 470
+
+RESI	BNAC	-1		! C7H6O2, benzoic acid
+GROUP				!
+ATOM	C1	c3a	-0.115	!         H1
+ATOM	H1	h1a	0.115	!         |
+GROUP				!         C1         O6
+ATOM	C2	c3a	-0.115	!        /  \\      /
+ATOM	H2	h1a	0.115	!  H2--C2    C6----C7  (-)
+GROUP				!      ||    |      \\
+ATOM	C3	c3a	-0.115	!  H3--C3    C5--H5  O7
+ATOM	H3	h1a	0.115	!        \  //
+GROUP				!         C4
+ATOM	C4	c3a	-0.115	!         |
+ATOM	H4	h1a	0.115	!         H4                    
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C7	c3oa	0.715	!
+ATOM	O7	o1a	-0.8	!
+ATOM	O6	o1a	-0.8	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	:O6	:O7
+
+UNLINK	c3oa	o1a
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Esters								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+o2s	O	-	-	0	O(C(=O)(~C))(~C)
+h1co	H	BZUR	H81	0	H(C(O(C(=O)(*)))(H)(H))
+h1co	H	EACE	H31	0	H(C(C)(O(C(=O)(*)))(H))
+
+ITEM	END	# RULES
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 465-469
+
+RESI	MACE	0		! C3H6O2, methyl acetate
+GROUP				!
+ATOM	C1	c4	-0.18	!      H11  O2     H31
+ATOM	H11	h1	0.06	!       |   ||      |
+ATOM	H12	h1	0.06	!  H13--C1--C2--O1--C3--H33
+ATOM	H13	h1	0.06	!       |           |
+GROUP				!      H12         H32     
+ATOM	C2	c3oe	0.51	!
+ATOM	O2	o1=	-0.43	!
+ATOM	O1	o2s	-0.33	!
+ATOM	C3	c4oe	0.16	!
+ATOM	H31	h1co	0.03	!
+ATOM	H32	h1co	0.03	!
+ATOM	H33	h1co	0.03	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	O1	=O2
+CONECT	O1	C3
+CONECT	C3	H31	H32	H33
+
+# 465-469
+
+RESI	EACE	0		! C4H8O2, ethyl acetate
+GROUP				!
+ATOM	C1	c4	-0.18	!      H11  O2     H31 H41
+ATOM	H11	h1	0.06	!       |   ||      |   |
+ATOM	H12	h1	0.06	!  H13--C1--C2--O1--C3--C4--H43
+ATOM	H13	h1	0.06	!       |           |   |
+GROUP				!      H12         H32 H42
+ATOM	C2	c3oe	0.51	!
+ATOM	O2	o1=	-0.43	!
+ATOM	O1	o2s	-0.33	!
+ATOM	C3	c4oe	0.19	!
+ATOM	H31	h1co	0.03	!
+ATOM	H32	h1co	0.03	!
+GROUP				!
+ATOM	C4	c4	-0.18	!
+ATOM	H41	h1	0.06	!
+ATOM	H42	h1	0.06	!
+ATOM	H43	h1	0.06	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	O1	=O2
+CONECT	O1	C3
+CONECT	C3	C4	H31	H32
+CONECT	C4	H41	H42	H43
+
+# 465-466, 472-473
+
+RESI	PACE	0		! C8H8O2, phenyl acetate
+GROUP				!
+ATOM	C1	c3a	-0.115	!         H1
+ATOM	H1	h1a	0.115	!         |
+GROUP				!         C1         O7 H81
+ATOM	C2	c3a	-0.115	!        /  \\       ||  |
+ATOM	H2	h1a	0.115	!  H2--C2    C6--O6--C7--C8--H83
+GROUP				!      ||    |           |
+ATOM	C3	c3a	-0.115	!  H3--C3    C5--H5     H82     
+ATOM	H3	h1a	0.115	!        \  //
+GROUP				!         C4
+ATOM	C4	c3a	-0.115	!         |
+ATOM	H4	h1a	0.115	!         H4                    
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.135	!
+ATOM	O6	o2s	-0.215	!
+ATOM	C7	c3oe	0.51	!
+ATOM	O7	o1=	-0.43	!
+GROUP				!
+ATOM	C8	c4	-0.18	!
+ATOM	H81	h1	0.06	!
+ATOM	H82	h1	0.06	!
+ATOM	H83	h1	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	O6
+CONECT	O6	C7
+CONECT	C7	C8	=O7
+CONECT	C8	H81	H82	H83
+
+# 466, 467, 471-472
+
+RESI	MBEN	0		! C8H8O2, methyl benzoate
+GROUP				!
+ATOM	C1	c3a	-0.115	!         H1
+ATOM	H1	h1a	0.115	!         |
+GROUP				!         C1     O7     H81
+ATOM	C2	c3a	-0.115	!        /  \\   ||      |
+ATOM	H2	h1a	0.115	!  H2--C2    C6--C7--O6--C8--H83
+GROUP				!      ||    |           |
+ATOM	C3	c3a	-0.115	!  H3--C3    C5--H5     H82     
+ATOM	H3	h1a	0.115	!        \  //
+GROUP				!         C4
+ATOM	C4	c3a	-0.115	!         |
+ATOM	H4	h1a	0.115	!         H4                    
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C7	c3oe	0.625	!
+ATOM	O7	o1=	-0.43	!
+ATOM	O6	o2s	-0.33	!
+ATOM	C8	c4oe	0.16	!
+ATOM	H81	h1co	0.03	!
+ATOM	H82	h1co	0.03	!
+ATOM	H83	h1co	0.03	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	O6	=O7
+CONECT	O6	C8
+CONECT	C8	H81	H82	H83
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Ethers								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4oe	C	-	-	0	C(~O(~C))(~C)(~C)(~C)
+c4oe	C	-	-	0	C(~O(~C))(~C)(~C)(H)
+c4oe	C	-	-	0	C(~O(~C))(~C)(H)(H)
+o2e	O	-	-	0	O(~C)(~C)
+
+ITEM	END	# RULES
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c3a*	o2*	c3a*	70	106.5
+
+ITEM	END	# ANGLE
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c*	c4	o2*	c4	0.65	1	0	-0.25	2	0	0.67	3	0
+c3a*	c3a*	o2*	c3a*	7.25	2	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 180-181
+
+RESI	DMET	0		! C2H6O, dimethyl ether
+GROUP
+ATOM	C1	c4oe	0.11	!       H11    H21
+ATOM	H11	h1	0.03	!        |	|
+ATOM	H12	h1	0.03	!   H12--C1--O--C2--H22
+ATOM	H13	h1	0.03	!        |      |
+ATOM	O	o2e	-0.4	!       H13    H23
+ATOM	C2	c4oe	0.11	!
+ATOM	H21	h1	0.03	!
+ATOM	H22	h1	0.03	!
+ATOM	H23	h1	0.03	!
+
+CONECT	C1	O	H11	H12	H13
+CONECT	O	C2
+CONECT	C2	H21	H22	H23
+
+# 180-182
+
+RESI	EMET	0		! C2H6O, ethyl-methyl ether
+GROUP
+ATOM	C1	c4oe	0.11	!       H11    H21 H31
+ATOM	H11	h1	0.03	!        |	|   |
+ATOM	H12	h1	0.03	!   H12--C1--O--C2--C3--H33
+ATOM	H13	h1	0.03	!        |      |   |
+ATOM	O	o2e	-0.4	!       H13    H23 H32
+ATOM	C2	c4oe	0.14	!
+ATOM	H21	h1	0.03	!
+ATOM	H22	h1	0.03	!
+GROUP				!
+ATOM	C3	c4	-0.18	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C1	O	H11	H12	H13
+CONECT	O	C2
+CONECT	C2	C3	H21	H22
+CONECT	C3	H31	H32	H33
+
+# 179
+
+RESI	ANIS	0		! C7H8O, anisole
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1          H71
+ATOM	C2	c3a	-0.115	!         /  \\         |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-----O--C7--H73
+GROUP				!       ||    |         |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5   H72
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.085	!
+ATOM	O	o2e	-0.285	!
+ATOM	C7	c4oe	0.11	!
+ATOM	H71	h1	0.03	!
+ATOM	H72	h1	0.03	!
+ATOM	H73	h1	0.03	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	O
+CONECT	O	C7
+CONECT	C7	H71	H72	H73
+
+# 221, 922
+
+RESI	BNME	0		! C7H8O, benzyl methyl ether
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1         H71    H81
+ATOM	C2	c3a	-0.115	!         /  \\        |      |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-------C7--O--C8--H83
+GROUP				!       ||    |        |      |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5  H72    H82
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.055	!
+ATOM	C7	c4oe	0.195	!
+ATOM	H71	h1	0.03	!
+ATOM	H72	h1	0.03	!
+ATOM	O	o2e	-0.4	!
+ATOM	C8	c4oe	0.11	!
+ATOM	H81	h1	0.03	!
+ATOM	H82	h1	0.03	!
+ATOM	H83	h1	0.03	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	O	H71	H72
+CONECT	O	C8
+CONECT	C8	H81	H82	H83
+
+# 177
+
+RESI	DPHE	0		! C12H10O, diphenyl ether
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1              H12
+ATOM	H1	h1a	0.115	!          |               |
+GROUP				!          C1              C12
+ATOM	C2	c3a	-0.115	!         /  \\           /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6----O---C7   C11--H11
+GROUP				!       ||    |         ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5        C8   C10--H10
+ATOM	H3	h1a	0.115	!         \  // \      /  \  //
+GROUP				!          C4    H5  H8    C9
+ATOM	C4	c3a	-0.115	!          |               |
+ATOM	H4	h1a	0.115	!          H4              H9
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.085	!
+ATOM	O	o2e	-0.17	!
+ATOM	C7	c3a	0.085	!
+GROUP				!
+ATOM	C8	c3a	-0.115	!
+ATOM	H8	h1a	0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+GROUP				!
+ATOM	C11	c3a	-0.115	!
+ATOM	H11	h1a	0.115	!
+GROUP				!
+ATOM	C12	c3a	-0.115	!
+ATOM	H12	h1a	0.115	!
+GROUP				!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	O
+CONECT	O	C7
+CONECT	C7	^6:C8
+CONECT	C8	^6:C9	H8
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C11	H10
+CONECT	C11	^6:C12	H11
+CONECT	C12	^6:C7	H12
+
+# Epoxy addition
+
+RESI	EOXI	0		! C3H6, cyclopropane
+GROUP				!
+ATOM	O1	o2e	-0.4	!    H12      H22
+ATOM	C1	c4oe	0.14	!      \      /
+ATOM	H11	h1	0.03	!  H11--C1--C2--H12
+ATOM	H12	h1	0.03	!        \  /
+ATOM	C2	c4oe	0.14	!         O1
+ATOM	H21	h1	0.03	!
+ATOM	H22	h1	0.03	!
+
+CONECT	O1	^3C1
+CONECT	C1	^3C2	H11	H12
+CONECT	C2	^3O1	H21	H22
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Hemiacetal ethers							#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4o2	C	-	-	0	C(C)(O)(O)(H)
+c4o2	C	-	-	0	C(C)(O)(O)(C)
+
+ITEM	END	# RULES
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c4	c4*	o2e	c4*	0.65	1	0	-0.25	2	0	0.67	3	0
+c4	c4*	o2h	h1o	-0.356	1	0	-0.174	2	0	0.492	3	0
+h1	c4*	c4*	h1	0.3	3	0
+h1	c4	c4*	o2h	0.468	3	0
+h1	c4*	o2h	h1o	0.3524	3	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 191-192
+
+RESI	MMAE	0		! C2H6O2, methyl-methanol ether
+GROUP
+ATOM	C1	c4oe	0.11	!       H11    H21
+ATOM	H11	h1	0.03	!        |	|
+ATOM	H12	h1	0.03	!   H12--C1--O--C2--H22
+ATOM	H13	h1	0.03	!        |      |
+ATOM	O	o2e	-0.4	!       H13     O2
+ATOM	C2	c4o2	0.265	!               |
+ATOM	H21	h1	0.1	!               H2
+ATOM	H22	h1	0.1	!
+ATOM	O2	o2hh	-0.7	!
+ATOM	H2	h1o	0.435	!
+
+CONECT	C1	O	H11	H12	H13
+CONECT	O	C2
+CONECT	C2	O2	H21	H22
+CONECT	O2	H2
+
+# 195-196
+
+RESI	MEAO	0		! C3H8O2, methyl-ethanol ether
+GROUP
+ATOM	C1	c4oe	0.11	!       H11    H21 H31
+ATOM	H11	h1	0.03	!        |	|   |
+ATOM	H12	h1	0.03	!   H12--C1--O--C2--C3--H33
+ATOM	H13	h1	0.03	!        |      |   |
+ATOM	O	o2e	-0.4	!       H13     O2 H32
+ATOM	C2	c4o2	0.365	!               |
+ATOM	H21	h1	0.1	!               H2
+ATOM	O2	o2hh	-0.7	!
+ATOM	H2	h1o	0.435	!
+GROUP				!
+ATOM	C3	c4	-0.18	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C1	O	H11	H12	H13
+CONECT	O	C2
+CONECT	C2	O2	C3	H21
+CONECT	O2	H2
+CONECT	C3	H31	H32	H33
+
+ITEM	END	# STREAM
+
+
+
+#########################################################################
+#									#
+# Acetal ethers								#
+#									#
+#########################################################################
+
+# Stream
+
+ITEM	STREAM
+
+# 189-190
+
+RESI	DMME	0		! C3H8O2, dimethoxymethane
+GROUP
+ATOM	C1	c4oe	0.11	!       H11     H21
+ATOM	H11	h1	0.03	!        |       |
+ATOM	H12	h1	0.03	!   H12--C1--O1--C2--H22
+ATOM	H13	h1	0.03	!        |       |
+ATOM	O1	o2e	-0.4	!       H13      O2
+ATOM	C2	c4o2	0.2	!                |
+ATOM	H21	h1	0.1	!           H31--C3--H33
+ATOM	H22	h1	0.1	!                |
+ATOM	O2	o2e	-0.4	!               H32
+ATOM	C3	c4oe	0.11	!
+ATOM	H31	h1	0.03	!
+ATOM	H32	h1	0.03	!
+ATOM	H33	h1	0.03	!
+
+CONECT	C1	O1	H11	H12	H13
+CONECT	O1	C2
+CONECT	C2	O2	H21	H22
+CONECT	O2	C3
+CONECT	C3	H31	H32	H33
+
+# 193-194
+
+RESI	DMEE	0		! C4H10O2, 1,1-dimethoxyethane
+GROUP
+ATOM	C1	c4oe	0.11	!       H11     H21  H41
+ATOM	H11	h1	0.03	!        |       |   |
+ATOM	H12	h1	0.03	!   H12--C1--O1--C2--C4--H43
+ATOM	H13	h1	0.03	!        |       |   |
+ATOM	O1	o2e	-0.4	!       H13      O2  H42
+ATOM	C2	c4o2	0.3	!                |
+ATOM	H21	h1	0.1	!           H31--C3--H33
+ATOM	O2	o2e	-0.4	!                |
+ATOM	C3	c4oe	0.11	!               H32
+ATOM	H31	h1	0.03	!
+ATOM	H32	h1	0.03	!
+ATOM	H33	h1	0.03	!
+GROUP				!
+ATOM	C4	c4	-0.18	!
+ATOM	H41	h1	0.06	!
+ATOM	H42	h1	0.06	!
+ATOM	H43	h1	0.06	!
+GROUP				!
+
+CONECT	C1	O1	H11	H12	H13
+CONECT	O1	C2
+CONECT	C2	O2	C4	H21
+CONECT	O2	C3
+CONECT	C3	H31	H32	H33
+CONECT	C4	H41	H42	H43
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Amines								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4n	C	-	-	0	C(N)(~C)(C)(C)
+c4n	C	-	-	0	C(N)(~C)(C)(H)
+c4n	C	-	-	0	C(N)(~C)(H)(H)
+h1n	H	-	-	0	H(N(C(~C)(C)(C))(C))
+h1n	H	-	-	0	H(N(C(~C)(C)(H))(C))
+h1n	H	-	-	0	H(N(C(~C)(H)(H))(C))
+h1n	H	-	-	0	H(N(C(~C)(C)(C))(^6c))
+h1n	H	-	-	0	H(N(C(~C)(C)(H))(^6c))
+h1n	H	-	-	0	H(N(C(~C)(H)(H))(^6c))
+h1n	H	-	-	0	H(N(C(~C)(C)(C))(H))
+h1n	H	-	-	0	H(N(C(~C)(C)(H))(H))
+h1n	H	-	-	0	H(N(C(~C)(H)(H))(H))
+n3	N	-	-	0	N(~C)(C)(C)
+n3h	N	-	-	0	N(~C)(C)(H)
+n3h2	N	-	-	0	N(~C)(H)(H)
+
+ITEM	END	# RULES
+
+# Angle
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+n3*	c4	n3*	70	109.5
+
+ITEM	END	# ANGLE
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c*	c4	n3	c*	0.416	1	0	-0.128	2	0	0.695	3	0
+c*	c4	n3	h1n	-0.19	1	0	-0.417	2	0	0.418	3	0
+c3*	n3*	c4	n3*	0.462	2	0
+h1n*	n3ch	c3a	n3ch	3.9	2	0
+h1n*	n3ch	c4	h1	0	1	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 900, 903, 909
+
+RESI	MEAN	0		! CH5N, methylamine
+GROUP				!
+ATOM	N	n3h2	-0.9	!  HN1  H11
+ATOM	HN1	h1n	0.36	!    \   |
+ATOM	HN2	h1n	0.36	!     N--C1--H13
+ATOM	C1	c4n	0	!    /   |
+ATOM	H11	h1cn	0.06	!  HN2  H12
+ATOM	H12	h1cn	0.06	!
+ATOM	H13	h1cn	0.06	!
+
+CONECT	N	C1	HN1	HN2
+CONECT	C1	H11	H12	H13
+
+# 901, 906, 909
+
+RESI	ETAN	0		! C2H7N, ethylamine
+GROUP				!
+ATOM	N	n3h2	-0.9	!  HN1  H11 H21
+ATOM	HN1	h1n	0.36	!    \   |   |
+ATOM	HN2	h1n	0.36	!     N--C1--C2--H23
+ATOM	C1	c4	0.06	!    /   |   |
+ATOM	H11	h1cn	0.06	!  HN2  H12 H22
+ATOM	H12	h1cn	0.06	!
+ATOM	C2	c4	-0.18	!
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	N	C1	HN1	HN2
+CONECT	C1	C2	H11	H12
+CONECT	C2	H21	H22	H23
+
+# 901, 904, 910
+
+RESI	DMAN	0		! C2H7N, dimethylamine
+GROUP				!
+ATOM	N	n3h	-0.78	!      H11 HN H21
+ATOM	HN	h1n	0.38	!       |   |  |
+ATOM	C1	c4n	0.02	!  H13--C1--N--C2--H23
+ATOM	H11	h1cn	0.06	!       |      |
+ATOM	H12	h1cn	0.06	!      H12    H22
+ATOM	H13	h1cn	0.06	!
+ATOM	C2	c4n	0.02	!
+ATOM	H21	h1cn	0.06	!
+ATOM	H22	h1cn	0.06	!
+ATOM	H23	h1cn	0.06	!
+
+CONECT	N	C1	C2	HN
+CONECT	C1	H11	H12	H13
+CONECT	C2	H21	H22	H23
+
+# 901, 904, 910
+
+RESI	TMAN	0		! CH5N, trimethylamine
+GROUP				!
+ATOM	N	n3	-0.63	!      H11    H21
+ATOM	C1	c4n	0.03	!       |      |
+ATOM	H11	h1cn	0.06	!  H13--C1--N--C2--H23
+ATOM	H12	h1cn	0.06	!       |   |  |
+ATOM	H13	h1cn	0.06	!      H12  | H22
+ATOM	C2	c4n	0.03	!           |
+ATOM	H21	h1cn	0.06	!      H31--C3--H32
+ATOM	H22	h1cn	0.06	!           |
+ATOM	H23	h1cn	0.06	!          H33
+ATOM	C3	c4n	0.03	!
+ATOM	H31	h1cn	0.06	!
+ATOM	H32	h1cn	0.06	!
+ATOM	H33	h1cn	0.06	!
+
+CONECT	N	C1	C2	C3
+CONECT	C1	H11	H12	H13
+CONECT	C2	H21	H22	H23
+CONECT	C3	H31	H32	H33
+
+# 900, 916
+
+RESI	ANIL	0		! C6H7N, aniline
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1        HN1
+ATOM	C2	c3a	-0.115	!         /  \\      /
+ATOM	H2	h1a	0.115	!   H2--C2    C6----N
+GROUP				!       ||    |      \
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5 HN2
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.18	!
+ATOM	N	n3h2	-0.9	!
+ATOM	HN1	h1n	0.36	!
+ATOM	HN2	h1n	0.36	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	N
+CONECT	N	HN1	HN2
+
+# 901, 917
+
+RESI	MEAL	0		! C7H9N, methylaniline
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1    HN  H71
+ATOM	C2	c3a	-0.115	!         /  \\   |   |
+ATOM	H2	h1a	0.115	!   H2--C2    C6--N---C7--H73
+GROUP				!       ||    |       |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5 H72
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.2	!
+ATOM	N	n3h	-0.78	!
+ATOM	HN	h1n	0.38	!
+ATOM	C7	c4n	0.02	!
+ATOM	H71	h1cn	0.06	!
+ATOM	H72	h1cn	0.06	!
+ATOM	H73	h1cn	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	N
+CONECT	N	C7	HN
+CONECT	C7	H71	H72	H73
+
+# 902, 918
+
+RESI	DMAL	0		! C7H9N, methylaniline
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1            H71
+ATOM	C2	c3a	-0.115	!         /  \\           |
+ATOM	H2	h1a	0.115	!   H2--C2    C6------N---C7--H73
+GROUP				!       ||    |       |   |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5  |  H72
+ATOM	H3	h1a	0.115	!         \  //       |
+GROUP				!          C4    H81--C8--H82
+ATOM	C4	c3a	-0.115	!          |          |
+ATOM	H4	h1a	0.115	!          H4        H83     
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.21	!
+ATOM	N	n3	-0.63	!
+ATOM	C7	c4n	0.03	!
+ATOM	H71	h1cn	0.06	!
+ATOM	H72	h1cn	0.06	!
+ATOM	H73	h1cn	0.06	!
+ATOM	C8	c4n	0.03	!
+ATOM	H81	h1cn	0.06	!
+ATOM	H82	h1cn	0.06	!
+ATOM	H83	h1cn	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	N
+CONECT	N	C7	C8
+CONECT	C7	H71	H72	H73
+CONECT	C8	H81	H82	H83
+
+# 221, 903, 919
+
+RESI	BNAM	0		! C7H9N, benzylamine
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1         H71   HN1
+ATOM	C2	c3a	-0.115	!         /  \\        |    /
+ATOM	H2	h1a	0.115	!   H2--C2    C6-------C7--N
+GROUP				!       ||    |        |    \
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5  H72   HN2
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.055	!
+ATOM	C7	c4n	0.115	!
+ATOM	H71	h1cn	0.06	!
+ATOM	H72	h1cn	0.06	!
+ATOM	N	n3h2	-0.9	!
+ATOM	HN1	h1n	0.36	!
+ATOM	HN2	h1n	0.36	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	N	H71	H72
+CONECT	N	HN1	HN2
+
+# 300-302
+
+RESI	GUAN	1		! CH6N3, guanidinium
+GROUP				!
+ATOM	C1	c3a+	0.64	!  H11        H21
+ATOM	N1	n3ch2	-0.8	!    \        /
+ATOM	H11	h1n3	0.46	!     N1    N2
+ATOM	H12	h1n3	0.46	!    /  \  /  \
+ATOM	N2	n3ch2	-0.8	!  H12   C1   H22
+ATOM	H21	h1n3	0.46	!     (+)|
+ATOM	H22	h1n3	0.46	!        N3
+ATOM	N3	n3ch2	-0.8	!       /  \
+ATOM	H31	h1n3	0.46	!     H31  H32
+ATOM	H32	h1n3	0.46	!
+
+CONECT	C1	:N1	:N2	:N3
+CONECT	N1	H11	H12
+CONECT	N2	H21	H22
+CONECT	N3	H31	H32
+
+UNLINK	c3a+	n3ch2
+
+# 302-306
+
+RESI	TMGU	1		! C3H12N3, trimethylguanidinium
+GROUP				!
+ATOM	C	c3a+	0.64	!      H11 HN1    HN2 H21
+ATOM	N1	n3ch	-0.7	!       |   |  (+) |   |
+ATOM	HN1	h1n3	0.44	!  H13--C1--N1==C--N2--C2--H23
+ATOM	C1	c4n	0.2	!       |       |      |
+ATOM	H11	h1	0.06	!      H12 HN3--N3    H22
+ATOM	H12	h1	0.06	!               |
+ATOM	H13	h1	0.06	!          H31--C3--H32
+ATOM	N2	n3ch	-0.7	!               |
+ATOM	HN2	h1n3	0.44	!              H33
+ATOM	C2	c4n	0.2	!
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+ATOM	N3	n3ch	-0.7	!
+ATOM	HN3	h1n3	0.44	!
+ATOM	C3	c4n	0.2	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C	:N1	:N2	:N3
+CONECT	N1	C1	HN1
+CONECT	C1	H11	H12	H13
+CONECT	N2	C2	HN2
+CONECT	C2	H21	H22	H23
+CONECT	N3	C3	HN3
+CONECT	C3	H31	H32	H33
+
+UNLINK	c3a+	n3ch
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Ammonium								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4n	C	-	-	0	C(^5n)(~C)(C)(C)
+c4n	C	-	-	0	C(^5n)(~C)(C)(H)
+c4n	C	-	-	0	C(^5n)(~C)(H)(H)
+c4	C	-	-	0	C([N+])(C)(C)(C)
+c4	C	-	-	0	C([N+])(C)(C)(H)
+c4	C	-	-	0	C([N+])(C)(H)(H)
+h1r	C	-	-	0	H(C(^5n)(C)(C))
+h1r	C	-	-	0	H(C(^5n)(C)(H))
+n3a	N	-	-	0	^5n(^5:c)(^5:c)(H)
+n4	N	-	-	0	N(~*)(~*)(~*)(~*)
+
+ITEM	END	# RULES
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c4	c4	n3a*	50	109.5	# RMIM
+c3a*	n3a*	c4*	70	125.8	# RMIM
+c3a5*	c3a5*	h1a*	35	120	# RMIM
+
+ITEM	END	# ANGLE
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c4*	c4	n4	h1n	0.3	3	0
+n4	c4	c4	o*	1.711	1	0	-0.5	2	0	0.663	3	0
+h1	c4	c4	n3a*	0.2	3	0	# RMIM
+c4	c4	c4	n3a	-0.788	1	0	-0.8	2	0	0.4	3	0	# RMIM
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 286, 289
+
+RESI	AMMO	1		! NH4, ammonium
+GROUP				!
+ATOM	N	n4h4	-0.4	!      HN1
+ATOM	HN1	h1n4	0.35	!    (+)|
+ATOM	HN2	h1n4	0.35	!  HN3--N--HN4
+ATOM	HN3	h1n4	0.35	!       |
+ATOM	HN4	h1n4	0.35	!      HN2
+
+CONECT	N	HN1	HN2	HN3	HN4
+
+UNLINK	n4h4	h1n4
+
+# 287, 290
+
+RESI	MAMM	1		! CH6N, methylammonium
+GROUP				!
+ATOM	N	n4h3	-0.3	!      HN1 H11
+ATOM	HN1	h1n4	0.33	!    (+)|   |
+ATOM	HN2	h1n4	0.33	!  HN3--N---C1--H13
+ATOM	HN3	h1n4	0.33	!       |   |
+ATOM	C1	c4	0.13	!      HN2 H12
+ATOM	H11	h1	0.06	!
+ATOM	H12	h1	0.06	!
+ATOM	H13	h1	0.06	!
+
+CONECT	N	C1	HN1	HN2	HN3
+CONECT	C1	H11	H12	H13
+
+UNLINK	n4h3	h1n4
+UNLINK	n4h3	c4
+
+# 297, 309, 310
+
+RESI	DAMM	1		! C2H8N, dimethylammonium
+GROUP				!
+ATOM	N	n4h2	-0.2	!      H21  HN1 H11
+ATOM	HN1	h1n4	0.31	!       | (+)|   |
+ATOM	HN2	h1n4	0.31	!  H23--C2---N---C1--H13
+ATOM	C1	c4	0.11	!       |    |   |
+ATOM	H11	h1	0.06	!      H22  HN2 H12
+ATOM	H12	h1	0.06	!
+ATOM	H13	h1	0.06	!
+ATOM	C2	c4	0.11	!
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	N	C1	C2	HN1	HN2
+CONECT	C1	H11	H12	H13
+CONECT	C2	H21	H22	H23
+
+UNLINK	n4h2	h1n4
+UNLINK	n4h2	c4
+
+# 940
+
+RESI	TAMM	1		! C3H10N, trimethylammonium
+GROUP				!
+ATOM	N	n4h	-0.1	!      H21  HN1 H11
+ATOM	HN1	h1n4	0.29	!       | (+)|   |
+ATOM	C1	c4	0.09	!  H23--C2---N---C1--H13
+ATOM	H11	h1	0.06	!       |    |   |
+ATOM	H12	h1	0.06	!      H22   |  H12
+ATOM	H13	h1	0.06	!            |
+ATOM	C2	c4	0.09	!       H31--C3--H32
+ATOM	H21	h1	0.06	!            |
+ATOM	H22	h1	0.06	!           H33
+ATOM	H23	h1	0.06	!
+ATOM	C3	c4	0.09	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	N	C1	C2	C3	HN1
+CONECT	C1	H11	H12	H13
+CONECT	C2	H21	H22	H23
+CONECT	C3	H31	H32	H33
+
+UNLINK	n4h	h1n4
+UNLINK	n4h	c4
+
+#
+
+RESI	FAMM	1		! C4H12N, tetramethylammonium
+GROUP				!
+ATOM	N	n4	0	!           H43
+ATOM	C1	c4	0.07	!            |
+ATOM	H11	h1	0.06	!       H41--C4--H42
+ATOM	H12	h1	0.06	!            |
+ATOM	H13	h1	0.06	!      H21   |  H11
+ATOM	C2	c4	0.07	!       | (+)|   |
+ATOM	H21	h1	0.06	!  H23--C2---N---C1--H13
+ATOM	H22	h1	0.06	!       |    |   |
+ATOM	H23	h1	0.06	!      H22   |  H12
+ATOM	C3	c4	0.07	!            |
+ATOM	H31	h1	0.06	!       H31--C3--H32
+ATOM	H32	h1	0.06	!            |
+ATOM	H33	h1	0.06	!           H33         
+ATOM	C4	c4	0.07	!
+ATOM	H41	h1	0.06	!
+ATOM	H42	h1	0.06	!
+ATOM	H43	h1	0.06	!
+
+CONECT	N	C1	C2	C3	C4
+CONECT	C1	H11	H12	H13
+CONECT	C2	H21	H22	H23
+CONECT	C3	H31	H32	H33
+CONECT	C4	H41	H42	H43
+
+UNLINK	n4	c4
+
+# J. Chem. Theory Comput. 2009, 5, 1038
+
+RESI	RMIM	1		! C6H11N2, 1-ethyl-3-methylimidazolium
+GROUP				!
+ATOM	C1	c4	-0.18	!         H13
+ATOM	H11	h1	0.06	!          |
+ATOM	H12	h1	0.06	!     H11--C1--H12
+ATOM	H13	h1	0.06	!          |
+GROUP				!     H21--C2--H22
+ATOM	C2	c4n	-0.17	!          |
+ATOM	H21	h1r	0.18	!          N1
+ATOM	H22	h1r	0.18	!        //  \
+ATOM	N1	n3a	0.22	!   H3--C3   C6--H6
+ATOM	C3	c3a53	-0.09	!       |    |
+ATOM	H3	h1a	0.21	!       N2===C5--H5
+ATOM	N2	n3a	0.22	!       |
+ATOM	C4	c4n	-0.35	!  H41--C4--H42
+ATOM	H41	h1r	0.18	!       |
+ATOM	H42	h1r	0.18	!       H43
+ATOM	H43	h1r	0.18	!
+ATOM	C5	c3a51	-0.24	!
+ATOM	H5	h1a	0.27	!
+ATOM	C6	c3a51	-0.24	!
+ATOM	H6	h1a	0.27	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	^5N1	H21	H22
+CONECT	N1	^5:C3
+CONECT	C3	^5:N2	H3
+CONECT	N2	^5:C5	C4
+CONECT	C4	H41	H42	H43
+CONECT	C5	^5:C6	H5
+CONECT	C6	^5:N1	H6
+
+UNLINK	c4n	n3a
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Aromatics containing nitrogen in ring					#
+#									#
+#########################################################################
+
+# stream
+
+ITEM	STREAM
+
+/*		# COMMENT START
+
+# needs type duplication mechanism for increments
+
+# 311-318
+
+RESI	DAP	0		! C5H7N3, 2,6-diaminopyridine
+GROUP				!
+ATOM	N1	n2a6	-0.46	!      H22
+ATOM	C2	c3ap	0.36	!       |
+ATOM	N2	n3ch	-0.85	!  H21--N2      H3
+ATOM	H21	h1n	0.37	!        \      /
+ATOM	H22	h1n	0.37	!         C2==C3
+ATOM	C6	c3ap	0.36	!        /      \
+ATOM	N6	n3ch	-0.85	!       N1      C4--H4
+ATOM	H61	h1n	0.37	!        \\    //
+ATOM	H62	h1n	0.37	!         C6--C5
+ATOM	C3	c3ap	-0.15	!        /      \
+ATOM	H3	h1a1	0.1	!  H61--N6      H5    
+ATOM	C4	c3ap	-0.04	!       |
+ATOM	H4	h1a	0.1	!      H62
+ATOM	C5	c3ap	-0.15	!
+ATOM	H5	h1a	0.1	!
+
+CONECT	N1	^6:C2
+CONECT	C2	^6:C3	N2
+CONECT	N2	H21	H22
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:N1	N6
+CONECT	N6	H61	H62
+
+*/		# COMMENT END
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Nucleotides								#
+#									#
+#########################################################################
+
+# Stream
+
+ITEM	STREAM
+
+/*		# COMMENT START
+
+# needs type duplication mechanism for increments
+
+# 320-330
+
+RESI	URAC	0		! C4H4N2O2, uracil
+GROUP				!
+ATOM	N1	n3ah1	-0.6	!      O2      H3
+ATOM	H1	h1n	0.41	!       \\     /
+ATOM	C2	c3o	0.5	!        C2--N3
+ATOM	O2	o1=	-0.4	!       /      \
+ATOM	N3	n3ah1	-0.51	!  H1--N1      C4==O4
+ATOM	H3	h1n	0.36	!       \      /
+ATOM	C4	c3o	0.45	!        C6==C5
+ATOM	O4	o1=	-0.42	!       /      \
+ATOM	C5	c3ao	-0.07	!      H6      H5    
+ATOM	H5	h1a4	0.1	!
+ATOM	C6	c3ao	0.08	!
+ATOM	H6	h1a4	0.1	!
+
+CONECT	N1	^6C2	H1
+CONECT	C2	^6N3	=O2
+CONECT	N3	^6C4	H3
+CONECT	C4	^6C5	=O4
+CONECT	C5	^6=C6	H5
+CONECT	C6	^6N1	H6
+
+# 320-332
+
+RESI	THYM	0		! C5H6N2O2, thymine
+GROUP				!
+ATOM	N1	n3ah1	-0.6	!      O2      H3
+ATOM	H1	h1n	0.41	!       \\     /
+ATOM	C2	c3o	0.5	!        C2--N3
+ATOM	O2	o1=	-0.4	!       /      \
+ATOM	N3	n3ah1	-0.51	!  H1--N1      C4==O4
+ATOM	H3	h1n	0.36	!       \      /
+ATOM	C4	c3o	0.45	!        C6==C5
+ATOM	O4	o1=	-0.42	!       /      \
+ATOM	C5	c3ao	-0.07	!      H6       \
+ATOM	C6	c3ao	0.08	!           H71--C7--H72
+ATOM	H6	h1a4	0.1	!                |
+ATOM	C7	c4t	-0.14	!               H73    
+ATOM	H71	h1a4	0.08	!
+ATOM	H72	h1a4	0.08	!
+ATOM	H73	h1a4	0.08	!
+
+CONECT	N1	^6C2	H1
+CONECT	C2	^6N3	=O2
+CONECT	N3	^6C4	H3
+CONECT	C4	^6C5	=O4
+CONECT	C5	^6=C6	C7
+CONECT	C6	^6N1	H6
+CONECT	C7	H71	H72	H73
+
+# 333-345
+
+RESI	CYTO	0		! C4H5N3O, cytosine
+GROUP				!
+ATOM	N1	n3ah1	-0.56	!      O2
+ATOM	H1	h1n	0.38	!       \\
+ATOM	C2	c3o	0.55	!        C2--N3       H41
+ATOM	O2	o1=	-0.48	!       /     \\     /
+ATOM	N3	n2a6	-0.54	!  H1--N1      C4--N4
+ATOM	C4	c3ap	0.46	!       \      /     \
+ATOM	N4	n3ch	-0.79	!        C6==C5       H42
+ATOM	H41	h1n	0.385	!       /      \
+ATOM	H42	h1n	0.355	!      H6      H5    
+ATOM	C5	c3ao	-0.06	!
+ATOM	H5	h1a4	0.1	!
+ATOM	C6	c3ao	0.1	!
+ATOM	H6	h1a4	0.1	!
+
+CONECT	N1	^6C2	H1
+CONECT	C2	^6N3	=O2
+CONECT	N3	^6=C4
+CONECT	C4	^6C5	N4
+CONECT	N4	H41	H42
+CONECT	C5	^6=C6	H5
+CONECT	C6	^6N1	H6
+
+# 346-360
+
+RESI	ADEN	0		! C5H5N5, adenine
+GROUP				!
+ATOM	N1	n2a6	-0.53	!      H2
+ATOM	C2	c3a6a	0.22	!       \
+ATOM	H2	h1a3	0.2	!        C2--N1       H61
+ATOM	N3	n2a6	-0.55	!       //    \\     /
+ATOM	C4	c3aa	0.38	!      N3      C6--N6
+ATOM	C5	c3aa	0.15	!       \      /     \
+ATOM	C6	c3ap	0.44	!        C4==C5       H62
+ATOM	N6	n3ch	-0.81	!        |    |
+ATOM	H61	h1n	0.385	!    H9--N9  N7    
+ATOM	H62	h1n	0.355	!         \\ /
+ATOM	N7	n2a5	-0.49	!          C8
+ATOM	C8	c3a5a	0.2	!          |
+ATOM	H8	h1a3	0.2	!          H8
+ATOM	N9	n3ah1	-0.5	!
+ATOM	H9	h1n	0.35	!
+
+CONECT	N1	^6:C2
+CONECT	C2	^6:N3	H2
+CONECT	N3	^6:C4
+CONECT	C4	^6:C5
+CONECT	C5	^6:C6	^5N7
+CONECT	C6	^6:N1	N6
+CONECT	N6	H61	H62
+CONECT	N7	^5C8
+CONECT	C8	^5=N9	H8
+CONECT	N9	^6C4	H9
+
+# 359-370
+
+RESI	GUAN	0		! C5H5N4O, guanine
+GROUP				!
+ATOM	N1	n3ah1	-0.56	!      H22
+ATOM	H1	h1n	0.38	!       |
+ATOM	C2	c3ap	0.46	!  H21--N2      H1
+ATOM	N2	n3ch	-0.8	!        \      /
+ATOM	H21	h1n	0.4	!         C2--N1
+ATOM	H22	h1n	0.4	!        //     \
+ATOM	N3	n2a6	-0.51	!       N3      C6==O6
+ATOM	C4	c3aa	0.34	!        \      /
+ATOM	C5	c3aa	0.12	!         C4==C5
+ATOM	C6	c3o	0.52	!         |    |
+ATOM	O6	o1=	-0.51	!     H9--N9  N7    
+ATOM	N7	n2a5	-0.49	!          \\ /
+ATOM	C8	c3a5a	0.2	!           C8
+ATOM	H8	h1a3	0.2	!           |
+ATOM	N9	n3ah1	-0.5	!           H8
+ATOM	H9	h1n	0.35	!
+
+CONECT	N1	^6C2	H1
+CONECT	C2	^6=N3	N2
+CONECT	N2	H21	H22
+CONECT	N3	^6C4
+CONECT	C4	^6=C5
+CONECT	C5	^6C6	^5N7
+CONECT	C6	^6N1	=O6
+CONECT	N7	^5C8
+CONECT	C8	^5=N9	H8
+CONECT	N9	^6C4	H9
+
+*/		# COMMENT END
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Amides								#
+#									#
+#########################################################################
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c3am	C	-	-	0	C(C)(N)(=O)
+n3am0	N	-	-	0	N(C(=O)(~C))(~C)(C)
+n3am0	N	-	-	0	N(C(=O)(H))(~C)(C)
+n3am1	N	-	-	0	N(C(=O)(~C))(~C)(H)
+n3am1	N	-	-	0	N(C(=O)(H))(~C)(H)
+n3am2	N	-	-	0	N(C(=O)(~C))(H)(H)
+n3am2	N	-	-	0	N(C(=O)(H))(H)(H)
+
+ITEM	END	# RULES
+
+# Stream
+
+ITEM	STREAM
+
+# 235-237, 240, 255
+
+RESI	FORM	0		! CH3NO, formamide
+GROUP				!
+ATOM	C	c3am	0.5	!    HC   O
+ATOM	HC	h1co	0	!      \ // 
+ATOM	O	o1=	-0.5	!       C
+GROUP				!       |
+ATOM	N	n3am2	-0.76	!       N
+ATOM	HN1	h1n	0.38	!      / \
+ATOM	HN2	h1n	0.38	!   HN1   HN2
+
+CONECT	C	N	=O	HC
+CONECT	N	HN1	HN2
+
+# 235-237, 240
+
+RESI	ACAM	0		! C2H5NO, acetamide
+GROUP				!
+ATOM	C1	c4	-0.18	!      H11
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H12--C1--H13
+ATOM	H13	h1	0.06	!       |
+GROUP				!       C==O
+ATOM	C	c3am	0.5	!       |
+ATOM	O	o1=	-0.5	!       N
+GROUP				!      / \
+ATOM	N	n3am2	-0.76	!   HN1   HN2
+ATOM	HN1	h1n	0.38	!
+ATOM	HN2	h1n	0.38	!
+
+CONECT	C1	C	H11	H12	H13
+CONECT	C	N	=O
+CONECT	N	HN1	HN2
+
+# 235-236, 238, 241
+
+RESI	NMAM	0		! C3H7NO, n-methylacetamide
+GROUP				!
+ATOM	C1	c4	-0.18	!      H11
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H12--C1--H13
+ATOM	H13	h1	0.06	!       |
+GROUP				!       C==O
+ATOM	C	c3am	0.5	!       |
+ATOM	O	o1=	-0.5	!   HN--N
+GROUP				!       |
+ATOM	N	n3am1	-0.5	!  H21--C2--H22
+ATOM	HN	h1n	0.3	!       |
+ATOM	C2	c4	0.02	!      H23
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	C1	C	H11	H12	H13
+CONECT	C	N	=O
+CONECT	N	C2	HN
+CONECT	C2	H21	H22	H23
+
+# 235-236, 239
+
+RESI	DMAM	0		! C3H7NO, dimethylacetamide, 243 (not 1035-1041)
+GROUP				!
+ATOM	C1	c4	-0.18	!      H11
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H12--C1--H13
+ATOM	H13	h1	0.06	!       |
+GROUP				!       C==O     H31
+ATOM	C	c3am	0.5	!       |         |
+ATOM	O	o1=	-0.5	!       N---------C3--H33
+GROUP				!       |         |
+ATOM	N	n3am0	-0.14	!  H21--C2--H22  H32
+ATOM	C2	c4	-0.11	!       |
+ATOM	H21	h1	0.06	!      H23
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+ATOM	C3	c4	-0.11	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C1	C	H11	H12	H13
+CONECT	C	N	=O
+CONECT	N	C2	C3
+CONECT	C2	H21	H22	H23
+CONECT	C3	H31	H32	H33
+
+# 234
+
+RESI	BZAM	0		! C7H7NO, benzamide
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1        O    HN1
+ATOM	C2	c3a	-0.115	!         /  \\      ||  /
+ATOM	H2	h1a	0.115	!   H2--C2    C6-----C--N
+GROUP				!       ||    |          \
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5      HN2
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C	c3am	0.615	!
+ATOM	O	o1=	-0.5	!
+ATOM	N	n3am2	-0.76	!
+ATOM	HN1	h1n	0.38	!
+ATOM	HN2	h1n	0.38	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C
+CONECT	C	=O	N
+CONECT	N	HN1	HN2
+
+# 265-266
+
+RESI	ACAN	0		! C7H7NO, acetanilide
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1        HN    H71
+ATOM	C2	c3a	-0.115	!         /  \\      |     |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-----N--C--C7--H73
+GROUP				!       ||    |         || |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5    O  H72
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.085	!
+ATOM	N	n3am1	-0.385	!
+ATOM	HN	h1n	0.3	!
+GROUP				!
+ATOM	C	c3am	0.5	!
+ATOM	O	o1=	-0.5	!
+GROUP				!
+ATOM	C7	c4	-0.18	!
+ATOM	H71	h1	0.06	!
+ATOM	H72	h1	0.06	!
+ATOM	H73	h1	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	N
+CONECT	N	C	HN
+CONECT	C	C7	=O
+CONECT	C7	H71	H72	H73
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Carbamates								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4	C	-	-	0	C(N(C(=O)(O))(H))(~C)(C)(C)
+c4	C	-	-	0	C(N(C(=O)(O))(H))(~C)(C)(H)
+c4	C	-	-	0	C(N(C(=O)(O))(H))(~C)(H)(H)
+n3am0	N	-	-	0	N(C(=O)(O))(~C)(C)
+n3am1	N	-	-	0	N(C(=O)(O))(~C)(H)
+n3am2	N	-	-	0	N(C(=O)(O))(H)(H)
+
+ITEM	END	# RULES
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c3a	c4	n3*	80	111.2
+
+ITEM	END	# ANGLE
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c3a	c4	n3*	c3*	0	1	0
+c3a	n3*	c3o	o2*	2.1	2	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+RESI	ETCA	0		! C3H7NO2, ethylcarbamate
+GROUP				!
+ATOM	C1	c4	-0.18	!
+ATOM	H11	h1	0.06	!
+ATOM	H12	h1	0.06	!
+ATOM	H13	h1	0.06	!
+GROUP				!
+ATOM	C2	c4oe	0.19	!
+ATOM	H21	h1co	0.03	!
+ATOM	H22	h1co	0.03	!
+ATOM	O3	o2s	-0.33	!
+ATOM	C3	c3oe	0.51	!
+ATOM	O4	o1=	-0.43	!
+GROUP				!
+ATOM	N4	n3am2	-0.76	!
+ATOM	H41	h1n	0.38	!
+ATOM	H42	h1n	0.38 	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	O3	H21	H22
+CONECT	O3	C3
+CONECT	C3	N4	=O4
+CONECT	N4	H41	H42
+
+RESI	EMCA	0		! C4H9NO2, ethylcarbamate
+GROUP				!
+ATOM	C1	c4	-0.18	!      H13
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H11--C1--H12
+ATOM	H13	h1	0.06	!       |
+GROUP				!  H21--C2--H22
+ATOM	C2	c4oe	0.19	!       |
+ATOM	H21	h1co	0.03	!       O2
+ATOM	H22	h1co	0.03	!       |
+ATOM	O2	o2s	-0.33	!       C3==O3
+ATOM	C3	c3oe	0.51	!       |
+ATOM	O3	o1=	-0.43	!  HN4--N4
+GROUP				!       |
+ATOM	N4	n3am1	-0.5	!  H51--C5--H52
+ATOM	HN4	h1n	0.3	!       |
+ATOM	C5	c4	0.02	!      H53
+ATOM	H51	h1	0.06	!
+ATOM	H52	h1	0.06	!
+ATOM	H53	h1	0.06	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	O2	H21	H22
+CONECT	O2	C3
+CONECT	C3	N4	=O3
+CONECT	N4	C5	HN4
+CONECT	C5	H51	H52	H53
+
+RESI	BZUR	0		! C7H7NO, acetanilide
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1        HN        H81
+ATOM	C2	c3a	-0.115	!         /  \\      |          |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-----N--C7--O8--C8--H83
+GROUP				!       ||    |         ||      |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5    O7     H82
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.085	!
+ATOM	N	n3am1	-0.385	!
+ATOM	HN	h1n	0.3	!
+GROUP				!
+ATOM	C7	c3oe	0.51	!
+ATOM	O7	o1=	-0.43	!
+ATOM	O8	o2s	-0.33	!
+ATOM	C8	c4oe	0.16	!
+ATOM	H81	h1co	0.03	!
+ATOM	H82	h1co	0.03	!
+ATOM	H83	h1co	0.03	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	N
+CONECT	N	C7	HN
+CONECT	C7	O8	=O7
+CONECT	O8	C8
+CONECT	C8	H81	H82	H83
+
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Imides								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c3im	C	IMID	C2	0	C(C)(N(C(C)(=O))(H))(=O)
+
+ITEM	END	# RULES
+
+# Torsion
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c3*	n3am*	c3o	c4	2.3	1	0	6.089	2	0
+c3*	n3am*	c3o	o1=	6.089	2	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+RESI	IMID	0		! C4H7NO2
+GROUP				!
+ATOM	C1	c4	-0.12	!      H11  O2     O3  H41
+ATOM	H11	h1	0.06	!       |   ||     ||   |
+ATOM	H12	h1	0.06	!  H13--C1--C2--N--C3--C4--H43
+ATOM	H13	h1	0.06	!       |       |       |
+ATOM	C2	c3im	0.42	!      H12      HN     H42
+ATOM	O2	o1=	-0.42	!
+ATOM	N	n3im1	-0.49	!
+ATOM	HN	h1n	0.37	!
+ATOM	C3	c3im	0.42	!
+ATOM	O3	o1=	-0.42	!
+ATOM	C4	c4	-0.12	!
+ATOM	H41	h1	0.06	!
+ATOM	H42	h1	0.06	!
+ATOM	H43	h1	0.06	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	N	=O2
+CONECT	N	C3	HN
+CONECT	C3	C4	=O3
+CONECT	C4	H41	H42	H43
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Ureas									#
+#									#
+#########################################################################
+
+# Stream
+
+# 247-250
+
+ITEM	STREAM
+
+RESI	UREA	0		! CH4N2O, urea
+GROUP				!
+ATOM	N1	n3ur2	-0.542	!  H11    O1    H21
+ATOM	H11	h1n	0.333	!    \    ||    /
+ATOM	H12	h1n	0.333	!     N1--C1--N2 
+ATOM	C1	c3ou	0.142	!    /          \
+ATOM	O1	o1=	-0.39	!  H12          H22
+ATOM	N2	n3ur2	-0.542	!
+ATOM	H21	h1n	0.333	!
+ATOM	H22	h1n	0.333	!
+
+CONECT	N1	C1	H11	H12
+CONECT	C1	N2	=O1
+CONECT	N2	H21	H22
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Thiols								#
+#									#
+#########################################################################
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4s	C	-	-	0	C(S(H))(~C)(C)(C)
+c4s	C	-	-	0	C(S(H))(~C)(C)(H)
+c4s	C	-	-	0	C(S(H))(~C)(H)(H)
+
+ITEM	END	# RULES
+
+# Stream
+
+ITEM	STREAM
+
+# 201, 205
+
+RESI	H2S	0		! H2S, hydrogen sulfide
+GROUP				!
+ATOM	S	s2h2	-0.47	!  H1--S--H2
+ATOM	H1	h1s	0.235	!
+ATOM	H2	h1s	0.235	|
+
+CONECT	S	H1	H2
+
+# 200, 204, 217
+ 
+RESI	MESH	0		! CH4S, methanethiol
+ATOM	C1	c4s	0	!
+ATOM	H1	h1	0.06	!       H11
+ATOM	H2	h1	0.06	!        |	
+ATOM	H3	h1	0.06	!   H12--C1--S--H
+ATOM	S	s2h	-0.335	!        |
+ATOM	H	h1s	0.155	!       H13     
+
+CONECT	C1	S	H1	H2	H3
+CONECT	S	H
+
+# 204, 734-735
+
+RESI	THPH	0		! C7H8S, thiophenol
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1
+ATOM	C2	c3a	-0.115	!         /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6-----S7--H7
+GROUP				!       ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.065	!
+ATOM	S7	s2h	-0.22	!
+ATOM	H7	h1s	0.155	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	S7
+CONECT	S7	H7
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Sulfides								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4s	C	-	-	0	C(S)(~C)(C)(C)
+c4s	C	-	-	0	C(S)(~C)(C)(H)
+c4s	C	-	-	0	C(S)(~C)(H)(H)
+
+ITEM	END	# RULES
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c*	c4	s2	c4	0.925	1	0	-0.576	2	0	0.677	3	0
+c3a	c3a	c4	s*	0	1	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 202, 209
+
+RESI	DMES	0		! C2H6S, dimethyl sulfide
+ATOM	C1	c4s	0.0375	!
+ATOM	H11	h1	0.06	!       H11    H21
+ATOM	H12	h1	0.06	!        |      |
+ATOM	H13	h1	0.06	!   H12--C1--S--C2--H22
+ATOM	S	s2	-0.435	!        |      |
+ATOM	C2	c4s	0.0375	!       H13    H23
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	C1	S	H11	H12	H13
+CONECT	S	C2
+CONECT	C2	H21	H22	H23
+
+# 202, 209
+
+RESI	EMES	0		! C2H6S, ethyl methyl sulfide
+ATOM	C1	c4s	0.0375	!
+ATOM	H11	h1	0.06	!       H11    H21 H31
+ATOM	H12	h1	0.06	!        |      |   |
+ATOM	H13	h1	0.06	!   H13--C1--S--C2--C3--H33
+ATOM	S	s2	-0.435	!        |      |   |
+ATOM	C2	c4s	0.0975	!       H12    H22 H32
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	C3	c4	-0.18
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C1	S	H11	H12	H13
+CONECT	S	C2
+CONECT	C2	C3	H21	H22
+CONECT	C3	H31	H32	H33
+
+# 203, 209
+
+RESI	DMDS	0		! C2H6S, dimethyl disulfide
+ATOM	C1	c4s	0.0375	!
+ATOM	H11	h1	0.06	!       H11         H21
+ATOM	H12	h1	0.06	!        |           |
+ATOM	H13	h1	0.06	!   H12--C1--S1--S2--C2--H22
+ATOM	S1	s2	-0.2175	!        |           |
+ATOM	S2	s2	-0.2175	!       H13         H23
+ATOM	C2	c4s	0.0375	!
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	C1	S1	H11	H12	H13
+CONECT	S1	S2
+CONECT	S2	C2
+CONECT	C2	H21	H22	H23
+
+# 222
+
+RESI	THAN	0		! C7H8S, thioanisole
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1          H71
+ATOM	C2	c3a	-0.115	!         /  \\         |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-----S--C7--H73
+GROUP				!       ||    |         |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5   H72
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.1025	!
+ATOM	S	s2	-0.32	!
+ATOM	C7	c4s	0.0375	!
+ATOM	H71	h1	0.06	!
+ATOM	H72	h1	0.06	!
+ATOM	H73	h1	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	S
+CONECT	S	C7
+CONECT	C7	H71	H72	H73
+
+# 221, 922
+
+RESI	BNMS	0		! C7H8O, benzyl methyl sulfide
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1         H71    H81
+ATOM	C2	c3a	-0.115	!         /  \\        |      |
+ATOM	H2	h1a	0.115	!   H2--C2    C6-------C7--S--C8--H83
+GROUP				!       ||    |        |      |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5  H72    H82
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	-0.055	!
+ATOM	C7	c4s	0.1525	!
+ATOM	H71	h1	0.06	!
+ATOM	H72	h1	0.06	!
+ATOM	S	s2	-0.435	!
+ATOM	C8	c4s	0.0375	!
+ATOM	H81	h1	0.06	!
+ATOM	H82	h1	0.06	!
+ATOM	H83	h1	0.06	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	S	H71	H72
+CONECT	S	C8
+CONECT	C8	H81	H82	H83
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Sulfoxides								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+o1s	O	-	-	0	O(=S(~C)(~C))
+s3	S	-	-	0	S(~C)(~C)(=O)
+
+ITEM	END	# RULES
+
+# Bonds
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+c3a	s3	340	1.79
+
+ITEM	END	# BOND
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c3*	s3	c3*	62	96
+c3*	c3*	s3	85	119.4
+c3*	s3	o1s	74	107
+
+ITEM	END	# ANGLE
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c3*	c3*	s3	c*	-0.9	2	0
+c*	c*	s3	o1s	0	1	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 496-498
+
+RESI	DMSO	0		! C2H6O2S, dimethylsulfoxide
+GROUP				!
+ATOM	C1	c4s	-0.035	!      H11  O1 H21
+ATOM	H11	h1	0.06	!       |   ||  |
+ATOM	H12	h1	0.06	!  H13--C1--S1--C2--H23
+ATOM	H13	h1	0.06	!       |       |
+ATOM	S1	s3	0.13	!      H12     H22
+ATOM	O1	o1s	-0.42	!
+ATOM	C2	c4s	-0.035	!
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	C1	S1	H11	H12	H13
+CONECT	S1	C2	=O1
+CONECT	C2	H21	H22	H23
+
+# 495-497
+
+RESI	DPSO	0		! C12H10O, diphenyl sulfoxide
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1              H12
+ATOM	H1	h1a	0.115	!          |               |
+GROUP				!          C1      O1      C12
+ATOM	C2	c3a	-0.115	!         /  \\    ||     /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6---S1---C7   C11--H11
+GROUP				!       ||    |         ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5        C8   C10--H10
+ATOM	H3	h1a	0.115	!         \  // \      /  \  //
+GROUP				!          C4    H5  H8    C9
+ATOM	C4	c3a	-0.115	!          |               |
+ATOM	H4	h1a	0.115	!          H4              H9
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.0875	!
+ATOM	S1	s3	0.245	!
+ATOM	O1	o1s	-0.42	!
+ATOM	C7	c3a	0.0875	!
+GROUP				!
+ATOM	C8	c3a	-0.115	!
+ATOM	H8	h1a	0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+GROUP				!
+ATOM	C11	c3a	-0.115	!
+ATOM	H11	h1a	0.115	!
+GROUP				!
+ATOM	C12	c3a	-0.115	!
+ATOM	H12	h1a	0.115	!
+GROUP				!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	S1
+CONECT	S1	C7	=O1
+CONECT	C7	^6:C8
+CONECT	C8	^6:C9	H8
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C11	H10
+CONECT	C11	^6:C12	H11
+CONECT	C12	^6:C7	H12
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Sulfones								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+o1s=	O	-	-	0	O(=S(~C)(~C)(=O))
+s4	S	-	-	0	S(~C)(~C)(=O)(=O)
+
+ITEM	END	# RULES
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c3a*	s4	c3a*	78.7	104.4
+
+ITEM	END	# ANGLE
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c3a*	c3a*	s4	c3a*	-0.45	2	180
+c3a*	s4	c4*	c4*	0	1	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 493-494
+
+RESI	MSME	0		! C2H6O2S, methylsulfonylmethane
+GROUP				!
+ATOM	C1	c4s	-0.18	!      H11  O1 H21
+ATOM	H11	h1	0.06	!       |   ||  |
+ATOM	H12	h1	0.06	!  H13--C1--S1--C2--H23
+ATOM	H13	h1	0.06	!       |   ||  |
+GROUP				!      H12  O2 H22
+ATOM	S1	s4	1.374	!
+ATOM	O1	o1s=	-0.687	!
+ATOM	O2	o1s=	-0.687	!
+GROUP				!
+ATOM	C2	c4s	-0.18	!
+ATOM	H21	h1	0.06	!
+ATOM	H22	h1	0.06	!
+ATOM	H23	h1	0.06	!
+
+CONECT	C1	S1	H11	H12	H13
+CONECT	S1	C2	=O1	=O2
+CONECT	C2	H21	H22	H23
+
+# 493-494
+
+RESI	DPHS	0		! C12H10O, diphenyl sulfone
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1              H12
+ATOM	H1	h1a	0.115	!          |               |
+GROUP				!          C1      O1      C12
+ATOM	C2	c3a	-0.115	!         /  \\    ||     /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6---S1---C7   C11--H11
+GROUP				!       ||    |    ||   ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5   O2   C8   C10--H10
+ATOM	H3	h1a	0.115	!         \  // \      /  \  //
+GROUP				!          C4    H5  H8    C9
+ATOM	C4	c3a	-0.115	!          |               |
+ATOM	H4	h1a	0.115	!          H4              H9
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0	!
+ATOM	S1	s4	1.374	!
+ATOM	O1	o1s=	-0.687	!
+ATOM	O2	o1s=	-0.687	!
+ATOM	C7	c3a	0	!
+GROUP				!
+ATOM	C8	c3a	-0.115	!
+ATOM	H8	h1a	0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+GROUP				!
+ATOM	C11	c3a	-0.115	!
+ATOM	H11	h1a	0.115	!
+GROUP				!
+ATOM	C12	c3a	-0.115	!
+ATOM	H12	h1a	0.115	!
+GROUP				!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	S1
+CONECT	S1	C7	=O1	=O2
+CONECT	C7	^6:C8
+CONECT	C8	^6:C9	H8
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C11	H10
+CONECT	C11	^6:C12	H11
+CONECT	C12	^6:C7	H12
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Sulfonates								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+ITEM	END	# RULES
+
+# Streams
+
+ITEM	STREAM
+
+# Using ESNA from CHARMM CGENFF
+
+RESI	ESNA	-1		! C2H5O3S, ethyl sulfonate anion
+GROUP				!
+ATOM	C1	c4	-0.18	!      H13
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H11--C1--H12
+ATOM	H13	h1	0.06	!       |
+GROUP				!  H21--C2--H22
+ATOM	C2	c4s	-0.2	!       |
+ATOM	H21	h1	0.06	!   O3==S1==O4
+ATOM	H22	h1	0.06	!       |
+ATOM	S1	s4c	0.73	!       O2 (-)
+ATOM	O2	o1s	-0.55	!
+ATOM	O3	o1s	-0.55	!
+ATOM	O4	o1s	-0.55	!
+
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	S1	H21	H22
+CONECT	S1	:O2	:O3	:O4
+
+UNLINK	s4c	o1s
+
+# Using BSAT from CHARMM CGENFF
+
+RESI	BSAT	-1		! C6H5O3S, benzenesulfonate anion
+GROUP				!
+ATOM	C1	c3aso	-0.21	!          H1
+ATOM	H1	h1a	0.21	!          |
+GROUP				!          C1         O1
+ATOM	C2	c3a	-0.115	!         /  \\       ||
+ATOM	H2	h1a	0.115	!   H2--C2    C6------S1--O3 (-)
+GROUP				!       ||    |       ||
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5  O2
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3aso	-0.21	!
+ATOM	H5	h1a	0.21	!
+GROUP				!
+ATOM	C6	c3as	-0.4	!
+ATOM	S1	s4	1.35	!
+ATOM	O1	o1s	-0.65	!
+ATOM	O2	o1s	-0.65	!
+ATOM	O3	o1s	-0.65	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	S1
+CONECT	S1	:O1	:O2	:O3
+
+UNLINK	s4	o1s
+
+ITEM	END
+
+
+#########################################################################
+#									#
+# Sulfates								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4s	C	-	-	0	C(O(:S))(C)(C)(C)
+c4s	C	-	-	0	C(O(:S))(C)(C)(H)
+c4s	C	-	-	0	C(O(:S))(C)(H)(H)
+c4s	C	-	-	0	C(O(:S))(~C)(C)(C)
+c4s	C	-	-	0	C(O(:S))(~C)(C)(H)
+c4s	C	-	-	0	C(O(:S))(~C)(H)(H)
+h1	H	-	-	0	H(C(O(:S))(C)(C))
+h1	H	-	-	0	H(C(O(:S))(C)(H))
+h1	H	-	-	0	H(C(O(:S))(H)(H))
+h1	H	-	-	0	H(C(O(:S))(~C)(C))
+h1	H	-	-	0	H(C(O(:S))(~C)(H))
+
+ITEM	END	# RULES
+
+# Bonds
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+o2s	s4	230	1.61
+
+ITEM	END	# BOND
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c*	o2*	s4*	100	120.5
+o1*	s4*	o2*	100	108.23
+
+ITEM	END	# ANGLE
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c3a	c3a	o2*	s4*	2.99	2	0
+c3*	o2	c4	c4	-1.22	1	0	-0.126	2	0	0.422	3	0
+c*	c4	o2*	s4*	-1.42	1	0	-0.62	2	0	0.1	3	0
+h1	c4	o2*	s4*	0.3	3	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# Using -SO4(-) from CHARMM CGENFF
+
+RESI	MSUL	-1		! CH3O4S, methylsulfate anion
+GROUP				!
+ATOM	C1	c4s	-0.28	!      H13
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H11--C1--H12
+ATOM	H13	h1	0.06	!       |
+ATOM	O1	o2s	-0.28	!       O1
+ATOM	S1	s4	1.33	!       |
+ATOM	O2	o1s	-0.65	!   O3==S1==O4
+ATOM	O3	o1s	-0.65	!       |
+ATOM	O4	o1s	-0.65	!       O2 (-)
+
+CONECT	C1	O1	H11	H12	H13
+CONECT	O1	:S1
+CONECT	S1	:O2	:O3	:O4
+
+UNLINK	s4	o1s
+
+# Using -SO4(-) from CHARMM CGENFF
+
+RESI	ESUL	-1		! C2H5O4S, ethylsulfate anion
+GROUP				!
+ATOM	C1	c4	-0.18	!      H13
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H11--C1--H12
+ATOM	H13	h1	0.06	!       |
+GROUP				!  H21--C2--H22
+ATOM	C2	c4s	-0.22	!       |
+ATOM	H21	h1	0.06	!       O1
+ATOM	H22	h1	0.06	!       |
+ATOM	O1	o2s	-0.28	!   O3==S1==O4
+ATOM	S1	s4	1.33	!       |
+ATOM	O2	o1s	-0.65	!       O2 (-)
+ATOM	O3	o1s	-0.65	!
+ATOM	O4	o1s	-0.65	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	O1	H21	H22
+CONECT	O1	:S1
+CONECT	S1	:O2	:O3	:O4
+
+UNLINK	s4	o1s
+
+# 463-464
+
+RESI	BNSU	-1		! C6H5O4S, benzenesulfate anion
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1         O2
+ATOM	C2	c3a	-0.115	!         /  \\       ||
+ATOM	H2	h1a	0.115	!   H2--C2    C6--O1--S1--O4 (-)
+GROUP				!       ||    |       ||
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5  O3
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3as	-0.1	!
+ATOM	O1	o2s	-0.28	!
+ATOM	S1	s4	1.33	!
+ATOM	O2	o1s	-0.65	!
+ATOM	O3	o1s	-0.65	!
+ATOM	O4	o1s	-0.65	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	O1
+CONECT	O1	:S1
+CONECT	S1	:O2	:O3	:O4
+
+UNLINK	s4	o1s
+
+# 463-464
+
+RESI	BZSU	-1		! C7H7O4S, benzenesulfate anion
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1        H71      O2
+ATOM	C2	c3a	-0.115	!         /  \\       |       ||
+ATOM	H2	h1a	0.115	!   H2--C2    C6------C7--O1--S1--O4 (-)
+GROUP				!       ||    |       |       ||
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5 H72      O3
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3as	-0.115	!
+ATOM	C7	c4s	-0.105	!
+ATOM	H71	h1	0.06	!
+ATOM	H72	h1	0.06	!
+ATOM	O1	o2s	-0.28	!
+ATOM	S1	s4	1.33	!
+ATOM	O2	o1s	-0.65	!
+ATOM	O3	o1s	-0.65	!
+ATOM	O4	o1s	-0.65	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	O1	H71	H72
+CONECT	O1	:S1
+CONECT	S1	:O2	:O3	:O4
+
+UNLINK	s4	o1s
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Sulfonamides								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4ns	C	-	-	0	C(N(S)(H))(C)(C)(C)
+c4ns	C	-	-	0	C(N(S)(H))(C)(C)(H)
+c4ns	C	-	-	0	C(N(S)(H))(C)(H)(H)
+c4sa	C	-	-	0	C(S(N)(=O)(=O))(~C)(C)(C)
+c4sa	C	-	-	0	C(S(N)(=O)(=O))(~C)(C)(H)
+c4sa	C	-	-	0	C(S(N)(=O)(=O))(~C)(H)(H)
+h1cs	H	-	-	0	H(C(N(S)(H))(C)(C))
+h1cs	H	-	-	0	H(C(N(S)(H))(C)(H))
+o1s=	O	-	-	0	O(=S(~C)(N)(=O))
+s4am	S	-	-	0	S(~C)(N)(=O)(=O)
+
+ITEM	END	# RULES
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c*	s4	n3*	c4*	2.074	1	0	-2.966	2	0	2.473	3	0
+c*	s4	n3*	h1n	1.671	1	0	-4.901	2	0	0.669	3	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 474-479
+
+RESI	MSAM	0		! CH5NO2S, methanesulfonamide
+GROUP				!
+ATOM	C1	c4sa	-0.54	!      H13
+ATOM	H11	h1	0.18	!       |
+ATOM	H12	h1	0.18	!  H11--C1--H12
+ATOM	H13	h1	0.18	!       |
+GROUP				!   O1==S==O2
+ATOM	S	s4am	1.48	!       |
+ATOM	O1	o1s=	-0.68	!       N
+ATOM	O2	o1s=	-0.68	!      / \
+ATOM	N	n3sa2	-1	!   HN1   HN2
+ATOM	HN1	h1n	0.44	!
+ATOM	HN2	h1n	0.44	!
+
+CONECT	C1	S	H11	H12	H13
+CONECT	S	N	=O1	=O2
+CONECT	N	HN1	HN2
+
+# 474-479
+
+RESI	ESAM	0		! C2H7NO2S, ethanesulfonamide
+GROUP				!
+ATOM	C1	c4	-0.18	!      H13
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H11--C1--H12
+ATOM	H13	h1	0.06	!       |
+GROUP				!  H22--C2--H22
+ATOM	C2	c4sa	-0.36	!       |
+ATOM	H21	h1	0.18	!   O1==S==O2
+ATOM	H22	h1	0.18	!       |
+GROUP				!       N
+ATOM	S	s4am	1.48	!      / \
+ATOM	O1	o1s=	-0.68	!   HN1   HN2
+ATOM	O2	o1s=	-0.68	!
+ATOM	N	n3sa2	-1	!
+ATOM	HN1	h1n	0.44	!
+ATOM	HN2	h1n	0.44	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	S	H21	H22
+CONECT	S	N	=O1	=O2
+CONECT	N	HN1	HN2
+
+# 474-477, 480-481
+
+RESI	NMSA	0		! C2H7NO2S, n-methyl methanesulfonamide
+GROUP				!
+ATOM	C1	c4sa	-0.54	!      H13
+ATOM	H11	h1	0.18	!       |
+ATOM	H12	h1	0.18	!  H11--C1--H12
+ATOM	H13	h1	0.18	!       |
+GROUP				!   O1==S==O2
+ATOM	S	s4am	1.48	!       |
+ATOM	O1	o1s=	-0.68	!   HN--N
+ATOM	O2	o1s=	-0.68	!       |
+ATOM	N	n3sa1	-0.8	!  H21--C2--H22
+ATOM	HN	h1n	0.41	!       |
+ATOM	C2	c4ns	0.18	!      H23
+ATOM	H21	h1cs	0.03	!
+ATOM	H22	h1cs	0.03	!
+ATOM	H23	h1cs	0.03	!
+
+CONECT	C1	S	H11	H12	H13
+CONECT	S	N	=O1	=O2
+CONECT	N	C2	HN
+CONECT	C2	H21	H22	H23
+
+# 474-477, 484-487
+
+RESI	NESA	0		! C3H9NO2S, n-ethyl methanesulfonamide
+GROUP				!
+ATOM	C1	c4sa	-0.54	!      H13
+ATOM	H11	h1	0.18	!       |
+ATOM	H12	h1	0.18	!  H11--C1--H12
+ATOM	H13	h1	0.18	!       |
+GROUP				!   O1==S==O2
+ATOM	S	s4am	1.48	!       |
+ATOM	O1	o1s=	-0.68	!   HN--N
+ATOM	O2	o1s=	-0.68	!       |
+ATOM	N	n3sa1	-0.8	!  H21--C2--H22
+ATOM	HN	h1n	0.41	!       |
+ATOM	C2	c4ns	0.21	!  H31--C3--H32
+ATOM	H21	h1cs	0.03	!       |
+ATOM	H22	h1cs	0.03	!      H33
+GROUP				!
+ATOM	C3	c4	-0.18	!
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C1	S	H11	H12	H13
+CONECT	S	N	=O1	=O2
+CONECT	N	C2	HN
+CONECT	C2	C3	H21	H22
+CONECT	C3	H31	H32	H33
+
+# 
+
+RESI	BZSA	0		! C6H7NO2S, benzylsulfonamide
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1        O1    HN1
+ATOM	C2	c3a	-0.115	!         /  \\      ||   /
+ATOM	H2	h1a	0.115	!   H2--C2    C6-----S1--N
+GROUP				!       ||    |      ||   \
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5 O2    HN2
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0	!
+ATOM	S1	s4am	1.48	!
+ATOM	O1	o1s=	-0.68	!
+ATOM	O2	o1s=	-0.68	!
+ATOM	N	n3sa2	-1	!
+ATOM	HN1	h1n	0.44	!
+ATOM	HN2	h1n	0.44	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	S1
+CONECT	S1	N	=O1	=O2
+CONECT	N	HN1	HN2
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Phosphates								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4p	C	-	-	0	C(O(P))(C)(C)(C)
+c4p	C	-	-	0	C(O(P))(C)(C)(H)
+c4p	C	-	-	0	C(O(P))(C)(H)(H)
+h1	H	-	-	0	H(C(O(P))(C)(C))
+h1	H	-	-	0	H(C(O(P))(C)(H))
+h1	H	-	-	0	H(C(O(P))(H)(H))
+
+ITEM	END
+
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c*	o2	p4	o2	-0.375	1	0	-1.358	2	0	0.004	3	0
+
+ITEM	END	# TORSION
+
+# Stream
+
+ITEM	STREAM
+
+# 445-449
+
+RESI	MPHO	-2		! CH3O4P, methylphosphate anion
+GROUP				!
+ATOM	C1	c4pm	0.44	!      H13
+ATOM	H11	h1	-0.1	!       |
+ATOM	H12	h1	-0.1	!  H11--C1--H12
+ATOM	H13	h1	-0.1	!       |
+ATOM	O1	o2p	-0.7	!       O1
+ATOM	P1	p41	1.92	!       |
+ATOM	O2	o1p	-1.12	!   O3==P1--O4 (-)
+ATOM	O3	o1p	-1.12	!       |
+ATOM	O4	o1p	-1.12	!       O2 (-)
+
+CONECT	C1	O1	H11	H12	H13
+CONECT	O1	P1
+CONECT	P1	:O2	:O3	:O4
+
+UNLINK	p41	o1p
+
+# 445-449
+
+RESI	EPHO	-2		! C2H5O4P, ethylphosphate anion
+GROUP				!
+ATOM	C1	c4	-0.18	!      H13
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H11--C1--H12
+ATOM	H13	h1	0.06	!       |
+GROUP				!  H21--C2--H22
+ATOM	C2	c4pm	0.34	!       |
+ATOM	H21	h1	-0.1	!       O1
+ATOM	H22	h1	-0.1	!       |
+ATOM	O1	o2p	-0.7	!   O3==P1--O4 (-)
+ATOM	P1	p41	1.92	!       |
+ATOM	O2	o1p	-1.12	!       O2 (-)
+ATOM	O3	o1p	-1.12	!
+ATOM	O4	o1p	-1.12	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	O1	H21	H22
+CONECT	O1	P1
+CONECT	P1	:O2	:O3	:O4
+
+UNLINK	p41	o1p
+
+# 440-444
+
+RESI	DMPO	-1		! C2H6O4P, dimethylphosphate anion
+GROUP				!
+ATOM	C1	c4p	0.3	!      H13
+ATOM	H11	h1	-0.03	!       |
+ATOM	H12	h1	-0.03	!  H11--C1--H12
+ATOM	H13	h1	-0.03	!       |
+ATOM	O1	o2p	-0.6	!       O1
+ATOM	P1	p42	1.62	!       |
+ATOM	O2	o2p	-0.6	!   O3==P1==O4 (-)
+ATOM	O3	o1p	-0.92	!       |
+ATOM	O4	o1p	-0.92	!       O2
+ATOM	C2	c4p	0.3	!       |
+ATOM	H21	h1	-0.03	!  H21--C2--H22
+ATOM	H22	h1	-0.03	!       |
+ATOM	H23	h1	-0.03	!      H23
+
+CONECT	C1	O1	H11	H12	H13
+CONECT	O1	P1
+CONECT	P1	O2	:O3	:O4
+CONECT	O2	C2	
+CONECT	C2	H21	H22	H23
+
+UNLINK	p42	o1p
+
+# 440-444
+
+RESI	EMPO	-1		! C2H6O4P, ethyl methylphosphate anion
+GROUP				!
+ATOM	C1	c4p	0.3	!      H13
+ATOM	H11	h1	-0.03	!       |
+ATOM	H12	h1	-0.03	!  H11--C1--H12
+ATOM	H13	h1	-0.03	!       |
+ATOM	O1	o2p	-0.6	!       O1
+ATOM	P1	p42	1.62	!       |
+ATOM	O2	o2p	-0.6	!   O3==P1==O4 (-)
+ATOM	O3	o1p	-0.92	!       |
+ATOM	O4	o1p	-0.92	!       O2
+ATOM	C2	c4p	0.27	!       |
+ATOM	H21	h1	-0.03	!  H21--C2--H22
+ATOM	H22	h1	-0.03	!       |
+GROUP				!  H31--C3--H32
+ATOM	C3	c4	-0.18	!       |
+ATOM	H31	h1	0.06	!      H33
+ATOM	H32	h1	0.06	!
+ATOM	H33	h1	0.06	!
+
+CONECT	C1	O1	H11	H12	H13
+CONECT	O1	P1
+CONECT	P1	O2	:O3	:O4
+CONECT	O2	C2	
+CONECT	C2	C3	H21	H22
+CONECT	C3	H31	H32	H33
+
+UNLINK	p42	o1p
+
+# 463-464
+
+RESI	BZPO	-2		! C6H5O4P, benzylphosphate anion
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1         O2 (-)
+ATOM	C2	c3a	-0.115	!         /  \\       ||
+ATOM	H2	h1a	0.115	!   H2--C2    C6--O1--P1--O4 (-)
+GROUP				!       ||    |       ||
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5  O3
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.14	!
+ATOM	O1	o2p	-0.7	!
+ATOM	P1	p41	1.92	!
+ATOM	O2	o1p	-1.12	!
+ATOM	O3	o1p	-1.12	!
+ATOM	O4	o1p	-1.12	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	O1
+CONECT	O1	P1
+CONECT	P1	:O2	:O3	:O4
+
+UNLINK	p41	o1p
+
+# 450-456
+
+RESI	DMMP	-1		! C3H9O3P, dimethyl methylphosphonate
+GROUP				!
+ATOM	C1	c4p	0.3	!      H13
+ATOM	H11	h1	-0.03	!       |
+ATOM	H12	h1	-0.03	!  H11--C1--H12
+ATOM	H13	h1	-0.03	!       |
+ATOM	O1	o2p	-0.63	!       O1     H21
+ATOM	P1	p43	1.62	!       |       |
+ATOM	O2	o2p	-0.63	!   O3==P1------C2--H23
+ATOM	O3	o1p=	-0.97	!       |       |
+ATOM	C2	c4p	-0.51	!       O2     H22
+ATOM	H21	h1cp	-0.1	!       |
+ATOM	H22	h1cp	-0.1	!  H31--C3--H32
+ATOM	H23	h1cp	-0.1	!       |
+ATOM	C3	c4p	0.3	!      H33
+ATOM	H31	h1	-0.03	!
+ATOM	H32	h1	-0.03	!
+ATOM	H33	h1	-0.03	!
+
+CONECT	C1	O1	H11	H12	H13
+CONECT	O1	P1
+CONECT	P1	C2	O2	=O3
+CONECT	C2	H21	H22	H23
+CONECT	O2	C3
+CONECT	C3	H31	H32	H33
+
+UNLINK	p43	o1p=
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Halocarbons								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4	C	-	-	0	C(C)(C)([Cl])(H)
+c4	C	-	-	0	C(C)(C)(C)([Cl])
+c4	C	-	-	0	C(C)(F)(H)(H)
+c4	C	-	-	0	C(C)(F)(F)(H)
+c4	C	-	-	0	C(C)(C)(F)(F)
+c4	C	-	-	0	C(C)(C)(F)(H)
+c4	C	-	-	0	C(C)(C)(C)(F)
+
+ITEM	END	# RULES
+
+# Stream
+
+ITEM	STREAM
+
+# 975-976, 982
+
+RESI	ETBR	0		! C2[Cl]H5, bromo-ethane
+GROUP				!
+ATOM	C1	c4	-0.18	!       H13
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--H12
+ATOM	H13	h1	0.06	!        |
+GROUP				!   H21--C2--H22
+ATOM	C2	c4br	-0.006	!        |
+ATOM	H21	h1	0.103	!        BR
+ATOM	H22	h1	0.103	!
+ATOM	BR	br1	-0.2	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	BR	H21	H22
+
+# 151-153
+
+RESI	ETCL	0		! C2[Cl]H5, chloro-ethane
+GROUP				!
+ATOM	C1	c4	-0.18	!       H13
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--H12
+ATOM	H13	h1	0.06	!        |
+GROUP				!   H21--C2--H22
+ATOM	C2	c4cl	-0.006	!        |
+ATOM	H21	h1	0.103	!        CL
+ATOM	H22	h1	0.103	!
+ATOM	CL	cl1	-0.2	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	CL	H21	H22
+
+# 975-976, 982
+
+RESI	ETIO	0		! C2[Cl]H5, iodo-ethane
+GROUP				!
+ATOM	C1	c4	-0.18	!       H13
+ATOM	H11	h1	0.06	!        |	
+ATOM	H12	h1	0.06	!   H11--C1--H12
+ATOM	H13	h1	0.06	!        |
+GROUP				!   H21--C2--H22
+ATOM	C2	c4i	-0.07	!        |
+ATOM	H21	h1	0.1	!        I
+ATOM	H22	h1	0.1	!
+ATOM	I	i1	-0.13	!
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	I	H21	H22
+
+# 226-227
+
+RESI	EECL	0		! C2[Cl]H3, chloro-ethene
+GROUP				!
+ATOM	C1	c3=	-0.23	!    H11    H12
+ATOM	H11	h1=	0.115	!       \  /
+ATOM	H12	h1=	0.115	!        C1
+GROUP				!        ||
+ATOM	C2	c3=	0.005	!        C2
+ATOM	H21	h1=	0.115	!       /  \
+ATOM	CL	cl1	-0.12	!     CL    H21
+
+CONECT	C1	=C2	H11	H12
+CONECT	C2	CL	H21
+
+# 160-165
+
+RESI	ETOF	0		! C2F3H3O, tri-fluoro-ethanol
+GROUP				!
+ATOM	C1	c4	0.615	!       F13
+ATOM	F11	f1	-0.205	!        |	
+ATOM	F12	f1	-0.205	!   F11--C1--F12
+ATOM	F13	f1	-0.205	!        |
+GROUP				!   H21--C2--H22
+ATOM	C2	c4	0.145	!        |
+ATOM	H21	h1	0.06	!        O
+ATOM	H22	h1	0.06	!        |
+ATOM	O	o2h	-0.683	!        H
+ATOM	H	h1o	0.418	!
+
+CONECT	C1	C2	F11	F12	F13
+CONECT	C2	O	H21	H22
+CONECT	O	H
+
+# 263-264
+
+RESI	BZCL	0		! C6H5Cl, chlorobenzene
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1
+ATOM	C2	c3a	-0.115	!         /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6--CL
+GROUP				!       ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.18	!
+ATOM	CL	cl1	-0.18	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	CL
+
+# 724-726
+
+RESI	BZTF	0		! C7H5F3, trifluoromethylbenzene
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1        F71
+ATOM	C2	c3a	-0.115	!         /  \\       |
+ATOM	H2	h1a	0.115	!   H2--C2    C6------C7--F73
+GROUP				!       ||    |       |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5 F72
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.15	!
+ATOM	C7	c4f	0.45	!
+ATOM	F71	f1	-0.2	!
+ATOM	F72	f1	-0.2	!
+ATOM	F73	f1	-0.2	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C7
+CONECT	C7	F71	F72	F73
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Silicates								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+si4	Si	-	-	0	[Si](~C)(C)(C)(C)
+si4	Si	-	-	0	[Si](~C)(C)(C)(H)
+si4	Si	-	-	0	[Si](~C)(C)(H)(H)
+si4	Si	-	-	0	[Si](~C)(H)(H)(H)
+
+ITEM	END	# RULES
+
+# Streams
+
+ITEM	STREAM
+
+# 1060-1068
+
+RESI	MESI	0		! CH6Si, methylsilane
+GROUP				!
+ATOM	C1	c4	-0.43	!      H11  H21
+ATOM	H11	h1	0.06	!       |    |
+ATOM	H12	h1	0.06	!  H13--C1--SI2--H23
+ATOM	H13	h1	0.06	!       |    |
+ATOM	SI2	si4	0.55	!      H12  H22
+ATOM	H21	h1si	-0.1	!
+ATOM	H22	h1si	-0.1	!
+ATOM	H23	h1si	-0.1	!
+
+CONECT	C1	SI2	H11	H12	H13
+CONECT	SI2	H21	H22	H23
+
+ITEM	END	# STREAM
+

@@ -5,7 +5,7 @@
 #  date:	September 27, 2022.
 #  purpose:	References structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -371,7 +371,7 @@ sub read {					# <= read_references
   my $verbatim = EMC::Common::element($references, "verbatim");
   my $types = EMC::Common::element($references, "parent");
   my $cutoff = EMC::Common::element($types, "cutoff");
-  my $field = EMC::Common::element($types, "field");
+  my $field = EMC::Common::element($types, "root", "fields", "field");
   my $inverse = EMC::Common::element($types, "inverse");
   my $mass = EMC::Common::element($types, "mass");
   my $type = EMC::Common::element($types, "type");
@@ -405,6 +405,7 @@ sub read {					# <= read_references
     my @arg = @{$_};
     my $line = $fline ? $data->{lines}->[$iline++] : "$name:".$iline++;
     
+    next if (substr(@arg[0],0,1) eq "#");
     @arg = split(",", @arg[0]) if (scalar(@arg)<2);
     if ((scalar(@arg)<8)||(scalar(@arg)>9)) {
       EMC::Message::error_line($line, "incorrect number of entries\n");

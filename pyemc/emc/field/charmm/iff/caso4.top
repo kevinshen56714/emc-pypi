@@ -1,0 +1,34 @@
+#
+#  CHARMM topology using caso4 force field files, 
+#  to be used in conjuction with EMC v9.4.4 or higher,
+#  and created on Thu Jan 2023
+#
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+(?
+  (O1SG)
+  (S4OG)
+  (H1OG)
+  (O2HG)
+  (CA+G)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	residue	atom	charge	rule
+
+0	?	?	-	-	0	*
+1	O1SG	O	-	-	0	O([S])
+2	S4OG	S	-	-	0	[S](O)(O)(O)(O)
+3	H1OG	H	-	-	0	H(O)
+4	O2HG	O	-	-	0	O(H)(H)
+5	CA+G	Ca	-	-	o	[Ca]
+
+ITEM	END

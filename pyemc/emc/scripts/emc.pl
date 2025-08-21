@@ -1,6 +1,6 @@
 #!/usr/bin/env perl
 #
-#  program:	emc_setup.pl
+#  script:	emc.pl
 #  author:	Pieter J. in 't Veld
 #  date:	February 4-9, August 10, 2012, April 27, 2013, March 29,
 #  		June 12, November 2, 18, 24, 29, December 20, 22, 2014,
@@ -16,7 +16,7 @@
 #  		and coarse-grained [[multi-]interface] simulations; part of
 #  		EMC distribution
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -552,6 +552,27 @@
 #    		Additions for template use in force fields
 #    20240711	Corrected Green-Kubo viscosity calculation
 #    20240801	Web publication
+#    20241001	New version: 5.2
+#    20241005	Added options -lammps_dump_box for including box multiples in
+#    		LAMMPS trajectory files, -field_inverse for field inverse cut 
+#    		off, all -gromacs for GROMACS port related settings,
+#    		-polymer_flory and -polymer_poisson for setting global
+#    		defaults, and -queue_bind for processor binding policies on
+#    		compute nodes
+#    20241212	Addition of -pdb_licorice for VMD licorice representation
+#    20250215	Addition of -xyz and derivatives for .xyz output
+#    20250318	New subversion: 5.2.1
+#    		Addition of polymeric groups
+#    		Addition of -polymer_link to support of polymeric groups
+#    20250422	Addition of -md_engine
+#    		Addition of GROMACS hooks
+#    20250702	Repaired -emc_export smiles
+#    20250715	Repaired radius of gyration (gyration) and mean-squared 
+#    		displacement (msd) sampling with LAMMPS
+#    20250726	Repaired -split to appear at the correct position in build.emc
+#    		Addition of phase indication and cluster selections for
+#    		option -moves_cluster
+#    20250801	Web publication
 #        		
 #  file formats:
 #    parameters	column1	column2		column3		...
@@ -610,8 +631,8 @@ use strict;
 # Identity
 
 $::EMC::Identity = {
-  version		=> "5.1",
-  date			=> "July 11, 2024",
+  version		=> "5.2.1",
+  date			=> "August 1, 2025",
   author		=> "Pieter J. in 't Veld",
 };
 
@@ -733,7 +754,7 @@ sub initialize {
       $struct->{args} = [@arg];
       $result = EMC::Options::set_options($options, $struct);
       if (defined($result) ? 0 : $flag->{ignore} ? 0 : 1) {
-	EMC::Options::set_help($struct);
+	EMC::Options::set_help($struct, 1);
       }
       $chemistry = $script->{name} if ($arg[0] eq "-chemistry");
     } elsif (!defined($name)) {
@@ -743,6 +764,7 @@ sub initialize {
       my $dir = dirname($_);
       $name = basename($_, $ext);
       $name = "$dir/$name" if ($dir ne ".");
+      $struct->{names} = [$name];
     } elsif($_ eq "+") {
       push(@{$emc->{phases}}, [@phase]);
       @phase = ();
@@ -752,7 +774,7 @@ sub initialize {
   }
   EMC::Options::version($root->{options}) if ($flag->{version});
   push(@{$emc->{phases}}, [@phase]) if (scalar(@phase));
-  EMC::Options::set_help($struct) if ($name eq "");
+  EMC::Options::set_help($struct) if (!defined($struct->{names}));
   EMC::Options::header($root->{options});
   EMC::Options::set_context($root);
 
@@ -805,7 +827,7 @@ sub initialize {
   EMC::Fields::output_fields($fields, "location");
   
   EMC::Message::info(
-    "built structures for MD script in \"%s\"\n", $build->{dir});
+    "build structures for MD script in \"%s\"\n", $build->{dir});
   
   EMC::Options::write_warnings($options);
   EMC::Message::error(

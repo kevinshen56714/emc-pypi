@@ -5,7 +5,7 @@
 #  date:	August 31, 2022.
 #  purpose:	LAMMPS structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -97,13 +97,14 @@ sub set_defaults {
       nchains		=> "", 
       nsample		=> 1000, 
       pdamp		=> 1000,
+      restart_ext	=> "restart?",
       skin		=> -1,
       tdamp		=> 100,
       tequil		=> 1000,
       tfreq		=> 10, 
       trun		=> 10000000,
       verbatim		=> undef,
-      version		=> 2018, 
+      version		=> 2023, 
       version_pass	=> 0,
       new_version	=> 2015,
       newer_version	=> 2021,
@@ -116,11 +117,14 @@ sub set_defaults {
       cutoff		=> 0,
       chunk		=> 1, 
       communicate	=> 0,
+      dump_box		=> 0,
+      engine		=> 1,
       momentum		=> 1,
       multi		=> 0,
       prefix		=> 0,
       triclinic		=> 0,
       trun		=> 0,
+      version		=> $lammps->{context}->{newer_version},
       write		=> 1
     }
   );
@@ -222,6 +226,10 @@ sub set_commands {
 
       # D
 
+      $indicator."dlimit"	=> {
+	comment		=> "set LAMMPS nve/limit distance",
+	default		=> $context->{dlimit},
+	gui		=> ["real", "chemistry", "lammps", "advanced"]},
       $indicator."dtdump"	=> {
 	comment		=> "set LAMMPS trajectory file write frequency",
 	default		=> $context->{dtdump},
@@ -234,10 +242,10 @@ sub set_commands {
 	comment		=> "set LAMMPS thermodynamic output frequency",
 	default		=> $context->{dtthermo},
 	gui		=> ["integer", "chemistry", "lammps", "standard"]},
-      $indicator."dlimit"	=> {
-	comment		=> "set LAMMPS nve/limit distance",
-	default		=> $context->{dlimit},
-	gui		=> ["real", "chemistry", "lammps", "advanced"]},
+      $indicator."dump_box"	=> {
+	comment		=> "include box multiples in LAMMPS trajectory file",
+	default		=> EMC::Math::boolean($flag->{dump_box}),
+	gui		=> ["integer", "chemistry", "lammps", "advanced"]},
 
       # E
 
@@ -422,6 +430,8 @@ sub set_options {
       return $context->{dtthermo} = EMC::Math::eval($args->[0])->[0]; }
     if ($option eq $indicator."dtthermo") {
       return $context->{dtthermo} = EMC::Math::eval($args->[0])->[0]; }
+    if ($option eq $indicator."dump_box") {
+      return $flag->{dump_box} = EMC::Math::flag($args->[0]); }
     
     # E
     
@@ -445,9 +455,9 @@ sub set_options {
 	$result = EMC::Math::flag($args->[0]); }
       if ($result) {
 	EMC::MD::set_flags(EMC::Common::element($lammps, "parent"), "write", 0);
-	$flag->{write} = $result;
+	$context->{version} = $result if ($result>2000);
       }
-      return $result;
+      return $flag->{write} = $result;
     }
 
     # M
@@ -503,9 +513,9 @@ sub set_options {
     if ($option eq "tequil") {					# backwards
       $defined->{tequil} = 1;
       return $context->{tequil} = EMC::Math::eval($args->[0])->[0]; }
-    if ($option eq $indicator."tequil") {
-      $defined->{tequil} = 1;
-      return $context->{tequil} = EMC::Math::eval($args->[0])->[0]; }
+    if ($option eq $indicator."tfreq") {
+      $defined->{tfreq} = 1;
+      return $context->{tfreq} = EMC::Math::eval($args->[0])->[0]; }
     if ($option eq "thermo_multi") {				# backwards
       return $flag->{multi} = EMC::Math::flag($args->[0]); }
     if ($option eq $indicator."thermo_multi") {
@@ -686,9 +696,28 @@ atom_style	$atom_style
 
 sub write_variable {
   my $stream = shift(@_);
-  my @arg = split(" ", shift(@_));
   my $spacer = "";
-
+  my $quote = 0;
+  my @arg;
+  my @a;
+  
+  foreach (split(" ", shift(@_))) {
+    if (length($_)>1 && substr($_,0,1) eq '"' && substr($_,-1,1) eq '"') {
+      push(@arg, $_);
+    } elsif ($quote) {
+      push(@a, $_);
+      if (substr($_,-1,1) eq '"') {
+	push(@arg, join(" ", @a));
+	$quote = 0;
+	@a = ();
+      }
+    } elsif (substr($_,0,1) eq '"') {
+      $quote = 1;
+      @a = ($_);
+    } else {
+      push(@arg, $_);
+    }
+  }
   foreach (2, 2, 1, 2) {
     my $v = shift(@arg);
     my $n = $_-int(length($v)/8);
@@ -735,9 +764,8 @@ variable	framp		index	".($global->{shear}->{mode} ? 1 : 0).
 "\t\t# 0: skip, 1: apply" :
  "")."
 variable	dielectric	index	$global->{dielectric}		# medium dielectric
-variable	kappa		index	$global->{kappa}		# electrostatics kappa"
-.($global->{cutoff}->{repulsive} ? "" : "
-variable	cutoff		index	$global->{cutoff}->{pair}		# standard cutoff")
+variable	kappa		index	$global->{kappa}		# electrostatics kappa
+variable	cutoff		index	$global->{cutoff}->{pair}		# standard cutoff"
 .($global->{cutoff}->{ghost}>=0 ? "
 variable	ghost_cutoff	index	$global->{cutoff}->{ghost}		# ghost region cutoff" : "")
 .($global->{cutoff}->{center}>=0 ? "
@@ -768,8 +796,12 @@ variable	restart		index	\${project}.restart
   }
 
   if ($field->{type} eq "charmm") {
-    write_variable(
-      $stream, "variable\tfcmap\tequal\tis_file(\${source}/\${project}.cmap)");
+    if ($context->{version}<$context->{newer_version}) {
+      EMC::IO::touch("$global->{project}->{name}.cmap");
+    } else {
+      write_variable($stream,
+	"variable\tfcmap\tequal\tis_file(\${source}/\${project}.cmap)");
+    }
   }
   printf($stream "
 if \"\${frestart} != 0\" then &
@@ -804,6 +836,7 @@ sub write_interaction {				# <= write_lammps_interaction
   my $ccut = "\${charge_cutoff}";
   my $long = $global->{flag}->{ewald} ? "long" : "cut";
   my @momentum = @{$context->{momentum}};
+  my $fcmap = $context->{version}<$context->{newer_version} ? 0 : 1;
   my $pair_style = (
     $field->{type} eq "colloid" ? "colloid $cut" :
     $field->{type} eq "dpd" ? (
@@ -814,9 +847,12 @@ sub write_interaction {				# <= write_lammps_interaction
     $field->{type} eq "charmm" ?
       ($global->{flag}->{charge} ? 
 	"lj/charmm/coul/$long $icut $cut $ccut" : "lj/charmm $cut")."\n\n".
-      "if \${fcmap} then &\n".
-      "\"fix\t\tcmap all cmap \${source}/\${project}.cmap\" &\n".
-      "\"fix_modify\tcmap energy yes\"\n" :
+      ($fcmap ?
+	"if \"\${fcmap}\" then &\n".
+	"\"fix\t\tcmap all cmap \${source}/\${project}.cmap\" &\n".
+	"\"fix_modify\tcmap energy yes\"\n" : 
+	"fix\t\tcmap all cmap \${source}/\${project}.cmap\n".
+	"fix_modify\tcmap energy yes\n") :
     $field->{type} eq "cff" ? 
       ($global->{flag}->{charge} ? 
 	"lj/class2/coul/$long $cut $ccut" : "lj/class2 $cut") :
@@ -839,9 +875,11 @@ pair_style	$pair_style
 ($global->{flag}->{triclinic} ? "
 box		tilt large" : "")."\n
 if \"\${frestart} != 0\" then \"read_restart \${data}\" &".
-($field->{type} eq "charmm" ? "
-elif \${fcmap} then \"read_data \${data} fix cmap crossterm CMAP\" &" : "")."
-else \"read_data \${data}\"\n".
+($field->{type} eq "charmm" ? 
+  ($fcmap ? "\nelif \"\${fcmap}\" then " : "\nelse ").
+  "\"read_data \${data} fix cmap crossterm CMAP\"".
+  ($fcmap ? " &\nelse \"read_data \${data}\"\n" : "\n") : 
+  "\nelse \"read_data \${data}\"\n").
 ($global->{shear}->{flag}||$global->{flag}->{triclinic} ? "
 if \"\${frestart} == 0\" then \"change_box all triclinic\"" : "")."
 include		\${source}/\${project}.params
@@ -876,6 +914,7 @@ sub write_equilibration {			# <= write_lammps_equilibration
   my $field = EMC::Common::element($root, "fields", "field");
   my $context = EMC::Common::element($root, "md", "lammps", "context");
   my $flag = EMC::Common::element($root, "md", "lammps", "flag");
+  my $shake = EMC::Common::element($root, "md", "context", "shake");
 
   printf($stream "%s",
 "# Equilibration
@@ -883,7 +922,7 @@ sub write_equilibration {			# <= write_lammps_equilibration
 ($flag->{multi} ? "\nthermo_style\tmulti" : "")."
 thermo		\${dtthermo}
 if \"\${frestart} != 0\" then \"jump SELF simulate\"\n".
-($global->{flag}->{shake} ? "timestep\t1\nunfix\t\tshake\n" : "").
+($shake->{flag} ? "timestep\t1\nunfix\t\tshake\n" : "").
 "velocity	all create \${temperature} \${vseed} &
 		dist gaussian rot yes mom yes sum yes
 ".($field->{type} eq "dpd" ? "" :
@@ -918,40 +957,40 @@ label		simulate
 
 
 sub write_shake {				# <= write_lammps_shake
-  my $global = shift(@_);
-  my $shake = undef;
+  my $shake = shift(@_);
+  my $command = undef;
   
-  if (defined($global->{shake}->{flag}) ? $global->{shake}->{flag} ? 0 : 1 : 0) {
-    $shake = "shake all shake ";
-    $shake .= "$global->{shake}->{tolerance} $global->{shake}->{iterations} $global->{shake}->{output}";
+  if (defined($shake->{flag}) ? $shake->{flag} ? 0 : 1 : 0) {
+    $command = "shake all shake ";
+    $command .= "$shake->{tolerance} $shake->{iterations} $shake->{output}";
     my $index = 1;
     my $offset = 16;
-    my $column = $offset+length($shake);
+    my $column = $offset+length($command);
     my %key = (mass => "m", type => "t", bond => "b", angle => "a");
 
     foreach ("mass", "type", "bond", "angle") {
-      if (defined($global->{shake}->{$_})) {
-	my $ptr = $global->{shake}->{$_};
+      if (defined($shake->{$_})) {
+	my $ptr = $shake->{$_};
 	my $flag = $_ eq "mass" ? 0 : 1;
 	my $pre = "type"; $pre .= "_$_" if ($_ ne "type");
 
-	$shake .= " &\n\t\t$key{$_}";
+	$command .= " &\n\t\t$key{$_}";
 	$column = $offset+length($key{$_});
 	foreach (@{$ptr}) {
 	  my $type = $flag ? "\${".join("_", $pre, @{$_})."}" : @{$_}[0];
 	  my $n = length($type);
 	  
 	  if ($column+$n>77) {
-	    $shake .= " &\n\t\t$type"; $column = $offset+$n;
+	    $command .= " &\n\t\t$type"; $column = $offset+$n;
 	  } else {
-	    $shake .= " $type"; $column += $n+1;
+	    $command .= " $type"; $column += $n+1;
 	  }
 	}
       }
     }
-    $shake = "\nfix\t\t$shake";
+    $command = "\nfix\t\t$command";
   }
-  return $shake;
+  return $command;
 }
 
 
@@ -964,7 +1003,8 @@ sub write_integrator {				# <= write_lammps_integrator
   my $context = EMC::Common::element($root, "md", "lammps", "context");
   my $flag = EMC::Common::element($root, "md", "lammps", "flag");
   my $shear_mode = $global->{shear}->{mode} eq "" ? "erate" : $global->{shear}->{mode};
-  my $shake = write_shake($global);
+  my $shake = write_shake(
+     EMC::Common::element($root, "md", "context", "shake"));
 
   printf($stream "%s",
 "# Integrator
@@ -1127,14 +1167,18 @@ sub write_intermediate {			# <= write_lammps_intermediate
   my $root = shift(@_);
 
   my $global = EMC::Common::element($root, "global");
+  my $profiles = EMC::Common::element($root, "global", "profiles");
   my $context = EMC::Common::element($root, "md", "lammps", "context");
   my $flag = EMC::Common::element($root, "md", "lammps", "flag");
   my $clusters = EMC::Common::element($root, "emc", "clusters");
+  my $sample = EMC::Common::element($root, "analyze", "context", "sample");
 
-  return if (!(defined($global->{profiles})||
-		       $global->{profiles}->{flag}->{flag}||
-	       	       $global->{sample}->{gyration}||
-		       $global->{sample}->{msd}));
+  #EMC::Message::dumper("profiles = ", $profiles);
+
+  return if (!(defined($profiles)||
+		       $profiles->{flag}->{flag}||
+	       	       $sample->{gyration}||
+		       $sample->{msd}));
   
   my $binsize = $global->{binsize};
   my $x = $global->{direction}->{x};
@@ -1143,20 +1187,20 @@ sub write_intermediate {			# <= write_lammps_intermediate
   my $i;
   my $l;
 
-  if ($global->{sample}->{msd}) {
+  if ($sample->{msd}) {
     EMC::Message::info("adding msd analysis\n");
   }
-  if (defined($global->{profiles})||$global->{profiles}->{flag}->{flag}) {
+  if (defined($profiles)||$profiles->{flag}->{flag}) {
     EMC::Message::info("adding profile analysis\n");
   }
-  if ($global->{profiles}->{flag}->{flag}||$global->{sample}->{msd}||
-      $global->{sample}->{gyration}) {
-    my $dim = {"1d" => 0, "2d" => 0, "3d" => 0, msd => 0};
-    $dim->{"1d"} = ($global->{profiles}->{flag}->{density}||$global->{profiles}->{flag}->{pressure});
-    $dim->{"3d"} = ($global->{profiles}->{flag}->{density3d});
-    $dim->{"msd"} = ($global->{sample}->{msd});
-    $dim->{"gyration"} = ($global->{sample}->{gyration});
-    if ($global->{profiles}->{flag}->{pressure}) {
+  if ($profiles->{flag}->{flag}||$sample->{msd}||
+      $sample->{gyration}) {
+    my $dim = {"1d" => 0, "2d" => 0, "3d" => 0, msd => 0, gyration => 0};
+    $dim->{"1d"} = ($profiles->{flag}->{density}||$profiles->{flag}->{pressure});
+    $dim->{"3d"} = ($profiles->{flag}->{density3d});
+    $dim->{"msd"} = ($sample->{msd});
+    $dim->{"gyration"} = ($sample->{gyration});
+    if ($profiles->{flag}->{pressure}) {
       if (!$flag->{chunk}) {
 	EMC::Message::error("Pressure profiles can only be used in combination with LAMMPS chunks\n");
       }
@@ -1186,7 +1230,7 @@ sub write_intermediate {			# <= write_lammps_intermediate
 	  printf($stream "compute\t\tchunk_1d_$m $g chunk/atom bin/1d &\n\t\t$x 0.0 $binsize units reduced\n"); }
 	if ($dim->{"3d"}) {
 	  printf($stream "compute\t\tchunk_3d_$m $g chunk/atom bin/3d &\n\t\tx 0.0 $binsize y 0.0 $binsize z 0.0 $binsize units reduced\n"); }
-	if ($global->{profiles}->{flag}->{pressure}) {
+	if ($profiles->{flag}->{pressure}) {
 	  printf($stream "compute\t\tpress_$m $g stress/atom NULL\n");
 	}
 	if ($dim->{"msd"}) {
@@ -1205,7 +1249,7 @@ sub write_intermediate {			# <= write_lammps_intermediate
       } elsif ($dim->{"gyration"}) {
 	EMC::Message::error("gyration can only be used in combination with LAMMPS chunks\n");
       }
-      if ($global->{profiles}->{flag}->{density}) {
+      if ($profiles->{flag}->{density}) {
 	printf($stream "\nif \"\${nl_$m} > 0\" then &\n");
 	if ($flag->{chunk}) {
 	  printf($stream "\"fix\t\tdens_1d_$m $g ave/chunk &\n");
@@ -1217,13 +1261,13 @@ sub write_intermediate {			# <= write_lammps_intermediate
 	  printf($stream "\t\tdensity/mass file $name.density units reduced\"\n");
 	}
       }
-      if ($global->{profiles}->{flag}->{density3d}) {
+      if ($profiles->{flag}->{density3d}) {
 	printf($stream "\nif \"\${nl_$m} > 0\" then &\n");
 	printf($stream "\"fix\t\tdens_3d_$m $g ave/chunk &\n");
 	printf($stream "\t\t\${tfreq} \${nsample} \${dtime} chunk_3d_$m &\n");
 	printf($stream "\t\tdensity/mass file $name.density3d\"\n");
       }
-      if ($global->{profiles}->{flag}->{pressure}) {
+      if ($profiles->{flag}->{pressure}) {
 	if (!$flag->{chunk}) {
 	  EMC::Message::error("Pressure profiles can only be used in combination with LAMMPS chunks\n");
 	}
@@ -1234,13 +1278,13 @@ sub write_intermediate {			# <= write_lammps_intermediate
 	printf($stream "\t\tc_press_$m\[4] c_press_$m\[5] c_press_$m\[6] &\n");
 	printf($stream "\t\tfile $name.pressure\"\n");
       }
-      if ($global->{sample}->{msd}) {
+      if ($sample->{msd}) {
 	printf($stream "\nif \"\${nl_$m} > 0\" then &\n");
 	printf($stream "\"fix\t\tmsd_$m $g ave/time &\n");
 	printf($stream "\t\t\${tfreq} \${nsample} \${dtime} &\n");
 	printf($stream "\t\tc_msd_$m\[*\] mode vector file $name.msd\"\n");
       }
-      if ($global->{sample}->{gyration}) {
+      if ($sample->{gyration}) {
 	printf($stream "\nif \"\${nl_$m} > 0\" then &\n");
 	printf($stream "\"fix\t\tgyration_$m $g ave/time &\n");
 	printf($stream "\t\t\${tfreq} \${nsample} \${dtime} &\n");
@@ -1251,12 +1295,12 @@ sub write_intermediate {			# <= write_lammps_intermediate
       $l = $m;
     }
   }
-  if (defined($global->{profiles}->{type})) {
-    foreach (sort(keys %{$global->{profiles}->{type}})) {
+  if (defined($profiles->{type})) {
+    foreach (sort(keys %{$profiles->{type}})) {
       my $index = 1;
       my $m = $_; $g = $m;
       my $name = ($flag->{prefix} ? $global->{project}->{name}."_" : "").$m;
-      my @a = @{${$global->{profiles}->{type}}{$m}};
+      my @a = @{${$profiles->{type}}{$m}};
       my $type = shift(@a);
       my $binsize = shift(@a);
       
@@ -1298,11 +1342,11 @@ sub write_intermediate {			# <= write_lammps_intermediate
       printf($stream "\n");
     }
   }
-  if (defined($global->{profiles}->{cluster})) {
-    foreach (sort(keys %{$global->{profiles}->{cluster}})) {
+  if (defined($profiles->{cluster})) {
+    foreach (sort(keys %{$profiles->{cluster}})) {
       my $m = $_; $g = $m;
       my $name = ($flag->{prefix} ? $global->{project}->{name}."_" : "").$m;
-      my @arg = @{${$global->{profiles}->{cluster}}{$m}};
+      my @arg = @{${$profiles->{cluster}}{$m}};
       my $type = shift(@arg);
       my $binsize = shift(@arg);
       my $t = shift(@arg);
@@ -1360,12 +1404,14 @@ sub write_intermediate {			# <= write_lammps_intermediate
 sub write_footer {				# <= write_lammps_footer
   my $stream = shift(@_);
   my $root = shift(@_);
+  my $flag = EMC::Common::element($root, "md", "lammps", "flag");
+  my $box = $flag->{dump_box} ? " ix iy iz" : "";
 
   printf($stream
 "# Run conditions
 
 restart		\${dtrestart} \${project}.restart1 \${project}.restart2
-dump		1 all custom \${dtdump} \${project}.dump id type x y z
+dump		1 all custom \${dtdump} \${project}.dump id type x y z$box
 run		\${trun}
 
 ");
@@ -1530,6 +1576,11 @@ run_md() {
   SEED=\$(calc \${SEED}+2);
   run cd \"\${WORKDIR}\";
   echo;
+}
+
+set_restart() {
+  RESTART=(\$1/*/*.restart?);
+  echo \"\${RESTART[0]}\";
 }
 "); 
 }

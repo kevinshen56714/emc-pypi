@@ -1,5 +1,5 @@
 #
-#  file:	oplsua.define
+#  file:	opls-ua.define
 #  author:	Pieter J. in 't Veld
 #  date:	November 25, 2012, March 24, 2013, January 15, 2016
 #  purpose:	OPLS-UA typing rules
@@ -412,7 +412,7 @@ ITEM	RULES
 65	H(O(C(C)(=O)))
 66	C
 67	C(C)
-68	C(C(C)) C(c(:c)(:c)) C(C(=C)) C(C(=C)(*)) C(C(O))
+68	C(C(C)) C(^6c(^6:c)(^6:c)) C(C(=C)) C(C(=C)(*)) C(C(O))
 69	C(C(C)(C))
 70	C(C(C)(C)(C))
 71	C(C)(C) C(C)(c) C(c)(c)
@@ -420,7 +420,7 @@ ITEM	RULES
 73	C(C)(C)(C) C(C)(C)(c) C(C)(c)(c) C(c)(c)(c)
 73.1	C(C(=O)(OH))(C)(C) C(C(=O)(OH))(C)(c) C(C(=O)(OH))(c)(c)
 74	C(=C)(C)
-75	c(:c)(:c) c(:c)(:c)(~*)
+75	^6c(^6:c)(^6:c) ^6c(^6:c)(^6:c)(~*)
 76	C(C)(C)(C)(C) C(C)(C)(C)(c) C(C)(C)(c)(c) C(C)(c)(c)(c)
 77	C(=C)(C)(C)
 78	O(H)(C)
@@ -496,10 +496,10 @@ ITEM	RULES
 
 # Aromatics
 
-147	c(:c)(:c)(:c) c(:c)(:c)(C)
-166	c(OH)(:c)(:c)
-167	O(H)c(:c)(:c)
-168	HOc(:c)(:c)
+147	^6c(^6:c)(^6:c)(^6:c) ^6c(^6:c)(^6:c)(C)
+166	^6c(OH)(^6:c)(^6:c)
+167	O(H)^6c(^6:c)(^6:c)
+168	HO^6c(^6:c)^6(:c)
 
 # Halogen groups
 
@@ -509,8 +509,8 @@ ITEM	RULES
 121	[Cl](C([Cl])([Cl]))
 122	C([Cl])([Cl])([Cl])([Cl])
 123	[Cl](C([Cl])([Cl])([Cl]))
-263	c(:c)(:c)[Cl]
-264	[Cl](c(:c)(:c))
+263	^6c(^6:c)(^6:c)[Cl]
+264	[Cl](^6c(^6:c)(^6:c))
 
 # Urea groups
 
@@ -520,8 +520,8 @@ ITEM	RULES
 248	O=C(N(H)H)N(H)H
 249	N(C(=O)(N(H)H))(H)H
 250	HN(C(=O)(N(H)H))H
-265	N(c(:c)(:c))(H)C(=O)(*)
-266	c(c(:*)(~*))(:c(:c)(~*))N(H)C(=O)(*)
+265	N(^6c(^6:c)(^6:c))(H)C(=O)(*)
+266	^6c(^6c(:*)(~*))(^6:c(^6:c)(~*))N(H)C(=O)(*)
 
 # Ethers
 
@@ -536,10 +536,10 @@ ITEM	RULES
 110.3	C(O(c))(C(=O)(O(H)))
 110.4	C(O(C))(C(:O)(:O))
 110.5	C(O(c))(C(:O)(:O))
-110.6	C(O(C(=O)Nc))(C)
+110.6	C(O(C(=O)N^6c))(C)
 110.7	C(O(C(C)))(C)(C)
-179	O(c)(C)
-199	c(O(C))(:c)(:c)
+179	O(^6c)(C)
+199	^6c(O(C))(^6:c)(^6:c)
 
 # Ketones
 
@@ -551,8 +551,8 @@ ITEM	RULES
 465	C(=O)(O)(C)
 466	O(=C(O)(C))
 467	O(C(=O)(C))(C) O(C(=O)(N))(C)
-472	c(OC(=O)C)(:c)(:c)
-473	O(c(:c)(:c))(C(=O)C)
+472	^6c(OC(=O)C)(^6:c)(^6:c)
+473	O(^6c(^6:c)(^6:c))(C(=O)C)
 259.5	C(OC(=O)C)(C)(C)(C)
 
 # Carbonates

@@ -8,6 +8,9 @@ variables	= {
   compress	-> false,
   start		-> "last",
   end		-> "last",
+  dx		-> 0,
+  dy		-> 0,
+  dz		-> 0,
   source	-> ".",
   target	-> "."
 };
@@ -15,6 +18,8 @@ variables	= {
 get		= {name -> source+"/"+input, work -> target};
 
 traject		= {mode -> get, name -> traject, start -> start, end -> end};
+
+translate	= {delta -> {dx, dy, dz}};
 
 put		= {name -> output, compress -> compress};
 

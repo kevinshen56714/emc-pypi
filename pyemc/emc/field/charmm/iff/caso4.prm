@@ -1,0 +1,117 @@
+#
+#  CHARMM interaction parameter using caso4 force field files, 
+#  to be used in conjuction with EMC v9.4.4 or higher,
+#  and created on Thu Jan 2023
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE		CHARMM
+FFTYPE		ATOMISTIC
+FFAPPLY		GROUPS
+FFINDEX		TYPES
+FFDEPTH		1
+FFCHARGE	ALL
+VERSION		v1.5
+CREATED		Jan 2023
+LENGTH		ANGSTROM
+ENERGY		KCAL/MOL
+DENSITY		G/CC
+MIX		BERTHELOT
+NBONDED		3
+INNER		10.0
+CUTOFF		12.0
+ANGLE		ERROR
+PAIR14		INCLUDE
+TORSION		IGNORE
+GROUP		IGNORE
+RULE		ERROR
+SHAKE		ALL
+
+ITEM	END
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+2021	139	106262	Cement and Concrete Research
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	index	comment
+
+CA+G	40.08000	Ca	0	+1.7	600	Calcium ion in gypsum, hemihydrate, and anhydrite (+1.7)
+H1OG	1.007970	H	1	0.00	603	Hydrogen bonded to oxygen in water
+O2HG	15.99940	O	2	0.00	604	Oxygen bonded to hydrogen in water
+O1SG	15.99940	O	1	0.00	601	Oxygen atom in sulfate ion present in gypsum, HH and anhydrite (-0.55)
+S4OG	32.06400	S	4	0.00	602	Sulfur atom in sulfate ion in gypsum, HH and anhydrite (+0.5)
+
+ITEM	END
+
+# Equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	impr
+
+CA+G	CA+G	CA+G	CA+G	CA+G	CA+G	CA+G
+H1OG	H1OG	H1OG	H1OG	H1OG	H1OG	H1OG
+O2HG	O2HG	O2HG	O2HG	O2HG	O2HG	O2HG
+O1SG	O1SG	O1SG	O1SG	O1SG	O1SG	O1SG
+S4OG	S4OG	S4OG	S4OG	S4OG	S4OG	S4OG
+
+ITEM	END
+
+# Increment parameters
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+H1OG	O2HG	0.41	-0.41
+S4OG	O1SG	0.125	-0.55
+
+ITEM	END
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+# type1	type2	rmin/2	ewell	rmin14/2	ewell14
+
+CA+G	CA+G	1.55	-0.22
+H1OG	H1OG	0.0	-0.0
+O2HG	O2HG	1.7765	-0.155
+O1SG	O1SG	1.70	-0.12
+S4OG	S4OG	2.10	-0.30
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+H1OG	O2HG	540.63	0.96
+O1SG	S4OG	380	1.505
+
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+O1SG	S4OG	O1SG	170	109.5
+H1OG	O2HG	H1OG	50.0	104.5
+
+ITEM	END
+

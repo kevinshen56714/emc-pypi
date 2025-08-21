@@ -1,0 +1,204 @@
+#
+#  CHARMM interaction parameter using clay force field files, 
+#  converted by emc_clay.pl 0.1beta, June 15, 2021 by Pieter J. in 't Veld,
+#  to be used in conjuction with EMC v9.4.4 or higher,
+#  and created on Mon Jul 19 20:46:45 2021.
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE		CHARMM
+FFTYPE		ATOMISTIC
+FFAPPLY		GROUPS
+FFINDEX		TYPES
+FFDEPTH		1
+FFCHARGE	ALL
+VERSION		v1.5
+CREATED		Jul 2021
+LENGTH		ANGSTROM
+ENERGY		KCAL/MOL
+DENSITY		G/CC
+MIX		BERTHELOT
+NBONDED		3
+INNER		10.0
+CUTOFF		12.0
+ANGLE		ERROR
+PAIR14		INCLUDE
+TORSION		ERROR
+GROUP		IGNORE
+RULE		ERROR
+SHAKE		ALL
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+2005	17	5658	Chem. Mater.
+2008	112	17281	J. Chem. Phys. C
+2013	29	1754	Langmuir
+2014	26	2647	Chem. Mater.
+
+ITEM	END
+
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	index	comment
+
+AL4O	26.982	Al	4	0	520	Al defect in silicate sheet
+AL6O	26.982	Al	6	0	522	Al in aluminate sheet
+HO	1.0079	H	1	0	533	H atom in clay, silica, and cement
+K+1	39.098	K	0	1	517	K ion in mica, montmorillonite, and other clays
+O2AL	15.9994	O	2	0	524	O connected to Al and Si in silicate sheet
+O2SI	15.9994	O	2	0	524	O connected to Si only in silicate sheet
+O3AL	15.9994	O	3	0	527	O connected to Al only in aluminate sheet
+O3H	15.9994	O	3	0	529	O connected to Al and H in aluminate sheet
+O3SI	15.9994	O	3	0	527	O connected to Al and Si in aluminate sheet
+SI4O	28.085	Si	4	0	518	Si connected to O only in silicate sheet
+
+ITEM	END
+
+# Equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	impr
+
+AL4O	AL4O	AL4O	AL4O	AL4O	AL4O	AL4O
+AL6O	AL6O	AL6O	AL6O	AL6O	AL6O	AL6O
+HO	HO	HO	HO	HO	HO	HO
+K+1	K+1	K+1	K+1	K+1	K+1	K+1
+O2AL	O2AL	O2AL	O2AL	O2AL	O2AL	O2AL
+O2SI	O2SI	O2SI	O2SI	O2SI	O2SI	O2SI
+O3AL	O3AL	O3AL	O3AL	O3AL	O3AL	O3AL
+O3H	O3H	O3H	O3H	O3H	O3H	O3H
+O3SI	O3SI	O3SI	O3SI	O3SI	O3SI	O3SI
+SI4O	SI4O	SI4O	SI4O	SI4O	SI4O	SI4O
+
+ITEM	END
+
+# Increment parameters
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+AL4O	O2AL	0.258	-0.508
+AL4O	O3AL	0.025	-0.275
+AL6O	O2AL	0.258	-0.508
+AL6O	O3AL	0.2415	-0.2415
+AL6O	O3H	0.2415	-0.2415
+AL6O	O3SI	0.2415	-0.2415
+HO	O2AL	0.4	-0.4
+HO	O2SI	0.4	-0.4
+HO	O3H	0.2	-0.2
+O1SI	SI4O	-0.9	-0.1
+O2AL	SI4O	-0.275	0.275
+O2SI	SI4O	-0.275	0.275
+O3SI	SI4O	-0.275	0.275
+
+ITEM	END
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+# type1	type2	rmin/2	ewell	rmin14/2	ewell14
+
+AL4O	AL4O	2.1	-0.05	2.1	-0.05
+AL6O	AL6O	2.1	-0.05   2.1	-0.05
+HO	HO	0.5425	-0.015  0.5425	-0.015
+K+1	K+1	1.9	-0.2    1.9	-0.2
+O2AL	O2AL	1.75	-0.025  1.75	-0.025
+O2SI	O2SI	1.75	-0.025  1.75	-0.025
+O3AL	O3AL	1.75	-0.025  1.75	-0.025
+O3H	O3H	1.75	-0.025  1.75	-0.025
+O3SI	O3SI	1.75	-0.025  1.75	-0.025
+SI4O	SI4O	2	-0.05   2	-0.05
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND_AUTO
+
+AL4O	O2*	430	1.7267
+AL6O	O2*	430	2.03228
+HO	O2*	495	0.945
+
+ITEM	END
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+AL4O	O2AL	430	1.7267
+AL4O	O3AL	430	1.73095
+AL6O	O3AL	430	2.03228
+AL6O	O3H	430	2.0149
+AL6O	O3SI	430	2.03227
+HO	O2SI	495	0.945
+HO	O3H	495	0.929
+O2AL	SI4O	430	1.7267
+O2SI	SI4O	430	1.7267
+O3SI	SI4O	430	1.73095
+
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE_AUTO
+
+O*	AL6O	O*	170	88.14
+AL*	O2*	AL*	170	132.3
+AL*	O2*	SI*	170	132.3
+AL4*	O2*	HO	40	115
+SI*	O2*	SI*	170	132.3
+
+ITEM	END
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+AL4O	O2AL	SI4O	170	132.3
+AL4O	O3AL	AL6O	170	125.55
+AL6O	O3AL	AL6O	170	101.6
+AL6O	O3H	AL6O	170	103
+AL6O	O3H	HO	45	126
+AL6O	O3SI	AL6O	170	101.6
+AL6O	O3SI	SI4O	170	125.55
+HO	O2SI	SI4O	50	115
+O2AL	AL4O	O2AL	170	107.933
+O2AL	AL4O	O3AL	170	110.933
+O2AL	SI4O	O2AL	170	108.15
+O2AL	SI4O	O2SI	170	107.825
+O2AL	SI4O	O3SI	170	110.933
+O2SI	SI4O	O2SI	170	107.988
+O2SI	SI4O	O3SI	170	110.933
+O3AL	AL6O	O3H	170	94.4167
+O3AL	AL6O	O3SI	170	88.14
+O3H	AL6O	O3H	170	77
+O3H	AL6O	O3SI	170	94.4167
+O3SI	AL6O	O3SI	170	88.14
+SI4O	O2SI	SI4O	170	132.3
+
+ITEM	END
+
+# Torsion wildcard parameters
+
+ITEM	TORSION_AUTO
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+*	*	*	*	0	0	0
+
+ITEM	END

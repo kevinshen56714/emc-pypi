@@ -5,7 +5,7 @@
 #  date:	November 24, 2021, February 12, September 26, 2022.
 #  purpose:	IO routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -246,7 +246,7 @@ sub strip {					# <= my_strip
   my $dir = defined($name) ? dirname($name) : undef;
 
   foreach(@_) {
-    $name = basename($name, $_);
+    $name = basename($name, $_) if (defined($_));
   }
   return defined($dir) ? $dir.$sep.$name : $name;
 }
@@ -375,9 +375,9 @@ sub check_exist {
 sub close {
   my $stream = shift(@_);
   my $name = shift(@_);
-
+  
   undef($EMC::IO::stream);
-  delete($EMC::IO::name{fileno($stream)});
+  delete($EMC::IO::name{fileno($stream)}) if (defined($stream));
   if (defined($name)) {
     return if ($name eq "-");
   }
@@ -485,6 +485,11 @@ sub rewind {
 
   seek($stream, 0, 0);
   return $stream;
+}
+
+
+sub touch {
+  EMC::IO::close(EMC::IO::open(shift(@_), "w"));
 }
 
 

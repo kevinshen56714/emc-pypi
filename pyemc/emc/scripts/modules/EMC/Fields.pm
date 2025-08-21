@@ -2,10 +2,11 @@
 #
 #  module:	EMC::Fields.pm
 #  author:	Pieter J. in 't Veld
-#  date:	December 25, 2021, January 15, 2022, April 30, 2024.
+#  date:	December 25, 2021, January 15, 2022, April 30,
+#  		November 30, 2024.
 #  purpose:	Field routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -24,6 +25,13 @@
 #      flag		HASH	control flags
 #        indicator	BOOLEAN	include "field_" indicator in commands
 #        commands	BOOLEAN	include commands in $emc->{options}
+#
+#    mass		see 'specific members' below
+#    equivalence	see 'specific members' below
+#    bond		see 'specific members' below
+#    angle		see 'specific members' below
+#    improper		see 'specific members' below
+#    torsion		see 'specific members' below
 #
 #  specific members:
 #    data		HASH	field data
@@ -54,6 +62,9 @@
 #    20220115	Inclusion of commands, defaults, and functions
 #    20240430	Inclusion of field selection
 #    		Renaming from Field to Fields
+#    20241130	Added assign_field() for setting field definitions
+#    		Added item structure interpretors for bonded, define,
+#    		references, and stream
 #
 
 package EMC::Fields;
@@ -69,6 +80,9 @@ $VERSION = "1.0";
 use File::Basename;
 use EMC::Common;
 use EMC::Item;
+use EMC::Mass;
+use EMC::Message;
+use EMC::Residues;
 use EMC::Struct;
 use EMCField;
 use Cwd;
@@ -182,6 +196,7 @@ sub set_defaults {
 	flag		=> 0,
 	"format"	=> "%15.10e",
 	id		=> "opls-ua",
+	inverse		=> 0.001,
 	name		=> EMC::IO::scrub_dir("opls/2012/opls-ua"),
 	type		=> "opls",
 	location	=> EMC::IO::scrub_dir("$root_dir/field/"),
@@ -232,6 +247,198 @@ sub set_defaults {
   $fields->{list}->{location} = $root->{global}->{location}->{field_list};
   
   return $fields;
+}
+
+
+sub assign_field {
+  my $field = EMC::Common::hash(shift(@_));
+
+  $field = EMC::Common::attributes(
+    $field,
+    {
+      index => [
+	"define",
+	"references",
+	"mass",
+	"equivalence_auto",
+	"equivalence",
+	"increment",
+	"nonbond",
+	"bond",
+	"angle_auto",
+	"angle",
+	"torsion_auto",
+	"torsion",
+	"improper_auto",
+	"improper"
+      ],
+      define		=> {
+	data		=> {
+	  ANGLE		=> "ERROR",
+	  CREATED	=> uc(EMC::Common::date_short()),
+	  DENSITY	=> "G/CC",
+	  ENERGY	=> "KCAL/MOL",
+	  FFAPPLY	=> "ALL",
+	  FFCHARGE	=> "ALL",
+	  FFDEPTH	=> 4,
+	  FFINDEX	=> "TYPES",
+	  FFMODE	=> undef,
+	  FFSTRICT	=> "TRUE",
+	  FFTYPE	=> "ATOMISTIC",
+	  LENGTH	=> "ANGSTROM",
+	  MIX		=> "GEOMETRIC",
+	  NBONDED	=> 3,
+	  PAIR14	=> "INCLUDE",
+	  RULE		=> "ERROR",
+	  RULE_NARGS	=> 7,
+	  SHAKE		=> "NONE",
+	  TORSION	=> "ERROR",
+	  VERSION	=> undef
+	},
+	flag		=> {
+	  ntypes	=> 1
+	},
+	order		=> [
+	  "FFMODE",
+	  "FFTYPE",
+	  "FFAPPLY",
+	  "FFINDEX",
+	  "FFDEPTH",
+	  "FFCHARGE",
+	  "FFSTRICT",
+	  "VERSION",
+	  "CREATED",
+	  "LENGTH",
+	  "ENERGY",
+	  "DENSITY",
+	  "MIX",
+	  "RULE",
+	  "RULE_NARGS",
+	  "NBONDED",
+	  "ANGLE",
+	  "PAIR14",
+	  "TORSION",
+	  "SHAKE"
+	]
+      },
+      references	=> {
+	flag		=> {
+	  ntypes	=> undef
+	},
+	index		=> [
+	  "year",
+	  "volume",
+	  "page",
+	  "journal",
+	]
+      },
+      mass		=> {
+	flag		=> {
+	  ntypes	=> 1
+	},
+	index		=> [
+	  "type",
+	  "mass",
+	  "element",
+	  "ncons",
+	  "charge",
+	  "index",
+	  "comment"
+	]
+      },
+      equivalence	=> {
+	flag		=> {
+	  ntypes	=> 1
+	},
+	index		=> [
+	  "type",
+	  "pair",
+	  "incr",
+	  "bond",
+	  "angle",
+	  "torsion",
+	  "improper"
+	]
+      },
+      increment		=> {
+	flag		=> {
+	  ntypes	=> 2
+	},
+	index		=> [
+	  "type1",
+	  "type2",
+	  "delta12",
+	  "delta21"
+	]
+      },
+      nonbond		=> {
+	flag		=> {
+	  ntypes	=> 2
+	},
+	index		=> [
+	  "type1",
+	  "type2",
+	  "sigma",
+	  "epsilon"
+	]
+      },
+      bond		=> {
+	flag		=> {
+	  ntypes	=> 2
+	},
+	index		=> [
+	  "type1",
+	  "type2",
+	  "k",
+	  "l0"
+	]
+      },
+      angle		=> {
+	flag		=> {
+	  ntypes	=> 3
+	},
+	index		=> [
+	  "type1",
+	  "type2",
+	  "type3",
+	  "k",
+	  "theta0"
+	]
+      },
+      torsion		=> {
+	flag		=> {
+	  ntypes	=> 4
+	},
+	index		=> [
+	  "type1",
+	  "type2",
+	  "type3",
+	  "type4",
+	  "k",
+	  "n",
+	  "delta",
+	  "[...]"
+	]
+      },
+      improper		=> {
+	flag		=> {
+	  ntypes	=> 4
+	},
+	index		=> [
+	  "type1",
+	  "type2",
+	  "type3",
+	  "type4",
+	  "k",
+	  "psi0"
+	]
+      }
+    }
+  );
+  foreach ("equivalence", "bond", "angle", "torsion", "improper") {
+    $field->{$_."_auto"} = EMC::Element::deep_copy($field->{$_});
+  }
+  return $field;  
 }
 
 
@@ -403,6 +610,11 @@ sub set_commands {
 	  default	=> "-",
 	  gui		=> ["option", "chemistry", "field", "advanced", "complete,empty,ignore,error,warn"]
 	},
+	field_inverse	=> {
+	  comment	=> "set force field inverse cutoff",
+	  default	=> $fields->{field}->{inverse},
+	  gui		=> ["string", "chemistry", "top", "advanced"]
+	},
 	field_location	=> {
 	  comment	=> "set force field location",
 	  default	=> $fields->{field}->{location},
@@ -561,6 +773,9 @@ sub set_options {
       return set_flag($fields, "improper", $args->[0]); }
     if ($option eq "field_increment") {
       return set_flag($fields, "increment", $args->[0]); }
+    if ($option eq "field_inverse") {
+      my $value =  EMC::Math::eval($args->[0])->[0];
+      return $fields->{field}->{inverse} = $value; }
     if ($option eq "field_location" ) {
       foreach (@{$args}) { $_ = EMC::IO::scrub_dir($_); }
       EMC::IO::path_prepend($list->{location}, reverse(@{$args}), ".");
@@ -657,7 +872,7 @@ sub set_item_field {
   my $location;
   my $source;
 
-  $name = $global->{project}->{name};
+  $name = defined($arg->{name}) ? $arg->{name} : $global->{project}->{name};
   if ($fenv) {
     mkpath("chemistry") if (! -e "chemistry");
     chdir("chemistry");
@@ -771,6 +986,170 @@ sub index {
 
 # import
 
+# separate items for .define
+
+sub item_bonded {
+  my $items = shift(@_);
+  my $attr = shift(@_);
+
+  my $root = EMC::Common::element($attr, "root");
+  my $field = EMC::Common::element($attr, "field");
+  my $index = EMC::Common::element($attr, "index");
+  my $data = EMC::Common::element($items, $index, "data");
+  my $lines = EMC::Common::element($items, $index, "lines");
+
+  return if (!($root && $field && $index && $data && $lines));
+
+  my $equivalence = EMC::Common::element($field, "equivalence", "data");
+  my $mass = EMC::Common::element($field, "mass", "data");
+
+  my $line = -1;
+  my $ntypes = {bond => 2, angle => 3, torsion => 4, improper => 4}->{$index};
+  my $ieqv = {bond => 2, angle => 3, torsion => 4, improper => 5}->{$index};
+  my $arrange = $index eq "improper" ? 
+    \&EMC::Fields::arrange_imp : \&EMC::Fields::arrange;
+  my $register;
+  my $auto;
+
+  foreach (@{$data}) {
+    my $arg = EMC::List::extract("", @{$_}, {last => "#", not => 1});
+
+    ++$line;
+    next if (ref($arg) ne "ARRAY");
+    my @type = splice(@{$arg}, 0, $ntypes);
+    my $fauto = 0;
+    foreach (@type) {
+      if ($_ =~ m/\*/) {
+	$fauto = 1;
+	next;
+      }
+      if (!defined($mass->{$_})) {
+	EMC::Message::error_line($lines->[$line], "undefined type '$_'\n");
+      }
+      if (ref($equivalence->{$_}) eq "ARRAY") {
+	$_ = $equivalence->{$_}->[$ieqv];
+      }
+    }
+    if ($fauto) {
+      $auto = EMC::Common::hash($field, $index."_auto", "data") if (!$auto);
+    } elsif (!$register) {
+      $register = EMC::Common::hash($field, $index, "data");
+    }
+    my $list = EMC::Common::list($fauto ? $auto : $register, @type);
+    push(@{$list}, @{$arg});
+  }
+}
+
+
+sub item_define {
+  my $items = shift(@_);
+  my $attr = shift(@_);
+
+  my $field = EMC::Common::element($attr, "field");
+  my $index = EMC::Common::element($attr, "index");
+  my $data = EMC::Common::element($items, $index, "data");
+  my $lines = EMC::Common::element($items, $index, "lines");
+
+  return if (!($field && $index && $data && $lines));
+
+  my $line = -1;
+  my $define = EMC::Common::hash($field, "define", "data");
+
+  foreach (@{$data}) {
+    my $arg = EMC::List::extract("", @{$_}, {last => "#", not => 1});
+
+    ++$line;
+    next if (ref($arg) ne "ARRAY");
+    if (!defined($define->{uc($arg->[0])})) {
+      EMC::Message::error_line($lines->[$line],
+	"unsupported define keyword '$arg->[0]'\n");
+    }
+    if (scalar(@{$arg}!=2)) {
+      EMC::Message::error($lines->[$line], "incorrect number of entries\n");
+    }
+    $define->{uc($arg->[0])} = uc($arg->[1]);
+  }
+}
+
+
+sub item_equivalence {
+  my $items = shift(@_);
+  my $attr = shift(@_);
+
+  my $root = EMC::Common::element($attr, "root");
+  my $field = EMC::Common::element($attr, "field");
+  my $index = EMC::Common::element($attr, "index");
+  my $data = EMC::Common::element($items, $index, "data");
+  my $lines = EMC::Common::element($items, $index, "lines");
+
+  return if (!($root && $field && $data && $lines));
+
+  my $equivalence = EMC::Common::hash($field, "equivalence", "data");
+
+  my $line = -1;
+
+  foreach (@{$data}) {						# storage
+    my $arg = EMC::List::extract("", @{$_}, {last => "#", not => 1});
+
+    ++$line;
+    next if (ref($arg) ne "ARRAY");
+    if (scalar(@{$arg}!=7)) {
+      EMC::Message::error_line($lines->[$line],
+       	"incorrect number of entries\n");
+    }
+    my $list = EMC::Common::list($equivalence, shift(@{$arg}));
+    push(@{$list}, @{$arg});
+  }
+}
+
+
+sub item_increment {
+  my $items = shift(@_);
+  my $attr = shift(@_);
+
+  my $root = EMC::Common::element($attr, "root");
+  my $field = EMC::Common::element($attr, "field");
+  my $index = EMC::Common::element($attr, "index");
+  my $data = EMC::Common::element($items, $index, "data");
+  my $lines = EMC::Common::element($items, $index, "lines");
+
+  return if (!($root && $field && $data && $lines));
+
+  my $mass = EMC::Common::element($field, "mass", "data");
+  my $increment = EMC::Common::hash($field, "increment", "data");
+
+  my $line = -1;
+
+  foreach (@{$data}) {						# storage
+    my @a;
+
+    foreach (@{$_}) {
+      last if (substr($_,0,1) eq "#");
+      push(@a, $_);
+    }
+
+    my $arg = EMC::List::extract("", @a, {not => 1});
+
+    ++$line;
+    next if (ref($arg) ne "ARRAY");
+    if (scalar(@{$arg}!=4)) {
+      EMC::Message::error_line($lines->[$line],
+       	"incorrect number of entries\n");
+    }
+
+    my @type = (shift(@{$arg}), shift(@{$arg}));
+
+    foreach (@type) {
+      next if ($_ =~ m/\*/);
+      if (!defined($mass->{$_})) {
+	EMC::Message::error_line($lines->[$line], "undefined type '$_'\n");
+      }
+    }
+    $increment->{@type[0]}->{@type[1]} = join("\t", @{$arg});
+  }
+}
+
+
 sub item_mask {
   my $items = shift(@_);
   my $attr = shift(@_);
@@ -815,6 +1194,37 @@ sub item_mask {
   return $mask;
 }
 
+
+sub item_references {
+  my $items = shift(@_);
+  my $attr = shift(@_);
+
+  my $field = EMC::Common::element($attr, "field");
+  my $index = EMC::Common::element($attr, "index");
+  my $data = EMC::Common::element($items, $index, "data");
+  my $lines = EMC::Common::element($items, $index, "lines");
+
+  return if (!($field && $index && $data && $lines));
+
+  my $references = EMC::Common::list($field, "references", "data");
+
+  my $line = -1;
+
+  foreach (@{$data}) {
+    my $arg = EMC::List::extract("", @{$_}, {not => 1});
+
+    ++$line;
+    next if (ref($arg) ne "ARRAY");
+    next if (substr($arg->[0],0,1) eq "#");
+    if (scalar(@{$arg})!=4) {
+      EMC::Message::error($lines->[$line], "incorrect number of entries\n");
+    }
+    push(@{$references}, [@{$arg}]);
+  }
+}
+
+
+# item field in .esh
 
 sub item_field {
   my $field = shift(@_);
@@ -881,8 +1291,8 @@ sub item_field {
       while (1) {
 	last if (!scalar(@{$keys->[0]}));
 	
-	for ($i=1; $i<$n; ++$i) { 			# advance
-	  last if(!scalar(@{$keys->[$i]}));
+	for ($i=$n; $i>1; --$i) { 			# advance
+	  last if(scalar(@{$keys->[$i-1]}));
 	}
 	@key[$i-1] = shift(@{$keys->[$i-1]});
 	for (; $i<$n; ++$i) { 
@@ -977,6 +1387,8 @@ sub item_field {
   return $field;
 }
 
+
+# item struct
 
 sub from_item {
   my $item = shift(@_);
@@ -1146,6 +1558,7 @@ sub from_item {
 	# section without indexed data
 	
 	my $data;
+
 	foreach (@{$entry->{data}}) {
 	  my $arg = [];
 
@@ -1275,12 +1688,124 @@ sub append_entry {
 }
 
 
+sub order_rules {
+  my $field = shift(@_);
+  my $rules = EMC::Common::element($field, "rules");
+  my $data = EMC::Common::element($field, "rules", "data");
+  my $hash;
+
+  return if (!$rules || !$data);
+  
+  my $id = 0;
+  foreach (sort(
+    {EMC::List::compare($a, $b, 1)}
+    map($data->{$_}, sort({$a<=>$b} keys(%{$data}))))) {
+    $hash->{$id++} = $_;
+  }
+  $rules->{data} = $hash;
+  $rules->{order} = [map($_-1, (1..$id))];
+}
+
+
+sub add_type {
+  my $hash = shift(@_);
+  my $type = shift(@_);
+  my $order = EMC::Common::list($hash, "order");
+
+  push(@{$order}, $type) if (!defined($hash->{$type}));
+  return EMC::Common::hash($hash, "data", $type);
+}
+
+
+sub indent {
+  my $n = shift(@_);
+
+  return ("\t" x int($n/4)).("  " x ($n % 4));
+}
+
+sub to_item_precedence {
+  my $key = "precedence";
+  my $field = shift(@_);
+  my $attr = EMC::Common::attributes(shift(@_));
+  my $item = defined($attr->{item}) ? $attr->{item} : undef;
+
+  my $sub = $field->{$key};
+  my $hash = {data => {}, order => []};
+  my $stack = [];
+  my $level = 0;
+  my $type;
+  
+  foreach (@{$sub->{data}}) {
+    foreach (@{$_}) {
+      foreach (split("")) {
+	if ($_ eq "(") {
+	  $hash = add_type($hash, $type) if ($type);
+	  push(@{$stack}, $hash);
+	  $type = undef;
+	  ++$level;
+       	}
+	elsif ($_ eq ")") { 
+	  if (--$level<0) {
+	    EMC::Message::error(
+	      "unmatching parenthesis in precedence section\n");
+	  }
+	  add_type($hash, $type) if ($type);
+	  $type = undef;
+	  $hash = pop(@{$stack}) if (@{$stack});
+       	}
+	elsif ($_ eq " ") { 
+	  $hash = add_type($hash, $type) if ($type);
+	  $type = undef;
+       	}
+	else {
+	  $type .= $_;
+       	}
+      }
+      $hash = add_type($hash, $type) if ($type);
+      $type = undef;
+    }
+  }
+  
+  my $item = EMC::Common::element($attr, "item");
+  my $data = EMC::Common::list($item, $key, "data");
+  my $flag = EMC::Common::element($field, $key, "flag");
+  my $i = $hash->{i} = 0;
+  my $entry;
+  my $type;
+
+  $level = 0;
+  $stack = [];
+  while (1) {
+    if (defined($hash->{order}) ? $hash->{i}==@{$hash->{order}} : 1) {
+      last if (!$level);
+      append_entry($data, undef, [$entry.")"], $flag);
+      $hash = pop(@{$stack});
+      --$level;
+      $entry = indent($level-1);
+      next;
+    }
+    $type = $hash->{order}->[$hash->{i}++];
+    $entry = indent($level)."($type";
+    
+    push(@{$stack}, $hash);
+    $hash = $hash->{data}->{$type};
+    $hash->{i} = 0;
+    ++$level;
+    if (defined($hash->{order})) {
+      append_entry($data, undef, [$entry], $flag);
+    }
+  }
+  return $item;
+}
+
+
 sub to_item {
   my $field = shift(@_);
   my $attr = EMC::Common::attributes(shift(@_));
   my $item = defined($attr->{item}) ? $attr->{item} : undef;
   my $guide = $EMC::Fields::Guide;
 
+  order_rules($field);
   foreach (@{$guide->{index}}) {
     my $class = $_;
     my $define = $class eq "define";
@@ -1312,53 +1837,35 @@ sub to_item {
       if ($ntypes>0) {
 	my $arrange = $class eq "improper" ? \&arrange_none : \&arrange;
 	my $order = defined($sub->{order}) ? $sub->{order} : undef;
+	my $keys = [[$order ? @{$order} : sort(keys(%{$ptr->[0]}))]];
+	my @key = ();
+	my $i;
 
 	$flag->{first} = 1;
-	foreach ($order ? @{$order} : sort(keys(%{$ptr->[0]}))) {
-	  $type->[0] = $_;
-	  $ptr->[1] = $ptr->[0]->{$_};
-	  if ($ntypes>1) {
-	    foreach (sort(keys(%{$ptr->[1]}))) {
-	      $type->[1] = $_;
-	      $ptr->[2] = $ptr->[1]->{$_};
-	      if ($ntypes>2) {
-		foreach (sort(keys(%{$ptr->[2]}))) {
-		  $type->[2] = $_;
-		  $ptr->[3] = $ptr->[2]->{$_};
-		  if ($ntypes>3) {
-		    foreach (sort(keys(%{$ptr->[3]}))) {
-		      $type->[3] = $_;
-		      $ptr->[4] = $ptr->[3]->{$_};
-		      if ($ntypes>4) {
-			foreach (sort(keys(%{$ptr->[4]}))) {
-			  $type->[4] = $_;
-			  $ptr->[5] = $ptr->[4]->{$_};
-			  my $local = [arrange_t($arrange, $nt, @{$type})];
-			  append_entry($data, $local, $ptr->[-1], $flag);
-			}
-		      } else { 
-			my $local = [arrange_t($arrange, $nt, @{$type})];
-			append_entry($data, $local, $ptr->[-1], $flag);
-		      }
-		    }
-		  } else {
-		    my $local = [arrange_t($arrange, $nt, @{$type})];
-		    append_entry($data, $local, $ptr->[-1], $flag);
-		  }
-		}
-	      } else {
-		my $local = [arrange_t($arrange, $nt, @{$type})];
-		append_entry($data, $local, $ptr->[-1], $flag);
-	      }
-	    }
-	  } else {
-	    append_entry($data, $type, $ptr->[-1], $flag);
+	push(@{$keys}, map([], (1..$ntypes)));
+	while (1) {
+	  last if (!scalar(@{$keys->[0]}));
+	  for ($i=$ntypes; $i>1; --$i) { 		# advance
+	    last if(scalar(@{$keys->[$i-1]}));
 	  }
+	  @key[$i-1] = shift(@{$keys->[$i-1]});
+	  for (; $i<$ntypes; ++$i) { 
+	    $ptr->[$i] = $ptr->[$i-1]->{@key[$i-1]};
+	    $keys->[$i] = [sort(keys(%{$ptr->[$i]}))];
+	    @key[$i] = shift(@{$keys->[$i]});
+	  }
+	  $ptr->[$i] = $ptr->[$i-1]->{@key[-1]};
+	  append_entry(
+	    $data, [arrange_t($arrange, $nt, @key)], $ptr->[-1], $flag);
 	}
       } else {
 	if (ref($ptr->[-1]) eq "ARRAY") {
-	  foreach (@{$ptr->[-1]}) {
-	    append_entry($data, $type, $_, $flag);
+	  if ($key eq "precedence") {
+	    to_item_precedence($field, {item => $item});
+	  } else {
+	    foreach (@{$ptr->[-1]}) {
+	      append_entry($data, $type, $_, $flag);
+	    }
 	  }
 	} else {
 	  append_entry($data, $type, $ptr->[-1], $flag);
@@ -1647,10 +2154,10 @@ sub set_field {
 	    $ext = $_;
 	    foreach ("", ".gz") {
 	      my $compress = $_;
-	      foreach (sort(EMC::IO::find($dir."/", "*.$ext$compress"))) {
+	      foreach (sort(
+		  {$b cmp $a} EMC::IO::find($dir."/", "*.$ext$compress"))) {
 		next if (m/\/src\//);
-		my $index = index($_, $field_type.$add); 
-		next if ($index<0);
+		next if (index($_, $field_type.$add)<0);
 		$field_type = EMC::Fields::type($name = $_, $add, $global);
 		last;
 	      }

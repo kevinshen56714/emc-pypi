@@ -1,62 +1,48 @@
 EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
 
 Info: reading gromacs field from './src/martini.itp'
+Info: reading gromacs field from './src/ions.itp'
+Info: reading gromacs field from './src/solvents.itp'
+Info: reading gromacs field from './src/phospholipids.itp'
+Info: reading gromacs field from './src/sugars_v2.itp'
+Info: creating mass entry for type 'SP4r1' from 'SP4r'
+Info: creating mass entry for type 'SP1r1' from 'SP1r'
+Info: creating mass entry for type 'TN4ar1' from 'TN4ar'
+Info: creating mass entry for type 'SN61' from 'SN6'
+Info: creating mass entry for type 'SN4ar1' from 'SN4ar'
+Info: creating mass entry for type 'TP11' from 'TP1'
+Info: reading gromacs field from './src/small_molecules_v2.itp'
+Info: creating mass entry for type 'TC51' from 'TC5'
+Warning: cannot adapt mass for 'ANTH:R4' at line 1857 of input
+Info: creating mass entry for type 'TC5e1' from 'TC5e'
+Warning: cannot adapt mass for 'ANTH:R4' at line 1857 of input
+Info: creating mass entry for type 'TC5e2' from 'TC5e'
+Info: creating mass entry for type 'TN11' from 'TN1'
+Warning: cannot adapt mass for 'CAFF:R5' at line 2054 of input
+Info: creating mass entry for type 'TC52' from 'TC5'
+Info: creating mass entry for type 'TN12' from 'TN1'
+Warning: cannot adapt mass for 'CAFF:R5' at line 2054 of input
+Info: creating mass entry for type 'TC53' from 'TC5'
+Info: creating mass entry for type 'TC54' from 'TC5'
+Info: creating mass entry for type 'TC55' from 'TC5'
+Info: creating mass entry for type 'TC56' from 'TC5'
+Info: creating mass entry for type 'TC61' from 'TC6'
+Info: creating mass entry for type 'C4h1' from 'C4h'
+Info: creating mass entry for type 'TN4a1' from 'TN4a'
+Info: creating mass entry for type 'SN4a1' from 'SN4a'
+Info: creating mass entry for type 'C11' from 'C1'
+Info: creating mass entry for type 'TC31' from 'TC3'
+Info: creating mass entry for type 'TN6d1' from 'TN6d'
+Info: creating mass entry for type 'SX31' from 'SX3'
+Info: creating mass entry for type 'TN13' from 'TN1'
+Info: creating mass entry for type 'TC5e3' from 'TC5e'
+Info: creating mass entry for type 'SP4r2' from 'SP4r'
+Info: creating mass entry for type 'SN62' from 'SN6'
+Info: creating mass entry for type 'SC41' from 'SC4'
+Info: creating mass entry for type 'SP1r2' from 'SP1r'
+Info: creating mass entry for type 'TC41' from 'TC4'
+Info: creating mass entry for type 'SN3ar1' from 'SN3ar'
+Info: creating mass entry for type 'SC31' from 'SC3'
+Info: creating mass entry for type 'SC21' from 'SC2'
 Info: writing field to 'martini.prm.gz'
-
-EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
-
-Info: reading gromacs field from './src/ions.itp'
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TN2q
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TN2q
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TC3
-Info: writing field to 'ions.prm.gz'
-
-EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
-
-Info: reading gromacs field from './src/solvents.itp'
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
-Info: writing field to 'solvents.prm.gz'
-
-EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
-
-Info: reading gromacs field from './src/phospholipids.itp'
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C4h
-Info: writing field to 'phospholipids.prm.gz'
-
-EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
-
-Info: reading gromacs field from './src/sugars.itp'
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SP3
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SP3
-Info: writing field to 'sugars.prm.gz'
-
-EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
-
-Info: reading gromacs field from './src/ions.itp'
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TN2q
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TN2q
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = TC3
-Info: reading gromacs field from './src/martini.itp'
-Info: reading gromacs field from './src/phospholipids.itp'
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C4h
-Info: reading gromacs field from './src/solvents.itp'
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = C1
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SC2
-Info: reading gromacs field from './src/sugars.itp'
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SP3
-/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:973: change[1] = SP3
-Info: writing field to 'full.prm.gz'
 

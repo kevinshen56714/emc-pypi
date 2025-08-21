@@ -5,7 +5,7 @@
 #  date:	January 2, 2022.
 #  purpose:	Options structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -173,6 +173,7 @@ sub help {
 
 sub set_help {
   my $struct = shift(@_);
+  my $flag = shift(@_);
   my $root = EMC::Common::element($struct, "root");
   my $args = EMC::Common::element($struct, "args");
   my $option = EMC::Common::element($struct, "option");
@@ -184,7 +185,7 @@ sub set_help {
   my $options = transcribe($root)->{options};
   $options->{module} = 1 if ($args->[0] eq "module");
   help($options, 1);
-  if (defined($option) && $option ne "help") {
+  if ($flag && defined($option) && $option ne "help") {
     print("Non-existent option '$option'.\n\n");
   }
   $struct->{exit}->() if (defined($struct->{exit}));

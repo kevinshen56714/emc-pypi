@@ -5,7 +5,7 @@
 #  date:	December 19, 2021.
 #  purpose:	Common structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -90,7 +90,7 @@ sub list {
   if (defined(@_[1])) {
     my $last = pop(@_);
     my $hash = hash(@_);
-
+    
     $hash->{$last} = [] if (!defined($hash->{$last}));
     return $hash->{$last};
   } else {

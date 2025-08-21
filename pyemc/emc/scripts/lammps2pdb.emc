@@ -14,6 +14,7 @@ variables	= {
   vdw		-> false,
   rank		-> false,
   unwrap	-> true,
+  licorice	-> false,
   source	-> ".",
   target	-> "."
 };
@@ -30,9 +31,11 @@ sample		= {
     active	-> true,
     frequency	-> 1,
     script	-> {
+      output	-> {info -> false},
       pdb 	-> {name -> output, compress -> compress, mode -> append,
 		    unwrap -> unwrap, vdw -> vdw, cut -> cut, rank -> rank, 
-		    pbc -> pbc}
+		    pbc -> pbc, licorice -> licorice},
+      output	-> {info -> true}
     }
   }
 };

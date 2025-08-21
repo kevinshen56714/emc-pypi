@@ -5,7 +5,7 @@
 #  date:	September 22, 2022.
 #  purpose:	Types structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -596,13 +596,15 @@ sub create_replicas {
       $mass->{$type} += $f*($references->{mass}>0 ? $mass->{$src} : 1) if ($fmass);
       $n += $f;
     }
-    $n = 1 if ((!$n)||(!$norm));
     my $f = (scalar(@arg)>1 ? 1 : 0);
+    my $text = ((!$n)||(!$norm) ? sprintf("%g\% ", 100*$n) : "")."replica of ";
+    $n = 1 if ((!$n)||(!$norm));
     $references->{data}->{$type} = [
       $type, $type, 
       $fmass ? ($mass->{$type} /= $n)/$rm : $mass->{$type}/$rm, 
       ($cutoff->{$type} /= $n)/$rl,
-      1, 0, 0, "replica of ".($f ? "{" : "").join(", ", @types).($f ? "}" :"")];
+      1, 0, 0,
+      $text.($f ? "{" : "").join(", ", @types).($f ? "}" :"")];
   }
 }
 

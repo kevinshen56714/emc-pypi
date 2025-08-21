@@ -1,0 +1,636 @@
+#EMC/FIELD/OPLS/2025
+#
+#  OPLS topology using oplsaa.par, oplsaa.sb, and opls-aa.define
+#  converted by emc_opls.pl, v2.0, December 19, 2024 by Pieter J. in 't Veld
+#  created on Sun Jun 29 14:32:50 CEST 2025
+#
+
+# Precedence
+
+ITEM	PRECEDENCE
+
+(?
+  (ar)
+  (br1)
+  (br-)
+  (c4pm)
+  (c4sa)
+  (c4o)
+  (c4ns)
+  (c3oh)
+  (c3im)
+  (c3aso)
+  (c3as)
+  (c4s)
+  (c4p)
+  (c4oe)
+  (c4o2)
+  (c4n)
+  (c4i)
+  (c4f)
+  (c4cl)
+  (c4br)
+  (c4)
+  (c3ou)
+  (c3oe)
+  (c3oa)
+  (c3o)
+  (c3am)
+  (c3ab)
+  (c3a53)
+  (c3a51)
+  (c3a+)
+  (c3a)
+  (c3=)
+  (c2na)
+  (cl1)
+  (cl-)
+  (cs+)
+  (eu+3)
+  (f1)
+  (f-)
+  (h1oh)
+  (h1cs)
+  (h1w)
+  (h1r)
+  (h1n3)
+  (h1n)
+  (h1cp)
+  (h1co)
+  (h1cn)
+  (h1=)
+  (h1si)
+  (h1s)
+  (h1o)
+  (h1n4)
+  (h1a)
+  (h1)
+  (he)
+  (i1)
+  (i-)
+  (k+)
+  (kr)
+  (la+3)
+  (li+)
+  (mg+2)
+  (n3ur2)
+  (n3im1)
+  (n3am2)
+  (n3am1)
+  (n3am0)
+  (n4)
+  (n3sa2)
+  (n3sa1)
+  (n3h2)
+  (n3h)
+  (n3ch2)
+  (n3ch)
+  (n3a)
+  (n3)
+  (n1)
+  (n4h4)
+  (n4h3)
+  (n4h2)
+  (n4h)
+  (na+)
+  (nd+3)
+  (ne)
+  (o2ht)
+  (o2ha)
+  (o1s=)
+  (o2w)
+  (o2s)
+  (o2p)
+  (o2hh)
+  (o2h)
+  (o2e)
+  (o1s)
+  (o1p=)
+  (o1p)
+  (o1a)
+  (o1=)
+  (o1h-)
+  (p43)
+  (p42)
+  (p41)
+  (s4c)
+  (s4am)
+  (s4)
+  (s3)
+  (s2h2)
+  (s2h)
+  (s2)
+  (si4)
+  (sr+2)
+  (th+4)
+  (xe)
+  (yb+3)
+)
+
+ITEM	END	# PRECEDENCE
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	residue	atom	charge	rule
+
+0	?	?	UNK	UNK	0	*
+1	ar	Ar	-	-	0	[Ar]
+2	br-	Br	-	-	0	[Br-]
+3	br1	Br	ETBR	BR	0	[Br](C)
+4	c2na	C	BZNI	C	0	C(^6c)(#N)
+5	c3=	C	PROE	C2	0	C(=C)(C)(H)
+6	c3=	C	EECL	C1	0	C(=C)(H)(H)
+7	c3=	C	EECL	C2	0	C(=C)([Cl])(H)
+8	c3a	C	ANIS	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(O(C))
+9	c3a	C	BZPO	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(O(P))
+10	c3a	C	DPHE	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(O(^6c))
+11	c3a	C	THAN	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(S(C))
+12	c3a	C	BZSA	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(S(N)(=O)(=O))
+13	c3a	C	DPHS	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(S(^6c)(=O)(=O))
+14	c3a	C	DPSO	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(S(^6c)(=O))
+15	c3a	C	BZNI	C6	0	^6c(^6:c)(^6:c)(C(#N))
+16	c3a	C	ACPH	C6	0	^6c(^6:c)(^6:c)(C)
+17	c3a	C	ACAN	C1	0	^6c(^6:c)(^6:c)(H)
+18	c3a	C	ACAN	C6	0	^6c(^6:c)(^6:c)(N)
+19	c3a	C	PHEN	C6	0	^6c(^6:c)(^6:c)(O(H))
+20	c3a	C	THPH	C6	0	^6c(^6:c)(^6:c)(S(H))
+21	c3a	C	BZCL	C6	0	^6c(^6:c)(^6:c)([Cl])
+22	c3a	C	NAPH	C5	0	^6c(^6:c)(^6:c)(^6:c)
+23	c3a+	C	GUAN	C1	0	C(:N)(:N)(:N)
+24	c3a51	C	RMIM	C5	0	^5c(^5:c)(^5:n)(H)
+25	c3a53	C	RMIM	C3	0	^5c(^5:n)(^5:n)(H)
+26	c3ab	C	DIPH	C6	0	^6c(^6:c)(^6:c)(^6c)
+27	c3am	C	ACAM	C	0	C(C)(N)(=O)
+28	c3am	C	FORM	C	0	C(N)(=O)(H)
+29	c3am	C	BZAM	C	0	C(^6c)(N)(=O)
+30	c3as	C	BZSU	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(C(O)(H)(H))
+31	c3as	C	BNSU	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(O(:S))
+32	c3as	C	BSAT	C6	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(H))(S(:O)(:O)(:O))
+33	c3aso	C	BSAT	C1	0	^6c(^6:c(^6:c)(H))(^6:c(^6:c)(S))(H)
+34	c3im	C	IMID	C2	0	C(C)(N(C(C)(=O))(H))(=O)
+35	c3o	C	ACHY	C2	0	C(C)(=O)(H)
+36	c3o	C	-	-	0	C(C)(C)(=O)
+37	c3o	C	BZHY	C7	0	C(^6c)(=O)(H)
+38	c3o	C	ACPH	C7	0	C(^6c)(C)(=O)
+39	c3o	C	BZPH	C	0	C(^6c)(^6c)(=O)
+40	c3oa	C	FOAC	C1	0	C(:O)(:O)(H)
+41	c3oa	C	ACAC	C1	0	C(C)(:O)(:O)
+42	c3oa	C	BNAC	C7	0	C(^6c)(:O)(:O)
+43	c3oe	C	EACE	C2	0	C(C)(=O)(O)
+44	c3oe	C	BZUR	C7	0	C(N)(=O)(O)
+45	c3oe	C	MBEN	C7	0	C(^6c)(=O)(O)
+46	c3oh	C	FOAH	C1	0	C(=O)(O(H))(H)
+47	c3oh	C	ACAH	C1	0	C(C)(=O)(O(H))
+48	c3oh	C	BNAH	C7	0	C(^6c)(=O)(O(H))
+49	c3ou	C	UREA	C1	0	C(N)(N)(=O)
+50	c4	C	ETAN	C1	0	C(C(H)(H)(H))(N(H)(H))(H)(H)
+51	c4	C	-	-	0	C(C)(C)(C)(C)
+52	c4	C	-	-	0	C(C)(C)(C)(F)
+53	c4	C	-	-	0	C(C)(C)(C)(H)
+54	c4	C	-	-	0	C(C)(C)(C)(O)
+55	c4	C	-	-	0	C(C)(C)(C)([Cl])
+56	c4	C	-	-	0	C(C)(C)(F)(F)
+57	c4	C	-	-	0	C(C)(C)(F)(H)
+58	c4	C	-	-	0	C(C)(C)(H)(H)
+59	c4	C	BUDO	C2	0	C(C)(C)(O(H))(H)
+60	c4	C	-	-	0	C(C)(C)(O)(H)
+61	c4	C	-	-	0	C(C)(C)([Cl])(H)
+62	c4	C	ETOF	C1	0	C(C)(F)(F)(F)
+63	c4	C	-	-	0	C(C)(F)(F)(H)
+64	c4	C	-	-	0	C(C)(F)(H)(H)
+65	c4	C	ACAC	C2	0	C(C)(H)(H)(H)
+66	c4	C	BUTO	C1	0	C(C)(O(H))(H)(H)
+67	c4	C	-	-	0	C(C)(O)(H)(H)
+68	c4	C	METH	C1	0	C(H)(H)(H)(H)
+69	c4	C	EMCA	C5	0	C(N(C(=O)(O))(H))(H)(H)(H)
+70	c4	C	-	-	0	C(N(C(=O)(O))(H))(~C)(C)(C)
+71	c4	C	-	-	0	C(N(C(=O)(O))(H))(~C)(C)(H)
+72	c4	C	-	-	0	C(N(C(=O)(O))(H))(~C)(H)(H)
+73	c4	C	DMAM	C2	0	C(N(C(C)(=O))(C(H)(H)(H)))(H)(H)(H)
+74	c4	C	NMAM	C2	0	C(N(C(C)(=O))(H))(H)(H)(H)
+75	c4	C	MEOH	C1	0	C(O(H))(H)(H)(H)
+76	c4	C	-	-	0	C(O)(H)(H)(H)
+77	c4	C	-	-	0	C([N+])(C)(C)(C)
+78	c4	C	-	-	0	C([N+])(C)(C)(H)
+79	c4	C	-	-	0	C([N+])(C)(H)(H)
+80	c4	C	DAMM	C1	0	C([N+])(H)(H)(H)
+81	c4	C	MESI	C1	0	C([Si])(H)(H)(H)
+82	c4	C	-	-	0	C(^6c)(C)(C)(C)
+83	c4	C	-	-	0	C(^6c)(C)(C)(H)
+84	c4	C	-	-	0	C(^6c)(C)(H)(H)
+85	c4	C	TOLU	C7	0	C(^6c)(H)(H)(H)
+86	c4	C	-	-	0	C(~*)(~*)(~*)(~*)
+87	c4	C	CPRO	C1	0	^3C(^3C)(^3C)(H)(H)
+88	c4br	C	ETBR	C2	0	C([Br])(C)(H)(H)
+89	c4cl	C	ETCL	C2	0	C(C)([Cl])(H)(H)
+90	c4f	C	BZTF	C7	0	C(^6c)(F)(F)(F)
+91	c4i	C	ETIO	C2	0	C(C)(I)(H)(H)
+92	c4n	C	RMIM	C2	0	C(C)(^5n)(H)(H)
+93	c4n	C	TMGU	C1	0	C(N(:C)(H))(H)(H)(H)
+94	c4n	C	TMAN	C1	0	C(N(C(H)(H)(H))(C(H)(H)(H)))(H)(H)(H)
+95	c4n	C	DMAN	C1	0	C(N(C(H)(H)(H))(H))(H)(H)(H)
+96	c4n	C	MEAN	C1	0	C(N(H)(H))(H)(H)(H)
+97	c4n	C	DMAL	C7	0	C(N(^6c)(C))(H)(H)(H)
+98	c4n	C	MEAL	C7	0	C(N(^6c)(H))(H)(H)(H)
+99	c4n	C	-	-	0	C(N)(~C)(C)(C)
+100	c4n	C	-	-	0	C(N)(~C)(C)(H)
+101	c4n	C	-	-	0	C(N)(~C)(H)(H)
+102	c4n	C	RMIM	C4	0	C(^5n)(H)(H)(H)
+103	c4n	C	-	-	0	C(^5n)(~C)(C)(C)
+104	c4n	C	-	-	0	C(^5n)(~C)(C)(H)
+105	c4n	C	-	-	0	C(^5n)(~C)(H)(H)
+106	c4n	C	BNAM	C7	0	C(^6c)(N)(H)(H)
+107	c4ns	C	NESA	C2	0	C(C(H)(H)(H))(N(S)(H))(H)(H)
+108	c4ns	C	-	-	0	C(N(S)(H))(C)(C)(C)
+109	c4ns	C	-	-	0	C(N(S)(H))(C)(C)(H)
+110	c4ns	C	-	-	0	C(N(S)(H))(C)(H)(H)
+111	c4ns	C	NMSA	C2	0	C(N(S)(H))(H)(H)(H)
+112	c4o	C	BNEA	C7	0	C(^6c)(C)(O(H))(H)
+113	c4o	C	-	-	0	C(^6c)(O(H))(C)(C)
+114	c4o	C	-	-	0	C(^6c)(O(H))(C)(H)
+115	c4o	C	BNMA	C7	0	C(^6c)(O(H))(H)(H)
+116	c4o2	C	MEAO	C2	0	C(C)(O)(O(H))(H)
+117	c4o2	C	-	-	0	C(C)(O)(O)(C)
+118	c4o2	C	DMEE	C2	0	C(C)(O)(O)(H)
+119	c4o2	C	MMAE	C2	0	C(O)(O(H))(H)(H)
+120	c4o2	C	DMME	C2	0	C(O)(O)(H)(H)
+121	c4oe	C	EACE	C3	0	C(C(H)(H)(H))(O(C))(H)(H)
+122	c4oe	C	BNME	C8	0	C(O(C))(H)(H)(H)
+123	c4oe	C	ANIS	C7	0	C(O(^6c))(H)(H)(H)
+124	c4oe	C	BNME	C7	0	C(^6c(^6:c)(^6:c))(O(C))(H)(H)
+125	c4oe	C	-	-	0	C(~O(~C))(~C)(H)(H)
+126	c4oe	C	-	-	0	C(~O(~C))(~C)(~C)(H)
+127	c4oe	C	-	-	0	C(~O(~C))(~C)(~C)(~C)
+128	c4oe	C	EOXI	C1	0	^3C(^3C)(^3O)(H)(H)
+129	c4p	C	EMPO	C2	0	C(C(H)(H)(H))(O(P(:O)(:O)(O)))(H)(H)
+130	c4p	C	DMPO	C1	0	C(O(P(:O)(:O)(O)))(H)(H)(H)
+131	c4p	C	DMMP	C1	0	C(O(P(C)(=O)(O)))(H)(H)(H)
+132	c4p	C	-	-	0	C(O(P))(C)(C)(C)
+133	c4p	C	-	-	0	C(O(P))(C)(C)(H)
+134	c4p	C	-	-	0	C(O(P))(C)(H)(H)
+135	c4p	C	DMMP	C2	0	C(P)(H)(H)(H)
+136	c4pm	C	EPHO	C2	0	C(C(H)(H)(H))(O(P(:O)(:O)(:O)))(H)(H)
+137	c4pm	C	MPHO	C1	0	C(O(P(:O)(:O)(:O)))(H)(H)(H)
+138	c4s	C	ESUL	C2	0	C(C(H)(H)(H))(O(:S))(H)(H)
+139	c4s	C	ESNA	C2	0	C(C(H)(H)(H))(S(:O)(:O)(:O))(H)(H)
+140	c4s	C	EMES	C2	0	C(C(H)(H)(H))(S(C))(H)(H)
+141	c4s	C	-	-	0	C(O(:S))(C)(C)(C)
+142	c4s	C	-	-	0	C(O(:S))(C)(C)(H)
+143	c4s	C	-	-	0	C(O(:S))(C)(H)(H)
+144	c4s	C	MSUL	C1	0	C(O(:S))(H)(H)(H)
+145	c4s	C	-	-	0	C(O(:S))(~C)(C)(C)
+146	c4s	C	-	-	0	C(O(:S))(~C)(C)(H)
+147	c4s	C	-	-	0	C(O(:S))(~C)(H)(H)
+148	c4s	C	MSME	C1	0	C(S(C)(=O)(=O))(H)(H)(H)
+149	c4s	C	DMSO	C1	0	C(S(C)(=O))(H)(H)(H)
+150	c4s	C	BNMS	C8	0	C(S(C))(H)(H)(H)
+151	c4s	C	MESH	C1	0	C(S(H))(H)(H)(H)
+152	c4s	C	-	-	0	C(S(H))(~C)(C)(C)
+153	c4s	C	-	-	0	C(S(H))(~C)(C)(H)
+154	c4s	C	-	-	0	C(S(H))(~C)(H)(H)
+155	c4s	C	DMDS	C1	0	C(S(S))(H)(H)(H)
+156	c4s	C	THAN	C7	0	C(S(^6c))(H)(H)(H)
+157	c4s	C	-	-	0	C(S)(~C)(C)(C)
+158	c4s	C	-	-	0	C(S)(~C)(C)(H)
+159	c4s	C	-	-	0	C(S)(~C)(H)(H)
+160	c4s	C	BZSU	C7	0	C(^6c(^6:c)(^6:c))(O(:S))(H)(H)
+161	c4s	C	BNMS	C7	0	C(^6c)(S)(H)(H)
+162	c4sa	C	ESAM	C2	0	C(C(H)(H)(H))(S(N)(=O)(=O))(H)(H)
+163	c4sa	C	MSAM	C1	0	C(S(N)(=O)(=O))(H)(H)(H)
+164	c4sa	C	-	-	0	C(S(N)(=O)(=O))(~C)(C)(C)
+165	c4sa	C	-	-	0	C(S(N)(=O)(=O))(~C)(C)(H)
+166	c4sa	C	-	-	0	C(S(N)(=O)(=O))(~C)(H)(H)
+167	cl-	Cl	-	-	0	[Cl-]
+168	cl1	Cl	EECL	CL	0	[Cl](C)
+169	cl1	Cl	BZCL	CL	0	[Cl](^6c)
+170	cs+	Cs	-	-	0	[Cs+]
+171	eu+3	Eu	-	-	0	[Eu+3]
+172	f-	F	-	-	0	[F-]
+173	f1	F	BZTF	F71	0	F(C)
+174	h1	H	-	-	0	H(C(O(:S))(C)(C))
+175	h1	H	-	-	0	H(C(O(:S))(C)(H))
+176	h1	H	-	-	0	H(C(O(:S))(H)(H))
+177	h1	H	-	-	0	H(C(O(:S))(~C)(C))
+178	h1	H	-	-	0	H(C(O(:S))(~C)(H))
+179	h1	H	-	-	0	H(C(O(P))(C)(C))
+180	h1	H	-	-	0	H(C(O(P))(C)(H))
+181	h1	H	-	-	0	H(C(O(P))(H)(H))
+182	h1	H	ACAC	H21	0	H(C)
+183	h1	H	CPRO	H11	0	H(^3C)
+184	h1	H	-	-	0	H(~C)
+185	h1=	H	PROE	H21	0	H(C(=C)(C))
+186	h1=	H	EECL	H11	0	H(C(=C)(H))
+187	h1=	H	EECL	H21	0	H(C(=C)([Cl]))
+188	h1a	H	RMIM	H3	0	H(^5c)
+189	h1a	H	ACAN	H1	0	H(^6c)
+190	h1cn	H	ETAN	H11	0	H(C(C(H)(H)(H))(N(H)(H))(H))
+191	h1cn	H	TMAN	H11	0	H(C(N(C)(C))(H)(H))
+192	h1cn	H	DMAN	H11	0	H(C(N(C)(H))(H)(H))
+193	h1cn	H	MEAN	H11	0	H(C(N(H)(H))(H)(H))
+194	h1cn	H	DMAL	H71	0	H(C(N(^6c)(C))(H)(H))
+195	h1cn	H	MEAL	H71	0	H(C(N(^6c)(H))(H)(H))
+196	h1cn	H	BNAM	H71	0	H(C(^6c)(N)(H))
+197	h1co	H	ACHY	H21	0	H(C(C)(=O))
+198	h1co	H	EACE	H31	0	H(C(C)(O(C(=O)(*)))(H))
+199	h1co	H	FORM	HC	0	H(C(N)(=O))
+200	h1co	H	BZUR	H81	0	H(C(O(C(=O)(*)))(H)(H))
+201	h1co	H	BZHY	H71	0	H(C(^6c)(=O))
+202	h1cp	H	DMMP	H21	0	H(C(P)(H)(H))
+203	h1cs	H	NESA	H21	0	H(C(C(H)(H)(H))(N(S)(H))(H))
+204	h1cs	H	-	-	0	H(C(N(S)(H))(C)(C))
+205	h1cs	H	-	-	0	H(C(N(S)(H))(C)(H))
+206	h1cs	H	NMSA	H21	0	H(C(N(S)(H))(H)(H))
+207	h1n	H	-	-	0	H(N(C(~C)(C)(C))(C))
+208	h1n	H	-	-	0	H(N(C(~C)(C)(C))(H))
+209	h1n	H	-	-	0	H(N(C(~C)(C)(C))(^6c))
+210	h1n	H	-	-	0	H(N(C(~C)(C)(H))(C))
+211	h1n	H	-	-	0	H(N(C(~C)(C)(H))(H))
+212	h1n	H	-	-	0	H(N(C(~C)(C)(H))(^6c))
+213	h1n	H	-	-	0	H(N(C(~C)(H)(H))(C))
+214	h1n	H	-	-	0	H(N(C(~C)(H)(H))(H))
+215	h1n	H	-	-	0	H(N(C(~C)(H)(H))(^6c))
+216	h1n	H	DMAN	HN	0	H(N(C)(C))
+217	h1n	H	ACAM	HN1	0	H(N(C)(H))
+218	h1n	H	NESA	HN	0	H(N(C)(S))
+219	h1n	H	BZSA	HN1	0	H(N(S)(H))
+220	h1n	H	ACAN	HN	0	H(N(^6c)(C))
+221	h1n	H	ANIL	HN1	0	H(N(^6c)(H))
+222	h1n3	H	TMGU	HN1	0	H(N(:C)(C))
+223	h1n3	H	GUAN	H11	0	H(N(:C)(H))
+224	h1n4	H	AMMO	HN1	0	H([N+])
+225	h1o	H	-	-	0	H(O(C))
+226	h1o	H	ACAH	H1	0	H(O)
+227	h1o	H	HYDR	H	0	H([O-])
+228	h1oh	H	MEOH	H11	0	H(C(O(H))(H)(H))
+229	h1r	H	RMIM	H21	0	H(C(C)(^5n)(H))
+230	h1r	H	-	-	0	H(C(^5n)(C)(C))
+231	h1r	H	-	-	0	H(C(^5n)(C)(H))
+232	h1r	H	RMIM	H41	0	H(C(^5n)(H)(H))
+233	h1s	H	H2S	H1	0	H(S(H))
+234	h1s	H	MESH	H	0	H(S)
+235	h1si	H	MESI	H21	0	H([Si])
+236	h1w	H	SPCE	H1	0	H(O(H))
+237	he	He	-	-	0	[He]
+238	i-	I	-	-	0	[I-]
+239	i1	I	ETIO	I	0	I(C)
+240	k+	K	-	-	0	[K+]
+241	kr	Kr	-	-	0	[Kr]
+242	la+3	La	-	-	0	[La+3]
+243	li+	Li	-	-	0	[Li+]
+244	mg+2	Mg	-	-	0	[Mg+2]
+245	n1	N	BZNI	N	0	N(#C)
+246	n3	N	TMAN	N	0	N(C(H)(H)(H))(C(H)(H)(H))(C(H)(H)(H))
+247	n3	N	DMAL	N	0	N(^6c)(C)(C)
+248	n3	N	-	-	0	N(~C)(C)(C)
+249	n3a	N	RMIM	N1	0	^5n(^5:c)(^5:c)(C)
+250	n3a	N	-	-	0	^5n(^5:c)(^5:c)(H)
+251	n3am0	N	-	-	0	N(C(=O)(H))(~C)(C)
+252	n3am0	N	-	-	0	N(C(=O)(O))(~C)(C)
+253	n3am0	N	-	-	0	N(C(=O)(~C))(~C)(C)
+254	n3am0	N	DMAM	N	0	N(C(C)(=O))(C(H)(H)(H))(C(H)(H)(H))
+255	n3am1	N	-	-	0	N(C(=O)(H))(~C)(H)
+256	n3am1	N	EMCA	N4	0	N(C(=O)(O))(C(H)(H)(H))(H)
+257	n3am1	N	-	-	0	N(C(=O)(O))(~C)(H)
+258	n3am1	N	-	-	0	N(C(=O)(~C))(~C)(H)
+259	n3am1	N	NMAM	N	0	N(C(C)(=O))(C(H)(H)(H))(H)
+260	n3am1	N	BZUR	N	0	N(^6c(^6:c)(^6:c))(C(=O)(O))(H)
+261	n3am1	N	ACAN	N	0	N(^6c(^6:c)(^6:c))(C(C)(=O))(H)
+262	n3am2	N	FORM	N	0	N(C(=O)(H))(H)(H)
+263	n3am2	N	ETCA	N4	0	N(C(=O)(O))(H)(H)
+264	n3am2	N	-	-	0	N(C(=O)(~C))(H)(H)
+265	n3am2	N	ACAM	N	0	N(C(C)(=O))(H)(H)
+266	n3am2	N	BZAM	N	0	N(C(^6c)(=O))(H)(H)
+267	n3ch	N	TMGU	N1	0	N(:C)(C)(H)
+268	n3ch2	N	GUAN	N1	0	N(:C)(H)(H)
+269	n3h	N	DMAN	N	0	N(C(H)(H)(H))(C(H)(H)(H))(H)
+270	n3h	N	MEAL	N	0	N(^6c(^6:c)(^6:c))(C(H)(H)(H))(H)
+271	n3h	N	-	-	0	N(~C)(C)(H)
+272	n3h2	N	ETAN	N	0	N(C(C)(H)(H))(H)(H)
+273	n3h2	N	MEAN	N	0	N(C(H)(H)(H))(H)(H)
+274	n3h2	N	BNAM	N	0	N(C(^6c)(H)(H))(H)(H)
+275	n3h2	N	ANIL	N	0	N(^6c)(H)(H)
+276	n3h2	N	-	-	0	N(~C)(H)(H)
+277	n3im1	N	IMID	N	0	N(C(C)(=O))(C(C)(=O))(H)
+278	n3sa1	N	NESA	N	0	N(C)(S)(H)
+279	n3sa2	N	BZSA	N	0	N(S)(H)(H)
+280	n3ur2	N	UREA	N1	0	N(C(N)(=O))(H)(H)
+281	n4	N	-	-	0	N(~*)(~*)(~*)(~*)
+282	n4	N	FAMM	N	0	[N+](C)(C)(C)(C)
+283	n4h	N	TAMM	N	0	[N+](C)(C)(C)(H)
+284	n4h2	N	DAMM	N	0	[N+](C)(C)(H)(H)
+285	n4h3	N	MAMM	N	0	[N+](C)(H)(H)(H)
+286	n4h4	N	AMMO	N	0	[N+](H)(H)(H)(H)
+287	na+	Na	-	-	0	[Na+]
+288	nd+3	Nd	-	-	0	[Nd+3]
+289	ne	Ne	-	-	0	[Ne]
+290	o1=	O	ACAH	O2	0	O(=C)
+291	o1a	O	ACAC	O1	0	O(:C)
+292	o1h-	O	HYDR	O	0	[O-](H)
+293	o1p	O	BZPO	O2	0	O(:P)
+294	o1p=	O	DMMP	O3	0	O(=P)
+295	o1s	O	BNSU	O2	0	O(:S)
+296	o1s	O	DMSO	O1	0	O(=S(C)(C))
+297	o1s	O	DPSO	O1	0	O(=S(^6c)(^6c))
+298	o1s	O	-	-	0	O(=S(~C)(~C))
+299	o1s=	O	MSME	O1	0	O(=S(C)(C)(=O))
+300	o1s=	O	ESAM	O1	0	O(=S(C)(N)(=O))
+301	o1s=	O	BZSA	O1	0	O(=S(^6c)(N)(=O))
+302	o1s=	O	DPHS	O1	0	O(=S(^6c)(^6c)(=O))
+303	o1s=	O	-	-	0	O(=S(~C)(N)(=O))
+304	o1s=	O	-	-	0	O(=S(~C)(~C)(=O))
+305	o2e	O	DMEE	O2	0	O(C(C)(O)(H))(C(H)(H)(H))
+306	o2e	O	EMET	O	0	O(C(H)(H)(H))(C(C)(H)(H))
+307	o2e	O	MEAO	O	0	O(C(H)(H)(H))(C(C)(O(H))(H))
+308	o2e	O	DMEE	O1	0	O(C(H)(H)(H))(C(C)(O)(H))
+309	o2e	O	DMET	O	0	O(C(H)(H)(H))(C(H)(H)(H))
+310	o2e	O	MMAE	O	0	O(C(H)(H)(H))(C(O(H))(H)(H))
+311	o2e	O	DMME	O1	0	O(C(H)(H)(H))(C(O)(H)(H))
+312	o2e	O	DMME	O2	0	O(C(O)(H)(H))(C(H)(H)(H))
+313	o2e	O	BNME	O	0	O(C(^6c)(H)(H))(C(H)(H)(H))
+314	o2e	O	ANIS	O	0	O(^6c(^6:c)(^6:c))(C(H)(H)(H))
+315	o2e	O	DPHE	O	0	O(^6c)(^6c)
+316	o2e	O	-	-	0	O(~C)(~C)
+317	o2e	O	EOXI	O1	0	^3O(^3C)(^3C)
+318	o2h	O	BNEA	O	0	O(C)(H)
+319	o2ha	O	FOAH	O1	0	O(C(=O)(H))(H)
+320	o2ha	O	ACAH	O1	0	O(C(C)(=O))(H)
+321	o2ha	O	BNAH	O6	0	O(C(^6c)(=O))(H)
+322	o2hh	O	BUDO	O3	0	O(C(C(C(H)(H)(H))(O(H))(H))(C(H)(H)(H))(H))(H)
+323	o2hh	O	PRDO	O1	0	O(C(C(C(H)(H)(H))(O(H))(H))(H)(H))(H)
+324	o2hh	O	BUDO	O2	0	O(C(C(H)(H)(H))(C(C)(O(H))(H))(H))(H)
+325	o2hh	O	PRDO	O2	0	O(C(C(O(H))(H)(H))(C(H)(H)(H))(H))(H)
+326	o2hh	O	ETDO	O1	0	O(C(C(O(H))(H)(H))(H)(H))(H)
+327	o2hh	O	MEAO	O2	0	O(C(C)(O)(H))(H)
+328	o2hh	O	MMAE	O2	0	O(C(O)(H)(H))(H)
+329	o2hh	O	PHEN	O	0	O(^6c)(H)
+330	o2ht	O	BUTO	O1	0	O(C(C(C(C)(O(H))(H))(O(H))(H))(H)(H))(H)
+331	o2ht	O	BUTO	O3	0	O(C(C(C(O(H))(H)(H))(O(H))(H))(C(H)(H)(H))(H))(H)
+332	o2ht	O	PRTO	O1	0	O(C(C(C(O(H))(H)(H))(O(H))(H))(H)(H))(H)
+333	o2ht	O	BUTO	O2	0	O(C(C(O(H))(H)(H))(C(C)(O(H))(H))(H))(H)
+334	o2ht	O	PRTO	O2	0	O(C(C(O(H))(H)(H))(C(O(H))(H)(H))(H))(H)
+335	o2p	O	DMMP	O1	0	O(C)(P)
+336	o2p	O	BZPO	O1	0	O(^6c)(P)
+337	o2s	O	-	-	0	O(C(=O)(~C))(~C)
+338	o2s	O	EACE	O1	0	O(C(C)(=O))(C(C)(H)(H))
+339	o2s	O	MACE	O1	0	O(C(C)(=O))(C(H)(H)(H))
+340	o2s	O	EMCA	O2	0	O(C(C)(H)(H))(C(N)(=O))
+341	o2s	O	BZUR	O8	0	O(C(N)(=O))(C(H)(H)(H))
+342	o2s	O	MBEN	O6	0	O(C(^6c)(=O))(C(H)(H)(H))
+343	o2s	O	BZSU	O1	0	O(C)(:S)
+344	o2s	O	PACE	O6	0	O(^6c(^6:c)(^6:c))(C(C)(=O))
+345	o2s	O	BNSU	O1	0	O(^6c)(:S)
+346	o2w	O	SPCE	O	0	O(H)(H)
+347	p41	P	BZPO	P1	0	P(:O)(:O)(:O)(O)
+348	p42	P	DMPO	P1	0	P(:O)(:O)(O)(O)
+349	p43	P	DMMP	P1	0	P(C)(=O)(O)(O)
+350	s2	S	BNMS	S	0	S(C)(C)
+351	s2	S	DMDS	S1	0	S(C)(S)
+352	s2	S	THAN	S	0	S(^6c)(C)
+353	s2h	S	MESH	S	0	S(C)(H)
+354	s2h	S	THPH	S7	0	S(^6c)(H)
+355	s2h2	S	H2S	S	0	S(H)(H)
+356	s3	S	DMSO	S1	0	S(C)(C)(=O)
+357	s3	S	DPSO	S1	0	S(^6c)(^6c)(=O)
+358	s3	S	-	-	0	S(~C)(~C)(=O)
+359	s4	S	BNSU	S1	0	S(:O)(:O)(:O)(:O)
+360	s4	S	MSME	S1	0	S(C)(C)(=O)(=O)
+361	s4	S	BSAT	S1	0	S(^6c)(:O)(:O)(:O)
+362	s4	S	DPHS	S1	0	S(^6c)(^6c)(=O)(=O)
+363	s4	S	-	-	0	S(~C)(~C)(=O)(=O)
+364	s4am	S	ESAM	S	0	S(C)(N)(=O)(=O)
+365	s4am	S	BZSA	S1	0	S(^6c)(N)(=O)(=O)
+366	s4am	S	-	-	0	S(~C)(N)(=O)(=O)
+367	s4c	S	ESNA	S1	0	S(C)(:O)(:O)(:O)
+368	si4	Si	MESI	SI2	0	[Si](C)(H)(H)(H)
+369	si4	Si	-	-	0	[Si](~C)(C)(C)(C)
+370	si4	Si	-	-	0	[Si](~C)(C)(C)(H)
+371	si4	Si	-	-	0	[Si](~C)(C)(H)(H)
+372	si4	Si	-	-	0	[Si](~C)(H)(H)(H)
+373	sr+2	Sr	-	-	0	[Sr+2]
+374	th+4	Th	-	-	0	[Th+4]
+375	xe	Xe	-	-	0	[Xe]
+376	yb+3	Yb	-	-	0	[Yb+3]
+
+ITEM	END	# RULES
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+ACAC	C(:O)(:O)C
+ACAH	C(=O)(O)C
+ACAM	CC(=O)N
+ACAN	c1ccccc1NC(=O)C
+ACHY	CC=O
+ACPH	c1ccccc1C(=O)C
+AMMO	[N+]
+ANIL	c1ccccc1N
+ANIS	c1ccccc1OC
+BENZ	c1ccccc1
+BNAC	c1ccccc1C(:O):O
+BNAH	c1ccccc1C(O)=O
+BNAM	c1ccccc1CN
+BNEA	c1ccccc1C(O)C
+BNMA	c1ccccc1CO
+BNME	c1ccccc1COC
+BNMS	c1ccccc1CSC
+BNSU	c1ccccc1O:S(:O)(:O):O
+BSAT	c1ccccc1S(:O)(:O):O
+BUDO	CC(O)C(O)C
+BUTO	C(O)C(O)C(O)C
+BZAM	c1ccccc1C(=O)N
+BZCL	c1ccccc1Cl
+BZHY	c1ccccc1C=O
+BZNI	c1ccccc1C#N
+BZPH	c1ccccc1C(=O)c1ccccc1
+BZPO	c1ccccc1OP(:O)(:O):O
+BZSA	c1ccccc1S(=O)(=O)N
+BZSU	c1ccccc1CO:S(:O)(:O):O
+BZTF	c1ccccc1C(F)(F)F
+BZUR	c1ccccc1NC(OC)=O
+CPRO	C1CC1
+DAMM	[N+](C)C
+DIPH	c1ccccc1c1ccccc1
+DMAL	c1ccccc1N(C)C
+DMAM	CC(=O)N(C)C
+DMAN	N(C)C
+DMDS	CSSC
+DMEE	COC(OC)C
+DMES	CSC
+DMET	COC
+DMME	COCOC
+DMMP	COP(=O)(OC)C
+DMPO	COP(:O)(OC):O
+DMSO	CS(=O)C
+DPHE	c1ccccc1Oc1ccccc1
+DPHS	c1ccccc1S(=O)(=O)c1ccccc1
+DPSO	c1ccccc1S(=O)c1ccccc1
+EACE	CC(OCC)=O
+EECL	C=CCl
+EMCA	CCOC(=O)NC
+EMES	CSCC
+EMET	COCC
+EMPO	COP(:O)(OCC):O
+EOXI	O1CC1
+EPHO	CCOP(:O)(:O):O
+ESAM	CCS(=O)(=O)N
+ESNA	CCS(:O)(:O):O
+ESUL	CCO:S(:O)(:O):O
+ETAN	NCC
+ETBR	CCBr
+ETCA	CCOC(=O)N
+ETCL	CCCl
+ETDO	C(O)CO
+ETHA	CC
+ETHE	C=C
+ETIO	CCI
+ETOF	C(F)(F)(F)CO
+ETOH	CCO
+FAMM	[N+](C)(C)(C)C
+FOAC	C(:O):O
+FOAH	C(O)=O
+FORM	C(=O)N
+GUAN	C(:N)(:N):N
+H2S	S
+HYDR	[O-]
+IMID	CC(=O)NC(=O)C
+MACE	CC(OC)=O
+MAMM	[N+]C
+MBEN	c1ccccc1C(OC)=O
+MEAL	c1ccccc1NC
+MEAN	NC
+MEAO	COC(O)C
+MEOH	CO
+MESH	CS
+MESI	CSi
+METH	C
+MMAE	COCO
+MPHO	COP(:O)(:O):O
+MSAM	CS(=O)(=O)N
+MSME	CS(=O)(=O)C
+MSUL	CO:S(:O)(:O):O
+NAPH	c1cccc2c1cccc2
+NESA	CS(=O)(=O)NCC
+NMAM	CC(=O)NC
+NMSA	CS(=O)(=O)NC
+PACE	c1ccccc1OC(=O)C
+PHEN	c1ccccc1O
+PRDO	C(O)C(O)C
+PROE	C=CC
+PRTO	C(O)C(O)CO
+RMIM	CCn1cn(C)cc1
+SPCE	O
+TAMM	[N+](C)(C)C
+THAN	c1ccccc1SC
+THPH	c1ccccc1S
+TMAN	N(C)(C)C
+TMGU	C(:NC)(:NC):NC
+TOLU	c1ccccc1C
+UREA	NC(=O)N
+
+ITEM	END	# TEMPLATES
+

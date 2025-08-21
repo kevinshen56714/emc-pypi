@@ -1,0 +1,45 @@
+#
+#  file:	al2o3_nb.top
+#  author:	Samir Darouich, Pieter J. in 't Veld
+#  date:	15 March 2023
+#  purpose:	CHARMM nonbonded Al2O3 force field
+#  version:	0.1beta
+#
+
+# Precedence
+
+ITEM	PRECEDENCE
+
+(?
+ (Cl-1)
+ (AL6O)
+ (Na+1)
+ (O2AL)
+ (O3AL)
+ (O4AL)
+ (OHAL)
+ (HOAL)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES 
+
+# id    type    element residue atom    charge  rule
+
+0	?	?	-	-	0	*
+1	Cl-1	Cl	-	-	-1	[Cl-]
+1	Cl-1	Cl	-	-	-1	[Cl]
+2	AL6O	Al	-	-	0	[Al](O)(O)(O)(O)(O)(O)
+3	Na+1	Na	-	-	1	[Na+]
+3	Na+1	Na	-	-	1	[Na]
+4	O2AL	O	-	-	0	O(Al)(Al)
+5	O3AL	O	-	-	0	O(Al)(Al)(H)
+6	O4AL	O	-	-	0	O(Al)(Al)(Al)(Al)
+7	OHAL	O	-	-	0	O(H)(H)(Al)(Al)
+8	HOAL	H	-	-	0	H(O)
+
+ITEM	END
+

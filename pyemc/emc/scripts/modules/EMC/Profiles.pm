@@ -5,7 +5,7 @@
 #  date:	October 1, 2022.
 #  purpose:	Profiles structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -173,7 +173,7 @@ sub set_options {
   my $profiles = EMC::Common::element($struct, "module");
   my $flag = EMC::Common::hash($profiles, "flag");
 
-  if ($option eq "profile") { 
+  if ($option eq "profile") {
     return EMC::Hash::set($line, $flag, "boolean", "density", [], @{$args});
   }
 

@@ -5,7 +5,7 @@
 #  date:	September 8, 2022.
 #  purpose:	Job structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -111,6 +111,7 @@ sub set_defaults {
       queue		=> {
 	account		=> "none",
 	analyze		=> "default",
+	bind		=> "core",
 	build		=> "default",
 	headnode	=> "default",
 	memory		=> "default",
@@ -203,10 +204,12 @@ sub set_context {
       $context->{nchains}>1) {
     EMC::Message::error("cannot use chains when queue_ncores<queue_ppn.\n");
   }
-  
   if ($queue->{ncores}<$queue->{ppn} && $context->{nchains}>1) {
     EMC::Message::error("cannot use chains when queue_ncores<queue_ppn.\n");
   }
+  #if ($queue->{ppn}<2 && $queue->{bind} eq "default") {
+  #  $queue->{bind} = "core";
+  #}
 
   $queue->{sync} = EMC::Math::flag($queue->{sync});
   $queue->{test} = EMC::Math::flag($queue->{test});
@@ -272,6 +275,10 @@ sub set_commands {
       queue_analyze	=> {
 	comment		=> "set job analyze script queue",
 	default		=> $queue->{analyze},
+	gui		=> ["string", "environment", "top", "advanced"]},
+      queue_bind	=> {
+	comment		=> "set binding policy for processes",
+	default		=> $queue->{bind},
 	gui		=> ["string", "environment", "top", "advanced"]},
       queue_build	=> {
 	comment		=> "set job build script queue",
@@ -411,6 +418,16 @@ sub set_options {
     return $queue->{account} = $args->[0]; }
   if ($option eq "queue_analyze") {
     return $queue->{analyze} = $args->[0]; }
+  if ($option eq "queue_bind") {
+    my $allowed = {
+      none => 1, hwthread => 1, core => 1,
+      l1cache => 1, l2cache => 1, l3cache => 1,
+      socket => 1, numa => 1, board => 1, default => 1
+    };
+    if (!defined($allowed->{$args->[0]})) {
+      EMC::Message::error_line($line, "unallowed queue_bind value\n");
+    }
+    return $queue->{bind} = $args->[0]; }
   if ($option eq "queue_build") {
     return $queue->{build} = $args->[0]; }
   if ($option eq "queue_headnode") { 
@@ -788,6 +805,7 @@ $host
 $header
   QUEUE=$context->{queue}->{$type};
   QUEUE_ACCOUNT=\"".queue_entry($context->{queue}->{account})."\";
+  QUEUE_BIND=\"".queue_entry($context->{queue}->{bind})."\";
   QUEUE_HEADNODE=\"".queue_entry($context->{queue}->{headnode})."\";
   QUEUE_PROJECT=\"".queue_entry($context->{queue}->{project})."\";
   QUEUE_SCRATCH=\'$context->{queue}->{scratch}\';
@@ -879,7 +897,7 @@ sub write_func_options {
   my $options = [
     " \\\n      -project \"$project->{directory}$project->{name}\""
   ];
-  
+
   foreach (@{$modules}) {
     next if (!EMC::Common::element($md, $_, "set", "flag", "md"));
     next if (EMC::Common::element($md, $_, "flag", "write")<1);
@@ -911,6 +929,7 @@ sub write_func_test {				# <= write_job_func_test
 
   my $options = write_func_options($job);
   my $preprocess = $flag->{environment} ? 0 : $flag->{preprocess};
+  my $md_engine = EMC::MD::get_engine($md);
 
   printf($stream "\nsub submit {\n");
   foreach (@{$loop_variables->{active}}) {
@@ -927,6 +946,7 @@ sub write_func_test {				# <= write_job_func_test
     emc.pl$options->[1] \\
       -preprocess=$preprocess \\
       -project=$project->{name} \\
+      -md_engine=$md_engine \\
       -workdir=\"\${WORKDIR}\" \\
       $project->{name}$global->{script}->{extension};
 }\n\n");
@@ -961,6 +981,7 @@ sub write_functions {				# <= write_job_functions
   my $loop_variables = EMC::Common::element($environment, "loop_variables");
 
   my $preprocess = $flag->{environment} ? 0 : $flag->{preprocess};
+  my $md_engine = EMC::MD::get_engine($md);
   my @test = $queue->{test} ?
     ("tmp=1\n", "JOB_ID=\$tmp; tmp=\$((tmp+1)); echo \${JOB_ID}; return;\n  ") :
     ("", "");
@@ -1091,6 +1112,9 @@ create_copies() {
   if [ \"\${QUEUE_ACCOUNT}\" != \"\" ]; then
     line+=(-account \${QUEUE_ACCOUNT});
   fi;
+  if [ \"\${QUEUE_BIND}\" != \"default\" ]; then
+    line+=(-bind \${QUEUE_BIND});
+  fi;
   if [ \"\${QUEUE_PROJECT}\" != \"\" ]; then
     line+=(-queue_project \${QUEUE_PROJECT});
   fi;
@@ -1216,24 +1240,30 @@ pack_header() {
 }
 
 run_pack() {
-  local command=\$1; shift;				# should be -n
-  local n=\$1; shift; 					# ncores to run with
+  local command=\"\$1\"; shift;				# should be -n
+  local n=\"\$1\"; shift; 		\t		# ncores to run with
 
   if [ \${command} != \"-n\" ]; then
     echo \"panic: first argument of run_pack != '-n'\"; echo; exit;
   fi;
   
-  local command=\$1; shift;				# should be -dir
-  local dir=\"\$1\"; shift; 				# ncores to run with
+  local command=\"\$1\"; shift;				# should be -dir
+  local dir=\"\$1\"; shift; 				# target directory
 
-  if [ \${command} != \"-dir\" ]; then
+  if [ \"\${command}\" != \"-dir\" ]; then
     echo \"panic: second argument of run_pack != '-dir'\"; echo; exit;
+  fi;
+
+  local first=(-n \${n});
+
+  if [ \"\$1\" == \"-single\" ]; then			# for e.g. GROMACS
+    first=(\${first[@]} -single);			# when run scripts
+    shift;	 					# include mpiexec
   fi;
 
   local root=\${WORKDIR};
   local target=\$(pwd);
   local line=(-system local);
-  local first=(-n \${n});
   local target;
   local file;
 
@@ -1536,6 +1566,7 @@ run_emc() {
     emc.pl$options->[1] \\
       -preprocess=$preprocess \\
       -project=$project->{name} \\
+      -md_engine=$md_engine \\
       -workdir=\"\${WORKDIR}\" \\
       -emc_execute=false \\
       $project->{name}$global->{script}->{extension};
@@ -1713,6 +1744,7 @@ run_init() {
     emc.pl$options->[1] \\
       -preprocess=$preprocess \\
       -project=$project->{name} \\
+      -md_engine=$md_engine \\
       -workdir=\"\${WORKDIR}\" \\
       $project->{name}$global->{script}->{extension};
 }\n\n");
@@ -2085,10 +2117,9 @@ echo;
 serial=0;
 frestart=0;
 
-restart=\"\$(first \$dir/*/*.restart?)\";
-if [ \${fnorestart} != 1 -a -e \"\${restart}\" ]; then
+if [ \${fnorestart} != 1 -a -e \"\$(set_restart \"\$dir\")\" ]; then
   frestart=1;
-  restart=\"\$(first \$(ls -1t \$dir/*/*.restart?))\";
+  restart=\"\$(first \$(ls -1t \"\${RESTART[@]}\"))\";
   serial=\$(calc \$(basename \$(dirname \"\${restart}\"))+1);
 fi;
 

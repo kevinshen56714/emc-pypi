@@ -43,11 +43,11 @@ ITEM	END	# ENVIRONMENT
 
 # Analysis
 
-ITEM	ANALYSIS
+ITEM	ANALYZE
 
 cavity		start=2e6, ninserts=1e5, record=false
 
-ITEM	END	# ANALYSIS
+ITEM	END	# ANALYZE
 
 # Variables
 

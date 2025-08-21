@@ -8,7 +8,7 @@
 #  purpose:	Search and replace strings in multiple files; part of EMC
 #  		distribution
 # 
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -29,15 +29,16 @@
 #    20240326	- Change to v2.5
 #    		- Addition of -s option
 #    20240428	- Addition of -m option
+#    20250609	- Filtered out replacement of $@ to $@{}
 #
 
 #use Data::Dumper;
 use File::Find;
 use Time::Piece;
 
-$Version = "2.5";
-$Year = "2024";
-$Date = "April 28, $Year";
+$Version = "2.5.1";
+$Year = "2025";
+$Date = "June 9, $Year";
 $Copyright = "2004-$Year";
 
 # functions
@@ -197,7 +198,7 @@ sub lines {
 	  --$brackets;
 	}
 
-	if ($_ eq "@" && !$brackets) {
+	if ($_ eq "@" && $last ne "\$" && !$brackets) {
 	  if ($var ne "") {
 	    $var	.= "}";
 	    $result	.= ($var eq $search ? $replace : $var);

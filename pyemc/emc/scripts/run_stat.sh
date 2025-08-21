@@ -6,7 +6,7 @@
 #  purpose:	submit parallel jobs to LSF, PBS, or Slurm queues; calls itself
 #		as submit script
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

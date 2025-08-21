@@ -5,7 +5,7 @@
 #  date:	September 3, 2022.
 #  purpose:	MD structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -53,6 +53,7 @@ use EMC::LAMMPS;
 use EMC::Math;
 use EMC::NAMD;
 use EMC::PDB;
+use EMC::XYZ;
 
 
 # defaults
@@ -74,7 +75,8 @@ sub construct {
     gromacs => [\&EMC::GROMACS::construct, $attr],
     lammps => [\&EMC::LAMMPS::construct, $attr],
     namd => [\&EMC::NAMD::construct, $attr],
-    pdb => [\&EMC::PDB::construct, $attr]
+    pdb => [\&EMC::PDB::construct, $attr],
+    xyz => [\&EMC::XYZ::construct, $attr]
   };
   
   $md->{write} = {};
@@ -105,6 +107,10 @@ sub set_defaults {
   $md->{context} = EMC::Common::attributes(
     EMC::Common::hash($md, "context"),
     {
+      # E
+      
+      engine		=> undef,
+
       # R
 
       restart_dir	=> "..",
@@ -157,10 +163,16 @@ sub set_commands {
   my $depricated = defined($set) ? $set->{flag}->{depricated} : 1;
   my $flag_depricated = $indicator ? 0 : $depricated;
   my $pre = $indicator = $indicator ? "md_" : "";
-  
+ 
   $md->{commands} = EMC::Common::hash($md, "commands");
   while (1) {
     my $commands =  {
+
+      # E
+
+      $indicator."engine"	=> {
+	comment		=> "set MD engine",
+	default		=> $context->{engine}},
 
       # R
 
@@ -245,6 +257,12 @@ sub set_context {
   my $flag = EMC::Common::element($md, "flag");
   my $context = EMC::Common::element($md, "context");
 
+  # E
+
+  if (!defined($md->{engine})) {
+    $context->{engine} = get_engine($md);
+  }
+
   # S
 
   $global->{flag}->{shake} = (
@@ -282,6 +300,13 @@ sub set_options {
   $indicator = $indicator ? "md_" : "";
   my $i; for ($i=0; $i<=$depricated; ++$i) {
 
+    # E
+
+    if ($option eq $indicator."engine") { 
+      $context->{engine} = set_engine($line, $md, $args->[0]);
+      return 1;
+    }
+
     # R
 
     if ($option eq $indicator."restart") { 
@@ -291,7 +316,7 @@ sub set_options {
 
     # S
 
-    if ($option eq "shake") {
+    if ($option eq $indicator."shake") {
       foreach (@{$args}) {
 	my @arg = split("=");
 	my $n = scalar(@arg);
@@ -329,14 +354,14 @@ sub set_options {
       }
       return $shake;
     }
-    if ($option eq "shake_iterations") {
+    if ($option eq $indicator."shake_iterations") {
       return $shake->{iterations} = EMC::Math::eval($args->[0])->[0]; }
-    if ($option eq "shake_output") {
+    if ($option eq $indicator."shake_output") {
       return $shake->{output} =
 	  $args->[0] eq "never" ? 0 : EMC::Math::eval($args->[0])->[0]; }
-    if ($option eq "shake_tolerance") {
+    if ($option eq $indicator."shake_tolerance") {
       return $shake->{tolerance} = EMC::Math::eval($args->[0])->[0]; }
-    if ($option eq "shear") {
+    if ($option eq $indicator."shear") {
       my $value = EMC::Math::eval($args);
       $context->{shear}->{rate} = $value->[0];
       $context->{shear}->{flag} = EMC::Math::flag($args->[0]); 
@@ -347,7 +372,7 @@ sub set_options {
 
     # T
 
-    if ($option eq "timestep") {
+    if ($option eq $indicator."timestep") {
       $flag->{timestep} = 1;
       return $context->{timestep} = EMC::Math::eval($args->[0])->[0]; }
   
@@ -428,20 +453,67 @@ sub write_script {
 
 # functions
 
+sub get_engines {
+  my $md = shift(@_);
+  my $modules = EMC::Common::element($md, "modules");
+  my $engines = {};
+  
+  return undef if (!defined($modules));
+
+  foreach (@{$modules}) {
+    $engines->{$_} = 1 if (EMC::Common::element($md, $_, "flag", "engine"));
+  }
+  return $engines;
+}
+
+
+sub get_engine {
+  my $md = shift(@_);
+  my $engines = get_engines($md);
+
+  foreach (keys(%{$engines})) {
+    my $flag = EMC::Common::element($md, $_, "flag");
+
+    next if (!EMC::Common::element($flag, "write"));
+    return $_ eq "lammps" ? "$_:$md->{$_}->{context}->{version}" : $_;
+  }
+  return undef;
+}
+
+
+sub set_engine {
+  my $line = shift(@_);
+  my $md = shift(@_);
+  my $engine = [split(":", shift(@_))];
+  my $engines = get_engines($md);
+
+  if (!defined($engines->{$engine->[0]})) {
+    EMC::Message::error_line($line, "undefined MD engine '$engine->[0]'\n");
+  }
+  set_flags($md, "write", 0);
+  $md->{$engine->[0]}->{flag}->{write} = 
+    defined($engine->[1]) ? EMC::Math::boolean($engine->[1]) : 1;
+  if ($engine->[0] eq "lammps" && $engine->[1]>2000) {
+    $md->{lammps}->{context}->{version} = $engine->[1];
+  }
+  return $engine;
+}
+
+
 sub get_flags {					# 0: or, 1: and, 2: xor
   my $md = shift(@_);
   my $key = shift(@_);
   my $oper = shift(@_);
-  my $modules = EMC::Common::element($md, "modules");
+  my $engines = get_engines($md);
 
-  return 0 if (!defined($modules));
+  return 0 if (!defined($engines));
 
   my $value = $oper==1 ? 1 : 0;
 
-  foreach (@{$modules}) {
-    next if ($_ eq "pdb");
+  foreach (sort(keys(%{$engines}))) {
     my $flag = EMC::Common::element($md, $_, "flag");
     next if (ref($flag) ne "HASH");
+    next if (!defined($flag->{$key}));
     if ($oper == 0) {
       $value |= $flag->{$key};
     } elsif ($oper == 1) {
@@ -458,14 +530,15 @@ sub set_flags {					# <= set_md_flags
   my $md = shift(@_);
   my $key = shift(@_);
   my $value = shift(@_);
-  my $modules = EMC::Common::element($md, "modules");
+  my $engines = get_engines($md);
 
-  return if (!defined($modules));
+  return if (!defined($engines));
 
-  foreach (@{$modules}) {
-    next if ($_ eq "pdb");
+  foreach (sort(keys(%{$engines}))) {
     my $flag = EMC::Common::element($md, $_, "flag");
     $flag->{$key} = $value if (ref($flag) eq "HASH");
   }
 }
+
+
 

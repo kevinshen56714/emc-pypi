@@ -6,7 +6,7 @@
 #  purpose:	Creation of a VMD Tcl script for viewing multiple PDBs at once;
 #		part of EMC distribution
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

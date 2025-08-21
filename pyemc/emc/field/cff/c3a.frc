@@ -1,0 +1,288 @@
+!BIOSYM FORCEFIELD          1
+
+#define         ffapply         groups 
+
+#version        c3a.frc         1.0     19-June-2023
+
+#define cff91
+
+!Ver Ref                Function             Label
+!--- ---    ------------------------------   ------
+ 1.0  1     atom_types                       cff91
+ 1.0  1     equivalence                      cff91
+ 1.0  1     auto_equivalence                 cff91_auto
+ 1.0  1     bond_increments                  cff91_auto
+ 1.0  1     quadratic_bond                   cff91_auto
+ 1.0  1     quartic_bond                     cff91
+ 1.0  1     quadratic_angle                  cff91_auto
+ 1.0  1     quartic_angle                    cff91
+ 1.0  1     torsion_1                        cff91_auto
+ 1.0  1     torsion_3                        cff91
+ 1.0  1     wilson_out_of_plane              cff91  cff91_auto
+ 1.0  1     nonbond(9-6)                     cff91
+ 1.0  1     bond-bond                        cff91
+ 1.0  1     bond-bond_1_3                    cff91
+ 1.0  1     bond-angle                       cff91
+ 1.0  1     angle-angle                      cff91
+ 1.0  1     end_bond-torsion_3               cff91
+ 1.0  1     middle_bond-torsion_3            cff91
+ 1.0  1     angle-torsion_3                  cff91 
+ 1.0  1     angle-angle-torsion_1            cff91 
+ 1.0  1     torsion-torsion_1                cff91
+ 1.0  1     nonbond_cross(morse-dispersion)  cff91 
+
+
+#atom_types           cff91     +charges
+
+> Atom type definitions 
+> Standard atomic weights (1991) are taken from CRC(1995), pages 1-7.
+
+!Ver Ref  Type     Mass      Element   connection  Charges       Comment
+!--- ---  -----  ----------  -------   ----------  -------  ---------------------------
+ 1.0  2   ca3a    40.08000     Ca          0        +1.50     Calcium ion in tricalcium aluminate (C3A)
+ 1.0  2   al4o    26.98200     Al          4         0.00     Alumina atom in aluminate connected with 4 oxygen (+1.20e)
+ 1.0  2   o2al    15.99940      O          2         0.00     Oxygen atom in ring connected with 2 aluminium (-0.75e)
+ 1.0  2   o1al    15.99940      O          1         0.00     Oxygen atom (apical) connected with 1 aluminium (-1.35e)
+ 1.0  2   o2ha    15.99940      O          2         0.00     Oxygen atom (apical) connected with Al and H (-0.90e)
+ 1.0  2   o1hf    15.99940      O          1         0.00     Oxygen bonded to hydrogen in free/superficial hydroxyl ions (-1.00e)  
+ 1.0  2   h1oa     1.00797      H          1         0.00     Hydrogen bonded to apical oxygen in AlOH ring (+0.30e) 
+ 1.0  2   h1of     1.00797      H          1         0.00     Hydrogen bonded to oxygen in free/superficial hydroxyl ions (+0.25e)
+
+#equivalence          cff91
+
+!                      Equivalences
+!       ------------------------------------------
+!Ver Ref  Type   NonB   Bond   Angle  Torsion  OOP
+!--- ---  -----  -----  -----  -----  -------  -----
+ 1.0  1   ca3a   ca3a   ca3a   ca3a   ca3a     ca3a
+ 1.0  1   al4o   al4o   al4o   al4o   al4o     al4o 
+ 1.0  1   o2al   o2al   o2al   o2al   o2al     o2al 
+ 1.0  1   o1al   o1al   o1al   o1al   o1al     o1al 
+ 1.0  1   o2ha   o2ha   o2ha   o2ha   o2ha     o2ha
+ 1.0  1   o1hf   o1hf   o1hf   o1hf   o1hf     o1hf 
+ 1.0  1   h1oa   h1oa   h1oa   h1oa   h1oa     h1oa 
+ 1.0  1   h1of   h1of   h1of   h1of   h1of     h1of 
+  
+
+
+#auto_equivalence     cff91_auto
+
+!                      Equivalences
+!       -----------------------------------------
+!Ver  Ref   Type  NonB Bond   Bond     Angle    Angle     Torsion   Torsion      OOP      OOP
+!                       Inct           End atom Apex atom End Atoms Center Atoms End Atom Center Atom
+!---- ---   ----  ---- ------ ----  ---------- --------- --------- -----------  -------- -----------
+ 1.0   1    ca3a  ca3a  ca3a  ca3a_ ca3a_      ca3a_     ca3a_     ca3a_        ca3a_    ca3a_
+ 1.0   1    al4o  al4o  al4o  al4o_ al4o_      al4o_     al4o_     al4o_        al4o_    al4o_
+ 1.0   1    o2al  o2al  o2al  o2al_ o2al_      o2al_     o2al_     o2al_        o2al_    o2al_
+ 1.0   1    o1al  o1al  o1al  o1al_ o1al_      o1al_     o1al_     o1al_        o1al_    o1al_
+ 1.0   1    o2ha  o2ha  o2ha  o1al_ o1al_      o1al_     o1al_     o1al_        o2ha_    o2ha_
+ 1.0   1    o1hf  o1hf  o1hf  o1hf_ o1hf_      o1hf_     o1hf_     o1hf_        o1hf_    o1hf_
+ 1.0   1    h1oa  h1oa  h1oa  h1oa_ h1oa_      h1oa_     h1oa_     h1oa_        h1oa_    h1oa_
+ 1.0   1    h1of  h1of  h1of  h1of_ h1of_      h1of_     h1of_     h1of_        h1of_    h1of_ 
+
+
+#bond_increments      cff91_auto
+
+!Ver Ref    I     J     DeltaIJ   DeltaJI
+!--- ---  ----- -----   -------   -------
+ 1.0  2   al4o   o2al    0.30      -0.375
+ 1.0  2   al4o   o1al    0.30      -1.35
+ 1.0  2   al4o   o2ha    0.30      -0.45
+ 1.0  2   h1oa   o2ha    0.30      -0.45
+ 1.0  2   h1of   o1hf    0.25      -1.00
+
+
+#quadratic_bond       cff91_auto
+
+> E = K2 * (R - R0)^2
+
+!Ver Ref    I      J       R0          K2
+!--- ---  -----  -----  -------     --------
+ 1.0  2   al4o_  o2al_    1.98      180.0000
+ 1.0  2   al4o_  o1al_    1.81      180.0000
+ 1.0  2   o1hf_  h1of_    0.929     495.0000
+ 1.0  2   o1al_  h1oa_    0.929     495.0000
+
+
+#quartic_bond         cff91
+
+> E = K2 * (R - R0)^2  +  K3 * (R - R0)^3  +  K4 * (R - R0)^4
+
+!Ver Ref    I     J       R0         K2          K3          K4
+!--- ---  ----- -----  -------    --------    --------    --------
+
+
+#quadratic_angle      cff91_auto
+
+> E = K2 * (Theta - Theta0)^2
+
+!Ver Ref    I     J     K      Theta0       K2
+!--- ---  ----- ----- -----   --------   -------
+ 1.0  2   o2al_ al4o_ o2al_      111.5   110.0000
+ 1.0  2   o1al_ al4o_ o1al_      121.0   110.0000
+ 1.0  2   o2al_ al4o_ o1al_      105.0   110.0000
+ 1.0  2   al4o_ o2al_ al4o_      156.7   110.0000
+ 1.0  2   h1oa_ o1al_ al4o_      115.0    40.0000
+
+
+#quartic_angle        cff91
+
+> Delta = Theta - Theta0
+> E = K2 * Delta^2  +  K3 * Delta^3  +  K4 * Delta^4
+
+!Ver Ref    I     J     K      Theta0       K2         K3         K4
+!--- ---  ----- ----- -----   --------   --------   --------   -------- 
+
+
+#torsion_1            cff91_auto
+
+> E = Kphi * [ 1 + cos(n*Phi - Phi0) ]
+
+!Ver Ref    I     J     K      L         KPhi      n     Phi0
+!--- ---  ----- ----- -----  -----     --------   ---  ---------
+ 1.0  2   *     al4o_ o1al_  *           0.0000     0     0.0000
+ 1.0  2   *     al4o_ o2al_  *           0.0000     0     0.0000
+
+#torsion_3            cff91
+
+> E = SUM(n=1,3) { V(n) * [ 1 - cos(n*Phi) ] }
+
+!Ver Ref    I     J     K     L       V(1)    Phi1(0)    V(2)    Phi2(0)    V(3)    Phi3(0)
+!--- ---  ----- ----- ----- -----   --------  -------  --------  -------  --------  -------
+
+
+#wilson_out_of_plane  cff91
+
+> E = K * (Chi - Chi0)^2
+
+!Ver Ref    I     J     K     L       KChi      Chi0
+!--- ---  ----- ----- ----- -----   --------  ---------
+
+
+#wilson_out_of_plane  cff91_auto
+
+> E = K * (Chi - Chi0)^2
+
+!Ver Ref    I     J     K     L       KChi      Chi0
+!--- ---  ----- ----- ----- -----   --------  ---------
+
+
+#nonbond(9-6)         cff91
+
+> E = eps(ij) [2(r(ij)*/r(ij))**9 - 3(r(ij)*/r(ij))**6]
+> where    r(ij) = [(r(i)**6 + r(j)**6))/2]**(1/6)
+>
+>        eps(ij) = 2 sqrt(eps(i) * eps(j)) *
+>                   r(i)^3 * r(j)^3/[r(i)^6 + r(j)^6]
+
+@type r-eps
+@combination sixth-power
+
+!Ver Ref    I          r             eps
+!--- ---  -----   -------------  -----------
+ 1.0  2   ca3a        3.55          0.24 
+ 1.0  2   al4o        4.80          0.50 
+ 1.0  2   o2al        3.62          0.06 
+ 1.0  2   o1al        3.52          0.06 
+ 1.0  2   o2ha        3.52          0.06
+ 1.0  2   o1hf        3.60          0.12
+ 1.0  2   h1oa        1.098         0.013
+ 1.0  2   h1of        1.098         0.013
+
+
+#bond-bond            cff91
+
+> E = K(b,b') * (R - R0) * (R' - R0')
+
+!Ver Ref    I     J     K      K(b,b')
+!--- ---  ----- ----- -----   --------
+
+
+#bond-bond_1_3        cff91
+
+> E = K(b,b') * (R - R0) * (R' - R0')
+
+!Ver Ref    I     J     K     L      K(b,b')
+!--- ---  ----- ----- ----- -----   --------
+
+
+#bond-angle           cff91
+
+> E = K * (R - R0) * (Theta - Theta0)
+
+!Ver Ref    I     J     K     K(b,theta)  K(b',theta)
+!--- ---  ----- ----- -----   ----------  -----------
+
+
+#angle-angle          cff91
+
+> E = K * (Theta - Theta0) * (Theta' - Theta0')
+
+!Ver Ref    I     J     K     L     K(theta,theta')
+!--- ---  ----- ----- ----- -----   ---------------
+
+
+#end_bond-torsion_3   cff91
+
+> E = (R - R0) * SUM { V(n) * cos[n*phi] }
+
+!                                                  LEFT                                RIGHT
+!                                      -----------------------------       -----------------------------
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------       -------    -------    -------
+
+
+#middle_bond-torsion_3 cff91
+
+> E = (R - R0) * 
+>      { F(1) * cos(phi)  +  F(2) * cos(2 * phi)  +  F(3) * cos(3 * phi) }
+
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------
+
+
+#angle-torsion_3      cff91
+
+> E = (Theta - Theta0) * 
+>      { F(1) * cos(phi)  +  F(2) * cos(2 * phi)  +  F(3) * cos(3 * phi) }
+
+!                                                  LEFT                               RIGHT
+!                                      -----------------------------       -----------------------------
+!Ver Ref    I     J     K     L          F(1)       F(2)       F(3)          F(1)       F(2)       F(3)
+!--- ---  ----- ----- ----- -----      -------    -------    -------       -------    -------    -------
+
+
+#angle-angle-torsion_1 cff91
+
+>  E = K * (Theta - Theta0) * (Theta' - Theta0') * (Phi - Phi1(0))
+
+!Ver Ref    I     J     K     L     K(Ang,Ang,Tor)
+!--- ---  ----- ----- ----- -----   --------------
+
+
+#torsion-torsion_1    cff91
+
+> E = F * cos(phi) * cos(phi') }
+
+!Ver Ref    I     J     K     L     M     K(Phi,Phi')
+!--- ---  ----- ----- ----- ----- -----   -----------
+
+
+#nonbond_cross(morse-dispersion)        cff91
+
+!Ver  Ref     I     J          eps        r0           y          c6          rspl
+!---- ---    ----  ----    ---------   ---------   ---------   ---------   ---------
+
+
+#reference 1
+@Author PJV, RKM
+@Date 01-February-2020
+created template from COMPASS
+
+#reference 2
+@Author SD, RKM, PJV, HH
+@Date 20-March-2023 
+Added C3A parameters 
+
+#end

@@ -11,6 +11,7 @@ variables	= {
   unwrap	-> true,
   pbc		-> true,
   extend	-> true,
+  licorice	-> false,
   vdw		-> false,
   cut		-> false,
   connect	-> false,
@@ -24,5 +25,5 @@ get		= {name -> source+"/"+input};
 pdb 		= {name -> output, compress -> compress, system -> system,
 		   map -> map, unwrap -> unwrap, pbc -> pbc, vdw -> vdw,
 		   cut -> cut, extend -> extend, connectivity -> connect,
-		   parameters -> parameters};
+		   parameters -> parameters, licorice -> licorice};
 

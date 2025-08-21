@@ -16,7 +16,7 @@
 #  		and coarse-grained [[multi-]interface] simulations; part of
 #  		EMC distribution
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -6701,6 +6701,7 @@ sub read_references {
     my @arg = @{$_->{data}};
     my $line = $_->{line};
 
+    next if (substr(@arg[0],0,1) eq "#");
     @arg = split(",", @arg[0]) if (scalar(@arg)<2);
     if ((scalar(@arg)<8)||(scalar(@arg)>9)) {
       error("incorrect number of entries in line $line of input\n");

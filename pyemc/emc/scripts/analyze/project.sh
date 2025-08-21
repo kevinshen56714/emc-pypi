@@ -6,7 +6,7 @@
 #  purpose:	Conversion of LAMMPS average output into CSV format on project
 #		basis, used for e.g. system-wide 
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #

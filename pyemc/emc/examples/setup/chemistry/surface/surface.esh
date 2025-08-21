@@ -10,12 +10,13 @@ temperature	298
 ntotal		1000
 shape		1.5
 build_dir	.
-field		opls-ua
+field		trappe-ua
 pdb_cut		true
 charge		false
 mass		true
 profile		true
 replace		true
+emc_execute	true
 
 ITEM	END
 
@@ -25,7 +26,7 @@ ITEM	VARIABLES
 
 # following variables redefine counterparts occuring in "lib/diamond_bonded"
 
-diamond_chemistry	"*C(*)(*)*"
+diamond_chemistry	"C(*)(*)(*)(*)"
 diamond_name		"carbon"
 diamond_atomistic	1
 
@@ -52,7 +53,7 @@ ITEM	END
 
 # Translation
 
-ITEM	VERBATIM	2
+ITEM	EMC	phase=2
 
 translate	= {delta -> {0.5*geometry(xx), 0, 0}};
 

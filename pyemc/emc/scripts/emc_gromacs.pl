@@ -5,7 +5,7 @@
 #  date:	May 4, 2024.
 #  purpose:	Convert GROMACS to EMC fields
 #
-#  Copyright (c) 2004-2024 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -105,7 +105,8 @@ sub set_defaults {
 	martini		=> 1,
 	output		=> "-",
 	source		=> ".",
-	target		=> "."
+	target		=> ".",
+	virtual_mass	=> 36
       }
     }
   );
@@ -180,6 +181,11 @@ sub set_commands {
 	comment		=> "set target directory",
 	set		=> \&set_options,
 	default		=> $flags->{target}
+      },
+      virtual_mass	=> {
+	comment		=> "set default virtual mass",
+	set		=> \&set_options,
+	default		=> $flags->{virtual_mass}
       }
     }
   );
@@ -205,7 +211,11 @@ sub set_options {
   } elsif ($option eq "field") {
     return set_flag($global, EMC::Math::flag($args->[0]))->{$option};
   } elsif ($option eq "kconstraint") {
-    return $flags->{kconstraint} = EMC::Math::eval($args->[0])->[0];
+    $flags->{kconstraint} = EMC::Math::eval($args->[0])->[0];
+    if ($flags->{kconstraint}<=0) {
+      EMC::Message::error_line($line, "constraint constant <= 0\n");
+    }
+    return $flags->{kconstraint};
   } elsif ($option eq "martini") {
     return $flags->{martini} = EMC::Math::flag($args->[0]);
   } elsif ($option eq "find") {
@@ -216,6 +226,12 @@ sub set_options {
     return $flags->{source} = EMC::IO::scrub_dir($args->[0]);
   } elsif ($option eq "target") {
     return $flags->{target} = EMC::IO::scrub_dir($args->[0]);
+  } elsif ($option eq "virtual_mass") {
+    $flags->{virtual_mass} = EMC::Math::eval($args->[0])->[0];
+    if ($flags->{virtual_mass}<=0) {
+      EMC::Message::error_line($line, "virtual mass <= 0\n");
+    }
+    return $flags->{virtual_mass};
   } else {
     foreach ($root->{set}->{options}) {
       my $result = $_->($struct);
@@ -272,7 +288,7 @@ sub initialize {
       $struct->{args} = [@arg];
       $result = EMC::Options::set_options($root->{options}, $struct);
       if (defined($result) ? 0 : $flags->{ignore} ? 0 : 1) {
-	EMC::Options::set_help($struct);
+	EMC::Options::set_help($struct, 1);
       }
     } else {
       push(@files, $_);
@@ -282,9 +298,14 @@ sub initialize {
   EMC::Options::set_help($struct) if ($project == 0);
   init_output($root);
   foreach (@files) {
-    my $file = "$flags->{source}/$_";
-    my @found = $flags->{find} ? EMC::IO::find($flags->{source}, $_) : 
-		-e $file ? ($file) : undef;
+    my @found;
+    my $name = $_;
+    foreach ("", ".itp") {
+      my $file = "$flags->{source}/$name".$_;
+      @found = $flags->{find} ? EMC::IO::find($flags->{source}, $name.$_) : 
+	       -e $file ? ($file) : undef;
+      last if (scalar(@found));
+    }
     push(@{$root->{files}}, @found) if (scalar(@found));
   }
   if (!scalar(@{$root->{files}})) {
@@ -299,7 +320,7 @@ sub initialize {
     $flags->{output} .= ".prm";
     $flags->{output} .= ".gz" if ($flags->{compress});
   }
-  @{$root->{files}} = sort(@{$root->{files}});
+  #@{$root->{files}} = sort(@{$root->{files}});
   EMC::Options::header($root->{options});
   return $root;
 }
@@ -325,13 +346,18 @@ sub get {
   my $root = shift(@_);
   my $attr = EMC::Common::attributes(shift(@_));
   my $field = EMC::Common::hash($attr, "field");
+  my $gromacs = EMC::Common::hash($attr, "gromacs");
   my $k = EMC::Common::element($attr, "kconstraint");
+  my $vmass = EMC::Common::element($attr, "virtual_mass");
 
   foreach (@{$root->{files}}) {
-    $field = EMC::GROMACS::to_field(
-      EMC::GROMACS::get($_, {kconstraint => $k}),
-      {type => "martini", field => $field});
+    $gromacs = 
+      EMC::GROMACS::get(
+	$_, {gromacs => $gromacs, kconstraint => $k, virtual_mass => $vmass});
   }
+  $field =
+    EMC::GROMACS::to_field(
+      $gromacs, {type => "martini", field => $field});
   $root->{fields} = $field;
   return $root;
 }
@@ -378,7 +404,8 @@ sub mass_complete {
 	push(@s, $end->{$_});
       }
     }
-    $ptr->[4] = join(" ", @s);
+    $ptr->[1] = $main.$level;	# name
+    $ptr->[4] = join(" ", @s);	# comment
   }
 }
 
@@ -387,20 +414,29 @@ sub equivalence {
   my $field = shift(@_);
 
   my $mass = EMC::Common::element($field, "mass", "data");
-  my $item = EMC::Common::element($field, "equivalence");
-  my $data = EMC::Common::element($item, "data");
+  my $equivalence = EMC::Common::element($field, "equivalence");
+  my $data = EMC::Common::element($equivalence, "data");
 
   return if (!defined($mass));
-  return if (!defined($item));
+  return if (!defined($equivalence));
   return if (!defined($data));
 
-  $item->{flag} = {
+  $equivalence->{flag} = {
     array => 0, cmap => 0, first => 1, ntypes => 1};
-  $item->{index} = [
+  $equivalence->{index} = [
     "type", "pair", "incr", "bond", "angle", "torsion", "improper"];
   foreach (keys(%{$mass})) {
     next if (defined($data->{$_}));
     $data->{$_} = [$_, $_, $_, $_, $_, $_];
+  }
+  foreach (keys(%{$data})) {
+    next if defined($mass->{$_});
+    my $t = $data->{$_}->[0];
+    if (!defined($mass->{$t})) {
+      EMC::Message::warning("missing mass for type '$t'\n");
+    }
+    EMC::Message::info("creating mass entry for type '$_' from '$t'\n");
+    $mass->{$_} = EMC::Element::deep_copy($mass->{$t});
   }
 }
 
@@ -434,7 +470,11 @@ ITEM	END")}));
 
   initialize(construct(\$root));
   my $flags = $root->{global}->{flags};
-  get($root, {field => $field, kconstraint => $flags->{kconstraint}});
+  get($root, {
+      field => $field, 
+      kconstraint => $flags->{kconstraint},
+      virtual_mass => $flags->{virtual_mass}
+    });
   #EMC::Message::dumper("field = ", $field);
   #EMC::Message::dumper("field = ", EMC::Fields::to_item($field));
 

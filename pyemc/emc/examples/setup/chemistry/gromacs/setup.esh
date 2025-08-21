@@ -1,0 +1,31 @@
+#!/usr/bin/env emc.pl
+#
+#  script:	setup.esh
+#  author:	Pieter J. in 't Veld
+#  date:	June 29, 2025
+#  purpose:	Example for using GROMACS
+#
+
+# Options section
+
+ITEM	OPTIONS
+
+replace		true
+md_engine	gromacs
+field		opls/2024/opls-aa
+ntotal		1000
+mass		true
+focus		true
+pdb_licorice	true
+emc_execute	true
+
+ITEM	END	# OPTIONS
+
+# Shorthand section
+
+ITEM	SHORTHAND
+
+molecule	CCO,10
+water		O,90
+
+ITEM	END	# SHORTHAND

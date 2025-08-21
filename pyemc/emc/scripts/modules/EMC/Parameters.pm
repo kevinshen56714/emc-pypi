@@ -5,7 +5,7 @@
 #  date:	September 29, 2022.
 #  purpose:	Parameters structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -447,8 +447,9 @@ sub read {					# <= read_parameters
 	EMC::Message::warning("missing cut off for @arg[0]\n");
        	$error = 1;
       } else {
+	my $offset = 0;
 	$pdata->{$key} = [
-	  ($flag->{chi}>0 ? @arg[2]/0.286:@arg[2]-25)/$correction+25,
+	  ($flag->{chi}>0 ? @arg[2]/0.286:@arg[2]-$offset)/$correction+$offset,
 	  $length, $gamma];
       }
     }

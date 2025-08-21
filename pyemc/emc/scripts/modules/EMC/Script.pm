@@ -5,7 +5,7 @@
 #  date:	September 30, 2022.
 #  purpose:	Script structure routines; part of EMC distribution
 #
-#  Copyright (c) 2004-2022 Pieter J. in 't Veld
+#  Copyright (c) 2004-2025 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -359,7 +359,7 @@ sub check_items {
 	}
 	if (!$allowed->{$key}->{environment}) {
 	  EMC::Message::error_line(
-	    $item->{flag}->{line}, "incorrect mode for item '$key'\n");
+	    $item->{flag}->{line}, "unallowed item '$key' in environment\n");
 	}
       }
     }
@@ -548,11 +548,11 @@ sub read {					# <= read_script
       env_only => [
 	"analyze", "loops", "stage", "trial"],
       locate => [
-	"emc", "lammps", "namd", "variables"],
+	"emc", "gromacs", "lammps", "namd", "variables"],
       stage_only => [
 	"structures"],
       verbatim => [
-	"emc", "field", "lammps", "namd", "template"],
+	"emc", "field", "gromacs", "lammps", "namd", "template"],
       ignore => [
 	"variables"]
     };

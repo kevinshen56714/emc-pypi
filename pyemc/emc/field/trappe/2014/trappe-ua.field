@@ -1,6 +1,6 @@
 (* EMC: Field *)
 
-(* EMC v9.4.4, build Mar 15 2024 08:25:46, date Tue Mar 19 15:04:36 2024 *)
+(* EMC v9.4.4, build Jul 30 2024 10:43:34, date Wed Aug  7 17:26:27 2024 *)
 
 (* Flags *)
 
@@ -1564,13 +1564,14 @@ general = {
       -> ss},
     {type -> xe, pair -> xe, bond -> xe, angle -> xe, torsion -> xe, improper
       -> xe}}, 
-  angle -> {active -> true, n -> 49, data -> {
+  angle -> {active -> true, n -> 50, data -> {
       {i0 -> c*, i1 -> c3, i2 -> c*, k -> 139.93907553, theta -> 119.7}, 
       {i0 -> c*, i1 -> c3, i2 -> c3*, k -> 139.93907553, theta -> 119.7}, 
       {i0 -> c*, i1 -> c3h, i2 -> c3*, k -> 139.93907553, theta -> 119.7}, 
       {i0 -> c*, i1 -> c3o*, i2 -> c*, k -> 124.200400748, theta -> 117.2}, 
       {i0 -> c*, i1 -> c3o*, i2 -> n3*, k -> 56.2379414585, theta -> 117.2}, 
       {i0 -> c*, i1 -> c3o*, i2 -> o, k -> 124.200400748, theta -> 121.4}, 
+      {i0 -> c*, i1 -> c3o*, i2 -> oh, k -> 139.998691723, theta -> 108}, 
       {i0 -> c*, i1 -> c4, i2 -> c*, k -> 124.200400748, theta -> 109.47}, 
       {i0 -> c*, i1 -> c4*, i2 -> cn, k -> 62.1002003738, theta -> 114}, 
       {i0 -> c*, i1 -> c4*, i2 -> n3*, k -> 56.2379414585, theta -> 109.5}, 
@@ -1645,7 +1646,7 @@ general = {
       {i0 -> cah, i1 -> *, i2 -> *, i3 -> *, k -> 4.40166220249, psi -> 0}, 
       {i0 -> n3mh, i1 -> *, i2 -> *, i3 -> *, k -> 5.96161923588, psi -> 0}}},
         
-  torsion -> {active -> true, n -> 79, data -> {
+  torsion -> {active -> true, n -> 81, data -> {
       {i0 -> *, i1 -> ca*, i2 -> ca*, i3 -> *, coefficients -> {
           {k -> 0, n -> 0, delta -> 0}, 
           {k -> 0, n -> 1, delta -> 0}, 
@@ -2043,6 +2044,22 @@ general = {
           {k -> 0.095207059197, n -> 1, delta -> 0}, 
           {k -> 1.53636889328, n -> 2, delta -> 0}, 
           {k -> 0.0039545407598, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> c3h, i2 -> c3o*, i3 -> oh*, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 1.25194003954, n -> 1, delta -> 0}, 
+          {k -> 3.00068168206, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0, n -> 0, delta -> 0}}}, 
+      {i0 -> c3*, i1 -> c3o*, i2 -> oh*, i3 -> ho, coefficients -> {
+          {k -> 0, n -> 0, delta -> 0}, 
+          {k -> 0.750011444002, n -> 1, delta -> 0}, 
+          {k -> 2.74999559319, n -> 2, delta -> 0}, 
+          {k -> 0, n -> 3, delta -> 0}, 
           {k -> 0, n -> 0, delta -> 0}, 
           {k -> 0, n -> 0, delta -> 0}, 
           {k -> 0, n -> 0, delta -> 0}}}, 
