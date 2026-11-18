@@ -26,7 +26,12 @@ def _get_exec() -> str:
 
 def _emc_env():
     env = os.environ.copy()
-    env.setdefault('EMC_ROOT', _BUNDLED_ROOT)
+    root = os.path.expanduser(env.get('EMC_ROOT', _BUNDLED_ROOT))
+    if not os.path.isdir(root):
+        raise FileNotFoundError(
+            f'EMC_ROOT points to a missing directory: {root!r}. '
+            'Unset EMC_ROOT to use the bundled EMC files.')
+    env['EMC_ROOT'] = root
     return env
 
 
@@ -41,9 +46,15 @@ def setup(esh_file: str, *args):
     '''
     emc_setup_file = os.path.join(_BUNDLED_ROOT, 'scripts', 'emc.pl')
 
-    subprocess.run(['perl', emc_setup_file, esh_file, *args],
-                   env=_emc_env(),
-                   check=True)
+    env = _emc_env()
+    try:
+        subprocess.run(['perl', emc_setup_file, esh_file, *args],
+                       env=env,
+                       check=True)
+    except FileNotFoundError as exc:
+        raise FileNotFoundError(
+            'pyemc.setup requires Perl. Install Perl and make sure '
+            'the perl command is on your PATH.') from exc
 
 
 def build(build_file: str):

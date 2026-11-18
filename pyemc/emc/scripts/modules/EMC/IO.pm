@@ -49,6 +49,7 @@ $VERSION = "2.0";
 
 use File::Basename;
 use File::Find;
+use File::Glob qw(bsd_glob);
 use File::Path;
 use IO::Compress::Gzip;
 use IO::Uncompress::Gunzip;
@@ -395,7 +396,7 @@ sub find {					# <= ffind
   File::Find::find( sub{ -d $_ and push @dirs, $File::Find::name; }, $dir );
   for (my $i=0; $i<2; ++$i) {
     foreach (@dirs) {
-      foreach (sort(glob($_."/".$pattern))) {
+      foreach (sort(bsd_glob($_."/".$pattern))) {
 	push(@files, $_) if (-e $_);
       }
     }
