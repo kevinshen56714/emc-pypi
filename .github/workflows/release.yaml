@@ -49,6 +49,10 @@ jobs:
           python_bin="EMC test environment/${{ runner.os == 'Windows' && 'Scripts' || 'bin' }}/python"
           "$python_bin" -m pip install --no-deps dist/*.whl
           "$python_bin" -I .github/emc/smoke.py
+      - name: Run the installed wheel from PowerShell
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: '& ".\EMC test environment\Scripts\python.exe" -I .github/emc/smoke.py'
 
   publish:
     if: github.event_name == 'release'

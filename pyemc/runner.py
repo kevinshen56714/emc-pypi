@@ -31,7 +31,8 @@ def _emc_env():
         raise FileNotFoundError(
             f'EMC_ROOT points to a missing directory: {root!r}. '
             'Unset EMC_ROOT to use the bundled EMC files.')
-    env['EMC_ROOT'] = root
+    # Git for Windows Perl treats backslashes in glob patterns as escapes.
+    env['EMC_ROOT'] = root.replace(os.sep, '/')
     return env
 
 
