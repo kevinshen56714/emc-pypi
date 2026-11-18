@@ -1,0 +1,116 @@
+#!/usr/bin/env emc.pl
+#
+#  script:	setup.esh
+#  author:	Pieter J. in 't Veld
+#  date:	June 28, 2026
+#  purpose:	Example for importing structures using EMC setup chemistry mode
+#
+
+# Options section
+
+ITEM	OPTIONS
+
+replace		true
+field		charmm/c36a/cgenff, charmm/c36a/prot, charmm/c36a/water_ions
+mass		true
+ntotal		1e4
+density		1
+build_order	sequence
+system_charge	false
+emc_execute	true
+
+ITEM	END	# OPTIONS
+
+# Groups section
+
+ITEM	GROUPS
+
+# solvent
+
+water:f=water_ions	O
+
+# needed for protein neutralization
+
+sodium:f=water_ions	[Na+]
+chloride:f=water_ions	[Cl-]
+
+# surfactants
+
+sds:f=cgenff,water_ions	CCCCCCCCCCCCO:S(:O)(:O):O.[Na+]
+
+# monomers
+
+eo			*COC*, 1,eo:2, 1,po:2, 2,po:1, 1,term:1, 2,term:1
+po			*C(C)OC*, 1,po:2, 1,eo:2, 2,eo:1, 1,term:1, 2,term:1
+term			*C
+
+peo			random
+ppo			random
+
+poly			random
+
+ITEM	END	# GROUPS
+
+# Polymers section
+
+ITEM	POLYMERS
+
+peo
+poisson:avg=5		eo, $@
+
+ppo
+poisson:avg=3		po, $@
+
+poly
+1			peo,1, ppo,1, term,2
+
+ITEM	END		# Polymers
+
+# Clusters section
+
+# 1AKI preparation: 
+# - Download 1AKI from Protein Databank in PDB form
+# - Create PSF with VMD through menu Modeling->Automatic PSF Builder
+# - Select 'protein' in Step 2
+# - Select 'I'm feeling lucky'
+# - Add elements to PDB by executing 'source element.tcl' on VMD command line
+
+ITEM	CLUSTERS
+
+# imported structure
+
+protein		import, name="1AKI.pdb", &
+		type=structure, mode=pdb, field=prot, tighten=3
+
+# surfactants
+
+poly		poly, 0.1
+sds		sds, 0.1
+
+# solvent
+
+water		water, 0.8
+
+# needed for protein neutralization
+
+sodium		sodium, 0
+chloride	chloride, 0
+
+ITEM	END	# CLUSTERS
+
+# EMC section
+
+# The following adapts the number of built ions as specified in build.emc,
+# where stage and spot controls where the verbatim paragraph will be inserted
+# in build.emc
+ 
+ITEM	EMC	stage=1	spot=0
+
+variables	= {
+  chg		-> charge(),
+  n_sodium	-> chg<0 ? int(-chg+0.5) : 0,
+  n_chloride	-> chg>0 ? int(chg+0.5) : 0
+};
+
+ITEM	END	# EMC
+

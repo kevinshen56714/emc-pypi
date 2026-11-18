@@ -10,9 +10,10 @@ with open(os.path.join(PACKAGE_DIR, 'README.md'), encoding='utf-8') as f:
 
 def package_files(directory):
     paths = []
-    for (path, directories, filenames) in os.walk(directory):
+    for (path, directories, filenames) in os.walk(directory, followlinks=True):
         for filename in filenames:
-            paths.append(os.path.join('..', path, filename))
+            paths.append(os.path.relpath(os.path.join(path, filename),
+                                         'pyemc'))
     return paths
 
 
@@ -20,7 +21,7 @@ extra_files = package_files('pyemc/emc')
 
 setup(
     name='emc-pypi',
-    version='2025.8.21',
+    version='2026.11.19',
     long_description=LONG_DESCRIPTION,
     long_description_content_type='text/markdown',
     description='Python interface for the Enhanced Monte Carlo (EMC) package',
@@ -42,5 +43,5 @@ setup(
         "Topic :: Utilities",
     ],
     packages=find_packages(),
-    package_data={'': extra_files},
+    package_data={'pyemc': extra_files},
     zip_safe=False)

@@ -1,0 +1,425 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.7, build Apr  1 2014 14:23:08, date Tue Apr  1 14:36:49 2014
+
+Info: script v1.0 started at Tue Apr  1 14:36:49 2014
+Info: variables = {
+        density -> 3, 
+        temperature -> 1, 
+        seed -> -1, 
+        npolymers -> 25, 
+        nrepeats -> 20, 
+        nsolvents -> 1100, 
+        kij -> 4, 
+        lij -> 1, 
+        aij -> 25, 
+        grace -> 0.99, 
+        ncycles -> 100, 
+        drelax -> 1, 
+        nrun -> 500, 
+        nblocks -> 10, 
+        ntraject -> 10, 
+        output -> "chemistry"}
+Info: simulation = {
+        units -> {type -> reduced, seed -> seed}}
+Info: sites = {nsites -> 5, 
+        site -> {{id -> a, comment -> "a", reference -> 0, mass -> 1}, 
+          {id -> b, comment -> "b", reference -> 1, mass -> 1}, 
+          {id -> c, comment -> "c", reference -> 2, mass -> 1}, 
+          {id -> t, comment -> "t", reference -> 3, mass -> 1}, 
+          {id -> s, comment -> "s", reference -> 4, mass -> 1}}}
+Info: groups = {ngroups -> 4, group -> {
+          {id -> monomer1, chemistry -> ">ab<(c)", depth -> auto, 
+            charges -> forcefield, charge -> 0, terminator -> false, 
+            nconnects -> 6, connects -> {
+              {source -> 0, destination -> {index -> monomer1, site -> 1}}, 
+              {source -> 0, destination -> {index -> monomer2, site -> 0}}, 
+              {source -> 0, destination -> {index -> terminator, site -> 0}}, 
+              {source -> 1, destination -> {index -> monomer1, site -> 0}}, 
+              {source -> 1, destination -> {index -> monomer2, site -> 0}}, 
+              {source -> 1, destination -> {index -> terminator, 
+                  site -> 0}}}}, 
+          {id -> monomer2, chemistry -> ">c<", depth -> auto, 
+            charges -> forcefield, charge -> 0, terminator -> false, 
+            nconnects -> 4, connects -> {
+              {source -> 0, destination -> {index -> monomer1, site -> 0}}, 
+              {source -> 0, destination -> {index -> monomer1, site -> 1}}, 
+              {source -> 0, destination -> {index -> monomer2, site -> 0}}, 
+              {source -> 0, destination -> {index -> terminator, 
+                  site -> 0}}}}, 
+          {id -> terminator, chemistry -> ">t", depth -> auto, 
+            charges -> forcefield, charge -> 0, terminator -> false, 
+            nconnects -> 2, connects -> {
+              {source -> 0, destination -> {index -> monomer1, site -> 0}}, 
+              {source -> 0, destination -> {index -> monomer2, site -> 0}}}}, 
+          {id -> solvent, chemistry -> "s", depth -> auto, 
+            charges -> forcefield, charge -> 0, terminator -> false}}, 
+        ndeletes -> 0}
+Info: clusters = {nbodys -> 0, nclusters -> 1, 
+        cluster -> {id -> solvent, system -> main, n -> 1100, 
+          group -> solvent}, ngrafts -> 0, npolymers -> 1, 
+        polymer -> {id -> polymer, system -> main, n -> 25, ngroups -> 2, 
+          groups -> {monomer1, monomer2}, type -> random, niterations -> 100, 
+          nrepeat -> {20, 20}}}
+      delta = {systems -> 1, bodies -> 0, clusters -> 1125, sites -> 3150}
+Info: simulation = {
+        types -> {
+          merge -> true, 
+          skin -> 0.0, 
+          neighbor -> sector, 
+          inverse -> {active -> true, cutoff -> 1e-4, nfunctions -> 50}, 
+          dpd -> {
+            pair -> {
+              active -> true, 
+              mix -> berthelot, 
+              nbonded -> 0, 
+              data -> {
+                {i0 -> a, i1 -> a, a -> aij, gamma -> 4.5, cutoff -> 1}, 
+                {i0 -> b, i1 -> b, a -> aij, gamma -> 4.5, cutoff -> 1}, 
+                {i0 -> c, i1 -> c, a -> aij, gamma -> 4.5, cutoff -> 1}, 
+                {i0 -> s, i1 -> s, a -> aij, gamma -> 4.5, cutoff -> 1}, 
+                {i0 -> t, i1 -> t, a -> aij, gamma -> 4.5, cutoff -> 1}}}, 
+            bond -> {
+              active -> true, 
+              data -> {
+                {i0 -> a, i1 -> b, k -> kij, l -> lij}, 
+                {i0 -> a, i1 -> c, k -> kij, l -> lij}, 
+                {i0 -> a, i1 -> t, k -> kij, l -> lij}, 
+                {i0 -> b, i1 -> c, k -> kij, l -> lij}, 
+                {i0 -> b, i1 -> t, k -> kij, l -> lij}, 
+                {i0 -> c, i1 -> c, k -> kij, l -> lij}, 
+                {i0 -> c, i1 -> t, k -> kij, l -> lij}}}}}, 
+        moves -> {
+          displace -> {frequency -> 1, dmax -> 0.1}}}
+Info: build = {
+        system -> {id -> main, temperature -> 1, density -> 3, flag -> {
+            charge -> true, map -> true}, periodic -> {x -> true, y -> true, 
+            z -> true}, geometry -> {xx -> 10.1639635681, 
+            yy -> 10.1639635681, zz -> 10.1639635681, zy -> 0, zx -> 0, 
+            yx -> 0}}, 
+        select -> {progress -> list, frequency -> 1, message -> nkt, 
+          center -> false, order -> random, check -> true, nclusters -> 2, 
+          cluster -> {polymer, solvent}, 
+          relax -> {ncycles -> 100, radius -> 1}, name -> "", 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.99, 0.99}, theta -> 0, dphi -> 1, nbonded -> 20, 
+            ntrials -> 20, niterations -> 10000}}}
+
+   progress/%      E[0]/nkT
+---------------------------
+            0             0
+            1  7.664574e-05
+            2    0.01147113
+            3    0.01799986
+            4    0.02810173
+            5    0.04457433
+            6    0.08977764
+            7     0.1152704
+            8     0.1357516
+            9     0.1429236
+           10     0.1459597
+           11     0.1697448
+           12     0.1819279
+           13     0.2073156
+           14      0.226098
+           15     0.2588522
+           16     0.2800983
+           17     0.2839838
+           18     0.3015638
+           19     0.3262023
+           20     0.3673913
+           21     0.4194404
+           22     0.4351757
+           23     0.4375809
+           24     0.4594378
+           25     0.4859104
+           26     0.5235191
+           27     0.5412395
+           28      0.578877
+           29     0.5666365
+           30     0.6189656
+           31      0.638774
+           32     0.6749466
+           33     0.7163003
+           34     0.7741722
+           35     0.8282756
+           36      0.864859
+           37     0.9316479
+           38     0.9504406
+           39     0.9826305
+           40      1.032645
+           41      1.093161
+           42       1.15367
+           43      1.219047
+           44      1.269379
+           45      1.300222
+           46      1.358061
+           47      1.432378
+           48      1.487379
+           49      1.530569
+           50      1.604489
+           51      1.702268
+           52      1.766368
+           53      1.798434
+           54      1.859114
+           55      1.919069
+           56      1.955806
+           57      2.034213
+           58      2.086162
+           59      2.153138
+           60      2.228389
+           61       2.28821
+           62      2.346522
+           63       2.43338
+           64      2.492202
+           65      2.553003
+           66      2.613734
+           67      2.682411
+           68      2.755068
+           69      2.824388
+           70      2.852272
+           71      2.936853
+           72      3.002042
+           73      3.075085
+           74      3.158196
+           75      3.223814
+           76      3.286275
+           77      3.350717
+           78       3.42489
+           79       3.48865
+           80      3.571549
+           81      3.637862
+           82      3.686909
+           83      3.756464
+           84      3.832257
+           85      3.897604
+           86      3.956264
+           87      4.008637
+           88       4.08351
+           89      4.159437
+           90      4.245948
+           91       4.30627
+           92      4.373963
+           93      4.462436
+           94      4.526711
+           95       4.59296
+           96      4.683796
+           97      4.748314
+           98      4.825848
+           99      4.887094
+          100      4.965533
+---------------------------
+      average      1.918267
+
+      niterations = 3150, <niterations> = 1
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+dpd.bond                 0.427023 
+dpd.pair                  4.53851 
+---------------------------------
+total                    4.965533 
+
+Info: force = {style -> init, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+dpd.bond                 0.427023 
+dpd.pair                  4.53851 
+---------------------------------
+total                    4.965533 
+
+Info: traject = {mode -> write, name -> "chemistry", format -> "_%08ld", 
+        compress -> false, system -> main, start -> 0, end -> -1, 
+        frequency -> 10, append -> true, reset -> true, scale -> true, 
+        unwrap -> true, pbc -> true}
+Info: run = {ncycles -> 500, nblocks -> 10, cycle -> 0, seed -> -1, 
+        message -> nkt}
+
+        cycle      E[0]/nkT
+---------------------------
+           10      5.024025
+           20      5.016351
+           30      5.012725
+           40      5.008058
+           50      5.010915
+           60      5.006464
+           70      5.018075
+           80      5.023795
+           90      5.027172
+          100      5.037087
+          110      5.042808
+          120       5.04562
+          130      5.051034
+          140      5.062056
+          150      5.039588
+          160      5.021377
+          170      5.061596
+          180       5.05801
+          190      5.085465
+          200      5.066141
+          210      5.065379
+          220      5.054968
+          230      5.040623
+          240      5.035508
+          250      5.014684
+          260       5.02994
+          270      5.032385
+          280      5.010473
+          290       4.97687
+          300      5.008661
+          310      5.027165
+          320      5.024938
+          330      5.005341
+          340      5.019751
+          350       5.02467
+          360      5.066336
+          370      5.045497
+          380      4.989671
+          390      5.025769
+          400      5.045106
+          410      5.047223
+          420      5.047216
+          430      5.038182
+          440      5.046576
+          450      5.032482
+          460      5.007697
+          470      5.025051
+          480      5.010908
+          490      4.994213
+          500      5.016363
+---------------------------
+      average       5.03056
+
+Info: neighbors = {nbuilds -> 1575000, nupdates -> 0}
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+dpd.bond                0.4325494 
+dpd.pair                 4.583814 
+---------------------------------
+total                    5.016363 
+
+Info: force = {style -> init, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+dpd.bond                0.4325494 
+dpd.pair                 4.583814 
+---------------------------------
+total                    5.016363 
+
+Info: simulation = {
+        profiles -> {
+          frequency -> 1, 
+          bond -> {active -> true, nlevels -> 1, binsize -> 0.01}}}
+Info: run = {ncycles -> 500, nblocks -> 10, cycle -> 500, seed -> -1, 
+        message -> nkt}
+
+        cycle      E[0]/nkT
+---------------------------
+          510      5.029249
+          520      5.022144
+          530      5.041914
+          540       5.04053
+          550      5.028677
+          560      5.044511
+          570      5.018765
+          580      5.060683
+          590      5.050197
+          600      5.038683
+          610      5.053099
+          620      5.064948
+          630      5.019411
+          640      5.030303
+          650      5.013429
+          660      4.992606
+          670      5.007998
+          680      5.003142
+          690      5.059947
+          700      5.057835
+          710      5.026999
+          720      5.026545
+          730      5.044397
+          740      5.058936
+          750      5.020958
+          760      5.058174
+          770      5.059208
+          780      5.057538
+          790      5.040255
+          800       5.05878
+          810      5.033951
+          820      5.050757
+          830      4.989257
+          840      4.991345
+          850       5.00346
+          860       5.01978
+          870      5.015436
+          880      5.007071
+          890      5.012259
+          900      5.015467
+          910      4.990992
+          920      5.025009
+          930      5.024921
+          940      5.013828
+          950      5.030522
+          960      5.000668
+          970      4.993512
+          980      5.029639
+          990      5.049877
+         1000      5.036332
+---------------------------
+      average      5.029279
+
+Info: neighbors = {nbuilds -> 1575000, nupdates -> 0}
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+dpd.bond                0.4470912 
+dpd.pair                 4.589241 
+---------------------------------
+total                    5.036332 
+
+Info: force = {style -> init, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+dpd.bond                0.4470912 
+dpd.pair                 4.589241 
+---------------------------------
+total                    5.036332 
+
+Info: put = {name -> "chemistry", compress -> true, detail -> -1}
+Info: pdb = {name -> "chemistry", compress -> false, system -> main, 
+        length -> 0, forcefield -> auto, cut -> false, detect -> false, 
+        segment -> index, residue -> index, pbc -> true, unwrap -> true}
+Info: lammps = {name -> "chemistry", compress -> false, system -> main, 
+        mode -> put, length -> 0, units -> none, forcefield -> auto, 
+        detect -> true, atomistic -> false, charges -> false, ewald -> false, 
+        ellipsoid -> false, bonds -> false, types -> false, 
+        parameters -> true, cross -> false, variables -> true, 
+        coefficients -> true, comment -> true}
+Info: tsc: bonded = {6.141, 3.236, 2.289, 0, 0, 0} s
+Info: tsc: simulation = 35.96 s, threads = 0 s
+Info: tsc: thread = 0 s
+Info: script v1.0 finished at Tue Apr  1 14:37:27 2014
+
+Info: Thank you for using EMC v9.3.7
+Info: Please include this reference in published work using EMC:
+Info: P.J. in 't Veld and G.C. Rutledge, Macromolecules 2003, 36, 7358
+

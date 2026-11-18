@@ -1,0 +1,122 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/opls/2012/",
+  parameters	-> dir+"opls-ua.prm",
+  topology	-> dir+"opls-ua.top",
+
+  output	-> "dendrimer",
+  nmolecules	-> 100,
+  nrepeat	-> 20,
+  temperature	-> 500,
+  density	-> 0.8,
+  seed		-> -1
+};
+
+field		= {
+  mode		-> opls,
+  name		-> {parameters, topology},
+  compress	-> false
+};
+
+(*
+field		= {
+  mode		-> put,
+  name		-> "test",
+  compress	-> false
+};
+*)
+
+groups		= {
+  group		-> {
+    id		-> monomer,
+    chemistry	-> ">CC(C<)C<",
+    connects	-> {
+      {0, {monomer, 2}}, {0, {monomer, 3}}, {0, {terminator, 0}},
+      {2, {monomer, 0}}, {2, {monomer, 3}}, {2, {terminator, 0}},
+      {3, {monomer, 0}}, {3, {monomer, 2}}, {3, {terminator, 0}}
+    }
+  },
+  group		-> {
+    id		-> terminator,
+    chemistry	-> ">C",
+    connects	-> {
+      {0, {monomer, 0}},
+      {0, {monomer, 2}},
+      {0, {monomer, 3}}
+    }
+  }
+};
+
+clusters	= {
+  polymer	-> {
+    id		-> dendrimer,
+    system	-> main,
+    n		-> nmolecules,
+    groups	-> monomer,
+    nrepeat	-> nrepeat
+  }
+};
+
+field		= {
+  mode		-> apply,
+  error		-> false
+};
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  },
+  types 	-> {
+    opls	-> {
+      pair 	-> {mode -> global, cutoff -> 9.5},
+      pair14	-> {active -> true},
+      correct	-> {active -> false}
+    },
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+put		= {name -> output};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    cluster	-> dendrimer,
+    relax	-> {ncycles -> 100, radius -> 6.0},
+    name	-> "error",
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.9999, 0.9999},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {style -> none, message -> nkt};
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+(*
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+*)
+
+focus		= {clusters -> dendrimer};
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> opls, detect -> false,
+		   unwrap -> true};
+lammps		= {name -> output, mode -> put, charges -> true,
+		   forcefield -> opls, parameters -> true};
+

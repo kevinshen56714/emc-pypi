@@ -1,0 +1,394 @@
+(* EMC: Script *)
+
+variables	= {
+  prefix	-> $root+"field/polystyrene/smoothed_",
+  output	-> "polystyrene",
+
+  nrepeats	-> 20,
+  ngraft	-> 20,
+  lbox		-> 20e-9,				// m
+  dcore		-> 5e-9,				// m
+  densgraft	-> 0.7*^18,				// chains/m^2
+  dgraft	-> dcore+0.8*^-10,			// m
+  rgraft	-> dgraft/2,
+
+  a		-> 1e-10,				// m
+  drelax	-> 10*a,				// m
+  sigma		-> 5*a,
+  cutoff	-> 2^(1/6)*sigma,
+  rcore		-> dcore/2-cutoff,
+
+  temperature	-> 400,					// K
+  kb		-> 1.3806504e-23,			// J/K
+  nav		-> 6.022141179e23,			// 1/mol
+  escale	-> nav*kb*temperature,			// J/mol
+  ecore		-> 20.0*escale,
+
+  rhops		-> 1050,				// kg/m^3
+  rhocore	-> 2100,				// kg/m^3
+
+  mm		-> 0.104,				// kg/mol
+  me		-> 0.105,				// kg/mol
+  mcore		-> pi/6*dcore^3*rhocore*nav,		// kg/mol
+
+  npolymers	-> int(1+
+			(lbox^3*rhocore*nav-mcore)*rhops/
+			(2*(me+mm*nrepeats)*rhocore)),
+  mtotal	-> 2*(mm*nrepeats+me)*npolymers+mcore,	// kg/mol
+
+  phicore	-> mcore/mtotal,
+  density	-> rhops*rhocore/(rhocore+(rhops-rhocore)*phicore),
+
+  grace		-> 0.99,
+  ncycles	-> 100
+};
+
+
+// define simulation
+
+sites		= {
+  site		-> {id -> m, name -> "styrene m diad", mass -> 0.104},
+  site		-> {id -> r, name -> "styrene r diad", mass -> 0.104},
+  site		-> {id -> e, name -> "styrene end", mass -> 0.105},
+  site		-> {id -> link, name -> "styrene linker", mass -> 0.105},
+  site		-> {id -> core, name -> "silica core", mass -> mcore}
+};
+
+simulation	= {
+  units		-> {type -> si, angle -> 180/pi, 
+		    length -> 2.5e-10, energy -> escale, seed -> -1},
+  types		-> {
+    merge	-> true,
+    skin	-> 0.0,
+    neighbor	-> sector,
+    stencil	-> multi,
+    inverse	-> {active -> true, cutoff -> 1e-4, nfunctions -> 50},
+    boltzmann	-> {
+      // data from Spyriouni et al., Macromolecules 2007, 40, 3876
+      // interactions involving end type 'e' equal type 'r'
+      angle -> {
+	active	-> true,
+	data	-> {
+	  {i0 -> m, i1 -> m, i2 -> m, coefficients -> {
+	      {a -> 0.140, w -> 14.2, theta -> 147.3}, 
+	      {a -> 0.030, w -> 15.5, theta -> 158.0}}}, 
+	  {i0 -> m, i1 -> m, i2 -> r, coefficients -> {
+	      {a -> 0.360, w -> 15.5, theta -> 136.0}, 
+	      {a -> 0.110, w -> 16.4, theta -> 156.5}}}, 
+	  {i0 -> m, i1 -> m, i2 -> e, coefficients -> {
+	      {a -> 0.360, w -> 15.5, theta -> 136.0}, 
+	      {a -> 0.110, w -> 16.4, theta -> 156.5}}}, 
+	  {i0 -> m, i1 -> m, i2 -> link, coefficients -> {
+	      {a -> 0.360, w -> 15.5, theta -> 136.0}, 
+	      {a -> 0.110, w -> 16.4, theta -> 156.5}}}, 
+	  {i0 -> m, i1 -> r, i2 -> m, coefficients -> {
+	      {a -> 0.003, w -> 13.5, theta -> 142.3}, 
+	      {a -> 0.033, w -> 15.5, theta -> 165.5}}}, 
+	  {i0 -> m, i1 -> r, i2 -> r, coefficients -> {
+	      {a -> 0.077, w -> 23.8, theta -> 99.6}, 
+	      {a -> 0.133, w -> 14.2, theta -> 142.1}, 
+	      {a -> 0.800, w -> 15.5, theta -> 164.4}}}, 
+	  {i0 -> m, i1 -> r, i2 -> e, coefficients -> {
+	      {a -> 0.077, w -> 23.8, theta -> 99.6}, 
+	      {a -> 0.133, w -> 14.2, theta -> 142.1}, 
+	      {a -> 0.800, w -> 15.5, theta -> 164.4}}}, 
+	  {i0 -> m, i1 -> r, i2 -> link, coefficients -> {
+	      {a -> 0.077, w -> 23.8, theta -> 99.6}, 
+	      {a -> 0.133, w -> 14.2, theta -> 142.1}, 
+	      {a -> 0.800, w -> 15.5, theta -> 164.4}}}, 
+	  {i0 -> r, i1 -> m, i2 -> r, coefficients -> {
+	      {a -> 0.045, w -> 10.5, theta ->  87.1}, 
+	      {a -> 0.310, w -> 17.0, theta -> 136.6}, 
+	      {a -> 0.070, w -> 10.9, theta -> 158.8}}}, 
+	  {i0 -> r, i1 -> m, i2 -> e, coefficients -> {
+	      {a -> 0.045, w -> 10.5, theta ->  87.1}, 
+	      {a -> 0.310, w -> 17.0, theta -> 136.6}, 
+	      {a -> 0.070, w -> 10.9, theta -> 158.8}}}, 
+	  {i0 -> r, i1 -> m, i2 -> link, coefficients -> {
+	      {a -> 0.045, w -> 10.5, theta ->  87.1}, 
+	      {a -> 0.310, w -> 17.0, theta -> 136.6}, 
+	      {a -> 0.070, w -> 10.9, theta -> 158.8}}}, 
+	  {i0 -> r, i1 -> r, i2 -> r, coefficients -> {
+	      {a -> 0.060, w -> 12.5, theta ->  89.4}, 
+	      {a -> 0.135, w -> 12.6, theta -> 142.0}, 
+	      {a -> 0.130, w -> 15.6, theta -> 164.2}}}, 
+	  {i0 -> r, i1 -> r, i2 -> e, coefficients -> {
+	      {a -> 0.060, w -> 12.5, theta ->  89.4}, 
+	      {a -> 0.135, w -> 12.6, theta -> 142.0}, 
+	      {a -> 0.130, w -> 15.6, theta -> 164.2}}}, 
+	  {i0 -> r, i1 -> r, i2 -> link, coefficients -> {
+	      {a -> 0.060, w -> 12.5, theta ->  89.4}, 
+	      {a -> 0.135, w -> 12.6, theta -> 142.0}, 
+	      {a -> 0.130, w -> 15.6, theta -> 164.2}}}, 
+	  {i0 -> e, i1 -> m, i2 -> e, coefficients -> {
+	      {a -> 0.045, w -> 10.5, theta ->  87.1}, 
+	      {a -> 0.310, w -> 17.0, theta -> 136.6}, 
+	      {a -> 0.070, w -> 10.9, theta -> 158.8}}}, 
+	  {i0 -> e, i1 -> m, i2 -> link, coefficients -> {
+	      {a -> 0.045, w -> 10.5, theta ->  87.1}, 
+	      {a -> 0.310, w -> 17.0, theta -> 136.6}, 
+	      {a -> 0.070, w -> 10.9, theta -> 158.8}}}, 
+	  {i0 -> e, i1 -> r, i2 -> e, coefficients -> {
+	      {a -> 0.060, w -> 12.5, theta ->  89.4}, 
+	      {a -> 0.135, w -> 12.6, theta -> 142.0}, 
+	      {a -> 0.130, w -> 15.6, theta -> 164.2}}},
+	  {i0 -> e, i1 -> r, i2 -> link, coefficients -> {
+	      {a -> 0.060, w -> 12.5, theta ->  89.4}, 
+	      {a -> 0.135, w -> 12.6, theta -> 142.0}, 
+	      {a -> 0.130, w -> 15.6, theta -> 164.2}}}
+	}
+      },
+      bond	-> {
+	active	-> true,
+	data	-> {
+	  {i0 -> m, i1 -> m, coefficients -> {
+	    a -> 0.015*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> m, i1 -> r, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> m, i1 -> e, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> m, i1 -> link, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> r, i1 -> r, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> r, i1 -> e, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> r, i1 -> link, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> e, i1 -> e, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> e, i1 -> link, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}},
+	  {i0 -> link, i1 -> link, coefficients -> {
+	    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}}}
+      },
+      pair	-> {
+	active	-> true,
+	nbonded	-> 2,
+	data	-> {
+	  {i0 -> m, i1 -> m, name -> prefix+"m-m.m"},
+	  {i0 -> m, i1 -> r, name -> prefix+"m-r.m"},
+	  {i0 -> m, i1 -> e, name -> prefix+"m-e.m"},
+	  {i0 -> m, i1 -> link, name -> prefix+"m-e.m"},
+	  {i0 -> r, i1 -> r, name -> prefix+"r-r.m"},
+	  {i0 -> r, i1 -> e, name -> prefix+"r-e.m"},
+	  {i0 -> r, i1 -> link, name -> prefix+"r-e.m"},
+	  {i0 -> e, i1 -> e, name -> prefix+"e-e.m"},
+	  {i0 -> e, i1 -> link, name -> prefix+"e-e.m"},
+	  {i0 -> link, i1 -> link, name -> prefix+"e-e.m"}}
+      }
+    },
+    coarse	-> {
+      lj	-> {
+	active	-> true,
+	shift	-> true,
+	mix	-> none,
+	nbonded	-> 1,
+	data	-> {
+	  {i0 -> m, i1 -> m, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> m, i1 -> r, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> m, i1 -> e, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> m, i1 -> link, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> m, i1 -> core, 
+	    epsilon -> ecore, sigma -> sigma, core -> rcore, cutoff -> cutoff}, 
+	  {i0 -> r, i1 -> r, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> r, i1 -> e, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> r, i1 -> link, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> r, i1 -> core, 
+	    epsilon -> ecore, sigma -> sigma, core -> rcore, cutoff -> cutoff}, 
+	  {i0 -> e, i1 -> e, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> e, i1 -> link, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> e, i1 -> core,
+	    epsilon -> ecore, sigma -> sigma, core -> rcore, cutoff -> cutoff}, 
+	  {i0 -> link, i1 -> link, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> link, i1 -> core, epsilon -> 0, sigma -> 0, core -> 0}, 
+	  {i0 -> core, i1 -> core,
+	    epsilon -> ecore, sigma -> sigma, core -> dcore, cutoff -> cutoff} 
+	}
+      }
+    }
+  },
+  moves		-> {
+    displace	-> {
+      frequency	-> 1,
+      dmax	-> 0.1
+    }
+  }
+};
+
+
+// build particle
+
+groups		= {
+  group		-> {
+    id		-> core,
+    chemistry	-> "[core]"
+  },
+  group		-> {
+    id		-> link,
+    chemistry	-> "[link]"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> core,
+    system	-> main,
+    group	-> core,
+    n		-> 1
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    geometry	-> {lbox, lbox, lbox, 0, 0, 0}
+  },
+  select	-> {
+    progress	-> list,
+    order	-> sequence,
+    cluster	-> core,
+    center	-> true,
+    relax	-> {ncycles -> 100, radius -> drelax},
+    grow	-> {
+      method	-> energetic,
+      check 	-> all,
+      grace	-> 0.999,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+flag		= {flag -> {fixed, rigid}, oper -> set,
+		    region -> {shape -> spheroid, center -> {0, 0, 0},
+		      radius -> {rcore, rcore, rcore}}};
+
+clusters	= {
+  body		-> {
+    id		-> particle,
+    system	-> main,
+    n		-> 1,
+    density	-> densgraft,
+    surface	-> link,
+    region	-> {
+      shape	-> spheroid,
+      type 	-> absolute,
+      center	-> {0, 0, 0},
+      radius	-> {rgraft, rgraft, rgraft}
+    }
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    geometry	-> {lbox, lbox, lbox, 0, 0, 0}
+  },
+  select	-> {
+    progress	-> list,
+    order	-> sequence,
+    cluster	-> particle,
+    relax	-> {ncycles -> 100, radius -> drelax},
+    grow	-> {
+      method	-> energetic,
+      check 	-> all,
+      grace	-> 0.999,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {message -> true, style -> init};
+//traject		= {name -> output, frequency -> 10, append -> true};
+run		= {ncycles -> 5000, nblocks -> 1000};
+force		= {message -> true};
+
+put		= {name -> output, compress -> true};
+pdb		= {name -> output};
+
+
+// build graft and matrix
+
+groups		= {
+  group		-> {
+    id		-> monomer1,
+    chemistry	-> "*r*",
+    connects	-> {
+      {0, {monomer1, 0}}, {0, {monomer2, 0}}, {0, {terminator, 0}}}
+  },
+  group		-> {
+    id		-> monomer2,
+    chemistry	-> "*m*",
+    connects	-> {
+      {0, {monomer1, 0}}, {0, {monomer2, 0}}, {0, {terminator, 0}}}
+  },
+  group		-> {
+    id		-> terminator,
+    chemistry	-> "*e",
+    connects	-> {
+      {0, {monomer1, 0}}, {0, {monomer2, 0}}}
+  }
+};
+
+clusters	= {
+  polymer	-> {
+    id		-> graft,
+    system	-> main,
+    type	-> random,
+    groups	-> {monomer1, monomer2},
+    nrepeat	-> ngraft
+  },
+  graft		-> {
+    core	-> particle,
+    type	-> link,
+    polymer	-> graft,
+    connect	-> head
+  },
+  polymer	-> {
+    id		-> polymer,
+    system	-> main,
+    type	-> random,
+    n		-> npolymers,
+    nrepeat	-> nrepeats,
+    groups	-> {monomer1, monomer2}
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    (*density	-> density,*)
+    temperature	-> temperature,
+    geometry	-> {lbox, lbox, lbox, 0, 0, 0}
+  },
+  select	-> {
+    frequency	-> 1,
+    progress	-> list,
+    check	-> false,
+    center	-> false,			// turn off placement
+    cluster	-> {polymer, graft},
+    relax	-> {ncycles -> ncycles, radius -> drelax},
+    grow	-> {
+      method	-> energetic,
+      ntrials	-> 20,
+      niterations -> 1000,
+      grace	-> {grace, grace} (*,
+      exclude	-> {shape -> spheroid, type -> absolute, center -> {0, 0, 0},
+		      radius -> {rcore, rcore, rcore}} *)
+    }
+  }
+};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+put		= {name -> output, compress -> true};
+pdb		= {name -> output,
+		    pbc -> true, unwrap -> true, forcefield -> boltzmann};
+lammps		= {name -> output, compress -> true,
+		    mode -> put, forcefield -> boltzmann, types -> true};
+

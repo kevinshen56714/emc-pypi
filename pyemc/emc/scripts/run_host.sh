@@ -222,7 +222,7 @@ function myrsync() {
 
 # main
 
-  . ~/.bash/functions.sh;
+  #. ~/.bash/functions.sh;
   init "$@";
  
   if [ "$clear" == "true" ]; then

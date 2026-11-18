@@ -1,0 +1,238 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.6, build Aug  4 2013 11:21:15, date Sun Aug  4 11:37:45 2013
+
+Info: script v1.0 started at Sun Aug  4 11:37:45 2013
+Info: variables = {
+        dir -> "~/forcefields/", 
+        field -> "compass", 
+        templates -> "~/forcefields/compass/compass_templates.dat", 
+        parameters -> "~/forcefields/compass/compass.frc", 
+        output -> "polyethyleneoxide", 
+        temperature -> 300, 
+        density -> 0.8683, 
+        nmolecules -> 100, 
+        nrepeat -> 10, 
+        nrelax -> 100, 
+        seed -> -1}
+Info: field = {mode -> cff, 
+        name -> {"~/forcefields/compass/compass_templates.dat", 
+          "~/forcefields/compass/compass.frc"}, compress -> false, 
+        error -> true}
+Info: groups = {ngroups -> 3, group -> {
+          {id -> ethyloxide, chemistry -> ">OCC<", depth -> auto, 
+            charges -> forcefield, charge -> 0, nconnects -> 4, connects -> {
+              {source -> 0, destination -> {index -> ethyloxide, site -> 2}}, 
+              {source -> 2, destination -> {index -> ethyloxide, site -> 0}}, 
+              {source -> 0, destination -> {index -> methyl, site -> 0}}, 
+              {source -> 2, destination -> {index -> methyloxide, 
+                  site -> 0}}}}, 
+          {id -> methyloxide, chemistry -> ">OC", depth -> auto, 
+            charges -> forcefield, charge -> 0, nconnects -> 1, connects -> 
+            {source -> 0, destination -> {index -> ethyloxide, site -> 2}}}, 
+          {id -> methyl, chemistry -> ">C", depth -> auto, 
+            charges -> forcefield, charge -> 0, nconnects -> 1, connects -> 
+            {source -> 0, destination -> {index -> ethyloxide, site -> 0}}}}}
+Info: clusters = {nbodys -> 0, nclusters -> 0, ngrafts -> 0, npolymers -> 1, 
+        polymer -> {id -> molecule, system -> main, n -> 100, ngroups -> 1, 
+          groups -> ethyloxide, type -> alternate, nrepeat -> 10}}
+      delta = {systems -> 1, bodies -> 0, clusters -> 100, sites -> 7900}
+Info: field = {mode -> apply, error -> true}
+      general = {pairs -> 0, bonds -> 0, angles -> 0, torsions -> 0, 
+        impropers -> 0}
+      specific = {pairs -> 3, bonds -> 3, angles -> 5, torsions -> 5, 
+        impropers -> 0}
+      empty = {pairs -> 0, bonds -> 0, angles -> 0, torsions -> 0, 
+        impropers -> 5}
+Info: simulation = {
+        units -> {
+          seed -> seed}, 
+        types -> {
+          neighbor -> thread, 
+          cff -> {pair -> {coulomb -> cut, cutoff -> 7.5, 
+              mode -> repulsive}}, 
+          coulomb -> {pair -> {active -> false}}}}
+Info: build = {
+        system -> {id -> main, temperature -> 300, density -> 0.8683, 
+          flag -> {charge -> true, map -> true}, periodic -> {x -> true, 
+            y -> true, z -> true}, geometry -> {xx -> 45.3159039272, 
+            yy -> 45.3159039272, zz -> 45.3159039272, zy -> 0, zx -> 0, 
+            yx -> 0}}, 
+        select -> {progress -> list, frequency -> 1, message -> nkt, 
+          center -> false, order -> random, check -> true, nclusters -> 1, 
+          cluster -> molecule, 
+          relax -> {ncycles -> 100, radius -> 7.5}, name -> "error", 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.999, 0.999}, theta -> 0, dphi -> 1, nbonded -> 20, 
+            ntrials -> 20, niterations -> 250}}}
+
+   progress/%      E[0]/nkT
+---------------------------
+            0             0
+            1     0.1530999
+            2     0.4041122
+            3     0.5961165
+            4     0.6827253
+            5      0.719686
+            6     0.7013509
+            7     0.7814595
+            8     0.7279793
+            9     0.7802604
+           10     0.7761742
+           11     0.7961835
+           12     0.7160481
+           13      0.774612
+           14     0.7930858
+           15     0.7707844
+           16     0.8258043
+           17     0.7799797
+           18     0.7754262
+           19     0.7117568
+           20     0.7528046
+           21     0.7793627
+           22     0.7373807
+           23     0.6920244
+           24     0.6875784
+           25     0.7131287
+           26     0.7439549
+           27     0.7882979
+           28     0.7137791
+           29     0.7484754
+           30     0.7021644
+           31     0.7131681
+           32     0.7345074
+           33     0.7463477
+           34     0.7325449
+           35     0.7517268
+           36     0.7374535
+           37     0.7259449
+           38      0.764087
+           39     0.7334891
+           40     0.7262596
+           41     0.6936902
+           42     0.7287597
+           43     0.7241785
+           44     0.7303021
+           45     0.7446802
+           46      0.772735
+           47     0.7598043
+           48     0.8058581
+           49     0.7495942
+           50     0.7884606
+           51     0.7877556
+           52     0.7918462
+           53     0.8402726
+           54     0.8146117
+           55     0.8075652
+           56     0.8083771
+           57     0.8123052
+           58      0.840041
+           59     0.8274542
+           60     0.8265596
+           61      0.809961
+           62     0.8079369
+           63      0.819086
+           64     0.8676374
+           65     0.8606322
+           66     0.8316075
+           67     0.9054319
+           68     0.9086604
+           69     0.9335923
+           70     0.9281775
+           71     0.9207442
+           72     0.9350533
+           73     0.9387635
+           74     0.9643967
+           75     0.9856012
+           76     0.9764471
+           77      0.973801
+           78     0.9823687
+           79     0.9755311
+           80      1.032498
+           81      1.012805
+           82       0.97129
+           83     0.9826614
+           84      1.022829
+           85       1.04515
+           86      1.048291
+           87      1.071914
+           88      1.087873
+           89      1.096368
+           90      1.062318
+           91      1.074599
+           92      1.117075
+           93       1.07669
+           94      1.065923
+           95      1.100364
+           96      1.126243
+           97      1.131512
+           98      1.162534
+           99      1.180152
+          100      1.191544
+---------------------------
+      average     0.8349707
+
+      niterations = 7900, <niterations> = 1
+Info: force = {style -> none, message -> raw}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+cff.angle                5374.122 
+cff.angle_angle          -34.3286 
+cff.angle_angle_tor     -559.0946 
+cff.angle_torsion        -244.313 
+cff.bond                 2432.739 
+cff.bond_angle          -125.3838 
+cff.bond_bond           0.4062749 
+cff.bond_bond_13                0 
+cff.end_bond_torsio     -11.98549 
+cff.improper                    0 
+cff.middle_bond_tor     -44.09268 
+cff.pair                 2837.325 
+cff.torsion             -4013.604 
+---------------------------------
+total                     5611.79 
+
+Info: force = {style -> init, message -> raw}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+cff.angle                5374.122 
+cff.angle_angle          -34.3286 
+cff.angle_angle_tor     -559.0946 
+cff.angle_torsion        -244.313 
+cff.bond                 2432.739 
+cff.bond_angle          -125.3838 
+cff.bond_bond           0.4062749 
+cff.bond_bond_13                0 
+cff.end_bond_torsio     -11.98549 
+cff.improper                    0 
+cff.middle_bond_tor     -44.09268 
+cff.pair                 2837.325 
+cff.torsion             -4013.604 
+---------------------------------
+total                     5611.79 
+
+Info: put = {name -> "polyethyleneoxide", compress -> false, detail -> 3}
+Info: pdb = {name -> "polyethyleneoxide", compress -> false, system -> main, 
+        length -> 0, forcefield -> cff, cut -> false, detect -> true, 
+        segment -> index, residue -> index, pbc -> true, unwrap -> true}
+Info: lammps = {name -> "polyethyleneoxide", compress -> false, 
+        system -> main, mode -> put, length -> 0, units -> none, 
+        forcefield -> cff, detect -> true, atomistic -> false, 
+        charges -> false, ellipsoid -> false, bonds -> false, types -> true, 
+        parameters -> true, cross -> false, variables -> true, 
+        coefficients -> true, comment -> true}
+Info: tsc: bonded = {751.1, 264.1, 143.9, 311.4, 0.3914, 0.3649} s
+Info: tsc: simulation = 2254 s, threads = 1330 s
+Info: tsc: thread = 1222 s
+Info: script v1.0 finished at Sun Aug  4 12:15:41 2013
+
+Info: Thank you for using EMC v9.3.6
+Info: Please include this reference in published work using EMC:
+Info: P.J. in 't Veld and G.C. Rutledge, Macromolecules 2003, 36, 7358
+

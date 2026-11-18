@@ -5,6 +5,10 @@
 #  purpose:	TraPPe force field
 #  version:	0.1beta
 #
+#  Copyrights (c) 2004-2026 Pieter J. in 't Veld
+#  Distributed under GNU Public License v3.0 as stated in the LICENSE file in
+#  the EMC root directory
+#
 #  rule keys:
 #  	~	any bond
 #	-	single bond

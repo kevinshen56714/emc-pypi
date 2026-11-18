@@ -357,6 +357,7 @@ sub set_functions {
   $set->{commands} = \&EMC::PDB::set_commands;
   $set->{defaults} = \&EMC::PDB::set_defaults;
   $set->{options} = \&EMC::PDB::set_options;
+  $set->{flags} = \&EMC::Options::set_flag;
 
   $write->{emc} = \&EMC::PDB::write_emc;
 
@@ -508,7 +509,6 @@ sub write_emc {
 
   return if ($emc_flag->{test});
   return if (!(defined($flag) && $flag->{write}));
-  return if ($emc_flag->{exclude}->{build});
 
   printf($stream "\npdb\t\t= {name -> output,");
   printf($stream " compress -> ".EMC::Math::boolean($flag->{compress}).",");

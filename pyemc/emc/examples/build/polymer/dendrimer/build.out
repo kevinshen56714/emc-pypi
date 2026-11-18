@@ -1,0 +1,249 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.8, build Feb 19 2015 10:03:44, date Thu Feb 19 10:03:48 2015
+
+Info: script v1.0 started at Thu Feb 19 10:03:48 2015
+Info: variables = {
+        dir -> "/Users/veld/emc/v9.3.8/field/opls/2012/", 
+        parameters -> "/Users/veld/emc/v9.3.8/field/opls/2012/opls-ua.prm", 
+        topology -> "/Users/veld/emc/v9.3.8/field/opls/2012/opls-ua.top", 
+        output -> "dendrimer", 
+        nmolecules -> 100, 
+        nrepeat -> 20, 
+        temperature -> 500, 
+        density -> 0.8, 
+        seed -> -1}
+Info: field = {mode -> opls, 
+        name -> {"/Users/veld/emc/v9.3.8/field/opls/2012/opls-ua.prm", 
+          "/Users/veld/emc/v9.3.8/field/opls/2012/opls-ua.top"}, 
+        compress -> false, apply -> false, debug -> false, error -> true}
+Info: groups = {ngroups -> 2, group -> {
+          {id -> monomer, chemistry -> ">CC(C<)C<", depth -> auto, 
+            charges -> forcefield, charge -> 0, terminator -> false, 
+            nconnects -> 9, connects -> {
+              {source -> 0, destination -> {index -> monomer, site -> 2}}, 
+              {source -> 0, destination -> {index -> monomer, site -> 3}}, 
+              {source -> 0, destination -> {index -> terminator, site -> 0}}, 
+              {source -> 2, destination -> {index -> monomer, site -> 0}}, 
+              {source -> 2, destination -> {index -> monomer, site -> 3}}, 
+              {source -> 2, destination -> {index -> terminator, site -> 0}}, 
+              {source -> 3, destination -> {index -> monomer, site -> 0}}, 
+              {source -> 3, destination -> {index -> monomer, site -> 2}}, 
+              {source -> 3, destination -> {index -> terminator, 
+                  site -> 0}}}}, 
+          {id -> terminator, chemistry -> ">C", depth -> auto, 
+            charges -> forcefield, charge -> 0, terminator -> false, 
+            nconnects -> 3, connects -> {
+              {source -> 0, destination -> {index -> monomer, site -> 0}}, 
+              {source -> 0, destination -> {index -> monomer, site -> 2}}, 
+              {source -> 0, destination -> {index -> monomer, site -> 3}}}}}, 
+        ndeletes -> 0}
+Info: clusters = {nbodys -> 0, nclusters -> 0, ngrafts -> 0, npolymers -> 1, 
+        polymer -> {id -> dendrimer, system -> main, n -> 100, ngroups -> 1, 
+          groups -> monomer, type -> alternate, niterations -> 1000, 
+          nrepeat -> 20}}
+      delta = {systems -> 1, bodies -> 0, clusters -> 100, sites -> 10200}
+Info: field = {mode -> apply, debug -> false, error -> false}
+      general = {pairs -> 0, bonds -> 0, angles -> 0, torsions -> 1, 
+        impropers -> 0}
+      specific = {pairs -> 3, bonds -> 3, angles -> 3, torsions -> 2, 
+        impropers -> 0}
+      empty = {pairs -> 0, bonds -> 0, angles -> 0, torsions -> 0, 
+        impropers -> 0}
+Info: simulation = {
+        units -> {
+          seed -> seed}, 
+        types -> {
+          opls -> {
+            pair -> {mode -> global, cutoff -> 9.5}, 
+            pair14 -> {active -> true}, 
+            correct -> {active -> false}}, 
+          coulomb -> {pair -> {active -> false}}}}
+Info: put = {name -> "dendrimer", compress -> false, detail -> 3}
+Info: build = {
+        system -> {id -> main, temperature -> 500, density -> 0.8, flag -> {
+            charge -> true, map -> true}, periodic -> {x -> true, y -> true, 
+            z -> true}, geometry -> {xx -> 66.7487450997, 
+            yy -> 66.7487450997, zz -> 66.7487450997, zy -> 0, zx -> 0, 
+            yx -> 0}}, 
+        select -> {progress -> list, frequency -> 1, message -> nkt, 
+          center -> false, order -> random, check -> true, nclusters -> 1, 
+          cluster -> dendrimer, 
+          relax -> {ncycles -> 100, radius -> 6}, name -> "error", 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.9999, 0.9999}, theta -> 0, dphi -> 1, nbonded -> 20, 
+            ntrials -> 20, niterations -> 1000}}}
+
+   progress/%      E[0]/nkT
+---------------------------
+            0             0
+            1     0.3508309
+            2     0.5827888
+            3     0.8112778
+            4      0.981914
+            5      1.229668
+            6      1.308636
+            7      1.412455
+            8       1.53335
+            9      1.613574
+           10      1.658767
+           11      1.735661
+           12      1.769347
+           13      1.794462
+           14      1.835433
+           15      1.889967
+           16      1.940336
+           17      1.927608
+           18      1.963866
+           19      2.011604
+           20      2.031155
+           21      2.053373
+           22      2.072514
+           23      2.072223
+           24      2.078291
+           25      2.019365
+           26       2.03606
+           27      2.066952
+           28      2.103527
+           29      2.127263
+           30       2.12582
+           31      2.176606
+           32       2.18858
+           33      2.178688
+           34      2.186585
+           35      2.222531
+           36      2.208209
+           37      2.261009
+           38      2.280381
+           39      2.254424
+           40      2.289391
+           41      2.307122
+           42      2.334706
+           43      2.368369
+           44      2.379764
+           45      2.400151
+           46      2.388541
+           47      2.401654
+           48      2.413012
+           49      2.412982
+           50      2.447817
+           51      2.448946
+           52      2.492988
+           53      2.498564
+           54      2.516499
+           55      2.507396
+           56      2.523964
+           57      2.569667
+           58      2.569048
+           59      2.615109
+           60      2.644179
+           61      2.659933
+           62      2.670728
+           63      2.702301
+           64       2.73756
+           65      2.803373
+           66      2.854966
+           67      2.873742
+           68      2.894981
+           69      2.891464
+           70      2.927587
+           71      2.970671
+           72      3.037933
+           73      3.090177
+           74      3.091542
+           75      3.138959
+           76      3.184253
+           77      3.210247
+           78      3.288181
+           79      3.295639
+           80       3.33812
+           81       3.36595
+           82        3.3976
+           83      3.462293
+           84      3.516129
+           85      3.532785
+           86      3.607206
+           87      3.598597
+           88      3.639571
+           89       3.69463
+           90      3.782704
+           91      3.829303
+           92      3.868877
+           93      3.952334
+           94      4.016976
+           95      4.048486
+           96      4.092764
+           97      4.141967
+           98      4.208151
+           99      4.256053
+          100      4.386337
+---------------------------
+      average      2.561248
+
+      niterations = 10200, <niterations> = 1
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+opls.angle                1.35001 
+opls.bond               0.6611421 
+opls.pair                0.803432 
+opls.pair14               1.19421 
+opls.torsion            0.3775424 
+---------------------------------
+total                    4.386337 
+
+Info: force = {style -> none, message -> raw}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+opls.angle               13682.02 
+opls.bond                6700.512 
+opls.pair                8142.585 
+opls.pair14              12103.03 
+opls.torsion             3826.299 
+---------------------------------
+total                    44454.44 
+
+Info: force = {style -> init, message -> raw}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+opls.angle               13682.02 
+opls.bond                6700.512 
+opls.pair                8142.585 
+opls.pair14              12103.03 
+opls.torsion             3826.299 
+---------------------------------
+total                    44454.44 
+
+Info: focus = {clusters -> dendrimer}
+      delta = {x -> -2.82543966866, y -> -1.31038302039, z -> 0.143918777471}
+
+Info: put = {name -> "dendrimer", compress -> false, detail -> 3}
+Info: pdb = {name -> "dendrimer", compress -> false, system -> main, 
+        mode -> put, length -> 0, forcefield -> opls, atomistic -> full, 
+        detect -> false, segment -> index, residue -> index, cut -> false, 
+        pbc -> true, unwrap -> true}
+Info: lammps = {name -> "dendrimer", compress -> false, system -> main, 
+        mode -> put, length -> 0, units -> none, forcefield -> opls, 
+        atomistic -> none, detect -> true, charges -> true, ewald -> false, 
+        ellipsoid -> false, bonds -> false, types -> true, 
+        parameters -> true, cross -> false, variables -> true, 
+        coefficients -> true, comment -> true}
+Info: tsc: bonded = {129.5, 51.38, 29.09, 41.63, 0.1844, 0} s
+Info: tsc: simulation = 710.4 s, threads = 529.3 s
+Info: tsc: thread = 496.2 s
+Info: script v1.0 finished at Thu Feb 19 10:15:57 2015
+
+Info: Thank you for using EMC v9.3.8
+Info: Please include this reference in published work using EMC:
+Info: P.J. in 't Veld and G.C. Rutledge, Macromolecules 2003, 36, 7358
+
+

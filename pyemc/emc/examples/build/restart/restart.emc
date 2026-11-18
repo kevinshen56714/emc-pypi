@@ -1,0 +1,29 @@
+(* EMC: Script *)
+
+variables	= {
+  ncycles	-> 1000,
+  nblocks	-> 100,
+  ntraject	-> 100,
+  input		-> "lj00",
+  output	-> "lj02"};
+
+get		= {name -> input};
+
+traject		= {name -> output, system -> 0,
+		      frequency -> ntraject, append -> true};
+
+force		= {style -> init, message -> true};
+
+run		= {ncycles -> 10000, nblocks -> 100};
+
+memory		= {style -> full};
+
+force		= {style -> none, message -> true};
+force		= {style -> list, message -> true};
+force		= {style -> init, message -> true};
+
+put 		= {name -> output};
+
+lammps		= {name -> output, system -> 0, mode -> put,
+		    units -> lj, types -> true, forcefield -> standard};
+

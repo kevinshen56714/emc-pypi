@@ -173,6 +173,29 @@ sub set_item_variables {
 
 # functions
 
+sub flags {
+  my @var = split(":", lc(shift(@_)));
+  my $flags = {
+    double => {d => 1, double => 1, doubled => 1},
+    eval => {e => 1, eval => 1, evaluate => 1},
+    hide => {h => 1, hide => 1, hidden => 1},
+    #list => {l => 1, list => 1},
+    pair => {p => 1, pair => 1, paired => 1},
+    permutation => {2 => 1, 3 => 1, 4 => 1}};
+  my $flag = {map({$_ => 0} keys(%{$flags}))};
+ 
+  shift(@var);
+  foreach (@var) {
+    my $id = $_;
+    foreach (keys(%{$flags})) {
+      $flag->{$_} = defined($flags->{$_}->{$id}) ? 1 : 0 if (!$flag->{$_});
+    }
+  }
+  $flag->{pair} = 1 if ($flag->{hide});
+  return $flag;
+}
+
+
 sub variable_replace {
   my $variables = shift(@_);
   my $var = shift(@_);

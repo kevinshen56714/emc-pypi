@@ -1,48 +1,2855 @@
-EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2024 Pieter J. in 't Veld
+EMC GROMACS v1.0 (May 4, 2024), (c) 2004-2025 Pieter J. in 't Veld
 
-Info: reading gromacs field from './src/martini.itp'
-Info: reading gromacs field from './src/ions.itp'
-Info: reading gromacs field from './src/solvents.itp'
-Info: reading gromacs field from './src/phospholipids.itp'
-Info: reading gromacs field from './src/sugars_v2.itp'
-Info: creating mass entry for type 'SP4r1' from 'SP4r'
-Info: creating mass entry for type 'SP1r1' from 'SP1r'
-Info: creating mass entry for type 'TN4ar1' from 'TN4ar'
-Info: creating mass entry for type 'SN61' from 'SN6'
-Info: creating mass entry for type 'SN4ar1' from 'SN4ar'
-Info: creating mass entry for type 'TP11' from 'TP1'
 Info: reading gromacs field from './src/small_molecules_v2.itp'
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 1MIMI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1-METHYLIMIDAZOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 2MPYR
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 2-METHYL-PYRIDINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 2NIMX
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 2-NITRO-m-XYLENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 2NITL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 2-NITROTOLUENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 3HT
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 3-HEXYL-THIOPHENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = angles
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 3PT
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 3-PROPYL-THIOPHENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = angles
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 4MIMI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 4-METHYLIMIDAZOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 4NIAN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 4-NITROANISOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = ACPH
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = ACETOPHENONE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = ANIL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = ANILINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BEAL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = BENZALDEHYDE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BENZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = BENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BRA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 4-BROMOANISOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BRBZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = BROMOBENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BZDOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1,3-BENZENEDIOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BZNI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = BENZONITRILE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BZQU
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = para-BENZOQUINONE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BZTF
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = BENZOTRIFLUORIDE (aka TRIFLUOROTOLUENE)
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CHEX
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CYCLOHEXANE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CHEXE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CYCLOHEXENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CLBZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CHLOROBENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CLPR
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CHLORPROPHAM
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = angles
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CLTL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 2-CHLOROTOLUENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CPR
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CYCLOPROPANE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CUME
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CUMENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CYPE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CYCLOPENTANE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CYPO
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CYCLOPENTANONE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CYPOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CYCLOPENTANOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = DBRBZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1,2-DIBROMOBENZENE OR 1,3-DIBROMOBENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = DCLBZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1,2-DICHLOROBENZENE or 1,3-DICHLOROBENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = DIOX
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1,4-DIOXANE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = DMAN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = N,N-DIMETHYLANILINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = DMBZQ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 2,5-DIMETHYL-1,4-BENZOQUINONE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = DXLA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1,3-DIOXOLANE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = EBEN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = ETHYL-BENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = FURA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = FURAN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = IMID
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = IMIDAZOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = IOBZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = IODOBENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = IOPHE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 2-IODOPHENOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = MBZOA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = METHYL-BENZOATE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = MCYPE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = METHYLCYCLOPENTANE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = MESI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = MESITYLENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = MXYLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = m-XYLENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = NBAPH
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = N-BOC-2-AMINOPHENOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = angles
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = NIBZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = NITROBENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = OMA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = ortho-METHYLANISOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = OXYLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = o-XYLENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PBEN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PROPYL-BENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PBZOA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PROPYL-BENZOATE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PCRE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = para-CRESOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PCYM
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = p-CYMENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PHEN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PHENOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PIPER
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PIPERIDINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PXYLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = p-XYLENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PYAZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PYRIDAZINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PYLI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PYRROLIDINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PYMI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PYRIMIDINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PYRI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PYRIDINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = PYRR
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = PYRROLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = STYR
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = STYRENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = TCLBZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1,2,4-TRICHLOROBENZENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = THAZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = THIAZOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = THF
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = TETRAHYDROFURAN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = THIO
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = THIOPHENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = THP
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = TETRAHYDROPYRAN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = THPH
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = THIOPHENOL
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = THT
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = TETRAHYDROTHIOPHENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = TOLU
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = TOLUENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = XBZ
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = METHOXYBENZENE aka ANISOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = 2T
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 2,2'-BITHIOPHENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = angles
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = ANTH
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = ANTHRACENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sites2
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sites3
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BZIM
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = BENZIMIDAZOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BZTA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = BENZOTHIAZOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = BZTH
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = BENZOTHIOPHENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CAFF
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = CAFFEINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sites2
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sites3
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = CNAP
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1-CHLORO-NAPHTHALENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = ENAPH
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1-ETHYLNAPHTHALENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = INDA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = INDAZOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = INDO
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = INDOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = MIND
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 3-METHYL-1H-INDOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = MINDA
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1-METHYL-INDAZOLE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = MNAP
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1-METHYL-NAPHTHALENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = NAPH
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = NAPHTHALENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = NAPY
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1,5-NAPHTHYRIDINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = NDMBI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = N-DMBI aka (4-(1,3-DIMETHYL-2,3-DIHYDRO-1H-BENZOIMIDAZOL-2-YL)PHENYL)DIMETHYLAMINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = angles
+Warning: ignoring angle entry in line 2561.
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = QUIN
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = QUINOLINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = TDMBI
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = TEG-DMBI aka (4-(1,3-dimethyl-2,3-dihydro-1H-benzoimidazol-2-yl)phenyl)TEG
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = angles
+Warning: ignoring angle entry in line 2704.
+Warning: ignoring angle entry in line 2711.
+Warning: ignoring angle entry in line 2713.
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = TECE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = TETRACENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sites2
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = THPY
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = THIENO[2,3-c]PYRIDINE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = moleculetype
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1831: resname = XNAPH
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1832: name = 1-METHOXYNAPHTHALENE
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = atoms
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = bonds
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = constraints
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = dihedrals
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = virtual_sitesn
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:1679: key = exclusions
+Info: checking for virtual sites
 Info: creating mass entry for type 'TC51' from 'TC5'
-Warning: cannot adapt mass for 'ANTH:R4' at line 1857 of input
-Info: creating mass entry for type 'TC5e1' from 'TC5e'
-Warning: cannot adapt mass for 'ANTH:R4' at line 1857 of input
-Info: creating mass entry for type 'TC5e2' from 'TC5e'
-Info: creating mass entry for type 'TN11' from 'TN1'
-Warning: cannot adapt mass for 'CAFF:R5' at line 2054 of input
-Info: creating mass entry for type 'TC52' from 'TC5'
-Info: creating mass entry for type 'TN12' from 'TN1'
-Warning: cannot adapt mass for 'CAFF:R5' at line 2054 of input
-Info: creating mass entry for type 'TC53' from 'TC5'
-Info: creating mass entry for type 'TC54' from 'TC5'
-Info: creating mass entry for type 'TC55' from 'TC5'
-Info: creating mass entry for type 'TC56' from 'TC5'
-Info: creating mass entry for type 'TC61' from 'TC6'
-Info: creating mass entry for type 'C4h1' from 'C4h'
 Info: creating mass entry for type 'TN4a1' from 'TN4a'
-Info: creating mass entry for type 'SN4a1' from 'SN4a'
-Info: creating mass entry for type 'C11' from 'C1'
-Info: creating mass entry for type 'TC31' from 'TC3'
-Info: creating mass entry for type 'TN6d1' from 'TN6d'
-Info: creating mass entry for type 'SX31' from 'SX3'
-Info: creating mass entry for type 'TN13' from 'TN1'
-Info: creating mass entry for type 'TC5e3' from 'TC5e'
-Info: creating mass entry for type 'SP4r2' from 'SP4r'
-Info: creating mass entry for type 'SN62' from 'SN6'
-Info: creating mass entry for type 'SC41' from 'SC4'
-Info: creating mass entry for type 'SP1r2' from 'SP1r'
-Info: creating mass entry for type 'TC41' from 'TC4'
-Info: creating mass entry for type 'SN3ar1' from 'SN3ar'
-Info: creating mass entry for type 'SC31' from 'SC3'
-Info: creating mass entry for type 'SC21' from 'SC2'
-Info: writing field to 'martini.prm.gz'
+Info: creating mass entry for type 'TN4d1' from 'TN4d'
+Warning: not adding virtual site [BZIM:2] (nconnects != 3)
+Info: creating mass entry for type 'TC61' from 'TC6'
+Info: creating mass entry for type 'TN6a1' from 'TN6a'
+Warning: not adding virtual site [BZTA:2] (nconnects != 3)
+Info: creating parameters
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2697: fftype = martini
+
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2715: ftype = equivalence
+
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2715: ftype = bond
+-------------------------------------------------------------------------------
+iteration 1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC51	2	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC51
+3044:	>SUCC<	TC51	TC51	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC51
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC51
+2250:	>TRY<	TC52	2	TC51	TC52
+Info: creating mass entry for type 'TC52' from 'TC5' for 'BZTA'
+2944:	>ALTER<	BZTA	0	1
+2946:	>LOOP<	BZTA	TC51	TC51	0.292	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC51
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC51	TC52
+2975:	>REGI<	BZTA	0	TC51	=>	TC52
+2979:	>REGI<	BZTA	0	1	=>	TC52	TC51
+3044:	>SUCC<	TC52	TC51	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC51
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TC61	1	
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2817: deleting 0 (TC52:TC61 <> TC51:TC61)
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC51	TC61	0.367	1000000	0
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	2	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+2944:	>ALTER<	BZIM	1	4
+2946:	>LOOP<	BZIM	TC51	TN4d1	0.357	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+2975:	>REGI<	BZIM	1	TC51	=>	TC52
+2979:	>REGI<	BZIM	1	4	=>	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN6a1	2	
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2817: deleting 0 (TC52:TN6a1 <> TC51:TN6a1)
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	1
+3054:		BZTA	1	4	TC51	TN6a1
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 2
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	2	
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2944:	>ALTER<	BZTA	0	1
+2946:	>LOOP<	BZTA	TC52	TC51	0.292	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2975:	>REGI<	BZTA	0	TC51	=>	TC52
+2975:	>REGI<	BZTA	1	TC51	=>	TC52
+2979:	>REGI<	BZTA	0	1	=>	TC52	TC52
+3044:	>SUCC<	TC51	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN6a1	1	
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2817: deleting 0 (TC52:TN6a1 <> TC51:TN6a1)
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	0
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 3
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC52	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+3044:	>SUCC<	TC52	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	2	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2944:	>ALTER<	BZTA	1	4
+2946:	>LOOP<	BZTA	TC52	TN6a1	0.434	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2975:	>REGI<	BZTA	1	TC52	=>	TC51
+2979:	>REGI<	BZTA	1	4	=>	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	1
+3054:		BZTA	1	4	TC51	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 4
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	2	
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2944:	>ALTER<	BZTA	0	1
+2946:	>LOOP<	BZTA	TC52	TC51	0.292	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2975:	>REGI<	BZTA	0	TC51	=>	TC52
+2975:	>REGI<	BZTA	1	TC51	=>	TC52
+2979:	>REGI<	BZTA	0	1	=>	TC52	TC52
+3044:	>SUCC<	TC51	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN6a1	1	
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2817: deleting 0 (TC52:TN6a1 <> TC51:TN6a1)
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	0
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 5
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC52	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+3044:	>SUCC<	TC52	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	2	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2944:	>ALTER<	BZTA	1	4
+2946:	>LOOP<	BZTA	TC52	TN6a1	0.434	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2975:	>REGI<	BZTA	1	TC52	=>	TC51
+2979:	>REGI<	BZTA	1	4	=>	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	1
+3054:		BZTA	1	4	TC51	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 6
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	2	
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2944:	>ALTER<	BZTA	0	1
+2946:	>LOOP<	BZTA	TC52	TC51	0.292	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2975:	>REGI<	BZTA	0	TC51	=>	TC52
+2975:	>REGI<	BZTA	1	TC51	=>	TC52
+2979:	>REGI<	BZTA	0	1	=>	TC52	TC52
+3044:	>SUCC<	TC51	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN6a1	1	
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2817: deleting 0 (TC52:TN6a1 <> TC51:TN6a1)
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	0
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 7
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC52	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+3044:	>SUCC<	TC52	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	2	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2944:	>ALTER<	BZTA	1	4
+2946:	>LOOP<	BZTA	TC52	TN6a1	0.434	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2975:	>REGI<	BZTA	1	TC52	=>	TC51
+2979:	>REGI<	BZTA	1	4	=>	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	1
+3054:		BZTA	1	4	TC51	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 8
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	2	
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2944:	>ALTER<	BZTA	0	1
+2946:	>LOOP<	BZTA	TC52	TC51	0.292	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2975:	>REGI<	BZTA	0	TC51	=>	TC52
+2975:	>REGI<	BZTA	1	TC51	=>	TC52
+2979:	>REGI<	BZTA	0	1	=>	TC52	TC52
+3044:	>SUCC<	TC51	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN6a1	1	
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2817: deleting 0 (TC52:TN6a1 <> TC51:TN6a1)
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	0
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 9
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC52	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+3044:	>SUCC<	TC52	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	2	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2944:	>ALTER<	BZTA	1	4
+2946:	>LOOP<	BZTA	TC52	TN6a1	0.434	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2975:	>REGI<	BZTA	1	TC52	=>	TC51
+2979:	>REGI<	BZTA	1	4	=>	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	1
+3054:		BZTA	1	4	TC51	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 10
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	2	
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+Warning: no suitable candidate found for bond {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2917: sort = {TC51, TC52}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2918: minimum = {
+  BZIM => 1,
+  BZTA => 1,
+}
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2919: allowed = {
+  BZIM => [
+    1,
+    1,
+  ],
+  BZTA => [
+    1,
+    1,
+  ],
+}
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2944:	>ALTER<	BZTA	0	1
+2946:	>LOOP<	BZTA	TC52	TC51	0.292	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+2975:	>REGI<	BZTA	0	TC51	=>	TC52
+2975:	>REGI<	BZTA	1	TC51	=>	TC52
+2979:	>REGI<	BZTA	0	1	=>	TC52	TC52
+3044:	>SUCC<	TC51	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN6a1	1	
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2817: deleting 0 (TC52:TN6a1 <> TC51:TN6a1)
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	0
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+iteration 11
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.296\t1000000" => [
+    [
+      "BZIM",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC51	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+3044:	>SUCC<	TC51	TC52	0.296	1000000	1
+3054:		BZIM	0	1	TC51	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.362\t1000000" => [
+    [
+      "BZIM",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC51	TN4a1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4a1
+3044:	>SUCC<	TC51	TN4a1	0.362	1000000	1
+3054:		BZIM	0	3	TC51	TN4a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.447\t1000000" => [
+    [
+      "BZIM",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC51	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+3044:	>SUCC<	TC51	TN4d1	0.447	1000000	1
+3054:		BZIM	0	4	TC51	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.292\t1000000" => [
+    [
+      "BZTA",
+      0,
+      1,
+    ],
+  ],
+}
+2796:	TC52	TC52	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TC52
+3044:	>SUCC<	TC52	TC52	0.292	1000000	1
+3054:		BZTA	0	1	TC52	TC52
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.367\t1000000" => [
+    [
+      "BZTA",
+      0,
+      3,
+    ],
+  ],
+}
+2796:	TC52	TC61	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC61
+3044:	>SUCC<	TC52	TC61	0.367	1000000	1
+3054:		BZTA	0	3	TC52	TC61
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.357\t1000000" => [
+    [
+      "BZIM",
+      1,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN4d1
+2235:	>MASS<	TC5	36	<=>	TC52	36
+2250:	>TRY<	TC52	2	TC52	TN4d1
+3044:	>SUCC<	TC52	TN4d1	0.357	1000000	1
+3054:		BZIM	1	4	TC52	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.434\t1000000" => [
+    [
+      "BZTA",
+      1,
+      4,
+    ],
+  ],
+  "0.481\t1000000" => [
+    [
+      "BZTA",
+      0,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TN6a1	2	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+3044:	>SUCC<	TC52	TN6a1	0.481	1000000	1
+3054:		BZTA	0	4	TC52	TN6a1
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2944:	>ALTER<	BZTA	1	4
+2946:	>LOOP<	BZTA	TC52	TN6a1	0.434	1000000
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TN6a1
+2975:	>REGI<	BZTA	1	TC52	=>	TC51
+2979:	>REGI<	BZTA	1	4	=>	TC51	TN6a1
+3044:	>SUCC<	TC51	TN6a1	0.434	1000000	1
+3054:		BZTA	1	4	TC51	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.21\t1000000" => [
+    [
+      "BZTA",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC61	TN6a1	1	
+2230:	>GET<	TC6	0
+2235:	>MASS<	TC6	36	<=>	TC6	45
+2235:	>MASS<	TC6	36	<=>	TC61	36
+2250:	>TRY<	TC61	1	TC61	TN6a1
+3044:	>SUCC<	TC61	TN6a1	0.21	1000000	1
+3054:		BZTA	3	4	TC61	TN6a1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "0.204\t1000000" => [
+    [
+      "BZIM",
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TN4a1	TN4d1	1	
+2230:	>GET<	TN4a	0
+2235:	>MASS<	TN4a	36	<=>	TN4a	45
+2235:	>MASS<	TN4a	36	<=>	TN4a1	36
+2250:	>TRY<	TN4a1	1	TN4a1	TN4d1
+3044:	>SUCC<	TN4a1	TN4d1	0.204	1000000	1
+3054:		BZIM	3	4	TN4a1	TN4d1
+
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2715: ftype = improper
+-------------------------------------------------------------------------------
+iteration 1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "180\t200" => [
+    [
+      "BZIM",
+      1,
+      0,
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TC51	TN4a1	TN4d1	1	
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC52	TC51	TN4a1	TN4d1
+3044:	>SUCC<	TC52	TC51	TN4a1	TN4d1	180	200	1
+3054:		BZIM	1	0	3	4	TC52	TC51	TN4a1	TN4d1
+-------------------------------------------------------------------------------
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2795: parameters = {
+  "180\t200" => [
+    [
+      "BZTA",
+      1,
+      0,
+      3,
+      4,
+    ],
+  ],
+}
+2796:	TC52	TC52	TC61	TN6a1	1	
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2817: deleting 0 (TC51:TC52:TC61:TN6a1 <> TC52:TC52:TC61:TN6a1)
+2230:	>GET<	TC5	0
+2235:	>MASS<	TC5	36	<=>	TC5	45
+2235:	>MASS<	TC5	36	<=>	TC51	36
+2250:	>TRY<	TC51	1	TC51	TC52	TC61	TN6a1
+3044:	>SUCC<	TC52	TC52	TC61	TN6a1	180	200	0
+
+/Users/veld/emc/v9.4.4/scripts/modules/EMC/GROMACS.pm:2715: ftype = mass
+Info: writing field to 'trials.prm.gz'
 

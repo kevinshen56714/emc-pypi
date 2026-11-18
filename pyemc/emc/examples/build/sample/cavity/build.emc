@@ -1,0 +1,53 @@
+(* EMC: Script *)
+
+variables	= {
+  lattice	-> $root+"lib/fcc",
+  output	-> "lattice",
+  n		-> 4
+};
+
+get		= {name -> lattice};
+
+crystal		= {n -> {n, n, n}};
+
+sample		= {
+  cavity	-> {
+    active	-> true,
+    solver	-> newton,
+    record	-> "cavity",
+    binsize	-> 0.001,
+    ninserts	-> 10000
+  }
+};
+
+simulation	= {
+  output	-> {debug -> false},
+  units		-> {seed -> -1},
+  types		-> {
+    standard	-> {
+      pair	-> {
+	active	-> true,
+	cutoff	-> 2.5,
+	data	-> {
+	  {i0	-> 0, i1 -> 0, sigma -> 1, epsilon -> 1}
+	}
+      }
+    }
+  },
+  moves		-> {
+    displace	-> {active -> false}
+  }
+};
+
+traject		= {name -> "cavity", frequency -> 1};
+
+run		= {ncycles -> 0};
+
+export		= {
+  sample	-> {name -> "cavity", type -> cavity, style -> math},
+  sample	-> {name -> "cavity", type -> cavity, style -> csv}
+};
+
+put		= {name -> output};
+pdb		= {name -> output};
+

@@ -1,0 +1,79 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.2, build Mar 13 2009 17:41:50, date Fri Mar 13 17:42:35 2009
+
+Info: script v1.0 started at Fri Mar 13 17:42:35 2009
+Info: variables = {la -> 0.7^(-1/3), lb -> 0.7^(-1/3), lc -> 0.7^(-1/3)}
+Info: get = {name -> "lib/bcc.emc"}
+Info: crystal = {n -> {x -> 10, y -> 10, z -> 10}, miller -> {x -> 0, y -> 0, 
+          z -> 1}, plane -> c}
+      n = {x -> 0, y -> 0, z -> 1}
+      r = {{x -> 1, y -> 0, z -> 0}, {x -> 0, y -> 1, z -> 0}, {x -> 0, 
+          y -> 0, z -> 1}}
+Info: simulation = {systems -> {properties -> {id -> 0, t -> 1}}, types -> {
+          skin -> 0.6, neighbor -> pair}, moves -> {displace -> {
+            frequency -> 1}}}
+Info: run = {ncycles -> 1000, nblocks -> 100, cycle -> 0, seed -> -1236980555}
+
+        cycle      E[1]/nkT
+---------------------------
+          100    -0.1296928
+          200    -0.1715504
+          300    -0.1267767
+          400     -0.137059
+          500    -0.1538612
+          600    -0.1447454
+          700    -0.1112536
+          800    -0.1834463
+          900    -0.1450522
+         1000     -0.163811
+---------------------------
+      average    -0.1467249
+
+Info: neighbors = {nbuilds -> 315620, nupdates -> 684380}
+Info: force = {style -> list, message -> true}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+standard.lj             -0.163811 
+---------------------------------
+total                   -0.163811 
+
+
+(* Virial *)
+
+                         W[0]/nkT 
+---------------------------------
+standard.lj              1.963082 
+---------------------------------
+total                    1.963082 
+
+Info: force = {style -> init, message -> true}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+standard.lj             -0.163811 
+---------------------------------
+total                   -0.163811 
+
+
+(* Virial *)
+
+                         W[0]/nkT 
+---------------------------------
+standard.lj              1.963082 
+---------------------------------
+total                    1.963082 
+
+Info: put = {name -> "bcc00", detail -> 3}
+Info: pdb = {name -> "bcc00", system -> 0, forcefield -> standard, 
+        cut -> true, detect -> false, pbc -> false}
+Info: lammps = {name -> "bcc00", system -> 0, mode -> put, units -> lj, 
+        forcefield -> standard, atomistic -> false, charges -> false, 
+        bonds -> false, types -> true}
+Info: script v1.0 finished at Fri Mar 13 17:43:01 2009
+

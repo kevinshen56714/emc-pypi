@@ -28,9 +28,9 @@ get		= {name -> source+"/"+input};
 
 sample		= {
   script	-> {
-    id		-> 0,
+    id		-> -1,
     active	-> true,
-    frequency	-> frequency,
+    frequency	-> 1,
     quiet	-> true,
     script	-> {
       pdb 	-> {name -> output, compress -> compress, unwrap -> unwrap,
@@ -39,5 +39,5 @@ sample		= {
   }
 };
 
-traject		= {mode -> sample, name -> traject};
+traject		= {mode -> sample, name -> traject, frequency -> frequency};
 

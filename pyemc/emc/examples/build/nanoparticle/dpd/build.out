@@ -1,0 +1,263 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.1, build Feb 27 2010 17:57:24, date Fri Apr 16 11:05:24 2010
+
+Info: script v1.0 started at Fri Apr 16 11:05:24 2010
+Info: variables = {home -> "/lustre/jhome7/zdvex/zdv510/", 
+        input -> "/lustre/jhome7/zdvex/zdv510/emc/v9.3.1/lib/fcc_bonded", 
+        output -> "dpd", temperature -> 1, density -> 3, sigma -> 1, 
+        epsilon -> 1, cutoff -> 1, lbead -> 0.747279029251, 
+        dnano -> 16.6617453716, kappa -> 0.5, lbond -> 0.7129703329, 
+        kbond -> 4, lunit -> 1.00829231436, scale -> 1.16244735151, 
+        n -> 22, ngrafts -> 436, l -> 22.1824309159, r1 -> 11.0912154579, 
+        r2 -> 10.7347302915, nrepeat -> 961, ngraft -> 191, 
+        npolymers -> 3500, grace -> 0.99, nrelax -> 100, seed -> -1}
+Info: get = {name -> "/lustre/jhome7/zdvex/zdv510/emc/v9.3.1/lib/fcc_bonded", 
+        compress -> false}
+Info: variables = {lbond -> 0}
+Info: sites = {nsites -> 4, 
+        site -> {{id -> graft, name -> "grafting", reference -> 0, 
+            mass -> 1}, 
+          {id -> m, name -> "monomer", reference -> 1, mass -> 1}, 
+          {id -> t, name -> "terminator", reference -> 2, mass -> 1}, 
+          {id -> s, name -> "solvent", reference -> 3, mass -> 1}}}
+Info: simulation = {units -> {type -> reduced, seed -> seed}, constants -> {
+          systems -> main}, moves -> {displace -> {frequency -> 1, 
+            dmax -> 0.5*cutoff}}, types -> {merge -> true, skin -> 0.0, 
+          virial -> false, neighbor -> sector, inverse -> {
+            nfunctions -> 50, cutoff -> 1e-4}, coarse -> {dpd -> {
+              active -> true, data -> {{i0 -> fcc, i1 -> fcc, a -> 25, 
+                  gamma -> 4.5, cutoff -> cutoff}, {i0 -> fcc, 
+                  i1 -> graft, a -> 32.87, gamma -> 4.5, 
+                  cutoff -> cutoff}, {i0 -> fcc, i1 -> m, a -> 32.88, 
+                  gamma -> 4.5, cutoff -> cutoff}, {i0 -> fcc, i1 -> t, 
+                  a -> 32.88, gamma -> 4.5, cutoff -> cutoff}, {
+                  i0 -> fcc, i1 -> s, a -> 32.88, gamma -> 4.5, 
+                  cutoff -> cutoff}, {i0 -> graft, i1 -> graft, a -> 25, 
+                  gamma -> 4.5, cutoff -> cutoff}, {i0 -> graft, i1 -> m, 
+                  a -> 25.46, gamma -> 4.5, cutoff -> cutoff}, {
+                  i0 -> graft, i1 -> t, a -> 25.46, gamma -> 4.5, 
+                  cutoff -> cutoff}, {i0 -> graft, i1 -> s, a -> 25.46, 
+                  gamma -> 4.5, cutoff -> cutoff}, {i0 -> m, i1 -> m, 
+                  a -> 25, gamma -> 4.5, cutoff -> cutoff}, {i0 -> m, 
+                  i1 -> t, a -> 25, gamma -> 4.5, cutoff -> cutoff}, {
+                  i0 -> m, i1 -> s, a -> 25, gamma -> 4.5, 
+                  cutoff -> cutoff}, {i0 -> t, i1 -> t, a -> 25, 
+                  gamma -> 4.5, cutoff -> cutoff}, {i0 -> t, i1 -> s, 
+                  a -> 25, gamma -> 4.5, cutoff -> cutoff}, {i0 -> s, 
+                  i1 -> s, a -> 25, gamma -> 4.5, cutoff -> cutoff}}}}, 
+          standard -> {correct -> {active -> false}, bond -> {data -> {{
+                  i0 -> fcc, i1 -> fcc, k -> kbond, l -> lbond}, {
+                  i0 -> fcc, i1 -> graft, k -> kbond, l -> lbond}, {
+                  i0 -> graft, i1 -> m, k -> kbond, l -> lbond}, {
+                  i0 -> m, i1 -> m, k -> kbond, l -> lbond}, {i0 -> m, 
+                  i1 -> t, k -> kbond, l -> lbond}}}, lj -> {
+              active -> false}}}}
+Info: crystal = {n -> {x -> 22, y -> 22, z -> 22}, miller -> {x -> 1, y -> 0, 
+          z -> 0}, plane -> a, periodic -> false}
+      n = {x -> 1, y -> 0, z -> 0}
+      r = {{x -> 1, y -> 0, z -> 0}, {x -> 0, y -> 1, z -> 0}, {x -> 0, 
+          y -> 0, z -> 1}}
+Info: carve = {mode -> exclude, fraction -> 1, systems -> main, nsites -> 0, 
+        inside -> {shape -> spheroid, type -> absolute, center -> {
+            x -> 0, y -> 0, z -> 0}, radius -> {x -> 0, y -> 0, z -> 0}}, 
+        outside -> {shape -> spheroid, type -> absolute, center -> {
+            x -> 0, y -> 0, z -> 0}, radius -> {x -> 11.0912154579, 
+            y -> 11.0912154579, z -> 11.0912154579}}}
+Info: carve = {mode -> include, fraction -> 0.790384615385, systems -> main, 
+        nsites -> 436, 
+        inside -> {shape -> spheroid, type -> absolute, center -> {
+            x -> 0, y -> 0, z -> 0}, radius -> {x -> 10.7347302915, 
+            y -> 10.7347302915, z -> 10.7347302915}}, 
+        outside -> {shape -> spheroid, type -> absolute, center -> {
+            x -> 0, y -> 0, z -> 0}, radius -> {x -> 11.0912154579, 
+            y -> 11.0912154579, z -> 11.0912154579}}}
+Info: retype = {systems -> main, source -> fcc, destination -> graft, 
+        inside -> {shape -> spheroid, type -> absolute, center -> {
+            x -> 0, y -> 0, z -> 0}, radius -> {x -> 10.7347302915, 
+            y -> 10.7347302915, z -> 10.7347302915}}, 
+        outside -> {shape -> spheroid, type -> absolute, center -> {
+            x -> 0, y -> 0, z -> 0}, radius -> {x -> 11.0912154579, 
+            y -> 11.0912154579, z -> 11.0912154579}}}
+      nretyped = 436
+Info: groups = {ngroups -> 3, 
+        group -> {{id -> monomer, chemistry -> "m", nbranches -> 2, 
+            branches -> {0, 0}, nconnects -> 2, connects -> {
+              {source -> 0, destination -> {index -> monomer, 
+                  site -> 0}}, 
+              {source -> 0, destination -> {index -> terminator, 
+                  site -> 0}}}}, 
+          {id -> terminator, chemistry -> "t", nbranches -> 1, 
+            branches -> 0, nconnects -> 1, connects -> 
+            {source -> 0, destination -> {index -> monomer, site -> 0}}}, 
+          {id -> solvent, chemistry -> "s"}}}
+Info: clusters = {nbodys -> 0, nclusters -> 0, ngrafts -> 1, 
+        graft -> {core -> fcc, type -> graft, polymer -> graft, 
+          connect -> head}, npolymers -> 1, 
+        polymer -> {id -> graft, system -> main, n -> 436, ngroups -> 1, 
+          groups -> monomer, type -> alternate, nrepeat -> 191}}
+      delta = {systems -> 0, bodies -> 0, clusters -> 436, sites -> 84148}
+Info: put = {name -> "dpd_core", compress -> false, detail -> 3}
+Info: lammps = {name -> "dpd_core", compress -> false, system -> 0, 
+        mode -> put, length -> 0, units -> none, forcefield -> dpd, 
+        atomistic -> false, charges -> false, bonds -> false, 
+        types -> false, parameters -> false}
+Info: clusters = {nbodys -> 0, nclusters -> 0, ngrafts -> 0, npolymers -> 1, 
+        polymer -> {id -> matrix, system -> main, n -> 3500, 
+          ngroups -> 1, groups -> monomer, type -> alternate, 
+          nrepeat -> 961}}
+      delta = {systems -> 0, bodies -> 0, clusters -> 3500, sites -> 3370500}
+Info: build = {
+        system -> {id -> main, temperature -> 1, density -> 3, 
+          geometry -> {xx -> 105.020686274, yy -> 105.020686274, 
+            zz -> 105.020686274, zy -> 0, zx -> 0, yx -> 0}}, 
+        select -> {progress -> list, frequency -> 1, center -> false, 
+          order -> random, check -> true, nclusters -> 2, 
+          cluster -> {graft, matrix}, 
+          relax -> {ncycles -> 100, radius -> 1}, 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.99, 0.99}, theta -> 0, ntrials -> 20, 
+            niterations -> 10000, 
+            exclude -> {shape -> spheroid, type -> absolute, center -> {
+                x -> 0, y -> 0, z -> 0}, radius -> {x -> 10.7347302915, 
+                y -> 10.7347302915, z -> 10.7347302915}}}}}
+
+     progress      E[0]/nkT
+---------------------------
+            0      11.63918
+            1      5.869182
+            2      4.654815
+            3      4.125244
+            4      3.823163
+            5      3.635129
+            6      3.502538
+            7      3.409404
+            8       3.33592
+            9      3.281831
+           10      3.238707
+           11      3.205033
+           12      3.179437
+           13      3.157357
+           14      3.140532
+           15       3.12872
+           16       3.11944
+           17      3.113184
+           18      3.107709
+           19      3.107353
+           20      3.107442
+           21      3.109062
+           22      3.111529
+           23      3.114232
+           24      3.119437
+           25      3.124347
+           26      3.131062
+           27      3.140154
+           28      3.150916
+           29      3.161937
+           30       3.17432
+           31      3.188625
+           32      3.203718
+           33      3.221153
+           34      3.239447
+           35      3.259078
+           36       3.27979
+           37      3.302164
+           38      3.325592
+           39      3.350554
+           40      3.376403
+           41      3.403773
+           42      3.432032
+           43      3.460848
+           44      3.490232
+           45      3.519921
+           46      3.552187
+           47      3.586024
+           48      3.620735
+           49      3.657337
+           50       3.69408
+           51      3.732236
+           52      3.771861
+           53      3.811965
+           54      3.852708
+           55      3.895816
+           56       3.93923
+           57       3.98336
+           58      4.028446
+           59      4.074493
+           60      4.121103
+           61      4.168687
+           62       4.21706
+           63      4.265853
+           64      4.316388
+           65      4.367513
+           66      4.418206
+           67      4.469526
+           68      4.522212
+           69      4.576083
+           70      4.630054
+           71      4.684741
+           72      4.739257
+           73      4.794868
+           74      4.851013
+           75      4.907017
+           76      4.965005
+           77      5.022112
+           78      5.080705
+           79      5.139618
+           80      5.197949
+           81      5.257706
+           82       5.31735
+           83      5.377342
+           84      5.438681
+           85      5.499224
+           86      5.560632
+           87      5.621887
+           88      5.683894
+           89      5.746121
+           90       5.80783
+           91      5.870939
+           92      5.933847
+           93      5.997302
+           94      6.061287
+           95      6.124724
+           96      6.188433
+           97      6.253685
+           98       6.31859
+           99      6.383703
+          100      6.449094
+---------------------------
+      average      4.265538
+
+      niterations = 3734477, <niterations> = 1.08114
+Info: force = {style -> none, message -> true}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+coarse.dpd               4.618679 
+standard.bond            1.830415 
+---------------------------------
+total                    6.449094 
+
+Info: force = {style -> init, message -> true}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+coarse.dpd               4.618679 
+standard.bond            1.830415 
+---------------------------------
+total                    6.449094 
+
+Info: put = {name -> "dpd", compress -> true, detail -> 3}
+Info: pdb = {name -> "dpd", compress -> false, system -> 0, length -> 0, 
+        forcefield -> standard, cut -> false, detect -> false, 
+        pbc -> false, unwrap -> true}
+Info: lammps = {name -> "dpd", compress -> false, system -> 0, mode -> put, 
+        length -> 0, units -> none, forcefield -> dpd, 
+        atomistic -> false, charges -> false, bonds -> false, 
+        types -> false, parameters -> true}
+Info: script v1.0 finished at Fri Apr 16 14:13:17 2010
+

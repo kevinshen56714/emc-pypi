@@ -1,0 +1,88 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+(*
+    file:	diamond_bonded.emc
+    author:	Pieter J. in 't Veld
+    date:	July 9, 2015, July 7, 2016
+    purpose:	description of a bonded eight site diamond lattice, which
+		consists of two interpenetrating face-centered cubic
+		crystalline unit cells with sites bonded to their four
+		neighbors
+*)
+
+identity = {
+  name -> "diamond"};
+
+units = {
+  type -> reduced};
+
+variables = {
+  diamond_name -> "diamond", 
+  diamond_atomistic -> false, diamond_chemistry -> "*[diamond](*)(*)*",
+  lbond -> 1, lcell -> 4/sqrt(3)*lbond, la -> lcell, lb -> lcell, lc -> lcell,
+  nsites -> 8, nclusters -> 1};
+
+constants = {
+  clusters -> diamond,
+  groups -> diamond,
+  sites -> diamond};
+
+types = {
+  atomistic -> diamond_atomistic,
+  mass -> {n -> 1, data -> {
+    id -> 0, name -> diamond_name, reference -> 0, mass -> 1}}};
+
+groups = {
+  n -> 1, data -> {
+    group -> diamond, name -> diamond_name, chemistry -> diamond_chemistry,
+    terminator -> false, nsites -> 1, sites -> {
+      site -> 0, mass -> diamond, charge -> 0,
+	connects -> {branch, branch, branch, branch}},
+    nbranches -> 1, branches -> {
+      site -> 0, nconnects -> 1, connects -> {0, 0}}}};
+
+systems = {
+  n -> 1, properties -> {
+    id -> 0, p -> 0, v -> la*lb*lc, t -> 1, mass -> 1, 
+    nsites -> 1, nclusters -> 1, 
+    geometry -> {la, lb, lc, 0, 0, 0}}};
+
+clusters = {
+  n -> 1, data -> {
+    {cluster -> 0, head -> 0, tail -> 7}}};
+
+sites = {
+  n -> 8, data -> {
+    {site -> 0, cluster -> 0, system -> 0, mass -> 0, flags -> 0b1100,
+      group -> {0, 0}, connects -> {4, 5, 6, 7},
+      p -> {-la*3/8, -lb*3/8, -lc*3/8},
+      xtal -> {{0, 0, 0}, {-1, -1, 0}, {-1, 0, -1}, {0, -1, -1}}},
+    {site -> 1, cluster -> 0, system -> 0, mass -> 0, flags -> 0b1100,
+      group -> {0, 0}, connects -> {4, 5, 6, 7},
+      p -> {la/8, lb/8, -lc*3/8}, 
+      xtal -> {{0, 0, 0}, {0, 0, 0}, {0, 0, -1}, {0, 0, -1}}},
+    {site -> 2, cluster -> 0, system -> 0, mass -> 0, flags -> 0b1100,
+      group -> {0, 0}, connects -> {4, 5, 6, 7},
+      p -> {la/8, -lb*3/8, lc/8},
+      xtal -> {{0, 0, 0}, {0, -1, 0}, {0, 0, 0}, {0, -1, 0}}},
+    {site -> 3, cluster -> 0, system -> 0, mass -> 0, flags -> 0b1100,
+      group -> {0, 0}, connects -> {4, 5, 6, 7},
+      p -> {-la*3/8, lb/8, lc/8},
+      xtal -> {{0, 0, 0}, {-1, 0, 0}, {-1, 0, 0}, {0, 0, 0}}},
+    {site -> 4, cluster -> 0, system -> 0, mass -> 0, flags -> 0b1100,
+      group -> {0, 0}, connects -> {0, 1, 2, 3},
+      p -> {-la/8, -lb/8, -lc/8},
+      xtal -> {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}, {0, 0, 0}}},
+    {site -> 5, cluster -> 0, system -> 0, mass -> 0, flags -> 0b1100,
+      group -> {0, 0}, connects -> {0, 1, 2, 3},
+      p -> {la*3/8, lb*3/8, -lc/8},
+      xtal -> {{1, 1, 0}, {0, 0, 0}, {0, 1, 0}, {1, 0, 0}}},
+    {site -> 6, cluster -> 0, system -> 0, mass -> 0, flags -> 0b1100,
+      group -> {0, 0}, connects -> {0, 1, 2, 3},
+      p -> {la*3/8, -lb/8, lc*3/8},
+      xtal -> {{1, 0, 1}, {0, 0, 1}, {0, 0, 0}, {1, 0, 0}}},
+    {site -> 7, cluster -> 0, system -> 0, mass -> 0, flags -> 0b1100,
+      group -> {0, 0}, connects -> {0, 1, 2, 3},
+      p -> {-la/8, lb*3/8, lc*3/8},
+      xtal -> {{0, 1, 1}, {0, 0, 1}, {0, 1, 0}, {0, 0, 0}}}}};
+

@@ -280,9 +280,9 @@ sub set_commands {
 
 	# M
 
-	masses		=> {
-	  set		=> \&set_item_masses
-	},
+#	masses		=> {	# moved to References.pm
+#	  set		=> \&EMC::References::set_item_masses
+#	},
 
 	# R
 
@@ -407,8 +407,7 @@ sub set_item_angles {
   my $lines = EMC::Common::element($item, "lines");
   my $i = 0;
 
-  my $angle =
-     $module->{angle} = EMC::Common::hash($module, "angle");
+  my $angle = EMC::Common::hash($module, "angle");
   
   foreach (@{$data}) {
     my @arg = @{$_};
@@ -438,9 +437,8 @@ sub set_item_bonds {
   my $lines = EMC::Common::element($item, "lines");
   my $i = 0;
 
-  my $bond =
-     $module->{bond} = EMC::Common::hash($module, "bond");
-  
+  my $bond = EMC::Common::hash($module, "bond");
+ 
   foreach (@{$data}) {
     my @arg = @{$_};
     my $line = $lines->[$i++];
@@ -469,8 +467,7 @@ sub set_item_impropers {
   my $lines = EMC::Common::element($item, "lines");
   my $i = 0;
 
-  my $impropers =
-     $module->{impropers} = EMC::Common::hash($module, "impropers");
+  my $impropers = EMC::Common::hash($module, "impropers");
   
   foreach (@{$data}) {
     my @arg = @{$_};
@@ -483,35 +480,6 @@ sub set_item_impropers {
       $impropers->{
 	join("\t", @arg[0..3])} = join("\t", EMC::List::eval(splice(@arg, 4)));
     }
-  }
-  return $root;
-}
-
-
-sub set_item_replicas {
-  my $struct = shift(@_);
-  my $item = EMC::Common::element($struct, "item");
-  my $options = EMC::Hash::arguments(EMC::Common::element($item, "options"));
-
-  return if (EMC::Common::element($options, "comment"));
-  
-  my $root = EMC::Common::element($struct, "root");
-  my $option = EMC::Common::element($struct, "option");
-  my $module = EMC::Common::element($struct, "module");
-  my $data = EMC::Common::element($item, "data");
-  my $lines = EMC::Common::element($item, "lines");
-  my $i = 0;
-
-  my $replicas = 
-     $module->{replicas} = EMC::Common::array($module, "replicas");
-  
-  foreach (@{$data}) {
-    my @arg = @{$_};
-    my $line = $lines->[$i++];
-    my $n = scalar(@arg);
-
-    EMC::Message::error_line($line, "missing extra types\n") if ($n<2);
-    push(@{$replicas}, [@arg]);
   }
   return $root;
 }
@@ -531,8 +499,7 @@ sub set_item_torsions {
   my $lines = EMC::Common::element($item, "lines");
   my $i = 0;
 
-  my $torsions = 
-     $module->{torsions} = EMC::Common::hash($module, "torsions");
+  my $torsions = EMC::Common::hash($module, "torsions");
   
   foreach (@{$data}) {
     my @arg = @{$_};
@@ -803,7 +770,7 @@ sub write_field_parameters {
   if ($flag->{angle} && !defined($angle->{"*\t*\t*"})) {
     $angle->{"*\t*\t*"} = join("\t", split(",", $types->{angle_constants}));
   }
-  foreach(sort(keys(%{$pdata}))) {
+  foreach(sort(keys(%{$pdata}))) {			# nonbond transcript
     my @t = split(":");
     next if (scalar(@t) != 2);
     my @a = @{$pdata->{$_}};
@@ -846,18 +813,19 @@ sub write_field_item {
     improper => "type1\ttype2\ttype3\ttype4\tk\tpsi0");
   my @n = (0,0);
   my $flag;
-
-  foreach (keys(%{$types->{$item}})) { ++@n[($_ =~ m/\*/) ? 0 : 1]; }
+  my $ptr = $types;
+  
+  foreach (keys(%{$ptr->{$item}})) { ++@n[($_ =~ m/\*/) ? 0 : 1]; }
   for ($flag=0; $flag<2; ++$flag) {
     next if (!@n[$flag]);
     printf($stream "# %s%s parameters\n\n", $Item, $flag ? "" : " wildcard");
     printf($stream "ITEM\t%s%s\n\n", uc($item), $flag ? "" : "_AUTO");
     printf($stream "# %s\n\n", $header{$item});
-    foreach (sort(keys(%{$types->{$item}}))) {
+    foreach (sort(keys(%{$ptr->{$item}}))) {
       next if ((($_ =~ m/\*/) ? 0 : 1)^$flag);
-      my @constants = split("\t",  ${$types->{$item}}{$_});
+      my @constants = split("\t",  ${$ptr->{$item}}{$_});
       printf($stream "%s", $_);
-      foreach(@constants) { printf($stream "\t%.5g", $_); }
+      foreach(@constants) { printf($stream "\t%.4f", $_); }
       printf($stream "\n");
     }
     printf($stream "\nITEM\tEND\n\n");

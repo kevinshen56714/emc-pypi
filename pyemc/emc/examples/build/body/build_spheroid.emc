@@ -1,0 +1,133 @@
+(* EMC: Script *)
+
+(* define variables *)
+
+(* result can be viewed with 'vmd -e show_spheroid.vmd' *)
+
+variables	= {
+  output	-> "spheroid",			// output name
+  t		-> 1,				// temperature
+  d		-> 10,				// diameter
+  density	-> 0.7,				// surface density
+  r		-> d/2,
+  sigma		-> 1,				// interaction parameters
+  cutoff	-> 2.5*sigma,
+  lbox		-> 2*d				// simulation box size
+};
+
+(* define sites *)
+
+sites		= {
+  site		-> {
+    id		-> core,			// site id
+    name -> "core particle", mass -> 1},
+};
+
+groups		= {
+  group		-> {
+    id		-> core,			// group id
+    chemistry	-> "[core]"			// reference to site id core
+  }
+};
+
+clusters	= {
+  body		-> {
+    id		-> particle,			// cluster id
+    system	-> main,			// target system
+    n		-> 1,				// number of bodies to create
+    density	-> density,			// surface density
+    surface	-> core,			// surface site
+    region	-> {				// surface shape
+      shape	-> spheroid,
+      type	-> absolute,
+      center	-> {0, 0, 0},
+      radius	-> {r+sigma, r+sigma, r+sigma}
+    }
+  }
+};
+
+//flag		= {flag -> fixed, site -> core};
+
+(* define interactions *)
+
+simulation	= {
+  units		-> {				// define simulation units
+    type	-> reduced,
+    seed	-> 1},
+  types		-> {				// define interactions
+    merge	-> true,
+    neighbor	-> sector,
+    skin	-> 0,
+    standard	-> {
+      pair	-> {
+	active	-> true,
+	data	-> {
+	  {i0 -> core, i1 -> core,
+	    sigma -> sigma, epsilon -> 1, cutoff -> cutoff}
+	}
+      }
+    }
+  },
+  moves		-> {				// define moves
+    displace	-> {frequency -> 1, dmax -> 0.25},
+    surface	-> {dmax -> 0.25},
+    core	-> {dmax -> 0.25}}
+};
+
+(* execute system build *)
+
+build		= {
+  system	-> {
+    id		-> main,			// system
+    temperature	-> t,
+    geometry	-> {lbox, lbox, lbox, 0, 0, 0}
+  },
+  select	-> {
+    progress	-> list,			// build progress (list or bar)
+    order	-> sequence,			// insertion order in sequence
+    cluster	-> particle,			// which clusters to build
+    relax	-> {
+      ncycles -> 100,				// intermediate relaxation
+      radius -> cutoff
+    },
+    grow	-> {
+      method	-> energetic,			// build method
+      check 	-> all,
+      grace	-> 0.999,			// insertion grace
+      ntrials	-> 20,				// number of trials per insert
+      niterations -> 1000			// maximum inserts per site
+    }
+  }
+};
+
+(* check energetics *)
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+(* set system properties *)
+
+simulation	= {
+  systems	-> {
+    properties	-> {id -> main, t -> 1}}};
+
+force		= {message -> true, style -> init};
+
+(* define trajectory output *)
+
+traject		= {name -> output, frequency -> 10, append -> true};
+
+(* run monte carlo simulation *)
+
+run		= {ncycles -> 5000, nblocks -> 10};
+
+(* check energetics *)
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+(* store results in various output formats *)
+
+put		= {name -> output};
+pdb		= {name -> output};
+

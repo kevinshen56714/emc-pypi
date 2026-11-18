@@ -46,7 +46,7 @@ ITEM	END	# ENVIRONMENT
 
 # Analysis
 
-ITEM	ANALYZE		# - include cavity size (CESA) analysis
+ITEM	ANALYZE			# - include cavity size (CESA) analysis
 				# - analyses void space, which correlates with
 				#   diffusion
 

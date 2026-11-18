@@ -1,8 +1,12 @@
-#EMC/FIELD/OPLS/2025
+#EMC/FIELD/OPLS/2026
 #
 #  OPLS parameters using oplsaa.par, oplsaa.sb, and opls-ua.define
 #  converted by emc_opls.pl, v2.0, December 19, 2024 by Pieter J. in 't Veld
-#  created on Sun Jun 29 11:00:37 CEST 2025
+#  created on Tue Oct 06 15:52:10 CEST 2026
+#
+#  Copyrights (c) 2004-2026 Pieter J. in 't Veld
+#  Distributed under GNU Public License v3.0 as stated in the LICENSE file in
+#  the EMC root directory
 #
 
 # Define section
@@ -17,7 +21,7 @@ FFDEPTH		4
 FFCHARGE	ALL
 FFSTRICT	TRUE
 VERSION		JAN 2007
-CREATED		JUNE 2025
+CREATED		OCTOBER 2026
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -1319,6 +1323,7 @@ o1=	c3o=	c3o=	o1=	1.6	1	0	3.2	2	0
 o1=	c3o=	n3am0	o2h	6.603	2	0
 o2e	c4	c4	o2e	-0.55	1	0
 o2e	c4	c4	o2h	4.319	1	0
+o2h	c4	c4	o2h	9.508	1	0
 
 ITEM	END	# TORSION
 

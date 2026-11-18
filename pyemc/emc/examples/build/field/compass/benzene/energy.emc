@@ -1,0 +1,7 @@
+(* EMC: Script *)
+
+variables	= {name -> "benzene"};
+get		= {name -> name};
+force		= {style -> init, message -> raw};
+lammps		= {name -> name, mode -> put, forcefield -> cff, parameters -> true};
+

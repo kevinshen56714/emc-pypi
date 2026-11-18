@@ -268,6 +268,7 @@ sub single {
   my $name = shift(@_);
   my $function = shift(@_);
   my $type = shift(@_);
+  my $attr = shift(@_);
 
   ++$EMC::Options::level;
   goto single_return if ($name eq "");
@@ -275,12 +276,12 @@ sub single {
   my $child = $parent->{$name};
   goto single_return if (ref($child) ne "HASH");
   #EMC::Message::message((" " x (2*$EMC::Options::level)).$type."->".$name."\n") if ($function eq "write");
-  recursive($child, $root, $function, $type);
+  recursive($child, $root, $function, $type, $attr);
 
   goto single_return if (!defined($child->{$function}));
   goto single_return if (ref($child->{$function}) ne "HASH");
   goto single_return if (!defined($child->{$function}->{$type}));
-  $child->{$function}->{$type}->($child, $root);
+  $child->{$function}->{$type}->($child, $root, $attr);
   
 single_return: 
   --$EMC::Options::level;
@@ -293,12 +294,15 @@ sub recursive {
   my $root = shift(@_);
   my $function = shift(@_);
   my $type = shift(@_);
+  my $attr = shift(@_);
 
   if (defined($parent)) {
-    single($root, $parent, "global", $function, $type) if ($root == $parent);
+    if ($root == $parent) {
+      single($root, $parent, "global", $function, $type, $attr);
+    }
     foreach (sort(keys(%{$parent}))) {
       next if ($_ eq "global");
-      single($root, $parent, $_, $function, $type);
+      single($root, $parent, $_, $function, $type, $attr);
     }
   }
   return $parent;
@@ -329,6 +333,15 @@ sub set_defaults {
 }
 
 
+sub set_flags {
+  my $parent = shift(@_);
+  my $flags = shift(@_);
+  my $root = defined(@_[0]) ? shift(@_) : $parent;
+
+  recursive($parent, $root, "set", "flags", $flags);
+}
+
+
 sub write {
   my $stream = shift(@_);
   my $parent = shift(@_);
@@ -353,6 +366,18 @@ sub set_command {
       next if (defined($ptr->{$_}));
       $ptr->{$_} = EMC::Element::deep_copy($command->{$_});
     }
+  }
+}
+
+
+sub set_flag {
+  my $parent = EMC::Common::hash(shift(@_));
+  my $root = EMC::Common::hash(shift(@_));
+  my $flags = EMC::Common::hash(shift(@_));
+  my $flag = EMC::Common::element($parent, "flag");
+
+  foreach (keys(%{$flags})) {
+    $flag->{$_} = $flags->{$_} if (defined($flag->{$_}));
   }
 }
 

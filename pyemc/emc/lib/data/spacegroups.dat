@@ -1,0 +1,3535 @@
+NINDEX	231
+
+INDEX	0
+GROUP	NULL
+NOPERS	0
+
+INDEX	1
+GROUP	P 1
+NOPERS	1
+OPER	x	y	z
+
+INDEX	2
+GROUP	P -1
+NOPERS	2
+OPER	x	y	z
+OPER	-x	-y	-z
+
+INDEX	3
+GROUP	P 2
+NOPERS	2
+OPER	x	y	z
+OPER	-x	-y	z
+
+INDEX	4
+GROUP	P 21
+NOPERS	2
+OPER	x	y	z
+OPER	-x	-y	1/2+z
+
+INDEX	5
+GROUP	A 2
+NOPERS	2
+OPER	x	y	z
+OPER	-x	-y	z
+
+INDEX	6
+GROUP	P m
+NOPERS	2
+OPER	x	y	z
+OPER	x	y	-z
+
+INDEX	7
+GROUP	P a
+NOPERS	2
+OPER	x	y	z
+OPER	1/2+x	y	-z
+
+INDEX	8
+GROUP	A m
+NOPERS	2
+OPER	x	y	z
+OPER	x	y	-z
+
+INDEX	9
+GROUP	A a
+NOPERS	2
+OPER	x	y	z
+OPER	1/2+x	y	-z
+
+INDEX	10
+GROUP	P 2/m
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+
+INDEX	11
+GROUP	P 21/m
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	1/2+z
+OPER	-x	-y	-z
+OPER	x	y	1/2-z
+
+INDEX	12
+GROUP	A 2/m
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+
+INDEX	13
+GROUP	P 2/a
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	-y	z
+OPER	-x	-y	-z
+OPER	1/2+x	y	-z
+
+INDEX	14
+GROUP	P 21/a
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	-y	1/2+z
+OPER	-x	-y	-z
+OPER	1/2+x	y	1/2-z
+
+INDEX	15
+GROUP	A 2/a
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	-y	z
+OPER	-x	-y	-z
+OPER	1/2+x	y	-z
+
+INDEX	16
+GROUP	P 2 2 2
+NOPERS	4
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	17
+GROUP	P 2 2 21
+NOPERS	4
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	1/2-z
+OPER	-x	-y	1/2+z
+
+INDEX	18
+GROUP	P 21 21 2
+NOPERS	4
+OPER	x	y	z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	-x	-y	z
+
+INDEX	19
+GROUP	P 21 21 21
+NOPERS	4
+OPER	x	y	z
+OPER	1/2+x	1/2-y	-z
+OPER	-x	1/2+y	1/2-z
+OPER	1/2-x	-y	1/2+z
+
+INDEX	20
+GROUP	C 2 2 21
+NOPERS	4
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	1/2-z
+OPER	-x	-y	1/2+z
+
+INDEX	21
+GROUP	C 2 2 2
+NOPERS	4
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	22
+GROUP	F 2 2 2
+NOPERS	4
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	23
+GROUP	I 2 2 2
+NOPERS	4
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	24
+GROUP	I 21 21 21
+NOPERS	4
+OPER	x	y	z
+OPER	x	-y	1/2-z
+OPER	1/2-x	y	-z
+OPER	-x	1/2-y	z
+
+INDEX	25
+GROUP	P m m 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	-x	-y	z
+
+INDEX	26
+GROUP	P m c 21
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	1/2+z
+OPER	-x	-y	1/2+z
+
+INDEX	27
+GROUP	P c c 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	-x	-y	z
+
+INDEX	28
+GROUP	P m a 2
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	y	z
+OPER	1/2+x	-y	z
+OPER	-x	-y	z
+
+INDEX	29
+GROUP	P c a 21
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	y	1/2+z
+OPER	1/2+x	-y	z
+OPER	-x	-y	1/2+z
+
+INDEX	30
+GROUP	P n c 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	1/2+y	1/2+z
+OPER	x	1/2-y	1/2+z
+OPER	-x	-y	z
+
+INDEX	31
+GROUP	P m n 21
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	z
+OPER	1/2+x	-y	1/2+z
+OPER	1/2-x	-y	1/2+z
+
+INDEX	32
+GROUP	P b a 2
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	-x	-y	z
+
+INDEX	33
+GROUP	P n a 21
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	z
+OPER	-x	-y	1/2+z
+
+INDEX	34
+GROUP	P n n 2
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	-x	-y	z
+
+INDEX	35
+GROUP	C m m 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	-x	-y	z
+
+INDEX	36
+GROUP	C m c 21
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	1/2+z
+OPER	-x	-y	1/2+z
+
+INDEX	37
+GROUP	C c c 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	-x	-y	z
+
+INDEX	38
+GROUP	A m m 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	-x	-y	z
+
+INDEX	39
+GROUP	A b m 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	1/2+y	z
+OPER	x	1/2-y	z
+OPER	-x	-y	z
+
+INDEX	40
+GROUP	A m a 2
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	y	z
+OPER	1/2+x	-y	z
+OPER	-x	-y	z
+
+INDEX	41
+GROUP	A b a 2
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	-x	-y	z
+
+INDEX	42
+GROUP	F m m 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	-x	-y	z
+
+INDEX	43
+GROUP	F d d 2
+NOPERS	4
+OPER	x	y	z
+OPER	1/4-x	1/4+y	1/4+z
+OPER	1/4+x	1/4-y	1/4+z
+OPER	-x	-y	z
+
+INDEX	44
+GROUP	I m m 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	-x	-y	z
+
+INDEX	45
+GROUP	I b a 2
+NOPERS	4
+OPER	x	y	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	-x	-y	z
+
+INDEX	46
+GROUP	I m a 2
+NOPERS	4
+OPER	x	y	z
+OPER	1/2-x	y	z
+OPER	1/2+x	-y	z
+OPER	-x	-y	z
+
+INDEX	47
+GROUP	P m m m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	48
+GROUP	P n n n
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	49
+GROUP	P c c m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	-x	-y	z
+
+INDEX	50
+GROUP	P b a n
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	1/2+x	1/2+y	-z
+OPER	1/2-x	1/2-y	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	51
+GROUP	P m m a
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	y	z
+OPER	x	-y	z
+OPER	1/2+x	y	-z
+OPER	-x	-y	-z
+OPER	1/2+x	-y	-z
+OPER	-x	y	-z
+OPER	1/2-x	-y	z
+
+INDEX	52
+GROUP	P n n a
+NOPERS	8
+OPER	x	y	z
+OPER	-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2+x	y	-z
+OPER	-x	-y	-z
+OPER	x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2-z
+OPER	1/2-x	-y	z
+
+INDEX	53
+GROUP	P m n a
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	1/2+x	-y	1/2+z
+OPER	1/2+x	y	1/2-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	1/2-x	y	1/2-z
+OPER	1/2-x	-y	1/2+z
+
+INDEX	54
+GROUP	P c c a
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	1/2+x	y	-z
+OPER	-x	-y	-z
+OPER	1/2+x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	1/2-x	-y	z
+
+INDEX	55
+GROUP	P b a m
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	-x	-y	z
+
+INDEX	56
+GROUP	P c c n
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	y	1/2+z
+OPER	x	1/2-y	1/2+z
+OPER	1/2+x	1/2+y	-z
+OPER	-x	-y	-z
+OPER	1/2+x	-y	1/2-z
+OPER	-x	1/2+y	1/2-z
+OPER	1/2-x	1/2-y	z
+
+INDEX	57
+GROUP	P b c m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	1/2+y	z
+OPER	x	1/2-y	1/2+z
+OPER	x	y	1/2-z
+OPER	-x	-y	-z
+OPER	x	1/2-y	-z
+OPER	-x	1/2+y	1/2-z
+OPER	-x	-y	1/2+z
+
+INDEX	58
+GROUP	P n n m
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	1/2+x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2-z
+OPER	-x	-y	z
+
+INDEX	59
+GROUP	P m m n
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	1/2+x	1/2+y	-z
+OPER	1/2-x	1/2-y	-z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	-x	-y	z
+
+INDEX	60
+GROUP	P b c n
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	1/2+y	z
+OPER	x	-y	1/2+z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	-x	-y	-z
+OPER	1/2+x	1/2-y	-z
+OPER	-x	y	1/2-z
+OPER	1/2-x	1/2-y	1/2+z
+
+INDEX	61
+GROUP	P b c a
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	1/2+y	z
+OPER	x	1/2-y	1/2+z
+OPER	1/2+x	y	1/2-z
+OPER	-x	-y	-z
+OPER	1/2+x	1/2-y	-z
+OPER	-x	1/2+y	1/2-z
+OPER	1/2-x	-y	1/2+z
+
+INDEX	62
+GROUP	P n m a
+NOPERS	8
+OPER	x	y	z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	x	1/2-y	z
+OPER	1/2+x	y	1/2-z
+OPER	-x	-y	-z
+OPER	1/2+x	1/2-y	1/2-z
+OPER	-x	1/2+y	-z
+OPER	1/2-x	-y	1/2+z
+
+INDEX	63
+GROUP	C m c m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	1/2+z
+OPER	x	y	1/2-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	-x	y	1/2-z
+OPER	-x	-y	1/2+z
+
+INDEX	64
+GROUP	C m c a
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	1/2-y	1/2+z
+OPER	x	1/2+y	1/2-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	-x	1/2+y	1/2-z
+OPER	-x	1/2-y	1/2+z
+
+INDEX	65
+GROUP	C m m m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	66
+GROUP	C c c m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	-x	-y	z
+
+INDEX	67
+GROUP	C m m a
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	1/2-y	z
+OPER	x	1/2+y	-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	-x	1/2+y	-z
+OPER	-x	1/2-y	z
+
+INDEX	68
+GROUP	C c c a
+NOPERS	8
+OPER	x	y	z
+OPER	-x	1/2+y	1/2+z
+OPER	x	1/2-y	1/2+z
+OPER	x	1/2+y	1/2-z
+OPER	-x	1/2-y	1/2-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	69
+GROUP	F m m m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	70
+GROUP	F d d d
+NOPERS	8
+OPER	x	y	z
+OPER	1/4-x	1/4+y	1/4+z
+OPER	1/4+x	1/4-y	1/4+z
+OPER	1/4+x	1/4+y	1/4-z
+OPER	1/4-x	1/4-y	1/4-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	71
+GROUP	I m m m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+
+INDEX	72
+GROUP	I b a m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	x	y	-z
+OPER	-x	-y	-z
+OPER	x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	-x	-y	z
+
+INDEX	73
+GROUP	I b c a
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	1/2+z
+OPER	1/2+x	-y	z
+OPER	x	1/2+y	-z
+OPER	-x	-y	-z
+OPER	x	-y	1/2-z
+OPER	1/2-x	y	-z
+OPER	-x	1/2-y	z
+
+INDEX	74
+GROUP	I m m a
+NOPERS	8
+OPER	x	y	z
+OPER	-x	y	z
+OPER	x	1/2-y	z
+OPER	x	1/2+y	-z
+OPER	-x	-y	-z
+OPER	x	-y	-z
+OPER	-x	1/2+y	-z
+OPER	-x	1/2-y	z
+
+INDEX	75
+GROUP	P 4
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+
+INDEX	76
+GROUP	P 41
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	1/2+z
+OPER	-y	x	1/4+z
+OPER	y	-x	3/4+z
+
+INDEX	77
+GROUP	P 42
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+
+INDEX	78
+GROUP	P 43
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	1/2+z
+OPER	-y	x	3/4+z
+OPER	y	-x	1/4+z
+
+INDEX	79
+GROUP	I 4
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+
+INDEX	80
+GROUP	I 41
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	1/2+x	1/4+z
+OPER	y	1/2-x	1/4+z
+
+INDEX	81
+GROUP	P -4
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+
+INDEX	82
+GROUP	I -4
+NOPERS	4
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+
+INDEX	83
+GROUP	P 4/m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+
+INDEX	84
+GROUP	P 42/m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	1/2-z
+OPER	-y	x	1/2-z
+
+INDEX	85
+GROUP	P 4/n
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	z
+OPER	1/2+y	1/2-x	z
+OPER	1/2-x	1/2-y	-z
+OPER	1/2+x	1/2+y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+
+INDEX	86
+GROUP	P 42/n
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+
+INDEX	87
+GROUP	I 4/m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+
+INDEX	88
+GROUP	I 41/a
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	1/2+x	1/4+z
+OPER	y	1/2-x	1/4+z
+OPER	-x	1/2-y	1/4-z
+OPER	x	1/2+y	1/4-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+
+INDEX	89
+GROUP	P 4 2 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	90
+GROUP	P 4 21 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	z
+OPER	1/2+y	1/2-x	z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	91
+GROUP	P 41 2 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	1/2+z
+OPER	-y	x	1/4+z
+OPER	y	-x	3/4+z
+OPER	x	-y	1/2-z
+OPER	-x	y	-z
+OPER	-y	-x	1/4-z
+OPER	y	x	3/4-z
+
+INDEX	92
+GROUP	P 41 21 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	1/2+z
+OPER	1/2-y	1/2+x	1/4+z
+OPER	1/2+y	1/2-x	3/4+z
+OPER	1/2+x	1/2-y	3/4-z
+OPER	1/2-x	1/2+y	1/4-z
+OPER	-y	-x	1/2-z
+OPER	y	x	-z
+
+INDEX	93
+GROUP	P 42 2 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	94
+GROUP	P 42 21 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2+x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	95
+GROUP	P 43 2 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	1/2+z
+OPER	-y	x	3/4+z
+OPER	y	-x	1/4+z
+OPER	x	-y	1/2-z
+OPER	-x	y	-z
+OPER	-y	-x	3/4-z
+OPER	y	x	1/4-z
+
+INDEX	96
+GROUP	P 43 21 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	1/2+z
+OPER	1/2-y	1/2+x	3/4+z
+OPER	1/2+y	1/2-x	1/4+z
+OPER	1/2+x	1/2-y	1/4-z
+OPER	1/2-x	1/2+y	3/4-z
+OPER	-y	-x	1/2-z
+OPER	y	x	-z
+
+INDEX	97
+GROUP	I 4 2 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	98
+GROUP	I 41 2 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	1/2+x	1/4+z
+OPER	y	1/2-x	1/4+z
+OPER	x	1/2-y	1/4-z
+OPER	-x	1/2+y	1/4-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	99
+GROUP	P 4 m m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	100
+GROUP	P 4 b m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	1/2+y	1/2+x	z
+OPER	1/2-y	1/2-x	z
+
+INDEX	101
+GROUP	P 42 c m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	102
+GROUP	P 42 n m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	103
+GROUP	P 4 c c
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+
+INDEX	104
+GROUP	P 4 n c
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+
+INDEX	105
+GROUP	P 42 m c
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+
+INDEX	106
+GROUP	P 42 b c
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+
+INDEX	107
+GROUP	I 4 m m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	108
+GROUP	I 4 c m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+
+INDEX	109
+GROUP	I 41 m d
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	1/2+x	1/4+z
+OPER	y	1/2-x	1/4+z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	y	1/2+x	1/4+z
+OPER	-y	1/2-x	1/4+z
+
+INDEX	110
+GROUP	I 41 c d
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	1/2+x	1/4+z
+OPER	y	1/2-x	1/4+z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	1/2+y	x	1/4+z
+OPER	1/2-y	-x	1/4+z
+
+INDEX	111
+GROUP	P -4 2 m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	112
+GROUP	P -4 2 c
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+
+INDEX	113
+GROUP	P -4 21 m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	1/2+y	1/2+x	z
+OPER	1/2-y	1/2-x	z
+
+INDEX	114
+GROUP	P -4 21 c
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2-z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+
+INDEX	115
+GROUP	P -4 m 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	116
+GROUP	P -4 c 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	117
+GROUP	P -4 b 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	1/2-y	1/2-x	-z
+OPER	1/2+y	1/2+x	-z
+
+INDEX	118
+GROUP	P -4 n 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2-y	1/2-x	1/2-z
+OPER	1/2+y	1/2+x	1/2-z
+
+INDEX	119
+GROUP	I -4 m 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	120
+GROUP	I -4 c 2
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	121
+GROUP	I -4 2 m
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	122
+GROUP	I -4 2 d
+NOPERS	8
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	1/2-y	1/4-z
+OPER	-x	1/2+y	1/4-z
+OPER	y	1/2+x	1/4+z
+OPER	-y	1/2-x	1/4+z
+
+INDEX	123
+GROUP	P 4/m m m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	y	x	z
+OPER	-y	-x	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	124
+GROUP	P 4/m c c
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	125
+GROUP	P 4/n b m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	1/2+y	1/2+x	z
+OPER	1/2-y	1/2-x	z
+OPER	1/2-x	1/2-y	-z
+OPER	1/2+x	1/2+y	-z
+OPER	1/2+y	1/2-x	-z
+OPER	1/2-y	1/2+x	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	126
+GROUP	P 4/n n c
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	1/2+y	1/2-x	1/2-z
+OPER	1/2-y	1/2+x	1/2-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	127
+GROUP	P 4/m b m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	1/2+y	1/2+x	z
+OPER	1/2-y	1/2-x	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	1/2-y	1/2-x	-z
+OPER	1/2+y	1/2+x	-z
+
+INDEX	128
+GROUP	P 4/m n c
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2-z
+OPER	1/2-y	1/2-x	1/2-z
+OPER	1/2+y	1/2+x	1/2-z
+
+INDEX	129
+GROUP	P 4/n m m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	z
+OPER	1/2+y	1/2-x	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	1/2+y	1/2+x	z
+OPER	1/2-y	1/2-x	z
+OPER	1/2-x	1/2-y	-z
+OPER	1/2+x	1/2+y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	130
+GROUP	P 4/n c c
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	z
+OPER	1/2+y	1/2-x	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+OPER	1/2-x	1/2-y	-z
+OPER	1/2+x	1/2+y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2-z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	131
+GROUP	P 42/m m c
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	1/2-z
+OPER	-y	x	1/2-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	132
+GROUP	P 42/m c m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	y	x	z
+OPER	-y	-x	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	1/2-z
+OPER	-y	x	1/2-z
+OPER	x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	133
+GROUP	P 42/n b c
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	1/2-y	1/2-x	-z
+OPER	1/2+y	1/2+x	-z
+
+INDEX	134
+GROUP	P 42/n n m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	y	x	z
+OPER	-y	-x	z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	1/2-y	1/2-x	1/2-z
+OPER	1/2+y	1/2+x	1/2-z
+
+INDEX	135
+GROUP	P 42/m b c
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	1/2-x	1/2+y	z
+OPER	1/2+x	1/2-y	z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	1/2-z
+OPER	-y	x	1/2-z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	1/2-y	1/2-x	1/2-z
+OPER	1/2+y	1/2+x	1/2-z
+
+INDEX	136
+GROUP	P 42/m n m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	y	x	z
+OPER	-y	-x	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	1/2+y	1/2-x	1/2-z
+OPER	1/2-y	1/2+x	1/2-z
+OPER	1/2+x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	137
+GROUP	P 42/n m c
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	138
+GROUP	P 42/n c m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	1/2+y	1/2+x	z
+OPER	1/2-y	1/2-x	z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	1/2-y	-z
+OPER	1/2-x	1/2+y	-z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	139
+GROUP	I 4/m m m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	y	x	z
+OPER	-y	-x	z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	140
+GROUP	I 4/m c m
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+OPER	-x	-y	-z
+OPER	x	y	-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	-y	1/2-z
+OPER	-x	y	1/2-z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	141
+GROUP	I 41/a m d
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	1/2+x	1/4+z
+OPER	y	1/2-x	1/4+z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	y	1/2+x	1/4+z
+OPER	-y	1/2-x	1/4+z
+OPER	-x	1/2-y	1/4-z
+OPER	x	1/2+y	1/4-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	x	1/2-y	1/4-z
+OPER	-x	1/2+y	1/4-z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	142
+GROUP	I 41/a c d
+NOPERS	16
+OPER	x	y	z
+OPER	-x	-y	z
+OPER	-y	1/2+x	1/4+z
+OPER	y	1/2-x	1/4+z
+OPER	-x	y	1/2+z
+OPER	x	-y	1/2+z
+OPER	1/2+y	x	1/4+z
+OPER	1/2-y	-x	1/4+z
+OPER	-x	1/2-y	1/4-z
+OPER	x	1/2+y	1/4-z
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	1/2+x	-y	1/4-z
+OPER	1/2-x	y	1/4-z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+
+INDEX	143
+GROUP	P 3
+NOPERS	3
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+
+INDEX	144
+GROUP	P 31
+NOPERS	3
+OPER	x	y	z
+OPER	-y	x-y	1/3+z
+OPER	-x+y	-x	2/3+z
+
+INDEX	145
+GROUP	P 32
+NOPERS	3
+OPER	x	y	z
+OPER	-y	x-y	2/3+z
+OPER	-x+y	-x	1/3+z
+
+INDEX	146
+GROUP	R 3
+NOPERS	3
+OPER	x	y	z
+OPER	z	x	y
+OPER	y	z	x
+
+INDEX	147
+GROUP	P -3
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+
+INDEX	148
+GROUP	R -3
+NOPERS	6
+OPER	x	y	z
+OPER	z	x	y
+OPER	y	z	x
+OPER	-x	-y	-z
+OPER	-z	-x	-y
+OPER	-y	-z	-x
+
+INDEX	149
+GROUP	P 3 1 2
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-y	-x	-z
+OPER	-x+y	y	-z
+OPER	x	x-y	-z
+
+INDEX	150
+GROUP	P 3 2 1
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	y	x	-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	-z
+
+INDEX	151
+GROUP	P 31 1 2
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	1/3+z
+OPER	-x+y	-x	2/3+z
+OPER	-y	-x	2/3-z
+OPER	-x+y	y	1/3-z
+OPER	x	x-y	-z
+
+INDEX	152
+GROUP	P 31 2 1
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	1/3+z
+OPER	-x+y	-x	2/3+z
+OPER	y	x	-z
+OPER	x-y	-y	2/3-z
+OPER	-x	-x+y	1/3-z
+
+INDEX	153
+GROUP	P 32 1 2
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	2/3+z
+OPER	-x+y	-x	1/3+z
+OPER	-y	-x	1/3-z
+OPER	-x+y	y	2/3-z
+OPER	x	x-y	-z
+
+INDEX	154
+GROUP	P 32 2 1
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	2/3+z
+OPER	-x+y	-x	1/3+z
+OPER	y	x	-z
+OPER	x-y	-y	1/3-z
+OPER	-x	-x+y	2/3-z
+
+INDEX	155
+GROUP	R 3 2
+NOPERS	6
+OPER	x	y	z
+OPER	z	x	y
+OPER	y	z	x
+OPER	-x	-z	-y
+OPER	-z	-y	-x
+OPER	-y	-x	-z
+
+INDEX	156
+GROUP	P 3 m 1
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-y	-x	z
+OPER	-x+y	y	z
+OPER	x	x-y	z
+
+INDEX	157
+GROUP	P 3 1 m
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	y	x	z
+OPER	x-y	-y	z
+OPER	-x	-x+y	z
+
+INDEX	158
+GROUP	P 3 c 1
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-y	-x	1/2+z
+OPER	-x+y	y	1/2+z
+OPER	x	x-y	1/2+z
+
+INDEX	159
+GROUP	P 3 1 c
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	y	x	1/2+z
+OPER	x-y	-y	1/2+z
+OPER	-x	-x+y	1/2+z
+
+INDEX	160
+GROUP	R 3 m
+NOPERS	6
+OPER	x	y	z
+OPER	z	x	y
+OPER	y	z	x
+OPER	x	z	y
+OPER	z	y	x
+OPER	y	x	z
+
+INDEX	161
+GROUP	R 3 c
+NOPERS	6
+OPER	x	y	z
+OPER	z	x	y
+OPER	y	z	x
+OPER	1/2+x	1/2+z	1/2+y
+OPER	1/2+z	1/2+y	1/2+x
+OPER	1/2+y	1/2+x	1/2+z
+
+INDEX	162
+GROUP	P -3 1 m
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	y	x	z
+OPER	x-y	-y	z
+OPER	-x	-x+y	z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	-y	-x	-z
+OPER	-x+y	y	-z
+OPER	x	x-y	-z
+
+INDEX	163
+GROUP	P -3 1 c
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	y	x	1/2+z
+OPER	x-y	-y	1/2+z
+OPER	-x	-x+y	1/2+z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	-y	-x	1/2-z
+OPER	-x+y	y	1/2-z
+OPER	x	x-y	1/2-z
+
+INDEX	164
+GROUP	P -3 m 1
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-y	-x	z
+OPER	-x+y	y	z
+OPER	x	x-y	z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	y	x	-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	-z
+
+INDEX	165
+GROUP	P -3 c 1
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-y	-x	1/2+z
+OPER	-x+y	y	1/2+z
+OPER	x	x-y	1/2+z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	y	x	1/2-z
+OPER	x-y	-y	1/2-z
+OPER	-x	-x+y	1/2-z
+
+INDEX	166
+GROUP	R -3 m
+NOPERS	12
+OPER	x	y	z
+OPER	z	x	y
+OPER	y	z	x
+OPER	x	z	y
+OPER	z	y	x
+OPER	y	x	z
+OPER	-x	-y	-z
+OPER	-z	-x	-y
+OPER	-y	-z	-x
+OPER	-x	-z	-y
+OPER	-z	-y	-x
+OPER	-y	-x	-z
+
+INDEX	167
+GROUP	R -3 c
+NOPERS	12
+OPER	x	y	z
+OPER	z	x	y
+OPER	y	z	x
+OPER	1/2+x	1/2+z	1/2+y
+OPER	1/2+z	1/2+y	1/2+x
+OPER	1/2+y	1/2+x	1/2+z
+OPER	-x	-y	-z
+OPER	-z	-x	-y
+OPER	-y	-z	-x
+OPER	1/2-x	1/2-z	1/2-y
+OPER	1/2-z	1/2-y	1/2-x
+OPER	1/2-y	1/2-x	1/2-z
+
+INDEX	168
+GROUP	P 6
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	z
+OPER	x-y	x	z
+OPER	y	-x+y	z
+
+INDEX	169
+GROUP	P 61
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	1/3+z
+OPER	-x+y	-x	2/3+z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/6+z
+OPER	y	-x+y	5/6+z
+
+INDEX	170
+GROUP	P 65
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	2/3+z
+OPER	-x+y	-x	1/3+z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	5/6+z
+OPER	y	-x+y	1/6+z
+
+INDEX	171
+GROUP	P 62
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	2/3+z
+OPER	-x+y	-x	1/3+z
+OPER	-x	-y	z
+OPER	x-y	x	1/3+z
+OPER	y	-x+y	2/3+z
+
+INDEX	172
+GROUP	P 64
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	1/3+z
+OPER	-x+y	-x	2/3+z
+OPER	-x	-y	z
+OPER	x-y	x	2/3+z
+OPER	y	-x+y	1/3+z
+
+INDEX	173
+GROUP	P 63
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/2+z
+OPER	y	-x+y	1/2+z
+
+INDEX	174
+GROUP	P -6
+NOPERS	6
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	x	y	-z
+OPER	-x+y	-x	-z
+OPER	-y	x-y	-z
+
+INDEX	175
+GROUP	P 6/m
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	z
+OPER	x-y	x	z
+OPER	y	-x+y	z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	x	y	-z
+OPER	-x+y	-x	-z
+OPER	-y	x-y	-z
+
+INDEX	176
+GROUP	P 63/m
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/2+z
+OPER	y	-x+y	1/2+z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	x	y	1/2-z
+OPER	-x+y	-x	1/2-z
+OPER	-y	x-y	1/2-z
+
+INDEX	177
+GROUP	P 6 2 2
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	z
+OPER	x-y	x	z
+OPER	y	-x+y	z
+OPER	y	x	-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	-z
+OPER	-y	-x	-z
+OPER	-x+y	y	-z
+OPER	x	x-y	-z
+
+INDEX	178
+GROUP	P 61 2 2
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	1/3+z
+OPER	-x+y	-x	2/3+z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/6+z
+OPER	y	-x+y	5/6+z
+OPER	y	x	1/3-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	2/3-z
+OPER	-y	-x	5/6-z
+OPER	-x+y	y	1/2-z
+OPER	x	x-y	1/6-z
+
+INDEX	179
+GROUP	P 65 2 2
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	2/3+z
+OPER	-x+y	-x	1/3+z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	5/6+z
+OPER	y	-x+y	1/6+z
+OPER	y	x	2/3-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	1/3-z
+OPER	-y	-x	1/6-z
+OPER	-x+y	y	1/2-z
+OPER	x	x-y	5/6-z
+
+INDEX	180
+GROUP	P 62 2 2
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	2/3+z
+OPER	-x+y	-x	1/3+z
+OPER	-x	-y	z
+OPER	x-y	x	1/3+z
+OPER	y	-x+y	2/3+z
+OPER	y	x	2/3-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	1/3-z
+OPER	-y	-x	2/3-z
+OPER	-x+y	y	-z
+OPER	x	x-y	1/3-z
+
+INDEX	181
+GROUP	P 64 2 2
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	1/3+z
+OPER	-x+y	-x	2/3+z
+OPER	-x	-y	z
+OPER	x-y	x	2/3+z
+OPER	y	-x+y	1/3+z
+OPER	y	x	1/3-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	2/3-z
+OPER	-y	-x	1/3-z
+OPER	-x+y	y	-z
+OPER	x	x-y	2/3-z
+
+INDEX	182
+GROUP	P 63 2 2
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/2+z
+OPER	y	-x+y	1/2+z
+OPER	y	x	-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	-z
+OPER	-y	-x	1/2-z
+OPER	-x+y	y	1/2-z
+OPER	x	x-y	1/2-z
+
+INDEX	183
+GROUP	P 6 m m
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	z
+OPER	x-y	x	z
+OPER	y	-x+y	z
+OPER	-y	-x	z
+OPER	-x+y	y	z
+OPER	x	x-y	z
+OPER	y	x	z
+OPER	x-y	-y	z
+OPER	-x	-x+y	z
+
+INDEX	184
+GROUP	P 6 c c
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	z
+OPER	x-y	x	z
+OPER	y	-x+y	z
+OPER	-y	-x	1/2+z
+OPER	-x+y	y	1/2+z
+OPER	x	x-y	1/2+z
+OPER	y	x	1/2+z
+OPER	x-y	-y	1/2+z
+OPER	-x	-x+y	1/2+z
+
+INDEX	185
+GROUP	P 63 c m
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/2+z
+OPER	y	-x+y	1/2+z
+OPER	-y	-x	1/2+z
+OPER	-x+y	y	1/2+z
+OPER	x	x-y	1/2+z
+OPER	y	x	z
+OPER	x-y	-y	z
+OPER	-x	-x+y	z
+
+INDEX	186
+GROUP	P 63 m c
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/2+z
+OPER	y	-x+y	1/2+z
+OPER	-y	-x	z
+OPER	-x+y	y	z
+OPER	x	x-y	z
+OPER	y	x	1/2+z
+OPER	x-y	-y	1/2+z
+OPER	-x	-x+y	1/2+z
+
+INDEX	187
+GROUP	P -6 m 2
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	x	y	-z
+OPER	-x+y	-x	-z
+OPER	-y	x-y	-z
+OPER	-y	-x	z
+OPER	-x+y	y	z
+OPER	x	x-y	z
+OPER	-y	-x	-z
+OPER	-x+y	y	-z
+OPER	x	x-y	-z
+
+INDEX	188
+GROUP	P -6 c 2
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	x	y	1/2-z
+OPER	-x+y	-x	1/2-z
+OPER	-y	x-y	1/2-z
+OPER	-y	-x	1/2+z
+OPER	-x+y	y	1/2+z
+OPER	x	x-y	1/2+z
+OPER	-y	-x	-z
+OPER	-x+y	y	-z
+OPER	x	x-y	-z
+
+INDEX	189
+GROUP	P -6 2 m
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	x	y	-z
+OPER	-x+y	-x	-z
+OPER	-y	x-y	-z
+OPER	y	x	-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	-z
+OPER	y	x	z
+OPER	x-y	-y	z
+OPER	-x	-x+y	z
+
+INDEX	190
+GROUP	P -6 2 c
+NOPERS	12
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	x	y	1/2-z
+OPER	-x+y	-x	1/2-z
+OPER	-y	x-y	1/2-z
+OPER	y	x	-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	-z
+OPER	y	x	1/2+z
+OPER	x-y	-y	1/2+z
+OPER	-x	-x+y	1/2+z
+
+INDEX	191
+GROUP	P 6/m m m
+NOPERS	24
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	z
+OPER	x-y	x	z
+OPER	y	-x+y	z
+OPER	-y	-x	z
+OPER	-x+y	y	z
+OPER	x	x-y	z
+OPER	y	x	z
+OPER	x-y	-y	z
+OPER	-x	-x+y	z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	x	y	-z
+OPER	-x+y	-x	-z
+OPER	-y	x-y	-z
+OPER	y	x	-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	-z
+OPER	-y	-x	-z
+OPER	-x+y	y	-z
+OPER	x	x-y	-z
+
+INDEX	192
+GROUP	P 6/m c c
+NOPERS	24
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	z
+OPER	x-y	x	z
+OPER	y	-x+y	z
+OPER	-y	-x	1/2+z
+OPER	-x+y	y	1/2+z
+OPER	x	x-y	1/2+z
+OPER	y	x	1/2+z
+OPER	x-y	-y	1/2+z
+OPER	-x	-x+y	1/2+z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	x	y	-z
+OPER	-x+y	-x	-z
+OPER	-y	x-y	-z
+OPER	y	x	1/2-z
+OPER	x-y	-y	1/2-z
+OPER	-x	-x+y	1/2-z
+OPER	-y	-x	1/2-z
+OPER	-x+y	y	1/2-z
+OPER	x	x-y	1/2-z
+
+INDEX	193
+GROUP	P 63/m c m
+NOPERS	24
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/2+z
+OPER	y	-x+y	1/2+z
+OPER	-y	-x	1/2+z
+OPER	-x+y	y	1/2+z
+OPER	x	x-y	1/2+z
+OPER	y	x	z
+OPER	x-y	-y	z
+OPER	-x	-x+y	z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	x	y	1/2-z
+OPER	-x+y	-x	1/2-z
+OPER	-y	x-y	1/2-z
+OPER	y	x	1/2-z
+OPER	x-y	-y	1/2-z
+OPER	-x	-x+y	1/2-z
+OPER	-y	-x	-z
+OPER	-x+y	y	-z
+OPER	x	x-y	-z
+
+INDEX	194
+GROUP	P 63/m m c
+NOPERS	24
+OPER	x	y	z
+OPER	-y	x-y	z
+OPER	-x+y	-x	z
+OPER	-x	-y	1/2+z
+OPER	x-y	x	1/2+z
+OPER	y	-x+y	1/2+z
+OPER	-y	-x	z
+OPER	-x+y	y	z
+OPER	x	x-y	z
+OPER	y	x	1/2+z
+OPER	x-y	-y	1/2+z
+OPER	-x	-x+y	1/2+z
+OPER	-x	-y	-z
+OPER	y	-x+y	-z
+OPER	x-y	x	-z
+OPER	x	y	1/2-z
+OPER	-x+y	-x	1/2-z
+OPER	-y	x-y	1/2-z
+OPER	y	x	-z
+OPER	x-y	-y	-z
+OPER	-x	-x+y	-z
+OPER	-y	-x	1/2-z
+OPER	-x+y	y	1/2-z
+OPER	x	x-y	1/2-z
+
+INDEX	195
+GROUP	P 2 3
+NOPERS	12
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+
+INDEX	196
+GROUP	F 2 3
+NOPERS	12
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+
+INDEX	197
+GROUP	I 2 3
+NOPERS	12
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+
+INDEX	198
+GROUP	P 21 3
+NOPERS	12
+OPER	x	y	z
+OPER	1/2+x	1/2-y	-z
+OPER	-x	1/2+y	1/2-z
+OPER	1/2-x	-y	1/2+z
+OPER	z	x	y
+OPER	1/2-z	-x	1/2+y
+OPER	1/2+z	1/2-x	-y
+OPER	-z	1/2+x	1/2-y
+OPER	y	z	x
+OPER	-y	1/2+z	1/2-x
+OPER	1/2-y	-z	1/2+x
+OPER	1/2+y	1/2-z	-x
+
+INDEX	199
+GROUP	I 21 3
+NOPERS	12
+OPER	x	y	z
+OPER	x	-y	1/2-z
+OPER	1/2-x	y	-z
+OPER	-x	1/2-y	z
+OPER	z	x	y
+OPER	-z	1/2-x	y
+OPER	z	-x	1/2-y
+OPER	1/2-z	x	-y
+OPER	y	z	x
+OPER	1/2-y	z	-x
+OPER	-y	1/2-z	x
+OPER	y	-z	1/2-x
+
+INDEX	200
+GROUP	P m -3
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	-x	-y	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-z	-x	-y
+OPER	z	x	-y
+OPER	-z	x	y
+OPER	z	-x	y
+OPER	-y	-z	-x
+OPER	y	-z	x
+OPER	y	z	-x
+OPER	-y	z	x
+
+INDEX	201
+GROUP	P n -3
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	1/2-z	1/2-x	1/2-y
+OPER	1/2+z	1/2+x	1/2-y
+OPER	1/2-z	1/2+x	1/2+y
+OPER	1/2+z	1/2-x	1/2+y
+OPER	1/2-y	1/2-z	1/2-x
+OPER	1/2+y	1/2-z	1/2+x
+OPER	1/2+y	1/2+z	1/2-x
+OPER	1/2-y	1/2+z	1/2+x
+
+INDEX	202
+GROUP	F m -3
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	-x	-y	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-z	-x	-y
+OPER	z	x	-y
+OPER	-z	x	y
+OPER	z	-x	y
+OPER	-y	-z	-x
+OPER	y	-z	x
+OPER	y	z	-x
+OPER	-y	z	x
+
+INDEX	203
+GROUP	F d -3
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/4-x	1/4-y	1/4-z
+OPER	1/4-x	1/4+y	1/4+z
+OPER	1/4+x	1/4-y	1/4+z
+OPER	1/4+x	1/4+y	1/4-z
+OPER	1/4-z	1/4-x	1/4-y
+OPER	1/4+z	1/4+x	1/4-y
+OPER	1/4-z	1/4+x	1/4+y
+OPER	1/4+z	1/4-x	1/4+y
+OPER	1/4-y	1/4-z	1/4-x
+OPER	1/4+y	1/4-z	1/4+x
+OPER	1/4+y	1/4+z	1/4-x
+OPER	1/4-y	1/4+z	1/4+x
+
+INDEX	204
+GROUP	I m -3
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	-x	-y	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-z	-x	-y
+OPER	z	x	-y
+OPER	-z	x	y
+OPER	z	-x	y
+OPER	-y	-z	-x
+OPER	y	-z	x
+OPER	y	z	-x
+OPER	-y	z	x
+
+INDEX	205
+GROUP	P a -3
+NOPERS	24
+OPER	x	y	z
+OPER	1/2+x	1/2-y	-z
+OPER	-x	1/2+y	1/2-z
+OPER	1/2-x	-y	1/2+z
+OPER	z	x	y
+OPER	1/2-z	-x	1/2+y
+OPER	1/2+z	1/2-x	-y
+OPER	-z	1/2+x	1/2-y
+OPER	y	z	x
+OPER	-y	1/2+z	1/2-x
+OPER	1/2-y	-z	1/2+x
+OPER	1/2+y	1/2-z	-x
+OPER	-x	-y	-z
+OPER	1/2-x	1/2+y	z
+OPER	x	1/2-y	1/2+z
+OPER	1/2+x	y	1/2-z
+OPER	-z	-x	-y
+OPER	1/2+z	x	1/2-y
+OPER	1/2-z	1/2+x	y
+OPER	z	1/2-x	1/2+y
+OPER	-y	-z	-x
+OPER	y	1/2-z	1/2+x
+OPER	1/2+y	z	1/2-x
+OPER	1/2-y	1/2+z	x
+
+INDEX	206
+GROUP	I a -3
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	1/2-z
+OPER	1/2-x	y	-z
+OPER	-x	1/2-y	z
+OPER	z	x	y
+OPER	-z	1/2-x	y
+OPER	z	-x	1/2-y
+OPER	1/2-z	x	-y
+OPER	y	z	x
+OPER	1/2-y	z	-x
+OPER	-y	1/2-z	x
+OPER	y	-z	1/2-x
+OPER	-x	-y	-z
+OPER	-x	y	1/2+z
+OPER	1/2+x	-y	z
+OPER	x	1/2+y	-z
+OPER	-z	-x	-y
+OPER	z	1/2+x	-y
+OPER	-z	x	1/2+y
+OPER	1/2+z	-x	y
+OPER	-y	-z	-x
+OPER	1/2+y	-z	x
+OPER	y	1/2+z	-x
+OPER	-y	z	1/2+x
+
+INDEX	207
+GROUP	P 4 3 2
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	x	-z	y
+OPER	x	z	-y
+OPER	-x	-z	-y
+OPER	-x	z	y
+OPER	z	y	-x
+OPER	-z	y	x
+OPER	-z	-y	-x
+OPER	z	-y	x
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	208
+GROUP	P 42 3 2
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/2+x	1/2-z	1/2+y
+OPER	1/2+x	1/2+z	1/2-y
+OPER	1/2-x	1/2-z	1/2-y
+OPER	1/2-x	1/2+z	1/2+y
+OPER	1/2+z	1/2+y	1/2-x
+OPER	1/2-z	1/2+y	1/2+x
+OPER	1/2-z	1/2-y	1/2-x
+OPER	1/2+z	1/2-y	1/2+x
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2-y	1/2-x	1/2-z
+OPER	1/2+y	1/2+x	1/2-z
+
+INDEX	209
+GROUP	F 4 3 2
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	x	-z	y
+OPER	x	z	-y
+OPER	-x	-z	-y
+OPER	-x	z	y
+OPER	z	y	-x
+OPER	-z	y	x
+OPER	-z	-y	-x
+OPER	z	-y	x
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	210
+GROUP	F 41 3 2
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/4+x	1/4-z	1/4+y
+OPER	1/4+x	1/4+z	1/4-y
+OPER	1/4-x	1/4-z	1/4-y
+OPER	1/4-x	1/4+z	1/4+y
+OPER	1/4+z	1/4+y	1/4-x
+OPER	1/4-z	1/4+y	1/4+x
+OPER	1/4-z	1/4-y	1/4-x
+OPER	1/4+z	1/4-y	1/4+x
+OPER	1/4-y	1/4+x	1/4+z
+OPER	1/4+y	1/4-x	1/4+z
+OPER	1/4-y	1/4-x	1/4-z
+OPER	1/4+y	1/4+x	1/4-z
+
+INDEX	211
+GROUP	I 4 3 2
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	x	-z	y
+OPER	x	z	-y
+OPER	-x	-z	-y
+OPER	-x	z	y
+OPER	z	y	-x
+OPER	-z	y	x
+OPER	-z	-y	-x
+OPER	z	-y	x
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+
+INDEX	212
+GROUP	P 43 3 2
+NOPERS	24
+OPER	x	y	z
+OPER	1/2+x	1/2-y	-z
+OPER	-x	1/2+y	1/2-z
+OPER	1/2-x	-y	1/2+z
+OPER	z	x	y
+OPER	1/2-z	-x	1/2+y
+OPER	1/2+z	1/2-x	-y
+OPER	-z	1/2+x	1/2-y
+OPER	y	z	x
+OPER	-y	1/2+z	1/2-x
+OPER	1/2-y	-z	1/2+x
+OPER	1/2+y	1/2-z	-x
+OPER	3/4+x	3/4-z	1/4+y
+OPER	1/4+x	3/4+z	3/4-y
+OPER	1/4-x	1/4-z	1/4-y
+OPER	3/4-x	1/4+z	3/4+y
+OPER	1/4+z	3/4+y	3/4-x
+OPER	3/4-z	1/4+y	3/4+x
+OPER	1/4-z	1/4-y	1/4-x
+OPER	3/4+z	3/4-y	1/4+x
+OPER	3/4-y	1/4+x	3/4+z
+OPER	3/4+y	3/4-x	1/4+z
+OPER	1/4-y	1/4-x	1/4-z
+OPER	1/4+y	3/4+x	3/4-z
+
+INDEX	213
+GROUP	P 41 3 2
+NOPERS	24
+OPER	x	y	z
+OPER	1/2+x	1/2-y	-z
+OPER	-x	1/2+y	1/2-z
+OPER	1/2-x	-y	1/2+z
+OPER	z	x	y
+OPER	1/2-z	-x	1/2+y
+OPER	1/2+z	1/2-x	-y
+OPER	-z	1/2+x	1/2-y
+OPER	y	z	x
+OPER	-y	1/2+z	1/2-x
+OPER	1/2-y	-z	1/2+x
+OPER	1/2+y	1/2-z	-x
+OPER	1/4+x	1/4-z	3/4+y
+OPER	3/4+x	1/4+z	1/4-y
+OPER	3/4-x	3/4-z	3/4-y
+OPER	1/4-x	3/4+z	1/4+y
+OPER	3/4+z	1/4+y	1/4-x
+OPER	1/4-z	3/4+y	1/4+x
+OPER	3/4-z	3/4-y	3/4-x
+OPER	1/4+z	1/4-y	3/4+x
+OPER	1/4-y	3/4+x	1/4+z
+OPER	1/4+y	1/4-x	3/4+z
+OPER	3/4-y	3/4-x	3/4-z
+OPER	3/4+y	1/4+x	1/4-z
+
+INDEX	214
+GROUP	I 41 3 2
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	1/2-z
+OPER	1/2-x	y	-z
+OPER	-x	1/2-y	z
+OPER	z	x	y
+OPER	-z	1/2-x	y
+OPER	z	-x	1/2-y
+OPER	1/2-z	x	-y
+OPER	y	z	x
+OPER	1/2-y	z	-x
+OPER	-y	1/2-z	x
+OPER	y	-z	1/2-x
+OPER	3/4+x	3/4-z	1/4+y
+OPER	1/4+x	3/4+z	3/4-y
+OPER	1/4-x	1/4-z	1/4-y
+OPER	3/4-x	1/4+z	3/4+y
+OPER	1/4+z	3/4+y	3/4-x
+OPER	3/4-z	1/4+y	3/4+x
+OPER	1/4-z	1/4-y	1/4-x
+OPER	3/4+z	3/4-y	1/4+x
+OPER	3/4-y	1/4+x	3/4+z
+OPER	3/4+y	3/4-x	1/4+z
+OPER	1/4-y	1/4-x	1/4-z
+OPER	1/4+y	3/4+x	3/4-z
+
+INDEX	215
+GROUP	P -4 3 m
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	-x	z	-y
+OPER	-x	-z	y
+OPER	x	z	y
+OPER	x	-z	-y
+OPER	-z	-y	x
+OPER	z	-y	-x
+OPER	z	y	x
+OPER	-z	y	-x
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	216
+GROUP	F -4 3 m
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	-x	z	-y
+OPER	-x	-z	y
+OPER	x	z	y
+OPER	x	-z	-y
+OPER	-z	-y	x
+OPER	z	-y	-x
+OPER	z	y	x
+OPER	-z	y	-x
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	217
+GROUP	I -4 3 m
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	-x	z	-y
+OPER	-x	-z	y
+OPER	x	z	y
+OPER	x	-z	-y
+OPER	-z	-y	x
+OPER	z	-y	-x
+OPER	z	y	x
+OPER	-z	y	-x
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	218
+GROUP	P -4 3 n
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/2-x	1/2+z	1/2-y
+OPER	1/2-x	1/2-z	1/2+y
+OPER	1/2+x	1/2+z	1/2+y
+OPER	1/2+x	1/2-z	1/2-y
+OPER	1/2-z	1/2-y	1/2+x
+OPER	1/2+z	1/2-y	1/2-x
+OPER	1/2+z	1/2+y	1/2+x
+OPER	1/2-z	1/2+y	1/2-x
+OPER	1/2+y	1/2-x	1/2-z
+OPER	1/2-y	1/2+x	1/2-z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+
+INDEX	219
+GROUP	F -4 3 c
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	-x	z	1/2-y
+OPER	-x	-z	1/2+y
+OPER	x	z	1/2+y
+OPER	x	-z	1/2-y
+OPER	-z	-y	1/2+x
+OPER	z	-y	1/2-x
+OPER	z	y	1/2+x
+OPER	-z	y	1/2-x
+OPER	y	-x	1/2-z
+OPER	-y	x	1/2-z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+
+INDEX	220
+GROUP	I -4 3 d
+NOPERS	24
+OPER	x	y	z
+OPER	x	-y	1/2-z
+OPER	1/2-x	y	-z
+OPER	-x	1/2-y	z
+OPER	z	x	y
+OPER	-z	1/2-x	y
+OPER	z	-x	1/2-y
+OPER	1/2-z	x	-y
+OPER	y	z	x
+OPER	1/2-y	z	-x
+OPER	-y	1/2-z	x
+OPER	y	-z	1/2-x
+OPER	1/4-x	1/4+z	3/4-y
+OPER	1/4-x	3/4-z	3/4+y
+OPER	1/4+x	1/4+z	1/4+y
+OPER	1/4+x	3/4-z	1/4-y
+OPER	1/4-z	3/4-y	3/4+x
+OPER	1/4+z	3/4-y	1/4-x
+OPER	1/4+z	1/4+y	1/4+x
+OPER	1/4-z	1/4+y	3/4-x
+OPER	1/4+y	3/4-x	1/4-z
+OPER	3/4-y	3/4+x	1/4-z
+OPER	1/4+y	1/4+x	1/4+z
+OPER	1/4-y	3/4-x	3/4+z
+
+INDEX	221
+GROUP	P m -3 m
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	x	-z	y
+OPER	x	z	-y
+OPER	-x	-z	-y
+OPER	-x	z	y
+OPER	z	y	-x
+OPER	-z	y	x
+OPER	-z	-y	-x
+OPER	z	-y	x
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+OPER	-x	-y	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-z	-x	-y
+OPER	z	x	-y
+OPER	-z	x	y
+OPER	z	-x	y
+OPER	-y	-z	-x
+OPER	y	-z	x
+OPER	y	z	-x
+OPER	-y	z	x
+OPER	-x	z	-y
+OPER	-x	-z	y
+OPER	x	z	y
+OPER	x	-z	-y
+OPER	-z	-y	x
+OPER	z	-y	-x
+OPER	z	y	x
+OPER	-z	y	-x
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	222
+GROUP	P n -3 n
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	x	-z	y
+OPER	x	z	-y
+OPER	-x	-z	-y
+OPER	-x	z	y
+OPER	z	y	-x
+OPER	-z	y	x
+OPER	-z	-y	-x
+OPER	z	-y	x
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	1/2-z	1/2-x	1/2-y
+OPER	1/2+z	1/2+x	1/2-y
+OPER	1/2-z	1/2+x	1/2+y
+OPER	1/2+z	1/2-x	1/2+y
+OPER	1/2-y	1/2-z	1/2-x
+OPER	1/2+y	1/2-z	1/2+x
+OPER	1/2+y	1/2+z	1/2-x
+OPER	1/2-y	1/2+z	1/2+x
+OPER	1/2-x	1/2+z	1/2-y
+OPER	1/2-x	1/2-z	1/2+y
+OPER	1/2+x	1/2+z	1/2+y
+OPER	1/2+x	1/2-z	1/2-y
+OPER	1/2-z	1/2-y	1/2+x
+OPER	1/2+z	1/2-y	1/2-x
+OPER	1/2+z	1/2+y	1/2+x
+OPER	1/2-z	1/2+y	1/2-x
+OPER	1/2+y	1/2-x	1/2-z
+OPER	1/2-y	1/2+x	1/2-z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+
+INDEX	223
+GROUP	P m -3 n
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/2+x	1/2-z	1/2+y
+OPER	1/2+x	1/2+z	1/2-y
+OPER	1/2-x	1/2-z	1/2-y
+OPER	1/2-x	1/2+z	1/2+y
+OPER	1/2+z	1/2+y	1/2-x
+OPER	1/2-z	1/2+y	1/2+x
+OPER	1/2-z	1/2-y	1/2-x
+OPER	1/2+z	1/2-y	1/2+x
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2-y	1/2-x	1/2-z
+OPER	1/2+y	1/2+x	1/2-z
+OPER	-x	-y	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-z	-x	-y
+OPER	z	x	-y
+OPER	-z	x	y
+OPER	z	-x	y
+OPER	-y	-z	-x
+OPER	y	-z	x
+OPER	y	z	-x
+OPER	-y	z	x
+OPER	1/2-x	1/2+z	1/2-y
+OPER	1/2-x	1/2-z	1/2+y
+OPER	1/2+x	1/2+z	1/2+y
+OPER	1/2+x	1/2-z	1/2-y
+OPER	1/2-z	1/2-y	1/2+x
+OPER	1/2+z	1/2-y	1/2-x
+OPER	1/2+z	1/2+y	1/2+x
+OPER	1/2-z	1/2+y	1/2-x
+OPER	1/2+y	1/2-x	1/2-z
+OPER	1/2-y	1/2+x	1/2-z
+OPER	1/2+y	1/2+x	1/2+z
+OPER	1/2-y	1/2-x	1/2+z
+
+INDEX	224
+GROUP	P n -3 m
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/2+x	1/2-z	1/2+y
+OPER	1/2+x	1/2+z	1/2-y
+OPER	1/2-x	1/2-z	1/2-y
+OPER	1/2-x	1/2+z	1/2+y
+OPER	1/2+z	1/2+y	1/2-x
+OPER	1/2-z	1/2+y	1/2+x
+OPER	1/2-z	1/2-y	1/2-x
+OPER	1/2+z	1/2-y	1/2+x
+OPER	1/2-y	1/2+x	1/2+z
+OPER	1/2+y	1/2-x	1/2+z
+OPER	1/2-y	1/2-x	1/2-z
+OPER	1/2+y	1/2+x	1/2-z
+OPER	1/2-x	1/2-y	1/2-z
+OPER	1/2-x	1/2+y	1/2+z
+OPER	1/2+x	1/2-y	1/2+z
+OPER	1/2+x	1/2+y	1/2-z
+OPER	1/2-z	1/2-x	1/2-y
+OPER	1/2+z	1/2+x	1/2-y
+OPER	1/2-z	1/2+x	1/2+y
+OPER	1/2+z	1/2-x	1/2+y
+OPER	1/2-y	1/2-z	1/2-x
+OPER	1/2+y	1/2-z	1/2+x
+OPER	1/2+y	1/2+z	1/2-x
+OPER	1/2-y	1/2+z	1/2+x
+OPER	-x	z	-y
+OPER	-x	-z	y
+OPER	x	z	y
+OPER	x	-z	-y
+OPER	-z	-y	x
+OPER	z	-y	-x
+OPER	z	y	x
+OPER	-z	y	-x
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	225
+GROUP	F m -3 m
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	x	-z	y
+OPER	x	z	-y
+OPER	-x	-z	-y
+OPER	-x	z	y
+OPER	z	y	-x
+OPER	-z	y	x
+OPER	-z	-y	-x
+OPER	z	-y	x
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+OPER	-x	-y	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-z	-x	-y
+OPER	z	x	-y
+OPER	-z	x	y
+OPER	z	-x	y
+OPER	-y	-z	-x
+OPER	y	-z	x
+OPER	y	z	-x
+OPER	-y	z	x
+OPER	-x	z	-y
+OPER	-x	-z	y
+OPER	x	z	y
+OPER	x	-z	-y
+OPER	-z	-y	x
+OPER	z	-y	-x
+OPER	z	y	x
+OPER	-z	y	-x
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	226
+GROUP	F m -3 c
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	x	-z	1/2+y
+OPER	x	z	1/2-y
+OPER	-x	-z	1/2-y
+OPER	-x	z	1/2+y
+OPER	z	y	1/2-x
+OPER	-z	y	1/2+x
+OPER	-z	-y	1/2-x
+OPER	z	-y	1/2+x
+OPER	-y	x	1/2+z
+OPER	y	-x	1/2+z
+OPER	-y	-x	1/2-z
+OPER	y	x	1/2-z
+OPER	-x	-y	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-z	-x	-y
+OPER	z	x	-y
+OPER	-z	x	y
+OPER	z	-x	y
+OPER	-y	-z	-x
+OPER	y	-z	x
+OPER	y	z	-x
+OPER	-y	z	x
+OPER	-x	z	1/2-y
+OPER	-x	-z	1/2+y
+OPER	x	z	1/2+y
+OPER	x	-z	1/2-y
+OPER	-z	-y	1/2+x
+OPER	z	-y	1/2-x
+OPER	z	y	1/2+x
+OPER	-z	y	1/2-x
+OPER	y	-x	1/2-z
+OPER	-y	x	1/2-z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+
+INDEX	227
+GROUP	F d -3 m
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/4+x	1/4-z	1/4+y
+OPER	1/4+x	1/4+z	1/4-y
+OPER	1/4-x	1/4-z	1/4-y
+OPER	1/4-x	1/4+z	1/4+y
+OPER	1/4+z	1/4+y	1/4-x
+OPER	1/4-z	1/4+y	1/4+x
+OPER	1/4-z	1/4-y	1/4-x
+OPER	1/4+z	1/4-y	1/4+x
+OPER	1/4-y	1/4+x	1/4+z
+OPER	1/4+y	1/4-x	1/4+z
+OPER	1/4-y	1/4-x	1/4-z
+OPER	1/4+y	1/4+x	1/4-z
+OPER	1/4-x	1/4-y	1/4-z
+OPER	1/4-x	1/4+y	1/4+z
+OPER	1/4+x	1/4-y	1/4+z
+OPER	1/4+x	1/4+y	1/4-z
+OPER	1/4-z	1/4-x	1/4-y
+OPER	1/4+z	1/4+x	1/4-y
+OPER	1/4-z	1/4+x	1/4+y
+OPER	1/4+z	1/4-x	1/4+y
+OPER	1/4-y	1/4-z	1/4-x
+OPER	1/4+y	1/4-z	1/4+x
+OPER	1/4+y	1/4+z	1/4-x
+OPER	1/4-y	1/4+z	1/4+x
+OPER	-x	z	-y
+OPER	-x	-z	y
+OPER	x	z	y
+OPER	x	-z	-y
+OPER	-z	-y	x
+OPER	z	-y	-x
+OPER	z	y	x
+OPER	-z	y	-x
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	228
+GROUP	F d -3 c
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	1/4+x	1/4-z	1/4+y
+OPER	1/4+x	1/4+z	1/4-y
+OPER	1/4-x	1/4-z	1/4-y
+OPER	1/4-x	1/4+z	1/4+y
+OPER	1/4+z	1/4+y	1/4-x
+OPER	1/4-z	1/4+y	1/4+x
+OPER	1/4-z	1/4-y	1/4-x
+OPER	1/4+z	1/4-y	1/4+x
+OPER	1/4-y	1/4+x	1/4+z
+OPER	1/4+y	1/4-x	1/4+z
+OPER	1/4-y	1/4-x	1/4-z
+OPER	1/4+y	1/4+x	1/4-z
+OPER	1/4-x	1/4-y	3/4-z
+OPER	1/4-x	1/4+y	3/4+z
+OPER	1/4+x	1/4-y	3/4+z
+OPER	1/4+x	1/4+y	3/4-z
+OPER	1/4-z	1/4-x	3/4-y
+OPER	1/4+z	1/4+x	3/4-y
+OPER	1/4-z	1/4+x	3/4+y
+OPER	1/4+z	1/4-x	3/4+y
+OPER	1/4-y	1/4-z	3/4-x
+OPER	1/4+y	1/4-z	3/4+x
+OPER	1/4+y	1/4+z	3/4-x
+OPER	1/4-y	1/4+z	3/4+x
+OPER	-x	z	1/2-y
+OPER	-x	-z	1/2+y
+OPER	x	z	1/2+y
+OPER	x	-z	1/2-y
+OPER	-z	-y	1/2+x
+OPER	z	-y	1/2-x
+OPER	z	y	1/2+x
+OPER	-z	y	1/2-x
+OPER	y	-x	1/2-z
+OPER	-y	x	1/2-z
+OPER	y	x	1/2+z
+OPER	-y	-x	1/2+z
+
+INDEX	229
+GROUP	I m -3 m
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	-z
+OPER	-x	y	-z
+OPER	-x	-y	z
+OPER	z	x	y
+OPER	-z	-x	y
+OPER	z	-x	-y
+OPER	-z	x	-y
+OPER	y	z	x
+OPER	-y	z	-x
+OPER	-y	-z	x
+OPER	y	-z	-x
+OPER	x	-z	y
+OPER	x	z	-y
+OPER	-x	-z	-y
+OPER	-x	z	y
+OPER	z	y	-x
+OPER	-z	y	x
+OPER	-z	-y	-x
+OPER	z	-y	x
+OPER	-y	x	z
+OPER	y	-x	z
+OPER	-y	-x	-z
+OPER	y	x	-z
+OPER	-x	-y	-z
+OPER	-x	y	z
+OPER	x	-y	z
+OPER	x	y	-z
+OPER	-z	-x	-y
+OPER	z	x	-y
+OPER	-z	x	y
+OPER	z	-x	y
+OPER	-y	-z	-x
+OPER	y	-z	x
+OPER	y	z	-x
+OPER	-y	z	x
+OPER	-x	z	-y
+OPER	-x	-z	y
+OPER	x	z	y
+OPER	x	-z	-y
+OPER	-z	-y	x
+OPER	z	-y	-x
+OPER	z	y	x
+OPER	-z	y	-x
+OPER	y	-x	-z
+OPER	-y	x	-z
+OPER	y	x	z
+OPER	-y	-x	z
+
+INDEX	230
+GROUP	I a -3 d
+NOPERS	48
+OPER	x	y	z
+OPER	x	-y	1/2-z
+OPER	1/2-x	y	-z
+OPER	-x	1/2-y	z
+OPER	z	x	y
+OPER	-z	1/2-x	y
+OPER	z	-x	1/2-y
+OPER	1/2-z	x	-y
+OPER	y	z	x
+OPER	1/2-y	z	-x
+OPER	-y	1/2-z	x
+OPER	y	-z	1/2-x
+OPER	1/4+x	1/4-z	3/4+y
+OPER	1/4+x	3/4+z	3/4-y
+OPER	1/4-x	1/4-z	1/4-y
+OPER	3/4-x	1/4+z	3/4+y
+OPER	1/4+z	3/4+y	3/4-x
+OPER	1/4-z	3/4+y	1/4+x
+OPER	1/4-z	1/4-y	1/4-x
+OPER	3/4+z	3/4-y	1/4+x
+OPER	3/4-y	1/4+x	3/4+z
+OPER	3/4+y	3/4-x	1/4+z
+OPER	1/4-y	1/4-x	1/4-z
+OPER	3/4+y	1/4+x	1/4-z
+OPER	-x	-y	-z
+OPER	-x	y	1/2+z
+OPER	1/2+x	-y	z
+OPER	x	1/2+y	-z
+OPER	-z	-x	-y
+OPER	z	1/2+x	-y
+OPER	-z	x	1/2+y
+OPER	1/2+z	-x	y
+OPER	-y	-z	-x
+OPER	1/2+y	-z	x
+OPER	y	1/2+z	-x
+OPER	-y	z	1/2+x
+OPER	1/4-x	1/4+z	3/4-y
+OPER	1/4-x	3/4-z	3/4+y
+OPER	1/4+x	1/4+z	1/4+y
+OPER	3/4+x	1/4-z	3/4-y
+OPER	1/4-z	3/4-y	3/4+x
+OPER	1/4+z	3/4-y	1/4-x
+OPER	1/4+z	1/4+y	1/4+x
+OPER	3/4-z	3/4+y	1/4-x
+OPER	3/4+y	1/4-x	3/4-z
+OPER	3/4-y	3/4+x	1/4-z
+OPER	1/4+y	1/4+x	1/4+z
+OPER	3/4-y	1/4-x	1/4+z
+

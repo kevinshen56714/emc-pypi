@@ -1,0 +1,103 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/charmm/c32b1/",
+  parameters	-> dir+"all27_prot_lipid.prm",
+  topology	-> dir+"all27_prot_lipid.top",
+
+  output	-> "alkane",
+  nalkanes	-> 50,
+  temperature	-> 500,
+  nrelax	-> 100,
+  density	-> 0.9,
+  seed		-> -1
+};
+
+field		= {
+  mode		-> charmm,
+  name		-> {parameters, topology},
+  compress	-> false
+};
+
+field		= {
+  mode		-> put,
+  name		-> "charmm"
+};
+
+groups		= {
+  group		-> {
+    id		-> alkane,
+    chemistry	-> "CCCC"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> alkane,
+    system	-> main,
+    group	-> alkane,
+    n		-> nalkanes
+  }
+};
+
+field		= {
+  mode		-> apply,
+  error		-> false
+};
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  },
+  types 	-> {
+    charmm	-> {pair -> {mode -> repulsive}},
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+put		= {name -> output};
+//cancel		= {exit};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    cluster	-> alkane,
+    relax	-> {ncycles -> nrelax, radius -> 5.0},
+    name	-> "error",
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {style -> none, message -> nkt};
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+simulation	= {
+  types 	-> {
+    charmm	-> {pair -> {mode -> global}}
+  }
+};
+
+(*
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+*)
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> charmm, detect -> false, unwrap -> true};
+lammps		= {name -> output, mode -> put, charges -> true, forcefield -> charmm, parameters -> true};
+

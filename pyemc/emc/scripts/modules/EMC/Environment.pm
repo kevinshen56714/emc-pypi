@@ -311,6 +311,78 @@ sub set_functions {
 
 # set item
 
+sub extract_list {
+  my $line = shift(@_);
+  my @result;
+  my $level;
+  my @list;
+  my $read;
+
+  foreach (@_) {
+    my $s = $_;
+    
+    while (substr($s,0,1) eq "[") {
+      $s = substr($s,1);
+      ++$level;
+    }
+    if ($level>1) {
+      EMC::Message::error_line($line, "unallowed lists of lists\n");
+    } elsif ($level==1) {
+      $read = 1;
+    }
+    while (substr($s,-1,1) eq "]") {
+      $s = substr($s,0,-1);
+      --$level;
+    }
+    if ($level<0) {
+      EMC::Message::error_line($line, "bracket imbalance\n");
+    }
+    push(@list, $s) if ($read && $s ne "");
+    next if ($level);
+    if ($read) {
+      $s = scalar(@list) ? join(":", "list", @list) : "-";
+      @list = ();
+      $read = 0;
+    }
+    push(@result, $s) if ($s ne "");
+  }
+  return @result;
+}
+
+
+sub permutations {
+  my @a = split(":", shift(@_));
+  my $dim = shift(@a);
+  my $s = shift(@a);
+  my $n = shift(@_);
+  my $f = "%0".length($n)."d";
+  my $hash = {};
+  my $i = [];
+  my $k;
+
+  $s %= $n if (defined($s));
+  for ($k=0; $k<$dim; ++$k) { push(@{$i}, 0); }
+  for ($k=0; $k<$dim; ) {
+    my @f;
+    foreach (@{$i}) { @f[$_] = 1; }
+    if (defined($s) ? defined(@f[$s]) : 1) {
+      my @r = reverse(@{$i});
+      my @index = map({join(":", map({sprintf($f, $_)} @{$_}))} ($i, \@r));
+      ++$hash->{@index[defined($hash->{@index[0]}) ? 0 : 1]};
+    }
+    $k = 0; foreach (@{$i}) {
+      last if (++$_<$n);
+      $_ = 0;
+      ++$k;
+    }
+  }
+  return 
+    map(
+      {join(":", map({sprintf("%"."d", $_)} split(":", $_)))} 
+      sort(keys(%{$hash})));
+}
+
+
 sub set_item_environment {
   my $struct = shift(@_);
   my $flag = EMC::Common::element($struct, "root", "environment", "flag");
@@ -348,12 +420,6 @@ sub set_item_loops {
   my $loop_trial = $global->{default};
   my %loop_check = (stage => 1, trial => 1, copy => 1);
   my @previous_variables = ();
-  my $flags = {
-    double => {d => 1, double => 1, doubled => 1},
-    hide => {h => 1, hide => 1, hidden => 1},
-    list => {l => 1, list => 1},
-    pair => {p => 1, pair => 1, paired => 1},
-    permutation => {2 => 1, 3 => 1, 4 => 1}};
  
   #EMC::Message::dumper("environment = ", $environment);
   $loop_variables->{active} = EMC::Common::array($loop_variables, "active");
@@ -368,36 +434,42 @@ sub set_item_loops {
       @f[0] = "stage" if (@f[0] eq "phase");			# legacy
       
       my $name = @f[0];
-      my $flag = {
-	map({$_ => defined($flags->{$_}->{@f[1]}) ? 1 : 0} keys(%{$flags}))};
+      my $flag = EMC::Variables::flags($variable);
 
-      $flag->{pair} = 1 if ($flag->{hide});
+      @arg = extract_list($line, @arg);
       foreach (@arg) {
 	if ($_ =~ m/:/) {
 	  my @a = split(":");
-	  next if (@a[0] ne "s" && @a[0] ne "seq");
-	  if (@f[0] ne "copy" && !$flag->{pair}) {
-	    #EMC::Message::error_line(
-	    #  $line, "sequences are not allowed when not paired\n");
-	  }
-	  if (scalar(@a)<3 || scalar(@a)>5) {
-	    EMC::Message::error_line($line, "incorrect sequence definition\n");
+	  if (@a[0] eq "s" || @a[0] eq "seq") {
+	    if (@f[0] ne "copy" && !$flag->{pair}) {
+	      #EMC::Message::error_line(
+	      #  $line, "sequences are not allowed when not paired\n");
+	    }
+	    if (scalar(@a)<3 || scalar(@a)>5) {
+	      EMC::Message::error_line($line, "incorrect sequence definition\n");
+	    }
+	  } elsif (@a[0] eq "l" || @a[0] eq "list") {
+	  } else {
+	    EMC::Message::error_line($line, "illegal or missing specifier\n");
 	  }
 	}
       }
       
       $variable = join(":", @f);
       if (scalar(@f)>1) {
-	if ($flag->{permutation} ? scalar(@f)>3 : scalar(@f)>2) {
+	if ($flag->{permutation}||$flag->{eval} ? scalar(@f)>3 : scalar(@f)>2) {
 	  EMC::Message::error_line($line, "too many modes for '$name'\n");
 	}
 	if (!($flag->{pair}||$flag->{double}||$flag->{list}||
-	      $flag->{permutation})) {
+	      $flag->{eval}||$flag->{permutation})) {
 	  EMC::Message::error_line($line, "unknown mode '@f[1]'\n");
 	}
       }
       if ($nloop_pairing<0 || !$flag->{pair}) {
-	$nloop_pairing = scalar(@arg);
+	$nloop_pairing = 
+	  $flag->{permutation} ?
+	    scalar(permutations(join(":", @f[1,2]), scalar(@arg))) :
+	    scalar(@arg);
 	$loop_pair = @f[0];
       } elsif ($nloop_pairing != scalar(@arg)) {
 	print("nloop = $nloop_pairing != ", scalar(@arg), " {", join(", ", @arg), "}\n");
@@ -419,6 +491,7 @@ sub set_item_loops {
       if (!(defined($loop->{$variable}) || $changed)) {
 	push(@{$loop_variables->{active}}, $variable);
       }
+      #EMC::Message::dumper("arg[$v] = ", \@arg);
       foreach (@arg) {
 	my $s = $_;
 	foreach (@previous_variables) { my $v = uc($_); $s =~ s/\@$v//g; }
@@ -523,7 +596,8 @@ sub set_item_stages {
 	my $options = EMC::Hash::arguments(
 	  EMC::Common::element($item, "options"));
 
-	next if (EMC::Common::element($options, "comment"));
+	next if (
+	  $option eq "comments" || EMC::Common::element($options, "comment"));
 
 	$option .= "s" if ($option eq "template");
 	my $ext = $option eq "templates" ? $extension : ".dat";
@@ -549,7 +623,6 @@ sub set_item_stages {
 	  }
 	} else {
 	  my $name = "$dir/$trial$ext";
-
 	  if (!EMC::IO::check_exist($root, $option, $name)) {
 	    EMC::Message::info("writing chemistry '$sub_dir/$trial$ext'\n");
 	    if ($option eq "templates") {
@@ -671,7 +744,7 @@ sub create {					# <= create_environment
     EMC::Message::info("writing job create chemistry script \"$name\"\n");
     my $stream = EMC::IO::open($name, "w");
     chmod(0755, $stream);
-    EMC::Job::write_create($root, $stream, $name =~ tr/\///);
+    EMC::Job::write_create($stream, $job, $name =~ tr/\///);
     EMC::IO::close($stream);
   }
   chdir($work_dir);
@@ -730,6 +803,7 @@ sub create_loop_variables_expansion {
     for (my $i=0; $i<scalar(@{$list}); ++$i) {
       next if ($hide->[$i]);
       my $p = $list->[$i];
+      my $dim = 1;
       for (my $j=1; $j<=$dim; ++$j) {
 	push(@{$loop_variables->{expand}}, $p.($dim>1 ? "_".$j : ""));
       }
@@ -748,6 +822,7 @@ sub create_loop_variables_expansion {
       push(@{$loop_variables->{vars}}, $name.($dim>1 ? "_".$i:""));
     }
     foreach (@{$list}) {
+      my $dim = 1;
       for (my $i=1; $i<=$dim; ++$i) {
 	push(@{$loop_variables->{vars}}, $_.($dim>1 ? "_".$i : ""));
       }

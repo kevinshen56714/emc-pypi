@@ -1,0 +1,53 @@
+#!/usr/local/bin/vmd
+# VMD script written by save_state $Revision: 1.41 $
+# VMD version: 1.8.6
+
+# Display settings
+
+display eyesep       0.065000
+display focallength  2.000000
+display height       6.000000
+display distance     -2.000000
+display projection   Perspective
+display nearclip set 0.500000
+display farclip  set 10.000000
+display depthcue     off
+display cuestart     0.500000
+display cueend       10.000000
+display cuedensity   0.400000
+display cuemode      Exp2
+
+# Load file
+
+mol new bond.psf type psf first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+mol addfile bond.traject type lammpstrj first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+
+# Set representations
+
+mol delrep 0 top
+mol representation Licorice 0.300000 10.000000 10.000000
+mol color Name
+mol selection {segid M000}
+mol material Transparent
+mol addrep top
+mol selupdate 0 top 0
+mol colupdate 0 top 0
+mol scaleminmax top 0 0.000000 0.000000
+mol smoothrep top 0 0
+mol drawframes top 0 {now}
+
+mol representation Licorice 0.600000 10.000000 10.000000
+mol color Name
+mol selection {segid M001}
+mol material Opaque
+mol addrep top
+mol selupdate 0 top 0
+mol colupdate 0 top 0
+mol scaleminmax top 0 0.000000 0.000000
+mol smoothrep top 0 0
+mol drawframes top 0 {now}
+mol rename top bond.psf
+label textsize 1.0
+
+pbc box
+

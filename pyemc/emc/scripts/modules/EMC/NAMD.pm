@@ -104,7 +104,7 @@ sub set_defaults {
       timestep		=> 2.0,
       tequil		=> 100000,
       tminimize		=> 50000,
-      trun		=> 10000000,
+      trun		=> undef,
       verbatim		=> undef
     }
   );
@@ -147,6 +147,25 @@ sub transfer {
     [\$::EMC::NAMD{trun},		\$context->{trun}],
     [\$::EMC::NAMD{write}, 		\$flag->{write}]
   );
+}
+
+
+sub set_context {
+  my $namd = EMC::Common::hash(shift(@_));
+  my $root = EMC::Common::hash(shift(@_));
+  my $global = EMC::Common::element($root, "global");
+  my $field = EMC::Common::element($root, "fields", "field");
+  my $units = EMC::Common::element($global, "units");
+  my $flag = EMC::Common::element($namd, "flag");
+  my $context = EMC::Common::element($namd, "context");
+  my $defined = EMC::Common::hash($namd, "defined");
+
+  $context->{tequil} = (
+    $global->{tequil}) if (!defined($defined->{tequil}));
+  $context->{trun} = (
+    $global->{trun}) if (!defined($defined->{trun}));
+  $flag->{trun} = (
+    $global->{flag}->{trun}) if (!defined($defined->{trun}));
 }
 
 
@@ -316,6 +335,7 @@ sub set_options {
   my $root = EMC::Common::element($struct, "root");
   my $namd = EMC::Common::element($struct, "module");
   my $context = EMC::Common::hash($namd, "context");
+  my $defined = EMC::Common::hash($namd, "defined");
   my $flag = EMC::Common::hash($namd, "flag");
   my $set = EMC::Common::element($namd, "set");
   my $indicator = defined($set) ? $set->{flag}->{indicator} : 1;
@@ -359,6 +379,7 @@ sub set_options {
   if ($option eq $indicator."tminimize") {
     return $context->{tminimize} = EMC::Math::eval($args->[0])->[0]; }
   if ($option eq $indicator."trun") {
+    $defined->{trun} = 1;
     return $context->{trun} = EMC::Math::eval($args->[0])->[0]; }
   return undef;
 }
@@ -372,8 +393,10 @@ sub set_functions {
   my $flags = {commands => 1, indicator => 1, items => 1, md => 1};
 
   $set->{commands} = \&EMC::NAMD::set_commands;
+  $set->{context} = \&EMC::NAMD::set_context;
   $set->{defaults} = \&EMC::NAMD::set_defaults;
   $set->{options} = \&EMC::NAMD::set_options;
+  $set->{flags} = \&EMC::Options::set_flag;
 
   $write->{emc} = \&EMC::NAMD::write_emc;
   $write->{job} = \&EMC::NAMD::write_job;
@@ -422,6 +445,7 @@ sub write_header {			# <= write_namd_header
   my $namd = EMC::Common::hash($root, "md", "namd");
   my $context = EMC::Common::hash($namd, "context");
   my $global = EMC::Common::hash($root, "global");
+  my $md = EMC::Common::hash($root, "md");
   my $identity = EMC::Common::hash($global, "identity");
   my $date = EMC::Common::date_full();
 
@@ -452,7 +476,7 @@ set		cutoff_inner	$global->{cutoff}->{inner}
 set		cutoff_outer	$global->{cutoff}->{pair}
 set		cutoff_ghost	".($global->{cutoff}->{ghost}>0 ? $global->{cutoff}->{ghost} : $global->{cutoff}->{pair}+2)."
 
-set		timestep	$global->{timestep}
+set		timestep	$md->{context}->{timestep}
 set		dtnonbond	$context->{dtnonbond}
 set		dtcoulomb	$context->{dtcoulomb}
 set		dtupdate	$context->{dtupdate}
@@ -663,14 +687,13 @@ sub write_emc {
   my $stream = EMC::Common::element($root, "io", "stream");
   my $emc_flag = EMC::Common::element($root, "emc", "flag");
   my $global = EMC::Common::element($root, "global");
-  my $pdb = EMC::Common::element($root, "pdb", "flag");
+  my $pdb = EMC::Common::element($root, "md", "pdb", "flag");
   my $field = EMC::Common::element($root, "fields", "field");
   my $context = EMC::Common::element($namd, "context");
   my $flag = EMC::Common::element($namd, "flag");
 
   return if ($emc_flag->{test});
   return if (!(defined($flag) && $flag->{write}));
-  return if ($emc_flag->{exclude}->{build});
 
   printf($stream "namd\t\t= {name -> output,");
   printf($stream " compress -> ".EMC::Math::boolean($pdb->{compress}).",");
@@ -715,8 +738,7 @@ sub write_job {
   return if (!(defined($flag) && $flag->{write}));
 
   printf($stream
-"
-run_md() {
+"run_md() {
   local dir=\"\$1\"; shift;
   local frestart=\"\$1\"; shift;
   local ncores=\"\$1\"; shift;
@@ -813,6 +835,7 @@ set_restart() {
   RESTART=(\$1/*/*.restart.coor);
   echo \"\${RESTART[0]}\";
 }
+
 ");
 }
 

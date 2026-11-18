@@ -1,0 +1,11 @@
+{
+  "version": "9.4.4",
+  "build": "20260701",
+  "valid_until": "2027-07-01",
+  "archives": {
+    "https://downloads.sourceforge.net/project/montecarlo/emc_linux_aarch64_v9.4.4_20260701.tgz": "07eefc8e6c848cbe8f6b609399b24f35452917654462bb8c1ae98be52617180e",
+    "https://downloads.sourceforge.net/project/montecarlo/emc_linux_x86_64_v9.4.4_20260701.tgz": "97f8debaa50e5ea50500905c084e9947203a8853b6b09f594c29769b9826c904",
+    "https://downloads.sourceforge.net/project/montecarlo/emc_macos_v9.4.4_20260701.tgz": "923c54f43733e9888129edf65ae958ddba910647dcde3880cb18618aa103cd8f",
+    "https://downloads.sourceforge.net/project/montecarlo/emc_win32_v9.4.4_20260701.tgz": "57aac10b66e4e6d902c52ef0e3b1a02a029a7e3df20c0b55a6d34cc1a6bb2175"
+  }
+}

@@ -14,7 +14,7 @@ ITEM	OPTIONS
 replace		true
 field		opls/2024/opls-aa
 number		true
-#ntotal		10000
+ntotal		10000
 density		1
 pdb_licorice	true
 emc_execute	true

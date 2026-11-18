@@ -1,13 +1,14 @@
 #
-#  file:	oplsaa.define
+#  file:	opls-aa.define
 #  author:	Pieter J. in 't Veld
 #  date:	November 16, 25, 2012, March 17, 24, 2013, December 30, 2014,
 #  		January 15, 2016, February 3, 2017, November 9, 2020,
-#		November 20-30, December 1-20, 2024.
+#		November 20-30, December 1-20, 2024, December 27, 2025,
+#		March 29, 2026.
 #  purpose:	OPLS-AA force field definitions and typing rules
 #  version:	2.0beta
 #
-#  Copyright (c) 2004-2025 Pieter J. in 't Veld
+#  Copyright (c) 2004-2026 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMCroot
 #  directory
 #
@@ -65,6 +66,8 @@
 #    		  blocks
 #    		- Use /* */ or (* *) for commenting out blocks in STREAM
 #    		- Latter only works at beginning of line
+#    20251227	- Addition of furan and nitrile structures
+#    20260329	- Addition of fluorene
 #
 
 # Definitions
@@ -87,26 +90,26 @@ ITEM	REFERENCES
 
 1954	??	??	Wiley (Hirschfelder)
 1972	24	1013	Mol. Phys.
-1988	63	547	Mol. Phys.
-1984	106	6638	J. Am. Chem. Soc.
-1991	113	8262	J. Am. Chem. Soc.
-1996	118	11225	J. Am. Chem. Soc.
-1999	121	4827	J. Am. Chem. Soc.
 1983	79	926	J. Chem. Phys.
-1990	11	958	J. Comput. Chem.
-1997	18	1955	J. Comput. Chem.
+1984	106	6638	J. Am. Chem. Soc.
 1986	90	1276	J. Phys. Chem.
 1986	90	2174	J. Phys. Chem.
 1986	90	6379	J. Phys. Chem.
+1988	63	547	Mol. Phys.
+1990	11	958	J. Comput. Chem.
 1990	94	1683	J. Phys. Chem.
+1991	113	8262	J. Am. Chem. Soc.
 1991	95	3315	J. Phys. Chem.
-2001	105	4118	J. Phys. Chem. A
+1996	118	11225	J. Am. Chem. Soc.
+1997	18	1955	J. Comput. Chem.
 1998	102	8049	J. Phys. Chem. B
+1998	424	145	J. Mol. Struct. (Theochem)
+1999	121	4827	J. Am. Chem. Soc.
+2001	105	4118	J. Phys. Chem. A
 2004	18	16264	J. Phys. Chem. B
-1998	424	145	Theochem.
-2007	806	23	J. Mol. Struct. THEOCHEM
 2006	2	1499	J. Chem. Theory Comput.
 2009	5	1038	J. Chem. Theory Comput.
+2017	13	6131	J. Chem. Theory Comput.
 
 ITEM	END
 
@@ -178,8 +181,9 @@ c3oa	C	12.011	C	3	231	0	3.75	0.105	C=O in deprotonated acids
 c3oh	C	12.011	C	3	231	0	3.75	0.105	C=O in protonated acids
 c3oe	C	12.011	C	3	231	0	3.75	0.105	C=O in esters
 c3ou	C	12.011	C	3	231	0	3.75	0.105	C=O in urea
-c3am	C	12.011	C	3	231	0	3.75	0.105	C=O in amides
-c3im	C	12.011	C	3	231	0	3.75	0.105	C=O in imides
+c3oan	C	12.011	C	3	231	0	3.75	0.105	C=O in maleic anhydride
+c3oam	C	12.011	C	3	231	0	3.75	0.105	C=O in amides
+c3oim	C	12.011	C	3	231	0	3.75	0.105	C=O in imides
 
 # C!
 
@@ -211,6 +215,7 @@ c2	C:	12.011	C	2	1157	0	3.3	0.086	Middle carbon in allenes
 
 # C=
 
+c3an	C=	12.011	C	3	2532	0	3.55	0.07	SP2 carbon in maleic anhydride
 c3u	C=	12.011	C	3	2532	0	3.55	0.07	SP2 carbon in uracil
 c3d	C=	12.011	C	3	150	0	3.55	0.076	Diene =CH-CH=
 
@@ -266,6 +271,7 @@ C3a5o	CS	12.011	C	3	568	0	3.55	0.076	Aromatic carbon in 5-ring with 1 O (furan C
 
 c4	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon
 c4n	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in amines
+c4nn	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in nitriles
 c4ns	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in sulfonamides
 c4o	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in benzyl alcohols
 c4s	CT	12.011	C	4	135	0	3.5	0.066	SP3 carbon in sulfides
@@ -294,6 +300,7 @@ c3a52	CV	12.011	C	3	507	0	3.55	0.07	Aromatic carbon in 5-ring (histidine CD2 in 
 # CW
 
 c3a51	CW	12.011	C	3	508	0	3.55	0.07	Aromatic carbon in 5-ring (histidine CG in HID, CD2 in HIE)
+c3a5f	CW	12.011	C	3	567	0	3.55	0.076	Aromatic carbon (furan C2)
 c3a5s	CW	12.011	C	3	2013	0	3.55	0.076	Aromatic carbon (3-phenylthiophene)
 
 # CX
@@ -332,6 +339,7 @@ ca+2	Ca	40.078	Ca	0	1112	0	3.47	0.449657	Calcium 2+ ion
 cl1	Cl	35.4527	Cl	1	151	0	3.4	0.3	Cl in alkyl chlorides
 #cl-	Cl	35.4527	Cl	0	401	-1	4.02	0.71	Chlorine 1- anion (old)
 cl-	Cl	35.4527	Cl	0	1101	-1	4.18	0.11779	Chlorine 1- anion
+cl4o	Cl	35.4527	Cl	4	-	0	3.5	0.118	Cl in perchlorate
 
 #
 # Cesium
@@ -528,11 +536,11 @@ n3ch2	N2	14.0067	N	3	300	0	3.25	0.17	Nitrogen in guanidinium
 
 # N3
 
-n4	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with no protons
-n4h	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with one proton
-n4h2	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with two protons
-n4h3	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with three protons
-n4h4	N3	14.0067	N	3	286	0	3.25	0.17	Nitrogen in ammonium ion with four protons
+n4	N3	14.0067	N	4	286	0	3.25	0.17	Nitrogen in ammonium ion with no protons
+n4h	N3	14.0067	N	4	286	0	3.25	0.17	Nitrogen in ammonium ion with one proton
+n4h2	N3	14.0067	N	4	286	0	3.25	0.17	Nitrogen in ammonium ion with two protons
+n4h3	N3	14.0067	N	4	286	0	3.25	0.17	Nitrogen in ammonium ion with three protons
+n4h4	N3	14.0067	N	4	286	0	3.25	0.17	Nitrogen in ammonium ion with four protons
 n2c	N3	14.0067	N	2	427	0	3.4	0.25	Nitrogen in deprotonated amine (methylamine)
 
 # NA
@@ -631,6 +639,7 @@ o2w5	OW	15.9994	O	2	97	0	3.12	0.16	Oxygen in TIP5P water
 
 o1s	OY	15.9994	O	1	497	0	2.93	0.28	Oxygen in sulfoxide
 o1s=	OY	15.9994	O	1	475	0	2.96	0.17	Oxygen in sulfonamide
+o1cl	OY	15.9994	O	1	-	0	2.9	0.21	Oxygen in perchlorate
 
 #
 # Phosphorus
@@ -823,6 +832,26 @@ yb+3	Yb	-	-	3	[Yb+3]
 
 ITEM	END	# RULES
 
+# Bonds
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+cl4o	o1cl	757.6	1.506
+
+ITEM	END	# BOND
+
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+o1cl	cl4o	o1cl	207.9	109.5
+
+ITEM	END	# ANGLE
+
 # Stream
 
 ITEM	STREAM
@@ -845,6 +874,18 @@ ATOM	H	h1o	0.3	!
 CONECT	O	H
 
 UNLINK	o1h-	h1o
+
+RESI	CLO4	-1		! ClO4, perchlorate
+GROUP				!
+ATOM	CL	cl4o	1.176	!      O2
+ATOM	O1	o1cl	-0.544	!      |
+ATOM	O2	o1cl	-0.544	!  O1--Cl--O2
+ATOM	O3	o1cl	-0.544	!      |
+ATOM	O4	o1cl	-0.544	!      O4
+
+CONECT	CL	:O1	:O2	:O3	:O4
+
+UNLINK	cl4o	o1cl
 
 ITEM	END	# STREAM
 
@@ -944,6 +985,17 @@ ITEM	END	# STREAM
 #									#
 #########################################################################
 
+# Torsions
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+c*	c4	c4	c3*	1.3	1	0	-0.05	2	0	0.2	3	0	# based on c4-c4-c4-c4
+c4	c4	c3=	h1=	0	1	0	# assumed to be zero
+
+ITEM	END	# TORSION
+
 # Stream
 
 ITEM	STREAM
@@ -998,7 +1050,7 @@ ITEM	RULES
 
 # type	element	residue	atom	charge	rule
 
-c3a	C	-	-	0	^6c(^6:c)(^6:c)(C)
+c3a	C	-	-	0	^6c(^6:c)(^6:c)(~C)
 c3a	C	-	-	0	^6c(^6:c)(^6:c)(H)
 c4	C	-	-	0	C(^6c)(C)(C)(C)
 c4	C	-	-	0	C(^6c)(C)(C)(H)
@@ -1084,44 +1136,15 @@ CONECT	C7	H71	H72	H73
 
 # 260-262
 
-RESI	BZNI	0		! C7H5N, benzonitrile
-GROUP				!
-ATOM	C1	c3a	-0.115	!          H1
-ATOM	H1	h1a	0.115	!          |
-GROUP				!          C1
-ATOM	C2	c3a	-0.115	!         /  \\
-ATOM	H2	h1a	0.115	!   H2--C2    C6--C##N
-GROUP				!       ||    |
-ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5
-ATOM	H3	h1a	0.115	!         \  //
-GROUP				!          C4
-ATOM	C4	c3a	-0.115	!          |
-ATOM	H4	h1a	0.115	!          H4
-GROUP				!
-ATOM	C5	c3a	-0.115	!
-ATOM	H5	h1a	0.115	!
-GROUP				!
-ATOM	C6	c3a	0.035	!
-ATOM	C	c2na	0.395	!
-ATOM	N	n1	-0.43	!
-
-CONECT	C1	^6:C2	H1
-CONECT	C2	^6:C3	H2
-CONECT	C3	^6:C4	H3
-CONECT	C4	^6:C5	H4
-CONECT	C5	^6:C6	H5
-CONECT	C6	^6:C1	C
-CONECT	C	#N
-
 RESI	DIPH	0		! C12H10, diphenyl, biphenyl, phenylbenzene
 GROUP				!
 ATOM	C1	c3a	-0.115	!          H1              H12
 ATOM	H1	h1a	0.115	!          |               |
 GROUP				!          C1              C12
 ATOM	C2	c3a	-0.115	!         /  \\           /  \\
-ATOM	H2	h1a	0.115	!   H2--C2    C6--------C7   C11--H11
+ATOM	H2	h1a	0.115	!   H2--C2    C6--------C7    C11--H11
 GROUP				!       ||    |         ||    |
-ATOM	C3	c3a	-0.115	!   H3--C3    C5        C8   C10--H10
+ATOM	C3	c3a	-0.115	!   H3--C3    C5        C8    C10--H10
 ATOM	H3	h1a	0.115	!         \  // \      /  \  //
 GROUP				!          C4    H5  H8    C9
 ATOM	C4	c3a	-0.115	!          |               |
@@ -1205,6 +1228,56 @@ CONECT	C7	^6:C8	H7
 CONECT	C8	^6:C9	H8
 CONECT	C9	^6:C10	H9
 CONECT	C10	^6:C5	H10
+
+RESI	FLUO	0		! C13H10, fluorene
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H4          H12
+ATOM	H1	h1a	0.115	!          |           |
+GROUP				!          C4          C12
+ATOM	C2	c3a	-0.115	!         /  \\       /  \\
+ATOM	H2	h1a	0.115	!   H3--C3    C5----C13   C11--H11
+GROUP				!       ||    |     ||    | 
+ATOM	C3	c3a	-0.115	!   H2--C2    C6    C8    C10--H10
+ATOM	H3	h1a	0.115	!         \  // \  /  \  //
+GROUP				!          C1    C7    C9
+ATOM	C4	c3a	-0.115	!          |    /  \   |
+ATOM	H4	h1a	0.115	!          H1 H81  H82 H9
+GROUP				!
+ATOM	C5	c3a	0	!
+GROUP				!
+ATOM	C6	c3a	-0.115	!
+ATOM	C7	c4	0.11	!
+ATOM	H71	h1	0.06	!
+ATOM	H72	h1	0.06	!
+ATOM	C8	c3a	-0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+GROUP				!
+ATOM	C11	c3a	-0.115	!
+ATOM	H11	h1a	0.115	!
+GROUP				!
+ATOM	C12	c3a	-0.115	!
+ATOM	H12	h1a	0.115	!
+GROUP				!
+ATOM	C13	c3a	0	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^5:C5	H4
+CONECT	C5	^5:C6
+CONECT	C6	^5:C1	^5C7
+CONECT	C7	^5C8	H71	H72
+CONECT	C8	^6:C9
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C11	H10
+CONECT	C11	^6:C12	H11
+CONECT	C12	^5:C13	H12
+CONECT	C13	^5:C5	^5:C8
 
 ITEM	END	# STREAM
 
@@ -1845,17 +1918,45 @@ ITEM	RULES
 
 # type	element	residue	atom	charge	rule
 
-o2s	O	-	-	0	O(C(=O)(~C))(~C)
+c3a	C	-	-	0	^6c(^6:c)(^6:c)(O)
 h1co	H	BZUR	H81	0	H(C(O(C(=O)(*)))(H)(H))
 h1co	H	EACE	H31	0	H(C(C)(O(C(=O)(*)))(H))
+o2s	O	-	-	0	O(C(=O)(~C))(~C)
 
 ITEM	END	# RULES
 
-# Torsion
+# Angles
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0
+
+c3a*	c4	c4	63	114
+c3o*	o2*	c3o*	70	106.5
+c3o*	c3a*	c4	70	119.7
+c3a*	c3a*	c3o*	85	120
+c3o*	c3an	h1	35	126.8
+
+ITEM	END	# ANGLE
+
+# Torsions
 
 ITEM	TORSION
 
 # type1	type2	type3	type4	k	n	delta	[...]
+
+c3a*	c3a*	c4	c4	0	1	0
+c3a*	c3a*	c4	h1	-0.372	3	0
+c3a*	c3o*	o2*	c3o*	7.25	2	0
+c3a*	c4	c4	h1	0.462	3	0
+c3o*	c3a*	c3a*	c4	0.2	2	0
+c3o*	c3a*	c3a*	h1	0.2	2	0
+c3o*	c3a*	c4	c4	0	1	0
+c3o*	c3a*	c4	h1	-0.372	3	0
+c3o*	o2*	c3o*	c4	1.5	1	0	5	2	0
+c3o*	o2*	c3o*	o1=	5	2	0
+h1	c3a*	c3o*	o1=	0	1	0
+h1	c3a*	c3o*	o2*	2.1	2	0
 
 ITEM	END	# TORSION
 
@@ -1989,6 +2090,195 @@ CONECT	C7	O6	=O7
 CONECT	O6	C8
 CONECT	C8	H81	H82	H83
 
+# 465-469
+
+RESI	HMAN	0		! C4H4O3, hydrogenated maleic anhydride
+GROUP				!
+ATOM	O1	o2e	-0.16	!        O1
+ATOM	C2	c3oe	0.51	!       /  \
+ATOM	O2	o1=	-0.43	!  O2==C2  C5==O5
+ATOM	C5	c3oe	0.51	!      |    |
+ATOM	O5	o1=	-0.43	! H31--C3--C4--H41
+GROUP				!      |    |
+ATOM	C3	c4	-0.12	!     H32  H42
+ATOM	H31	h1	0.06	!
+ATOM	H32	h1	0.06	!
+GROUP				!
+ATOM	C4	c4	-0.12	!
+ATOM	H41	h1	0.06	!
+ATOM	H42	h1	0.06	!
+
+CONECT	O1	^5C2
+CONECT	C2	^5C3	=O2
+CONECT	C3	^5C4	H31	H32
+CONECT	C4	^5C5	H41	H42
+CONECT	C5	^5O1	=O5
+
+# 135-140, 465-469
+
+RESI	HMMA	0		! C5H5O3, hydrogenated 3-methyl maleic anhydride
+GROUP				!
+ATOM	O1	o2e	-0.16	!        O1
+ATOM	C2	c3oe	0.51	!       /  \
+ATOM	O2	o1=	-0.43	!  O2==C2  C5==O5
+ATOM	C5	c3oe	0.51	!      |    |
+ATOM	O5	o1=	-0.43	!  H3--C3--C4--H41
+GROUP				!      |    |
+ATOM	C3	c4	-0.06	!      |   H42
+ATOM	H3	h1	0.06	!      |
+GROUP				! H61--C6--H63
+ATOM	C4	c4	-0.12	!      |
+ATOM	H41	h1	0.06	!     H62
+ATOM	H42	h1	0.06	!
+GROUP				!
+ATOM	C6	c4	-0.18	!
+ATOM	H61	h1	0.06	!
+ATOM	H62	h1	0.06	!
+ATOM	H63	h1	0.06	!
+
+CONECT	O1	^5C2
+CONECT	C2	^5C3	=O2
+CONECT	C3	^5C4	C6	H3
+CONECT	C4	^5C5	H41	H42
+CONECT	C5	^5O1	=O5
+CONECT	C6	H61	H62	H63
+
+# 145-146, 465-469
+
+RESI	HPMA	0		! C10H8O3, hydrogenated 3-phenyl maleic anhydride
+GROUP				!
+ATOM	O1	o2e	-0.16	!           O1
+ATOM	C2	c3oe	0.51	!          /  \
+ATOM	O2	o1=	-0.43	!     O2==C2  C5==O5
+ATOM	C5	c3oe	0.51	!         |    |
+ATOM	O5	o1=	-0.43	!     H3--C3--C4--H42
+GROUP				!         |    |
+ATOM	C3	c4	0.055	!         C6  H41
+ATOM	H3	h1	0.06	!        /  \\
+ATOM	C6	c3a	-0.115	!  H7--C7    C11--H11
+GROUP				!      ||     |
+ATOM	C4	c4	-0.12	!  H8--C8    C10--H10
+ATOM	H41	h1	0.06	!        \  //
+ATOM	H42	h1	0.06	!         C9
+GROUP				!         |
+ATOM	C7	c3a	-0.115	!         H9
+ATOM	H7	h1a	0.115	!
+GROUP				!
+ATOM	C8	c3a	-0.115	!
+ATOM	H8	h1a	0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+GROUP				!
+ATOM	C11	c3a	-0.115	!
+ATOM	H11	h1a	0.115	!
+
+CONECT	O1	^5C2
+CONECT	C2	^5C3	=O2
+CONECT	C3	^5C4	C6	H3
+CONECT	C4	^5C5	H41	H42
+CONECT	C5	^5O1	=O5
+CONECT	C6	^6:C7
+CONECT	C7	^6:C8	H7
+CONECT	C8	^6:C9	H8
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C11	H10
+CONECT	C11	^6:C6	H11
+
+# 2593-2601
+
+RESI	MAAN	0		! C4H2O3, maleic anhydride
+GROUP				!
+ATOM	O1	o2e	-0.28	!        O1
+ATOM	C2	c3oan	0.465	!       /  \
+ATOM	O2	o1=	-0.325	!  O2==C2  C5==O5
+ATOM	C5	c3oan	0.465	!      |    |
+ATOM	O5	o1=	-0.325	!  H3--C3==C4--H4
+GROUP				!
+ATOM	C3	c3an	-0.2	!
+ATOM	H3	h1=	0.2	!
+GROUP				!
+ATOM	C4	c3an	-0.2	!
+ATOM	H4	h1=	0.2	!
+
+CONECT	O1	^5C2
+CONECT	C2	^5C3	=O2
+CONECT	C3	^5=C4	H3
+CONECT	C4	^5C5	H4
+CONECT	C5	^5O1	=O5
+
+# 2593-2601
+
+RESI	MMAN	0		! C5H4O3, 3-methyl maleic anhydride
+GROUP				!
+ATOM	O1	o2e	-0.28	!        O1
+ATOM	C2	c3oan	0.465	!       /  \
+ATOM	O2	o1=	-0.325	!  O2==C2  C5==O5
+ATOM	C5	c3oan	0.465	!      |    |
+ATOM	O5	o1=	-0.325	!      C3==C4--H4
+GROUP				!      |
+ATOM	C3	c3an	-0.1	! H61--C6--H63
+ATOM	C6	c4	-0.08	!      |
+ATOM	H61	h1	0.06	!     H62
+ATOM	H62	h1	0.06	!
+ATOM	H63	h1	0.06	!
+GROUP				!
+ATOM	C4	c3an	-0.2	!
+ATOM	H4	h1=	0.2	!
+
+CONECT	O1	^5C2
+CONECT	C2	^5C3	=O2
+CONECT	C3	^5=C4	C6
+CONECT	C4	^5C5	H4
+CONECT	C5	^5O1	=O5
+CONECT	C6	H61	H62	H63
+
+# 2593-2601
+
+RESI	PMAN	0		! C10H6O3, 3-phenyl maleic anhydride
+GROUP				!
+ATOM	O1	o2e	-0.28	!           O1
+ATOM	C2	c3oan	0.465	!          /  \
+ATOM	O2	o1=	-0.325	!     O2==C2  C5==O5
+ATOM	C5	c3oan	0.465	!         |    |
+ATOM	O5	o1=	-0.325	!         C3==C4--H4
+GROUP				!         |
+ATOM	C3	c3an	-0.1	!         C6
+ATOM	C6	c3ab	0.1	!        /  \\
+GROUP				!  H7--C7    C11--H11
+ATOM	C4	c3an	-0.2	!      ||     |
+ATOM	H4	h1=	0.2	!  H8--C8    C10--H10
+GROUP				!        \  //
+ATOM	C7	c3a	-0.115	!         C9
+ATOM	H7	h1a	0.115	!         |
+GROUP				!         H9
+ATOM	C8	c3a	-0.115	!
+ATOM	H8	h1a	0.115	!
+GROUP				!
+ATOM	C9	c3a	-0.115	!
+ATOM	H9	h1a	0.115	!
+GROUP				!
+ATOM	C10	c3a	-0.115	!
+ATOM	H10	h1a	0.115	!
+GROUP				!
+ATOM	C11	c3a	-0.115	!
+ATOM	H11	h1a	0.115	!
+
+CONECT	O1	^5C2
+CONECT	C2	^5C3	=O2
+CONECT	C3	^5=C4	C6
+CONECT	C4	^5C5	H4
+CONECT	C5	^5O1	=O5
+CONECT	C6	^6:C7
+CONECT	C7	^6:C8	H7
+CONECT	C8	^6:C9	H8
+CONECT	C9	^6:C10	H9
+CONECT	C10	^6:C11	H10
+CONECT	C11	^6:C6	H11
+
 ITEM	END	# STREAM
 
 
@@ -2004,9 +2294,11 @@ ITEM	RULES
 
 # type	element	residue	atom	charge	rule
 
-c4oe	C	-	-	0	C(~O(~C))(~C)(~C)(~C)
-c4oe	C	-	-	0	C(~O(~C))(~C)(~C)(H)
-c4oe	C	-	-	0	C(~O(~C))(~C)(H)(H)
+c4oe	C	-	-	0	C(O(C))(~C)(~C)(~C)
+c4oe	C	-	-	0	C(O(C))(~C)(~C)(H)
+c4oe	C	-	-	0	C(O(C))(~C)(O)(H)
+c4oe	C	-	-	0	C(O(C))(~C)(H)(H)
+c4oe	C	-	-	0	C(O(C))(H)(H)(H)
 o2e	O	-	-	0	O(~C)(~C)
 
 ITEM	END	# RULES
@@ -2018,6 +2310,13 @@ ITEM	ANGLE
 # type1	type2	type3	k	theta0
 
 c3a*	o2*	c3a*	70	106.5
+c4*	c3a5n	c3a5n	70	125
+
+# furan
+
+c3a*	c3o	h1	35	115
+c3a*	c3o	o2	81	111.4
+c3*	c3a*	o2	70	121.6
 
 ITEM	END	# ANGLE
 
@@ -2029,6 +2328,18 @@ ITEM	TORSION
 
 c*	c4	o2*	c4	0.65	1	0	-0.25	2	0	0.67	3	0
 c3a*	c3a*	o2*	c3a*	7.25	2	0
+
+c3a51	o2*	c3a51	*	7.25	2	0
+*	c3a51	c3a5n	*	7.25	2	0
+*	c3a5n	c3a5n	*	2.17	2	0
+
+# furan
+
+c3a*	c3a*	c3o	h1	0.2	2	0
+c3a*	c3a*	c3o	o2	2.1	2	0
+c3a*	c3a*	c3o	o1=	2.1	2	0
+o2	c3a*	c3o	o1=	2.1	2	0
+o2	c3a*	c3o	h1	2.1	2	0
 
 ITEM	END	# TORSION
 
@@ -2220,6 +2531,120 @@ CONECT	O1	^3C1
 CONECT	C1	^3C2	H11	H12
 CONECT	C2	^3O1	H21	H22
 
+# 566-570
+
+RESI	FURA	0		! C4H4O, furan
+GROUP				!
+ATOM	O1	o2e	-0.19	!          O1
+ATOM	C2	c3a5f	-0.019	!         /  \
+ATOM	H2	h1a	0.142	!   H2--C2    C5--H5
+ATOM	C3	c3a5o	-0.154	!       ||    ||
+ATOM	H3	h1a	0.126	!   H3--C3----C4--H4
+ATOM	C4	c3a5o	-0.154	!
+ATOM	H4	h1a	0.126	!
+ATOM	C5	c3a5f	-0.019	!
+ATOM	H5	h1a	0.142	!
+
+CONECT	O1	^5:C2
+CONECT	C2	^5:C3	H2
+CONECT	C3	^5:C4	H3
+CONECT	C4	^5:C5	H4
+CONECT	C5	^5:O1	H5
+
+# 566-570
+
+RESI	2MFU	0		! C4H4O, 2-methyl-furan
+GROUP				!
+ATOM	O1	o2e	-0.19	!          O1        H61
+ATOM	C2	c3a5f	-0.019	!         /  \        |
+ATOM	H2	h1a	0.142	!   H2--C2    C5------C6--H62
+ATOM	C3	c3a5o	-0.154	!       ||    ||      |
+ATOM	H3	h1a	0.126	!   H3--C3----C4--H4 H63
+ATOM	C4	c3a5o	-0.154	!
+ATOM	H4	h1a	0.126	!
+ATOM	C5	c3a5f	-0.019	!
+ATOM	C6	c4	-0.038  !
+ATOM	H61	h1	0.06    !
+ATOM	H62	h1	0.06    !
+ATOM	H63	h1	0.06    !
+
+CONECT	O1	^5:C2
+CONECT	C2	^5:C3	H2
+CONECT	C3	^5:C4	H3
+CONECT	C4	^5:C5	H4
+CONECT	C5	^5:O1	C6
+CONECT	C6	H61	H62	H63
+
+# 566-570
+
+RESI	3MFU	0		! C4H4O, 3-methyl-furan
+GROUP				!
+ATOM	O1	o2e	-0.19	!          O1
+ATOM	C2	c3a5f	-0.019	!         /  \
+ATOM	H2	h1a	0.142	!   H2--C2    C5--H5
+ATOM	C3	c3a5o	-0.154	!       ||    ||
+ATOM	C4	c3a5o	-0.154	!       C3----C4--H4
+ATOM	H4	h1a	0.126	!       |
+ATOM	C5	c3a5f	-0.019	!  H61--C6--H63
+ATOM	H5	h1a	0.142	!       |
+ATOM	C6	c4	-0.054  !      H62
+ATOM	H61	h1	0.06    !
+ATOM	H62	h1	0.06    !
+ATOM	H63	h1	0.06    !
+
+CONECT	O1	^5:C2
+CONECT	C2	^5:C3	H2
+CONECT	C3	^5:C4	C6
+CONECT	C4	^5:C5	H4
+CONECT	C5	^5:O1	H5
+CONECT	C6	H61	H62	H63
+
+# 566-570
+
+RESI	FU2O	0		! C4H4O, furan-2-carbaldehyde, furfural
+GROUP				!
+ATOM	O1	o2e	-0.19	!          O1         H6
+ATOM	C2	c3a5f	-0.019	!         /  \        |
+ATOM	H2	h1a	0.142	!   H2--C2    C5------C6==O6
+ATOM	C3	c3a5o	-0.154	!       ||    ||
+ATOM	H3	h1a	0.126	!   H3--C3----C4--H4
+ATOM	C4	c3a5o	-0.154	!
+ATOM	H4	h1a	0.126	!
+ATOM	C5	c3a5f	-0.019	!
+ATOM	C6	c3o	0.612   !
+ATOM	H6	h1co	0       !
+ATOM	O6	o1=	-0.47   !
+
+CONECT	O1	^5:C2
+CONECT	C2	^5:C3	H2
+CONECT	C3	^5:C4	H3
+CONECT	C4	^5:C5	H4
+CONECT	C5	^5:O1	C6
+CONECT	C6	=O6	H6
+
+# 566-570
+
+RESI	FU3O	0		! C4H4O, furan-3-carbaldehyde
+GROUP				!
+ATOM	O1	o2e	-0.19	!          O1
+ATOM	C2	c3a5f	-0.019	!         /  \
+ATOM	H2	h1a	0.142	!   H2--C2    C5--H5
+ATOM	C3	c3a5o	-0.154	!       ||    ||
+ATOM	C4	c3a5o	-0.154	!       C3----C4--H4
+ATOM	H4	h1a	0.126	!       |
+ATOM	C5	c3a5f	-0.019	!   H6--C6
+ATOM	H5	h1a	0.142	!       ||
+ATOM	C6	c3o	0.596   !       O6
+ATOM	H6	h1co	0       !
+ATOM	O6	o1=	-0.47   !
+
+CONECT	O1	^5:C2
+CONECT	C2	^5:C3	H2
+CONECT	C3	^5:C4	C6
+CONECT	C4	^5:C5	H4
+CONECT	C5	^5:O1	H5
+CONECT	C6	=O6	H6
+
 ITEM	END	# STREAM
 
 
@@ -2370,6 +2795,86 @@ CONECT	C2	O2	C4	H21
 CONECT	O2	C3
 CONECT	C3	H31	H32	H33
 CONECT	C4	H41	H42	H43
+
+ITEM	END	# STREAM
+
+
+#########################################################################
+#									#
+# Nitriles								#
+#									#
+#########################################################################
+
+# Rules
+
+ITEM	RULES
+
+# type	element	residue	atom	charge	rule
+
+c4nn	C	-	-	0	C(C(#N))(~C)(~C)(~C)
+c4nn	C	-	-	0	C(C(#N))(~C)(~C)(H)
+c4nn	C	-	-	0	C(C(#N))(~C)(H)(H)
+h1cn	H	-	-	0	H(C(C(#N))(~C)(~C))
+h1cn	H	-	-	0	H(C(C(#N))(~C)(H))
+
+ITEM	END	# RULES
+
+# Stream
+
+ITEM	STREAM
+
+# 753-759
+
+RESI	ACNI	0		! C2H3N, acetonitrile
+GROUP
+ATOM	C1	c4nn	-0.08	!       H13
+ATOM	H11	h1cn	0.06	!        |	
+ATOM	H12	h1cn	0.06	!   H11--C1--H12
+ATOM	H13	h1cn	0.06	!        |
+GROUP				!        C2
+ATOM	C2	c2n	0.46	!        #
+ATOM	N	n1	-0.56	!        N
+
+CONECT	C1	C2	H11	H12	H13
+CONECT	C2	#N
+
+UNLINK	c2n	n1
+UNLINK	c2n	c4nn
+UNLINK	c4nn	h1cn
+
+# 260-262
+
+RESI	BZNI	0		! C7H5N, benzonitrile
+GROUP				!
+ATOM	C1	c3a	-0.115	!          H1
+ATOM	H1	h1a	0.115	!          |
+GROUP				!          C1
+ATOM	C2	c3a	-0.115	!         /  \\
+ATOM	H2	h1a	0.115	!   H2--C2    C6--C##N
+GROUP				!       ||    |
+ATOM	C3	c3a	-0.115	!   H3--C3    C5--H5
+ATOM	H3	h1a	0.115	!         \  //
+GROUP				!          C4
+ATOM	C4	c3a	-0.115	!          |
+ATOM	H4	h1a	0.115	!          H4
+GROUP				!
+ATOM	C5	c3a	-0.115	!
+ATOM	H5	h1a	0.115	!
+GROUP				!
+ATOM	C6	c3a	0.035	!
+ATOM	C	c2na	0.395	!
+ATOM	N	n1	-0.43	!
+
+CONECT	C1	^6:C2	H1
+CONECT	C2	^6:C3	H2
+CONECT	C3	^6:C4	H3
+CONECT	C4	^6:C5	H4
+CONECT	C5	^6:C6	H5
+CONECT	C6	^6:C1	C
+CONECT	C	#N
+
+# 753-759
+
 
 ITEM	END	# STREAM
 
@@ -3135,7 +3640,7 @@ ITEM	RULES
 
 # type	element	residue	atom	charge	rule
 
-c3am	C	-	-	0	C(C)(N)(=O)
+c3oam	C	-	-	0	C(C)(N)(=O)
 n3am0	N	-	-	0	N(C(=O)(~C))(~C)(C)
 n3am0	N	-	-	0	N(C(=O)(H))(~C)(C)
 n3am1	N	-	-	0	N(C(=O)(~C))(~C)(H)
@@ -3153,7 +3658,7 @@ ITEM	STREAM
 
 RESI	FORM	0		! CH3NO, formamide
 GROUP				!
-ATOM	C	c3am	0.5	!    HC   O
+ATOM	C	c3oam	0.5	!    HC   O
 ATOM	HC	h1co	0	!      \ // 
 ATOM	O	o1=	-0.5	!       C
 GROUP				!       |
@@ -3173,7 +3678,7 @@ ATOM	H11	h1	0.06	!       |
 ATOM	H12	h1	0.06	!  H12--C1--H13
 ATOM	H13	h1	0.06	!       |
 GROUP				!       C==O
-ATOM	C	c3am	0.5	!       |
+ATOM	C	c3oam	0.5	!       |
 ATOM	O	o1=	-0.5	!       N
 GROUP				!      / \
 ATOM	N	n3am2	-0.76	!   HN1   HN2
@@ -3193,7 +3698,7 @@ ATOM	H11	h1	0.06	!       |
 ATOM	H12	h1	0.06	!  H12--C1--H13
 ATOM	H13	h1	0.06	!       |
 GROUP				!       C==O
-ATOM	C	c3am	0.5	!       |
+ATOM	C	c3oam	0.5	!       |
 ATOM	O	o1=	-0.5	!   HN--N
 GROUP				!       |
 ATOM	N	n3am1	-0.5	!  H21--C2--H22
@@ -3217,7 +3722,7 @@ ATOM	H11	h1	0.06	!       |
 ATOM	H12	h1	0.06	!  H12--C1--H13
 ATOM	H13	h1	0.06	!       |
 GROUP				!       C==O     H31
-ATOM	C	c3am	0.5	!       |         |
+ATOM	C	c3oam	0.5	!       |         |
 ATOM	O	o1=	-0.5	!       N---------C3--H33
 GROUP				!       |         |
 ATOM	N	n3am0	-0.14	!  H21--C2--H22  H32
@@ -3256,7 +3761,7 @@ ATOM	C5	c3a	-0.115	!
 ATOM	H5	h1a	0.115	!
 GROUP				!
 ATOM	C6	c3a	-0.115	!
-ATOM	C	c3am	0.615	!
+ATOM	C	c3oam	0.615	!
 ATOM	O	o1=	-0.5	!
 ATOM	N	n3am2	-0.76	!
 ATOM	HN1	h1n	0.38	!
@@ -3294,7 +3799,7 @@ ATOM	C6	c3a	0.085	!
 ATOM	N	n3am1	-0.385	!
 ATOM	HN	h1n	0.3	!
 GROUP				!
-ATOM	C	c3am	0.5	!
+ATOM	C	c3oam	0.5	!
 ATOM	O	o1=	-0.5	!
 GROUP				!
 ATOM	C7	c4	-0.18	!
@@ -3336,6 +3841,14 @@ n3am2	N	-	-	0	N(C(=O)(O))(H)(H)
 
 ITEM	END	# RULES
 
+# Increments
+
+ITEM	INCREMENT
+
+c3*	c4*	0	0
+
+ITEM	END	# INCREMENT
+
 # Angles
 
 ITEM	ANGLE
@@ -3343,6 +3856,7 @@ ITEM	ANGLE
 # type1	type2	type3	k	theta0
 
 c3a	c4	n3*	80	111.2
+c3*	c4	o2h	50	109.5
 
 ITEM	END	# ANGLE
 
@@ -3353,7 +3867,11 @@ ITEM	TORSION
 # type1	type2	type3	type4	k	n	delta	[...]
 
 c3a	c4	n3*	c3*	0	1	0
+n3*	c3*	c4*	o2*	0	1	0
 c3a	n3*	c3o	o2*	2.1	2	0
+c3*	c4	o2h	h1o	-0.9	1	0
+c*	c4	c4	o2	1.711	1	0	-0.5	2	0	0.663	3	0
+c*	c4	o2*	c*	0.65	1	0	-0.25	2	0	0.67	3	0
 
 ITEM	END	# TORSION
 
@@ -3361,21 +3879,21 @@ ITEM	END	# TORSION
 
 ITEM	STREAM
 
-RESI	ETCA	0		! C3H7NO2, ethylcarbamate
+RESI	ETCA	0		! C3H7NO2, ethyl carbamate
 GROUP				!
-ATOM	C1	c4	-0.18	!
-ATOM	H11	h1	0.06	!
-ATOM	H12	h1	0.06	!
-ATOM	H13	h1	0.06	!
-GROUP				!
-ATOM	C2	c4oe	0.19	!
-ATOM	H21	h1co	0.03	!
-ATOM	H22	h1co	0.03	!
-ATOM	O3	o2s	-0.33	!
-ATOM	C3	c3oe	0.51	!
-ATOM	O4	o1=	-0.43	!
-GROUP				!
-ATOM	N4	n3am2	-0.76	!
+ATOM	C1	c4	-0.18	!      H13
+ATOM	H11	h1	0.06	!       |
+ATOM	H12	h1	0.06	!  H11--C1--H12
+ATOM	H13	h1	0.06	!       |
+GROUP				!  H21--C2--H22
+ATOM	C2	c4oe	0.19	!       |
+ATOM	H21	h1co	0.03	!       O2
+ATOM	H22	h1co	0.03	!       |
+ATOM	O3	o2s	-0.33	!       C3==O3
+ATOM	C3	c3oe	0.51	!       |
+ATOM	O4	o1=	-0.43	!       N4
+GROUP				!      /  \
+ATOM	N4	n3am2	-0.76	!    H41  H42
 ATOM	H41	h1n	0.38	!
 ATOM	H42	h1n	0.38 	!
 
@@ -3385,7 +3903,7 @@ CONECT	O3	C3
 CONECT	C3	N4	=O4
 CONECT	N4	H41	H42
 
-RESI	EMCA	0		! C4H9NO2, ethylcarbamate
+RESI	MECA	0		! C4H9NO2, methyl ethyl carbamate
 GROUP				!
 ATOM	C1	c4	-0.18	!      H13
 ATOM	H11	h1	0.06	!       |
@@ -3413,7 +3931,7 @@ CONECT	C3	N4	=O3
 CONECT	N4	C5	HN4
 CONECT	C5	H51	H52	H53
 
-RESI	BZUR	0		! C7H7NO, acetanilide
+RESI	PMCA	0		! C8H9NO2, phenyl methyl carbamate
 GROUP				!
 ATOM	C1	c3a	-0.115	!          H1
 ATOM	H1	h1a	0.115	!          |
@@ -3469,7 +3987,7 @@ ITEM	RULES
 
 # type	element	residue	atom	charge	rule
 
-c3im	C	IMID	C2	0	C(C)(N(C(C)(=O))(H))(=O)
+c3oim	C	IMID	C2	0	C(C)(N(C(C)(=O))(H))(=O)
 
 ITEM	END	# RULES
 
@@ -3494,11 +4012,11 @@ ATOM	C1	c4	-0.12	!      H11  O2     O3  H41
 ATOM	H11	h1	0.06	!       |   ||     ||   |
 ATOM	H12	h1	0.06	!  H13--C1--C2--N--C3--C4--H43
 ATOM	H13	h1	0.06	!       |       |       |
-ATOM	C2	c3im	0.42	!      H12      HN     H42
+ATOM	C2	c3oim	0.42	!      H12      HN     H42
 ATOM	O2	o1=	-0.42	!
 ATOM	N	n3im1	-0.49	!
 ATOM	HN	h1n	0.37	!
-ATOM	C3	c3im	0.42	!
+ATOM	C3	c3oim	0.42	!
 ATOM	O3	o1=	-0.42	!
 ATOM	C4	c4	-0.12	!
 ATOM	H41	h1	0.06	!

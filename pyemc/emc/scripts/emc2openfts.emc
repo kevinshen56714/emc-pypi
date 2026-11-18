@@ -1,0 +1,26 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg1,
+  compress	-> false,
+  binsize	-> 0.1,
+  nref		-> 1,
+  bref		-> 1,
+  lsmearing	-> 0.15,
+  lsegment	-> 1,
+  seed		-> 1,
+  normalize	-> true,
+  convolute	-> true,
+  source	-> ".",
+  target	-> "."
+};
+
+get		= {name -> source+"/"+input};
+
+openfts 	= {name -> output, compress -> compress, binsize -> binsize,
+		   convolute -> convolute, normalize -> normalize,
+		   bref -> bref, nref -> nref, lsmearing -> lsmearing,
+		   lsegment -> lsegment};
+

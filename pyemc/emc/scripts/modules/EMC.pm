@@ -60,6 +60,7 @@ use EMC::Math;
 use EMC::Matrix;
 use EMC::MD;
 use EMC::Message;
+use EMC::OpenFTS;
 use EMC::Options;
 use EMC::PDB;
 use EMC::Polymers;

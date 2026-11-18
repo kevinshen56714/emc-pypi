@@ -349,15 +349,20 @@ sub get {
   my $gromacs = EMC::Common::hash($attr, "gromacs");
   my $k = EMC::Common::element($attr, "kconstraint");
   my $vmass = EMC::Common::element($attr, "virtual_mass");
+  my $debug = EMC::Common::element($attr, "debug");
 
   foreach (@{$root->{files}}) {
     $gromacs = 
       EMC::GROMACS::get(
-	$_, {gromacs => $gromacs, kconstraint => $k, virtual_mass => $vmass});
+	$_, {
+	  gromacs => $gromacs, kconstraint => $k, virtual_mass => $vmass,
+	  debug => $debug});
   }
   $field =
     EMC::GROMACS::to_field(
-      $gromacs, {type => "martini", field => $field});
+      $gromacs,
+      EMC::Common::attributes($attr, {
+	  type => "martini", field => $field}));
   $root->{fields} = $field;
   return $root;
 }
@@ -472,8 +477,10 @@ ITEM	END")}));
   my $flags = $root->{global}->{flags};
   get($root, {
       field => $field, 
+      gromacs => EMC::Common::element($root, "gromacs"),
       kconstraint => $flags->{kconstraint},
-      virtual_mass => $flags->{virtual_mass}
+      virtual_mass => $flags->{virtual_mass},
+      debug => $root->{gromacs}->{flag}->{debug}
     });
   #EMC::Message::dumper("field = ", $field);
   #EMC::Message::dumper("field = ", EMC::Fields::to_item($field));
@@ -483,6 +490,5 @@ ITEM	END")}));
   equivalence($field);
   EMC::Fields::put($root->{global}->{flags}->{output}, $field);
 
-  #EMC::Message::dumper("field = ", $field);
   EMC::Message::message("\n");
 }

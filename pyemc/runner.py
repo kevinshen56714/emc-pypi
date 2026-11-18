@@ -3,16 +3,10 @@ import platform
 import subprocess
 import sys
 
+_BUNDLED_ROOT = os.path.join(os.path.dirname(__file__), 'emc')
 
-def _get_exec() -> None:
-    '''Method to get executable file path
 
-    Attributes:
-        None
-
-    Returns:
-        None
-    '''
+def _get_exec() -> str:
     if sys.platform == 'linux' or sys.platform == 'linux2':
         arch = platform.machine()
         if arch == 'x86_64':
@@ -25,24 +19,15 @@ def _get_exec() -> None:
         emc_exec = 'emc_macos'
     elif sys.platform == 'win32':
         emc_exec = 'emc_win32.exe'
-        try:
-            subprocess.run(['perl', '-v'], shell=True, check=True)
-        except subprocess.CalledProcessError:
-            raise Exception('You need to install Perl first, '
-                            'see: https://www.perl.org/get.html')
+    else:
+        raise OSError(f'Unsupported platform: {sys.platform}')
     return emc_exec
 
 
-def _get_path() -> str:
-    '''Method to get the module path
-
-    Attributes:
-        None
-
-    Returns:
-        module_path (str): the path of the module
-    '''
-    return os.path.dirname(__file__)
+def _emc_env():
+    env = os.environ.copy()
+    env.setdefault('EMC_ROOT', _BUNDLED_ROOT)
+    return env
 
 
 def setup(esh_file: str, *args):
@@ -54,12 +39,11 @@ def setup(esh_file: str, *args):
     Returns:
         None
     '''
-    emc_setup_file = os.path.join(_get_path(), 'emc', 'scripts', 'emc.pl')
+    emc_setup_file = os.path.join(_BUNDLED_ROOT, 'scripts', 'emc.pl')
 
-    command = ['perl', str(emc_setup_file), esh_file]
-    for arg in args:
-        command.append(arg)
-    subprocess.run(command)
+    subprocess.run(['perl', emc_setup_file, esh_file, *args],
+                   env=_emc_env(),
+                   check=True)
 
 
 def build(build_file: str):
@@ -71,6 +55,6 @@ def build(build_file: str):
     Returns:
         None
     '''
-    emc_bin_file = os.path.join(_get_path(), 'emc', 'bin', _get_exec())
+    emc_bin_file = os.path.join(_BUNDLED_ROOT, 'bin', _get_exec())
 
-    subprocess.run([str(emc_bin_file), build_file])
+    subprocess.run([emc_bin_file, build_file], env=_emc_env(), check=True)

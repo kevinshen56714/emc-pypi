@@ -1,0 +1,59 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+(*
+    file:	bcc.emc
+    author:	Pieter J. in 't Veld
+    date:	August 23, 2007, July 7, 2016
+    purpose:	description of a single site body-centered cubic crystalline
+		unit cell
+*)
+
+identity = {
+  name -> "bcc"};
+
+unit = {
+  type -> reduced};
+
+variables = {
+  bcc_name -> "bcc", bcc_atomistic -> false, bcc_chemistry -> "[bcc]",
+  lcell -> 2^(1/6)*(2*sqrt(1/3)), la -> lcell, lb -> lcell, lc -> lcell,
+  nsites -> 2, nclusters -> 2};
+
+constants = {
+  clusters -> bcc,
+  groups -> bcc,
+  sites -> bcc};
+
+types = {
+  atomistic -> bcc_atomistic,
+  mass -> {n -> 1, data -> {
+    id -> 0, name -> bcc_name, reference -> 0, mass -> 1}}};
+
+groups = {
+  n -> 1, data -> {
+    group -> bcc, name -> bcc_name, chemistry -> bcc_chemistry,
+    terminator -> false, nsites -> 1, sites -> {
+      site -> 0, mass -> 0, charge -> 0}, nbranches -> 0}};
+
+systems = {
+  n -> 1, properties -> {
+    id -> 0, p -> 0, v -> la*lb*lc, t -> 1, mass -> 1, 
+    nsites -> 1, nclusters -> 1, 
+    geometry -> {la, lb, lc, 0, 0, 0}}};
+
+clusters = {
+  n -> 2, data -> {
+    {cluster -> 0, head -> 0, tail -> 0},
+    {cluster -> 1, head -> 1, tail -> 1}}};
+
+sites = {
+  n -> 2, data -> {
+    {site -> 0, cluster -> 0, system -> 0, mass -> bcc, flags -> 0b1100,
+      group -> {index -> bcc, site -> 0}, p -> {-la/4, -lb/4, -lc/4},
+      xtal -> {{0, 0, 0}}},
+    {site -> 1, cluster -> 1, system -> 0, mass -> bcc, flags -> 0b1100,
+      group -> {index -> bcc, site -> 0}, p -> {la/4, lb/4, lc/4},
+      xtal -> {{0, 0, 0}}}
+  }
+};
+

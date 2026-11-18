@@ -8575,7 +8575,7 @@ sub write_emc_build {
 
   if ($::EMC::Record{flag}) {
     printf($stream "%s\n", format_output(0, "record {", 4, 2));
-    printf($stream "%s", format_output(1, "name ".$::EMC::Record{name}, 6, 2));
+    printf($stream "%s", format_output(1, "name \"".$::EMC::Record{name}."\"", 6, 2));
     printf($stream "%s", format_output(1, "frequency ".$::EMC::Record{frequency}, 6, 2));
     my $n = scalar(keys(%::EMC::Record));
     foreach (sort(keys(%::EMC::Record))) {

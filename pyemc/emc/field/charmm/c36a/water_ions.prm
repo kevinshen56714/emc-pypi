@@ -3,7 +3,7 @@
 #  CHARMM interaction parameters using water_ions force field files, 
 #  converted by emc_charmm.pl 4.0, October 10, 2024 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Jul 08 14:00:16 CEST 2025.
+#  and created on Wed Aug 06 08:13:13 CEST 2025.
 #
 
 # Force field definition
@@ -18,7 +18,7 @@ FFDEPTH		2
 FFCHARGE	ALL
 FFSTRICT	FALSE
 VERSION		unknown
-CREATED		July 2025
+CREATED		August 2025
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -58,8 +58,8 @@ CAD	112.411	Cd	0	2	14	Cadmium (II) cation
 CAL	40.078	Ca	0	2	9	Calcium Ion
 CES	132.905	Cs	0	1	11	Cesium Ion
 CLA	35.4527	Cl	0	-1	15	Chloride Ion
-HP	1.0079	H	1	0	19	Polar H in phosphates
 HPC	1.0079	H	1	0	16	OPC water hydrogen
+HPP	1.0079	H	1	0	19	Polar H in phosphates
 HT	1.0079	H	2	0	1	TIPS3P WATER HYDROGEN
 HX	1.0079	H	1	0	2	Hydroxide hydrogen
 LIT	6.941	Li	0	1	5	Lithium ion
@@ -120,8 +120,8 @@ CAD	CAD	CAD	CAD	CAD	CAD	CAD
 CAL	CAL	CAL	CAL	CAL	CAL	CAL
 CES	CES	CES	CES	CES	CES	CES
 CLA	CLA	CLA	CLA	CLA	CLA	CLA
-HP	
 HPC	HPC	HPC	HPC	HPC	HPC	HPC
+HPP	
 HT	HT	HT	HT	HT	HT	HT
 HX	HX	HX	HX	HX	HX	HX
 LIT	LIT	LIT	LIT	LIT	LIT	LIT
@@ -148,8 +148,8 @@ ITEM	INCREMENT
 
 # type1	type2	delta12	delta21
 
-HP	OPH	0.34	-0.34
 HPC	OPC	0.6791	-0.6791
+HPP	OPH	0.34	-0.34
 HT	HT	0	0
 HT	OT	0.417	-0.417
 HX	OX	0.32	-1.32
@@ -173,8 +173,8 @@ CAD	CAD	1.357	-0.12	1.357	-0.12
 CAL	CAL	1.367	-0.12	1.367	-0.12
 CES	CES	2.1	-0.19	2.1	-0.19
 CLA	CLA	2.27	-0.15	2.27	-0.15
-HP	HP	0.225	-0.046	0.225	-0.046
 HPC	HPC	0.225	0	0.225	0
+HPP	HPP	0.225	-0.046	0.225	-0.046
 HT	HT	0.225	-0.046	0.225	-0.046
 HX	HX	0.225	-0.046	0.225	-0.046
 LIT	LIT	1.298	-0.002	1.298	-0.002
@@ -199,8 +199,8 @@ ITEM	BOND
 
 # type1	type2	k	l0
 
-HP	OPH	545	0.96
 HPC	OPC	450	0.8724
+HPP	OPH	545	0.96
 HT	HT	0	1.514
 HT	OT	450	0.957
 HX	OX	545	0.97
@@ -216,9 +216,9 @@ ITEM	ANGLE
 
 # type1	type2	type3	k	theta0	kub	s0
 
-HP	OPH	PP	30	115	40	2.35
 HPC	OPC	HPC	55	103.6	0	0
 HPC	OPC	LP	55	51.8	0	0
+HPP	OPH	PP	30	115	40	2.35
 HT	OT	HT	55	104.52	0	0
 OP	PP	OP	120	120	0	0
 OP	PP	OPH	98.9	113.23	0	0
@@ -232,7 +232,7 @@ ITEM	TORSION
 
 # type1	type2	type3	type4	k	n	delta	[...]
 
-HP	OPH	PP	OP	0.3	3	0
-HP	OPH	PP	OPH	0.3	3	0
+HPP	OPH	PP	OP	0.3	3	0
+HPP	OPH	PP	OPH	0.3	3	0
 
 ITEM	END

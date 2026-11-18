@@ -1,0 +1,210 @@
+(* EMC: Script *)
+
+(* DPD simulation of n-mer random copolymers in a solvent at athermal
+   conditions, similar to ../bond/build.emc; visual results can be viewed
+   using 'vmd -e show_chemistry.vmd' *)
+
+(* define variables *)
+
+variables	= {
+
+  (* system constants *)
+
+  density	-> 3.0,
+  temperature	-> 1.0,
+  seed		-> -1,		(* random seed, uses date when < 0 *)
+
+  (* definition of number of beads *)
+
+  npolymers	-> 25,
+  nrepeats	-> 20,
+  nsolvents	-> npolymers*(nrepeats+2)*2,
+
+  (* interaction parameters *)
+
+  kij		-> 4,		(* bond interaction constant *)
+  lij		-> 1,		(* bond length *)
+  aij		-> 25,		(* DPD interaction parameter *)
+
+  (* build parameters *)
+
+  grace		-> 0.99,	(* grace allowence during build *)
+  ncycles	-> 100,		(* relaxation steps during build *)
+  drelax	-> 1.0,		(* relaxation cutoff diameter *)
+
+  (* run and sampling parameters *)
+
+  nrun		-> 500,
+  nblocks	-> 10,
+  ntraject	-> 10,
+
+  (* output target *)
+
+  output	-> "chemistry"
+};
+
+simulation	= {
+  units		-> {type -> reduced, seed -> seed}};
+
+(* Simulation description *)
+
+(* define beads *)
+
+sites		= {
+  site		-> {id -> a, comment -> "a", mass -> 1},
+  site		-> {id -> b, comment -> "b", mass -> 1},
+  site		-> {id -> c, comment -> "c", mass -> 1},
+  site		-> {id -> t, comment -> "t", mass -> 1},
+  site		-> {id -> s, comment -> "s", mass -> 1}
+};
+
+(* define repeat units *)
+
+groups		= {
+  group		-> {
+    id		-> monomer1,
+    chemistry	-> ">ab<(c)",	(*      c
+				    -[a-b]- *)
+    connects	-> {
+      {0, {monomer1, 1}}, {0, {monomer2, 0}}, {0, {terminator, 0}}, 
+      {1, {monomer1, 0}}, {1, {monomer2, 0}}, {1, {terminator, 0}}}
+  },
+  group		-> {
+    id		-> monomer2,
+    chemistry	-> ">c<",	(* -[c]- *)
+    connects	-> {
+      {0, {monomer1, 0}}, {0, {monomer1, 1}}, 
+      {0, {monomer2, 0}}, {0, {terminator, 0}}}
+  },
+  group		-> {
+    id		-> terminator,
+    chemistry	-> ">t",	(* -t *)
+    connects	-> {		(* for both monomer1 and monomer2 *)
+      {0, {monomer1, 0}}, {0, {monomer2, 0}}}
+  },
+  group		-> {
+    id		-> solvent,
+    chemistry	-> "s"
+  }
+};
+
+(* define molecules *)
+
+clusters	= {
+  polymer	-> {
+    id		-> polymer,
+    system	-> main,
+    n		-> npolymers,
+    groups	-> {monomer1, monomer2},
+    type	-> random,	(* either block, random or alternate *)
+    nrepeat	-> nrepeats
+  },
+  cluster	-> {
+    id		-> solvent,
+    system	-> main,
+    n		-> nsolvents,
+    group	-> solvent
+  }
+};
+
+(* define bonded and nonbonded interactions;
+   the simulation keyword allows for direct access to underlying memory 
+   structures *)
+
+simulation	= {
+  types		-> {
+    merge	-> true,
+    skin	-> 0.0,
+    neighbor	-> sector,
+    inverse	-> {active -> true, cutoff -> 1e-4, nfunctions -> 50},
+    dpd		-> {
+      pair	-> {
+	active	-> true,
+	mix	-> berthelot,
+	nbonded	-> 0,
+	data	-> {
+	  {i0 -> a, i1 -> a, a -> aij, gamma -> 4.5, cutoff -> 1},
+	  {i0 -> b, i1 -> b, a -> aij, gamma -> 4.5, cutoff -> 1},
+	  {i0 -> c, i1 -> c, a -> aij, gamma -> 4.5, cutoff -> 1},
+	  {i0 -> s, i1 -> s, a -> aij, gamma -> 4.5, cutoff -> 1},
+	  {i0 -> t, i1 -> t, a -> aij, gamma -> 4.5, cutoff -> 1}}},
+      bond	-> {
+	active	-> true,
+	data	-> {
+	  {i0 -> a, i1 -> b, k -> kij, l -> lij},
+	  {i0 -> a, i1 -> c, k -> kij, l -> lij},
+	  {i0 -> a, i1 -> t, k -> kij, l -> lij},
+	  {i0 -> b, i1 -> c, k -> kij, l -> lij},
+	  {i0 -> b, i1 -> t, k -> kij, l -> lij},
+	  {i0 -> c, i1 -> c, k -> kij, l -> lij},
+	  {i0 -> c, i1 -> t, k -> kij, l -> lij}
+	}
+      }
+    }
+  },
+  moves		-> {
+    displace	-> {frequency -> 1, dmax -> 0.1}}
+};
+
+(* build polymer and solvent mixture *)
+
+build		= {
+  system	-> {
+    id		-> main,	(* define target system *)
+    density	-> density,
+    temperature	-> temperature
+  },
+  select	-> {
+    progress	-> list,	(* can be a bar or a list *)
+    frequency	-> 1,
+    cluster	-> {polymer,
+		    solvent},	(* include polymer and solvet cluster ids *)
+    relax	-> {ncycles -> ncycles, radius -> drelax},
+    grow	-> {
+      method	-> energetic,	(* set method *)
+      grace	-> {grace,
+		    grace}	(* set initial insertion nonboned grace *)
+    }
+  }
+};
+
+(* display and calculate forces (latter for internal consistency check) *)
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+traject		= {name -> output, frequency -> ntraject,
+		    append -> true, unwrap -> true, pbc -> true, scale -> true};
+
+(* run a monte carlo simulation *)
+
+run		= {ncycles -> nrun, nblocks -> nblocks};
+
+(* display and calculate forces (latter for internal consistency check) *)
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+(* sample bond lengths *)
+
+simulation	= {
+  profiles	-> {
+    frequency	-> 1,
+    bond	-> {active -> true, nlevels -> 1, binsize -> 0.01}}
+};
+
+(* run a monte carlo simulation *)
+
+run		= {ncycles -> nrun, nblocks -> nblocks};
+
+(* display and calculate forces (latter for internal consistency check) *)
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+put		= {name -> output, compress -> true, detail -> -1};
+pdb		= {name -> output,
+		    pbc -> true, unwrap -> true, forcefield -> auto};
+lammps		= {name -> output, parameters -> true,
+		    mode -> put, forcefield -> auto, types -> false}
+

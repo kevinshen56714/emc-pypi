@@ -306,6 +306,8 @@ sub set_defaults {
       # T
 
       temperature	=> undef,
+      tequil		=> 1e3,
+      trun		=> 1e7,
       type		=> {},
       
       # U
@@ -630,6 +632,10 @@ sub set_commands {
 	comment		=> "set simulation temperature",
 	default		=> $global->{temperature},
 	gui		=> ["real", "chemistry", "top", "standard"]},
+      tequil		=> {
+	comment		=> "set equilibration time",
+	default		=> $global->{tequil},
+	gui		=> ["integer", "chemistry", "top", "standard"]},
       tighten	=> {
 	comment		=> "set tightening of simulation box for imported structures",
 	default		=> defined($global->{tighten}) ? $global->{tighten} : "false",
@@ -638,6 +644,10 @@ sub set_commands {
 	comment		=> "control function call trace upon error",
 	default		=> EMC::Math::boolean($flag->{trace}),
 	gui		=> ["boolean", "chemistry", "top", "ignore"]},
+      trun		=> {
+	comment		=> "set run time",
+	default		=> $global->{trun},
+	gui		=> ["string", "chemistry", "top", "standard"]},
       
       # U
 
@@ -794,7 +804,7 @@ sub set_context {
     $field->{type} eq "gauss" ? 1 :
     $field->{type} eq "opls" ? 1 :
     $field->{type} eq "born" ? 1 :
-    $field->{type} eq "martini" ? 0 :
+    $field->{type} eq "martini" ? 1 :
     $field->{type} eq "trappe" ? 1 :
     $field->{type} eq "standard" ? 0 :
     $field->{type} eq "sdk" ? 0 : 0) if (!$defined->{flag}->{charge});
@@ -813,11 +823,12 @@ sub set_context {
     $field->{type} eq "dpd" ? 1 : 
     $field->{type} eq "gauss" ? 1 : 
     $field->{type} eq "martini" ? 1 : 0) if (!$defined->{flag}->{mass_entry});
-  $flag->{reduced} = (
+  $flag->{reduced} = $fields->{defined}->{flag}->{reduced} ?
+    $fields->{flag}->{reduced} :
     $field->{type} eq "dpd" ? 1 :
     $field->{type} eq "gauss" ? 1 :
     $field->{type} eq "standard" ? 1 :
-    0) if (!$defined->{flag}->{reduced});
+    0;
   if (!$defined->{flag}->{rules}) {
     my %allowed = (born => 1, charmm => 1, opls => 1, trappe => 1);
     $flag->{rules} = defined($allowed{$field->{type}}) ? 1 : 0;
@@ -1164,6 +1175,9 @@ sub set_options {
   if ($option eq "temperature") {
     $defined->{temperature} = 1;
     return $global->{temperature} = EMC::Math::eval($args->[0])->[0]; }
+  if ($option eq "tequil") {
+    $defined->{tequil} = 1;
+    return $global->{tequil} = EMC::Math::eval($args->[0])->[0]; }
   if ($option eq "tighten") {
     $defined->{tighten} = 1;
     return $flag->{tighten} = EMC::Math::eval($args->[0])->[0]; }
@@ -1171,6 +1185,15 @@ sub set_options {
     $flag->{trace} = EMC::Math::flag($args->[0]);
     EMC::Message::set_flag({trace => $flag->{trace}});
     return $flag->{trace};
+  }
+  if ($option eq $indicator."trun") { 
+    $defined->{trun} = 1;
+    if (($flag->{trun} = $args->[0] eq "-" ? 0 : 1)) {
+      my @s = @{$args};
+      @s[0] = EMC::Math::eval(@s[0])->[0];
+      $global->{trun} = scalar(@s)<2 ? @s[0] : "\"".join(" ", @s)."\"";
+    }
+    return $flag->{trun};
   }
 
   # U

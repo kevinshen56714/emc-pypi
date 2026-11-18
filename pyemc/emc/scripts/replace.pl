@@ -4,11 +4,12 @@
 #  author:	Pieter J. in 't Veld
 #  date:	August 10, 2005, April 9, 2013, April 26, 2017, January 26,
 #  		November 4, 2018, January 12, May 10, 2019, June 9, 2020,
-#  		May 17, June 10, 2021, March 26, 2024.
+#  		May 17, June 10, 2021, March 26, 2024, April 28, June 9, 2025,
+#  		January 16, 2026.
 #  purpose:	Search and replace strings in multiple files; part of EMC
 #  		distribution
 # 
-#  Copyright (c) 2004-2025 Pieter J. in 't Veld
+#  Copyright (c) 2004-2026 Pieter J. in 't Veld
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
@@ -30,15 +31,18 @@
 #    		- Addition of -s option
 #    20240428	- Addition of -m option
 #    20250609	- Filtered out replacement of $@ to $@{}
+#    20260116	- Addition of -t option
+#    		- Changed recognition within square brackets: allow only
+#    		  variables between curly brackets @{}
 #
 
 #use Data::Dumper;
 use File::Find;
 use Time::Piece;
 
-$Version = "2.5.1";
-$Year = "2025";
-$Date = "June 9, $Year";
+$Version = "2.5.2";
+$Year = "2026";
+$Date = "January 16, $Year";
 $Copyright = "2004-$Year";
 
 # functions
@@ -55,6 +59,7 @@ sub help {
   print("  -m\t\tprovide mask for find\n");
   print("  -q\t\tno output\n");
   print("  -s\t\treplace date stamps\n");
+  print("  -t\t\ttest only and do not replace\n");
   print("  -v\t\tvariable replacement using '\@' (not with -f)\n");
   print("\n");
   print("Notes:\n");
@@ -73,6 +78,7 @@ sub init {
   $flag_replace		= 1;
   $flag_screen		= 1;
   $flag_stamp		= 0;
+  $flag_test		= 0;
   $mask			= undef;
   foreach (@arg) {
     if (substr($_,0,1) eq "-") {
@@ -89,6 +95,8 @@ sub init {
        	$flag_replace = defined(@a[1]) ? flag(@a[1]) : 0; next; }
       elsif (@a[0] eq "-s") {
        	$flag_stamp = defined(@a[1]) ? flag(@a[1]) : 1; next; }
+      elsif (@a[0] eq "-t") {
+       	$flag_test = defined(@a[1]) ? flag(@a[1]) : 1; next; }
       elsif (@a[0] eq "-v") {
        	$flag_vars = defined(@a[1]) ? flag(@a[1]) : 1; next; }
       elsif (@a[0] eq "-h") {
@@ -113,6 +121,7 @@ sub init {
   return if (substr($search,0,1) ne "@");
   $search		=~ s/[@,\{,\}]//g;
   $search		= "\@{$search}";
+  #print("search = $search\n");
 }
 
 
@@ -197,8 +206,8 @@ sub lines {
 	} elsif ($_ eq "]") {
 	  --$brackets;
 	}
-
-	if ($_ eq "@" && $last ne "\$" && !$brackets) {
+	
+	if ($_ eq "@" && $last ne "@" && $last ne "\$") {
 	  if ($var ne "") {
 	    $var	.= "}";
 	    $result	.= ($var eq $search ? $replace : $var);
@@ -207,6 +216,14 @@ sub lines {
 	  $read		= 1;
 	  $braces	= 0;
 	} elsif ($read) {
+	  if ($brackets) {
+	    if ($last eq "@" && $_ ne "{") {
+	      $result .= "@".$_;
+	      $read = 0;
+	      $var = "";
+	      next;
+	    }
+	  }
 	  if (($_ =~ /[a-zA-Z]/)||($_ =~ /[0-9]/)||($braces && $_ ne "}")) {
 	    $var	.= $_;
 	  } elsif ($_ eq "{" && $last eq "@") {
@@ -236,9 +253,11 @@ sub lines {
   }
   close($file);
   next if ($nchanges<1);
-  open($file, ">".$name);
-  foreach (@output) { printf($file "%s", $_); }
-  close($file);
+  if (!$flag_test) {
+    open($file, ">".$name);
+    foreach (@output) { printf($file "%s", $_); }
+    close($file);
+  }
   return $nchanges;
 }
 
@@ -271,7 +290,8 @@ sub full {
       $nchanges		= lines($name);
     }
     $nchanges		= 0 if (!$nchanges);
-    printf("%s: changed %s line%s.\n",
-      $name, $nchanges, $nchanges!=1 ? "s" : "") if ($flag_screen);
+    printf("%s: %s %s line%s.\n",
+      $name, $flag_test ? "can change" : "changed", 
+      $nchanges, $nchanges!=1 ? "s" : "") if ($flag_screen);
   }
 

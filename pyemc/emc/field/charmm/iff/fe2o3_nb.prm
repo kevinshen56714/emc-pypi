@@ -1,0 +1,160 @@
+# 
+#  file:         fe2o3_nb_12-6.top
+#  authors:      Prashil Badwaik, Karnajit Sen, Pieter J. in 't Veld, and Ratan K. Mishra
+#  date:         11 October 2024
+#  purpose:      CHARMM nonbonded fe2o3 force field (FF)
+#  version:      0.1beta
+# 
+
+# Force field definition: ITEM DEFINE should be the first item.a
+# -------------------------------------------------------------
+ITEM	DEFINE
+
+# # More details/options are in EMC manual v9.4.4 (1 Jul 2024): Chpt 4, Page 50
+FFMODE		CHARMM			# Name or mode of FF
+FFTYPE		ATOMISTIC		# Type of FF (options: atomistic, united, coarse)
+FFAPPLY		GROUPS			# Not available in manual
+FFINDEX		TYPES			# Not available in manual
+FFSTRICT	FALSE
+FFDEPTH		2			# Did not understand
+FFCHARGE	ALL			# Not available in manual
+CREATED		OCT 2024		# Date of creation
+LENGTH		ANGSTROM		# Unit of length used in FF
+ENERGY		KCAL/MOL		# Unit of energy used in FF
+DENSITY		G/CC			# Unit of density used in FF
+MIX		BERTHELOT		# Mixing rule for LJ interactions
+NBONDED		3			# Excluded three bonds from nb interaction calculations
+INNER		10.0			# Inner cutoff when using switching nb potentials
+CUTOFF		12.0			# Cut off for nb interactions
+ANGLE		IGNORE			# Error handling for typing of angle interactions
+PAIR14		FALSE			# Error handling for typing of 1-4 pair interactions
+TORSION		IGNORE			# Error handling for typing of dihedral interactions
+GROUP		IGNORE			# Not available in manual
+RULE		ERROR			# Not available in manual
+
+ITEM	END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+#  Literature references
+ITEM   REFERENCES
+
+# year   volume  page    journal
+2024   v9.4.4  50      Sourceforge
+
+ITEM END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+#  Masses
+ITEM	MASS
+
+# type  mass   element   ncons    charge    index    comment
+
+Cl-1	35.4527	Cl	0	-1	1001	Cl anion in solution # ncons = 0, hence charge defined here
+FE6O	55.8450	Fe	6	0	1002	Fe in Fe2O3 bulk 
+Na+1	22.9900	Na	0	1	1003	Na cation in solution
+O2FE	15.9994	O	2	0	1004	Deprotonated surface O
+O3FE	15.9994	O	3	0	1005	Surface O with one proton
+O4FE	15.9994	O	4	0	1006	Bulk O
+OHFE	15.9994	O	4	0	1007	Surface O with two protons
+HOFE	1.0080	H	1	0	1008	Surface proton
+
+ITEM	END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+#  Equivalences
+	
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	impr	# prb: not as per manual
+
+Cl-1	Cl-1	Cl-1	Cl-1	Cl-1	Cl-1	Cl-1
+FE6O	FE6O	FE6O	FE6O	FE6O	FE6O	FE6O
+Na+1	Na+1	Na+1	Na+1	Na+1	Na+1	Na+1
+O2FE	OHFE	O2FE	OHFE	OHFE	OHFE	OHFE
+O3FE	OHFE	O3FE	OHFE	OHFE	OHFE	OHFE
+O4FE	O4FE	O4FE	O4FE	O4FE	O4FE	O4FE
+OHFE	OHFE	OHFE	OHFE	OHFE	OHFE	OHFE
+HOFE	HOFE	HOFE	HOFE	HOFE	HOFE	HOFE
+
+ITEM	END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+#  Increment parameters
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+FE6O	O4FE	0.29	-0.29
+FE6O	O2FE	0.15	-0.65	
+FE6O	O3FE	0.29	-0.29	
+FE6O	OHFE	0.29	-0.29
+HOFE	O3FE	0.27	-0.27
+HOFE	OHFE	0.50	0.00
+
+ITEM	END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+#  Nonbond parameters
+
+ITEM	NONBOND
+
+# type1	type2	rmin/2	ewell	rmin14/2	ewell14
+
+Cl-1	Cl-1	2.2890	-0.3100	2.2890	-0.3100
+FE6O	FE6O	1.0150	-0.2000	1.0150	-0.2000		
+Na+1	Na+1	1.3235	-0.1300	1.3235	-0.1300
+O4FE	O4FE	1.7400	-0.2000	1.7400	-0.200
+OHFE	OHFE	1.7350	-0.1220	1.7350	-0.1220	
+HOFE	HOFE	0.5425	-0.0150	0.5425	-0.0150
+
+ITEM	END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+#  Bond parameters 
+#  Non Bonded Model, so every force constant is 0 except the OH
+
+ITEM	BOND_AUTO   #  _AUTO represents distinction between general and specific FF
+# prb:l0 should be dummy value. We can remove the line as we did forangle and torsion
+
+# type1	type2	k	l0
+
+*	*	0	2.03228
+
+Item	END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+ITEM	BOND
+
+# type1	type2	k	l0
+
+HOFE	OHFE	495.0	0.945
+
+ITEM	END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+# Angle parameters
+
+ITEM	ANGLE_AUTO
+
+# type1	type2	type3	k	thetha0	kub	s0
+
+ITEM	END
+# -------------------------------------------------------------
+
+# -------------------------------------------------------------
+# Dihedral parameters
+ITEM	TORSION_AUTO
+
+# type1	type2	type3	type4	k	n	delta	
+
+ITEM	END
+# -------------------------------------------------------------
+

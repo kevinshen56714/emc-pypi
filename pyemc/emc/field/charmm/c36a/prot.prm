@@ -1,9 +1,13 @@
 #EMC/FIELD/CHARMM/v36.1
 #
 #  CHARMM interaction parameters using prot force field files, 
-#  converted by emc_charmm.pl 4.0, January 11, 2023 by Pieter J. in 't Veld,
+#  converted by emc_charmm.pl 4.0, October 10, 2024 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Wed Oct 18 09:08:10 CEST 2023.
+#  and created on Mon Aug 03 15:37:44 CEST 2026.
+#
+#  Copyrights (c) 2004-2026 Pieter J. in 't Veld
+#  Distributed under GNU Public License v3.0 as stated in the LICENSE file in
+#  the EMC root directory
 #
 
 # Force field definition
@@ -18,7 +22,7 @@ FFDEPTH		4
 FFCHARGE	ALL
 FFSTRICT	FALSE
 VERSION		v36.1
-CREATED		October 2023
+CREATED		August 2026
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -68,6 +72,7 @@ CDA	12.011	C	3	0	61	Carbonyl C, pres aspp,glup,ct1 (CT1)
 CE1	12.011	C	-	0	63	For alkene; RHC=CR
 CE2	12.011	C	-	0	64	For alkene; H2C=CR
 CP1	12.011	C	4	0	57	Tetrahedral C (proline CA)
+CP1A	12.011	C	4	0	57	Tetrahedral C (proline CA) (PCAP)
 CP2	12.011	C	4	0	58	Tetrahedral C (proline CB/CG)
 CP3	12.011	C	4	0	59	Tetrahedral C (proline CD)
 CPH1	12.011	C	3	0	53	His CG and CD2 carbons
@@ -75,12 +80,12 @@ CPH1A	12.011	C	3	0	53	His CG and CD2 carbons (HSE)
 CPH2	12.011	C	3	0	54	His CE1 carbon
 CPT	12.011	C	3	0	55	Trp C between rings
 CS	12.011	C	4	0	62	Thiolate carbon
-CT	12.011	C	-	0	48	Aliphatic sp3 C, new LJ params, no hydrogens
+CT	12.011	C	-	0	48	Aliphatic sp3 C, new LJ params, no hydrogens, see retinol stream file for parameters
 CT1	12.011	C	4	0	49	Aliphatic sp3 C for CH
 CT1A	12.011	C	4	0	49	Aliphatic sp3 C for CH (CT1)
 CT1B	12.011	C	4	0	49	Aliphatic sp3 C for CH (NTER)
 CT2	12.011	C	4	0	50	Aliphatic sp3 C for CH2
-CT2A	12.011	C	4	0	51	From CT2 (asp, glu, hsp chi1/chi2 fitting)
+CT2A	12.011	C	4	0	51	From CT2 (GLU, HSP chi1/chi2 fitting) 05282010, zhu
 CT2B	12.011	C	4	0	50	Aliphatic sp3 C for CH2 (GLU)
 CT2C	12.011	C	4	0	50	Aliphatic sp3 C for CH2 (HSD)
 CT2D	12.011	C	4	0	50	Aliphatic sp3 C for CH2 (LSN)
@@ -88,42 +93,42 @@ CT2E	12.011	C	4	0	50	Aliphatic sp3 C for CH2 (LYS)
 CT2F	12.011	C	4	0	50	Aliphatic sp3 C for CH2 (MET)
 CT3	12.011	C	4	0	52	Aliphatic sp3 C for CH3
 CY	12.011	C	3	0	56	TRP C in pyrrole ring
-H	1.0079	H	1	0	31	Polar H
-HA	1.0079	H	-	0	33	Nonpolar H
-HA1	1.0079	H	1	0	43	Alkane, CH, new LJ params (see toppar_all22_prot_aliphatic_c27.str)
-HA2	1.0079	H	1	0	44	Alkane, CH2, new LJ params (see toppar_all22_prot_aliphatic_c27.str)
-HA3	1.0079	H	1	0	45	Alkane, CH3, new LJ params (see toppar_all22_prot_aliphatic_c27.str)
-HB1	1.0079	H	1	0	35	Backbone H
-HB2	1.0079	H	1	0	36	Aliphatic backbone H, to CT2
-HC	1.0079	H	1	0	32	N-ter H
-HCA	1.0079	H	1	0	32	N-ter H (ARG)
-HE1	1.0079	H	-	0	41	For alkene; RHC=CR
-HE2	1.0079	H	-	0	42	For alkene; H2C=CR
-HP	1.0079	H	1	0	34	Aromatic H
-HR1	1.0079	H	1	0	37	His he1, (+) his HG,HD2
-HR2	1.0079	H	1	0	38	(+) his HE1
-HR3	1.0079	H	1	0	39	Neutral his HG, HD2
-HS	1.0079	H	1	0	40	Thiol hydrogen
-N	14.0067	N	3	0	66	Proline N
-NC2	14.0067	N	3	0	73	Guanidinium nitrogen
-NH1	14.0067	N	3	0	70	Peptide nitrogen
-NH2	14.0067	N	3	0	71	Amide nitrogen
-NH2A	14.0067	N	3	0	71	Amide nitrogen (NGNE)
-NH3	14.0067	N	4	0	72	Ammonium nitrogen
-NP	14.0067	N	4	0	75	Proline ring NH2+ (N-terminal)
-NR1	14.0067	N	3	0	67	Neutral his protonated ring nitrogen
-NR2	14.0067	N	2	0	68	Neutral his unprotonated ring nitrogen
-NR3	14.0067	N	3	0	69	Charged his ring nitrogen
-NY	14.0067	N	3	0	74	TRP N in pyrrole ring
-O	15.9994	O	1	0	76	Carbonyl oxygen
-OB	15.9994	O	1	0	77	Carbonyl oxygen in acetic acid
-OC	15.9994	O	1	0	78	Carboxylate oxygen
-OH1	15.9994	O	2	0	79	Hydroxyl oxygen
-OH1A	15.9994	O	2	0	79	Hydroxyl oxygen (SER)
+H	1.008	H	1	0	31	Polar H
+HA	1.008	H	-	0	33	Nonpolar H
+HA1	1.008	H	1	0	43	Alkane, CH, new LJ params (see toppar_all22_prot_aliphatic_c27.str)
+HA2	1.008	H	1	0	44	Alkane, CH2, new LJ params (see toppar_all22_prot_aliphatic_c27.str)
+HA3	1.008	H	1	0	45	Alkane, CH3, new LJ params (see toppar_all22_prot_aliphatic_c27.str)
+HB1	1.008	H	1	0	35	Backbone H
+HB2	1.008	H	1	0	36	Aliphatic backbone H, to CT2
+HC	1.008	H	1	0	32	N-ter H
+HCA	1.008	H	1	0	32	N-ter H (ARG)
+HE1	1.008	H	-	0	41	For alkene; RHC=CR
+HE2	1.008	H	-	0	42	For alkene; H2C=CR
+HP	1.008	H	1	0	34	Aromatic H
+HR1	1.008	H	1	0	37	His he1, (+) his HG,HD2
+HR2	1.008	H	1	0	38	(+) his HE1
+HR3	1.008	H	1	0	39	Neutral his HG, HD2
+HS	1.008	H	1	0	40	Thiol hydrogen
+N	14.007	N	3	0	66	Proline N
+NC2	14.007	N	3	0	73	Guanidinium nitrogen
+NH1	14.007	N	3	0	70	Peptide nitrogen
+NH2	14.007	N	3	0	71	Amide nitrogen
+NH2A	14.007	N	3	0	71	Amide nitrogen (NGNE)
+NH3	14.007	N	4	0	72	Ammonium nitrogen
+NP	14.007	N	4	0	75	Proline ring NH2+ (N-terminal)
+NR1	14.007	N	3	0	67	Neutral his protonated ring nitrogen
+NR2	14.007	N	2	0	68	Neutral his unprotonated ring nitrogen
+NR3	14.007	N	3	0	69	Charged his ring nitrogen
+NY	14.007	N	3	0	74	TRP N in pyrrole ring
+O	15.999	O	1	0	76	Carbonyl oxygen
+OB	15.999	O	1	0	77	Carbonyl oxygen in acetic acid
+OC	15.999	O	1	0	78	Carboxylate oxygen
+OH1	15.999	O	2	0	79	Hydroxyl oxygen
+OH1A	15.999	O	2	0	79	Hydroxyl oxygen (SER)
 OS	15.9994	O	2	0	80	Ester oxygen
-S	32.066	S	2	0	81	Sulphur
-SM	32.066	S	2	0	82	Sulfur C-S-S-C type
-SS	32.066	S	1	0	83	Thiolate sulfur
+S	32.06	S	2	0	81	Sulphur
+SM	32.06	S	2	0	82	Sulfur C-S-S-C type
+SS	32.06	S	1	0	83	Thiolate sulfur
 
 ITEM	END
 
@@ -146,6 +151,7 @@ CDA	CD	CDA	CD	CD	CD	CD
 CE1	CE1	CE1	CE1	CE1	CE1	CE1
 CE2	CE2	CE2	CE2	CE2	CE2	CE2
 CP1	CP1	CP1	CP1	CP1	CP1	CP1
+CP1A	CP1	CP1A	CP1	CP1	CP1	CP1
 CP2	CP2	CP2	CP2	CP2	CP2	CP2
 CP3	CP3	CP3	CP3	CP3	CP3	CP3
 CPH1	CPH1	CPH1	CPH1	CPH1	CPH1	CPH1
@@ -224,6 +230,7 @@ CDA	CD	CDA	CD	CD	CD	CD
 CE1	CE1	CE1	CE1	CE1	CE1	CE1
 CE2	CE2	CE2	CE2	CE2	CE2	CE2
 CP1	CP1	CP1	CP1	CP1	CP1	CP1
+CP1A	CP1	CP1A	CP1	CP1	CP1	CP1
 CP2	CP2	CP2	CP2	CP2	CP2	CP2
 CP3	CP3	CP3	CP3	CP3	CP3	CP3
 CPH1	CPH1	CPH1	CPH1	CPH1	CPH1	CPH1
@@ -290,12 +297,14 @@ ITEM	INCREMENT
 # type1	type2	delta12	delta21
 
 C	CP1	0	0
+C	CP2	0	0
 C	CT1	0	0
 C	CT2	0	0
 C	CT3	0	0
 C	N	0	0
 C	NC2	0.21333	0.12
 C	NH1	0	0
+C	NP	0	0
 C	O	0.51	-0.51
 CA	CA	0	0
 CA	CAI	0	0
@@ -331,6 +340,7 @@ CP1	CP2	0	0
 CP1	HB1	-0.09	0.09
 CP1	N	0.11	-0.11
 CP1	NP	0.25	0.75
+CP1A	NP	0.11	0.75
 CP2	CP2	0	0
 CP2	CP3	0	0
 CP2	HA2	-0.09	0.09
@@ -390,6 +400,7 @@ CT3	HA3	-0.09	0.09
 CT3	NH1	0.16	-0.16
 CT3	OS	0.13	-0.13
 CT3	S	0.05	-0.05
+H	N	0.31	-0.31
 H	NH1	0.31	-0.31
 H	NH2	0.32	-0.32
 H	NH2A	0.34	-0.34
@@ -467,6 +478,17 @@ OS	OS	1.77	-0.152	1.77	-0.152
 S	S	2	-0.45	2	-0.45
 SM	SM	1.975	-0.38	1.975	-0.38
 SS	SS	2.2	-0.47	2.2	-0.47
+
+ITEM	END
+
+# Bond wildcard parameters
+
+ITEM	BOND_AUTO
+
+# type1	type2	k	l0
+
+C	CP*	250	1.49
+C	N*	260	1.3
 
 ITEM	END
 
@@ -619,10 +641,20 @@ ITEM	ANGLE_AUTO
 
 # type1	type2	type3	k	theta0	kub	s0
 
+C	N*	C	50	120	0	0
+C	N*	CP1	60	117	0	0
+C*	CP2	CP2	70	108.5	0	0
+C*	CP2	HA2	33.43	110.1	22.53	2.179
+C*	NP	HC	33	109.5	4	2.056
 CA	CA	CT*	45.8	122.3	0	0
 CA	CT*	HA*	49.3	107.5	0	0
+CP*	C	O	80	118	0	0
 CP*	N	H	35	117	0	0
+CP2	C*	N	70	110.5	0	0
+CP2	C*	NP	70	108.5	0	0
 CT*	CT1	CT2	53.35	115	8	2.561
+CT2	CT2	CT2*	58.35	113.6	11.16	2.561
+N*	C	O	80	122.5	0	0
 
 ITEM	END
 
@@ -655,6 +687,7 @@ C	CT2	NH3	43.7	110	0	0
 C	CT3	HA3	33	109.5	30	2.163
 C	N	CP1	60	117	0	0
 C	N	CP3	60	117	0	0
+C	N	H	34	123	0	0
 C	NC2	CT2	62.3	120	0	0
 C	NC2	CT3	62.3	120	0	0
 C	NC2	HC	49	120	0	0
@@ -1011,6 +1044,7 @@ ITEM	TORSION_AUTO
 
 *	C	CP1	*	0	6	180
 *	C	NC2	*	2.25	2	180
+*	C*	NP	*	0.08	3	0
 *	CA	CT2	*	0	6	0
 *	CA	CT3	*	0	6	0
 *	CC	CP1	*	0	6	180
@@ -1050,11 +1084,23 @@ ITEM	TORSION_AUTO
 *	CT3	NH3	*	0.09	3	0
 *	CT3	OH1	*	0.14	3	0
 *	CT3	OS	*	-0.1	3	0
+C	N	C	CP*	0.1	3	0
+C	N	C	CT*	2.75	2	180	0.3	4	0
+C*	N	C	O	2.75	2	180	0.3	4	0
 CA	CA	CA	CT*	3.1	2	180
 CA	CA	CT*	HA*	0	6	0
 CA	CA	CT1	CT*	0.23	2	180
+CP*	C	N	CP*	0.1	3	0
+CP*	CP*	C	N*	0.4	1	0	0.6	2	0
+CP*	CP*	C	O	0.4	1	180	0.6	2	0
 CT*	CA	CA	HP	4.2	2	180
 CT*	CT2	CPH1	NR3	0.19	3	0
+CT1	CT2*	CT2	CT2	0.63	1	180	0.01	2	0	0.15	3	0
+CT2	CT2	CT2*	HA2	0.19	3	0
+H	N	C	*	1	2	180
+H	N	CP1	*	1	2	180
+H*	CP*	C	N*	0.4	1	180	0.6	2	0
+H*	CP*	C	O	0.4	1	0	0.6	2	0
 N	C	CT*	NH2	0	1	0
 
 ITEM	END
@@ -1522,6 +1568,7 @@ HB2	CT2	C	NH1	0	1	0
 HB2	CT2	C	O	0	1	0
 HB2	CT2	NH2	HC	0.11	3	0
 HC	NC2	C	NC2	2.25	2	180
+HC	NP	C	O	2.5	2	180
 HE1	CE1	CE1	HE1	1	2	180
 HE1	CE1	CE2	HE2	5.2	2	180
 HP	CA	CA	HP	2.4	2	180

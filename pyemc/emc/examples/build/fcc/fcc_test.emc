@@ -1,0 +1,55 @@
+(* EMC: Script *)
+
+(* use as a testing example; see fcc_build for comments *)
+
+variables	= {
+  n		-> 4,
+  debug		-> false,
+  output	-> "fcc01",
+  la 		-> 2**(5/6),
+  lb 		-> 2**(5/6),
+  lc		-> 2**(5/6)};
+
+get		= {name -> $root+"lib/fcc.emc"};
+
+simulation	= {
+  output	-> {debug -> debug},
+  systems	-> {properties -> {t -> 1}},
+  types		-> {
+    skin	-> 0.6,
+    neighbor	-> pair,
+    virial	-> true,
+    stencil	-> standard,
+    standard	-> {correct -> {active -> false}}},
+  moves		-> {ncycles -> 100, seed -> 123456789,
+    displace	-> {frequency -> 1}},
+  blocks	-> {
+    frequency	-> 100,
+    reports	-> {virial -> auto}},
+  profiles	-> {frequency -> 10}
+};
+
+crystal		= {n -> {n, n, n}, miller -> {0, 0, 1}, plane -> m001};
+
+duplicate	= {source -> 0, destination -> {1, 3}};
+
+force		= {style -> init, message -> true};
+
+restart		= {name -> output,
+		   format -> "_%06ld", frequency -> 10000, reset -> false};
+
+run		= {ncycles -> 100, nblocks -> 10};
+
+memory		= {style -> full};
+
+force		= {style -> none, message -> true};
+force		= {style -> list, message -> true};
+force		= {style -> init, message -> true};
+
+put 		= {name -> output};
+pdb		= {name -> output, system -> 0, cut -> true,
+		    forcefield -> standard};
+
+lammps		= {name -> output, system -> 0, mode -> put,
+		    units -> lj, types -> true, forcefield -> standard};
+

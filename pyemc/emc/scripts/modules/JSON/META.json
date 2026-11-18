@@ -1,0 +1,53 @@
+{
+   "abstract" : "JSON (JavaScript Object Notation) encoder/decoder",
+   "author" : [
+      "Makamaka Hannyaharamitu, E<lt>makamaka[at]cpan.orgE<gt>"
+   ],
+   "dynamic_config" : 1,
+   "generated_by" : "ExtUtils::MakeMaker version 7.34, CPAN::Meta::Converter version 2.150010",
+   "license" : [
+      "perl_5"
+   ],
+   "meta-spec" : {
+      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "version" : 2
+   },
+   "name" : "JSON",
+   "no_index" : {
+      "directory" : [
+         "t",
+         "inc"
+      ]
+   },
+   "prereqs" : {
+      "build" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "configure" : {
+         "requires" : {
+            "ExtUtils::MakeMaker" : "0"
+         }
+      },
+      "runtime" : {
+         "recommends" : {
+            "JSON::XS" : "2.34"
+         },
+         "requires" : {
+            "Test::More" : "0"
+         }
+      }
+   },
+   "release_status" : "stable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/makamaka/JSON/issues"
+      },
+      "repository" : {
+         "url" : "https://github.com/makamaka/JSON"
+      }
+   },
+   "version" : "4.10",
+   "x_serialization_backend" : "JSON version 4.10"
+}

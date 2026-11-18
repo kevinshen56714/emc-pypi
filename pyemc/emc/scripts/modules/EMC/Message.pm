@@ -387,6 +387,7 @@ sub trace {
   printf("%-3.3s %-35.35s %s\n", "lvl", "call", "call location");
   print("$divider\n");
   while ((my @call = (caller($i++)))) {
+    next if (!$i);
     printf("%-3.3s ", "$i");
     printf("%-35.35s ", $call[3]);
     printf("%s:%s\n", EMC::IO::scrub_dir($call[1]), $call[2]);

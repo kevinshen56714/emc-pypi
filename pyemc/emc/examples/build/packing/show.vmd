@@ -1,0 +1,49 @@
+#!/usr/local/bin/vmd
+# VMD script written by save_state $Revision: 1.41 $
+# VMD version: 1.8.6
+
+mol new packed.psf type psf first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+#mol addfile packed.pdb type pdb first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+mol addfile packed.traject type lammpstrj first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+
+mol delrep 0 top
+
+mol representation VDW 1.100000 23.000000
+mol color Name
+mol selection {type 1}
+mol material Opaque
+mol addrep top
+mol selupdate 0 top 0
+mol colupdate 0 top 0
+mol scaleminmax top 0 0.000000 0.000000
+mol smoothrep top 0 0
+mol drawframes top 0 {now}
+
+mol representation VDW 0.550000 23.000000
+mol color Name
+mol selection {type 2}
+mol material Opaque
+mol addrep top
+mol selupdate 1 top 0
+mol colupdate 1 top 0
+mol scaleminmax top 1 0.000000 0.000000
+mol smoothrep top 1 0
+mol drawframes top 1 {now}
+
+mol representation VDW 0.275000 23.000000
+mol color Name
+mol selection {type 3}
+mol material Opaque
+mol addrep top
+mol selupdate 2 top 0
+mol colupdate 2 top 0
+mol scaleminmax top 2 0.000000 0.000000
+mol smoothrep top 2 0
+mol drawframes top 2 {now}
+
+mol rename top packed.psf
+
+pbc box
+
+rotate z by 90
+

@@ -474,7 +474,6 @@ sub set_item_groups {
     my $name = EMC::Common::convert_name($id)->[0];
     my $chemistry = shift(@arg);
     my $fpoly = EMC::Polymers::is_polymer($chemistry);
-    my $nconnects = ($chemistry =~ tr/\*\<\>//);
     my $group = $groups->{group} = EMC::Common::hash($groups, "group");
 
     if ($chemistry =~ m/\{/) {				# groups from force
@@ -513,6 +512,7 @@ sub set_item_groups {
     EMC::EMC::check_name($emc, $name, $line, 0);
     push(@{$index}, $name) if (!defined($group->{$name}));
 
+    my $nconnects = ($chemistry =~ tr/\*\<\>//);
     $group = $group->{$name} = {
       id => $id,
       polymer => $fpoly,

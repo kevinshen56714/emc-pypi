@@ -1,0 +1,57 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "test",
+  output	-> "testn",
+  ncycles	-> 1,
+  nblocks	-> 1,
+  frequency	-> 1
+};
+
+get		= {name -> input, compress -> true};
+//reset		= {style -> simulation};
+
+(*
+sample		= {
+  gyration	-> {
+    active	-> true,
+    frequency	-> frequency,
+    binsize	-> 0.001,
+    focus	-> {
+      clusters	-> ethane
+    }
+  },
+  gr		-> {
+    active	-> true,
+    frequency	-> frequency,
+    binsize	-> 0.01,
+    source	-> {clusters -> ethane}
+  }
+};
+*)
+
+sample		= {
+  //gyration	= {active -> true, frequency -> 10, binsize -> 0.001},
+  gyration	= {active -> false},
+  gr		= {active -> true}
+};
+
+run		= {
+  ncycles	-> ncycles,
+  nblocks	-> nblocks
+};
+
+(*
+traject		= {name -> name, frequency -> 1, mode -> analyze};
+*)
+
+export		= {
+  sample	-> {name -> "gyration", type -> gyration, style -> math},
+  sample	-> {name -> "gr", type -> gr, style -> math},
+  sample	-> {name -> "gr", type -> gr, style -> csv}
+};
+
+force		= {style -> init};
+
+put		= {name -> output, compress -> true};
+

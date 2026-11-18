@@ -3,26 +3,30 @@
 #  converted by trappe.pl v1.2, May 25, 2021 by Pieter J. in 't Veld
 #  to be used in conjuction with EMC v9.4.4 or higher
 #
+#  Copyrights (c) 2004-2026 Pieter J. in 't Veld
+#  Distributed under GNU Public License v3.0 as stated in the LICENSE file in
+#  the EMC root directory
+#
 
 # Force field definition
 
 ITEM	DEFINE
 
-FFMODE	TRAPPE
-FFTYPE	UNITED
-FFDEPTH	4
-FFINDEX	TYPES
-VERSION	Oct
-CREATED	Aug 2024
-LENGTH	ANGSTROM
-ENERGY	KELVIN
-DENSITY	G/CC
-MIX	BERTHELOT
-CUTOFF	14
-NBONDED	3
-PAIR14	EXCLUDE
-ANGLE	ERROR
-TORSION	ERROR
+FFMODE		TRAPPE
+FFTYPE		UNITED
+FFDEPTH		4
+FFINDEX		TYPES
+VERSION		Oct
+CREATED		Apr 2026
+LENGTH		ANGSTROM
+ENERGY		KELVIN
+DENSITY		G/CC
+MIX		BERTHELOT
+CUTOFF		14
+NBONDED		3
+PAIR14		EXCLUDE
+ANGLE		ERROR
+TORSION		ERROR
 
 ITEM	END
 

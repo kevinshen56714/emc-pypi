@@ -70,7 +70,7 @@ $EMC::LAMMPS::Identity = {
 sub construct {
   my $lammps = EMC::Common::hash(EMC::Common::element(shift(@_)));
   my $attr = EMC::Common::attributes(@_);
-  
+
   set_functions($lammps, $attr);
   set_defaults($lammps);
   set_commands($lammps);
@@ -102,7 +102,7 @@ sub set_defaults {
       tdamp		=> 100,
       tequil		=> 1000,
       tfreq		=> 10, 
-      trun		=> 10000000,
+      trun		=> undef,
       verbatim		=> undef,
       version		=> 2023, 
       version_pass	=> 0,
@@ -292,10 +292,6 @@ sub set_commands {
 	comment		=> "set LAMMPS thermostat damping constant",
 	default		=> $context->{tdamp},
 	gui		=> ["real", "chemistry", "lammps", "advanced"]},
-      $indicator."tequil"	=> {
-	comment		=> "set LAMMPS equilibration time",
-	default		=> $context->{tequil},
-	gui		=> ["integer", "chemistry", "lammps", "standard"]},
       $indicator."tfreq"	=> {
 	comment		=> "set LAMMPS profile sampling frequency",
 	default		=> $context->{tfreq},
@@ -308,15 +304,27 @@ sub set_commands {
 	comment		=> "set LAMMPS triclinic mode",
 	default		=> EMC::Math::boolean($flag->{triclinic}),
 	gui		=> ["string", "chemistry", "lammps", "standard"]},
-      $indicator."trun"	=> {
-	comment		=> "set LAMMPS run time",
-	default		=> $context->{trun},
-	gui		=> ["string", "chemistry", "lammps", "standard"]},
     };
+
+    if (!$flag_depricated) {
+      $commands = EMC::Common::attributes($commands,
+	{
+	  $indicator."tequil"	=> {
+	    comment	=> "set LAMMPS equilibration time",
+	    default	=> $context->{tequil},
+	    gui		=> ["integer", "chemistry", "lammps", "standard"]},
+	  $indicator."trun"	=> {
+	    comment	=> "set LAMMPS run time",
+	    default	=> $context->{trun},
+	    gui		=> ["string", "chemistry", "lammps", "standard"]},
+	}
+      );
+    }
 
     foreach (keys(%{$commands})) {
       my $ptr = $commands->{$_};
       if (!defined($ptr->{set})) {
+	$ptr->{depricated} = $flag_depricated;
 	$ptr->{original} = $pre.$_ if ($flag_depricated);
 	$ptr->{comment} =~ s/LAMMPS //g if ($indicator ne "");
 	$ptr->{comment} =~ s/in LAMMPS//g if ($indicator ne "");
@@ -378,6 +386,12 @@ sub set_context {
   $context->{pdamp} = (
     $field->{type} eq "dpd" ? 10 :
     $field->{type} eq "gauss" ? 10 : 1000) if (!defined($defined->{pdamp}));
+  $context->{tequil} = (
+    $global->{tequil}) if (!defined($defined->{tequil}));
+  $context->{trun} = (
+    $global->{trun}) if (!defined($defined->{trun}));
+  $flag->{trun} = (
+    $global->{flag}->{trun}) if (!defined($defined->{trun}));
 }
 
 
@@ -521,6 +535,7 @@ sub set_options {
     if ($option eq $indicator."thermo_multi") {
       return $flag->{multi} = EMC::Math::flag($args->[0]); }
     if ($option eq $indicator."trun") { 
+      $defined->{trun} = 1;
       if (($flag->{trun} = $args->[0] eq "-" ? 0 : 1)) {
 	my @s = @{$args};
 	@s[0] = EMC::Math::eval(@s[0])->[0];
@@ -546,6 +561,7 @@ sub set_functions {
   $set->{context} = \&EMC::LAMMPS::set_context;
   $set->{defaults} = \&EMC::LAMMPS::set_defaults;
   $set->{options} = \&EMC::LAMMPS::set_options;
+  $set->{flags} = \&EMC::Options::set_flag;
 
   $write->{emc} = \&EMC::LAMMPS::write_emc;
   $write->{job} = \&EMC::LAMMPS::write_job;
@@ -855,15 +871,22 @@ sub write_interaction {				# <= write_lammps_interaction
 	"fix_modify\tcmap energy yes\n") :
     $field->{type} eq "cff" ? 
       ($global->{flag}->{charge} ? 
-	"lj/class2/coul/$long $cut $ccut" : "lj/class2 $cut") :
+	"lj/class2/coul/$long $cut $ccut" :
+       	"lj/class2 $cut") :
     $field->{type} eq "sdk" ? 
-      ($global->{flag}->{charge} ? "lj/sdk/coul/$long $cut $ccut" : "lj/sdk $cut") :
+      ($global->{flag}->{charge} ?
+	"lj/sdk/coul/$long $cut $ccut" :
+       	"lj/sdk $cut") :
     $field->{type} eq "martini" ?
-      ($global->{flag}->{charge} ? "lj/gromacs/coul/gromacs $icut $cut &\n\t\t$zcut $ccut" : 
-		     "lj/gromacs $icut $cut") :
-      ($global->{flag}->{charge} ? "lj/cut/coul/$long $cut $ccut" : "lj/cut $cut"));
+      ($global->{flag}->{charge} ? 
+	"lj/gromacs/coul/gromacs $icut $cut &\n\t\t$zcut $ccut" :
+	"lj/gromacs $icut $cut") : 
+      ($global->{flag}->{charge} ?
+       	"lj/cut/coul/$long $cut $ccut" :
+       	"lj/cut $cut"));
 
-  my $neighbor = ($context->{version}<$context->{newer_version} ? "multi" : "multi/old");
+  my $neighbor = (
+    $context->{version}<$context->{newer_version} ? "multi" : "multi/old");
 
   printf($stream "%s",
 "# Interaction potential definition
@@ -1434,7 +1457,6 @@ sub write_emc {
 
   # return if ($emc_flag->{test});
   return if (!(defined($flag) && $flag->{write}));
-  return if ($emc_flag->{exclude}->{build});
 
   printf($stream "\nlammps\t\t= {name -> output, mode -> put, ".
     "forcefield -> $field->{type},\n");
@@ -1497,8 +1519,7 @@ sub write_job {
       ($context->{trun} ne "" ? "\n\t-var trun ".eval($context->{trun})." \\" : "") : "";
 
   printf($stream
-"
-run_md() {
+"run_md() {
   local dir=\"\$1\"; shift;
   local frestart=\"\$1\"; shift;
   local ncores=\"\$1\"; shift;
@@ -1582,6 +1603,7 @@ set_restart() {
   RESTART=(\$1/*/*.restart?);
   echo \"\${RESTART[0]}\";
 }
+
 "); 
 }
 

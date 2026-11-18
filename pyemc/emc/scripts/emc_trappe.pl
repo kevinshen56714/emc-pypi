@@ -353,13 +353,18 @@ sub put_header {
 #  TraPPE $text using $using
 #  converted by $script $version, $date by $author
 #  to be used in conjuction with EMC v$EMCVersion or higher
-#\n");
+#
+#  Copyrights (c) 2004-2026 Pieter J. in 't Veld
+#  Distributed under GNU Public License v3.0 as stated in the LICENSE file in
+#  the EMC root directory
+#
+");
 
   return if (!$definition);
   printf($file "\n# Force field definition\n\n");
   printf($file "ITEM\tDEFINE\n\n");
   foreach (@OrderDefine) {
-    printf($file "%s\t%s\n", uc($_), $Define{$_});
+    printf($file "%s\t\t%s\n", uc($_), $Define{$_});
   }
   printf($file "\nITEM\tEND\n");
 }

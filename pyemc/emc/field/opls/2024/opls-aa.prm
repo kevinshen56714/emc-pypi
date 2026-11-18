@@ -1,8 +1,12 @@
-#EMC/FIELD/OPLS/2025
+#EMC/FIELD/OPLS/2026
 #
 #  OPLS parameters using oplsaa.par, oplsaa.sb, and opls-aa.define
 #  converted by emc_opls.pl, v2.0, December 19, 2024 by Pieter J. in 't Veld
-#  created on Sun Jun 29 14:32:50 CEST 2025
+#  created on Tue Oct 06 15:52:11 CEST 2026
+#
+#  Copyrights (c) 2004-2026 Pieter J. in 't Veld
+#  Distributed under GNU Public License v3.0 as stated in the LICENSE file in
+#  the EMC root directory
 #
 
 # Define section
@@ -17,7 +21,7 @@ FFDEPTH		5
 FFCHARGE	ALL
 FFSTRICT	TRUE
 VERSION		JAN 2007
-CREATED		JUNE 2025
+CREATED		OCTOBER 2026
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -40,26 +44,26 @@ ITEM	REFERENCES
 
 1954	??	??	Wiley (Hirschfelder)
 1972	24	1013	Mol. Phys.
-1988	63	547	Mol. Phys.
-1984	106	6638	J. Am. Chem. Soc.
-1991	113	8262	J. Am. Chem. Soc.
-1996	118	11225	J. Am. Chem. Soc.
-1999	121	4827	J. Am. Chem. Soc.
 1983	79	926	J. Chem. Phys.
-1990	11	958	J. Comput. Chem.
-1997	18	1955	J. Comput. Chem.
+1984	106	6638	J. Am. Chem. Soc.
 1986	90	1276	J. Phys. Chem.
 1986	90	2174	J. Phys. Chem.
 1986	90	6379	J. Phys. Chem.
+1988	63	547	Mol. Phys.
+1990	11	958	J. Comput. Chem.
 1990	94	1683	J. Phys. Chem.
+1991	113	8262	J. Am. Chem. Soc.
 1991	95	3315	J. Phys. Chem.
-2001	105	4118	J. Phys. Chem. A
+1996	118	11225	J. Am. Chem. Soc.
+1997	18	1955	J. Comput. Chem.
 1998	102	8049	J. Phys. Chem. B
+1998	424	145	J. Mol. Struct. (Theochem)
+1999	121	4827	J. Am. Chem. Soc.
+2001	105	4118	J. Phys. Chem. A
 2004	18	16264	J. Phys. Chem. B
-1998	424	145	Theochem.
-2007	806	23	J. Mol. Struct. THEOCHEM
 2006	2	1499	J. Chem. Theory Comput.
 2009	5	1038	J. Chem. Theory Comput.
+2017	13	6131	J. Chem. Theory Comput.
 
 ITEM	END	# REFERENCES
 
@@ -94,6 +98,7 @@ c3a53	12.011	C	3	0	506	Aromatic carbon between 2 N in 5-ring (histidine CE1)
 c3a54	12.011	C	3	0	510	Aromatic carbon in 5-ring (histidine CG, CD2 in HIP)
 c3a55	12.011	C	3	0	550	Aromatic carbon next to 2 N in 5-ring (pyrazole C3)
 c3a5a	12.011	C	3	0	353	Aromatic carbon between 2 N in 5-ring (adenine C8)
+c3a5f	12.011	C	3	0	567	Aromatic carbon (furan C2)
 c3a5m	12.011	C	3	0	627	Aromatic carbon between 2 N in 5-ring (purine C8)
 c3a5n	12.011	C	3	0	544	Aromatic carbon in 5-ring with 1 N (pyrrole C3)
 c3a5o	12.011	C	3	0	568	Aromatic carbon in 5-ring with 1 O (furan C3)
@@ -104,7 +109,7 @@ c3a6n	12.011	C	3	0	531	Aromatic carbon between 2 N in 6-ring
 c3aa	12.011	C	3	0	349	Adenine C4 (bridge C between 2 N in 5- and 6-ring)
 c3ab	12.011	C	3	0	519	Bridging aromatic carbon in biphenyl
 c3ai	12.011	C	3	0	2686	Aromatic carbon (1-phenylbenzimidazole shared 5- and 6-ring)
-c3am	12.011	C	3	0	231	C=O in amides
+c3an	12.011	C	3	0	2532	SP2 carbon in maleic anhydride
 c3ao	12.011	C	3	0	323	SP2 carbon C=O in 6-ring (uracil C5)
 c3ao1	12.011	C	3	0	2906	SP2 carbon C=O in 6-ring (3-phenyl-4-pyridone)
 c3ap	12.011	C	3	0	312	Aromatic carbon (diaminepyridine)
@@ -112,12 +117,14 @@ c3as	12.011	C	3	0	145	Aromatic carbon in sulfates
 c3aso	12.011	C	3	0	145	Aromatic ortho carbon in sulfates
 c3at	12.011	C	3	0	502	CE C in TRP (aromatic carbon in 5- and 6-ring next to N)
 c3d	12.011	C	3	0	150	Diene =CH-CH=
-c3im	12.011	C	3	0	231	C=O in imides
 c3o	12.011	C	3	0	231	C=O in ketones
 c3o4	12.011	C	3	0	685	C=O in beta-lactam
 c3oa	12.011	C	3	0	231	C=O in deprotonated acids
+c3oam	12.011	C	3	0	231	C=O in amides
+c3oan	12.011	C	3	0	231	C=O in maleic anhydride
 c3oe	12.011	C	3	0	231	C=O in esters
 c3oh	12.011	C	3	0	231	C=O in protonated acids
+c3oim	12.011	C	3	0	231	C=O in imides
 c3ou	12.011	C	3	0	231	C=O in urea
 c3u	12.011	C	3	0	2532	SP2 carbon in uracil
 c4	12.011	C	4	0	135	SP3 carbon
@@ -133,6 +140,7 @@ c4f4	12.011	C	4	0	964	SP3 carbon in CF4
 c4h3	12.011	C	4	0	396	SP3 carbon C in methyl group
 c4i	12.011	C	4	0	135	SP3 carbon in iodo-alkanes
 c4n	12.011	C	4	0	135	SP3 carbon in amines
+c4nn	12.011	C	4	0	135	SP3 carbon in nitriles
 c4ns	12.011	C	4	0	135	SP3 carbon in sulfonamides
 c4o	12.011	C	4	0	135	SP3 carbon in benzyl alcohols
 c4o2	12.011	C	3	0	189	C(H2O2): acetal OCH2O (SP3 carbon connected to 2 O and 1 H)
@@ -145,6 +153,7 @@ c4t	12.011	C	3	0	331	SP3 carbon in thymine C-C5
 ca+2	40.078	Ca	0	0	1112	Calcium 2+ ion
 cl-	35.4527	Cl	0	-1	1101	Chlorine 1- anion
 cl1	35.4527	Cl	1	0	151	Cl in alkyl chlorides
+cl4o	35.4527	Cl	4	0	-	Cl in perchlorate
 cs+	132.905	Cs	0	1	1110	Cesium 1+ ion
 eu+3	151.964	Eu	0	3	705	Europium 3+ ion
 f-	18.998	F	0	-1	1100	Fluor 1- anion
@@ -214,16 +223,17 @@ n3sa1	14.0067	N	3	0	237	Nitrogen in secondary sulfonamides
 n3sa2	14.0067	N	3	0	237	Nitrogen in primary sulfonamides
 n3ur2	14.0067	N	3	0	237	Nitrogen in primary amides
 n3y	14.0067	N	3	0	749	Nitrogen in arginine next to amine group
-n4	14.0067	N	3	0	286	Nitrogen in ammonium ion with no protons
-n4h	14.0067	N	3	0	286	Nitrogen in ammonium ion with one proton
-n4h2	14.0067	N	3	0	286	Nitrogen in ammonium ion with two protons
-n4h3	14.0067	N	3	0	286	Nitrogen in ammonium ion with three protons
-n4h4	14.0067	N	3	0	286	Nitrogen in ammonium ion with four protons
+n4	14.0067	N	4	0	286	Nitrogen in ammonium ion with no protons
+n4h	14.0067	N	4	0	286	Nitrogen in ammonium ion with one proton
+n4h2	14.0067	N	4	0	286	Nitrogen in ammonium ion with two protons
+n4h3	14.0067	N	4	0	286	Nitrogen in ammonium ion with three protons
+n4h4	14.0067	N	4	0	286	Nitrogen in ammonium ion with four protons
 na+	22.99	Na	0	1	1107	Sodium 1+ ion
 nd+3	144.242	Nd	0	3	704	Neodymium 3+ ion
 ne	20.18	Ne	0	0	102	Neon
 o1=	15.9994	O	1	0	236	Oxygen in amides and ketones
 o1a	15.9994	O	1	0	272	Oxygen in deprotonated acids
+o1cl	15.9994	O	1	0	-	Oxygen in perchlorate
 o1h-	15.9994	O	1	0	434	Oxygen in hydroxide (OH-, d(O-H) = 0.953 A)
 o1n	15.9994	O	1	0	788	Oxygen in nitrate ion (NO3-)
 o1n1	15.9994	O	1	0	761	Oxygen in nitro R-NO2
@@ -302,6 +312,7 @@ c3a53	c3a53	c3a53	c3a53	c3a53	c3a53	c3a53
 c3a54	c3a54	c3a54	c3a54	c3a54	c3a54	c3a54
 c3a55	c3a55	c3a55	c3a55	c3a55	c3a55	c3a55
 c3a5a	c3a5a	c3a5a	c3a5a	c3a5a	c3a5a	c3a5a
+c3a5f	c3a5f	c3a5f	c3a51	c3a51	c3a51	c3a51
 c3a5m	c3a5m	c3a5m	c3a5a	c3a5a	c3a5a	c3a5a
 c3a5n	c3a5n	c3a5n	c3a5n	c3a5n	c3a5n	c3a5n
 c3a5o	c3a5o	c3a5o	c3a5n	c3a5n	c3a5n	c3a5n
@@ -312,22 +323,24 @@ c3a6n	c3a6n	c3a6n	c3a6n	c3a6n	c3a6n	c3a6n
 c3aa	c3aa	c3aa	c3aa	c3aa	c3aa	c3aa
 c3ab	c3ab	c3ab	c3ab	c3ab	c3ab	c3ab
 c3ai	c3ai	c3ai	c3a	c3a	c3a	c3a
-c3am	c3am	c3am	c3o	c3o	c3o	c3o
+c3an	c3an	c3an	c3an	c3an	c3an	c3an
 c3ao	c3ao	c3ao	c3=	c3=	c3=	c3=
 c3ao1	c3ao1	c3ao1	c3=	c3=	c3=	c3=
 c3ap	c3ap	c3ap	c3a	c3a	c3a	c3a
 c3as	c3as	c3as	c3a	c3a	c3a	c3a
 c3aso	c3aso	c3aso	c3a	c3a	c3a	c3a
 c3at	c3at	c3at	c3at	c3at	c3at	c3at
-c3d	c3d	c3d	c3u	c3u	c3u	c3u
-c3im	c3im	c3im	c3o	c3o	c3o	c3o
+c3d	c3d	c3d	c3an	c3an	c3an	c3an
 c3o	c3o	c3o	c3o	c3o	c3o	c3o
 c3o4	c3o4	c3o4	c3o4	c3o4	c3o4	c3o4
 c3oa	c3oa	c3oa	c3o	c3o	c3o	c3o
+c3oam	c3oam	c3oam	c3o	c3o	c3o	c3o
+c3oan	c3oan	c3oan	c3o	c3o	c3o	c3o
 c3oe	c3oe	c3oe	c3o	c3o	c3o	c3o
 c3oh	c3oh	c3oh	c3o	c3o	c3o	c3o
+c3oim	c3oim	c3oim	c3o	c3o	c3o	c3o
 c3ou	c3ou	c3ou	c3o	c3o	c3o	c3o
-c3u	c3u	c3u	c3u	c3u	c3u	c3u
+c3u	c3u	c3u	c3an	c3an	c3an	c3an
 c4	c4	c4	c4	c4	c4	c4
 c44	c44	c44	c44	c44	c44	c44
 c441	c441	c441	c44	c44	c44	c44
@@ -341,6 +354,7 @@ c4f4	c4f4	c4f4	c4	c4	c4	c4
 c4h3	c4h3	c4h3	c4	c4	c4	c4
 c4i	c4i	c4i	c4	c4	c4	c4
 c4n	c4n	c4n	c4	c4	c4	c4
+c4nn	c4nn	c4nn	c4	c4	c4	c4
 c4ns	c4ns	c4ns	c4	c4	c4	c4
 c4o	c4o	c4o	c4	c4	c4	c4
 c4o2	c4o2	c4o2	c4o2	c4o2	c4o2	c4o2
@@ -353,6 +367,7 @@ c4t	c4t	c4t	c4	c4	c4	c4
 ca+2	ca+2	ca+2	ca+2	ca+2	ca+2	ca+2
 cl-	cl-	cl-	cl-	cl-	cl-	cl-
 cl1	cl1	cl1	cl1	cl1	cl1	cl1
+cl4o	cl4o	cl4o	cl1	cl1	cl1	cl1
 cs+	cs+	cs+	cs+	cs+	cs+	cs+
 eu+3	eu+3	eu+3	eu+3	eu+3	eu+3	eu+3
 f-	f-	f-	f-	f-	f-	f-
@@ -432,6 +447,7 @@ nd+3	nd+3	nd+3	nd+3	nd+3	nd+3	nd+3
 ne	ne	ne	ne	ne	ne	ne
 o1=	o1=	o1=	o1=	o1=	o1=	o1=
 o1a	o1a	o1a	o1a	o1a	o1a	o1a
+o1cl	o1cl	o1cl	o1s	o1s	o1s	o1s
 o1h-	o1h-	o1h-	o2h	o2h	o2h	o2h
 o1n	o1n	o1n	o1=	o1=	o1=	o1=
 o1n1	o1n1	o1n1	o1n1	o1n1	o1n1	o1n1
@@ -486,19 +502,22 @@ ITEM	INCREMENT
 # type1	type2	delta12	delta21
 
 br1	c4br	-0.2	0.2
+c2n	c4nn	0	0
+c2n	n1	0.46	-0.56
 c2na	c3a	-0.035	0.035
 c2na	n1	0.43	-0.43
+c3*	c4*	0	0
 c3=	c3=	0	0
 c3=	c4	0	0
 c3=	cl1	0.12	-0.12
 c3=	h1=	-0.115	0.115
 c3a	c3a	0	0
 c3a	c3ab	0	0
-c3a	c3am	-0.115	0.115
 c3a	c3as	0	0
 c3a	c3aso	0	0
 c3a	c3o	-0.115	0.115
 c3a	c3oa	-0.115	0.115
+c3a	c3oam	-0.115	0.115
 c3a	c3oe	-0.115	0.115
 c3a	c3oh	-0.115	0.115
 c3a	c4	-0.115	0.115
@@ -529,36 +548,53 @@ c3a51	h1a	-0.27	0.27
 c3a51	n3a	0.03	-0.03
 c3a53	h1a	-0.21	0.21
 c3a53	n3a	0.06	-0.06
+c3a5f	c3a5o	0.028	-0.028
+c3a5f	c3o	-0.142	0.142
+c3a5f	c4	-0.142	0.142
+c3a5f	h1a	-0.142	0.142
+c3a5f	o2e	0.095	-0.095
+c3a5o	c3a5o	0	0
+c3a5o	c3o	-0.126	0.126
+c3a5o	c4	-0.126	0.126
+c3a5o	h1a	-0.126	0.126
 c3ab	c3ab	0	0
-c3am	c4	0	0
-c3am	h1co	0	0
-c3am	n3am0	0	0
-c3am	n3am1	0	0
-c3am	n3am2	0	0
-c3am	o1=	0.5	-0.5
+c3ab	c3an	0.1	-0.1
+c3an	c3an	0	0
+c3an	c3oan	0	0
+c3an	c4	-0.1	0.1
+c3an	h1=	-0.2	0.2
 c3as	c3aso	0	0
 c3as	c4s	-0.115	0.115
 c3as	o2s	-0.1	0.1
 c3as	s4	-0.4	0.4
 c3aso	h1a	-0.21	0.21
-c3im	c4	-0.06	0.06
-c3im	n3im1	0.06	-0.06
-c3im	o1=	0.42	-0.42
 c3o	c4	0	0
 c3o	h1co	0	0
 c3o	o1=	0.47	-0.47
 c3oa	c4	0.1	-0.1
 c3oa	h1	0.1	-0.1
 c3oa	o1a	0.3	-0.8
+c3oam	c4	0	0
+c3oam	h1co	0	0
+c3oam	n3am0	0	0
+c3oam	n3am1	0	0
+c3oam	n3am2	0	0
+c3oam	o1=	0.5	-0.5
+c3oan	o1=	0.325	-0.325
+c3oan	o2e	0.14	-0.14
 c3oe	c4	0	0
 c3oe	n3am1	0	0
 c3oe	n3am2	0	0
 c3oe	o1=	0.43	-0.43
+c3oe	o2e	0.08	-0.08
 c3oe	o2s	0.08	-0.08
 c3oh	c4	0	0
 c3oh	h1	0	0
 c3oh	o1=	0.44	-0.44
 c3oh	o2ha	0.08	-0.08
+c3oim	c4	-0.06	0.06
+c3oim	n3im1	0.06	-0.06
+c3oim	o1=	0.42	-0.42
 c3ou	n3ur2	-0.124	0.124
 c3ou	o1=	0.39	-0.39
 c4	c4	0	0
@@ -604,6 +640,7 @@ c4n	n3a	0.19	0.31
 c4n	n3ch	0.38	-0.38
 c4n	n3h	0.2	-0.2
 c4n	n3h2	0.18	-0.18
+c4nn	h1cn	-0.026667	0.06
 c4ns	h1cs	-0.03	0.03
 c4ns	n3sa1	0.27	-0.27
 c4o	h1	-0.06	0.06
@@ -631,6 +668,7 @@ c4s	s4	0	0
 c4s	s4c	-0.08	0.08
 c4sa	h1	-0.18	0.18
 c4sa	s4am	0	0
+cl4o	o1cl	0.294	-0.544
 h1n	n3am1	0.3	-0.3
 h1n	n3am2	0.38	-0.38
 h1n	n3h	0.38	-0.38
@@ -703,6 +741,7 @@ c3a53	c3a53	3.55	0.07
 c3a54	c3a54	3.55	0.07
 c3a55	c3a55	3.55	0.07
 c3a5a	c3a5a	3.5	0.08
+c3a5f	c3a5f	3.55	0.076
 c3a5m	c3a5m	3.55	0.07
 c3a5n	c3a5n	3.55	0.07
 c3a5o	c3a5o	3.55	0.076
@@ -713,7 +752,7 @@ c3a6n	c3a6n	3.55	0.07
 c3aa	c3aa	3.5	0.08
 c3ab	c3ab	3.55	0.07
 c3ai	c3ai	3.55	0.076
-c3am	c3am	3.75	0.105
+c3an	c3an	3.55	0.07
 c3ao	c3ao	3.5	0.08
 c3ao1	c3ao1	3.55	0.07
 c3ap	c3ap	3.5	0.08
@@ -721,12 +760,14 @@ c3as	c3as	3.55	0.07
 c3aso	c3aso	3.55	0.07
 c3at	c3at	3.55	0.07
 c3d	c3d	3.55	0.076
-c3im	c3im	3.75	0.105
 c3o	c3o	3.75	0.105
 c3o4	c3o4	3.75	0.105
 c3oa	c3oa	3.75	0.105
+c3oam	c3oam	3.75	0.105
+c3oan	c3oan	3.75	0.105
 c3oe	c3oe	3.75	0.105
 c3oh	c3oh	3.75	0.105
+c3oim	c3oim	3.75	0.105
 c3ou	c3ou	3.75	0.105
 c3u	c3u	3.55	0.07
 c4	c4	3.5	0.066
@@ -742,6 +783,7 @@ c4f4	c4f4	3.5	0.097
 c4h3	c4h3	3.55	0.066
 c4i	c4i	3.5	0.066
 c4n	c4n	3.5	0.066
+c4nn	c4nn	3.5	0.066
 c4ns	c4ns	3.5	0.066
 c4o	c4o	3.5	0.066
 c4o2	c4o2	3.5	0.066
@@ -754,6 +796,7 @@ c4t	c4t	3.5	0.08
 ca+2	ca+2	3.47	0.449657
 cl-	cl-	4.18	0.11779
 cl1	cl1	3.4	0.3
+cl4o	cl4o	3.5	0.118
 cs+	cs+	4.82	8.1e-05
 eu+3	eu+3	3.3	0.05
 f-	f-	3.08	0.72
@@ -833,6 +876,7 @@ nd+3	nd+3	3.473	0.054
 ne	ne	2.78	0.069
 o1=	o1=	2.96	0.21
 o1a	o1a	2.96	0.21
+o1cl	o1cl	2.9	0.21
 o1h-	o1h-	3.2	0.25
 o1n	o1n	2.86	0.21
 o1n1	o1n1	2.96	0.17
@@ -1010,6 +1054,12 @@ c3a5n	c3ab	385	1.46
 c3ab	c3ab	385	1.46
 c3ab	n2a6	483	1.339
 c3ab	n3a	385	1.44
+c2n	c3an	400	1.426
+c3=	c3an	549	1.34
+c3a51	c3an	549	1.365
+c3an	c3an	385	1.46
+c3an	c4	317	1.51
+c3an	h1	340	1.08
 c3at	n3a	428	1.38
 c2n	c3o	400	1.444
 c3=	c3o	410	1.444
@@ -1017,8 +1067,8 @@ c3a	c3o	400	1.49
 c3a51	c3o	400	1.49
 c3aa	c3o	447	1.419
 c3ab	c3o	385	1.46
+c3an	c3o	385	1.46
 c3o	c3o	350	1.51
-c3o	c3u	385	1.46
 c3o	c4	317	1.522
 c3o	c4ai	317	1.522
 c3o	cl1	300	1.79
@@ -1037,12 +1087,6 @@ c3o	o2h	450	1.364
 c3o4	c44	317	1.522
 c3o4	n34	490	1.335
 c3o4	o1=	570	1.229
-c2n	c3u	400	1.426
-c3=	c3u	549	1.34
-c3a51	c3u	549	1.365
-c3u	c3u	385	1.46
-c3u	c4	317	1.51
-c3u	h1	340	1.08
 c2n	c4	390	1.47
 c3a51	c4	317	1.504
 c3a52	c4	317	1.504
@@ -1100,6 +1144,7 @@ c4o2	h1	340	1.09
 c4o2	n3a5h	337	1.475
 c4o2	o2	320	1.38
 c4o2	o2h	320	1.38
+cl1	o1s	757.6	1.506
 cl1	o2	200	1.69
 cl1	si4	223	2.02
 f1	si4	461	1.57
@@ -1168,14 +1213,24 @@ ITEM	ANGLE_AUTO
 
 c*	o2*	s4*	100	120.5
 c3*	c3*	s3	85	119.4
+c3*	c3a*	o2	70	121.6
+c3*	c4	o2h	50	109.5
 c3*	s3	c3*	62	96
 c3*	s3	o1s	74	107
 c3a	c4	n3*	80	111.2
+c3a*	c3a*	c3o*	85	120
+c3a*	c3o	h1	35	115
+c3a*	c3o	o2	81	111.4
+c3a*	c4	c4	63	114
 c3a*	n3a*	c4*	70	125.8
 c3a*	o2*	c3a*	70	106.5
 c3a*	s4	c3a*	78.7	104.4
 c3a5*	c3a5*	h1a*	35	120
+c3o*	c3a*	c4	70	119.7
+c3o*	c3an	h1	35	126.8
+c3o*	o2*	c3o*	70	106.5
 c4	c4	n3a*	50	109.5
+c3a5n	c3a5n	c4*	70	125
 n3*	c4	n3*	70	109.5
 o1*	s4*	o2*	100	108.23
 
@@ -1224,11 +1279,11 @@ c3=	c3=	s2	85	119.4
 c3=	c3a	n2a6	70	121.5
 c3=	c3a	n3a	70	121.5
 c3=	c3a	n3ch	70	120.1
+c3=	c3an	c4	70	124
+c3=	c3an	h1	35	120
 c3=	c3o	n3a	70	114.1
 c3=	c3o	n3am0	70	115.5
 c3=	c3o	o1=	80	125.3
-c3=	c3u	c4	70	124
-c3=	c3u	h1	35	120
 c3=	c4	c3=	63	112.4
 c3=	c4	c4	63	111.1
 c3=	c4	f1	50	109.5
@@ -1371,9 +1426,9 @@ c3a51	c3a52	n2a5	70	111
 c3a51	c3a5n	c3a51	70	103.8
 c3a51	c3a5n	h1	35	126.8
 c3a51	c3a5n	h1a	35	125.7
+c3a51	c3an	h1	35	122
 c3a51	c3o	n3	70	116
 c3a51	c3o	o1=	80	120.4
-c3a51	c3u	h1	35	122
 c3a51	c4	h1	35	109.5
 c3a51	c4	s2	50	114.7
 c3a51	n2a5	n3a	70	104.1
@@ -1486,6 +1541,20 @@ c3a5n	c3a5n	c3ab	70	127.5
 c3a	c3ab	c3ab	63	120
 c3ab	c3ab	n2a6	70	124
 c3a	n2a6	c3ab	70	117
+c3an	c3=	c4	70	124
+c3an	c3=	h1	35	120
+c3an	c3=	o2	70	123
+c3an	c3=	o2h	70	123
+c3an	c3a51	h1a	35	130.7
+c3an	c3a51	o2	70	110
+c3=	c3an	c3an	70	124
+c3a51	c3an	c3an	35	106
+c3an	c3an	c4	70	124
+c3an	c3an	h1	35	120
+c3an	c3o	c4	70	116
+c3an	c3o	h1	80	116
+c3an	c3o	o1=	80	124
+c3an	c4	h1	35	109.5
 c3at	c3a	h1a	35	120
 c3a5n	c3aa	c3at	85	108.8
 c3a51	n3a	c3at	70	111.6
@@ -1505,10 +1574,10 @@ c3a51	c3a5n	c3o	70	130
 c3a51	c3aa	c3o	70	130
 c3aa	c3aa	c3o	85	119.2
 c3o	c3aa	n2a5	70	130
+c3=	c3an	c3o	70	118.7
 c3o	c3o	c4	80	117.2
 c3o	c3o	n3am0	70	116.6
 c3o	c3o	o1=	80	121.4
-c3=	c3u	c3o	70	118.7
 c3a	c4	c3o	63	112
 c3o	c4	c3o	63	111.1
 c3o	c4	c4	63	111.1
@@ -1552,20 +1621,6 @@ c3o4	c44	h1	37.5	110
 c3o4	c44	n3am0	70	117
 c3o4	n34	c4	55	127
 c3o4	n34	c44	50	94
-c3u	c3=	c4	70	124
-c3u	c3=	h1	35	120
-c3u	c3=	o2	70	123
-c3u	c3=	o2h	70	123
-c3u	c3a51	h1a	35	130.7
-c3u	c3a51	o2	70	110
-c3u	c3o	c4	70	116
-c3u	c3o	h1	80	116
-c3u	c3o	o1=	80	124
-c3=	c3u	c3u	70	124
-c3a51	c3u	c3u	35	106
-c3u	c3u	c4	70	124
-c3u	c3u	h1	35	120
-c3u	c4	h1	35	109.5
 c2n	c2n	c4	150	180
 c4	c2n	n1	150	180
 c4	c3+	c4	172.8	120
@@ -1893,6 +1948,7 @@ o1a	p4	o1a	140	119.9
 o1a	p4	o2	100	108.23
 o1a	p4	o2h	45	108.23
 o1n1	n3o2	o1n1	80	125
+o1s	cl1	o1s	207.9	109.5
 o1s	s4	o1s	104	119
 o2	c4o2	o2	92.6	111.55
 o2	p4	o2	45	102.6
@@ -1930,6 +1986,7 @@ c4	c4	c3a5	*	0	1	0
 h1	c4	c3a5	*	0	1	0
 *	c3a51	c3a51	*	10.75	2	0
 h1a	c3a55	c3a51	*	7.25	2	0
+*	c3a51	c3a5n	*	7.25	2	0
 c4	c4	c3a51	*	0	1	0
 cl1	c4	c3a51	*	-0.4	2	0
 f1	c4	c3a51	*	0.45	2	0
@@ -1960,6 +2017,7 @@ h1	c4	c3a5a	*	0	1	0
 *	c3a5a	n2a6	*	10	2	0
 *	c3a5a	n3a	*	10	2	0
 *	c3a51	c3a5n	*	7.25	2	0
+*	c3a5n	c3a5n	*	2.17	2	0
 c4	c4	c3a5n	*	0	1	0
 cl1	c4	c3a5n	*	-0.4	2	0
 f1	c4	c3a5n	*	0.45	2	0
@@ -2040,14 +2098,17 @@ c*	c3aa	c3o	o1=	7	2	0
 c*	c3aa	n2a5	c*	7.25	2	0
 c*	c3aa	n2a6	c*	7.25	2	0
 c*	c3aa	n3a	c*	7.25	2	0
+c*	c3an	c3an	h1a	7.25	2	0
 c*	c3o	c4	c*	1.454	1	0	-0.144	2	0	-0.775	3	0
-c*	c3u	c3u	h1a	7.25	2	0
+c*	c4	c4	c3*	1.3	1	0	-0.05	2	0	0.2	3	0
 c*	c4	c4	c4	1.3	1	0	-0.05	2	0	0.2	3	0
+c*	c4	c4	o2	1.711	1	0	-0.5	2	0	0.663	3	0
 c*	c4	n3	c*	0.416	1	0	-0.128	2	0	0.695	3	0
 c*	c4	n3	h1n	-0.19	1	0	-0.417	2	0	0.418	3	0
 c*	c4	n34	c*	0	1	0
 c*	c4	n3a	c*	0	1	0
 c*	c4	n3a5h	c*	0	1	0
+c*	c4	o2*	c*	0.65	1	0	-0.25	2	0	0.67	3	0
 c*	c4	o2*	c4	0.65	1	0	-0.25	2	0	0.67	3	0
 c*	c4	o2*	s4*	-1.42	1	0	-0.62	2	0	0.1	3	0
 c*	c4	s2	c4	0.925	1	0	-0.576	2	0	0.677	3	0
@@ -2075,12 +2136,13 @@ c*	o2	p4	o2	-0.375	1	0	-1.358	2	0	0.004	3	0
 c*	s4	n3*	c4*	2.074	1	0	-2.966	2	0	2.473	3	0
 c*	s4	n3*	h1n	1.671	1	0	-4.901	2	0	0.669	3	0
 c*	s3	c3*	c3*	-0.9	2	0
+c3*	c4	o2h	h1o	-0.9	1	0
 c3*	n3*	c4	n3*	0.462	2	0
 c3*	n3am*	c3o	c4	2.3	1	0	6.089	2	0
 c3*	n3am*	c3o	o1=	6.089	2	0
 c3*	o2	c4	c4	-1.22	1	0	-0.126	2	0	0.422	3	0
 c3=	c3=	c4	o*	0.5	1	0
-c3=	c3u	c4	o*	0.5	1	0
+c3=	c3an	c4	o*	0.5	1	0
 c3a	c3a	c3a	n*	7.25	2	0
 c3a	c3a	c3a	o*	7.25	2	0
 c3a	c3a	c3a	s*	7.25	2	0
@@ -2092,21 +2154,35 @@ c3a	c3a	o2*	s4*	2.99	2	0
 c3a	c3ab	c3a55	n*	2.17	2	0
 c3*	n3*	c4	c3a	0	1	0
 c3a	n3*	c3o	o2*	2.1	2	0
+c3a*	c3a*	c3o	h1	0.2	2	0
+c3a*	c3a*	c3o	o1=	2.1	2	0
+c3a*	c3a*	c3o	o2	2.1	2	0
+c3a*	c3a*	c4	c4	0	1	0
+c3a*	c3a*	c4	h1	-0.372	3	0
 c3a*	c3a*	o2*	c3a*	7.25	2	0
 c3a*	c3a*	s4	c3a*	-0.45	2	180
+c3a*	c3o*	o2*	c3o*	7.25	2	0
+c3a*	c4	c4	h1	0.462	3	0
 c3a*	s4	c4*	c4*	0	1	0
 c3a51	c3a52	c3a5n	n*	2.17	2	0
+c3a51	o2*	c3a51	*	7.25	2	0
 c3a51	s2	c3a53	n*	7.25	2	0
 c3a5n	c3a5n	c3a5n	n*	2.17	2	0
+c3an	c3=	c4	o*	0.5	1	0
 c3o	c4	c4	s*	-4.344	1	0	-1.714	2	0
-c3u	c3=	c4	o*	0.5	1	0
+c3o*	c3a*	c3a*	c4	0.2	2	0
+c3o*	c3a*	c3a*	h1	0.2	2	0
+c3o*	c3a*	c4	c4	0	1	0
+c3o*	c3a*	c4	h1	-0.372	3	0
+c3o*	o2*	c3o*	c4	1.5	1	0	5	2	0
+c3o*	o2*	c3o*	o1=	5	2	0
 c4	c3=	c3o	o*	0.9	1	0	0.23	2	0	-0.505	3	0
 c4	c3=	c4	o*	1.711	1	0	-0.5	2	0	0.663	3	0
 c4	c3a	c3a	n*	7.25	2	0
 c4	c3a	c3a	o*	7.25	2	0
 c4	c3a	c3a	s*	7.25	2	0
+c4	c3an	c3o	o*	0.9	1	0	0.23	2	0	-0.505	3	0
 c4	c3o	n2a6	o*	14	2	0
-c4	c3u	c3o	o*	0.9	1	0	0.23	2	0	-0.505	3	0
 c4	c4	c3o	o1=	0.82	2	0
 c4	c4	c3o	o1a	0.82	2	0
 c4	c4	c4	o*	1.711	1	0	-0.5	2	0	0.663	3	0
@@ -2119,6 +2195,8 @@ c4*	c4	n4	h1n	0.3	3	0
 h*	c3a51	c3a51	h1a	10.75	2	0
 h*	c3a51	n3a	n*	5	2	0
 h1	c3=	c4	o*	0.468	3	0
+h1	c3a*	c3o*	o1=	0	1	0
+h1	c3a*	c3o*	o2*	2.1	2	0
 h1	c3o	n2a6	o*	14	2	0
 h1	c4	c4	n3a*	0.2	3	0
 h1	c4	c4*	o2h	0.468	3	0
@@ -2149,10 +2227,13 @@ n*	c3aa	c3o	o1=	7	2	0
 n*	c3aa	c3o	n*	7	2	0
 n3	c4	c3o	o1=	0.82	2	0
 n3	c4	c3o	o1a	0.82	2	0
+n3*	c3*	c4*	o2*	0	1	0
 n3am0	c4	c4	s*	1.428	1	0	0.086	2	0	0.029	3	0
 n4	c4	c4	o*	1.711	1	0	-0.5	2	0	0.663	3	0
 o*	c3a	c3a	o*	7.25	2	0
 o*	c3a53	c3o	o1=	0	1	0
+h1	c3o	c3a*	o2	2.1	2	0
+o1=	c3o	c3a*	o2	2.1	2	0
 s*	c3a	c3a	s*	7.25	2	0
 
 ITEM	END	# TORSION_AUTO
@@ -2185,14 +2266,14 @@ c3=	c3=	c4	f1	0.5	1	0
 c3=	c3=	c4	h1	-0.372	3	0
 c3=	c3=	o2	c4	-3.5	1	0	3	2	0
 c3=	c3=	o2h	h1o	1.682	2	0
+c3=	c3an	c3an	c3=	1.423	1	0	4.055	2	0	0.858	3	0
+c3=	c3an	c3an	c4	-0.372	3	0
+c3=	c3an	c3an	h1	-0.372	3	0
+c3=	c3an	c3o	c4	0.8	1	0	-3	2	0
+c3=	c3an	c3o	o1=	2.5	1	0	6	2	0
+c3=	c3an	c3o	o2h	3.2	1	0	-3	2	0
+c3=	c3an	c4	h1	-0.372	3	0
 c3=	c3o	n3am0	h1n	4.9	2	0
-c3=	c3u	c3o	c4	0.8	1	0	-3	2	0
-c3=	c3u	c3o	o1=	2.5	1	0	6	2	0
-c3=	c3u	c3o	o2h	3.2	1	0	-3	2	0
-c3=	c3u	c3u	c3=	1.423	1	0	4.055	2	0	0.858	3	0
-c3=	c3u	c3u	c4	-0.372	3	0
-c3=	c3u	c3u	h1	-0.372	3	0
-c3=	c3u	c4	h1	-0.372	3	0
 c3=	c4	c4	h1	0.366	3	0
 c3=	c4	o2h	h1o	-0.9	1	0
 c3=	n3am0	c3ab	n2a6	2.17	2	0
@@ -2362,14 +2443,20 @@ c3a	c3a	c3ab	c3ab	7.25	2	0
 c3ab	c3ab	c3a	h1a	7.25	2	0
 c3ab	c3ab	c3a	n2a6	7.25	2	0
 c3a	n2a6	c3ab	c3ab	7.25	2	0
+c3an	c3=	c4	c4	0.346	1	0	0.405	2	0	-0.904	3	0
+c3an	c3=	c4	h1	-0.372	3	0
+c3an	c3=	o2	c4	-3.5	1	0	3	2	0
+c3an	c3an	c3=	h1	14	2	0
+c3an	c3an	c4	h1	-0.372	3	0
+c3an	c4	o2h	h1o	-0.9	1	0
 c3o	c3=	c3=	h1	14	2	0
 c3o	c3=	c3=	n3am0	14	2	0
 c3ab	c3ab	c3=	c3o	7.25	2	0
+c3o	c3an	c3an	c3o	7.25	2	0
 c3o	c3o	c4	h1	0.085	3	0
 c3o	c3o	n3am0	c4	0.4	1	0	4.9	2	0
 c3o	c3o	n3am0	h1n	4.9	2	0
 c3o	c3o	o2h	h1o	3	1	0	5.5	2	0
-c3o	c3u	c3u	c3o	7.25	2	0
 c3a	c4	c4	c3o	-1.697	1	0	-0.456	2	0	0.585	3	0
 c3a5	c4	c4	c3o	-1.697	1	0	-0.456	2	0	0.585	3	0
 c3o	c4	c4	c3o	-0.55	1	0	1	3	0
@@ -2401,12 +2488,6 @@ c3a	c3a	o2	c3o	2.5	2	0
 c3o	o2	c4	c4	-1.22	1	0	-0.126	2	0	0.422	3	0
 c3o	o2	c4	h1	0.198	3	0
 c3o4	c44	n3am0	h1n	0	1	0
-c3u	c3=	c4	c4	0.346	1	0	0.405	2	0	-0.904	3	0
-c3u	c3=	c4	h1	-0.372	3	0
-c3u	c3=	o2	c4	-3.5	1	0	3	2	0
-c3u	c3u	c3=	h1	14	2	0
-c3u	c3u	c4	h1	-0.372	3	0
-c3u	c4	o2h	h1o	-0.9	1	0
 c4	c2n	c2n	c4	0	1	0
 c4	c2n	c2n	h1	0	1	0
 c4	c3+	c4	c4	-1	2	0
@@ -2414,12 +2495,16 @@ c4	c3=	c3=	c4	14	2	0
 c4	c3=	c3=	h1	14	2	0
 c4	c3=	c3=	o2	14	2	0
 c4	c3=	c3=	o2h	14	2	0
-c4	c3=	c3u	h1	14	2	0
+c4	c3=	c3an	h1	14	2	0
 c4	c3=	c4	c4	2.817	1	0	-0.169	2	0	0.543	3	0
 c4	c3=	c4	h1	0.3	3	0
 c4	c3=	o2	c4	0.65	1	0	-0.25	2	0	0.67	3	0
 c4	c3a	c3a	c4	7.25	2	0
 c4	c3a	c3a	h1a	7.25	2	0
+c4	c3=	c3an	c4	14	2	0
+c4	c3an	c3=	h1	14	2	0
+c4	c3an	c3an	c4	0.3	3	0
+c4	c3an	c3an	h1	0.3	3	0
 c4	c3o	c3o	c4	0.7	1	0	-1.5	2	0
 c4	c3o	c3o	h1	0.8	1	0	-0.76	2	0
 c4	c3o	c3o	n3am0	-0.5	1	0	0.2	2	0
@@ -2433,12 +2518,9 @@ c4	c3o	n3am0	o2h	4.542	1	0	6.603	2	0	1.045	3	0
 c4	c3o	n3c3	c4	4.9	2	0
 c4	c3o	o2	c4	4.669	1	0	5.124	2	0
 c4	c3o	o2h	h1o	1.5	1	0	5.5	2	0
-c4	c3=	c3u	c4	14	2	0
-c4	c3u	c3=	h1	14	2	0
-c4	c3u	c3u	c4	0.3	3	0
-c4	c3u	c3u	h1	0.3	3	0
 c2n	c2n	c4	c4	0	1	0
 c4	c4	c3+	h1	-1	2	0
+c4	c4	c3=	h1	0	1	0
 c4	c4	c3a	n2a6	-0.5	1	0	0.5	2	0	-0.5	3	0
 c3a51	c3a5	c4	c4	-0.714	1	0
 c4	c4	c3a51	n3a	1.7	1	0	-0.6	2	0
@@ -2571,13 +2653,13 @@ h1	c3=	c3o	n3am0	0	1	0
 h1	c3=	c3o	n3c3	0	1	0
 h1	c3=	c3o	o1=	0	1	0
 h1	c3=	c4	h1	0.318	3	0
+h1	c3=	c3an	h1	14	2	0
+h1	c3an	c3an	h1	0.3	3	0
 h1	c3o	c3o	h1	0.3	3	0
 h1	c3o	c3o	n3am0	-0.9	1	0	0.3	2	0
 h1	c3o	c3o	o1=	0	1	0
 h1	c3o	c4	h1	0.36	3	0
 h1	c3o	o2h	h1o	1.5	1	0	5.5	2	0
-h1	c3=	c3u	h1	14	2	0
-h1	c3u	c3u	h1	0.3	3	0
 h1	c4	c3o	n3am0	0	1	0
 h1	c4	c3o	n3c3	0	1	0
 h1	c4	c3o	o1=	0	1	0
@@ -2689,6 +2771,7 @@ ITEM	IMPROPER
 c4	c3=	c3=	c4	-8	0
 c4	c3=	c3=	h1	-8	0
 h1	c3=	c3=	c4	-8	0
+h1	c3=	c3=	h1	-8	0
 
 ITEM	END	# IMPROPER
 

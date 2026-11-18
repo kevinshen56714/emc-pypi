@@ -18,6 +18,11 @@ The package works out of the box without pre-installation of EMC or any configur
 pip install emc-pypi
 ```
 
+This release bundles EMC 9.4.4 from the upstream archives dated July 1, 2026.
+Upstream lists the binaries as valid until July 1, 2027. To replace an expired
+installation, run `python -m pip install --upgrade emc-pypi`. The setup step
+requires Perl on your PATH.
+
 ## Usage
 
 ```python

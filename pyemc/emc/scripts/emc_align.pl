@@ -14,12 +14,14 @@
 #    20200719	Adaptation to include headers etc.
 #    20220114	Preceeded curly braces in regex with a backslash
 #    		Added stack for item history
+#    20251225	Version increase to v1.1
+#		Added recognition of field items
 #
 
 $::EMCAlign::script = "emc_align.pl";
 $::EMCAlign::author = "Pieter J. in 't Veld";
-$::EMCAlign::version = "v1.0";
-$::EMCAlign::date = "January 14, 2022";
+$::EMCAlign::version = "v1.1";
+$::EMCAlign::date = "December 25, 2025";
 $::EMCAlign::EMCVersion = "9.4.4";
 
 %::EMCAlign::Flag = (
@@ -119,10 +121,17 @@ sub align {
   my $first;
   my $flag = 0;
   my @empty = (0, 0);
-  my %verbatim = (emc => 1, gromacs => 1, lammps => 1, namd => 1);
-  my %flags = (replicas => 1, nonbonds => 1, bonds => 1, angles => 1);
-  my %exclude = (include => 1, stage => 1, trial => 1);
-  my %all_caps = (emc => 1, lammps => 1, namd => 1, gromacs => 1);
+  my %verbatim = (
+    emc => 1, gromacs => 1, lammps => 1, namd => 1);
+  my %flags = (
+    replicas => 1, nonbonds => 1, bonds => 1, angles => 1,
+    mass => 1, equivalence => 1, increment => 1, nonbond => 1, bond => 1,
+    angle => 1, torsion => 1, improper => 1, rules => 1
+  );
+  my %exclude = (
+    include => 1, stage => 1, trial => 1);
+  my %all_caps = (
+    emc => 1, lammps => 1, namd => 1, gromacs => 1);
   my @output;
   my $comment;
 
@@ -158,8 +167,10 @@ sub align {
 	  push(@output, "$tmp\n\n") if (lc($tmp) ne lc($comment));
 	  @a[2] = join(" ", splice(@a, 2)) if (substr(@a[2],0,1) eq "#");
 	  push(@output, join("\t", @a), "\n");
-	  $flag = $flags{$item};
-	  push(@stack, $item) if(!defined($exclude{$item}));	# 20220114
+	  my $tmp = $item;
+	  $tmp =~ s/_auto//g; 
+	  $flag = $flags{$tmp};
+	  push(@stack, $item) if(!defined($exclude{$tmp}));	# 20220114
 	}
 	$first = 1;
 	next;
@@ -172,7 +183,7 @@ sub align {
       if ($flag) {
 	foreach (@a) {
 	  push(@output, $_);
-	  last if ($_ eq @a[-1]);
+	  #last if ($_ eq @a[-1]);
 	  $n = 8-length(@a[0]);
 	  if ($n<0) {
 	    push(@output, " ");

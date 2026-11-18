@@ -1,0 +1,127 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/opls/2012/",
+  parameters	-> dir+"opls-ua.prm",
+  topology	-> dir+"opls-ua.top",
+
+  output	-> "test",
+  nmolecules	-> 10,
+  nbenzenes	-> 100,
+  nrepeat	-> 100,
+  temperature	-> 300,
+  nrelax	-> 200,
+  density	-> 0.8765,
+  density	-> 1,
+  seed		-> 1
+};
+
+field		= {
+  mode		-> opls,
+  name		-> {parameters, topology},
+  compress	-> false
+};
+
+field		= {
+  mode		-> put,
+  name		-> "test",
+  compress	-> false
+};
+
+groups		= {
+  group		-> {
+    id		-> monomer,
+    chemistry	-> ">CC<c1ccccc1",
+    connects	-> {
+      {0, {monomer, 1}}, {1, {monomer, 0}},
+      {0, {methyl, 0}}, {1, {methyl, 0}}}
+  },
+  group		-> {
+    id		-> methyl,
+    chemistry	-> ">C",
+    connects	-> {{0, {monomer, 0}}, {0, {monomer, 1}}}
+  },
+  group		-> {
+    id		-> benzene,
+    chemistry	-> "c1ccccc1"
+  }
+};
+
+clusters	= {
+  polymer	-> {
+    id		-> molecule,
+    system	-> main,
+    n		-> nmolecules,
+    nrepeat	-> nrepeat,
+    groups	-> monomer
+  },
+  (*
+  cluster	-> {
+    id		-> benzene,
+    system	-> main,
+    group	-> benzene,
+    n		-> nbenzenes
+  }
+  *)
+};
+
+field		= {
+  mode		-> apply,
+  error		-> false
+};
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  },
+  types 	-> {
+    opls	-> {
+      pair 	-> {mode -> repulsive, cutoff -> 9.5},
+      pair14	-> {active -> true},
+      correct	-> {active -> false}
+    },
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+put		= {name -> output};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    //cluster	-> {benzene, molecule},
+    //cluster	-> benzene,
+    cluster	-> molecule,
+    relax	-> {ncycles -> nrelax, radius -> 7},
+    name	-> "error",
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {style -> none, message -> nkt};
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+(*
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+*)
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> opls, detect -> false, unwrap -> true};
+lammps		= {name -> output, mode -> put, charges -> true, forcefield -> opls, parameters -> true};
+

@@ -1,0 +1,26 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "former",
+  output	-> "current_sector"};
+
+former		= {name -> input, mode -> get, forcefield -> standard};
+
+simulation	= {
+  types		-> {
+    neighbor	-> sector,
+    skin	-> 0.0e-10}};
+
+force		= {style -> init, message -> true};
+
+run		= {ncycles -> 100, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> list, message -> true};
+force		= {style -> init, message -> true};
+
+put		= {name -> output};
+pdb		= {name -> output, system -> 0, forcefield -> standard};
+lammps		= {name -> output, system -> 0, mode -> put,
+		     forcefield -> standard, units -> real, types -> true};
+		    

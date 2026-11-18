@@ -1,0 +1,78 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/",
+  field		-> "compass",
+  templates	-> dir+field+"/"+field+"_templates.dat",
+  parameters	-> dir+field+"/"+field+".frc",
+  output	-> "buta-1,3-diene",
+
+  temperature	-> 300,
+  density	-> 0.87650,
+  nbenzene	-> 100
+};
+
+field		= {
+  mode		-> cff,
+  name		-> {parameters, templates},
+  compress	-> false
+};
+
+groups		= {
+  group		-> {
+    id		-> benzene,
+    chemistry	-> "C=CC=C"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> benzene,
+    system	-> main,
+    n		-> nbenzene,
+    group	-> benzene
+  }
+};
+
+field		= {mode -> apply};
+
+simulation	= {
+  types 	-> {
+    neighbor	-> thread,
+    cff		-> {pair -> {coulomb -> cut, cutoff -> 5, mode -> repulsive}},
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    cluster	-> benzene,
+    relax	-> {ncycles -> 100, radius -> 5.0},
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      ntrials	-> 20,
+      niterations -> 250
+    }
+  }
+};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> cff, detect -> true, unwrap -> true};
+lammps		= {name -> output, mode -> put, forcefield -> cff, parameters -> true};
+

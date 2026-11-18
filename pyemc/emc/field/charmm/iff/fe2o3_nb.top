@@ -1,0 +1,45 @@
+#
+# file:		fe2o3_nb_12-6.top
+# authors:	Prashil Badwaik, Karnajit Sen, Pieter J. in 't Veld, and Ratan K. Mishra
+# date:		11 October 2024
+# purpose:	CHARMM nonbonded fe2o3 force field (FF)
+# version:	0.1beta
+#
+
+# Rule Precedence
+
+ITEM	PRECEDENCE	#types of atoms
+
+(?
+ (Cl-1)
+ (FE6O)
+ (Na+1)
+ (O2FE)
+ (O3FE)
+ (O4FE)
+ (OHFE)
+ (HOFE)
+)
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES 
+
+# id    type    element residue atom    charge  rule
+
+0	?	?	-	-	0	*
+1	Cl-1	Cl	-	-	-1	[Cl-]
+1	Cl-1	Cl	-	-	-1	[Cl]   #prb: missing - letter
+2	FE6O	Fe	-	-	0	[Fe](O)(O)(O)(O)(O)(O)
+3	Na+1	Na	-	-	1	[Na+]
+3	Na+1	Na	-	-	1	[Na]   #prb: missing + sign
+4	O2FE	O	-	-	0	O(Fe)(Fe)
+5	O3FE	O	-	-	0	O(Fe)(Fe)(H)
+6	O4FE	O	-	-	0	O(Fe)(Fe)(Fe)(Fe)
+7	OHFE	O	-	-	0	O(H)(H)(Fe)(Fe)
+8	HOFE	H	-	-	0	H(O)
+
+ITEM	END
+

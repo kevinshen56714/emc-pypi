@@ -1,0 +1,70 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "example",
+  output	-> "test",
+  ncycles	-> 1000,
+  nblocks	-> 100,
+  frequency	-> 1
+};
+
+get		= {name -> input, compress -> true};
+
+(* Equilibration *)
+
+run		= {
+  ncycles	-> ncycles,
+  nblocks	-> nblocks
+};
+
+(* Energetic consistency check *)
+
+force		= {style -> init};
+
+(* Sampling options *)
+
+sample		= {
+  bond		-> {
+    {
+      id	-> 0,
+      source	-> {sites -> c4h3},
+      target	-> {sites -> c4h2},
+      active	-> true, frequency -> frequency, binsize -> 0.001
+    },
+    {
+      id	-> 1,
+      source	-> {sites -> c4h2},
+      target	-> {sites -> c4h2},
+      active	-> true, frequency -> frequency, binsize -> 0.001
+    }
+  }
+};
+
+(* Run conditions *)
+
+run		= {
+  ncycles	-> ncycles,
+  nblocks	-> nblocks
+};
+
+(*
+(* Alternative for analyzing trajectories instead *)
+
+traject		= {name -> name, frequency -> 1, mode -> analyze};
+*)
+
+(* Energetic consistency check *)
+
+force		= {style -> init};
+
+(* Export of analyzed data *)
+
+export		= {
+  sample	-> {name -> "bond", type -> bond, style -> math},
+  sample	-> {name -> "bond", type -> bond, style -> csv}
+};
+
+(* Comprehensive output to EMC data file *)
+
+put		= {name -> output, compress -> true};
+
