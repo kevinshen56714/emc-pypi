@@ -1,0 +1,5 @@
+(* EMC: Script *)
+
+get		= {name -> "test", compress -> true};
+pdb		= {name -> "test"};
+

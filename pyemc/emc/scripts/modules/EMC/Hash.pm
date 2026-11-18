@@ -122,26 +122,6 @@ sub string {
 
 # operations
 
-sub ignore {
-  my $list = shift(@_);
-  my $hash = {};
-
-  if (defined($list) && ref($list) ne "HASH")
-  {
-    EMC::Message::trace();
-    EMC::Message::spot("list = ", $list, "\n");
-  }
-  $hash->{flag} = 1;
-  $hash->{ignore} = 1;
-  if (defined($list->{ignore})) {
-    foreach (@{$list->{ignore}}) {
-      $hash->{$_} = 1;
-    }
-  }
-  return $hash;
-}
-
-
 sub arguments {
   my $hash = ref(@_[0]) eq "HASH" ? shift(@_) : {};
   my $attr = ref(@_[0]) eq "HASH" ? shift(@_) : undef;
@@ -222,6 +202,51 @@ sub arguments {
 }
 
 
+sub ignore {
+  my $list = shift(@_);
+  my $hash = {};
+
+  if (defined($list) && ref($list) ne "HASH")
+  {
+    EMC::Message::trace();
+    EMC::Message::spot("list = ", $list, "\n");
+  }
+  $hash->{flag} = 1;
+  $hash->{ignore} = 1;
+  if (defined($list->{ignore})) {
+    foreach (@{$list->{ignore}}) {
+      $hash->{$_} = 1;
+    }
+  }
+  return $hash;
+}
+
+
+sub merge {
+  my $dest = shift(@_);
+  my $src = shift(@_);
+  my $line = defined(@_[0]) ? shift(@_) : undef;
+
+  if (ref($dest) ne "HASH") {
+    if (defined($dest)) {
+      EMC::Message::error_line($line, "destination is not a hash.\n");
+    }
+    $dest = {};
+  }
+  if (ref($src) ne "HASH") {
+    EMC::Message::error_line($line, "source is not a hash.\n");
+  }
+  foreach (keys(%{$src})) {
+    if (defined($dest->{$_}) && ref($dest->{$_}) eq "HASH") {
+      merge($dest->{$_}, $src->{$_});
+    } else {
+      $dest->{$_} = $src->{$_};
+    }
+  }
+  return $dest;
+}
+
+
 sub set {
   my $line = shift(@_);
   my $hash = shift(@_);
@@ -240,7 +265,8 @@ sub set {
 	  }, @arg);
       } elsif (scalar(@arg)==2) {
 	$hash->{@arg[0]} = set(
-	  $line, $hash->{@arg[0]}, $type, $default, $special, EMC::Common::strip(@arg[1]));
+	  $line, $hash->{@arg[0]}, $type, $default, $special,
+	  EMC::Common::strip(@arg[1]));
       } else {
 	EMC::Message::error_line($line, "too many hash indicators\n");
       }
@@ -296,7 +322,7 @@ sub text {
     } else {
       $result = $hash->{$_};
     }
-    push(@arg, "$_=$result");
+    push(@arg, defined($result) ? "$_=$result" : $_);
   }
   return join(", ", @arg);
 }

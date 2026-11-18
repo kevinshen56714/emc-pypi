@@ -1,0 +1,228 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.6, build Aug  4 2013 11:21:15, date Sun Aug  4 12:41:23 2013
+
+Info: script v1.0 started at Sun Aug  4 12:41:23 2013
+Info: variables = {
+        dir -> "~/forcefields/martini/v2.0/", 
+        parameters -> "~/forcefields/martini/v2.0/martini.prm", 
+        topology -> "~/forcefields/martini/v2.0/surfactants.prm", 
+        output -> "test", 
+        nmolecules -> 1000, 
+        nwater -> 50000, 
+        temperature -> 500, 
+        density -> 0.9, 
+        seed -> -1}
+Info: field = {mode -> opls, 
+        name -> {"~/forcefields/martini/v2.0/martini.prm", 
+          "~/forcefields/martini/v2.0/surfactants.prm"}, compress -> false, 
+        error -> true}
+Info: field = {mode -> put, name -> "martini", compress -> false, 
+        error -> true}
+Info: groups = {ngroups -> 1, group -> 
+        {id -> cation, chemistry -> "[Qa+1]", depth -> auto, 
+          charges -> forcefield, charge -> 0}}
+Info: clusters = {nbodys -> 0, nclusters -> 4, 
+        cluster -> {{id -> molecule, system -> main, n -> 1000, group -> SDS, 
+            template -> SDS}, 
+          {id -> cation, system -> main, n -> 1000, group -> cation}, 
+          {id -> big, system -> main, n -> 5000, group -> WF, 
+            template -> WF}, 
+          {id -> water, system -> main, n -> 45000, group -> W, 
+            template -> W}}, ngrafts -> 0, npolymers -> 0}
+      delta = {systems -> 1, bodies -> 0, clusters -> 52000, sites -> 55000}
+Info: field = {mode -> apply, error -> false}
+      general = {pairs -> 0, bonds -> 0, angles -> 0, torsions -> 0, 
+        impropers -> 0}
+      specific = {pairs -> 21, bonds -> 3, angles -> 2, torsions -> 0, 
+        impropers -> 0}
+      empty = {pairs -> 0, bonds -> 0, angles -> 0, torsions -> 0, 
+        impropers -> 0}
+Info: simulation = {
+        units -> {
+          seed -> seed}, 
+        types -> {
+          opls -> {
+            torsion -> {active -> false}, 
+            improper -> {active -> false}, 
+            pair -> {mode -> repulsive}, 
+            pair14 -> {active -> false}, 
+            correct -> {active -> false}}, 
+          coulomb -> {pair -> {active -> false}}}}
+Info: put = {name -> "test", compress -> false, detail -> 3}
+Info: build = {
+        system -> {id -> main, temperature -> 500, density -> 0.9, flag -> {
+            charge -> true, map -> true}, periodic -> {x -> true, y -> true, 
+            z -> true}, geometry -> {xx -> 193.674145835, 
+            yy -> 193.674145835, zz -> 193.674145835, zy -> 0, zx -> 0, 
+            yx -> 0}}, 
+        select -> {progress -> list, frequency -> 1, message -> nkt, 
+          center -> false, order -> random, check -> true, nclusters -> 4, 
+          cluster -> {cation, molecule, big, water}, 
+          relax -> {ncycles -> 100, radius -> 0.5}, name -> "error", 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.999, 0.999}, theta -> 0, dphi -> 1, nbonded -> 20, 
+            ntrials -> 20, niterations -> 250}}}
+
+   progress/%      E[0]/nkT
+---------------------------
+            0             0
+            1   -0.02511229
+            2   -0.04557792
+            3   -0.06870658
+            4   -0.09074806
+            5    -0.1057461
+            6    -0.1216145
+            7      -0.14699
+            8    -0.1659908
+            9    -0.1822683
+           10    -0.2069934
+           11    -0.2290721
+           12    -0.2522921
+           13    -0.2724845
+           14    -0.2947188
+           15    -0.3125509
+           16    -0.3334328
+           17    -0.3519791
+           18    -0.3713283
+           19    -0.3938958
+           20     -0.412353
+           21      -0.43001
+           22     -0.450089
+           23    -0.4703802
+           24    -0.4931789
+           25    -0.5110819
+           26    -0.5299091
+           27    -0.5489967
+           28    -0.5588606
+           29    -0.5793206
+           30    -0.6002098
+           31    -0.6219526
+           32    -0.6432515
+           33    -0.6506139
+           34    -0.6678879
+           35    -0.6900599
+           36    -0.7012215
+           37    -0.7197155
+           38    -0.7350965
+           39    -0.7524227
+           40    -0.7614007
+           41    -0.7619719
+           42    -0.7496373
+           43    -0.7623309
+           44    -0.7692259
+           45    -0.7686675
+           46     -0.779756
+           47    -0.7012224
+           48    -0.7107681
+           49    -0.7099595
+           50    -0.7014334
+           51    -0.6964316
+           52    -0.6804741
+           53    -0.6120386
+           54    -0.6055079
+           55    -0.5841154
+           56     -0.574452
+           57    -0.5494661
+           58    -0.5356002
+           59    -0.4930086
+           60    -0.4109714
+           61     -0.372672
+           62    -0.3168264
+           63    -0.2818629
+           64    -0.1996587
+           65    -0.1554764
+           66   -0.07393741
+           67   0.005302107
+           68     0.1378674
+           69      0.219222
+           70      0.310506
+           71     0.4689995
+           72     0.5931081
+           73     0.7564772
+           74     0.8978723
+           75      1.091806
+           76      1.277942
+           77       1.48225
+           78      1.663961
+           79      1.805759
+           80      2.012084
+           81      2.215739
+           82      2.409741
+           83      2.680526
+           84       2.86141
+           85      3.126161
+           86      3.373691
+           87      3.607626
+           88      3.938946
+           89      4.231202
+           90      4.538042
+           91      4.834451
+           92      5.204805
+           93      5.615286
+           94      5.996558
+           95      6.389546
+           96      6.776583
+           97      7.297581
+           98      7.649447
+           99      8.062527
+          100      8.483958
+---------------------------
+      average     0.8015841
+
+      niterations = 55000, <niterations> = 1
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+opls.angle             0.05963665 
+opls.bond               0.2088065 
+opls.pair                8.215515 
+---------------------------------
+total                    8.483958 
+
+Info: force = {style -> none, message -> raw}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+opls.angle               3259.034 
+opls.bond                11410.89 
+opls.pair                448962.9 
+---------------------------------
+total                    463632.8 
+
+Info: force = {style -> init, message -> raw}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+opls.angle               3259.034 
+opls.bond                11410.89 
+opls.pair                448962.9 
+---------------------------------
+total                    463632.8 
+
+Info: put = {name -> "test", compress -> false, detail -> 3}
+Info: pdb = {name -> "test", compress -> false, system -> main, length -> 0, 
+        forcefield -> opls, cut -> false, detect -> false, segment -> index, 
+        residue -> index, pbc -> true, unwrap -> true}
+Info: lammps = {name -> "test", compress -> false, system -> main, 
+        mode -> put, length -> 0, units -> none, forcefield -> opls, 
+        detect -> true, atomistic -> false, charges -> true, 
+        ellipsoid -> false, bonds -> false, types -> true, 
+        parameters -> true, cross -> true, variables -> true, 
+        coefficients -> true, comment -> true}
+Info: tsc: bonded = {2.99, 0.8296, 0.4625, 0.05372, 0, 0} s
+Info: tsc: simulation = 30.96 s, threads = 15.55 s
+Info: tsc: thread = 14.24 s
+Info: script v1.0 finished at Sun Aug  4 12:41:55 2013
+
+Info: Thank you for using EMC v9.3.6
+Info: Please include this reference in published work using EMC:
+Info: P.J. in 't Veld and G.C. Rutledge, Macromolecules 2003, 36, 7358
+

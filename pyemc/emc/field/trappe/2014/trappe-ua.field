@@ -1,14 +1,15 @@
 (* EMC: Field *)
 
-(* EMC v9.4.4, build Jul 30 2024 10:43:34, date Wed Aug  7 17:26:27 2024 *)
+(* EMC v9.4.4, build Apr  2 2026 15:33:35, date Tue Apr  7 10:26:31 2026 *)
 
 (* Flags *)
 
 flags = {
   family -> trappe, atomistic -> united, apply -> all, index -> types, depth
-  -> 4, strict -> false, shake -> none, check -> false, charge -> nonzero, 
-  pair14 -> ignore, angle -> error, torsion -> error, improper -> ignore, cmap
-  -> ignore, increment -> error, group -> warn, rule -> error};
+  -> 4, rule_nargs -> 6, strict -> false, shake -> none, check -> false, 
+  charge -> nonzero, pair14 -> ignore, angle -> error, torsion -> error, 
+  improper -> ignore, cmap -> ignore, increment -> error, group -> warn, rule
+  -> error};
 
 (* Spline *)
 
@@ -709,7 +710,8 @@ rules = {
       {element -> "O", test -> {flag -> {bond -> single}}, 
         connect -> 
         {element -> "H", test -> {flag -> {bond -> single}}}}}}, 
-  {id -> 90, type -> c4oe, reference -> 33, element -> "C", 
+  {id -> 90, type -> c4oe, reference -> 33, element -> "C", test -> {flag -> {
+        ring -> three}}, 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> single, ring -> three}}, 
       connect -> 
@@ -1137,7 +1139,8 @@ rules = {
     connect -> {
       {element -> "C", test -> {flag -> {bond -> single}}}, 
       {element -> "C", test -> {flag -> {bond -> single}}}}}, 
-  {id -> 158, type -> ose, reference -> 40, element -> "O", 
+  {id -> 158, type -> ose, reference -> 40, element -> "O", test -> {flag -> {
+        ring -> three}}, 
     connect -> 
     {element -> "C", test -> {flag -> {bond -> single, ring -> three}}, 
       connect -> 

@@ -1,0 +1,225 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.5, build Mar 17 2013 05:54:53, date Sun Mar 17 05:59:58 2013
+
+Info: script v1.0 started at Sun Mar 17 05:59:58 2013
+Info: variables = {
+        dir -> "~/forcefields/opls/2012/", 
+        parameters -> "~/forcefields/opls/2012/oplsua.prm", 
+        topology -> "~/forcefields/opls/2012/oplsua.top", 
+        output -> "fork", 
+        nmolecules -> 1000, 
+        temperature -> 300, 
+        density -> 0.9, 
+        seed -> 1}
+Info: field = {mode -> opls, name -> {"~/forcefields/opls/2012/oplsua.prm", 
+          "~/forcefields/opls/2012/oplsua.top"}, compress -> false, 
+        error -> true}
+Info: field = {mode -> put, name -> "test", compress -> false, error -> true}
+Info: groups = {ngroups -> 1, group -> 
+        {id -> molecule, chemistry -> "CCC(C)(C)CCCOH", charge -> 0}}
+Info: clusters = {nbodys -> 0, nclusters -> 1, 
+        cluster -> {id -> molecule, system -> main, n -> 1000, 
+          group -> molecule}, ngrafts -> 0, npolymers -> 0}
+      delta = {systems -> 1, bodies -> 0, clusters -> 1000, sites -> 10000}
+Info: field = {mode -> apply, error -> false}
+      general = {pairs -> 0, bonds -> 0, angles -> 0, torsions -> 1, 
+        impropers -> 0}
+      specific = {pairs -> 6, bonds -> 6, angles -> 7, torsions -> 3, 
+        impropers -> 0}
+      empty = {pairs -> 0, bonds -> 0, angles -> 0, torsions -> 0, 
+        impropers -> 2}
+Info: simulation = {
+        units -> {
+          seed -> seed}, 
+        types -> {
+          opls -> {
+            pair -> {mode -> repulsive}, 
+            pair14 -> {active -> true}, 
+            correct -> {active -> true}}, 
+          coulomb -> {pair -> {active -> false}}}}
+Info: put = {name -> "fork", compress -> false, detail -> 3}
+Info: build = {
+        system -> {id -> main, temperature -> 300, density -> 0.9, 
+          periodic -> {x -> true, y -> true, z -> true}, geometry -> {
+            xx -> 62.168743259, yy -> 62.168743259, zz -> 62.168743259, 
+            zy -> 0, zx -> 0, yx -> 0}}, 
+        select -> {progress -> list, frequency -> 1, center -> false, 
+          order -> random, check -> true, nclusters -> 1, 
+          cluster -> molecule, 
+          relax -> {ncycles -> 100, radius -> 5}, name -> "error", 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.999, 0.999}, theta -> 0, dphi -> 1, 
+            nbonded -> 20, ntrials -> 20, niterations -> 250}}}
+
+  progress/%%      E[0]/nkT
+---------------------------
+            0             0
+            1   0.004995754
+            2    0.01904536
+            3   -0.01962801
+            4   -0.01009322
+            5   -0.01571706
+            6   0.009563158
+            7    0.01366444
+            8    0.01343492
+            9    0.03462251
+           10    0.02931468
+           11    0.04851039
+           12      0.103545
+           13     0.1270374
+           14     0.1755991
+           15     0.1868559
+           16      0.198077
+           17     0.2104358
+           18     0.2146927
+           19     0.2340263
+           20     0.2688039
+           21     0.2995721
+           22     0.3118344
+           23      0.350921
+           24     0.4044958
+           25     0.4369507
+           26     0.4685679
+           27     0.5071149
+           28     0.5089054
+           29     0.5251468
+           30     0.5568819
+           31     0.5904492
+           32     0.6227069
+           33     0.6258568
+           34     0.6359849
+           35     0.6700549
+           36     0.6959138
+           37     0.7338758
+           38     0.7477443
+           39     0.7691882
+           40     0.8126587
+           41     0.8251562
+           42     0.8391442
+           43     0.8427386
+           44     0.8723263
+           45     0.8906839
+           46     0.9293223
+           47     0.9415247
+           48      0.984516
+           49      1.026481
+           50      1.054886
+           51      1.086386
+           52      1.114741
+           53      1.116441
+           54      1.130105
+           55      1.141412
+           56       1.14897
+           57      1.158856
+           58      1.187889
+           59      1.180246
+           60      1.211694
+           61      1.262673
+           62      1.254121
+           63      1.272466
+           64      1.277445
+           65      1.282413
+           66      1.288615
+           67       1.30557
+           68      1.308679
+           69      1.333357
+           70      1.373564
+           71      1.402685
+           72      1.421964
+           73       1.45391
+           74      1.477777
+           75      1.498575
+           76      1.478835
+           77       1.48935
+           78      1.491221
+           79      1.501481
+           80      1.527807
+           81      1.528054
+           82      1.546929
+           83       1.56189
+           84      1.570896
+           85      1.585959
+           86      1.587188
+           87      1.617207
+           88      1.609825
+           89       1.61368
+           90      1.601833
+           91      1.634407
+           92       1.66254
+           93      1.682596
+           94      1.705574
+           95      1.688312
+           96      1.685838
+           97      1.682993
+           98      1.685923
+           99      1.707904
+          100      1.713559
+---------------------------
+      average     0.9324826
+
+      niterations = 11561, <niterations> = 1.1561
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+opls.angle               1.035847 
+opls.bond               0.5105662 
+opls.correct             -1.16032 
+opls.improper                   0 
+opls.pair                1.086092 
+opls.pair14             0.6903543 
+opls.torsion           -0.4489799 
+---------------------------------
+total                    1.713559 
+
+Info: force = {style -> none, message -> raw}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+opls.angle               6175.325 
+opls.bond                3043.801 
+opls.correct            -6917.389 
+opls.improper                   0 
+opls.pair                6474.868 
+opls.pair14               4115.63 
+opls.torsion            -2676.647 
+---------------------------------
+total                    10215.59 
+
+Info: force = {style -> init, message -> raw}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+opls.angle               6175.325 
+opls.bond                3043.801 
+opls.correct            -6917.389 
+opls.improper                   0 
+opls.pair                6474.868 
+opls.pair14               4115.63 
+opls.torsion            -2676.647 
+---------------------------------
+total                    10215.59 
+
+Info: put = {name -> "fork", compress -> false, detail -> 3}
+Info: pdb = {name -> "fork", compress -> false, system -> main, length -> 0, 
+        forcefield -> opls, cut -> false, detect -> false, 
+        segment -> series, residue -> series, pbc -> true, unwrap -> true}
+Info: lammps = {name -> "fork", compress -> false, system -> main, 
+        mode -> put, length -> 0, units -> none, forcefield -> opls, 
+        atomistic -> false, charges -> true, ellipsoid -> false, 
+        bonds -> false, types -> true, parameters -> true, 
+        cross -> false, variables -> true, coefficients -> true, 
+        comment -> true}
+Info: tsc: bonded = {64.88, 24.87, 13.22, 20.31, 0.3143, 0.8591} s
+Info: tsc: simulation = 283.7 s, threads = 192 s
+Info: tsc: thread = 182 s
+Info: script v1.0 finished at Sun Mar 17 06:04:41 2013
+
+

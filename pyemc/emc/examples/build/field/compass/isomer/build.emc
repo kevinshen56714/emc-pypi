@@ -1,0 +1,100 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/",
+  field		-> "compass",
+  templates	-> dir+field+"/"+field+"_templates.dat",
+  parameters	-> dir+field+"/"+field+".frc",
+  output	-> "isomer",
+
+  tbuild	-> 300,
+  tequil	-> 1,
+  nrelax	-> 200,
+  nblocks	-> 100,
+  ncycles	-> 5000,
+  //density	-> 0.87650,
+  //nisomer	-> 500
+
+  density	-> 0.01,
+  nisomer	-> 100
+};
+
+field		= {
+  mode		-> cff,
+  name		-> {parameters, templates},
+  compress	-> false
+};
+
+groups		= {
+  group		-> {
+    id		-> isomer,
+    //chemistry	-> "c1ccc2c(c1)c(c[nH]2)C[C@H](C(=O)O)N"
+    chemistry	-> "c1ccc2c(c1)c(c[nH]2)C[C@@H](C(=O)O)N"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> isomer,
+    system	-> main,
+    n		-> nisomer,
+    group	-> isomer
+  }
+};
+
+field		= {mode -> apply};
+
+simulation	= {
+  units		-> {
+    seed	-> -1
+  },
+  types 	-> {
+    neighbor	-> thread,
+    cff		-> {pair -> {coulomb -> cut, cutoff -> 5, mode -> repulsive}},
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> tbuild,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    //order	-> sequence,
+    frequency	-> 1,
+    cluster	-> isomer,
+    name	-> "error",
+    relax	-> {ncycles -> nrelax, radius -> 5},
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+(*
+simulation	= {systems -> {properties -> {id -> main, t -> tequil}}};
+
+run		= {nblocks -> nblocks, ncycles -> ncycles};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+simulation	= {systems -> {properties -> {id -> main, t -> tbuild}}};
+*)
+
+test_chirality	= {true};
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> cff, detect -> true, unwrap -> true};
+lammps		= {name -> output, mode -> put, forcefield -> cff, parameters -> true};
+

@@ -303,7 +303,7 @@ sub set_item_masses {
     my @p = (@arg[0]);
     my $i;
 
-    info("defining reference for @arg[0]\n");
+    EMC::Message::info("defining reference for @arg[0]\n");
 
     for ($i=0; $i<5; ++$i) { push(@p, shift(@arg)); }
     push(@p, join(" ", @arg));
@@ -354,11 +354,13 @@ sub define {					# <= define_reference
     next if (!length($_));
     next if ($_ =~ m/\*/);
     next if (defined($type->{$_}));
-    next if (defined($references->{data}->{$_}));
+    if (defined($references->{data}->{$_})) {
+      $type->{$_} = $_; next;
+    }
 
     ($inverse->{$_}, $type->{$_},
       $mass->{$_}, $cutoff->{$_}) = ($_, $_, 1, $cut);
-    @{$references->{data}->{$_}} = ($_, $_, 1, 1, 2, 0, 1, $_);
+    @{$references->{data}->{$_}} = ($_, $_, 1, $_, 2, 0, 1, $_);
   }
 }
 

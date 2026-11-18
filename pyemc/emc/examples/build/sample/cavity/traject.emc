@@ -1,0 +1,26 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "lattice"
+};
+
+get		= {name -> input};
+reset		= {style -> simulation};
+simulation	= {output -> {debug -> false}};
+
+sample		= {
+  cavity	-> {
+    record	-> "traject",
+    active	-> true,
+    solver	-> newton,
+    binsize	-> 0.001,
+    ninserts	-> 10000
+  }
+};
+
+traject		= {name -> "cavity", frequency -> 1, mode -> analyze};
+
+export		= {
+  sample	-> {name -> "traject", type -> cavity, style -> math}
+};
+

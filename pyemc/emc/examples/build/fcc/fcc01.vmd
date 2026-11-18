@@ -1,0 +1,34 @@
+# variables
+
+set project fcc01
+
+# load structure
+
+mol new $project.psf waitfor all
+mol addfile $project.pdb waitfor all
+
+# set representation
+
+mol delrep 0 top
+mol representation Lines 1
+mol color Type
+mol addrep top
+mol showrep top 0 1
+mol representation VDW 1 20
+mol addrep top
+mol color Type
+mol showrep top 1 0
+
+# set atom radii
+
+set radii {0}
+set types {"fcc"}
+foreach type ${types} radius ${radii} {
+  set atoms [atomselect top "type \"${type}\""]
+  $atoms set radius ${radius}
+  $atoms delete
+}
+
+# set periodic box
+
+pbc box

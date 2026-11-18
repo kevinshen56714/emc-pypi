@@ -50,6 +50,7 @@ use EMC::Element;
 use EMC::Math;
 use EMC::Options;
 use EMC::PDB;
+use EMC::MD;
 
 
 # defaults
@@ -98,11 +99,16 @@ sub set_defaults {
   $gromacs->{context} = EMC::Common::attributes(
     EMC::Common::hash($gromacs, "context"),
     {
+      exec		=> "gmx_mpi",
+      dtequil		=> 0.001,
+      maxwarn		=> 0,
       tau_p		=> 2.0,
       tau_t		=> 0.2,
-      tequil		=> 1e6,
-      trun		=> 1e8,
-      timestep		=> 0.002,
+      tequil		=> 1e4,
+      timestep		=> 0.001,
+      trials		=> undef,
+      trun		=> undef,
+      tstate		=> 15,
       verbatim		=> undef,
       virtual		=> {
 	mass		=> 36
@@ -147,8 +153,8 @@ sub set_defaults {
 	'deform-init-flow'	=> 'no',
 	'delta-lambda'		=> 0,
 	'density-guided-simulation-active' => 'false',
-	dh_hist_size		=> 0,
-	dh_hist_spacing		=> 0.1,
+	'dh-hist-size'		=> 0,
+	'dh-hist-spacing'	=> 0.1,
 	'dhdl-derivatives'	=> 'yes',
 	'dhdl-print-energy'	=> 'no',
 	dispcorr		=> 'no',
@@ -157,7 +163,7 @@ sub set_defaults {
 	'disre-mixed'		=> 'no',
 	'disre-tau'		=> 0,
 	'disre-weighting'	=> 'conservative',
-	dt			=> 0.02,
+	dt			=> 0.001,
 	'electric-field-x'	=> '0 0 0 0',
 	'electric-field-y'	=> '0 0 0 0',
 	'electric-field-z'	=> '0 0 0 0',
@@ -170,7 +176,7 @@ sub set_defaults {
 	'ensemble-temperature-setting' => 'auto',
 	'epsilon-rf'		=> 0,
 	'epsilon-surface'	=> 0,
-	epsilon_r		=> 15,
+	'epsilon-r'		=> 15,
 	'ewald-geometry'	=> '3d',
 	'ewald-rtol'		=> 1e-05,
 	'ewald-rtol-lj'		=> 0.001,
@@ -183,9 +189,9 @@ sub set_defaults {
 	'free-energy'		=> 'no',
 	freezedim		=> '',
 	freezegrps		=> '',
-	gen_seed		=> "SEED",
-	gen_temp		=> 298.15,
-	gen_vel			=> 'no',
+	'gen-seed'		=> '@{SEED}',
+	'gen-temp'		=> 298.15,
+	'gen-vel'		=> 'no',
 	'imd-group'		=> '',
 	'implicit-solvent'	=> 'no',
 	include			=> '',
@@ -239,8 +245,8 @@ sub set_defaults {
 	'qmmm-grps'		=> '',
 	rcoulomb		=> 1.1,
 	'rcoulomb-switch'	=> 0,
-	ref_p			=> 1.0,
-	ref_t			=> 298.15,
+	'ref-p'			=> 1.0,
+	'ref-t'			=> 298.15,
 	'refcoord-scaling'	=> 'no',
 	'restraint-lambdas'	=> '',
 	rlist			=> 1,
@@ -267,8 +273,8 @@ sub set_defaults {
 	'simulation-part'	=> 1,
 	swapcoords		=> 'no',
 	'table-extension'	=> 1,
-	tau_p			=> 4.0,
-	tau_t			=> 1.0,
+	'tau-p'			=> 4.0,
+	'tau-t'			=> 1.0,
 	'tc-grps'		=> 'system',
 	tcoupl			=> 'v-rescale',
 	'temperature-lambdas'	=> '',
@@ -285,7 +291,7 @@ sub set_defaults {
 	userreal4		=> 0,
 	'vdw-lambdas'		=> '',
 	'vdw-modifier'		=> 'potential-shift-verlet',
-	vdw_type		=> 'cutoff',
+	'vdwtype'		=> 'cut-off',
 	'verlet-buffer-pressure-tolerance' => 0.5,
 	'verlet-buffer-tolerance' => 0.005,
 	'wall-atomtype'		=> '',
@@ -298,40 +304,41 @@ sub set_defaults {
 	active			=> 1,
 	#define			=> '-DPOSRES',
 	integrator		=> 'md',
-	nsteps			=> 0,
-	dt			=> 0,
+	nsteps			=> '@{NEQUIL}',
+	dt			=> '@{DT}',
 	nstxout			=> 5000000,
 	'nstxout-compressed'	=> 2500,
 	nstvout			=> 2500,
 	nstenergy		=> 2500,
-	nstlog			=> 2500,
-	constraint_algorithm	=> 'lincs',
+	nstlog			=> 1000,
+	'constraint-algorithm'	=> 'lincs',
 	constraints		=> 'h-bonds',
-	lincs_iter		=> 1,
-	lincs_order		=> 4,
+	'lincs-iter'		=> 1,
+	'lincs-order'		=> 4,
 	'cutoff-scheme'		=> 'verlet',
 	nstlist			=> 20,
 	rcoulomb		=> 1.0,
 	rvdw			=> 1.0,
-	dispcorr		=> 'enerpres',
-	'vdw-modifier'		=> 'potential-shift-verlet',
-	coulombtype		=> 'pme',
-	pme_order		=> 4,
+	#dispcorr		=> 'enerpres',
+	#'vdw-modifier'		=> 'potential-shift-verlet',
+	'vdw-modifier'		=> 'force-switch',
+	coulombtype		=> '@{COULOMB_TYPE}',
+	'pme-order'		=> 4,
 	fourierspacing		=> 0.125,
 	tcoupl			=> 'v-rescale',
-	'tc-grps'		=> 'protein non-protein',
-	tau_t			=> 0.1,
-	ref_t			=> 300,
+	'tc-grps'		=> 'system',
+	'tau-t'			=> 0.1,
+	'ref-t'			=> 300,
 	pcoupl			=> 'c-rescale',
 	pcoupltype		=> 'isotropic',
-	tau_p			=> 2.0,
-	ref_p			=> 1.0,
+	'tau-p'			=> 2.0,
+	'ref-p'			=> 1.0,
 	compressibility		=> 4.5e-5,
 	pbc			=> 'xyz',
 	continuation		=> 'no',
-	gen_vel			=> 'yes',
-	gen_temp		=> 300,
-	gen_seed		=> "SEED"
+	'gen-vel'		=> 'yes',
+	'gen-temp'		=> 300,
+	'gen-seed'		=> '@{SEED}'
       },
       minimize			=> {
 	active			=> 1,
@@ -341,7 +348,7 @@ sub set_defaults {
 	nsteps			=> 50000,
 	nstlist			=> 20,
 	'cutoff-scheme'		=> 'verlet',
-	coulombtype		=> 'pme',
+	coulombtype		=> '@{COULOMB_TYPE}',
 	rcoulomb		=> 1.0,
 	rvdw			=> 1.0,
 	pbc			=> 'xyz'
@@ -349,38 +356,39 @@ sub set_defaults {
       run			=> {
 	active			=> 1,
 	integrator		=> 'md',
-	nsteps			=> 0,
-	dt			=> 0,
+	nsteps			=> '@{NRUN}',
+	dt			=> '@{DT}',
 	nstxout			=> 0,
 	'nstxout-compressed'	=> 5000,
 	nstvout			=> 5000,
 	nstenergy		=> 5000,
-	nstlog			=> 5000,
-	constraint_algorithm	=> 'lincs',
+	nstlog			=> 1000,
+	'constraint-algorithm'	=> 'lincs',
 	constraints		=> 'h-bonds',
-	lincs_iter		=> 1,
-	lincs_order		=> 4,
+	'lincs-iter'		=> 1,
+	'lincs-order'		=> 4,
 	'cutoff-scheme'		=> 'verlet',
 	nstlist			=> 20,
 	rcoulomb		=> 1.0,
 	rvdw			=> 1.0,
-	dispcorr		=> 'EnerPres',
-	'vdw-modifier'		=> 'potential-shift-verlet',
-	coulombtype		=> 'PME',
-	pme_order		=> 4,
+	#dispcorr		=> 'enerpres',
+	#'vdw-modifier'		=> 'potential-shift-verlet',
+	'vdw-modifier'		=> 'force-switch',
+	coulombtype		=> '@{COULOMB_TYPE}',
+	'pme-order'		=> 4,
 	fourierspacing		=> 0.125,
 	tcoupl			=> 'v-rescale',
-	'tc-grps'		=> 'protein non-protein',
-	tau_t			=> '0.1 0.1',
-	ref_t			=> '300 300',
+	'tc-grps'		=> 'system',
+	'tau-t'			=> '0.1',
+	'ref-t'			=> '300',
 	pcoupl			=> 'parrinello-rahman',
 	pcoupltype		=> 'isotropic',
-	tau_p			=> 2.0,
-	ref_p			=> 1.0,
+	'tau-p'			=> 2.0,
+	'ref-p'			=> 1.0,
 	compressibility		=> 4.5e-5,
 	pbc			=> 'xyz',
 	continuation		=> 'yes',
-	gen_vel			=> 'no'
+	'gen-vel'		=> 'no'
       }
     }
   );
@@ -389,9 +397,11 @@ sub set_defaults {
     {
       atom		=> "index",
       compress		=> 0,
+      debug		=> 0,
       engine		=> 1,
       fixed		=> 1,
       hexadecimal	=> 0,
+      maxwarn		=> 0,
       modes		=> ["minimize", "equilibrate", "run"],
       parameters	=> 1,
       pbc		=> 1,
@@ -440,11 +450,24 @@ sub transfer {
 sub set_context {
   my $gromacs = EMC::Common::hash(shift(@_));
   my $root = EMC::Common::hash(shift(@_));
+  my $md = EMC::Common::element($root, "md");
   my $global = EMC::Common::element($root, "global");
   my $field = EMC::Common::element($root, "fields", "field");
   my $units = EMC::Common::element($global, "units");
   my $flag = EMC::Common::element($gromacs, "flag");
   my $context = EMC::Common::element($gromacs, "context");
+  my $defined = EMC::Common::hash($gromacs, "defined");
+
+  EMC::MD::set_context($md, $root);
+
+  $context->{tequil} = (
+    $global->{tequil}) if (!defined($defined->{tequil}));
+  $context->{timestep} = (
+    $md->{context}->{timestep}*1e-3) if (!defined($defined->{timestep}));
+  $context->{trun} = (
+    $global->{trun}) if (!defined($defined->{trun}));
+  $flag->{trun} = (
+    $global->{flag}->{trun}) if (!defined($defined->{trun}));
 }
 
 
@@ -456,7 +479,8 @@ sub set_commands {
   my $indicator = defined($set) ? $set->{flag}->{indicator} : 1;
   my $depricated = defined($set) ? $set->{flag}->{depricated} : 1;
   my $flag_depricated = $indicator ? 0 : $depricated;
-  my $pre = $indicator = "gromacs_";
+  my $indicator = defined($set) ? $set->{flag}->{indicator} : 1;
+  my $pre = $indicator = $indicator ? "gromacs_" : "";
 
   $gromacs->{commands} = EMC::Common::hash($gromacs, "commands");
    
@@ -467,9 +491,31 @@ sub set_commands {
     $indicator."compress"	=> {
       comment		=> "set compression",
       default		=> EMC::Math::boolean($flag->{compress}),
-      gui		=> ["option", "chemistry", "emc", "advanced"]
+      gui		=> ["option", "chemistry", "gromacs", "advanced"]
     },
 
+    # D
+
+    $indicator."debug"	=> {
+      comment		=> "set debug flag",
+      default		=> EMC::Math::boolean($context->{debug}),
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
+    $indicator."dt" 	=> {
+      comment		=> "set global time step",
+      default		=> $context->{timestep},
+      gui		=> ["string", "chemistry", "gromacs", "advanced"]},
+    $indicator."dtequil" => {
+      comment		=> "set equilibration time step",
+      default		=> $context->{dtequil},
+      gui		=> ["string", "chemistry", "gromacs", "advanced"]},
+
+    # E
+
+    $indicator."exec"	=> {
+      comment		=> "set executable",
+      default		=> $context->{exec},
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
+    
     # G
 
     gromacs		=> {
@@ -483,25 +529,29 @@ sub set_commands {
     $indicator."hexadecimal"	=> {
       comment		=> "set hexadecimal index output in coordinate file",
       default		=> EMC::Math::boolean($flag->{hexadecimal}),
-      gui		=> ["boolean", "chemistry", "emc", "ignore"]},
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
 
     # M
 
+    $indicator."maxwarn"	=> {
+      comment		=> "set the maximum allowed number of warnings",
+      default		=> $context->{maxwarn},
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
     $indicator."modes"	=> {
       comment		=> "execution modes",
       default		=> EMC::List::string($flag->{modes}, {parens => 0}),
-      gui		=> ["boolean", "chemistry", "emc", "ignore"]},
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
 
     # P
 
     $indicator."parameters"	=> {
       comment		=> "generate parameter file",
       default		=> EMC::Math::boolean($flag->{parameters}),
-      gui		=> ["boolean", "chemistry", "emc", "ignore"]},
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
     $indicator."pbc"	=> {
       comment		=> "apply periodic boundary conditions to coordinates",
       default		=> EMC::Math::boolean($flag->{pbc}),
-      gui		=> ["boolean", "chemistry", "emc", "ignore"]},
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
     $indicator."pdamp"	=> {
       comment		=> "set barostat damping constant",
       default		=> $context->{pdamp},
@@ -512,22 +562,22 @@ sub set_commands {
     $indicator."residue"	=> {
       comment		=> "set residue name behavior",
       default		=> $flag->{residue},
-      gui		=> ["option", "chemistry", "emc", "advanced", "detect,index,series"]},
+      gui		=> ["option", "chemistry", "gromacs", "advanced", "detect,index,series"]},
     $indicator."rigid"	=> {
       comment		=> "do not unwrap rigid sites",
       default		=> EMC::Math::boolean($flag->{rigid}),
-      gui		=> ["boolean", "chemistry", "emc", "ignore"]},
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
 
     # S
 
     $indicator."script"	=> {
       comment		=> "set active execution",
       default		=> EMC::Hash::text($flag->{script}, "boolean"),
-      gui		=> ["boolean", "chemistry", "emc", "ignore"]},
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
     $indicator."segment"	=> {
       comment		=> "set segment name behavior",
       default		=> $flag->{segment},
-      gui		=> ["option", "chemistry", "emc", "advanced", "detect,index,series"]},
+      gui		=> ["option", "chemistry", "gromacs", "advanced", "detect,index,series"]},
     $indicator."settings"	=> {
       comment		=> "control all settings in .mdp (see GROMACS manual)",
       default		=> "-",
@@ -538,22 +588,34 @@ sub set_commands {
     $indicator."unwrap"	=> {
       comment		=> "apply unwrapping",
       default		=> EMC::EMC::flag_unwrap($flag->{unwrap}),
-      gui		=> ["boolean", "chemistry", "emc", "advanced"]},
+      gui		=> ["boolean", "chemistry", "gromacs", "advanced"]},
 
     # T
 
-    $indicator."tdamp"	=> {
+    $indicator."tau_p"	=> {
+      comment		=> "set barostat damping constant",
+      default		=> $context->{tau_p},
+      gui		=> ["string", "chemistry", "gromacs", "advanced"]},
+    $indicator."tau_t"	=> {
       comment		=> "set thermostat damping constant",
-      default		=> $context->{tdamp},
+      default		=> $context->{tau_t},
       gui		=> ["string", "chemistry", "gromacs", "advanced"]},
     $indicator."tequil"	=> {
       comment		=> "set equilibration time",
       default		=> $context->{tequil},
       gui		=> ["string", "chemistry", "gromacs", "advanced"]},
     $indicator."timestep" => {
-      comment		=> "set global time step",
+      comment		=> "set time step",
       default		=> $context->{timestep},
       gui		=> ["string", "chemistry", "gromacs", "advanced"]},
+    $indicator."tstate" => {
+      comment		=> "set write frequency of state points (in minutes)",
+      default		=> $context->{tstate},
+      gui		=> ["string", "chemistry", "gromacs", "advanced"]},
+    $indicator."trials"	=> {
+      comment		=> "provide molecule names for testing purposes",
+      default		=> EMC::Hash::text($context->{trials}),
+      gui		=> ["boolean", "chemistry", "gromacs", "ignore"]},
     $indicator."trun"	=> {
       comment		=> "set run time",
       default		=> $context->{trun},
@@ -623,6 +685,23 @@ sub set_options {
   if ($option eq $indicator."compress") {
     return $flag->{compress} = EMC::Math::flag($args->[0]); }
 
+  # D
+
+  if ($option eq $indicator."debug") {
+    return $flag->{debug} = EMC::Math::flag($args->[0]); }
+  if ($option eq $indicator."dt") {
+    $defined->{timestep} = 1;
+    return $context->{timestep} = EMC::Math::eval($args->[0])->[0]; }
+  if ($option eq $indicator."dtequil") {
+    $defined->{dtequil} = 1;
+    return $context->{dtequil} = EMC::Math::eval($args->[0])->[0]; }
+
+  # E
+
+  if ($option eq $indicator."exec") {
+    $defined->{exec} = 1;
+    return $context->{exec} = $args->[0]; }
+  
   # F
 
   if ($option eq $indicator."fixed") {
@@ -647,6 +726,9 @@ sub set_options {
 
   # M
 
+  if ($option eq $indicator."maxwarn") {
+    $defined->{maxwarn} = 1;
+    return $context->{maxwarn} = EMC::Math::eval($args->[0])->[0]; }
   if ($option eq $indicator."modes") {
     $flag->{modes} = [@{$args}];
     foreach (keys(%{$flag->{script}})) {
@@ -697,7 +779,19 @@ sub set_options {
   if ($option eq $indicator."timestep") {
     $defined->{timestep} = 1;
     return $context->{timestep} = EMC::Math::eval($args->[0])->[0]; }
+  if ($option eq $indicator."tstate") {
+    $defined->{tstate} = 1;
+    return $context->{tstate} = EMC::Math::eval($args->[0])->[0]; }
+  if ($option eq $indicator."trials") {
+    foreach (@{$args}) {
+      foreach (split(",")) {
+	$context->{trials}->{$_} = undef;
+      }
+    }
+    return scalar(@{$args});
+  }
   if ($option eq $indicator."trun") {
+    $defined->{trun} = 1;
     if (($flag->{trun} = $args->[0] eq "-" ? 0 : 1)) {
       my @s = @{$args};
       @s[0] = EMC::Math::eval(@s[0])->[0];
@@ -722,27 +816,6 @@ sub set_options {
 }
 
 
-sub set_items {
-  my $struct = shift(@_);
-  my $option = EMC::Common::element($struct, "option");
-  my $args = EMC::Common::element($struct, "args");
-  my $file = EMC::Common::element($struct, "file");
-  my $line = EMC::Common::element($struct, "line");
-  my $root = EMC::Common::element($struct, "root");
-  my $data = EMC::Common::element($struct, "data");
-  my $gromacs = EMC::Common::element($struct, "module");
-  my $flag = EMC::Common::hash($gromacs, "flag");
-  my $set = EMC::Common::element($gromacs, "set");
-  my $indicator = defined($set) ? $set->{flag}->{indicator} : 1;
-
-  $indicator = $indicator ? "gromacs_" : "";
-  if ($option eq $indicator."dummy") {
-    return $flag->{dummy} = EMC::Math::flag($args->[0]);
-  }
-  return undef;
-}
-
-
 sub set_functions {
   my $gromacs = EMC::Common::hash(shift(@_));
   my $set = EMC::Common::hash($gromacs, "set");
@@ -750,11 +823,11 @@ sub set_functions {
   my $attr = EMC::Common::attributes(@_);
   my $flags = {commands => 1, depricated => 0, indicator => 1, items => 1};
 
-  $set->{commands} = \&set_commands;
-  $set->{context} = \&set_context;
-  $set->{defaults} = \&set_defaults;
-  $set->{options} = \&set_options;
-  $set->{items} = \&set_items;
+  $set->{commands} = \&EMC::GROMACS::set_commands;
+  $set->{context} = \&EMC::GROMACS::set_context;
+  $set->{defaults} = \&EMC::GROMACS::set_defaults;
+  $set->{options} = \&EMC::GROMACS::set_options;
+  $set->{flags} = \&EMC::Options::set_flag;
   
   $write->{emc} = \&EMC::GROMACS::write_emc;
   $write->{job} = \&EMC::GROMACS::write_job;
@@ -776,8 +849,11 @@ sub write_script {
 
   my $global = EMC::Common::element($root, "global");
   my $project = EMC::Common::element($global, "project", "name");
+  my $build = EMC::Common::element($root, "emc", "context", "build");
   
   my $gromacs = EMC::Common::element($root, "md", "gromacs");
+  my $context = EMC::Common::element($gromacs, "context");
+  my $defined = EMC::Common::element($gromacs, "defined");
   my $settings = EMC::Common::element($gromacs, "settings");
   my $flag = EMC::Common::element($gromacs, "flag");
   my $modes = EMC::Common::array($flag, "modes");
@@ -812,18 +888,38 @@ sub write_script {
 # defaults
 
 backup=-1;
-build=\"../build\";
-exec=\"gmx_mpi\";
+build=\"$build->{dir}\";
+dt=$context->{timestep};
+dtequil=$context->{dtequil};
+exec=\"$context->{exec}\";
 mode=(0 0 0);
+nequil=$context->{tequil};
+nrun=\"$context->{trun}\";
 project=\"$project\";
 restart=\".\";
+frestart=0;
 seed=-1;
+tstate=$context->{tstate};
+warn=\"$context->{maxwarn}\";
 
 # functions
 
 run() {
   echo \"\$@\";
   \"\$@\";
+}
+
+first() {
+  echo \"\$1\";
+}
+
+calc() {
+  perl -e \'printf(\"%%.10g\\n\",\'\$1\');\'
+}
+
+append() {
+  if [ \"\$1\" == \"\" ]; then shift; fi;
+  echo \"\$@\";
 }
 
 script_header() {
@@ -838,19 +934,24 @@ script_timestamp() {
 
 script_help() {
   echo \"Usage:\";
-  echo \"  $name -n nprocs [-option [value]]\";
+  echo \"  $name -n nprocs [-option [value]] mode\";
   echo;
   echo \"Options:\";
   echo -e \"  -help\t\tthis message\";
   echo -e \"  -backup\tset backup frequency [\${backup}]\";
   echo -e \"  -build\tset build directory [\${build}]\";
-  echo -e \"  -modes\tset run modes [\${modes}]\";
+  echo -e \"  -dt\t\t\set time step [\${dt}]\";
+  echo -e \"  -dtequil\tset equilibration time step [\${dtequil}]\";
   echo -e \"  -exec\t\tset executable [\${exec}]\";
-  echo -e \"  -n\t\tset number of processors\";
-  echo -e \"  -nprocs\tset number of processors\";
+  echo -e \"  -mode[s]\tset run modes [\${modes}]\";
+  echo -e \"  -n[procs]\tset number of processors\";
+  echo -e \"  -nequil\tset number of equilibration steps [\${nequil}]\";
+  echo -e \"  -nrun\t\tset number of run steps [\${nrun}]\";
   echo -e \"  -project\tset project name [\${project}]\";
   echo -e \"  -restart\tset restart source [\${restart}]\";
   echo -e \"  -seed\t\tset seed [\${seed}]\";
+  echo -e \"  -tstate\tset state point interval [\${tstate}]\";
+  echo -e \"  -warn\t\tset maximum number of allowed warnings [\${warn}]\";
   echo -e \"\";
   echo -e \"Notes:\";
   echo -e \"  -run modes: minimize, equilibrate, and run\";
@@ -861,6 +962,8 @@ script_help() {
 init() {
   local i modes command;
 
+  if [ \"\$1\"  == \"\" ]; then script_help; fi;
+
   while [ \"\$1\" != \"\" ]; do
     case \"\$1\" in
       -*)	command=\$1;;
@@ -869,27 +972,37 @@ init() {
       -help)	script_help;;
       -backup)	shift; backup=\$1;;
       -build)	shift; build=\"\$1\";;
+      -dt)	shift; dt=\$(calc \"\$1\");;
+      -dtequil)	shift; dtequil=\$(calc \"\$1\");;
       -exec)	shift; exec=\"\$1\";;
-      -modes)	shift; modes=\"\$1\";;
+      -mode)	shift; modes=\$(append \"\${modes}\" \"\$1\"); command=\"modes\";;
+      -modes)	shift; modes=\$(append \"\${modes}\" \"\$1\");;
       -n)	shift; nprocs=\$1;;
       -nprocs)	shift; nprocs=\$1;;
+      -nequil)	shift; nequil=\$(calc \"\$1\");;
+      -nrun)	shift; nrun=\$(calc \"\$1\");;
       -project)	shift; project=\"\$1\";;
-      -restart)	shift; restart=\"\$1\";;
+      -restart)	shift; restart=\"\$1\"; frestart=1;;
       -seed)	shift; seed=\$1;;
+      -tstate)	shift; tstate=\"\$\";;
+      -warn)	shift; warn=\$(calc \"\$1\");;
       -*)	script_help;;
       *)	if [ \"\${command}\" == \"-modes\" ]; then
-		  \${modes}=\"\${modes} \$1\";
+		  modes=(\${modes[@]} \$1);
 		else
 		  script_help;
 		fi;;
     esac;
     shift;
   done;
+  if [ \"\${modes[@]}\" = \"\" ]; then
+    script_help;
+  fi;
   error=();
   if [ \"\${nprocs}\" == \"\" ]; then
     error=(\"\${error[@]}\" \"number of processors not set\");
   fi;
-  for i in \$(echo \${modes}); do
+  for i in \${modes[@]}; do
     if [ \$i == minimize ]; then mode[0]=1;
     elif [ \$i == equilibrate ]; then mode[1]=1;
     elif [ \$i == run ]; then mode[2]=1;
@@ -907,61 +1020,113 @@ init() {
   fi;
 }
 
-# main
+copy() {
+  run cp \"\${build}/\$1.mdp\" \"\$1.mdp\";
+  run replace.pl -q -v \@COULOMB_TYPE \${coulomb_type} \"\$1.mdp\";
+  run replace.pl -q -v \@SEED \${seed} \"\$1.mdp\";
+  if [ \"\$1\" == equilibrate ]; then
+    run replace.pl -q -v \@DT \${dtequil} \"\$1.mdp\";
+    run replace.pl -q -v \@NEQUIL \${nequil} \"\$1.mdp\";
+  elif [ \"\$1\" == run ]; then
+    run replace.pl -q -v \@DT \${dt} \"\$1.mdp\";
+    run replace.pl -q -v \@NRUN \${nrun} \"\$1.mdp\";
+  fi;
+  echo;
+}
 
-{
+execute() {
   script_header;
   
   init \"\$@\";
   export GMX_MAXBACKUP=\$backup;
   dir=\$(dirname \$0);
+  coulomb_type=\"pme\";
 
   script_timestamp started;
+
+  if [ \"\$(emc_charged.emc \"\${dir}/\${project}\")\" == 0 ]; then
+    coulomb_type=\"cut-off\";
+  fi;
 
   if [ \${mode[0]} == 1 ]; then
     echo \"# minimize\";
     echo;
-    replace.pl SEED \${seed} \${dir}/equilibrate.mdp;
-    run \${exec} grompp -f \${dir}/minimize.mdp \\
+    if [ ! -e \"\${build}/\${project}.gro\" ]; then
+      echo \"ERROR: missing structure \\\"\${build}/\${project}.gro\\\"\";
+      exit -1;
+    fi;
+    copy minimize;
+    run \${exec} grompp \\
+      -maxwarn \${warn} \\
+      -f \"minimize.mdp\" \\
       -c \"\${build}/\${project}.gro\" \\
       -p \"\${build}/\${project}.top\" \\
-      -o \${project}.tpr;
-    run mpiexec -n \${nprocs} \\
-      \${exec} mdrun -s \${project}.tpr -o \${project}.trr;
-    run \${exec} grompp -f \${dir}/equilibrate.mdp \\
-      -c confout.gro -p \"\${build}/\${project}.top\" -o \${project}.tpr;
-    echo;
+      -o \"\${project}.tpr\";
+    run mpiexec -n \${nprocs} \${exec} mdrun \\
+      -s \"\${project}.tpr\" \\
+      -c \"\${project}.gro\" \\
+      -o \"\${project}.trr\";
   fi;
   
   if [ \${mode[1]} == 1 ]; then
     echo \"# equilibrate\";
     echo;
-    if [ \${mode[0]} != 1 ]; then
-      replace.pl SEED \${seed} \${dir}/equilibrate.mdp;
-      run \${exec} grompp -f \${dir}/equilibrate.mdp \\
-	-c \"\${build}/\${project}.gro\" \\
-	-p \"\${build}/\${project}.top\" \\
-	-o \${project}.tpr;
+    if [ ! -e \"\${build}/\${project}.gro\" ]; then
+      echo \"ERROR: missing structure \\\"\${build}/\${project}.gro\\\"\";
+      exit -1;
     fi;
-    run mpiexec -n \${nprocs} \\
-      \${exec} mdrun -s \${project}.tpr -o \${project}.trr -cpo \${project}.cpt;
+    copy equilibrate;
+    run \${exec} grompp \\
+      -maxwarn \${warn} \\
+      -f \"equilibrate.mdp\" \\
+      -c \"\${build}/\${project}.gro\" \\
+      -p \"\${build}/\${project}.top\" \\
+      -o \"\${project}.tpr\";
+    echo;
+    run mpiexec -n \${nprocs} \${exec} mdrun \\
+      -s \"\${project}.tpr\" \\
+      -o \"\${project}.trr\" \\
+      -cpt \${tstate} \\
+      -cpo \"\${project}.cpt\";
     echo
   fi;
   
   if [ \${mode[2]} == 1 ]; then
     echo \"# run\";
     echo;
-    run \${exec} grompp -f \${dir}/run.mdp \\
-      -c \"\${build}/\${project}.gro\" -p \"\${build}/\${project}.top\" \\
-      -t \"\${restart}/\${project}.cpt\" -o \${project}.tpr;
-    run mpiexec -n \$nprocs \\
-      \${exec} mdrun -s \${project}.tpr -o \${project}.trr -cpo \${project}.cpt;
+    if [ \"\${frestart}\" == 1 ]; then
+      restart=\"\$(dirname \"\$(first \$(ls -1t \"\${restart}\"/*/\${project}.cpt))\")\";
+    fi;
+    if [ ! -e \"\${restart}/\${project}.cpt\" ]; then
+      echo \"ERROR: missing state point \\\"\${restart}/\${project}.cpt\\\"\";
+      exit -1;
+    fi;
+    copy run;
+    run \${exec} grompp \\
+      -maxwarn \${warn} \\
+      -f \"run.mdp\" \\
+      -c \"\${build}/\${project}.gro\" \\
+      -p \"\${build}/\${project}.top\" \\
+      -t \"\${restart}/\${project}.cpt\" \\
+      -o \"\${project}.tpr\";
+    run mpiexec -n \$nprocs \${exec} mdrun \\
+      -s \"\${project}.tpr\" \\
+      -o \"\${project}.trr\" \\
+      -cpt \${tstate} \\
+      -cpo \"\${project}.cpt\";
     echo;
   fi;
 
   script_timestamp ended;
 }
+
+# main
+
+{
+  execute \"\$@\" 2>&1 | tee \${project}.out;
+}
 ");
+  
   EMC::IO::close($stream);
 
   foreach (@{$modes}) {
@@ -986,12 +1151,14 @@ sub write_input {
       $context->{timestep} = 1e-3*$md->{context}->{timestep};
     }
   }
-  set_clusters($root, $gromacs, $stage) if (defined($settings->{tau_t}));
-  $settings->{nsteps} = $context->{tequil} if ($stage eq "equilibrate");
-  $settings->{nsteps} = $context->{trun} if ($stage eq "run");
-  if ($stage eq "equilibrate" || $stage eq "run" ) {
-    $settings->{dt} = $context->{timestep};
-  }
+  set_settings($root, $gromacs, $stage);
+
+  #$settings->{nsteps} = $context->{tequil} if ($stage eq "equilibrate");
+  #$settings->{nsteps} = $context->{trun} if ($stage eq "run");
+  #if ($stage eq "equilibrate" || $stage eq "run" ) {
+  #  $settings->{dt} = $context->{timestep};
+  #}
+  
   if ((ref($data) eq "ARRAY") && scalar(@{$data}))
   {
     my $defaults = EMC::Common::element($gromacs, "settings", "defaults");
@@ -1051,20 +1218,37 @@ sub write_input {
 }
 
 
-sub set_clusters {
+sub set_settings {
   my $root = shift(@_);
   my $gromacs = shift(@_);
   my $stage = shift(@_);
 
   my $settings = EMC::Common::element($gromacs, "settings", $stage);
 
+  my $global = EMC::Common::element($root, "global");
+  my $defined = EMC::Common::element($global, "defined");
+  my $dielectric = EMC::Common::element($global, "dielectric");
+  my $rcoulomb = 0.1*EMC::Common::element($global, "cutoff", "charge");
+  my $rinner = 0.1*EMC::Common::element($global, "cutoff", "inner");
+  my $rvdw = 0.1*EMC::Common::element($global, "cutoff", "pair");
+  my $rlist = 0.1*EMC::Common::element($global, "cutoff", "ghost");
+ 
+  $settings->{'epsilon-r'} = $dielectric;
+  $settings->{rvdw} = $rvdw;
+  $settings->{rcoulomb} = $rcoulomb;
+  $settings->{rlist} = $rlist>0 ? $rlist :
+		       ($rcoulomb<$rvdw ? $rvdw : $rcoulomb)+0.2;
+  $settings->{'rvdw-switch'} = $rinner if ($rinner>0);
+
   return if (!defined($settings->{tau_t}));
   
   my $polymers = EMC::Common::element($root, "emc", "polymers", "polymer");
-  my $temperature = EMC::Common::element($root, "global", "temperature");
+  my $pressure = EMC::Common::element($global, "pressure");
+  my $temperature = EMC::Common::element($global, "temperature");
+  my $tau_p = EMC::Common::element($gromacs, "context", "tau_p");
   my $tau_t = EMC::Common::element($gromacs, "context", "tau_t");
 
-  my $set = {ref_t => [], tau_t => [], 'tc-grps' => []};
+  my $set = {'ref-t' => [], 'tau-t' => [], 'tc-grps' => []};
   my $groups = {};
 
   foreach (sort(keys(%{$polymers}))) {
@@ -1075,13 +1259,17 @@ sub set_clusters {
       }
     }
   }
-  foreach (sort(keys(%{$groups}))) {
-    push(@{$set->{ref_t}}, $temperature);
-    push(@{$set->{tau_t}}, $tau_t);
+  foreach ("system") {
+    push(@{$set->{'ref-t'}}, $temperature);
+    push(@{$set->{'tau-t'}}, $tau_t);
     push(@{$set->{'tc-grps'}}, $_);
   }
   foreach (keys(%{$set})) {
     $settings->{$_} = join(" ", @{$set->{$_}});
+  }
+  if ($pressure->{flag}) {
+    $settings->{'ref-p'} = $pressure->{value};
+    $settings->{'tau-p'} = $tau_p;
   }
 }
 
@@ -1100,7 +1288,6 @@ sub write_emc {
 
   return if ($emc_flag->{test});
   return if (!(defined($flag) && $flag->{write}));
-  return if ($emc_flag->{exclude}->{build});
 
   printf($stream "\ngromacs\t\t= {name -> output,");
   printf($stream " compress -> ".EMC::Math::boolean($flag->{compress}).",");
@@ -1140,19 +1327,6 @@ sub write_job {
   my $md = EMC::Common::element($root, "md", "context");
   my $md_flag = EMC::Common::element($root, "md", "flag");
   my $restart_dir = EMC::Common::element($md, "restart_dir");
-  my $restart_name = "\${restart_dir}/*/*.restart?";
-  my $restart_file = $md_flag->{restart} ? "\n".
-    "  else\n".
-    "    frestart=1;\n".
-    "    restart=\$(first \$(ls -1t $restart_name));\n".
-    "    if [ ! -e \"\${restart}\" ]; then\n".
-    "      printf \"# $restart_name does not exist -> skipped\\n\\n\";\n".
-    "      run cd \${WORKDIR};\n".
-    "      return;\n".
-    "    fi;\n".
-    "    restart=\"-file \\\"'ls -1td $restart_name'\\\"\";" : "";
-  my $shear_line = $global->{shear}->{rate} ? "\n      -var framp ".(
-      $global->{shear}->{ramp} eq "" ? 0 : $global->{shear}->{ramp} eq "false" ? 0 : 1)." \\" : "";
   my $run_line = $flag->{trun} ?
       ($context->{trun} ne "" ? "\n\t-var trun ".eval($context->{trun})." \\" : "") : "";
   my $modes = [];
@@ -1162,8 +1336,7 @@ sub write_job {
   }
   $modes = join(" ", @{$modes});
   printf($stream
-"
-run_md() {
+"run_md() {
   local dir=\"\$1\"; shift;
   local frestart=\"\$1\"; shift;
   local ncores=\"\$1\"; shift;
@@ -1201,8 +1374,8 @@ run_md() {
       fi;
     else
       if [ \${ferror} == 1 ]; then
-	if [ -e \"\$(first \${restart_dir}/*/$project_name.out)\" ]; then
-	  file=\$(first \$(ls -1t \${restart_dir}/*/$project_name.out));
+	if [ -e \"\$(first \${restart_dir}/*/$project_name.cpt)\" ]; then
+	  file=\$(first \$(ls -1t \"\${restart_dir}\"/*/$project_name.cpt));
 	  if [ \"\$(grep ERROR \${file})\" != \"\" ]; then
 	    run_null;
 	    return;
@@ -1228,9 +1401,6 @@ run_md() {
       run_null;
       return;
     fi;
-    run cp \${build}/\${mode}.mdp .;
-    replace.pl SEED \${SEED} \${mode}.mdp;
-    SEED=\$(calc \${SEED}+1);
   done;
     
   set -f;
@@ -1239,11 +1409,11 @@ run_md() {
     -walltime \${RUN_WALLTIME} -starttime \${START_TIME} -queue \${QUEUE} \\
     -output $project_name.out -project $project_name \\
       \${build}/run_gromacs.sh \\
-        -nprocs \${ncores} \\
-	-project $project_name \\
+        -nprocs \${ncores} -project $project_name -seed \${SEED} \\
 	-restart \"\${restart_dir}\" \\
 	-modes \"\${modes[@]}\"
   set +f;
+  SEED=\$(calc \${SEED}+1);
 
   run cd \"\${WORKDIR}\";
   echo;
@@ -1253,6 +1423,7 @@ set_restart() {
   RESTART=(\$1/*/*.cpt);
   echo \"\${RESTART[0]}\";
 }
+
 "); 
 }
 
@@ -1285,6 +1456,8 @@ sub attribute {
 sub read {
   my $stream = shift(@_);
   my $attr = EMC::Common::attributes(shift(@_));
+  my $debug = EMC::Common::element($attr, "debug");
+  
   my $kconstraint = attribute($attr, "kconstraint", 20000);
   my $virtual_mass = attribute($attr, "virtual_mass", 36);
   my $gromacs = EMC::Common::hash($attr, "gromacs");
@@ -1365,7 +1538,7 @@ sub read {
 	9 => {type => "linear", nconstants => 2, constants => ["a0", "k"],
 	  units => [1, $unit->{energy}/$unit->{length}**2]},
 	#10 => {type => "restrict", nconstants => 2, constants => ["theta", "k"],
-	10 => {type => "harmonic", nconstants => 2, constants => ["theta", "k"],
+	10 => {type => "ignore", nconstants => 2, constants => ["theta", "k"],
 	  units => [1, $unit->{energy}]}
       }
     },
@@ -1519,6 +1692,7 @@ sub read {
   my $global = {};
 
   $gromacs->{field} = $attr->{field} if (defined($attr->{field}));
+  init_mass($gromacs->{mass} = {});
 
   foreach (keys(%{$similar})) {
     $functions->{$_} = $functions->{$similar->{$_}};
@@ -1558,8 +1732,7 @@ sub read {
 
     if (substr($_,0,1) eq "[") {		# check for keyword
       $key = EMC::Common::trim(EMC::Common::strip($_));
-      #EMC::Message::spot("key = $key\n");
-      #EMC::Message::spot("name = $name\n") if ($key eq "atoms");
+      EMC::Message::spot("key = $key\n") if ($debug);
       next if (!defined($guide->{$key}));
       $item = EMC::Common::hash($gromacs, $guide->{$key}->{item});
       if (!defined($item->{flag})) {
@@ -1579,13 +1752,14 @@ sub read {
     my $attr = {
       line => $line,  guide => $guide, gromacs => $gromacs, key => $key,
       item => $item, functions => $functions, arg => $arg, name => $name,
-      comment => $comment, global => $global
+      comment => $comment, debug => $debug, global => $global
     };
 
     $func->($stream, $attr);			# execute handling 
   }
   apply_virtual(
     $gromacs, {kconstraint => $kconstraint, virtual_mass => $virtual_mass});
+  EMC::Message::info("creating parameters\n");
   create_parameters($gromacs);
   #EMC::Message::dumper("gromacs = ", $gromacs);
   return $gromacs;
@@ -1707,6 +1881,11 @@ sub read_moleculetype {
   my $name = EMC::Common::element($global, "names", $arg->[0]);
   $global->{current}->{name} = $name ne "" ? $name : lc($attr->{name});
   $global->{current}->{resname} = $arg->[0];
+
+  return if (!$attr->{debug});
+
+  EMC::Message::spot("resname = $arg->[0]\n");
+  EMC::Message::spot("name = $attr->{name}\n");
 }
 
 
@@ -1807,6 +1986,7 @@ sub read_atoms {
   my $line = $attr->{line};
   my $n = scalar(@{$arg}); 
 
+
   if ($n<7 || $n>8) {
     EMC::Message::error_line(
       $attr->{line}, "illegal number of atom arguments\n");
@@ -1814,7 +1994,10 @@ sub read_atoms {
   if (!defined($global->{current})) {
     EMC::Message::error_line($attr->{line}, "moleculetype was not defined\n");
   }
+  
   my $current = $global->{current};
+  my $trials = set_trials($gromacs->{context}->{trials});
+  
   $current->{atom} = [] if (!defined($current->{atom}));
   my $type = $arg->[1];
   my $ptr = $current->{atom}->[$arg->[0]-1] = {
@@ -1823,6 +2006,7 @@ sub read_atoms {
     atomname => $arg->[4], cgnr => $arg->[5], charge => eval($arg->[6])
   };
   ++$gromacs->{atom}->{$arg->[1]}->{n};
+  return if (defined($trials) && !defined($trials->{$current->{resname}}));
   return if ($n<8);
 
   $ptr->{mass} = eval($arg->[7]);
@@ -1845,6 +2029,7 @@ sub read_atoms {
 sub read_bonded {
   my $stream = shift(@_);
   my $attr = EMC::Common::attributes(shift(@_));
+  my $debug = EMC::Common::element($attr, "debug");
   my $arg = $attr->{arg};
   
   my $global = $attr->{global};
@@ -1882,6 +2067,10 @@ sub read_bonded {
     EMC::Message::error_line(
       $attr->{line}, "illegal number of arguments for keyword '$key'\n");
   }
+  if ($func->{type} eq "ignore") {
+    EMC::Message::warning("ignoring $id entry in line $attr->{line}.\n");
+    return;
+  }
   if ($func->{type} eq "improper") {
     $id = "improper";
     @t[0,1] = @t[1,0];
@@ -1894,6 +2083,9 @@ sub read_bonded {
     $item->{flag}->{index} = [@{$func->{constants}}];
     $item->{index} = [map("type$_", (1..$n)), @{$func->{constants}}];
   }
+  if ($key eq "constraints") {
+    $item->{flag}->{constraints} = 1;
+  }
   next if ($func->{type} eq "restrict");
   if ($func->{type} ne $item->{flag}->{type}) {
     EMC::Message::error_line($attr->{line},
@@ -1904,13 +2096,14 @@ sub read_bonded {
     for (my $j=0; $j<$n-1; ++$j) { EMC::GROMACS::connect($atom, @i[$j,$j+1]); }
     for (my $j=$n-1; $j>0; --$j) { EMC::GROMACS::connect($atom, @i[$j,$j-1]); }
   } else {
+    @i[0,1] = @i[1,0];
     @i = EMC::Fields::arrange_imp(@i);
   }
   if ($key eq "constraints" && scalar(@{$arg}) == $nargs->[0]) {
     @a[1] = $func->{k};
   }
   my $data = EMC::Common::list($current, "parameters", $id);
-  my $entry =  [join("\t", @a), @i];
+  my $entry =  [join("\t", @a), $key eq "constraints" ? 1 : 0, @i];
   foreach (@i) {
     my $bonded = EMC::Common::list($atom->[$_], "bonded");
     push(@{$bonded}, $entry);
@@ -2009,11 +2202,47 @@ sub read_virtual {
 }
 
 
+sub mass_martini {
+  my $type = shift(@_);
+  my $mass = shift(@_);
+
+  if (!defined($mass)) {
+    if (substr($type,0,1) eq "S") { $mass = 54; }
+    elsif (substr($type,0,1) eq "T") { $mass = 36; }
+    elsif (substr($type,0,1) eq "U") { $mass = 24; }
+    else { $mass = 72; }
+  }
+  return $mass;
+}
+
+
+sub set_eqv {
+  my $eqv = shift(@_);
+  my $type = shift(@_);
+
+  $eqv->{$type} = [($type) x 6] if (!defined($eqv->{$type}));
+}
+
+
+sub set_mass {
+  my $masses = shift(@_);
+  my $fftype = shift(@_);
+  my $type = shift(@_);
+  my $mass = shift(@_);
+
+  if (!defined($masses->{$type})) {
+    $mass = mass_martini($type, $mass) if ($fftype eq "martini");
+    $masses->{$type} = [$mass, $type, 0, 0];
+  }
+}
+
+
 sub get_type {
   my $gromacs = shift(@_);
   my $attr = shift(@_);
   my $atom = EMC::Common::element($attr, "atom");	# alternative atom
   my $eqv = EMC::Common::element($attr, "eqv");		# alternative eqv
+  my $fftype = EMC::Common::element($attr, "fftype");	# ff type
   my $ftype = EMC::Common::element($attr, "ftype");	# ff parameter type
   my $index = EMC::Common::element($attr, "index");	# varying key index
   my $istart = EMC::Common::element($attr, "istart");	# starting type index
@@ -2022,16 +2251,17 @@ sub get_type {
   my $mass = EMC::Common::element($attr, "mass");	# mass != masses
   my $name = EMC::Common::element($attr, "name");	# resname
   my $typei = EMC::Common::element($attr, "type");	# source type
-  
+  my $debug = EMC::Common::element($attr, "debug");	# debug flag
+
   my $masses = EMC::Common::hash($gromacs, "mass", "data");
   
   $atom = EMC::Common::hash($gromacs, "atom") if (!$atom);
   $eqv = EMC::Common::element($gromacs, "equivalence", "data") if (!$eqv);
   my $type0 = defined($eqv->{$typei}) ? $eqv->{$typei}->[0] : $typei;
-  $istart = EMC::Common::element($atom, $type0, "i") if (!defined($istart));
+  $istart = 0*EMC::Common::element($atom, $type0, "i") if (!defined($istart));
   $item = EMC::Common::hash($gromacs, $ftype, "data") if (!$item);
   $mass = defined($masses->{$typei}) ? $masses->{$typei}->[0] : undef if (!$mass);
-
+ 
   my $arrange = $ftype eq "improper" ?
     \&EMC::Fields::arrange_imp : \&EMC::Fields::arrange;
   my $offset = {
@@ -2042,25 +2272,39 @@ sub get_type {
   
   # masses
 
+  $mass = mass_martini($type0) if ($fftype eq "martini" && !defined($mass));
+
   # use exisiting if not alternative
 
   if ($key) {
     my $i;
     my $niters = EMC::Common::element($attr, "niters");
 
-    $niters = 100 if (!$niters);
+    $niters = 1000 if (!$niters);
 
-    #print(join("\t", __LINE__.":", ">GET<", $type0, $istart), "\n");
+    if ($debug) {
+      EMC::Message::tprint(__LINE__.":", ">GET<", $type0, $istart ? $istart:0);
+    }
     for ($i=$istart; $i<$niters; ++$i) {
       $typen = $type0.($i ? $i : "");
       if ($mass && defined($masses->{$typen})) {	# skip unequal mass
+	EMC::Message::tprint(__LINE__.":", ">MASS<",
+	  $type0, $mass, "<=>", $typen, $masses->{$typen}->[0]) if ($debug);
 	next if ($masses->{$typen}->[0] != $mass);
       }
       my @t = @{$key};					# skip existing keys
-      @t[$index] = $typen;
+      if (defined($index)) {
+	@t[$index] = $typen;				# change index
+      } else {
+	foreach (@t) {					# change all occurences
+	  $_ = $typen if ($_ eq $typei);
+       	}
+      }
       @t = $arrange->(@t);
       $atom->{$type0}->{i} = $i if ($atom->{$type0}->{i}<$i);
-      #print(join("\t", __LINE__.":", "", ">TRY<", $typen, $i), "\n");
+      if ($debug) {
+	EMC::Message::tprint(__LINE__.":", ">TRY<", $typen, $i ? $i : 0, @t);
+      }
       last if (!EMC::Common::element($item, $arrange->(@t)));
     }
     if ($i==$niters) {
@@ -2070,12 +2314,16 @@ sub get_type {
     $typen = $type0.++$atom->{$type0}->{i};		# create new type
   }
   
-  if (!defined($masses->{$typen})) {			# update mass
-    EMC::Message::info(
-      "creating mass entry for type '$typen' from '$type0' ".
-      (defined($name) ? "for '$name'" : "")."\n");
-    $masses->{$typen} = defined($masses->{$typei}) ?
-      [@{$masses->{$typei}}] : [$mass, $type0, 0, 0];
+  if (!defined($masses->{$typei})) {			# update mass
+    $masses->{$typei} = [$mass, $type0, 0, 0];
+  }
+  if (!defined($masses->{$typen})) {
+    if ($typen ne $type0) {
+      EMC::Message::info(
+	"creating mass entry for type '$typen' from '$type0' ".
+	(defined($name) ? "for '$name'" : "")."\n");
+    }
+    $masses->{$typen} = [@{$masses->{$typei}}];
   }
 
   # equivalence
@@ -2137,6 +2385,8 @@ sub find_mass {
 
 sub apply_virtual {
   my $gromacs = shift(@_);
+  my $trials = set_trials(EMC::Common::element($gromacs, "context", "trials"));
+  
   my $attr = shift(@_);
   my $kconstraint = $attr->{kconstraint};
   my $virtual_mass = $attr->{virtual_mass};
@@ -2153,6 +2403,8 @@ sub apply_virtual {
     my $virtual = 0;
     my $clusters = [];
 
+    next if (defined($trials) && !defined($trials->{$_}));
+    
     foreach (@{$atoms}) {				# reset and connect
       my $atom = $_;
       
@@ -2236,6 +2488,7 @@ sub apply_virtual {
 	my $id = $atom->{virtual}->{connect};
 	my $i;
 
+	next if (!defined($id));
 	if (scalar(@{$id}) != 3) {
 	  EMC::Message::warning(
 	    "not adding virtual site $site (nconnects != 3)\n");
@@ -2286,28 +2539,66 @@ sub create_list {
 }
 
 
+sub reset_parameters {
+  my $gromacs = shift(@_);
+
+  foreach(
+    "nonbond", "angle", "bond", "torsion", "improper") {
+    next if (!EMC::Common::element($gromacs, $_, "data"));
+    delete($gromacs->{$_}->{data});
+  }
+}
+
+
+sub set_trials {
+  my $hash = shift(@_);
+  my $trials;
+
+  return if (ref($hash) ne "HASH");
+  foreach (keys(%{$hash})) {
+    $trials->{$_} = 1;
+  }
+  return $trials;
+}
+
+
 sub create_parameters {
   my $gromacs = shift(@_);
+  my $attr = shift(@_);
+  my $trials = set_trials(EMC::Common::element($gromacs, "context", "trials"));
   my $molecules = EMC::Common::element($gromacs, "molecule", "data");
-  my $index = {bond => 2, angle => 3, torsion => 4, improper => 5};
   my $eqv = EMC::Common::element($gromacs, "equivalence", "data");
   my $masses = EMC::Common::element($gromacs, "mass", "data");
   my $count = EMC::Common::element($gromacs, "atom");
 
+  my $index = {bond => 2, angle => 3, torsion => 4, improper => 5};
+  
   return if (!defined($molecules));
 
-  EMC::Message::info("creating parameters\n");
+  reset_parameters($gromacs);
+  #EMC::Message::dumper("molecules = ", $molecules);
+  #EMC::Message::dumper("bond = ", $gromacs->{bond});
 
   foreach (sort(keys(%{$molecules}))) {
     my $molecule = $molecules->{$_};
     my $parameters = EMC::Common::element($molecule, "parameters");
     my $atom = EMC::Common::element($molecule, "atom");
     my $name = $molecule->{molecule};
+    my $resname = $_;
     my $tmp = {};
 
+    next if (defined($trials) && !defined($trials->{$_}));
+    
+    #EMC::Message::spot("molecule = $resname\n");
+    #EMC::Message::dumper("molecule = ", $molecule);
 
     next if (!defined($parameters));
+    $molecule->{freq} = {};
+    foreach (@{$atom}) {
+      ++$molecule->{freq}->{$_->{type}};
+    }
     foreach (sort(keys(%{$parameters}))) {
+      my $ftype = $_;
       my $storage = EMC::Common::hash($gromacs, $_, "data");
       my $parameter = $parameters->{$_};
       my $arrange = (
@@ -2315,13 +2606,15 @@ sub create_parameters {
       my $collect = {};
       my $doubles = {};
       my $item = {};
-      my $ftype = $_;
 
       # deal with double entries
+
+      #EMC::Message::dumper("parameter[$_] = ", $parameter);
 
       foreach (@{$parameter}) {				# collect doubles
 	my @arg = @{$_};
 	my $key = shift(@arg);
+	my $constrained = shift(@arg);
 	my @t = $arrange->(map({$atom->[$_]->{type}} @arg));
 	my $data = EMC::Common::list($item, @t);
 	my $entry = EMC::Common::element($collect, @t);
@@ -2330,7 +2623,7 @@ sub create_parameters {
 	push(@{EMC::Common::list($collect, @t, $key)}, [@arg]);
       }
 
-      if (scalar(keys(%{$doubles}))) {			# upon doubles
+      if (0 && scalar(keys(%{$doubles}))) {		# upon doubles
 	foreach (sort(keys(%{$doubles}))) {
 	  my ($freq, @select);
 	  my $entry = EMC::Common::element($collect, split("\t"));
@@ -2376,13 +2669,16 @@ sub create_parameters {
       foreach (@{$parameter}) {
 	my @arg = @{$_};
 	my $key = shift(@arg);
+	my $constrained = shift(@arg);
 	my @t = $arrange->(map({$atom->[$_]->{type}} @arg));
 	my $data = EMC::Common::list($storage, @t, $key);
+	my $ptr = [$atom->[0]->{resname}, @arg];
 	
-	push(@{$data}, [$atom->[0]->{resname}, @arg]);
+	push(@{$data}, $ptr);
       }
     }
   }
+  #EMC::Message::dumper("bond = ", $gromacs->{bond});
 }
 
 
@@ -2402,9 +2698,12 @@ sub copy_item {
 
 sub to_field {
   my $gromacs = shift(@_);
+  my $trials = set_trials(EMC::Common::element($gromacs, "context", "trials"));
+
   my $attr = EMC::Common::attributes(shift(@_));
-  my $type = EMC::Common::element($attr, "type");
+  my $fftype = EMC::Common::element($attr, "type");
   my $field = EMC::Common::hash($attr, "field");
+  my $debug = EMC::Common::element($attr, "debug");
   
   if (defined($gromacs->{equivalence})) {
     $field->{equivalence} = EMC::Element::deep_copy($gromacs->{equivalence});
@@ -2430,7 +2729,7 @@ sub to_field {
       },
       torsion => {
 	type => "harmonic",
-	index => ["k", "phi", "n"]
+	index => ["k", "n", "phi"]
       },
       improper => {
 	type => "harmonic",
@@ -2446,14 +2745,16 @@ sub to_field {
   my $order = [
     "equivalence", "nonbond", "bond", "angle", "torsion", "improper", "mass"];
 
-  if (!defined($convert->{$type})) {
-    EMC::Message::error("unsupported field type '$type'\n");
+  if (!defined($convert->{$fftype})) {
+    EMC::Message::error("unsupported field type '$fftype'\n");
   }
-  $convert = $convert->{$type};
+  $convert = $convert->{$fftype};
 
-  EMC::Message::spot("type = $type\n");
-  #EMC::Message::dumper("field = ", $field);
-  #EMC::Message::dumper("gromacs = ", $gromacs);
+  if ($debug) {
+    EMC::Message::spot("fftype = $fftype\n");
+    #EMC::Message::dumper("field = ", $field);
+    #EMC::Message::dumper("gromacs = ", $gromacs);
+  }
 
   foreach (@{$order}) {
     next if (!defined($gromacs->{$_}));
@@ -2461,10 +2762,15 @@ sub to_field {
     my $item = $gromacs->{$_}; next if (!defined($item->{data}));
     my $entry = EMC::Common::hash($field, $_);
     my $ftype = $_;
+    my $fnonbond = $ftype eq "nonbond";
     my $arrange = ($ftype eq "improper" ?
       \&EMC::Fields::arrange_imp : \&EMC::Fields::arrange);
 
-    EMC::Message::spot("ftype = $ftype\n");
+    if ($debug) {
+      print("\n");
+      EMC::Message::spot("ftype = $ftype\n");
+      #EMC::Message::dumper("types = ", $item);
+    }
 
     if (!defined($convert->{$ftype})) {			# verbatim
       copy_item($entry, $item);
@@ -2487,194 +2793,336 @@ sub to_field {
       next;
     }
 
-    my $n = $item->{flag}->{ntypes};			# initialize
+    my $item = $gromacs->{$ftype};			# initialize
+    my $n = $item->{flag}->{ntypes};
     my $convert_index = $convert->{$_}->{index};
-    my $data = $item->{data};
-    my $ptr = [$data];
-    my $keys = [[sort(keys(%{$data}))]];
     my $index = EMC::List::hash($item->{flag}->{index});
-    my $registry = {};
+    my $nchanges = 0;
     my $select = [];
-    my (@key);
-
-    #print("\n");
-    #EMC::Message::spot("ftype = $ftype\n");
-    #EMC::Message::list("keys[0] = ", $keys->[0]);
-    #EMC::Message::dumper("index = ", $index);
+    my $niters = 0;
 
     $entry->{flag} = {array => 0, cmap => 0, first => 1, ntypes => $n};
     if (!defined($entry->{index})) {
       $entry->{index} = [map("type$_", (1..$n)), @{$convert_index}];
     }
-    for (my $i=1; $i<$n; ++$i) { 
-      push(@{$keys}, []);
-    }
     while (1) {
-      my $i = 0; 
-      foreach (@{$keys}) {
-       	$i += scalar(@{$_});
-      }
-      last if (!$i);
-      
-      for ($i=1; $i<$n; ++$i) { 			# advance
-	last if(scalar(@{$keys->[-$i]}));
-      }
-      $i = $n-$i+1;
-      @key[$i-1] = shift(@{$keys->[$i-1]});
-      for (; $i<$n; ++$i) { 
-	$ptr->[$i] = $ptr->[$i-1]->{@key[$i-1]};
-	$keys->[$i] = [sort(keys(%{$ptr->[$i]}))];
-	@key[$i] = shift(@{$keys->[$i]});
-      }
-      $ptr->[$i] = $ptr->[$i-1]->{@key[-1]};
-      
-      next if (ref($ptr->[-1]) ne "HASH");
+      my $data = $item->{data};
+      my $ptr = [$data];
+      my $keys = [[sort(keys(%{$data}))]];
+      my $registry = {};
+      my @key;
 
-      my $prm = [keys(%{$ptr->[-1]})];			# apply
-      my $freq = {};
-      
-      print("-" x 79, "\n");
-      print(join("\t", __LINE__.":", @key, scalar(@{$prm}), "\n"));
-      
-      foreach (@{$prm}) {
-	++$freq->{$_};
+      if ($debug) {
+	print("-" x 79, "\n");
+	print("iteration ", $niters+1, "\n");
       }
-      $prm = EMC::List::sort([keys(%{$freq})], $freq);	# sort parameters
-
-      foreach (reverse(@{$prm})) {
-	my @p = split("\t");
-	my $k = $_;
-	my $f = {};
-
-	# - parameters with lowest occurence
-	# - type with highest overall occurence
-	# - otherwise alphabetically lowest type
-
-	foreach (@key) { 
-	  $f->{$_}->{base} = defined($eqv->{$_}) ? $eqv->{$_}->[0] : $_;
-	  $f->{$_}->{i} = $count->{$f->{$_}->{base}}->{i};
-	  $f->{$_}->{freq} = $count->{$f->{$_}->{base}}->{n};
-	  ++$f->{$_}->{n};
+      for (my $i=1; $i<$n; ++$i) { 
+	push(@{$keys}, []);
+      }
+      #EMC::Message::dumper("data = ", $data);
+      #EMC::Message::dumper("keys = ", $keys);
+      while (1) {
+	my $i = 0; 
+	foreach (@{$keys}) {
+	  $i += scalar(@{$_});
 	}
-	my @sort = sort({
-	    #$f->{$a}->{n} == $f->{$b}->{n} ? 
-	      $f->{$a}->{i} == $f->{$b}->{i} ?
-		$f->{$a}->{freq} == $f->{$b}->{freq} ?
-		  $f->{$a}->{base} cmp $f->{$b}->{base} :
-		  $f->{$a}->{freq} <=> $f->{$b}->{freq} :
-		  $f->{$a}->{i} <=> $f->{$b}->{i} #:
-		  #$f->{$a}->{n} <=> $f->{$b}->{n}
-	  }
-	  @key
-	);
-
-	# find suitable type
-
-	my $change = @sort[0];			# least frequent
-	my $index = EMC::List::index(\@key, $change);
-	my $pentry = $ptr->[-1]->{$k}->[0];
-	my $typen = get_type($gromacs, {
-	    ftype => $ftype, eqv => $eqv, index => $index, item => $registry,
-	    key => \@key, name => $pentry->[0], type => $change
-	  });
-	my $success = 0;
-
-	foreach (@{$ptr->[-1]->{$k}}) {		# change mol types
-	  my @arg = @{$_};
-	  my $name = shift(@arg);
-	  my $atom = $molecules->{$name}->{atom};
-
-	  print("\t", 
-	    join("\t", ">LOOP<", $name, map({$atom->[$_]->{type}} @arg)), "\n");
-       
-	  next if (!defined($name));
-	  
-	  my $tc = $change;
-	  my $tn = $typen;
-	  my @t = @key;
-	  my $flag = 0;
-	  my $used = 0;
-	  my $i = 0;
-
-	  foreach (@arg) {
-	    @t = map({$atom->[$_]->{type}} @arg);
-	    if ($atom->[$_]->{type} eq $tc) {
-	      $tn = get_type($gromacs, {
-		  ftype => $ftype, eqv => $eqv, index => $i, item => $registry,
-		  key => \@t, name => $name, type => $tc
-		});
-	      $atom->[$_]->{type} = $tn;
-	      $success = $flag = 1;
-	      @t[$i] = $tn;
-	      push(@{EMC::Common::list($registry, $arrange->(@t))}, $k);
-	      print(">>>\t\t",
-	       	join("\t", ">REGI<", $name, $_, $tc, "=>", $tn), "\n");
-	      my @tmp = map({$atom->[$_]->{type}} @arg);
-	      print(">>>\t\t",
-	       	join("\t", ">REGI<", $name, @arg, "=>", @tmp), "\n");
-	      last;
-	    }
-	    ++$i;
-	  }
-	  if (!$flag) {
-	    my $list = EMC::Common::list($registry, $arrange->(@t));
-	    if (scalar(@{$list})) {
-	      if (!defined(EMC::List::index($list, $k))) {
-		print(
-		  join("\t", __LINE__.":", ">FAIL<", $name, @arg, @t), "\n");
-		my $f = {};
-		$i = 0;
-		foreach (@arg) {
-		  my $t = $atom->[$_]->{type};
-		  $f->{$_}->{i} = $count->{$eqv->{$t}->[0]}->{i};
-		  $f->{$_}->{n} = $count->{$eqv->{$t}->[0]}->{n};
-		  $f->{$_}->{index} = $i++;
-		  $f->{$_}->{type} = $t;
-		}
-		my @sort = sort({
-		    $f->{$a}->{n}==$f->{$b}->{n} ?
-		      $f->{$a}->{i}<=>$f->{$b}->{i} :
-		      $f->{$a}->{n}<=>$f->{$b}->{n};
-		  } @arg);
-		$i = $f->{@sort[0]}->{index};
-		$tc = $f->{@sort[0]}->{type};
-		@t = map({$atom->[$_]->{type}} @arg);
-		$tn = get_type($gromacs, {
-		    ftype => $ftype, eqv => $eqv, index => $i,
-		    item => $registry, key => \@t, name => $name, type => $tc
-		  });
-		$atom->[@sort[0]]->{type} = $tn;
-		$success = $flag = 1;
-		@t[$i] = $tn;
-		@t = $arrange->(@t);
-		push(@{EMC::Common::list($registry, $arrange->(@t))}, $k);
-		print(">>>\t\t",
-		  join("\t", ">REGI<", $name, @sort[0], $tc, "=>", $tn), "\n");
-		my @tmp = map({$atom->[$_]->{type}} @arg);
-		print(">>>\t\t",
-		  join("\t", ">REGI<", $name, @arg, "=>", @tmp), "\n");
-	      }
-	    } else {
-	      push(@{$list}, $k);
-	      $success = 1;
-	    }
-	  }
-	}
-	next if (!$success);				# skip when not changed
-
-	print("\t",
-	  join("\t", $success ? ">SUCC<" : ">FAIL<", @p, $freq->{$_}), "\n");
+	last if (!$i);
 	
-	foreach (@{$ptr->[-1]->{$k}}) {
-	  my @arg = @{$_};
-	  my $name = shift(@arg);
-	  my $atom = $molecules->{$name}->{atom};
-	  print("\t\t", 
-	    join("\t", $name, @arg, map({$atom->[$_]->{type}} @arg)), "\n");
-	  push(@{$select}, {p => [@p], source => $_});
+	for ($i=1; $i<$n; ++$i) { 			# advance
+	  last if(scalar(@{$keys->[-$i]}));
+	}
+	$i = $n-$i+1;
+	@key[$i-1] = shift(@{$keys->[$i-1]});
+	for (; $i<$n; ++$i) { 
+	  $ptr->[$i] = $ptr->[$i-1]->{@key[$i-1]};
+	  $keys->[$i] = [sort(keys(%{$ptr->[$i]}))];
+	  @key[$i] = shift(@{$keys->[$i]});
+	}
+	$ptr->[$i] = $ptr->[$i-1]->{@key[-1]};
+	
+	next if (ref($ptr->[-1]) ne "HASH");
+
+	my $prm = [keys(%{$ptr->[-1]})];		# apply
+	my $allowed = {};
+	my $freq = {};
+	
+	if ($debug) {
+	  print("-" x 79, "\n");
+	  EMC::Message::dumper("parameters = ", $ptr->[-1]);
+	  print(join("\t", __LINE__.":", @key, scalar(@{$prm}), "\n"));
+	  #EMC::Message::dumper("data = ", $ptr->[-1]);
+	}
+	
+	my $bit = 1;
+	my $k = join(":", @key);
+	foreach (@{$prm}) {
+	  my $i = -1;
+	  my $list = $ptr->[-1]->{$_};
+
+	  foreach (@{$list}) {
+	    my @arg = @{$_};
+	    my $name = shift(@arg);
+	    my $atom = $molecules->{$name}->{atom};
+	    my $check = join(":", $arrange->(map({$atom->[$_]->{type}} @arg)));
+	    
+	    ++$i;
+	    if ($check eq $k) {
+	      my $list = EMC::Common::list($allowed, $name);
+	      foreach (@arg) { $list->[$_] |= $bit; }
+	    } else {
+	      EMC::Message::spot("deleting $i ($check <> $k)\n");
+	      delete($list->[$i]);
+	    }
+	  }
+	  my $n;
+	  if (($n = scalar(@{$ptr->[-1]->{$_}}))||1) {
+	    $freq->{$_} += $n;
+	    $bit <<= 1;
+	  } else {
+	    delete($ptr->[-1]->{$_});
+	  }
+	}
+	#EMC::Message::dumper("allowed = ", $allowed) if ($debug);
+	foreach (keys(%{$allowed})) {			# determine allowed
+	  foreach (@{$allowed->{$_}}) {			# candidates (>1)
+	    next if (!$_);
+	    while (!($_&1)) { $_ >>=1 };		# shift to bit 0
+	  }
+	}
+	#EMC::Message::dumper("allowed = ", $allowed) if ($debug);
+	$prm = EMC::List::sort([keys(%{$freq})], {frequency => $freq});
+
+	#EMC::Message::dumper("freq = ", $freq);
+	#EMC::Message::dumper("prm = ", $prm);
+
+	my $include = 0;
+
+	foreach (reverse(@{$prm})) {
+	  my @p = split("\t");
+	  my $k = $_;
+	  my $f = {};
+
+	  # - parameters with lowest occurence
+	  # - type with highest overall occurence
+	  # - otherwise alphabetically lowest type
+
+	  foreach (@key) { 
+	    $f->{$_}->{base} = defined($eqv->{$_}) ? $eqv->{$_}->[0] : $_;
+	    $f->{$_}->{i} = $count->{$f->{$_}->{base}}->{i};
+	    $f->{$_}->{freq} = $count->{$f->{$_}->{base}}->{n};
+	    ++$f->{$_}->{n};
+	  }
+	  #EMC::Message::dumper("f = ", $f);
+	  my @sort = sort({
+	      #$f->{$a}->{n} == $f->{$b}->{n} ? 
+		$f->{$a}->{i} == $f->{$b}->{i} ?
+		  $f->{$a}->{freq} == $f->{$b}->{freq} ?
+		    $f->{$a}->{base} cmp $f->{$b}->{base} :
+		    $f->{$a}->{freq} <=> $f->{$b}->{freq} :
+		    $f->{$a}->{i} <=> $f->{$b}->{i} #:
+		    #$f->{$a}->{n} <=> $f->{$b}->{n}
+	    }
+	    @key
+	  );
+
+	  # find suitable type
+
+	  my $change;
+	  my $index;
+
+	  foreach (@sort) {
+	    my $flag = 1;
+	    my $candidate = $_;
+	    foreach (keys(%{$allowed})) {		# only allowed
+	      my $list = $allowed->{$_};		# candidates
+	      my $atom = $molecules->{$_}->{atom};
+	      my $i = -1;
+	      foreach (@{$list}) {
+		++$i;
+		next if ($_!=1);
+		last if ($atom->[$i]->{type} eq $candidate);
+	      }
+	      $flag = 0 if ($i+1==scalar(@{$list}));
+	      next if (!$flag);
+	    }
+	    next if (!$flag);
+	    $change = $candidate;
+	    $index = EMC::List::index(\@key, $change);
+	  }
+	  #EMC::Message::dumper("index = ", $index);
+
+	  my $minimum = {};
+
+	  if (!defined($index)) {			# upon ambiguous bits
+	    EMC::Message::warning(
+	      "no suitable candidate found for $ftype {".
+	      join(", ", @sort)."}\n"
+	    );
+	    my $m;
+	    foreach (keys(%{$allowed})) {
+	      my $key = $_;
+	      my $min;
+	      foreach (@{$allowed->{$_}}) {
+		$min = $_ if (!defined($min) || $_<$min);
+	      }
+	      $m = $min if (!defined($m) || $min<$m);
+	      $minimum->{$key} = $min;
+	    }
+	    $change = @sort[$m>1 ? $niters%$n : 0];
+	    if ($debug) {
+	      EMC::Message::list("sort = ", \@sort);	# (caused by doubles?)
+	      EMC::Message::dumper("minimum = ", $minimum);
+	      EMC::Message::dumper("allowed = ", $allowed);
+	    }
+	  }
+
+	  my $pentry = $ptr->[-1]->{$k}->[0];
+	  my $typen = get_type($gromacs, {
+	      fftype => $fftype, ftype => $ftype, eqv => $eqv, index => $index,
+	      item => $registry, key => \@key, name => $pentry->[0],
+	      type => $change, debug => $debug
+	    });
+	  my @keyn = @key;
+	  my $flag = 0;
+
+	  #EMC::Message::dumper("sort = ", \@sort);
+	  #EMC::Message::dumper("f = ", $f);
+
+	  if ($include) {
+	    foreach (@{$ptr->[-1]->{$k}}) {		# change mol types
+	      next if (ref($_) ne "ARRAY");
+	      my @arg = @{$_};
+	      my $name = shift(@arg);
+	      my $atom = $molecules->{$name}->{atom};
+	      my @types = $fnonbond ? @arg : map({$atom->[$_]->{type}} @arg);
+
+	      if ($debug) {
+		EMC::Message::tprint(__LINE__.":", ">ALTER<", $name, @arg);
+		EMC::Message::tprint(
+		  __LINE__.":", ">LOOP<", $name, @types, $k);
+	      }
+	   
+	      next if (!scalar(@arg));
+	      
+	      my $tc = $change;
+	      my $tn = $typen;
+	      my @t = @key;
+	      my $used = 0;
+	      my $i = 0;
+
+	      foreach (@arg) {
+		if ($atom->[$_]->{type} eq $tc) {
+		  $tn = get_type($gromacs, { 		# change all occuring
+		      fftype => $fftype, ftype => $ftype, eqv => $eqv,
+		      index => $i, item => $registry, key => \@types, 
+		      name => $name, type => $tc, debug => $debug
+		    }) if (!$flag);
+		  $atom->[$_]->{type} = $tn;
+		  @t[$i] = $tn;
+		  $flag = 1;
+		  last if (defined($index));
+		}
+		++$i;
+	      }
+	      if ($flag) {				# upon changed
+		if ($debug) {
+		  foreach (@arg) {
+		    EMC::Message::tprint(
+		      __LINE__.":", ">REGI<",
+		      $name, $_, $tc, "=>", $tn) if ($atom->[$_]->{type} eq $tn);
+		  }
+		  EMC::Message::tprint(
+		    __LINE__.":", ">REGI<",
+		    $name, @arg, "=>", map({$atom->[$_]->{type}} @arg));
+		}
+	      } else {
+		my $list = EMC::Common::list($registry, $arrange->(@t));
+		if (scalar(@{$list})) {
+		  if (!defined(EMC::List::index($list, $k))) {
+		    if ($debug) {
+		      EMC::Message::tprint(
+			__LINE__.":", ">FAIL<", $name, @arg, @t);
+		    }
+		    my $f = {};
+		    $i = 0;
+		    foreach (@arg) {
+		      my $t = $atom->[$_]->{type};
+		      set_eqv($eqv, $t);
+		      set_mass($mass, $fftype, $t);
+		      $f->{$_}->{i} = $count->{$eqv->{$t}->[0]}->{i};
+		      $f->{$_}->{n} = $count->{$eqv->{$t}->[0]}->{n};
+		      $f->{$_}->{index} = $i++;
+		      $f->{$_}->{type} = $t;
+		    }
+		    my @sort = sort({
+			$f->{$a}->{n}==$f->{$b}->{n} ?
+			  $f->{$a}->{i}<=>$f->{$b}->{i} :
+			  $f->{$a}->{n}<=>$f->{$b}->{n};
+		      } @arg);
+		    $i = $f->{@sort[0]}->{index};
+		    $tc = $f->{@sort[0]}->{type};
+		    @t = map({$atom->[$_]->{type}} @arg);
+		    $tn = get_type($gromacs, {
+			fftype => $fftype, ftype => $ftype, eqv => $eqv,
+			index => $i, item => $registry, key => \@t,
+			name => $name, type => $tc, debug => $debug
+		      });
+		    $atom->[@sort[0]]->{type} = $tn;
+		    $flag = 1;
+		    @t[$i] = $tn;
+		    @t = $arrange->(@t);
+		    if ($debug) {
+		      print(">>>\t\t",
+			join("\t", ">REGI<", $name, @sort[0], $tc, "=>", $tn),
+			"\n");
+		      my @tmp = map({$atom->[$_]->{type}} @arg);
+		      print(">>>\t\t",
+			join("\t", ">REGI<", $name, @arg, "=>", @tmp), "\n");
+		    }
+		  }
+		} else {
+		  $flag = 1;
+		}
+	      }
+	      @keyn = @t;
+	      last if ($minimum->{$name}>1);
+	    }
+	    $nchanges += $flag;
+	  } else {
+	    $flag = 1;
+	  }
+
+	  next if (!$flag);				# skip when not changed
+
+	  push(@{EMC::Common::list($registry, $arrange->(@keyn))}, $k);
+	  if ($debug) {
+	    EMC::Message::tprint(
+	      __LINE__.":", $flag ? ">SUCC<" : ">FAIL<", @keyn, @p, $freq->{$_});
+	  }
+
+	  foreach (@{$ptr->[-1]->{$k}}) {
+	    next if (ref($_) ne "ARRAY");
+	    my @arg = @{$_};
+	    my $name = shift(@arg);
+	    my $atom = $molecules->{$name}->{atom};
+	    if ($debug) {
+	      EMC::Message::tprint(
+		__LINE__.":\t", $name, @arg, map({$atom->[$_]->{type}} @arg));
+	    }
+	    push(@{$select}, {p => [@p], source => $_});
+	    last;
+	  }
+	  $include = 1;
 	}
       }
+      last if (!$nchanges || ++$niters>10);
+      create_parameters($gromacs);
+      $registry = {};
+      $nchanges = 0;
+      $select = [];
     }
+
+    #EMC::Message::dumper("select = ", $select);
 
     # transfer parameters
 
@@ -2685,6 +3133,7 @@ sub to_field {
       my $atom = EMC::Common::element($molecules, $resname, "atom");
       my @type = defined($atom) ? map({$atom->[$_]->{type}} @id) : @id;
 
+      #EMC::Message::tprint(__LINE__.":", $resname, @id, $arrange->(@type), @p);
       if (!defined($atom) && defined($resname)) {
 	unshift(@id, $resname);
 	EMC::Message::list(\@id);
@@ -2699,6 +3148,7 @@ sub to_field {
 	push(@{$data}, @p[$index->{$_}]);
       }
     }
+    #EMC::Message::dumper("entry = ", $entry->{data});
   }
 
   #EMC::Message::dumper("gromacs = ", $gromacs);
@@ -2708,6 +3158,9 @@ sub to_field {
   $field->{templates}->{index} = ["name", "smiles"];
   foreach (sort(keys(%{$molecules}))) {
     my $molecule = $molecules->{$_};
+    
+    next if (defined($trials) && !defined($trials->{$_}));
+    
     my $smiles = smiles($molecule, 0);
 
     next if (!defined($smiles));

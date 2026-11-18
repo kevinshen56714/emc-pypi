@@ -223,6 +223,32 @@ Date     Description
 	 - Repaired export of SMILES for all internal clusters
 	 - Improved calculation of inverse angle probabilities
 20250801 - Web publication
+	 - Corrected FormatOpen() to let directive characters appear only once
+	   to accomodate Windows compilate
+	 - Disallowed SMILES backbone connection point for monomeric units
+20250915 - Fixed interpretation of imported proline and histidine residues
+	 - Added CHARMM prot parameters for residues based on pyroglutamic acid
+	 - Removed superfluous code from typing algorithms to support import of
+	   super-structures
+20251002 - Updated GROMACS porting
+20251223 - Correction for multi-segment imports for GROMACS porting
+	 - Addition of import flag for read structures via get
+20260122 - Improved tabulated potentials implementation
+	 - Updated mixing defaults for imported fields
+	 - Generalized import of tabular data
+	 - Updated torsion typing
+	 - Updated PDB output to start atom ids at 1 for each molecule
+	 - Changed interpretation of -emc_exclude=build:true
+20260330 - Backup copy
+20260515 - Fixed issues with defined DPD masses in .esh
+20260606 - Addition of VTK and OpenFTS ports
+20260611 - Improved EMC Setup variable interpretation
+20260701 - Web publication
+20260718 - Fixed issues with NAMD and PDB ports
+20260720 - Addressed GROMACS issues
+20260902 - Corrected CHARMM carbohydrates force field
+20261002 - Corrected OPLS-AA 2012 force fields for alkane dihedrals
+20261008 - Fixed inverse angle initialization for Windows executable
 
 
 v9.4.3

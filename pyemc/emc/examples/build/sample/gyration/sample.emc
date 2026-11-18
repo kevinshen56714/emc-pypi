@@ -1,0 +1,63 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "ethane",
+  output	-> "test",
+  ncycles	-> 100,
+  nblocks	-> 10,
+  frequency	-> 1
+};
+
+get		= {name -> input, compress -> true};
+//reset		= {style -> simulation};
+
+(*
+(* Options *)
+
+sample		= {
+  gyration	-> {
+    active	-> true,
+    frequency	-> frequency,
+    binsize	-> 0.001,
+    focus	-> {
+      clusters	-> ethane
+    }
+  }
+};
+*)
+
+(* Quick defition; generates same results as above definition *)
+
+sample		= {
+  gyration	-> {active -> true, frequency -> frequency, binsize -> 0.001}
+};
+
+
+(* Run conditions *)
+
+run		= {
+  ncycles	-> ncycles,
+  nblocks	-> nblocks
+};
+
+(*
+(* Alternative for analyzing trajectories instead *)
+
+traject		= {name -> name, frequency -> 1, mode -> analyze};
+*)
+
+(* Energetic consistency check *)
+
+force		= {style -> init};
+
+(* Export of analyzed data *)
+
+export		= {
+  sample	-> {name -> "gyration", type -> gyration, style -> math},
+  sample	-> {name -> "gyration", type -> gyration, style -> csv}
+};
+
+(* Comprehensive output of EMC data file *)
+
+put		= {name -> output, compress -> true};
+

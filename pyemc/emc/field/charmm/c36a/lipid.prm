@@ -3,7 +3,7 @@
 #  CHARMM interaction parameters using lipid force field files, 
 #  converted by emc_charmm.pl 4.0, October 10, 2024 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Jul 08 13:53:00 CEST 2025.
+#  and created on Thu Apr 02 15:12:33 CEST 2026.
 #
 
 # Force field definition
@@ -18,7 +18,7 @@ FFDEPTH		6
 FFCHARGE	ALL
 FFSTRICT	FALSE
 VERSION		v36.1
-CREATED		July 2025
+CREATED		April 2026
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -81,8 +81,8 @@ HBL	1.008	H	1	0	144	POPS SER backbone H
 HCL	1.008	H	1	0	137	Charged H for PE (equivalent to protein HC)
 HEL1	1.008	H	1	0	142	For alkene; RHC=CR
 HEL2	1.008	H	1	0	143	For alkene; H2C=CR
-HGA1			1			
-HGA2			1			
+HGA1	1.008	H	1	0	256	Alphatic proton CH (CGENFF)
+HGA2	1.008	H	1	0	257	Alphatic proton CH2 (CGENFF)
 HL	1.008	H	1	0	136	Polar H (equivalent to protein H)
 HOL	1.008	H	1	0	138	Nucleic acid phosphate hydroxyl proton
 HOLA	1.008	H	1	0	138	Phosphaditic acid proton (DLPA etc.)
@@ -143,6 +143,8 @@ HBL	HBL	HBL	HBL	HBL	HBL	HBL
 HCL	HCL	HCL	HCL	HCL	HCL	HCL
 HEL1	HEL1	HEL1	HEL1	HEL1	HEL1	HEL1
 HEL2	HEL2	HEL2	HEL2	HEL2	HEL2	HEL2
+HGA1	HGA1	HGA1	HGA1	HGA1	HGA1	HGA1
+HGA2	HGA2	HGA2	HGA2	HGA2	HGA2	HGA2
 HL	HL	HL	HL	HL	HL	HL
 HOL	HOL	HOL	HOL	HOL	HOL	HOL
 HOLA	HOL	HOLA	HOL	HOL	HOL	HOL
@@ -203,8 +205,8 @@ HBL	HBL	HBL	HBL	HBL	HBL	HBL
 HCL	HCL	HCL	HCL	HCL	HCL	HCL
 HEL1	HEL1	HEL1	HEL1	HEL1	HEL1	HEL1
 HEL2	HEL2	HEL2	HEL2	HEL2	HEL2	HEL2
-HGA1	
-HGA2	
+HGA1	HGA1	HGA1	HGA1	HGA1	HGA1	HGA1
+HGA2	HGA2	HGA2	HGA2	HGA2	HGA2	HGA2
 HL	HL	HL	HL	HL	HL	HL
 HOL	HOL	HOL	HOL	HOL	HOL	HOL
 HOLA	HOL	HOLA	HOL	HOL	HOL	HOL

@@ -1,0 +1,21 @@
+name: Check EMC renewal
+
+on:
+  schedule:
+    - cron: '17 8 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency: emc-renewal-check
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/emc/check_renewal.py
+        env:
+          GH_TOKEN: ${{ github.token }}

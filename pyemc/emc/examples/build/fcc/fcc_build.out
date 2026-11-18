@@ -1,0 +1,100 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.4, build Nov 28 2011 20:18:39, date Mon Nov 28 21:50:31 2011
+
+Info: script v1.0 started at Mon Nov 28 21:50:31 2011
+Info: variables = {output -> "fcc00", la -> 1.78179743628, 
+        lb -> 1.78179743628, lc -> 1.78179743628}
+Info: get = {name -> "../../lib/fcc.emc", compress -> false}
+Info: simulation = {output -> {debug -> false}, systems -> {properties -> {
+            t -> 1}}, types -> {skin -> 0.6, neighbor -> pair, 
+          virial -> false, stencil -> standard, standard -> {correct -> {
+              active -> false}}}, moves -> {ncycles -> 100, 
+          seed -> 123456789, displace -> {frequency -> 1}}, blocks -> {
+          frequency -> 100}, profiles -> {frequency -> 10}}
+Info: crystal = {n -> {x -> 7, y -> 7, z -> 7}, miller -> {x -> 0, y -> 0, 
+          z -> 1}, plane -> c, periodic -> {x -> true, y -> true, 
+          z -> true}}
+      n = {x -> 0, y -> 0, z -> 1}
+      r = {{x -> 1, y -> 0, z -> 0}, {x -> 0, y -> 1, z -> 0}, {x -> 0, 
+          y -> 0, z -> 1}}
+Info: force = {style -> init, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+standard.pair            -5.30361 
+---------------------------------
+total                    -5.30361 
+
+Info: run = {ncycles -> 1000, nblocks -> 100, cycle -> 0, seed -> -1}
+
+        cycle      E[0]/nkT
+---------------------------
+          100     -4.625759
+          200      -4.54453
+          300     -4.567978
+          400      -4.54405
+          500     -4.530871
+          600     -4.571903
+          700     -4.558626
+          800     -4.565556
+          900     -4.615012
+         1000     -4.564965
+---------------------------
+      average     -4.568925
+
+Info: neighbors = {nbuilds -> 171351, nupdates -> 1200649}
+Info: memory = {style -> full}
+      size = {simulation -> 6170587, systems -> 3321744, clusters -> 120816, 
+        sites -> 2694168, forces -> 2840, types -> 17643, moves -> 1960, 
+        script -> 7659}
+      size[0] = {system -> 3321096, sectors -> 27784, verlets -> 112, 
+        stencils -> 264, images -> 3279088, registry -> 712, moves -> 1072, 
+        sites -> 136, clusters -> 80, rigids -> 32}
+      <nneighbors/site> = 87.1035
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+standard.pair           -4.564965 
+---------------------------------
+total                   -4.564965 
+
+Info: force = {style -> list, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+standard.pair           -4.564965 
+---------------------------------
+total                   -4.564965 
+
+Info: force = {style -> init, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+standard.pair           -4.564965 
+---------------------------------
+total                   -4.564965 
+
+Info: put = {name -> "fcc00", compress -> false, detail -> 3}
+Info: pdb = {name -> "fcc00", compress -> false, system -> 0, length -> 0, 
+        forcefield -> standard, cut -> true, detect -> false, 
+        pbc -> true, unwrap -> true}
+Info: lammps = {name -> "fcc00", compress -> false, system -> 0, mode -> put, 
+        length -> 0, units -> lj, forcefield -> standard, 
+        atomistic -> false, charge -> false, ellipsoid -> false, 
+        bonds -> false, types -> true, parameters -> false, 
+        variables -> true, coefficients -> true, comment -> true}
+Info: tsc: bonded = {0.2218, 0.09956, 0, 0, 0, 0} s
+Info: tsc: simulation = 10.66 s, threads = 0 s
+Info: tsc: thread = 0 s
+Info: script v1.0 finished at Mon Nov 28 21:50:42 2011
+

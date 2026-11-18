@@ -3,7 +3,7 @@
 #  CHARMM topology using water_ions force field files, 
 #  converted by emc_charmm.pl 4.0, October 10, 2024 by Pieter J. in 't Veld,
 #  to be used in conjuction with EMC v9.4.4 or higher,
-#  and created on Tue Jul 08 14:00:16 CEST 2025.
+#  and created on Wed Aug 06 08:13:13 CEST 2025.
 #
 
 # Rule precedences
@@ -16,7 +16,7 @@ ITEM	PRECEDENCE
   (CAD)
   (CLA)
   (CES)
-  (HP)
+  (HPP)
   (HPC)
   (HT)
   (HX)
@@ -51,8 +51,8 @@ ITEM	RULES
 3	CAD	Cd	CD2	CD	2	[Cd+2]
 4	CLA	Cl	CLA	CLA	-1	[Cl-]
 5	CES	Cs	CES	CES	1	[Cs+]
-6	HP	H	H2PO4	H1	0	H(O(P))
-7	HPC	H	OPCW	H1	0	H(O(H)([Lp]))
+6	HPC	H	OPCW	H1	0	H(O(H)([Lp]))
+7	HPP	H	H2PO4	H1	0	H(O(P))
 8	HT	H	TIP3	H1	0	H(H)(O)
 9	HT	H	TP3M	H1	0	H(O(H))
 10	HX	H	OH	H1	0	H([O-])

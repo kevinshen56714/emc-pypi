@@ -107,6 +107,7 @@ sub set_defaults {
       build		=> {
 	center		=> 0,
 	dir		=> "../build",
+	compress	=> 0,
 	name		=> "build",
 	order		=> "random",
 	origin		=> {x => 0, y => 0, z => 0},
@@ -115,11 +116,13 @@ sub set_defaults {
 	radius		=> undef,
 	replace		=> 0,
 	theta		=> 0,
+	type		=> "xyz",
 	weight		=> {
 	  bond		=> undef,
 	  focus		=> 1,
 	  nonbond	=> undef
-	}
+	},
+	weight_focus	=> "all"
       },
 
       # C
@@ -199,6 +202,7 @@ sub set_defaults {
 	cut		=> "false"
       },
       region		=> {
+	active		=> "false",
 	epsilon		=> 0.1,
 	sigma		=> 1
       },
@@ -258,7 +262,7 @@ sub set_defaults {
       exclude		=> {
 	build		=> 0
       },
-      execute		=> "-",
+      execute		=> 0,
 
       # F
 
@@ -374,6 +378,10 @@ sub set_commands {
 	comment		=> "insert first site at the box center",
 	default		=> EMC::Math::boolean($context->{build}->{center}),
 	gui		=> ["boolean", "chemistry", "emc", "ignore"]},
+      build_compress	=> {
+	comment		=> "set error output compression",
+	default		=> EMC::Math::boolean($context->{build}->{compress}),
+	gui		=> ["boolean", "chemistry", "emc", "ignore"]},
       build_dir		=> {
 	comment		=> "set build directory for LAMMPS script",
 	default		=> $context->{build}->{dir},
@@ -383,7 +391,7 @@ sub set_commands {
 	default		=> $context->{build}->{order},
 	gui		=> ["string", "chemistry", "emc", "ignore"]},
       build_origin	=> {
-	comment		=> "set build order of clusters",
+	comment		=> "set coordinates for center insertion",
 	default		=> EMC::Hash::text($context->{build}->{origin}),
 	gui		=> ["string", "chemistry", "emc", "ignore"]},
       build_replace	=> {
@@ -394,6 +402,10 @@ sub set_commands {
 	comment		=> "set the minimal insertion angle",
 	default		=> EMC::Math::boolean($context->{build}->{theta}),
 	gui		=> ["boolean", "environment", "top", "advanced"]},
+      build_type	=> {
+	comment		=> "set error output type",
+	default		=> $context->{build}->{type},
+	gui		=> ["boolean", "chemistry", "emc", "ignore"]},
 
       # D
 
@@ -469,6 +481,10 @@ sub set_commands {
 	comment		=> "create InsightII CAR and MDF output",
 	default		=> EMC::Math::boolean($flag->{insight}->{write}),
 	gui		=> ["string", "chemistry", "emc", "ignore"]},
+      insight_com	=> {
+	comment		=> "apply center of mass translation",
+	default		=> EMC::Math::boolean($flag->{insight}->{com}),
+	gui		=> ["boolean", "chemistry", "emc", "ignore"]},
       insight_compress	=> {
 	comment		=> "set InsightII CAR and MDF compression",
 	default		=> EMC::Math::boolean($flag->{insight}->{compress}),
@@ -517,6 +533,10 @@ sub set_commands {
 	comment		=> "set record entry in build paragraph",
 	default		=> EMC::Hash::text($context->{record}, "string"),
 	gui		=> ["list", "chemistry", "top", "ignore"]},
+      region		=> {
+	comment		=> "set exclusion region",
+	default		=> EMC::Hash::text($context->{region}, "string"),
+	gui		=> ["list", "chemistry", "top", "ignore"]},
       region_epsilon	=> {
 	comment		=> "set epsilon to use for exclusion regions",
 	default		=> $context->{region}->{epsilon},
@@ -549,7 +569,11 @@ sub set_commands {
       weight		=> {
 	comment		=> "set build relaxation energetic weights",
 	default		=> EMC::Hash::text($context->{build}->{weight}, "real"),
-	gui		=> ["list", "chemistry", "emc", "standard"]}
+	gui		=> ["list", "chemistry", "emc", "standard"]},
+      weight_focus	=> {
+	comment		=> "set application of focus weight",
+	default		=> $context->{build}->{weight_focus},
+	gui		=> ["list", "chemistry", "emc", "ignore"]}
     }
   );
 
@@ -612,11 +636,13 @@ sub set_context {
   if (!$flag->{write}) {
     $flag->{execute} = $flag->{test} = 0;
   }
-  if (EMC::Math::flag($flag->{execute})) {
+  if (EMC::Math::flag_q($flag->{execute})) {
     $flag->{executable} = $ENV{HOST} ne "" ? 
 			  "emc_$ENV{HOST}" : "emc".$context->{suffix};
-  } elsif ($flag->{execute} eq "-" || EMC::Math::flag_q($flag->{execute})) {
-    $flag->{execute} = 0;
+    $flag->{execute} = EMC::Math::flag($flag->{execute});
+  } elsif ($flag->{execute} eq "debug") {
+    $flag->{executable} = $ENV{HOST} ne "" ? 
+			  "dbg_emc_$ENV{HOST}" : "dbg_emc".$context->{suffix};
   } elsif ($flag->{execute} ne "-") {
     $flag->{executable} = $flag->{execute};
     $flag->{execute} = 1;
@@ -649,12 +675,17 @@ sub set_options {
   my $args = EMC::Common::element($struct, "args");
   my $file = EMC::Common::element($struct, "file");
   my $line = EMC::Common::element($struct, "line");
+  
   my $emc = EMC::Common::element($struct, "module");
   my $flag = EMC::Common::element($emc, "flag");
-  my $context = EMC::Common::element($emc, "context");
   my $defined = EMC::Common::element($emc, "defined");
+  my $context = EMC::Common::element($emc, "context");
   my $build = EMC::Common::element($context, "build");
-  my $set = EMC::Common::element($struct, "root", "set");
+
+  my $root = EMC::Common::element($struct, "root");
+  my $global = EMC::Common::element($root, "global");
+  my $set = EMC::Common::element($root, "set");
+
   my $indicator = defined($set) ? $set->{flag}->{indicator} : 1;
   my $n = scalar(@{$args});
 
@@ -666,6 +697,8 @@ sub set_options {
     return $build->{name} = $args->[0]; }
   if ($option eq "build_center") {
     return $build->{center} = EMC::Math::flag($args->[0]); }
+  if ($option eq "build_compress") {
+    return $build->{compress} = EMC::Math::flag($args->[0]); }
   if ($option eq "build_dir") { 
     return $build->{dir} = $args->[0]; }
   if ($option eq "build_order") {
@@ -679,6 +712,12 @@ sub set_options {
     return $build->{replace} = EMC::Math::flag($args->[0]); }
   if ($option eq "build_theta") {
     return $build->{theta} = EMC::Math::eval($args->[0])->[0]; }
+  if ($option eq "build_type") { 
+    my $allowed = {insight => 1, pdb => 1, xyz => 1};
+    if (!defined($allowed->{$args->[0]})) {
+      EMC::Message::error_line($line, "invalid error output type\n");
+    }
+    return $build->{type} = $args->[0]; }
 
   # D
 
@@ -716,6 +755,9 @@ sub set_options {
   }
   if ($option eq "emc_exclude") {
     EMC::Hash::set($line, $flag->{exclude}, "boolean", "", [], @{$args});
+    if ($flag->{exclude}->{build}) {
+      EMC::Options::set_flags($struct->{root}, {write => 0});
+    }
     return $flag->{exclude};
   }
   if ($option eq "emc_execute") {
@@ -777,6 +819,8 @@ sub set_options {
 
   if ($option eq "insight") { 
     return $flag->{insight}->{write} = EMC::Math::flag($args->[0]); }
+  if ($option eq "insight_com") { 
+    return $flag->{insight}->{com} = EMC::Math::flag($args->[0]); }
   if ($option eq "insight_compress") { 
     return $flag->{insight}->{compress} = EMC::Math::flag($args->[0]); }
   if ($option eq "insight_pbc") { 
@@ -867,11 +911,11 @@ sub set_options {
       EMC::Hash::set($line, $record, "string", "", [], @{$args});
       foreach (keys(%{$record})) {
 	if ($_ eq "frequency") { 
-	  $record->{$_} = EMC::Math::eval($record->{$_});
+	  $record->{$_} = EMC::Math::eval($record->{$_})->[0];
 	} elsif ($_ eq "unwrap") {
 	  $record->{$_} = EMC::EMC::flag_unwrap($record->{$_});
 	} elsif ($_ ne "name") {
-	  $record->{$_} = EMC::Math::boolean(flag($record->{$_}));
+	  $record->{$_} = EMC::Math::boolean(EMC::Math::flag($record->{$_}));
 	}
       }
     }
@@ -882,6 +926,30 @@ sub set_options {
     my $region = $context->{region};
     $region->{epsilon} = $value>0.0 ? $value : $args->[0] if ($value>=0.0);
     return $region->{epsilon};
+  }
+  if ($option eq "region") {
+    my $region = $context->{region};
+    foreach (@{$args}) {
+      my @a = split("=");
+      if (!defined($region->{@a[0]})) {
+	EMC::Message::error_line($line, "illegal keyword '@a[0]'.\n");
+      }
+      if (!defined(@a[1])) {
+	EMC::Message::error_line($line,
+	  "missing value for keyword '@a[0]'.\n");
+      }
+      if (@a[0] eq "active") {
+	my $flag = EMC::Math::flag(@a[1]);
+	$region->{@a[0]} = EMC::Math::boolean($flag);
+	if ($flag) {
+	  $global->{flag}->{exclude} = 2;
+	}
+      } else {
+	my $value = EMC::Math::eval(@a[1])->[0];
+	$region->{@a[0]} = $value>0.0 ? $value : @a[1] if ($value>=0.0);
+      }
+    }
+    return 1;
   }
   if ($option eq "region_sigma") {
     my $value = EMC::Math::eval($args->[0])->[0];
@@ -907,14 +975,22 @@ sub set_options {
   # W
 
   if ($option eq "weight") {
-    my $tmp = EMC::Hash::define(EMC::Hash::copy($build->{weight}), undef);
+    my $tmp = EMC::Hash::define(EMC::Hash::copy($build->{weight}), 0);
     EMC::Hash::set($line, $tmp, "real", "", [], @{$args});
     foreach (keys(%{$tmp})) {
-      next if (!defined($tmp->{$_}));
+      next if (!$tmp->{$_});
       $defined->{build}->{weight}->{$_} = 1;
       $build->{weight}->{$_} = $tmp->{$_};
     }
-    return 1; }
+    return 1;
+  }
+  if ($option eq "weight_focus") {
+    my $allowed = {all => 0, first => 1};
+    if (!defined($allowed->{$args->[0]})) {
+      EMC::Message::error_line($line, "invalid weight_focus option\n");
+    }
+    return $build->{weight_focus} = $args->[0];
+  }
 
   return undef;
 }
@@ -1355,6 +1431,11 @@ sub write_build {				# <= write_emc_build
       ($flag->{progress}->{build} ? "list" : "none"), 4, 2));
   printf($stream "%s", format_output(1, "frequency 1", 4, 2));
   printf($stream "%s", format_output(1, "name \"error\"", 4, 2));
+  printf($stream "%s",
+    format_output(1, "type $context->{build}->{type}", 4, 2));
+  printf($stream "%s",
+    format_output(1, "compress ".EMC::Math::boolean(
+	$context->{build}->{compress}), 4, 2));
   if ($context->{build}->{center}) {
     printf($stream "%s", 
       format_output(1, "center ".
@@ -1373,7 +1454,7 @@ sub write_build {				# <= write_emc_build
   if ($context->{record}->{flag}) {
     printf($stream "%s\n", format_output(0, "record {", 4, 2));
     printf($stream "%s", 
-      format_output(1, "name ".$context->{record}->{name}, 6, 2));
+      format_output(1, "name \"".$context->{record}->{name}."\"", 6, 2));
     printf($stream "%s",
       format_output(1, "frequency ".$context->{record}->{frequency}, 6, 2));
     my $n = scalar(keys(%{$context->{record}}));
@@ -1409,6 +1490,8 @@ sub write_build {				# <= write_emc_build
   my $t = $fwall ? 10 : 8;
   my $dir = $global->{direction}->{x};
 
+  printf($stream "%s",
+    format_output(1, "focus $context->{build}->{weight_focus}", 6, 2));
   printf($stream "%s\n", format_output(0, "weight {", 6, 2));
   printf($stream "%s", format_output(1, "bonded weight_bond, nonbonded -> weight_nonbond", 8, 2));
   printf($stream "%s", format_output($n>=$i0, "focus weight_focus}", 8, 2));
@@ -1916,14 +1999,16 @@ sub write_import {				# <= write_emc_import
   printf($stream "\n");
   if ($import->{mode} eq "get" || 				# emc
       $import->{mode} eq "emc") {
-    printf($stream "get\t\t= {name -> import$field};\n");
+    printf($stream "get\t\t= {name -> import, import -> true$field};\n");
   } elsif ($import->{mode} eq "insight") {			# insight
     my $debug = $import->{debug} ? " debug -> true," : "";
     printf($stream 
       "insight\t\t= {id -> %s, name -> import, mode -> get,$debug\n\t\t   ".
       "depth -> $import->{depth}, crystal -> %s, percolate -> %s,\n\t\t   ".
-      "formal -> %s, flag -> {charge -> %s}$field};\n",
+      "com -> %s, formal -> %s, flag -> {charge -> %s}$field};\n",
       $id, EMC::Math::boolean($import->{crystal}),
+      EMC::Math::boolean($import->{com}<0 ? $flag->{com} :
+       	$import->{com}),
       EMC::Math::boolean($import->{percolate}<0 ? $flag->{percolate} :
        	$import->{percolate}),
       EMC::Math::boolean($import->{formal}),
@@ -1931,13 +2016,15 @@ sub write_import {				# <= write_emc_import
     );
   } elsif ($import->{mode} eq "pdb") {				# pdb
     printf($stream 
-      "pdb\t\t= {name -> import, mode -> get, detect -> true, ".
-      "depth -> $import->{depth},\n");
+      "pdb\t\t= {id -> $id, name -> import, mode -> get, detect -> true,\n");
     printf($stream 
-      "\t\t   crystal -> %s, flag -> {charge -> %s}, map -> %s$field};\n",
+      "\t\t   depth -> $import->{depth}, crystal -> %s, flag -> {charge -> %s},\n".
+      "\t\t   map -> %s, connectivity -> %s$field};\n",
       EMC::Math::boolean($import->{crystal}),
       EMC::Math::boolean($global->{system}->{charge}),
-      EMC::Math::boolean($import->{map}));
+      EMC::Math::boolean($import->{map}),
+      EMC::Math::boolean($import->{connect}),
+    );
   }
   if (defined($import->{tighten})) {				# tighten
     my $include = {structure => 1, tube => 1};
@@ -2612,6 +2699,9 @@ sub write_polymers {				# <= write_emc_polymers
   if (!defined($level{$typ})) {
     EMC::Message::error("unsupported polymer type '$typ'.\n");
   }
+  if (!(defined($poly->{data}) && scalar(@{$poly->{data}}))) {
+    EMC::Message::error("missing polymer data for '$name'.\n");
+  }
   $lvl = $level{$typ};
   foreach (@{$poly->{data}}) {
     my $i;
@@ -2663,6 +2753,7 @@ sub write_polymers {				# <= write_emc_polymers
     printf($stream "\n%s", format_output(0, "}", $lvl-2, 2));
     printf($stream ",\n") if (--$npolys || $n);
   }
+  return scalar(@{$poly->{data}});
 }
 
 
@@ -3257,7 +3348,11 @@ sub write_variables_polymer {			# <= write_emc_variables_polymer
       scalar(split(":", $data->[0]->{groups}->[0]))>1 ? 0 : 1
     ) {
     return if ($int);
-    push(@{$var}, $t."_$name ".$t."g_$data->[0]->{groups}->[0]");
+    if (EMC::Common::element($poly, "options", "group")) {
+      push(@{$var}, $t."_$name ".$t."g_$name");
+    } else {
+      push(@{$var}, $t."_$name ".$t."g_$data->[0]->{groups}->[0]");
+    }
   } else {
     my $f = 1;
     if (scalar(@{$data})>1) {				# polymers

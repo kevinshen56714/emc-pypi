@@ -1,0 +1,71 @@
+#!/usr/bin/env emc.pl
+#
+#  script:	setup.esh
+#  author:	Pieter J. in 't Veld
+#  date:	July 16, 2026
+#  purpose:	Example for polymers using EMC setup chemistry mode
+#
+
+# Options section
+
+ITEM	OPTIONS
+
+replace		true
+field		2024/opls-aa
+number		true
+ntotal		1000
+density		0.1
+focus		true
+pdb_licorice	true
+emc_execute	true
+
+ITEM	END	# OPTIONS
+
+# Groups section
+
+ITEM	GROUPS
+
+# monomers
+
+bd12		*C(C=C)C*, &
+		1,bd12:2, 2,bd12:1, &
+		1,bd14:2, 2,bd14:1 &
+		1,styrene:2, 2,styrene:1, &
+		1,term:1, 2,term:1
+
+bd14		*C/C=C\C*, &
+		1,bd12:2, 2,bd12:1, &
+		1,bd14:2, 2,bd14:1 &
+		1,styrene:2, 2,styrene:1, &
+		1,term:1, 2,term:1
+
+styrene		*C(c1ccccc1)C*, &
+		1,bd12:2, 2,bd12:1, &
+		1,bd14:2, 2,bd14:1 &
+		1,styrene:2, 2,styrene:1, &
+		1,term:1, 2,term:1
+
+term		*C
+
+# polymer
+
+poly		random
+
+ITEM	END	# GROUPS
+
+# Clusters section
+
+ITEM	CLUSTERS
+
+polymer		poly,10
+
+ITEM	END	# CLUSTERS
+
+# Polymers section
+
+ITEM	POLYMERS
+
+poly
+log:avg=20,pdi=1.01	bd12:bd14:styrene=1:1:2,$@, term,2
+
+ITEM	END	# POLYMERS

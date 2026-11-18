@@ -493,6 +493,7 @@ sub set_item_verbatim {
   my $data = EMC::Common::element($item, "data");
 
   $module->{verbatim} = $item;
+  
   return $root;
 }
 
@@ -552,7 +553,7 @@ sub read {					# <= read_script
       stage_only => [
 	"structures"],
       verbatim => [
-	"emc", "field", "gromacs", "lammps", "namd", "template"],
+	"emc", "field", "gromacs", "lammps", "namd", "openfts", "template"],
       ignore => [
 	"variables"]
     };

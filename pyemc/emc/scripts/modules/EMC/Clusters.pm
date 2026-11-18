@@ -96,6 +96,7 @@ sub set_defaults {
 
       fractions		=> [],
       flag		=> {
+	com		=> 0,
 	mass		=> 0,
 	mol		=> 1,
 	number		=> 0,
@@ -108,7 +109,9 @@ sub set_defaults {
       id		=> {},
       import		=> {},
       import_default	=> {
+	com		=> -1,
 	charges		=> -1,
+	connect		=> 0,
 	density		=> "mass",
 	depth		=> -1,
 	direction	=> "y",
@@ -592,10 +595,12 @@ sub set_import {
     "ncells", "name", "mode", "type", "flag", "density", "focus",
     "tighten", "ntrials", "periodic", "field", "exclude", "depth",
     "percolate", "unwrap", "guess", "charges", "formal", "translate",
-    "map", "debug"
+    "map", "connect", "com", "debug"
   );
   my %allowed = (
     charges => {charges => 1},
+    com => {com => 1},
+    connect => {connect => 1},
     debug => {debug => 1},
     density => {mass => 1, number => 1},
     depth => {depth => 1},

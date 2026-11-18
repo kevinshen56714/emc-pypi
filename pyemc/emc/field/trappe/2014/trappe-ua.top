@@ -3,6 +3,10 @@
 #  converted by trappe.pl v1.2, May 25, 2021 by Pieter J. in 't Veld
 #  to be used in conjuction with EMC v9.4.4 or higher
 #
+#  Copyrights (c) 2004-2026 Pieter J. in 't Veld
+#  Distributed under GNU Public License v3.0 as stated in the LICENSE file in
+#  the EMC root directory
+#
 
 # Rule precedences
 

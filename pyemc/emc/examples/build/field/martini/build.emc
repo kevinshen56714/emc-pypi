@@ -1,0 +1,122 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/martini/v2.0/",
+  parameters	-> dir+"martini.prm",
+  topology	-> dir+"surfactants.prm",
+  //topology	-> dir+"empty.prm",
+
+  output	-> "sds",
+  nmolecules	-> 1000,
+  nwater	-> 50*nmolecules,
+  temperature	-> 500,
+  density	-> 0.9,
+  seed		-> -1
+};
+
+field		= {
+  mode		-> martini,
+  name		-> {parameters, topology},
+  compress	-> false
+};
+
+field		= {
+  mode		-> put,
+  name		-> "martini",
+  compress	-> false
+};
+
+groups		= {
+  group		-> {
+    id		-> cation,
+    chemistry	-> "[Qa+1]"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> molecule,
+    system	-> main,
+    n		-> nmolecules,
+    template	-> SDS
+  },
+  cluster	-> {
+    id		-> cation,
+    system	-> main,
+    n		-> nmolecules,
+    group	-> cation
+  },
+  cluster	-> {
+    id		-> big,
+    system	-> main,
+    n		-> int(0.1*nwater),
+    template	-> WF
+  },
+  cluster	-> {
+    id		-> water,
+    system	-> main,
+    n		-> int(0.9*nwater),
+    template	-> W
+  }
+};
+
+field		= {
+  mode		-> apply,
+  error		-> false
+};
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  },
+  types 	-> {
+    martini	-> {
+      pair 	-> {mode -> repulsive}
+    },
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    cluster	-> {cation, molecule, big, water},
+    relax	-> {ncycles -> 100, radius -> 0.5},
+    name	-> "error",
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 250
+    }
+  }
+};
+
+force		= {style -> none, message -> nkt};
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+(*
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+*)
+
+simulation	= {
+  types		= {martini -> {pair -> {mode -> global}}}
+};
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> martini, detect -> false, 
+		   segment -> index, residue -> index, unwrap -> true};
+lammps		= {name -> output, mode -> put, charges -> true,
+		   forcefield -> martini, parameters -> true, cross -> true};
+

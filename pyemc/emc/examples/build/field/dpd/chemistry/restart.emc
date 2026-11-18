@@ -1,0 +1,13 @@
+(* EMC: Script *)
+
+get		= {name -> "chemistry", compress -> true};
+
+reset		= {style -> simulation};
+
+force		= {style -> init, message -> true};
+run		= {ncycles -> 1000, nblocks -> 10};
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+put		= {name -> "test01", compress -> true, detail -> -1};
+

@@ -1,0 +1,32 @@
+(* EMC: Script *)
+
+variables	= {
+  output	-> "bcc00",
+  la		-> 0.7^(-1/3),
+  lb		-> 0.7^(-1/3),
+  lc		-> 0.7^(-1/3)};
+
+get		= {name -> "../../lib/bcc.emc"};
+
+crystal		= {n -> {10, 10, 10}, miller -> {0, 0, 1}, plane -> m001};
+
+simulation	= {
+  systems	-> {
+    properties	-> {id -> 0, t -> 1}},
+  types		-> {
+    skin	-> 0.6,
+    neighbor	-> pair},
+  moves		-> {
+    displace	-> {frequency -> 1}}};
+
+run		= {ncycles -> 1000, nblocks -> 100};
+
+force		= {style -> list, message -> true};
+force		= {style -> init, message -> true};
+
+put 		= {name -> output};
+pdb		= {name -> output, system -> 0, cut -> true,
+		    forcefield ->standard};
+lammps		= {name -> output, system -> 0, mode -> put,
+		    units -> lj, types -> true, forcefield -> standard};
+

@@ -1,0 +1,393 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.1, build Apr  8 2010 10:03:57, date Thu Apr  8 10:31:10 2010
+
+Info: script v1.0 started at Thu Apr  8 10:31:10 2010
+Info: variables = {
+        prefix -> "/Users/pjintve/emc/src/force/polystyrene/smoothed_", 
+        output -> "polystyrene", nrepeats -> 20, ngraft -> 20, 
+        lbox -> 2e-08, dcore -> 4.43876897585e-09, densgraft -> 7e+17, 
+        dgraft -> 5.08e-09, rgraft -> 2.54e-09, a -> 1e-10, 
+        drelax -> 1e-09, sigma -> 5e-10, cutoff -> 5.61231024155e-10, 
+        rcore -> 2.21938448792e-09, temperature -> 400, 
+        kb -> 1.3806504e-23, nav -> 6.022141179e+23, 
+        escale -> 3325.78865106, ecore -> 66515.7730211, rhops -> 1050, 
+        rhocore -> 2100, mm -> 0.104, me -> 0.105, 
+        mcore -> 57.9103880969, npolymers -> 1151, 
+        mtotal -> 5087.7803881, phicore -> 0.0113822499557, 
+        density -> 1056.00988423, grace -> 0.99, ncycles -> 100}
+Info: sites = {nsites -> 5, 
+        site -> {{id -> m, name -> "styrene m diad", reference -> 0, 
+            mass -> 0.104}, 
+          {id -> r, name -> "styrene r diad", reference -> 1, 
+            mass -> 0.104}, 
+          {id -> e, name -> "styrene end", reference -> 2, 
+            mass -> 0.105}, 
+          {id -> link, name -> "styrene linker", reference -> 3, 
+            mass -> 0.105}, 
+          {id -> core, name -> "silica core", reference -> 4, 
+            mass -> 57.9103880969}}}
+Info: simulation = {units -> {type -> si, angle -> 180/pi, length -> 2.5e-10, 
+          energy -> escale, seed -> -1}, types -> {merge -> true, 
+          skin -> 0.0, neighbor -> sector, stencil -> multi, inverse -> {
+            active -> true, cutoff -> 1e-4, nfunctions -> 50}, 
+          boltzmann -> {angle -> {active -> true, data -> {{i0 -> m, 
+                  i1 -> m, i2 -> m, coef -> {{a -> 0.140, w -> 14.2, 
+                      theta -> 147.3}, {a -> 0.030, w -> 15.5, 
+                      theta -> 158.0}}}, {i0 -> m, i1 -> m, i2 -> r, 
+                  coef -> {{a -> 0.360, w -> 15.5, theta -> 136.0}, {
+                      a -> 0.110, w -> 16.4, theta -> 156.5}}}, {i0 -> m, 
+                  i1 -> m, i2 -> e, coef -> {{a -> 0.360, w -> 15.5, 
+                      theta -> 136.0}, {a -> 0.110, w -> 16.4, 
+                      theta -> 156.5}}}, {i0 -> m, i1 -> m, i2 -> link, 
+                  coef -> {{a -> 0.360, w -> 15.5, theta -> 136.0}, {
+                      a -> 0.110, w -> 16.4, theta -> 156.5}}}, {i0 -> m, 
+                  i1 -> r, i2 -> m, coef -> {{a -> 0.003, w -> 13.5, 
+                      theta -> 142.3}, {a -> 0.033, w -> 15.5, 
+                      theta -> 165.5}}}, {i0 -> m, i1 -> r, i2 -> r, 
+                  coef -> {{a -> 0.077, w -> 23.8, theta -> 99.6}, {
+                      a -> 0.133, w -> 14.2, theta -> 142.1}, {
+                      a -> 0.800, w -> 15.5, theta -> 164.4}}}, {i0 -> m, 
+                  i1 -> r, i2 -> e, coef -> {{a -> 0.077, w -> 23.8, 
+                      theta -> 99.6}, {a -> 0.133, w -> 14.2, 
+                      theta -> 142.1}, {a -> 0.800, w -> 15.5, 
+                      theta -> 164.4}}}, {i0 -> m, i1 -> r, i2 -> link, 
+                  coef -> {{a -> 0.077, w -> 23.8, theta -> 99.6}, {
+                      a -> 0.133, w -> 14.2, theta -> 142.1}, {
+                      a -> 0.800, w -> 15.5, theta -> 164.4}}}, {i0 -> r, 
+                  i1 -> m, i2 -> r, coef -> {{a -> 0.045, w -> 10.5, 
+                      theta -> 87.1}, {a -> 0.310, w -> 17.0, 
+                      theta -> 136.6}, {a -> 0.070, w -> 10.9, 
+                      theta -> 158.8}}}, {i0 -> r, i1 -> m, i2 -> e, 
+                  coef -> {{a -> 0.045, w -> 10.5, theta -> 87.1}, {
+                      a -> 0.310, w -> 17.0, theta -> 136.6}, {
+                      a -> 0.070, w -> 10.9, theta -> 158.8}}}, {i0 -> r, 
+                  i1 -> m, i2 -> link, coef -> {{a -> 0.045, w -> 10.5, 
+                      theta -> 87.1}, {a -> 0.310, w -> 17.0, 
+                      theta -> 136.6}, {a -> 0.070, w -> 10.9, 
+                      theta -> 158.8}}}, {i0 -> r, i1 -> r, i2 -> r, 
+                  coef -> {{a -> 0.060, w -> 12.5, theta -> 89.4}, {
+                      a -> 0.135, w -> 12.6, theta -> 142.0}, {
+                      a -> 0.130, w -> 15.6, theta -> 164.2}}}, {i0 -> r, 
+                  i1 -> r, i2 -> e, coef -> {{a -> 0.060, w -> 12.5, 
+                      theta -> 89.4}, {a -> 0.135, w -> 12.6, 
+                      theta -> 142.0}, {a -> 0.130, w -> 15.6, 
+                      theta -> 164.2}}}, {i0 -> r, i1 -> r, i2 -> link, 
+                  coef -> {{a -> 0.060, w -> 12.5, theta -> 89.4}, {
+                      a -> 0.135, w -> 12.6, theta -> 142.0}, {
+                      a -> 0.130, w -> 15.6, theta -> 164.2}}}, {i0 -> e, 
+                  i1 -> m, i2 -> e, coef -> {{a -> 0.045, w -> 10.5, 
+                      theta -> 87.1}, {a -> 0.310, w -> 17.0, 
+                      theta -> 136.6}, {a -> 0.070, w -> 10.9, 
+                      theta -> 158.8}}}, {i0 -> e, i1 -> m, i2 -> link, 
+                  coef -> {{a -> 0.045, w -> 10.5, theta -> 87.1}, {
+                      a -> 0.310, w -> 17.0, theta -> 136.6}, {
+                      a -> 0.070, w -> 10.9, theta -> 158.8}}}, {i0 -> e, 
+                  i1 -> r, i2 -> e, coef -> {{a -> 0.060, w -> 12.5, 
+                      theta -> 89.4}, {a -> 0.135, w -> 12.6, 
+                      theta -> 142.0}, {a -> 0.130, w -> 15.6, 
+                      theta -> 164.2}}}, {i0 -> e, i1 -> r, i2 -> link, 
+                  coef -> {{a -> 0.060, w -> 12.5, theta -> 89.4}, {
+                      a -> 0.135, w -> 12.6, theta -> 142.0}, {
+                      a -> 0.130, w -> 15.6, theta -> 164.2}}}}}, 
+            bond -> {active -> true, data -> {{i0 -> m, i1 -> m, coef -> {
+                    a -> 0.015*a, w -> 0.09*a, length -> 2.46*a}}, {
+                  i0 -> m, i1 -> r, coef -> {a -> 0.018*a, w -> 0.09*a, 
+                    length -> 2.46*a}}, {i0 -> m, i1 -> e, coef -> {
+                    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}}, {
+                  i0 -> m, i1 -> link, coef -> {a -> 0.018*a, 
+                    w -> 0.09*a, length -> 2.46*a}}, {i0 -> r, i1 -> r, 
+                  coef -> {a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}}, 
+                {i0 -> r, i1 -> e, coef -> {a -> 0.018*a, w -> 0.09*a, 
+                    length -> 2.46*a}}, {i0 -> r, i1 -> link, coef -> {
+                    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}}, {
+                  i0 -> e, i1 -> e, coef -> {a -> 0.018*a, w -> 0.09*a, 
+                    length -> 2.46*a}}, {i0 -> e, i1 -> link, coef -> {
+                    a -> 0.018*a, w -> 0.09*a, length -> 2.46*a}}, {
+                  i0 -> link, i1 -> link, coef -> {a -> 0.018*a, 
+                    w -> 0.09*a, length -> 2.46*a}}}}, pair -> {
+              active -> true, nbonded -> 2, data -> {{i0 -> m, i1 -> m, 
+                  name -> prefix+"m-m.m"}, {i0 -> m, i1 -> r, 
+                  name -> prefix+"m-r.m"}, {i0 -> m, i1 -> e, 
+                  name -> prefix+"m-e.m"}, {i0 -> m, i1 -> link, 
+                  name -> prefix+"m-e.m"}, {i0 -> r, i1 -> r, 
+                  name -> prefix+"r-r.m"}, {i0 -> r, i1 -> e, 
+                  name -> prefix+"r-e.m"}, {i0 -> r, i1 -> link, 
+                  name -> prefix+"r-e.m"}, {i0 -> e, i1 -> e, 
+                  name -> prefix+"e-e.m"}, {i0 -> e, i1 -> link, 
+                  name -> prefix+"e-e.m"}, {i0 -> link, i1 -> link, 
+                  name -> prefix+"e-e.m"}}}}, coarse -> {lj -> {
+              active -> true, shift -> true, mix -> none, nbonded -> 1, 
+              data -> {{i0 -> m, i1 -> m, epsilon -> 0, sigma -> 0, 
+                  core -> 0}, {i0 -> m, i1 -> r, epsilon -> 0, 
+                  sigma -> 0, core -> 0}, {i0 -> m, i1 -> e, 
+                  epsilon -> 0, sigma -> 0, core -> 0}, {i0 -> m, 
+                  i1 -> link, epsilon -> 0, sigma -> 0, core -> 0}, {
+                  i0 -> m, i1 -> core, epsilon -> ecore, sigma -> sigma, 
+                  core -> rcore, cutoff -> cutoff}, {i0 -> r, i1 -> r, 
+                  epsilon -> 0, sigma -> 0, core -> 0}, {i0 -> r, 
+                  i1 -> e, epsilon -> 0, sigma -> 0, core -> 0}, {
+                  i0 -> r, i1 -> link, epsilon -> 0, sigma -> 0, 
+                  core -> 0}, {i0 -> r, i1 -> core, epsilon -> ecore, 
+                  sigma -> sigma, core -> rcore, cutoff -> cutoff}, {
+                  i0 -> e, i1 -> e, epsilon -> 0, sigma -> 0, core -> 0}, 
+                {i0 -> e, i1 -> link, epsilon -> 0, sigma -> 0, 
+                  core -> 0}, {i0 -> e, i1 -> core, epsilon -> ecore, 
+                  sigma -> sigma, core -> rcore, cutoff -> cutoff}, {
+                  i0 -> link, i1 -> link, epsilon -> 0, sigma -> 0, 
+                  core -> 0}, {i0 -> link, i1 -> core, epsilon -> 0, 
+                  sigma -> 0, core -> 0}, {i0 -> core, i1 -> core, 
+                  epsilon -> ecore, sigma -> sigma, core -> dcore, 
+                  cutoff -> cutoff}}}}}, moves -> {displace -> {
+            frequency -> 1, dmax -> 0.1}}}
+Info: groups = {ngroups -> 2, 
+        group -> {{id -> core, chemistry -> "[core]"}, 
+          {id -> link, chemistry -> "[link]"}}}
+Info: clusters = {nbodys -> 0, nclusters -> 1, 
+        cluster -> {id -> core, system -> 0, n -> 1, group -> core}, 
+        ngrafts -> 0, npolymers -> 0}
+      delta = {systems -> 1, bodies -> 0, clusters -> 1, sites -> 1}
+Info: build = {
+        system -> {id -> main, temperature -> 1, 
+          density -> 12.0203068924, geometry -> {xx -> 2e-08, 
+            yy -> 2e-08, zz -> 2e-08, zy -> 0, zx -> 0, yx -> 0}}, 
+        select -> {progress -> list, frequency -> 5, center -> true, 
+          order -> sequence, check -> true, nclusters -> 1, 
+          cluster -> core, 
+          relax -> {ncycles -> 100, radius -> 1e-09}, 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.999, 0.999}, theta -> 0, ntrials -> 20, 
+            niterations -> 1000}}}
+
+     progress      E[0]/nkT
+---------------------------
+          100             0
+---------------------------
+      average             0
+
+      niterations = 1, <niterations> = 1
+Info: flag = {oper -> set, flag -> {fixed, rigid}, 
+        region -> {shape -> spheroid, type -> relative, center -> {
+            x -> 0, y -> 0, z -> 0}, radius -> {x -> 2.21938448792e-09, 
+            y -> 2.21938448792e-09, z -> 2.21938448792e-09}}}
+Info: clusters = {nbodys -> 1, 
+        body -> {id -> particle, system -> main, n -> 1, 
+          density -> 7e+17, surface -> link, core -> -1, 
+          region -> {shape -> spheroid, type -> absolute, center -> {
+              x -> 0, y -> 0, z -> 0}, radius -> {x -> 2.54e-09, 
+              y -> 2.54e-09, z -> 2.54e-09}}}, nclusters -> 0, 
+        ngrafts -> 0, npolymers -> 0}
+      delta = {systems -> 0, bodies -> 1, clusters -> 1, sites -> 56}
+Info: build = {
+        system -> {id -> main, temperature -> 400, 
+          density -> 13.2408030219, geometry -> {xx -> 2e-08, 
+            yy -> 2e-08, zz -> 2e-08, zy -> 0, zx -> 0, yx -> 0}}, 
+        select -> {progress -> list, frequency -> 5, center -> false, 
+          order -> sequence, check -> true, nclusters -> 1, 
+          cluster -> particle, 
+          relax -> {ncycles -> 100, radius -> 1e-09}, 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.999, 0.999}, theta -> 0, ntrials -> 20, 
+            niterations -> 1000}}}
+
+     progress      E[0]/nkT
+---------------------------
+            2             0
+            7  5.958001e-06
+           13  3.404572e-06
+           20  5.408522e-07
+           25 -3.569421e-06
+           30   0.003475167
+           36   0.002955251
+           41   0.002567631
+           46  1.372602e-05
+           52  0.0007088996
+           57  0.0009490382
+           63  0.0008653153
+           70  0.0007754019
+           75  0.0007681006
+           80  0.0003395094
+           86  0.0003171483
+           91  0.0003443022
+           96  0.0002089974
+          100  0.0001912276
+---------------------------
+      average  0.0007624237
+
+      niterations = 56, <niterations> = 1
+Info: force = {style -> init, message -> true}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+boltzmann.angle                 0 
+boltzmann.bond                  0 
+boltzmann.pair       0.0001912276 
+coarse.lj                       0 
+---------------------------------
+total                0.0001912276 
+
+Info: run = {ncycles -> 5000, nblocks -> 1000, cycle -> 0, seed -> -1}
+
+        cycle      E[0]/nkT
+---------------------------
+         1000    0.04594224
+         2000  0.0005166401
+         3000   0.007032552
+         4000   0.003806461
+         5000   0.003936721
+---------------------------
+      average    0.01224692
+
+Info: neighbors = {nbuilds -> 280000, nupdates -> 0}
+Info: force = {style -> none, message -> true}
+
+(* Energy *)
+
+                         E[0]/nkT 
+---------------------------------
+boltzmann.angle                 0 
+boltzmann.bond                  0 
+boltzmann.pair        0.003936721 
+coarse.lj                       0 
+---------------------------------
+total                 0.003936721 
+
+Info: put = {name -> "polystyrene", compress -> true, detail -> 3}
+Info: pdb = {name -> "polystyrene", compress -> false, system -> 0, 
+        length -> 0, forcefield -> standard, cut -> false, 
+        detect -> false, pbc -> true, unwrap -> true}
+Info: groups = {ngroups -> 3, 
+        group -> {{id -> monomer1, chemistry -> "r", nbranches -> 2, 
+            branches -> {0, 0}, nconnects -> 3, connects -> {
+              {source -> 0, destination -> {index -> monomer1, 
+                  site -> 0}}, 
+              {source -> 0, destination -> {index -> monomer2, 
+                  site -> 0}}, 
+              {source -> 0, destination -> {index -> terminator, 
+                  site -> 0}}}}, 
+          {id -> monomer2, chemistry -> "m", nbranches -> 2, 
+            branches -> {0, 0}, nconnects -> 3, connects -> {
+              {source -> 0, destination -> {index -> monomer1, 
+                  site -> 0}}, 
+              {source -> 0, destination -> {index -> monomer2, 
+                  site -> 0}}, 
+              {source -> 0, destination -> {index -> terminator, 
+                  site -> 0}}}}, 
+          {id -> terminator, chemistry -> "e", nbranches -> 1, 
+            branches -> 0, nconnects -> 2, connects -> {
+              {source -> 0, destination -> {index -> monomer1, 
+                  site -> 0}}, 
+              {source -> 0, destination -> {index -> monomer2, 
+                  site -> 0}}}}}}
+Info: clusters = {nbodys -> 0, nclusters -> 0, ngrafts -> 1, 
+        graft -> {core -> particle, type -> link, polymer -> graft, 
+          connect -> head}, npolymers -> 2, 
+        polymer -> {{id -> graft, system -> main, n -> 56, ngroups -> 2, 
+            groups -> {monomer1, monomer2}, type -> random, 
+            nrepeat -> 20}, 
+          {id -> polymer, system -> main, n -> 1151, ngroups -> 2, 
+            groups -> {monomer1, monomer2}, type -> random, 
+            nrepeat -> 20}}}
+      delta = {systems -> 0, bodies -> 0, clusters -> 1207, sites -> 50694}
+Info: build = {
+        system -> {id -> main, temperature -> 400, 
+          density -> 1106.85307551, geometry -> {xx -> 2e-08, 
+            yy -> 2e-08, zz -> 2e-08, zy -> 0, zx -> 0, yx -> 0}}, 
+        select -> {progress -> list, frequency -> 1, center -> false, 
+          order -> random, check -> false, nclusters -> 2, 
+          cluster -> {polymer, graft}, 
+          relax -> {ncycles -> 100, radius -> 1e-09}, 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.99, 0.99}, theta -> 0, ntrials -> 20, 
+            niterations -> 1000}}}
+
+     progress      E[0]/nkT
+---------------------------
+            0   0.003867656
+            1      1.046361
+            2      1.441574
+            3       1.48811
+            4      1.550692
+            5      1.652157
+            6      1.811363
+            7       1.94387
+            8      2.088079
+            9      2.188593
+           10      2.281238
+           11      2.382545
+           12      2.471086
+           13      2.524282
+           14      2.579113
+           15      2.614141
+           16      2.651013
+           17      2.686286
+           18      2.708135
+           19      2.745744
+           20      2.771982
+           21      2.806693
+           22      2.822907
+           23      2.834339
+           24      2.863912
+           25      2.877274
+           26      2.887374
+           27      2.897918
+           28      2.915082
+           29      2.929239
+           30      2.948308
+           31      2.961724
+           32      2.973321
+           33      2.988909
+           34      2.997225
+           35      2.990886
+           36      3.010699
+           37      3.012767
+           38      3.027302
+           39      3.039752
+           40      3.037197
+           41      3.040638
+           42      3.041597
+           43      3.038993
+           44      3.044439
+           45      3.057811
+           46      3.071135
+           47      3.071468
+           48      3.079048
+           49       3.08009
+           50      3.078427
+           51      3.080947
+           52      3.093452
+           53      3.100194
+           54      3.101874
+           55      3.100157
+           56      3.111564
+           57      3.117277
+           58      3.124655
+           59      3.120016
+           60      3.130374
+           61      3.128932
+           62      3.131933
+           63      3.140734
+           64      3.141862
+           65      3.142363
+           66      3.145995
+           67       3.14295
+           68      3.151634
+           69      3.151194
+           70       3.15255
+           71      3.160501
+           72      3.163522
+           73       3.16904
+           74      3.170013
+           75       3.16345
+           76      3.171185
+           77      3.173759
+           78      3.175311
+           79      3.178719
+Error: script_build_select::ScriptBuildSelect:
+       Exceeded maximum number of iterations (1000) at 79.07% for
+       {cluster, site, mass} = {848, 35562, 1}.
+       p = {1.42793e-09, 1.62416e-09, -1.40604e-09}, r = 2.5795e-09
+       Program aborted.
+

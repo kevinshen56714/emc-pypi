@@ -1,0 +1,130 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/charmm/c32b1/",
+  parameters	-> dir+"all27_prot_lipid.prm",
+  topology	-> dir+"all27_prot_lipid.top",
+
+  output	-> "benzene",
+  nmolecules	-> 500,
+  nbenzenes	-> 200,
+  nrepeat	-> 2,
+  temperature	-> 300,
+  nrelax	-> 100,
+  density	-> 0.87650,
+  seed		-> -1
+};
+
+field		= {
+  mode		-> charmm,
+  name		-> {parameters, topology},
+  compress	-> false
+};
+
+(*
+field		= {
+  mode		-> put,
+  name		-> "test",
+  compress	-> false
+};
+*)
+
+groups		= {
+  group		-> {
+    id		-> benzene,
+    chemistry	-> "c1ccccc1"
+  },
+  group		-> {
+    id		-> styrene,
+    chemistry	-> ">CC<c1ccccc1",
+    connects	-> {
+      {0, {styrene, 1}}, {1, {styrene, 0}},
+      {0, {methyl, 0}}, {1, {methyl, 0}}}
+  },
+  group		-> {
+    id		-> methyl,
+    chemistry	-> ">C",
+    connects	-> {{0, {styrene, 0}}, {0, {styrene, 1}}}
+  }
+};
+
+clusters	= {
+  (*
+  polymer	-> {
+    id		-> molecule,
+    system	-> main,
+    n		-> nmolecules,
+    nrepeat	-> nrepeat,
+    groups	-> styrene
+  },
+  *)
+  cluster	-> {
+    id		-> benzene,
+    system	-> main,
+    group	-> benzene,
+    n		-> nbenzenes
+  }
+};
+
+field		= {
+  mode		-> apply,
+  error		-> false
+};
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  },
+  types		-> {
+    charmm	-> {
+      improper	-> {active -> true},
+      urey	-> {active -> true},
+      pair14	-> {active -> true}
+    }
+  }
+};
+
+(*
+put		= {name -> "test"};
+cancel		= {exit};
+*)
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    cluster	-> benzene,
+    relax	-> {ncycles -> nrelax, radius -> 5.0},
+    name	-> "error",
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {style -> none, message -> nkt};
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+(*
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+*)
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> charmm, 
+		   detect -> false, unwrap -> true};
+lammps		= {name -> output, mode -> put, charges -> true,
+		   forcefield -> charmm, parameters -> true};
+

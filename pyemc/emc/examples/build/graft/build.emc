@@ -1,0 +1,166 @@
+(* EMC: Script *)
+
+(* script:	graft.emc
+   author:	Pieter J. in 't Veld
+   date:	August 1, 2015
+   purpose:	carves and etches a sphere out of an fcc input, followed by
+		grafting a polymeric substance from the created grafting points
+		view with 'vmd -e graft.vmd' *)
+
+variables	= {
+  input		-> $root+"lib/diamond_bonded",
+  output	-> "graft"};
+
+(* get a crystal unit cell of a completely bonded core lattice *)
+
+get		= {name -> input};
+
+rename		= {
+  site		-> {src -> diamond, dest -> core},
+  group		-> {src -> diamond, dest -> core},
+  cluster	-> {src -> diamond, dest -> core}
+};
+
+(* define system variables; sigma and la are defined in input file
+   r1 represents the nanoparticle's outside perimeter
+   r2 represents the nanoparticle's inner core *)
+
+variables	= {
+  seed		-> -1,
+  sigma		-> 1,
+  epsilon	-> 1,
+  lbond		-> 1,
+  kbond		-> 20,
+  nrepeat	-> 20,
+
+  nxtal		-> 10,
+  lxtal		-> nxtal*la,
+  lbox		-> lxtal+nrepeat+10,
+
+  fraction	-> 1/2,
+  r1		-> 1/2*lxtal,
+  r2		-> r1-0.5*sigma};
+
+(* define an extra monomer and grafting site, used to connect polymers to *)
+
+sites		= {
+  site		-> {id -> mono, name -> "monomer", mass -> 1},
+  site		-> {id -> graft, name -> "grafting", mass -> 1}
+};
+
+(* define seed and force field *)
+
+simulation	= {
+  units		-> {seed -> seed},
+  constants	-> {systems -> main},
+  types		-> {merge -> true,
+    standard	-> {
+      bond	-> {
+	active	-> true,
+	data	-> {
+	  {i0 -> core, i1 -> core, k -> kbond, l -> lbond},
+	  {i0 -> graft, i1 -> core, k -> kbond, l -> lbond},
+	  {i0 -> graft, i1 -> mono, k -> kbond, l -> lbond},
+	  {i0 -> mono, i1 -> mono, k -> kbond, l -> lbond}}},
+      pair	-> {
+	active	-> true,
+	mix	-> berthelot,
+	mode	-> repulsive,
+	nbonded	-> 1,
+	data	-> {
+	  {i0 -> core, i1 -> core,
+	      sigma -> sigma, epsilon -> epsilon, cutoff -> 2.5},
+	  {i0 -> mono, i1 -> mono,
+	      sigma -> sigma, epsilon -> epsilon, cutoff -> 2.5},
+	  {i0 -> graft, i1 -> graft,
+	      sigma -> sigma, epsilon -> epsilon, cutoff -> 2.5}
+	}
+      }
+    }
+  }
+};
+
+(* create a super crystal of a bonded core lattice *)
+
+crystal		= {n -> {nxtal, nxtal, nxtal}, 
+		    miller -> {0, 0, 1}, plane -> m001, periodic -> false};
+
+(* carve out a sphere by excluding a region with radius r1 during the
+   carving process *)
+
+carve		= {mode -> exclude, 
+  inside	-> {shape -> spheroid, type -> absolute,
+		     center -> {0, 0, 0}, radius -> {0, 0, 0}},
+  outside	-> {shape -> spheroid, type -> absolute,
+		     center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+(* remove fraction of particles in the outer shell region r2<r<r1 *)
+
+carve		= {mode -> include, 
+  fraction	-> fraction,
+  inside	-> {shape -> spheroid, type -> absolute,
+		     center -> {0, 0, 0}, radius -> {r2, r2, r2}},
+  outside	-> {shape -> spheroid, type -> absolute,
+		     center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+(* retype the remaining particles in the outer shell region r2<r<r1 *)
+
+retype		= {source -> core, destination -> graft, fraction -> 1,
+  inside	-> {shape -> spheroid, type -> absolute,
+		      center -> {0, 0, 0}, radius -> {r2, r2, r2}},
+  outside	-> {shape -> spheroid, type -> absolute,
+		      center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+(* define brush group *)
+
+groups		= {
+  group		-> {
+    id		-> graft,
+    chemistry	-> "*[mono]*",
+    connects	-> {
+      {head, {graft, tail}}, {tail, {graft, head}}
+    },
+    terminator	-> true
+  }
+};
+
+(* create brushes *)
+
+clusters	= {
+  polymer	-> {
+    id		-> graft,
+    groups	-> graft,
+    nrepeat	-> nrepeat
+  },
+  graft		-> {
+    core	-> core,
+    type	-> graft,
+    connect	-> head,
+    polymer	-> graft
+  }
+};
+
+(* build brushes *)
+
+build		= {
+  system	-> {
+    geometry	-> {lbox, lbox, lbox, 0, 0, 0},
+    temperature	-> 1
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    cluster	-> graft,
+    relax	-> {ncycles -> 100, radius -> 2}
+  }
+};
+
+(* output the result in different formats; different extentions are implied *)
+
+put		= {name -> output};
+pdb		= {name -> output};
+lammps		= {name -> output, mode -> put};
+

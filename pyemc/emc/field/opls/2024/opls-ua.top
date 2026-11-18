@@ -1,8 +1,12 @@
-#EMC/FIELD/OPLS/2025
+#EMC/FIELD/OPLS/2026
 #
 #  OPLS topology using oplsaa.par, oplsaa.sb, and opls-ua.define
 #  converted by emc_opls.pl, v2.0, December 19, 2024 by Pieter J. in 't Veld
-#  created on Sun Jun 29 11:00:37 CEST 2025
+#  created on Tue Oct 06 15:52:10 CEST 2026
+#
+#  Copyrights (c) 2004-2026 Pieter J. in 't Veld
+#  Distributed under GNU Public License v3.0 as stated in the LICENSE file in
+#  the EMC root directory
 #
 
 # Precedence

@@ -1,0 +1,71 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/",
+  field		-> "compass",
+  templates	-> dir+field+"/"+field+"_templates.dat",
+  parameters	-> dir+field+"/"+field+".frc",
+  output	-> "water"
+};
+
+field		= {
+  mode		-> cff,
+  name		-> {parameters, templates},
+  compress	-> false
+};
+
+groups		= {
+  group		-> {
+    id		-> water,
+    chemistry	-> "O"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> water,
+    system	-> main,
+    n		-> 1000,
+    group	-> water
+  }
+};
+
+field		= {mode -> apply};
+
+put		= {"test"};
+
+simulation	= {
+  types 	-> {
+    neighbor	-> thread,
+    cff		-> {pair -> {coulomb -> cut, mode -> repulsive}},
+    coulomb 	-> {pair -> {active -> false, cutoff -> 4.0}}
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> 300,
+    density	-> 1
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    cluster	-> water,
+    relax	-> {ncycles -> 100, radius -> 5.0},
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      ntrials	-> 20,
+      niterations -> 250
+    }
+  }
+};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> cff, detect -> true, unwrap -> true};
+lammps		= {name -> output, mode -> put, forcefield -> cff};
+

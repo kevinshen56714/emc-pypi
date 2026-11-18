@@ -758,6 +758,7 @@ sub set_extras {
   my @doubles;
   my $index;
   my $start;
+  my $first;
   my @keys = sort(values(%TorsionDouble));
   my $n = scalar(@keys);
 
@@ -765,20 +766,27 @@ sub set_extras {
   debug("\n");
   for ($index = $start = 0; $index<=scalar(@keys); ++$index) {
     @last = @arg;
-    print("\n") if ($Debug && $index>1);
-    debug(join("\t", @last[-1,0,1,2,3])) if ($index);
+    debug(join("\t", "", $index-1, @last[-1,0,1,2,3]), "\n") if ($index);
     if ($index<$n) {
       @arg = split("\t", @keys[$index]);
       next if (!$index);
       next if (join("\t", @arg[0,1,2,3]) eq join("\t", @last[0,1,2,3]));
+    } else {
+      $first = $start;
+      $start = $n-1;
     }
-    if ($index-$start==1) {
-      print("\ttransfer") if ($Debug);
-      my @arg = @last;
+    if ($index-$start==1 || $index==$n) {
+      my $id = defined($first) ? $first : $start;
+      #$id = $start;
+      my @arg = split("\t", @keys[$id]);
+      debug("=>", $id, @arg[-1,0,1,2,3]);
       my $key =  join("\t", splice(@arg, 0, 4));
       $torsion{$key} = join("\t", @arg);
-      delete $TorsionDouble{(split("\t", @keys[$start]))[-1]};
+      print("\t", $torsion{$key}, "\n\n") if ($Debug);
+      delete $TorsionDouble{(split("\t", @keys[$id]))[-1]};
+      undef($first);
     } else {
+      $first = $start;
       my $i; for ($i=$start; $i<$index; ++$i) {
 	@arg = split("\t", @keys[$i]);
 	push(@doubles, join("\t", @arg[0,1,2,3,-1], $TorsionComment{@arg[-1]}));

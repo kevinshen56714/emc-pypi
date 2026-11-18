@@ -1,0 +1,47 @@
+# load structure
+
+set project lattice
+mol new $project.psf waitfor all
+mol addfile $project.pdb waitfor all
+
+# adapt VDW radii
+
+mol delrep 0 top
+mol representation VDW 0.35 12
+mol material Transparent
+mol addrep top
+
+# load cavities
+
+set project cavity
+mol new $project.pdb waitfor all
+mol delrep 0 top
+
+# adapt VDW radii
+
+set select [atomselect top all]
+$select set radius [vecscale 0.010 [$select get type]]
+$select delete
+
+# cavity centers
+
+mol representation VDW
+mol selection {segname A}
+mol material Opaque
+mol addrep top
+
+# cavity saddle points
+
+mol representation VDW
+mol selection {segname B}
+mol material Opaque
+mol addrep top
+
+# set render mode
+
+display rendermode GLSL
+
+# set periodic box
+
+pbc box
+

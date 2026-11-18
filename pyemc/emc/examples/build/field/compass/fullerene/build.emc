@@ -1,0 +1,111 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/",
+  field		-> "compass",
+  templates	-> dir+field+"/"+field+"_templates.dat",
+  parameters	-> dir+field+"/"+field+".frc",
+  output	-> "fullerene",
+
+  seed		-> 2,
+
+  tbuild	-> 300,
+  tequil	-> 1,
+
+  nrelax	-> 200,
+  grace		-> 0.999,
+  radius	-> 9.5,
+
+  nblocks	-> 100,
+  ncycles	-> 5000,
+  //density	-> 0.87650,
+  //nfullerene	-> 500
+
+  density	-> 0.01,
+  nfullerene	-> 1
+};
+
+field		= {
+  mode		-> cff,
+  name		-> {parameters, templates},
+  compress	-> false
+};
+
+groups		= {
+  group		-> {
+    id		-> fullerene,
+    depth	-> 6,
+    chemistry	-> "c12c3c4c5c1c6c7c8c2c9c1c3c2c3c4c4c%10c5c5c6c6c7c7c%11c8c9c8c9c1c2c1c2c3c4c3c4c%10c5c5c6c6c7c7c%11c8c8c9c1c1c2c3c2c4c5c6c3c7c8c1c23"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> fullerene,
+    system	-> main,
+    n		-> nfullerene,
+    group	-> fullerene
+  }
+};
+
+field		= {mode -> apply};
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  },
+  types 	-> {
+    neighbor	-> thread,
+    cff		-> {pair -> {coulomb -> cut, cutoff -> 9.5, mode -> repulsive}},
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+//put		= {"test"};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> tbuild,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    //order	-> sequence,
+    frequency	-> 1,
+    message	-> raw,
+    cluster	-> fullerene,
+    name	-> "error",
+    relax	-> {ncycles -> nrelax, radius -> radius},
+    grow	-> {
+      method	-> energetic,
+      grace	-> {grace, grace},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+simulation	= {
+  systems	-> {
+    properties	-> {
+      id	-> main, t -> tequil
+    }
+  }
+};
+
+run		= {nblocks -> nblocks, ncycles -> ncycles, message -> raw};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+focus		= {clusters -> fullerene};
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> cff, unwrap -> true};
+lammps		= {name -> output, mode -> put, forcefield -> cff, parameters -> true};
+

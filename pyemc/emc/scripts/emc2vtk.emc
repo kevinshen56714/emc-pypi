@@ -1,0 +1,20 @@
+#!/usr/bin/env emc.sh
+(* EMC: Script *)
+
+variables	= {
+  input		-> $arg0,
+  output	-> $arg1,
+  compress	-> false,
+  binsize	-> 0.1,
+  normalize	-> true,
+  convolute	-> true,
+  source	-> ".",
+  target	-> "."
+};
+
+get		= {name -> source+"/"+input};
+
+vtk	 	= {name -> output, compress -> compress, binsize -> binsize,
+		   convolute -> convolute, normalize -> normalize
+};
+

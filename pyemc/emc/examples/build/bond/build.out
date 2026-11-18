@@ -1,0 +1,286 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+version 9.3.4, build Nov 28 2011 20:18:39, date Mon Nov 28 21:03:03 2011
+
+Info: script v1.0 started at Mon Nov 28 21:03:03 2011
+Info: variables = {density -> 3, temperature -> 1, seed -> -1, nrepeat -> 20, 
+        npolymers -> 100, nsolvent -> 1000, kij -> 4, lij -> 1, 
+        aij -> 25, grace -> 0.99, ncycles -> 100, drelax -> 1, 
+        nrun -> 1000, nblocks -> 100, ntraject -> 10, output -> "bond"}
+Info: sites = {nsites -> 3, 
+        site -> {{id -> a, comment -> "middle bead", reference -> 0, 
+            mass -> 1}, 
+          {id -> t, comment -> "terminator bead", reference -> 1, 
+            mass -> 1}, 
+          {id -> s, comment -> "solvent bead", reference -> 2, 
+            mass -> 1}}}
+Info: groups = {ngroups -> 3, 
+        group -> {{id -> monomer1, chemistry -> "a", nbranches -> 2, 
+            branches -> {0, 0}, nconnects -> 2, connects -> {
+              {source -> 0, destination -> {index -> monomer1, 
+                  site -> 0}}, 
+              {source -> 0, destination -> {index -> terminator, 
+                  site -> 0}}}}, 
+          {id -> terminator, chemistry -> "t", nbranches -> 1, 
+            branches -> 0, nconnects -> 1, connects -> 
+            {source -> 0, destination -> {index -> monomer1, 
+                site -> 0}}}, 
+          {id -> solvent, chemistry -> "s"}}}
+Info: clusters = {nbodys -> 0, nclusters -> 1, 
+        cluster -> {id -> solvent, system -> main, n -> 1000, 
+          group -> solvent}, ngrafts -> 0, npolymers -> 1, 
+        polymer -> {id -> polymer, system -> main, n -> 100, 
+          ngroups -> 1, groups -> monomer1, type -> alternate, 
+          nrepeat -> 20}}
+      delta = {systems -> 1, bodies -> 0, clusters -> 1100, sites -> 3200}
+Info: simulation = {units -> {type -> reduced, seed -> seed}, types -> {
+          merge -> true, skin -> 0.0, neighbor -> sector, inverse -> {
+            active -> true, cutoff -> 1e-4, nfunctions -> 50}, coarse -> {
+            dpd -> {active -> true, mix -> berthelot, nbonded -> 0, 
+              data -> {{i0 -> a, i1 -> a, a -> aij, gamma -> 4.5, 
+                  cutoff -> 1}, {i0 -> t, i1 -> t, a -> aij, 
+                  gamma -> 4.5, cutoff -> 1}, {i0 -> s, i1 -> s, 
+                  a -> aij, gamma -> 4.5, cutoff -> 1}}}}, standard -> {
+            correct -> {active -> false}, bond -> {active -> true, 
+              data -> {{i0 -> a, i1 -> a, k -> kij, l -> lij}, {i0 -> a, 
+                  i1 -> t, k -> kij, l -> lij}}}}}}
+Info: build = {
+        system -> {id -> main, temperature -> 1, density -> 3, 
+          geometry -> {xx -> 10.2174590986, yy -> 10.2174590986, 
+            zz -> 10.2174590986, zy -> 0, zx -> 0, yx -> 0}}, 
+        select -> {progress -> list, frequency -> 1, center -> false, 
+          order -> random, check -> true, nclusters -> 2, 
+          cluster -> {polymer, solvent}, 
+          relax -> {ncycles -> 100, radius -> 1}, 
+          grow -> {check -> all, method -> energetic, cutoff -> 0, 
+            grace -> {0.99, 0.99}, theta -> 0, ntrials -> 20, 
+            niterations -> 1000}}}
+
+  progress/%%      E[0]/nkT
+---------------------------
+            0             0
+            1    0.01316285
+            2    0.09366107
+            3     0.2170254
+            4     0.2621607
+            5     0.3867471
+            6      0.325176
+            7     0.2964534
+            8     0.2886703
+            9     0.3175744
+           10     0.2970333
+           11     0.2977979
+           12     0.2801316
+           13     0.2762379
+           14     0.2835562
+           15     0.3021676
+           16      0.312464
+           17     0.3274693
+           18     0.3448702
+           19     0.3810629
+           20     0.3829869
+           21     0.4154789
+           22     0.4305953
+           23      0.462865
+           24     0.4904511
+           25     0.4651607
+           26     0.5242749
+           27     0.5471163
+           28      0.595385
+           29     0.6191965
+           30     0.6576044
+           31     0.7125938
+           32     0.7680649
+           33     0.7997626
+           34       0.83639
+           35     0.8779443
+           36     0.9293281
+           37     0.9455543
+           38     0.9795539
+           39       1.02797
+           40      1.095348
+           41      1.159124
+           42      1.203204
+           43      1.245367
+           44      1.297929
+           45      1.348071
+           46      1.412522
+           47      1.451368
+           48      1.480806
+           49      1.548179
+           50      1.613908
+           51      1.675618
+           52       1.74818
+           53      1.828271
+           54      1.863817
+           55      1.909482
+           56      1.967874
+           57      2.011944
+           58      2.078222
+           59      2.133249
+           60      2.218574
+           61      2.276365
+           62      2.325739
+           63       2.36908
+           64      2.413794
+           65      2.485488
+           66      2.551611
+           67      2.611034
+           68      2.660756
+           69      2.749119
+           70      2.840856
+           71      2.903276
+           72      2.971147
+           73      3.030276
+           74      3.124581
+           75      3.205647
+           76      3.277818
+           77       3.35065
+           78      3.419155
+           79      3.476622
+           80      3.546476
+           81       3.60737
+           82      3.673055
+           83       3.72723
+           84      3.799597
+           85      3.879478
+           86      3.951353
+           87      4.041384
+           88      4.089259
+           89      4.160156
+           90      4.226156
+           91      4.298856
+           92      4.375712
+           93      4.437763
+           94      4.491592
+           95      4.561512
+           96      4.630527
+           97      4.716548
+           98      4.784611
+           99      4.845919
+          100      4.934212
+---------------------------
+      average      1.939451
+
+      niterations = 3476, <niterations> = 1.08625
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+coarse.dpd               4.517494 
+standard.bond           0.4167182 
+---------------------------------
+total                    4.934212 
+
+Info: force = {style -> init, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+coarse.dpd               4.517494 
+standard.bond           0.4167182 
+---------------------------------
+total                    4.934212 
+
+Info: traject = {name -> "bond", format -> "_%08ld", compress -> false, 
+        system -> main, frequency -> 10, append -> true, reset -> true, 
+        scale -> true, unwrap -> true, pbc -> true}
+Info: run = {ncycles -> 1000, nblocks -> 100, cycle -> 0, seed -> -1}
+
+        cycle      E[0]/nkT
+---------------------------
+          100        4.9949
+          200        5.0119
+          300      5.015968
+          400      4.989607
+          500      4.976642
+          600      5.011724
+          700      4.987528
+          800      4.982011
+          900      4.994596
+         1000      4.985671
+---------------------------
+      average      4.995055
+
+Info: neighbors = {nbuilds -> 3200000, nupdates -> 0}
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+coarse.dpd                4.53127 
+standard.bond           0.4544007 
+---------------------------------
+total                    4.985671 
+
+Info: force = {style -> init, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+coarse.dpd                4.53127 
+standard.bond           0.4544007 
+---------------------------------
+total                    4.985671 
+
+Info: simulation = {profiles -> {frequency -> 1, bond -> {active -> true, 
+            nlevels -> 1, binsize -> 0.01}}}
+Info: run = {ncycles -> 1000, nblocks -> 100, cycle -> 1000, seed -> -1}
+
+        cycle      E[0]/nkT
+---------------------------
+         1100      4.993967
+         1200      4.979649
+         1300       4.97945
+         1400      5.000208
+         1500      4.991772
+         1600      4.976044
+         1700      4.969966
+         1800      4.987921
+         1900      5.023186
+         2000      4.966097
+---------------------------
+      average      4.986826
+
+Info: neighbors = {nbuilds -> 3200000, nupdates -> 0}
+Info: force = {style -> none, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+coarse.dpd                4.52853 
+standard.bond           0.4375676 
+---------------------------------
+total                    4.966097 
+
+Info: force = {style -> init, message -> nkt}
+
+(* Energy *)
+
+                             E[0] 
+---------------------------------
+coarse.dpd                4.52853 
+standard.bond           0.4375676 
+---------------------------------
+total                    4.966097 
+
+Info: put = {name -> "bond", compress -> true, detail -> -1}
+Info: pdb = {name -> "bond", compress -> false, system -> 0, length -> 0, 
+        forcefield -> standard, cut -> false, detect -> false, 
+        pbc -> true, unwrap -> true}
+Info: lammps = {name -> "bond", compress -> false, system -> 0, mode -> put, 
+        length -> 0, units -> none, forcefield -> dpd, 
+        atomistic -> false, charge -> false, ellipsoid -> false, 
+        bonds -> false, types -> false, parameters -> true, 
+        variables -> true, coefficients -> true, comment -> true}
+Info: tsc: bonded = {9.417, 4.507, 3.844, 0, 0, 0} s
+Info: tsc: simulation = 58.48 s, threads = 0 s
+Info: tsc: thread = 0 s
+Info: script v1.0 finished at Mon Nov 28 21:04:06 2011
+

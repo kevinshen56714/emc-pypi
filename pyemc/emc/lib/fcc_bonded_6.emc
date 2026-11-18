@@ -1,0 +1,86 @@
+(* EMC: Enhanced Monte Carlo simulations *)
+
+(*
+    file:	fcc_bonded_6.emc
+    author:	Pieter J. in 't Veld
+    date:	September 21, 2009, July 7, 2016
+    purpose:	description of a four site fcc crystalline unit cell where
+		each site is connected to all of its crystallographic neighbors
+*)
+
+identity = {
+  name -> "fcc_bonded"};
+
+units = {
+  type -> reduced};
+
+variables = {
+  fcc_name -> "fcc", fcc_atomistic -> false,
+  fcc_chemistry -> "*[fcc](*)(*)(*)(*)*", lbond -> 1, lcell -> sqrt(2)*lbond, 
+  la -> lcell, lb -> lcell, lc -> lcell, nsites -> 4, nclusters -> 4};
+
+constants = {
+  clusters -> fcc,
+  groups -> fcc,
+  sites -> fcc};
+
+types = {
+  atomistic -> fcc_atomistic,
+  mass -> {n -> 1, data -> {
+    id -> 0, name -> fcc_name, reference -> 0, mass -> 1}}};
+
+groups = {
+  n -> 1, data -> {
+    group -> fcc, name -> fcc_name, depth -> auto, chemistry -> fcc_chemistry,
+    terminator -> false, nsites -> 1, sites -> {
+      site -> 0, mass -> fcc, charge -> 0, 
+	connects -> {
+	  branch, branch, branch, branch, branch, branch}}, 
+    nbranches -> 1, branches -> {
+      site -> 0, nconnects -> 1, connects -> {0, 0}}}};
+
+systems = {
+  n -> 1, properties -> {
+    id -> 0, p -> 0, v -> la*lb*lc, t -> 1, mass -> 1, 
+    nsites -> 1, nclusters -> 1, 
+    geometry -> {la, lb, lc, 0, 0, 0}}};
+
+clusters = {
+  n -> 4, data -> {
+    {cluster -> 0, id -> fcc, head -> 0, tail -> 0},
+    {cluster -> 1, id -> fcc, head -> 1, tail -> 1},
+    {cluster -> 2, id -> fcc, head -> 2, tail -> 2},
+    {cluster -> 3, id -> fcc, head -> 3, tail -> 3}
+  }};
+
+sites = {
+  n -> 4, data -> {
+    {site -> 0, cluster -> 0, system -> 0, mass -> fcc, flags -> 0b1100,
+      group -> {0, 0}, connects -> {0, 0, 0, 0, 0, 0},
+      p -> {-la/4, -lb/4, -lc/4},
+      xtal -> {
+	{-1,  0,  0}, {1,  0,  0}, 
+	{0,  -1,  0}, {0,  1,  0},
+	{0,   0, -1}, {0,  0,  1}}},
+    {site -> 1, cluster -> 1, system -> 0, mass -> fcc, flags -> 0b1100,
+      group -> {0, 0}, connects -> {1, 1, 1, 1, 1, 1},
+      p -> {la/4, lb/4, -lc/4},
+      xtal -> {
+	{-1,  0,  0}, {1,  0,  0}, 
+	{0,  -1,  0}, {0,  1,  0},
+	{0,   0, -1}, {0,  0,  1}}},
+    {site -> 2, cluster -> 2, system -> 0, mass -> fcc, flags -> 0b1100,
+      group -> {0, 0}, connects -> {2, 2, 2, 2, 2, 2},
+      p -> {la/4, -lb/4, lc/4},
+      xtal -> {
+	{-1,  0,  0}, {1,  0,  0}, 
+	{0,  -1,  0}, {0,  1,  0},
+	{0,   0, -1}, {0,  0,  1}}},
+    {site -> 3, cluster -> 3, system -> 0, mass -> fcc, flags -> 0b1100,
+      group -> {0, 0}, connects -> {3, 3, 3, 3, 3, 3},
+      p -> {-la/4, lb/4, lc/4},
+      xtal -> {
+	{-1,  0,  0}, {1,  0,  0}, 
+	{0,  -1,  0}, {0,  1,  0},
+	{0,   0, -1}, {0,  0,  1}}}}};
+

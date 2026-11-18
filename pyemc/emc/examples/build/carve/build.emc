@@ -1,0 +1,102 @@
+(* EMC: Script *)
+
+(*
+   script:	carve.emc
+   author:	Pieter J. in 't Veld
+   date:	August 1, 2015
+   purpose:	carves and etches a sphere out of an fcc input
+		view with 'vmd -e carve.vmd'
+*)
+
+variables	= {
+  lbond		-> 1,
+  kbond		-> 20,
+  sigma		-> 1,
+  epsilon	-> 1,
+
+  input		-> $root+"lib/fcc_bonded",
+  output	-> "carve"
+};
+
+(* get a crystal unit cell of a completely bonded fcc lattice *)
+
+get		= {input};
+
+(* define system variables; sigma and la are defined in input file
+   r1 represents the nanoparticle's outside perimeter
+   r2 represents the nanoparticle's inner core *)
+
+variables	= {n -> 20, r1 -> 1/2, r2 -> r1-0.6*sigma/n/la};
+
+(* define an extra grafting site, used to connect polymers to *)
+
+sites		= {
+  site		-> {id -> graft, name -> "grafting", mass -> 1}
+};
+
+simulation	= {
+  units		-> {seed -> -1},		// random seed
+  constants	-> {systems -> main},
+  types		-> {merge -> true,		// allow addition of new types
+    standard	-> {
+      bond	-> {
+	active	-> true,
+	data	-> {
+	  {i0 -> fcc, i1 -> fcc, k -> kbond, l -> lbond},
+	  {i0 -> graft, i1 -> fcc, k -> kbond, l -> lbond},
+	  {i0 -> graft, i1 -> graft, k -> kbond, l -> lbond}}},
+      pair	-> {
+	active	-> true,
+	nbonded	-> 1,
+	mode	-> repulsive,
+	data	-> {
+	  {i0 -> fcc, i1 -> fcc,
+	      sigma -> sigma, epsilon -> epsilon, cutoff -> 2.5},
+	  {i0 -> graft, i1 -> graft,
+	      sigma -> sigma, epsilon -> epsilon, cutoff -> 2.5}
+	}
+      }
+    }
+  }
+};
+
+(* create a super crystal of a bonded fcc lattice *)
+
+crystal		= {n -> {n, n, n}, 
+		    miller -> {0, 0, 1}, plane -> m001, periodic -> false};
+
+(* carve out a sphere by excluding a region with radius r1 during the
+   carving process *)
+
+carve		= {mode -> exclude, 
+  inside	-> {shape -> spheroid,
+		     center -> {0, 0, 0}, radius -> {0, 0, 0}},
+  outside	-> {shape -> spheroid,
+		     center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+(* remove 75% of particles in the outer shell region r2<r<r1 *)
+
+carve		= {mode -> include, 
+  fraction	-> 0.75,
+  inside	-> {shape -> spheroid,
+		     center -> {0, 0, 0}, radius -> {r2, r2, r2}},
+  outside	-> {shape -> spheroid,
+		     center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+(* retype the remaining particles in the outer shell region r2<r<r1 *)
+
+retype		= {source -> fcc, destination -> graft,
+  inside	-> {shape -> spheroid, 
+		      center -> {0, 0, 0}, radius -> {r2, r2, r2}},
+  outside	-> {shape -> spheroid, 
+		      center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+(* output the result in different formats; different extentions are implied *)
+
+put		= {name -> output};
+pdb		= {name -> output};
+lammps		= {name -> output, mode -> put};
+

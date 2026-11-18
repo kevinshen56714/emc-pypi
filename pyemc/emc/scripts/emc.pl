@@ -573,7 +573,27 @@
 #    		Addition of phase indication and cluster selections for
 #    		option -moves_cluster
 #    20250801	Web publication
-#        		
+#    20251001	New subversion: 5.2.2
+#    		Addition of -gromacs_exec and -gromacs_maxwarn
+#    20260109	Porting of general MD options like -trun to specific codes
+#    		Addition of pressure and its damping to GROMACS .mdp
+#    20260523	Changed behavior of -modules by including 'use' option
+#    20260611   New subversion: 5.3
+#		Improved variable interpretation
+#    20260625	Fixed mistake for namd port (incorrect atom and residue
+#		reference)
+#    20260701	Web publication
+#    20260716	Correction for polymers with broad Poisson distributions
+#    		Addition of log-normal distributions
+#    20260718	Improvements to GROMACS workflow
+#    20260908	New subversion: 5.3.1
+#    		Addition of center of mass `com` keyword to import of
+#    		structures
+#    		Default of InsightII import changed to no translation of com to
+#    		box origin
+#    20261008	Updated ITEM FIELD functionality
+#
+#
 #  file formats:
 #    parameters	column1	column2		column3		...
 #    	line1	-	-		temperature[K]	...
@@ -631,8 +651,8 @@ use strict;
 # Identity
 
 $::EMC::Identity = {
-  version		=> "5.2.1",
-  date			=> "August 1, 2025",
+  version		=> "5.3.1",
+  date			=> "October 8, 2026",
   author		=> "Pieter J. in 't Veld",
 };
 

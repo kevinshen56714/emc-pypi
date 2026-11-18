@@ -1,0 +1,127 @@
+(* EMC: Script *)
+
+variables	= {
+  output	-> "lj",
+  n		-> 1000,
+  sigma		-> 1,
+  epsilon	-> 1,
+  density	-> 0.7,
+  temperature	-> 1,
+  drelax	-> 2.5,
+  nrelax	-> 100
+};
+
+sites		= {
+  site		-> {id -> lj, comment -> "lennard-jonesium", mass -> 1}
+};
+
+groups		= {
+  group		-> {
+    id		-> lj,
+    chemistry	-> "[lj]"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> lj,
+    system	-> main,
+    n		-> n,
+    group	-> lj
+  }
+};
+
+simulation	= {
+  units		-> {type -> reduced},
+  types		-> {
+    merge	-> true,
+    standard	-> {
+      pair	-> {
+	active	-> true,
+	data	-> {
+	  {i0 -> lj, i1 -> lj, sigma -> sigma, epsilon -> epsilon}
+	}
+      }
+    }
+  }
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    density	-> density,
+    temperature	-> temperature
+  },
+  select	-> {
+    progress	-> list,
+    cluster	-> lj,
+    relax	-> {ncycles -> nrelax, radius -> drelax},
+    grow	-> {
+      method	-> energetic,
+      ntrials	-> 20,
+      niterations -> 1000,
+      grace	-> {0.99, 0.99}
+    }
+  }
+};
+
+timing		= {style -> reset};
+
+simulation	= {
+  types		-> {
+    skin	-> 0,
+    neighbor	-> sector,
+    stencil	-> standard
+  }
+};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+memory		= {style -> full};
+
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+timing		= {style -> reset};
+
+simulation	= {
+  types		-> {
+    skin	-> 0,
+    neighbor	-> thread,
+    stencil	-> standard
+  }
+};
+
+memory		= {style -> full};
+
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+timing		= {style -> reset};
+
+simulation	= {
+  types		-> {
+    skin	-> 0.3,
+    neighbor	-> pair,
+    stencil	-> standard
+  }
+};
+
+memory		= {style -> full};
+
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+timing		= {style -> reset};
+
+put		= {name -> output, compress -> true};
+pdb		= {name -> output, length -> 1,
+		    pbc -> true, unwrap -> true, forcefield -> standard};
+

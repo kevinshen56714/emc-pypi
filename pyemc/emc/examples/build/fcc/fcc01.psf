@@ -1,0 +1,286 @@
+PSF
+
+       2 !NTITLE
+REMARK created by EMC v9.4.3, build Jun 20 2018 09:38:46
+REMARK created on Wed Jun 27 15:31:52 2018
+
+     256 !NATOM
+       1 fcc  1    0    XX   fcc           0             1           0
+       2 fcc  1    0    XX   fcc           0             1           0
+       3 fcc  1    0    XX   fcc           0             1           0
+       4 fcc  1    0    XX   fcc           0             1           0
+       5 fcc  1    0    XX   fcc           0             1           0
+       6 fcc  1    0    XX   fcc           0             1           0
+       7 fcc  1    0    XX   fcc           0             1           0
+       8 fcc  1    0    XX   fcc           0             1           0
+       9 fcc  1    0    XX   fcc           0             1           0
+      10 fcc  1    0    XX   fcc           0             1           0
+      11 fcc  1    0    XX   fcc           0             1           0
+      12 fcc  1    0    XX   fcc           0             1           0
+      13 fcc  1    0    XX   fcc           0             1           0
+      14 fcc  1    0    XX   fcc           0             1           0
+      15 fcc  1    0    XX   fcc           0             1           0
+      16 fcc  1    0    XX   fcc           0             1           0
+      17 fcc  1    0    XX   fcc           0             1           0
+      18 fcc  1    0    XX   fcc           0             1           0
+      19 fcc  1    0    XX   fcc           0             1           0
+      20 fcc  1    0    XX   fcc           0             1           0
+      21 fcc  1    0    XX   fcc           0             1           0
+      22 fcc  1    0    XX   fcc           0             1           0
+      23 fcc  1    0    XX   fcc           0             1           0
+      24 fcc  1    0    XX   fcc           0             1           0
+      25 fcc  1    0    XX   fcc           0             1           0
+      26 fcc  1    0    XX   fcc           0             1           0
+      27 fcc  1    0    XX   fcc           0             1           0
+      28 fcc  1    0    XX   fcc           0             1           0
+      29 fcc  1    0    XX   fcc           0             1           0
+      30 fcc  1    0    XX   fcc           0             1           0
+      31 fcc  1    0    XX   fcc           0             1           0
+      32 fcc  1    0    XX   fcc           0             1           0
+      33 fcc  1    0    XX   fcc           0             1           0
+      34 fcc  1    0    XX   fcc           0             1           0
+      35 fcc  1    0    XX   fcc           0             1           0
+      36 fcc  1    0    XX   fcc           0             1           0
+      37 fcc  1    0    XX   fcc           0             1           0
+      38 fcc  1    0    XX   fcc           0             1           0
+      39 fcc  1    0    XX   fcc           0             1           0
+      40 fcc  1    0    XX   fcc           0             1           0
+      41 fcc  1    0    XX   fcc           0             1           0
+      42 fcc  1    0    XX   fcc           0             1           0
+      43 fcc  1    0    XX   fcc           0             1           0
+      44 fcc  1    0    XX   fcc           0             1           0
+      45 fcc  1    0    XX   fcc           0             1           0
+      46 fcc  1    0    XX   fcc           0             1           0
+      47 fcc  1    0    XX   fcc           0             1           0
+      48 fcc  1    0    XX   fcc           0             1           0
+      49 fcc  1    0    XX   fcc           0             1           0
+      50 fcc  1    0    XX   fcc           0             1           0
+      51 fcc  1    0    XX   fcc           0             1           0
+      52 fcc  1    0    XX   fcc           0             1           0
+      53 fcc  1    0    XX   fcc           0             1           0
+      54 fcc  1    0    XX   fcc           0             1           0
+      55 fcc  1    0    XX   fcc           0             1           0
+      56 fcc  1    0    XX   fcc           0             1           0
+      57 fcc  1    0    XX   fcc           0             1           0
+      58 fcc  1    0    XX   fcc           0             1           0
+      59 fcc  1    0    XX   fcc           0             1           0
+      60 fcc  1    0    XX   fcc           0             1           0
+      61 fcc  1    0    XX   fcc           0             1           0
+      62 fcc  1    0    XX   fcc           0             1           0
+      63 fcc  1    0    XX   fcc           0             1           0
+      64 fcc  1    0    XX   fcc           0             1           0
+      65 fcc  1    0    XX   fcc           0             1           0
+      66 fcc  1    0    XX   fcc           0             1           0
+      67 fcc  1    0    XX   fcc           0             1           0
+      68 fcc  1    0    XX   fcc           0             1           0
+      69 fcc  1    0    XX   fcc           0             1           0
+      70 fcc  1    0    XX   fcc           0             1           0
+      71 fcc  1    0    XX   fcc           0             1           0
+      72 fcc  1    0    XX   fcc           0             1           0
+      73 fcc  1    0    XX   fcc           0             1           0
+      74 fcc  1    0    XX   fcc           0             1           0
+      75 fcc  1    0    XX   fcc           0             1           0
+      76 fcc  1    0    XX   fcc           0             1           0
+      77 fcc  1    0    XX   fcc           0             1           0
+      78 fcc  1    0    XX   fcc           0             1           0
+      79 fcc  1    0    XX   fcc           0             1           0
+      80 fcc  1    0    XX   fcc           0             1           0
+      81 fcc  1    0    XX   fcc           0             1           0
+      82 fcc  1    0    XX   fcc           0             1           0
+      83 fcc  1    0    XX   fcc           0             1           0
+      84 fcc  1    0    XX   fcc           0             1           0
+      85 fcc  1    0    XX   fcc           0             1           0
+      86 fcc  1    0    XX   fcc           0             1           0
+      87 fcc  1    0    XX   fcc           0             1           0
+      88 fcc  1    0    XX   fcc           0             1           0
+      89 fcc  1    0    XX   fcc           0             1           0
+      90 fcc  1    0    XX   fcc           0             1           0
+      91 fcc  1    0    XX   fcc           0             1           0
+      92 fcc  1    0    XX   fcc           0             1           0
+      93 fcc  1    0    XX   fcc           0             1           0
+      94 fcc  1    0    XX   fcc           0             1           0
+      95 fcc  1    0    XX   fcc           0             1           0
+      96 fcc  1    0    XX   fcc           0             1           0
+      97 fcc  1    0    XX   fcc           0             1           0
+      98 fcc  1    0    XX   fcc           0             1           0
+      99 fcc  1    0    XX   fcc           0             1           0
+     100 fcc  1    0    XX   fcc           0             1           0
+     101 fcc  1    0    XX   fcc           0             1           0
+     102 fcc  1    0    XX   fcc           0             1           0
+     103 fcc  1    0    XX   fcc           0             1           0
+     104 fcc  1    0    XX   fcc           0             1           0
+     105 fcc  1    0    XX   fcc           0             1           0
+     106 fcc  1    0    XX   fcc           0             1           0
+     107 fcc  1    0    XX   fcc           0             1           0
+     108 fcc  1    0    XX   fcc           0             1           0
+     109 fcc  1    0    XX   fcc           0             1           0
+     110 fcc  1    0    XX   fcc           0             1           0
+     111 fcc  1    0    XX   fcc           0             1           0
+     112 fcc  1    0    XX   fcc           0             1           0
+     113 fcc  1    0    XX   fcc           0             1           0
+     114 fcc  1    0    XX   fcc           0             1           0
+     115 fcc  1    0    XX   fcc           0             1           0
+     116 fcc  1    0    XX   fcc           0             1           0
+     117 fcc  1    0    XX   fcc           0             1           0
+     118 fcc  1    0    XX   fcc           0             1           0
+     119 fcc  1    0    XX   fcc           0             1           0
+     120 fcc  1    0    XX   fcc           0             1           0
+     121 fcc  1    0    XX   fcc           0             1           0
+     122 fcc  1    0    XX   fcc           0             1           0
+     123 fcc  1    0    XX   fcc           0             1           0
+     124 fcc  1    0    XX   fcc           0             1           0
+     125 fcc  1    0    XX   fcc           0             1           0
+     126 fcc  1    0    XX   fcc           0             1           0
+     127 fcc  1    0    XX   fcc           0             1           0
+     128 fcc  1    0    XX   fcc           0             1           0
+     129 fcc  1    0    XX   fcc           0             1           0
+     130 fcc  1    0    XX   fcc           0             1           0
+     131 fcc  1    0    XX   fcc           0             1           0
+     132 fcc  1    0    XX   fcc           0             1           0
+     133 fcc  1    0    XX   fcc           0             1           0
+     134 fcc  1    0    XX   fcc           0             1           0
+     135 fcc  1    0    XX   fcc           0             1           0
+     136 fcc  1    0    XX   fcc           0             1           0
+     137 fcc  1    0    XX   fcc           0             1           0
+     138 fcc  1    0    XX   fcc           0             1           0
+     139 fcc  1    0    XX   fcc           0             1           0
+     140 fcc  1    0    XX   fcc           0             1           0
+     141 fcc  1    0    XX   fcc           0             1           0
+     142 fcc  1    0    XX   fcc           0             1           0
+     143 fcc  1    0    XX   fcc           0             1           0
+     144 fcc  1    0    XX   fcc           0             1           0
+     145 fcc  1    0    XX   fcc           0             1           0
+     146 fcc  1    0    XX   fcc           0             1           0
+     147 fcc  1    0    XX   fcc           0             1           0
+     148 fcc  1    0    XX   fcc           0             1           0
+     149 fcc  1    0    XX   fcc           0             1           0
+     150 fcc  1    0    XX   fcc           0             1           0
+     151 fcc  1    0    XX   fcc           0             1           0
+     152 fcc  1    0    XX   fcc           0             1           0
+     153 fcc  1    0    XX   fcc           0             1           0
+     154 fcc  1    0    XX   fcc           0             1           0
+     155 fcc  1    0    XX   fcc           0             1           0
+     156 fcc  1    0    XX   fcc           0             1           0
+     157 fcc  1    0    XX   fcc           0             1           0
+     158 fcc  1    0    XX   fcc           0             1           0
+     159 fcc  1    0    XX   fcc           0             1           0
+     160 fcc  1    0    XX   fcc           0             1           0
+     161 fcc  1    0    XX   fcc           0             1           0
+     162 fcc  1    0    XX   fcc           0             1           0
+     163 fcc  1    0    XX   fcc           0             1           0
+     164 fcc  1    0    XX   fcc           0             1           0
+     165 fcc  1    0    XX   fcc           0             1           0
+     166 fcc  1    0    XX   fcc           0             1           0
+     167 fcc  1    0    XX   fcc           0             1           0
+     168 fcc  1    0    XX   fcc           0             1           0
+     169 fcc  1    0    XX   fcc           0             1           0
+     170 fcc  1    0    XX   fcc           0             1           0
+     171 fcc  1    0    XX   fcc           0             1           0
+     172 fcc  1    0    XX   fcc           0             1           0
+     173 fcc  1    0    XX   fcc           0             1           0
+     174 fcc  1    0    XX   fcc           0             1           0
+     175 fcc  1    0    XX   fcc           0             1           0
+     176 fcc  1    0    XX   fcc           0             1           0
+     177 fcc  1    0    XX   fcc           0             1           0
+     178 fcc  1    0    XX   fcc           0             1           0
+     179 fcc  1    0    XX   fcc           0             1           0
+     180 fcc  1    0    XX   fcc           0             1           0
+     181 fcc  1    0    XX   fcc           0             1           0
+     182 fcc  1    0    XX   fcc           0             1           0
+     183 fcc  1    0    XX   fcc           0             1           0
+     184 fcc  1    0    XX   fcc           0             1           0
+     185 fcc  1    0    XX   fcc           0             1           0
+     186 fcc  1    0    XX   fcc           0             1           0
+     187 fcc  1    0    XX   fcc           0             1           0
+     188 fcc  1    0    XX   fcc           0             1           0
+     189 fcc  1    0    XX   fcc           0             1           0
+     190 fcc  1    0    XX   fcc           0             1           0
+     191 fcc  1    0    XX   fcc           0             1           0
+     192 fcc  1    0    XX   fcc           0             1           0
+     193 fcc  1    0    XX   fcc           0             1           0
+     194 fcc  1    0    XX   fcc           0             1           0
+     195 fcc  1    0    XX   fcc           0             1           0
+     196 fcc  1    0    XX   fcc           0             1           0
+     197 fcc  1    0    XX   fcc           0             1           0
+     198 fcc  1    0    XX   fcc           0             1           0
+     199 fcc  1    0    XX   fcc           0             1           0
+     200 fcc  1    0    XX   fcc           0             1           0
+     201 fcc  1    0    XX   fcc           0             1           0
+     202 fcc  1    0    XX   fcc           0             1           0
+     203 fcc  1    0    XX   fcc           0             1           0
+     204 fcc  1    0    XX   fcc           0             1           0
+     205 fcc  1    0    XX   fcc           0             1           0
+     206 fcc  1    0    XX   fcc           0             1           0
+     207 fcc  1    0    XX   fcc           0             1           0
+     208 fcc  1    0    XX   fcc           0             1           0
+     209 fcc  1    0    XX   fcc           0             1           0
+     210 fcc  1    0    XX   fcc           0             1           0
+     211 fcc  1    0    XX   fcc           0             1           0
+     212 fcc  1    0    XX   fcc           0             1           0
+     213 fcc  1    0    XX   fcc           0             1           0
+     214 fcc  1    0    XX   fcc           0             1           0
+     215 fcc  1    0    XX   fcc           0             1           0
+     216 fcc  1    0    XX   fcc           0             1           0
+     217 fcc  1    0    XX   fcc           0             1           0
+     218 fcc  1    0    XX   fcc           0             1           0
+     219 fcc  1    0    XX   fcc           0             1           0
+     220 fcc  1    0    XX   fcc           0             1           0
+     221 fcc  1    0    XX   fcc           0             1           0
+     222 fcc  1    0    XX   fcc           0             1           0
+     223 fcc  1    0    XX   fcc           0             1           0
+     224 fcc  1    0    XX   fcc           0             1           0
+     225 fcc  1    0    XX   fcc           0             1           0
+     226 fcc  1    0    XX   fcc           0             1           0
+     227 fcc  1    0    XX   fcc           0             1           0
+     228 fcc  1    0    XX   fcc           0             1           0
+     229 fcc  1    0    XX   fcc           0             1           0
+     230 fcc  1    0    XX   fcc           0             1           0
+     231 fcc  1    0    XX   fcc           0             1           0
+     232 fcc  1    0    XX   fcc           0             1           0
+     233 fcc  1    0    XX   fcc           0             1           0
+     234 fcc  1    0    XX   fcc           0             1           0
+     235 fcc  1    0    XX   fcc           0             1           0
+     236 fcc  1    0    XX   fcc           0             1           0
+     237 fcc  1    0    XX   fcc           0             1           0
+     238 fcc  1    0    XX   fcc           0             1           0
+     239 fcc  1    0    XX   fcc           0             1           0
+     240 fcc  1    0    XX   fcc           0             1           0
+     241 fcc  1    0    XX   fcc           0             1           0
+     242 fcc  1    0    XX   fcc           0             1           0
+     243 fcc  1    0    XX   fcc           0             1           0
+     244 fcc  1    0    XX   fcc           0             1           0
+     245 fcc  1    0    XX   fcc           0             1           0
+     246 fcc  1    0    XX   fcc           0             1           0
+     247 fcc  1    0    XX   fcc           0             1           0
+     248 fcc  1    0    XX   fcc           0             1           0
+     249 fcc  1    0    XX   fcc           0             1           0
+     250 fcc  1    0    XX   fcc           0             1           0
+     251 fcc  1    0    XX   fcc           0             1           0
+     252 fcc  1    0    XX   fcc           0             1           0
+     253 fcc  1    0    XX   fcc           0             1           0
+     254 fcc  1    0    XX   fcc           0             1           0
+     255 fcc  1    0    XX   fcc           0             1           0
+     256 fcc  1    0    XX   fcc           0             1           0
+
+       0 !NBOND: bonds
+
+       0 !NTHETA: angles
+
+       0 !NPHI: dihedrals
+
+       0 !NIMPHI: impropers
+
+       0 !NDON: donors
+
+
+       0 !NACC: acceptors
+
+
+       0 !NNB
+
+
+       1       0 !NGRP
+       0       0       0
+
+       0 !NCRTERM: cross-terms
+

@@ -122,6 +122,13 @@ sub set_defaults {
 	min		=> 1,
 	max		=> 1e5
       },
+      log		=> {
+	avg		=> 1,
+	cut		=> 1e-5,
+	min		=> 1,
+	max		=> 1e5,
+	pdi		=> 1
+      },
       poisson		=> {
 	avg		=> 1,
 	cut		=> 1e-5,
@@ -224,6 +231,7 @@ sub check_bounds {
     avg => {low => 1, high => undef},
     min => {low => 1, high => undef},
     max => {low => 1, high => undef},
+    pdi => {low => 1, high => undef},
     cut => {low => 0, high => 1, equal => 1}
   };
 
@@ -310,14 +318,17 @@ sub set_link {
   my $line = shift(@_);
   my $text = shift(@_);
   my $type = shift(@_);
+  my $name = shift(@_);
   my $allowed = {
     random => 1, sequential => 1, directional => 1, consecutive => 1};
   my $default = {
-    random => "random", alternate => "directional", block => "directional"};
+    random => "random", alternate => "directional", block => "directional",
+    sequence => "directional"};
 
   if (defined($text) ? $text eq "-" : 1) {
     if (!defined($default->{$type})) {
-      EMC::Message::error_line($line, "cannot determine default link option\n");
+      EMC::Message::error_line(
+	$line, "undefined polymer".(defined($name) ? " '$name'\n" : "\n"));
     }
     return $default->{$type};
   } elsif (!defined($allowed->{$text})) {
@@ -374,13 +385,15 @@ sub func_flory {
   my $min = $var->{min};
   my $max = $var->{max};
   my $f = log($p)**2;
+  my $fmax = -1;
   my $l = 1;
 
   while (1) {
     $f *= $p;
     if ($l >= $min) {
+      $fmax = $f if ($f > $fmax);
       push(@{$fractions}, {l => $l, fraction => $f*$l}) if ($f >= $cut);
-      last if ($f < $cut);
+      last if ($f < $fmax && $f < $cut);
     }
     last if ($l >= $max);
     ++$l;
@@ -404,7 +417,9 @@ sub func_poisson {
   my $cut = $var->{cut};
   my $min = $var->{min};
   my $max = $var->{max};
+
   my $exp = exp(-$lavg);
+  my $fmax = 0;
   my $l = 1;
   my $a = 1;
 
@@ -412,8 +427,54 @@ sub func_poisson {
     $a *= $lavg/$l;
     if ($l >= $min) {
       my $f = $exp*$a;
+      $fmax = $f if ($f > $fmax);
       push(@{$fractions}, {l => $l, fraction => $f}) if ($f >= $cut);
-      last if ($f < $cut);
+      last if ($f < $fmax && $f < $cut);
+    }
+    last if ($l >= $max);
+    ++$l;
+  }
+  return $fractions;
+}
+
+
+sub func_log_normal {
+  my $default = shift(@_);
+  my $var = shift(@_);
+  my $line = shift(@_);
+  my $fractions = [];
+
+  foreach (keys(%{$default})) {
+    $var->{$_} = $default->{$_} if (!defined($var->{$_}));
+  }
+  check_bounds($var, $line, "Log-Normal");
+
+  my $lavg = $var->{avg};
+  my $cut = $var->{cut};
+  my $min = $var->{min};
+  my $max = $var->{max};
+  my $pdi = $var->{pdi};
+
+  my $pi = $EMC::Math::Pi;
+  my $mu = log($lavg);
+  my $sigma = sqrt(log($pdi));
+
+  if ($sigma==0) {
+    return [{fraction => 1, l => $lavg}];
+  }
+
+  my $a = 1.0/$sigma/sqrt(2.0*$pi);
+  my $b = 0.5/$sigma**2;
+  my $fmax = 0;
+  my $l = 1;
+
+  while (1) {
+    if ($l >= $min) {
+      my $t = log($l)-$mu;
+      my $f = $a/$l*exp(-$b*(log($l)-$mu)**2);
+      $fmax = $f if ($f > $fmax);
+      push(@{$fractions}, {l => $l, fraction => $f}) if ($f >= $cut);
+      last if ($f < $fmax && $f < $cut);
     }
     last if ($l >= $max);
     ++$l;
@@ -427,7 +488,8 @@ sub function {
   my $attr = shift(@_);
   my $line = shift(@_);
   my $name = $attr->{name};
-  my $function = {flory => \&func_flory, poisson => \&func_poisson};
+  my $function = {
+    flory => \&func_flory, log => \&func_log_normal, poisson => \&func_poisson};
 
   if (!defined($function->{$attr->{name}})) {
     EMC::Message::error_line($line,
@@ -491,8 +553,9 @@ sub set_item_polymers {
       $name = EMC::EMC::check_name($emc, shift(@arg), $line, 2);
       $polymer = EMC::Common::hash($polymers, "polymer", $name);
       EMC::Polymers::set_list($line, $options, @arg);
+      #EMC::Message::dumper("options[$name] = ", $options);
       $options->{link} = set_link(
-	$line, $options->{link}, $polymer->{options}->{polymer});
+	$line, $options->{link}, $polymer->{options}->{polymer}, $name);
       if (ref($options->{connects}) eq "") {
 	$options->{connects} = [sort(split(":", $options->{connects}))];
       }
@@ -520,6 +583,10 @@ sub set_item_polymers {
 	[{l => 1, fraction => $fraction}] :
        	function($context, $attr, $line);
 
+      if (!(defined($fractions) && scalar(@{$fractions}))) {
+	EMC::Message::error_line($line,
+	  "empty distribution for polymer '$name'\n");
+      }
       foreach (@{$fractions}) {
 	my $fraction = $_->{fraction};
 	my $l = $_->{l};

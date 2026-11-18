@@ -272,7 +272,7 @@ sub set_item_nonbonds {
   my $cutoff = EMC::Common::element($types, "cutoff");
   my $pair_constants = EMC::Common::element($types, "pair_constants");
   my $nonbonds = EMC::Common::array($types, "parameters", "nonbonds");
-  
+ 
   foreach (@{$data}) {
     my @arg = @{$_};
     my $line = $lines->[$i++];

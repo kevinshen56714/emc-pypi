@@ -1,0 +1,6 @@
+#!/usr/bin/env -S emc.sh -quiet
+(* EMC: Script *)
+
+get		= {name -> $arg0};
+
+message		= {charged() ? 1 : 0, "\n"};

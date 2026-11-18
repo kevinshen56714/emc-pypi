@@ -1,0 +1,136 @@
+#EMC/FIELD/CHARMM/unknown
+#
+#  file:	template.prm
+#  author:	Pieter J. in 't Veld
+#  date:	September 10, 2026.
+#  purpose:	Template for setting up a molecule/structure specific force
+#  		field
+#
+#  notes:
+#    - Pay attention to setting FFDEPTH correctly under `ITEM FIELD` in .esh
+#
+
+# Force field definition
+
+ITEM	DEFINE
+
+FFMODE		CHARMM
+FFTYPE		ATOMISTIC
+FFAPPLY		GROUPS
+FFINDEX		TYPES
+FFDEPTH		2
+FFCHARGE	ALL
+FFSTRICT	FALSE
+VERSION		unknown
+CREATED		September 2026
+LENGTH		ANGSTROM
+ENERGY		KCAL/MOL
+DENSITY		G/CC
+MIX		BERTHELOT
+NBONDED		3
+INNER		10.0
+CUTOFF		12.0
+ANGLE		ERROR
+TORSION		ERROR
+PAIR14		INCLUDE
+GROUP		IGNORE
+RULE		ERROR
+SHAKE		NONE
+
+ITEM	END
+
+# Literature references
+
+ITEM	REFERENCES
+
+# year	volume	page	journal
+
+ITEM	END
+
+# Masses
+
+ITEM	MASS
+
+# type	mass	element	ncons	charge	index	comment
+
+ITEM	END
+
+# Auto equivalences
+
+ITEM	EQUIVALENCE_AUTO
+
+# type	pair	incr	bond	angle	torsion	impr
+
+ITEM	END
+
+# Equivalences
+
+ITEM	EQUIVALENCE
+
+# type	pair	incr	bond	angle	torsion	impr
+
+ITEM	END
+
+# Rule precedences
+
+ITEM	PRECEDENCE
+
+ITEM	END
+
+# Rules
+
+ITEM	RULES
+
+# id	type	element	residue	atom	charge	rule
+
+0	?	?	UNK	UNK	0	*
+
+ITEM	END
+
+# Templates
+
+ITEM	TEMPLATES
+
+# name	smiles
+
+ITEM	END
+
+# Increment parameters
+
+ITEM	INCREMENT
+
+# type1	type2	delta12	delta21
+
+ITEM	END
+
+# Nonbond parameters
+
+ITEM	NONBOND
+
+# type1	type2	rmin/2	ewell	rmin14/2	ewell14
+
+ITEM	END
+
+# Bond parameters
+
+ITEM	BOND
+
+# type1	type2	k	l0
+
+ITEM	END
+
+# Angle parameters
+
+ITEM	ANGLE
+
+# type1	type2	type3	k	theta0	kub	s0
+
+ITEM	END
+
+# Torsion parameters
+
+ITEM	TORSION
+
+# type1	type2	type3	type4	k	n	delta	[...]
+
+ITEM	END

@@ -1,0 +1,60 @@
+(* EMC: Script *)
+
+variables	= {input -> "lj"};
+
+get		= {name -> input, compress -> true};
+
+timing		= {style -> reset};
+
+simulation	= {
+  types		-> {
+    skin	-> 0,
+    neighbor	-> sector,
+    stencil	-> standard
+  }
+};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+memory		= {style -> full};
+
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+timing		= {style -> reset};
+
+simulation	= {
+  types		-> {
+    skin	-> 0,
+    neighbor	-> thread,
+    stencil	-> standard
+  }
+};
+
+memory		= {style -> full};
+
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+timing		= {style -> reset};
+
+simulation	= {
+  types		-> {
+    skin	-> 0.3,
+    neighbor	-> pair,
+    stencil	-> standard
+  }
+};
+
+memory		= {style -> full};
+
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+

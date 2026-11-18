@@ -1,0 +1,207 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> $root+"lib/fcc_bonded",
+  output	-> "dpd"};
+
+// get a crystal unit cell of a completely bonded fcc lattice
+
+variables	= {sigma -> 1, lbox -> (4/3)^(1/3), 
+		   kbond -> 400, lbond -> lbox/sqrt(2),
+		   la -> lbox, lb -> lbox, lc -> lbox};
+
+get		= {input};
+
+// define system variables; sigma and la are defined in input file
+// r1 represents the nanoparticle's outside perimeter
+// r2 represents the nanoparticle's inner core
+
+variables	= {n -> 7, l -> n*la, r1 -> 1/2, r2 -> r1-0.6*sigma/l,
+		   sigma -> 1, cutoff -> 1, delete -> 0.7225,
+		   temperature -> 1, density -> 3.0,
+		   fraction -> 0.45, kbond -> 4, lbond -> 1, 
+		   ngraft -> 20, nrepeat -> 20, npolymers -> 10000};
+
+// define an extra grafting site, used to connect polymers to
+
+sites		= {
+  site		-> {id -> graft, name -> "grafting", mass -> 1},
+  site		-> {id -> m, name -> "monomer", mass -> 1},
+  site		-> {id -> t, name -> "terminator", mass -> 1}};
+simulation	= {
+  units		-> {
+    type	-> reduced,
+    seed	-> 1},			// random seed
+  constants	-> {systems -> main},
+  moves		-> {
+    displace	-> {
+      n		-> 5,
+      dmax	-> {cutoff, cutoff, cutoff, cutoff, cutoff},
+      dlimit	-> cutoff}
+  },
+  types		-> {
+    merge	-> true,		// allow addition of new types
+    skin	-> 0.0,
+    virial	-> false,
+    neighbor	-> sector,
+    inverse	-> {nfunctions -> 50, cutoff -> 1e-4},
+    dpd		-> {
+      pair	-> {
+	active	-> true,
+	data	-> {
+	  {i0 -> fcc, i1 -> fcc, a -> 25, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> fcc, i1 -> graft, a -> 32.87, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> fcc, i1 -> m, a -> 32.88, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> fcc, i1 -> t, a -> 32.88, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> graft, i1 -> graft, a -> 25, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> graft, i1 -> m, a -> 25.46, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> graft, i1 -> t, a -> 25.46, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> m, i1 -> m, a -> 25, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> m, i1 -> t, a -> 25, gamma -> 4.5, cutoff -> cutoff},
+	  {i0 -> t, i1 -> t, a -> 25, gamma -> 4.5, cutoff -> cutoff}
+	}
+      }
+      bond	-> {
+	data	-> {				// kbond and lbond from input
+	  {i0 -> fcc, i1 -> fcc, k -> kbond, l -> lbond},
+	  {i0 -> fcc, i1 -> graft, k -> kbond, l -> lbond},
+	  {i0 -> graft, i1 -> m, k -> kbond, l -> lbond},
+	  {i0 -> m, i1 -> m, k -> kbond, l -> lbond},
+	  {i0 -> m, i1 -> t, k -> kbond, l -> lbond}}}
+    }
+  },
+  moves		-> {
+    displace	-> {frequency -> 1, dmax -> 0.5*cutoff}
+  }
+};
+
+// create a super crystal of a bonded fcc lattice
+
+crystal		= {n -> {n, n, n}, periodic -> false}; 
+
+// carve out a sphere by excluding a region with radius r1 during the
+// carving process
+
+carve		= {mode -> exclude, 
+  inside	-> {shape -> spheroid,
+		     center -> {0, 0, 0}, radius -> {0, 0, 0}},
+  outside	-> {shape -> spheroid,
+		     center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+// remove delete*100% of particles in the outer shell region r2<r<r1
+
+carve		= {mode -> include, 
+  fraction	-> delete,
+  inside	-> {shape -> spheroid,
+		     center -> {0, 0, 0}, radius -> {r2, r2, r2}},
+  outside	-> {shape -> spheroid,
+		     center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+// retype the remaining particles in the outer shell region r2<r<r1
+
+retype		= {source -> fcc, destination -> graft,
+  inside	-> {shape -> spheroid, 
+		      center -> {0, 0, 0}, radius -> {r2, r2, r2}},
+  outside	-> {shape -> spheroid, 
+		      center -> {0, 0, 0}, radius -> {r1, r1, r1}}
+};
+
+groups		= {
+  group		-> {
+    id		-> monomer,
+    chemistry	-> "m",
+    branches	-> {0, 0},
+    connects	-> {{0, {monomer, 0}}, {0, {terminator, 0}}}
+  },
+  group		-> {
+    id		-> terminator,
+    chemistry	-> "t",
+    branches	-> 0,
+    connects	-> {{0, {monomer, 0}}}
+  },
+  group		-> {
+    id		-> solvent,
+    chemistry	-> "m"
+  }
+};
+
+clusters	= {
+  polymer	-> {
+    id		-> graft,
+    system	-> main,
+    groups	-> {monomer},
+    nrepeat	-> ngraft,
+  },
+  graft		-> {
+    core	-> fcc,
+    type	-> graft,
+    polymer	-> graft,
+    connect	-> head
+  },
+  cluster	-> {
+    id		-> matrix,
+    system	-> main,
+    n		-> npolymers*(nrepeat+2),
+    group	-> solvent
+  }(*,
+  polymer	-> {
+    id		-> matrix,
+    system	-> main,
+    n		-> npolymers,
+    groups	-> {monomer},
+    nrepeat	-> nrepeat
+  }*)
+};
+
+build		= {
+  system	-> {
+    id		-> main,
+    density	-> density,
+    temperature	-> temperature
+  },
+  select	-> {
+    cluster	-> {graft, matrix},
+    relax	-> {
+      ncycles	-> 100,
+      radius	-> cutoff},
+    grow	-> {
+      method	-> energetic,
+      check	-> all,
+      ntrials	-> 20,
+      grace	-> {0.9, 0.9}
+      theta	-> 0,
+      niterations -> 100,
+      exclude	-> {shape -> spheroid, type -> absolute,
+		      center -> {0, 0, 0}, radius -> {r2*l, r2*l, r2*l}}
+    }
+  }
+};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+run		= {ncycles -> 1000, nblocks -> 10};
+pdb		= {output, forcefield -> standard, unwrap -> true};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+pdb		= {output, forcefield -> standard, unwrap -> true};
+traject		= {name -> output, frequency -> 10,
+		    append -> true, scale -> true, unwrap -> true};
+restart		= {output, format -> "_%05ld", frequency -> 2000};
+
+run		= {ncycles -> 5000, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+// output the result in different formats; different extentions are implied
+
+put		= {output};
+pdb		= {output, forcefield -> standard, unwrap -> true};
+lammps		= {output, mode -> put, forcefield -> dpd,
+		   parameters -> true, types -> false};
+

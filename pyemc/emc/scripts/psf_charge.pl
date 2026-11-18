@@ -9,12 +9,22 @@
 #  Distributed under GNU Public License as stated in LICENSE file in EMC root
 #  directory
 #
+#  Notes:
+#    20180830	- Inception
+#    		- v1.0
+#    20251001	- GZIP addition
+#    		- v1.1
+#
 
 use File::Basename;
 
+use lib dirname($0)."/modules";
+use EMC::Message;
+use EMC::IO;
+
 $Script = basename($0);
-$Version = "1.0";
-$Year = "2018";
+$Version = "1.1";
+$Year = "2025";
 
 
 # functions
@@ -26,6 +36,11 @@ sub set_commands {
 @Notes = (
   "* Calculates the total charge of one or more PSF files"
 );
+}
+
+
+sub header {
+  print("$Script v$Version (c)$Year by Pieter J. in 't Veld\n\n");
 }
 
 
@@ -47,11 +62,8 @@ sub init {
     }
   }
   #help() if (scalar(@arg)<1);
-}
-
-
-sub header {
-  print("$Script v$Version (c)$Year by Pieter J. in 't Veld\n\n");
+  header();
+  return @arg;
 }
 
 
@@ -76,20 +88,27 @@ sub help {
 
 # main
 
-  init();
-  header();
-  foreach(<>) {
-    chop();
-    @arg = split(" ");
-    if (!$n) {
-      $n = $ntotal = @arg[0] if (@arg[1] eq "!NATOM");
-      next;
+{
+  foreach (init()) {
+    EMC::Message::info("reading '$_'\n");
+
+    my $stream = EMC::IO::open($_, "r");
+    
+    foreach(<$stream>) {
+      chop();
+      @arg = split(" ");
+      if (!$n) {
+	$n = $ntotal = @arg[0] if (@arg[1] eq "!NATOM");
+	next;
+      }
+      ++$ncharged if (eval(@arg[6]) != 0);
+      $charge += @arg[6];
+      last if (!--$n);
     }
-    ++$ncharged if (eval(@arg[6]) != 0);
-    $charge += @arg[6];
-    last if (!--$n);
   }
   printf(
-    "total charge = %f (%f%% charged)\n\n",
+    "\ntotal charge = %f (%f%% charged)\n\n",
     $charge, $ntotal ? $ncharged/$ntotal*100 : 0.0);
+  EMC::IO::close($stream);
+}
 

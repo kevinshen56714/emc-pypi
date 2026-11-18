@@ -1,0 +1,20 @@
+(* EMC: Script *)
+
+get		= {"dpd_result"};
+pdb		= {"dpd_result", forcefield -> standard, unwrap -> true};
+
+simulation	= {types -> {skin -> 0.0}, clocks -> {0, 0}};
+
+force		= {style -> init, message -> true};
+
+traject		= {name -> "dpd_result", frequency -> 100, reset -> false,
+		    append -> true, scale -> true, unwrap -> true};
+reset		= {style -> moves};
+
+run		= {ncycles -> 5000, nblocks -> 10};
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+put		= {"dpd_result"};
+

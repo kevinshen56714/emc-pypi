@@ -1,0 +1,57 @@
+./scripts/emc_opls.pl -source=src -united -wildcards=c4 opls-ua
+OPLS Conversion v2.0 (December 19, 2024), (c) 2004-2026 Pieter J. in 't Veld
+
+Info: reading 'src/oplsaa.par'
+Info: reading 'src/oplsaa.sb'
+Info: reading 'opls-ua.define'
+Info: defining equivalence
+Info: defining masses
+Info: transfering angle parameters
+Info: transfering bond parameters
+Info: transfering improper parameters
+Info: transfering torsion parameters
+Info: defining bonds
+Info: defining angles
+Info: defining torsions
+Info: defining impropers
+Info: defining increment
+Info: reading references
+Info: reading rules
+Info: defining residues
+Info: determining increments
+Info: determining rules
+Info: rules pass 1
+Info: rules pass 2
+Info: rules pass 3
+Info: writing topology to 'opls-ua.top'
+Info: writing parameters to 'opls-ua.prm'
+
+./scripts/emc_opls.pl -source=src opls-aa
+OPLS Conversion v2.0 (December 19, 2024), (c) 2004-2026 Pieter J. in 't Veld
+
+Info: reading 'src/oplsaa.par'
+Info: reading 'src/oplsaa.sb'
+Info: reading 'opls-aa.define'
+Info: defining equivalence
+Info: defining masses
+Info: transfering angle parameters
+Info: transfering bond parameters
+Info: transfering improper parameters
+Info: transfering torsion parameters
+Info: defining bonds
+Info: defining angles
+Info: defining torsions
+Info: defining impropers
+Info: defining increment
+Info: reading references
+Info: reading rules
+Info: defining residues
+Info: determining increments
+Info: determining rules
+Info: rules pass 1
+Info: rules pass 2
+Info: rules pass 3
+Info: rules pass 4
+Info: writing topology to 'opls-aa.top'
+Info: writing parameters to 'opls-aa.prm'
+

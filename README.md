@@ -10,13 +10,20 @@ EMC creates input structures from SMILES strings and LAMMPS input files for part
 - See the [example input files](https://github.com/kevinshen56714/emc-pypi/tree/main/pyemc/emc/examples/setup) on how to prepare EMC input (.esh) files.
 - See the [docs](https://github.com/kevinshen56714/emc-pypi/blob/main/pyemc/emc/docs/emc.pdf) to understand more about EMC.
 
-The package works out of the box without pre-installation of EMC or any configuration. Please open an issue if you find something missing or not working as expected.
-
 ## Installation
 
+The package includes EMC binaries for Linux x86-64 and ARM64, macOS 12.5 and
+later (Intel and Apple Silicon), and Windows (32-bit executable).
+`pyemc.setup()` requires Perl on your PATH. Run `perl -v` to check.
+
 ```bash
-pip install emc-pypi
+python -m pip install emc-pypi
 ```
+
+This release bundles EMC 9.4.4 from the upstream archives dated July 1, 2026.
+Upstream lists the binaries as valid until July 1, 2027. To replace an expired
+installation, run `python -m pip install --upgrade emc-pypi`. If you previously
+set `EMC_ROOT`, unset it to use the force fields shipped with this package.
 
 ## Usage
 

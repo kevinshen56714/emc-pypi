@@ -16,6 +16,8 @@
 #    20190318	Creates setup.esh when target is omitted (was template.esh)
 #    20240326	Change to v1.2
 #    		Added date and script replacement in resulting .esh
+#    20251209	Change to v1.3
+#    		Added 'loops' as proxy for 'environment'
 #
 
 # variables
@@ -23,8 +25,8 @@
 info=1;
 replace=0;
 script=$0;
-version=1.2;
-year=2014;
+version=1.3;
+year=2025;
 author="Pieter J. in 't Veld";
 date="March 26, $year";
 
@@ -38,10 +40,12 @@ function header() {
 
 
 function show_list() {
+  local list;
+
   if [ -d "${template_dir}" ]; then
     if [ "${list}" != "1" ]; then echo "Available templates:"; fi;
     pushd "${template_dir}" >& /dev/null;
-    for file in *.esh; do
+    for file in $(printf '%s\n' *.esh loops.esh | sort); do
       echo "  "$(basename ${file} .esh);
     done;
     popd >& /dev/null;
@@ -106,6 +110,7 @@ function initialize() {
   if [ "${list}" == "1" ]; then list; fi;
   if [ ${#files[@]} -eq 1 ]; then files+=("setup"); fi;
   if [ ${#files[@]} -ne 2 ]; then script_help; fi;
+  if [ "${files[0]}" == "loops" ]; then files[0]="environment"; fi;
 }
 
 

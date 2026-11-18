@@ -1,0 +1,123 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/charmm/c32b1/",
+  parameters	-> dir+"all27_prot_lipid.prm",
+  topology	-> dir+"all27_prot_lipid.top",
+
+  output	-> "molecule",
+  chemistry	-> "c1ccc2c(c1)c(cn2H)C[C@@](C(=O)[O-])[N+]",
+  chemistry_ion	-> "[Na+]",
+  density	-> 0.01,
+  nmolecule	-> 1,
+  nion		-> 0,
+  debug		-> 0,
+  
+  tbuild	-> 300,
+  tequil	-> 1,
+  nrelax	-> 200,
+  nblocks	-> 100,
+  ncycles	-> 5000
+};
+
+field		= {
+  mode		-> charmm,
+  name		-> {parameters, topology},
+  compress	-> false
+};
+
+(*field		= {
+  mode		-> put,
+  name		-> "charmm"
+};*)
+
+groups		= {
+  group		-> {
+    id		-> molecule,
+    depth	-> 6,
+    chemistry	-> chemistry
+  },
+  group		-> {
+    id		-> ion,
+    depth	-> 6,
+    chemistry	-> chemistry_ion
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> molecule,
+    system	-> main,
+    n		-> nmolecule,
+    group	-> molecule
+  },
+  cluster	-> {
+    id		-> ion,
+    system	-> main,
+    n		-> nion,
+    group	-> ion
+  }
+};
+
+put		= {"test"};
+
+field		= {mode -> apply, error -> true, debug -> debug};
+
+simulation	= {
+  units		-> {
+    seed	-> 3
+  },
+  types 	-> {
+    neighbor	-> thread,
+    cff		-> {pair -> {coulomb -> cut, cutoff -> 5, mode -> repulsive}},
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+put		= {"test"};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> tbuild,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    //order	-> sequence,
+    frequency	-> 1,
+    cluster	-> {molecule, ion},
+    name	-> "error",
+    relax	-> {ncycles -> nrelax, radius -> 9.5},
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 250
+    }
+  }
+};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+simulation	= {
+  systems	-> {
+    properties	-> {
+      id	-> main, t -> tequil
+    }
+  }
+};
+
+run		= {nblocks -> nblocks, ncycles -> ncycles};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+test_chirality	= {mode -> true};
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> charmm, detect -> true, unwrap -> true};
+lammps		= {name -> output, mode -> put, forcefield -> charmm, parameters -> true};
+

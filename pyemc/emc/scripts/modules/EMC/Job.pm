@@ -494,11 +494,12 @@ sub print {					# <= my_job_print
   my $s = shift(@_);
   my $nspace = $indent%8;
   my $ntab = ($indent-$nspace)/8;
-  my $i;
+  my ($i, $pre);
 
-  for ($i=0; $i<$ntab; ++$i) { printf($stream "\t"); }
-  for ($i=0; $i<$nspace; ++$i) { printf($stream " "); }
-  printf($stream $s."\n");
+  for ($i=0; $i<$ntab; ++$i) { $pre .= "\t"; }
+  for ($i=0; $i<$nspace; ++$i) { $pre .= " "; }
+  return $pre.$s if (!defined($stream));
+  printf($stream $pre.$s."\n");
 }
 
  
@@ -526,7 +527,8 @@ sub write_script {				# <= write_job
     $script = "$run_name->{$type}/setup.sh";
   }
   if ((-e $script)&&!$replace->{flag}) {
-    warning("\"$script\" exists; use -replace flag to overwrite\n");
+    EMC::Message::warning(
+      "\"$type/$script\" exists; use -replace flag to overwrite\n");
     return;
   }
 
@@ -546,10 +548,12 @@ sub write_script {				# <= write_job
 
 
 sub write_create {				# <= write_job_create
-  my $root = shift(@_);
   my $stream = shift(@_);
-  my $nlevels = shift(@_);
+  my $job = shift(@_);
+  my $nlevels = shift(@_);				# creates project.sh
  
+  my $root = EMC::Common::element($job, "root");
+
   my $environment = EMC::Common::element($root, "environment");
   my $loop_variables = EMC::Common::element($environment, "loop_variables");
   my $variables = EMC::Common::element($environment, "variables");
@@ -564,21 +568,30 @@ sub write_create {				# <= write_job_create
   my $cases;
   my $loops;
 
-  foreach (@{$loop_variables->{vars}}) {		# loop vars
-    next if ($_ eq "trial");
-    next if ($_ eq "stage");
-    my $var = (split(":"))[0];
+  my $functions = define_functions($job, "create");
+
+  foreach (@{$loop_variables->{active}}) {		# loop vars
+    my $flag = [split(":")];
+    my $var = lc(shift(@{$flag}));
+    next if ($var eq "trial");
+    next if ($var eq "stage");
+    my $value = "\"\$(replace_vars \"\${$var}\")\"";
+    
+    $value = "\$(calc $value)" if (EMC::Variables::flags($_)->{eval});
     $cases .= "\n      -$var) shift; $var=\"\$1\";;";
-    $loops .= "\n  replace \"\@".uc($var)."\" \"\${$var}\";";
+    $loops .= "\n  replace_file \"\@".uc($var)."\" $value;";
   }
   $replacements = $loops if ($flag->{expert});
   if (defined($variables->{data})) {
     foreach (reverse(@{$variables->{data}})) {		# environment vars
       my @var = @{$_};
-      
-      $replacements .= 
-	"\n  replace \"\@".uc(shift(@var))."\" \"".
-	join(" ", @var)."\";";
+      my $key = shift(@var);
+      my $name = uc((split(":", $key))[0]);
+      my $value = '"'.join(" ", @var).'"';
+
+      $value = "\"\$(replace_vars $value)\"" if ($value =~ m/\@/);
+      $value = "\$(calc $value)" if (EMC::Variables::flags($key)->{eval});
+      $replacements .= "\n  replace_file \"\@".$name."\" $value;";
     }
     $replacements .= $loops;
   } elsif (!$flag->{expert}) {
@@ -635,27 +648,34 @@ error() {
   exit -1;
 }
 
-# create chemistry file
+$functions->{calc}
+
+$functions->{replace}
+
+");
+  write_replace_vars($stream, $job, 1);
+  printf($stream
+"# create chemistry file
 
 create() {
   cp \"\$template\" \"\$chemistry\";
 
-  replace \"\@GROUPS\" \"groups/\${project}/\${stage}\" \"\${trial}\";
-  replace \"\@CLUSTERS\" \"clusters/\${project}/\${stage}\" \"\${trial}\";
-  replace \"\@POLYMERS\" \"polymers/\${project}/\${stage}\" \"\${trial}\";
-  replace \"\@SHORTHAND\" \"shorthand/\${project}/\${stage}\" \"\${trial}\";
-  replace \"\@STRUCTURE\" \"structures/\${project}/\${stage}\" \"\${trial}\";
+  replace_file \"\@GROUPS\" \"groups/\${project}/\${stage}\" \"\${trial}\";
+  replace_file \"\@CLUSTERS\" \"clusters/\${project}/\${stage}\" \"\${trial}\";
+  replace_file \"\@POLYMERS\" \"polymers/\${project}/\${stage}\" \"\${trial}\";
+  replace_file \"\@SHORTHAND\" \"shorthand/\${project}/\${stage}\" \"\${trial}\";
+  replace_file \"\@STRUCTURE\" \"structures/\${project}/\${stage}\" \"\${trial}\";
   $replacements
   
-  replace \"\@WORKDIR\" \"$global->{work_dir}\";
-  replace \"\@EMCROOT\" \"$global->{root}\";
-  replace \"\@STAGE\" \"\${stage}\";
-  replace \"\@TRIAL\" \"\${trial}\";
+  replace_file \"\@WORKDIR\" \"$global->{work_dir}\";
+  replace_file \"\@EMCROOT\" \"$global->{root}\";
+  replace_file \"\@STAGE\" \"\${stage}\";
+  replace_file \"\@TRIAL\" \"\${trial}\";
 
   chmod a+rx \"\${chemistry}\";
 }
 
-replace() {
+replace_file() {
   if [ \"\$3\" = \"\" ]; then
     if [ \"\$2\" != \"\" ]; then
       replace.pl -v -q \"\$1\" \"\$2\" \"\${chemistry}\";
@@ -679,7 +699,7 @@ replace() {
 sub write_dir {					# <= write_job_dir
   my $text;
   my $flag;
- 
+
   foreach (@_) { 
     my @arg = split(":");
     my $name = uc(@arg[0]);
@@ -759,27 +779,38 @@ sub write_footer {				# <= write_job_footer
   } elsif ($type eq "test") {
     printf($stream
 "# main
-$host
-  set_root;
   
   cd \"$global->{work_dir}\";
   WORKDIR=\"\$(pwd)\";
   CHEMISTRY=\"\${WORKDIR}/chemistry\";
   cd \"test/$environment->{run_name}->{$type}\";
 
-  submit;
+  TARGET=0;
+  if [ \"\$1\" != \"\" ]; then TARGET=\$(calc \"\$1\"); fi;
+
 ");
-    return;
+    foreach (@{$environment->{loop_variables}->{active}}) {
+      my @vars;
+      foreach (@{$environment->{loop}->{$_}}) { push(@vars, split(", ", $_)); }
+      @vars = map({"'$_'"} @vars);
+      printf($stream "  ".uc((split(":"))[0])."s=(".join(" ", @vars).");\n")
+    }
+    $header = "";
   }
 
-  $trailer = "\n  STAGE=generic;" if (!defined($environment->{loop}->{stage}));
-  
   foreach (@{$context->{modules}}) {
     my @arg = split("=", $_);
     if (@arg[0] eq "purge") {
       $header .= "\n  run module purge;\n";
     } elsif (@arg[0] eq "unload") {
-      $header .= "\n  module unload @arg[1];";
+      $header .= "\n  run module unload @arg[1];";
+    } elsif (@arg[0] eq "use") {
+      $header .= "
+  if [ ! -d \"@arg[1]\" ]; then
+    echo \"Error: no module directory '@arg[1]'\";
+    echo; exit -1;
+  fi;
+  run module use \"@arg[1]\";\n";
     } elsif (@arg[0] eq "load") { 
       $header .= "
   if [ \"\$(module load @arg[1] 2>&1 | grep error)\" != \"\" ]; then
@@ -790,13 +821,18 @@ $host
 ";
     }
   }
+  $header .= "$host\n  set_root;\n";
 
+  if ($type eq "test") {
+    printf($stream "%s\n  submit;\n", $header);
+    return;
+  }
+
+  $trailer = "\n  STAGE=generic;" if (!defined($environment->{loop}->{stage}));
   $trailer .= "\n  MODULES=\"".join(",", @{$context->{modules}})."\";";
 
   printf($stream "%s",
 "# main
-$host
-  set_root;
 
   cd \"$global->{work_dir}\";
   WORKDIR=\"$global->{work_dir}\";
@@ -858,10 +894,7 @@ sub write_func {				# <= write_job_func
   my $i;
   my @replacements;
 
-  if ($type eq "test") {
-    return;
-  }
-
+  #EMC::Message::spot("ENTRY write_func()\n");
   foreach (@{$loop_variables->{active}}) {
     my @arg = split(":");
     my $name = @arg[0];
@@ -872,15 +905,22 @@ sub write_func {				# <= write_job_func
       @arg[1] eq "2" || @arg[1] eq "3" || @arg[1] eq "4" ? 1 : 0;
 
     push(@vars, "i_$name") if (!$fpair && $name ne "copy");
+    push(@vars, "j_$name") if ($fperm && $name ne "copy");
     push(@vars, "v_$name") if ($fperm && $name ne "copy");
     ++$i;
   }
 
-  printf($stream "\nsubmit() {\n");
+  printf($stream "submit() {\n");
   write_indent($stream, 1, join(" ", "local", sort(@vars)).";");
-  printf($stream "\n  %s\n", "printf \"\\n### started submit at \$(date)\\n\\n\";");
+  write_indent($stream, 1, "local counter=0;") if ($type eq "test");
+  printf($stream "\n");
+  printf($stream
+    "  %s\n", "printf \"\\n### started submit at \$(date)\\n\\n\";");
   write_loops($stream, $job, $type, 1, $text);
-  printf($stream "  %s\n}\n\n", "printf \"### finished submit at \$(date)\\n\\n\";");
+  printf($stream 
+    "  %s\n", "printf \"### finished submit at \$(date)\\n\\n\";");
+  printf($stream "}\n\n");
+  #EMC::Message::spot("EXIT\n");
 }
 
 
@@ -914,51 +954,14 @@ sub write_func_options {
 }
 
 
-sub write_func_test {				# <= write_job_func_test
-  my $job = shift(@_);
-  my $stream = shift(@_);
-
-  my $root = EMC::Common::element($job, "root");
-  my $md = EMC::Common::element($root, "md");
-  my $modules = EMC::Common::element($md, "modules");
-  my $global = EMC::Common::element($root, "global");
-  my $flag = EMC::Common::element($global, "flag");
-  my $project = EMC::Common::element($global, "project");
-  my $loop_variables = 
-    EMC::Common::element($root, "environment", "loop_variables");
-
-  my $options = write_func_options($job);
-  my $preprocess = $flag->{environment} ? 0 : $flag->{preprocess};
-  my $md_engine = EMC::MD::get_engine($md);
-
-  printf($stream "\nsub submit {\n");
-  foreach (@{$loop_variables->{active}}) {
-    my $var = (split(":"))[0];
-    $options->[0] .= " \\\n    -$var \"\${$var}\"";
-    printf($stream 
-      "  local $var=\"@{$job->{loop}->{$_}}[0]\";\n")
-  }
-  printf($stream "
-  run \\
-    \"\${chemistry}/scripts/$project->{script}.sh\"$options->[0] \\
-      $project->{name};
-  run \\
-    emc.pl$options->[1] \\
-      -preprocess=$preprocess \\
-      -project=$project->{name} \\
-      -md_engine=$md_engine \\
-      -workdir=\"\${WORKDIR}\" \\
-      $project->{name}$global->{script}->{extension};
-}\n\n");
-}
-
-
-sub write_functions {				# <= write_job_functions
-  my $stream = shift(@_);
+sub define_functions {
   my $job = shift(@_);
   my $type = shift(@_);
 
   my $queue = EMC::Common::hash($job, "context", "queue");
+  my @test = $queue->{test} ?
+    ("tmp=1\n", "JOB_ID=\$tmp; tmp=\$((tmp+1)); echo \${JOB_ID}; return;\n  ") :
+    ("", "");
 
   my $root = EMC::Common::element($job, "root");
   my $analyze = EMC::Common::element($root, "analyze");
@@ -966,7 +969,7 @@ sub write_functions {				# <= write_job_functions
   my $fexecute = EMC::Common::element($root, "emc", "flag", "execute");
   my $executable = EMC::Common::element($root, "emc", "flag", "executable");
   my $emc = $fexecute ? $executable : "emc_\${HOST}";
-  
+    
   my $md = EMC::Common::element($root, "md");
   my $lammps = EMC::Common::element($md, "lammps");
   my $shear = EMC::Common::element($md, "context", "shear");
@@ -982,103 +985,31 @@ sub write_functions {				# <= write_job_functions
 
   my $preprocess = $flag->{environment} ? 0 : $flag->{preprocess};
   my $md_engine = EMC::MD::get_engine($md);
-  my @test = $queue->{test} ?
-    ("tmp=1\n", "JOB_ID=\$tmp; tmp=\$((tmp+1)); echo \${JOB_ID}; return;\n  ") :
-    ("", "");
 
-  # GENERAL
+  my $options = write_func_options($job);
+  set_loop_variable_options($options, $loop_variables);
+  
 
-  if ($type ne "test") {
-    printf($stream 
-"
-# variables
+  my $functions = {
+    # calc
 
-script=\$(basename \"\$0\");
+    calc => "calc() {
+  perl -e '\$v=eval(\$ARGV[0]); print(\$v eq \"\" ? \"NAN\" : \$v);' -- \$@;
+}",
+    # create_copies
 
-# functions
+    create_copies => "create_copies() {
+  local list=(\$(split \$1 \":\"));
 
-run() {
-  echo \"\$@\"; \"\$@\";
-}
+  if [ \"\${list[0]}\" == \"s\" -o \"\${list[0]}\" == \"seq\" ]; then
+    echo \$(seq -w \${list[1]} \${list[3]} \${list[2]});
+  else
+    echo \$(seq -w 0 \$(calc \"\$1-1\"));
+  fi;
+}",
+    # create_list
 
-first() {
-  echo \"\$1\";
-}
-
-shft() {
-  shift; echo \"\$@\";
-}
-
-pop() {
-  local a=(\$\@); echo \"\${a[\@]:0:\${#a[\@]}-1}\";
-}
-
-calc() {
-  perl -e 'print(eval(\$ARGV[0]));' -- \$@;
-} 
-
-zero() {
-  perl -e '
-    \@a = \@ARGV;
-    \$n = eval(shift(\@a));
-    foreach (\@a) { \$n = length(\$_) if (\$n<length(\$_)); }
-    foreach (\@a) { \$_ =~ s/^0+//; \$_ = sprintf(\"\%0\".\$n.\"d\", int(eval(\$_))); }
-    print(join(\" \", \@a));
-    ' -- \$@;
-}
-
-split() {
-  perl -e '
-    \@a = split(\@ARGV[1], \@ARGV[0]);
-    print(defined(\@ARGV[2]) ? \@a[\@ARGV[2]] : join(\" \", \@a));
-  ' -- \$@;
-}
-
-join() {
-  perl -e 'print(join(\",\", \@ARGV).\"\\n\");' -- \$@;
-}
-
-last() { 
-  local s=\$1;
-  while [ \"\$1\" != \"\" ]; do s=\$1; shift; done;
-  echo \"\$s\";
-}
-
-start() {
-  perl -e '
-    \$h = \$ARGV[0]+0; \$m = \$ARGV[1]+\$ARGV[2];
-    if ((\$d = int(\$m/60))) { \$h += \$d; \$m -= 60*\$d; }
-    \$h = \"0\".\$h if (\$h<10); \$m = \"0\".\$m if (\$m<10);
-    print(\"\$h\$m\\n\");
-    ' -- \$(date +\%H) \$(date +\%M) \$1;
-}
-
-substr() {
-  perl -e 'print(substr(\$ARGV[0],eval(\$ARGV[1])));' -- \$@;
-}
-
-strip() {
-  local dir=\$(echo \$1 | awk '{split(\$0,a,\"'\$HOME/'\"); print a[2]}');
-
-  if [ \"\$dir\" = \"\" ]; then dir=\$1; fi;
-  if [ \"\$dir\" = \"\$HOME\" ]; then dir=\"\"; fi;
-  echo \"\$dir\";
-}
-
-path() {
-  local file;
-
-  for file in \$@; do 
-    cd \"\$(dirname \"\${file}\")\";
-    case \"\$(basename \"\${file}\")\" in
-      ..) echo \"\$(dirname \"\$(pwd)\")\";;
-      .)  echo \"\$(pwd)\";;
-      *)  echo \"\$(pwd)/\$(basename \"\${file}\")\";;
-    esac;
-  done;
-}
-
-create_list() {
+    create_list => "create_list() {
   local list=(\$(perl -e \'
     \@arg = split(\":\", \$ARGV[0]);
     \@a = shift(\@arg); foreach(\@arg) { push(\@a, eval(\$_)); }
@@ -1090,102 +1021,98 @@ create_list() {
     else
       echo \$(seq \${list[1]} \${list[3]} \${list[2]});
     fi;
+  elif [ \"\${list[0]}\" == \"l\" -o \"\${list[0]}\" == \"list\" ]; then
+    echo \"\${list[@]:1}\";
   else
     echo \"\$1\";
   fi;
-}
+}",
+    # first
+    
+    first => "first() {
+  echo \"\$1\";
+}",
+    # help
 
-create_copies() {
-  local list=(\$(split \$1 \":\"));
+    help => {
+      analyze => "help() {
+  echo \"EMC analyze script created by $identity->{script} v$identity->{version}, $identity->{date}\n\";
+  echo \"Usage:\n  \$script [-option [#]]\n\";
+  echo \"Options:\";
+  echo \"  -help\t\tthis message\";
+  echo \"  -[no]archive\tcontrol creation of exchange tar archive\";
+  echo \"  -[no]data\tcontrol transferral of exchange file list into tar archive\";
+  echo \"  -[no]emc\tcontrol creation of last trajectory structure in EMC format\";
+  echo \"  -[no]pdb\tcontrol creation of last trajectory structure in PDB format\";
+  echo \"  -[no]replace\tcontrol replacement of exiting results\";
+  echo \"  -skip\t\tset number of entries to skip [\${skip}]\";
+  echo \"  -source\tset data source directory [\${source}]\";
+  echo \"  -[no]submit\tcontrol job submission\";
+  echo \"  -window\tset averaging window [\${window}]\";
+  echo;
+  exit;
+}",
+      build => "help() {
+  echo \"EMC build script created by $identity->{script} v$identity->{version}, $identity->{date}\n\";
+  echo \"Usage:\n  \$script [-option]\n\";
+  echo \"Options:\";
+  echo \"  -help\t\tthis message\";
+  echo \"  -[no]emc\tcontrol execution of EMC\";
+  echo \"  -[no]replace\tcontrol replacement of emc and lammps scripts\";
+  echo \"  -[no]submit\tcontrol job submission\";
+  echo;
+  exit;
+}",
+      run => "help() {
+  echo \"EMC run script created by $identity->{script} v$identity->{version}, $identity->{date}\n\";
+  echo \"Usage:\n  \$script [-option]\n\";
+  echo \"Options:\";
+  echo \"  -help\t\tthis message\";
+  echo \"  -[no]build\tcontrol inclusion of building initial structures\";
+  echo \"  -[no]emc\tcontrol execution of EMC\";
+  echo \"  -[no]error\tcontrol restart mode upon error\";
+  echo \"  -[no]replace\tcontrol replacement of emc and lammps scripts\";
+  echo \"  -[no]restart\tcontrol restarting already run MD simulations\";
+  echo \"  -[no]submit\tcontrol job submission\";
+  echo;
+  exit;
+}"
+    },
 
-  if [ \"\${list[0]}\" == \"s\" -o \"\${list[0]}\" == \"seq\" ]; then
-    echo \$(seq -w \${list[1]} \${list[3]} \${list[2]});
-  else
-    echo \$(seq -w 0 \$(calc \"\$1-1\"));
-  fi;
-}
+    # join
 
-@test[0]run_sh() {
-  local output;
-  local line=(-memory \${MEMORY_PER_CORE} -ppn \${NCORES_PER_NODE});
+    join => "join() {
+  perl -e 'print(join(\",\", \@ARGV).\"\\n\");' -- \$@;
+}",
+    # last
 
-  if [ \"\${QUEUE_ACCOUNT}\" != \"\" ]; then
-    line+=(-account \${QUEUE_ACCOUNT});
-  fi;
-  if [ \"\${QUEUE_BIND}\" != \"default\" ]; then
-    line+=(-bind \${QUEUE_BIND});
-  fi;
-  if [ \"\${QUEUE_PROJECT}\" != \"\" ]; then
-    line+=(-queue_project \${QUEUE_PROJECT});
-  fi;
-  if [ \"\${QUEUE_USER}\" != \"\" ]; then
-    line+=(\${QUEUE_USER});
-  fi;
-  if [ \"\${MODULES}\" != \"\" ]; then
-    line+=(-modules \"\${MODULES}\");
-  fi;
-  line+=(\$@);
-  echo \"run.sh \${line[@]}\"; 
-  @test[1]if [ \"\${fsubmit}\" != 1 ]; then JOB_ID=-1; return; fi;
-  while IFS= read -r; do output+=(\"\$REPLY\"); done < <(run.sh \${line[@]});
-  printf \"%%s\\n\" \"\${output[@]}\";
-  JOB_ID=\$(perl -e '
-    \$a = (split(\" \", \@ARGV[0]))[-1];
-    \$a =~ s/[<|>]//g; 
-    print(\$a);\' -- \"\${output[\${#output[@]} - 3]}\");
-}
+    last => "last() { 
+  local s=\$1;
+  while [ \"\$1\" != \"\" ]; do s=\$1; shift; done;
+  echo \"\$s\";
+}",
+    # local_which
 
-run_check() {
-  local dir=\"\$1\";
-  local error=();
-  local file;
-  local stat;
+    local_which => "local_which() {
+  local output=\"\$(which \$1 2>&1)\";
 
-  for file in \"\${dir}/\"*.sh; do
-    if [ -x \"\${file}\" ]; then 
-      stat=\"\$(run_stat.sh \$(\"\${file}\" job))\";
-      case \"\${stat}\" in 
-	Q) error+=(\"queued \\\"\${file}\\\"\");;
-	R) error+=(\"running \\\"\${file}\\\"\");;
-      esac;
-    fi;
-  done;
-  if [ \${#error[@]} -gt 0 ]; then
-    for file in \"\${error[@]}\"; do
-      echo \"ERROR: cannot overwrite \${file}\";
-    done;
-    printf \"\\nERROR: $type script not executed\\n\\n\";
-    exit;
-  fi;
-  run rm -rf \"\${dir}\";
-  run mkdir \"\${dir}\";
-}
-
-wait_id() {
-  local id;
-
-  JOB_ID=0;
-  if [ \${#LAST_JOB_IDS[@]} -gt 0 ]; then
-    JOB_ID=\"\${LAST_JOB_IDS[0]}\";			# determine dependence
-    LAST_JOB_IDS=(\${LAST_JOB_IDS[@]:1});
-    if [ \${#WAIT_IDS[@]} -gt 0 ]; then
-      for id in \${WAIT_IDS[@]}; do
-	if [ \"\${JOB_ID}\" == \"\${id}\" ]; then return; fi;
-      done;
-    fi;
-    if [ \"\${JOB_ID}\" != \"-1\" -a \"\${JOB_ID}\" != \"0\" ]; then
-      if [ \"\${WAIT_IDS}\" == \"\" ]; then WAIT_IDS=\"\${JOB_ID}\";
-      else WAIT_IDS=\"\${WAIT_IDS}:\${JOB_ID}\"; fi;
+  if [ \"\${output}\" != \"\" ]; then
+    if [ \"\$(echo \"\${output}\" | grep \"no \$1\")\" == \"\" ]; then
+      echo \${output};
     fi;
   fi;
-}
+}",
+    # location
 
-pack_file() {
-  local dir=\"\${WORKDIR}/\${PACK_DIR}\";
-  echo \$(perl -e \'printf(\"%%s/%%04d%%s\", \@ARGV);\' -- \"\${dir}\" \${NPACK[0]} \$1);
-}
+    location => "location() {
+  local home=\"\$(pwd -P)\";
+  cd \"\$1\";
+  pwd -P;
+  cd \"\${home}\";
+}",
+    # pack_exec
 
-pack_exec() {
+    pack_exec => "pack_exec() {
   local i wait;
   local work=\"\$1\"; shift;
   local file=\"\$(pack_file)\";
@@ -1231,15 +1158,307 @@ pack_exec() {
   NPACK[0]=\$(calc \"\${NPACK[0]}+1\");
   NPACK[1]=0;
   WAIT_IDS=();
-}
+}",
+    # pack_file
 
-pack_header() {
+    pack_file => "pack_file() {
+  local dir=\"\${WORKDIR}/\${PACK_DIR}\";
+  echo \$(perl -e \'printf(\"%s/%04d%s\", \@ARGV);\' -- \"\${dir}\" \${NPACK[0]} \$1);
+}",
+    # pack_header
+
+    pack_header => "pack_header() {
   printf '#!/bin/bash\\n\\n';
   printf 'run() { echo \"\$@\"; \"\$@\"; }\\n\\n';
   printf 'if [ \"\$1\" == \"run\" ]; then\\n';
-}
+}",
+    # path
 
-run_pack() {
+    path => "path() {
+  local file;
+
+  for file in \$@; do 
+    cd \"\$(dirname \"\${file}\")\";
+    case \"\$(basename \"\${file}\")\" in
+      ..) echo \"\$(dirname \"\$(pwd)\")\";;
+      .)  echo \"\$(pwd)\";;
+      *)  echo \"\$(pwd)/\$(basename \"\${file}\")\";;
+    esac;
+  done;
+}",
+    # permutations
+
+    permutations => "permutations() {
+  perl -e '
+    \@a = split(\":\", \@ARGV[0]);
+    \$dim = shift(\@a);
+    \$s = shift(\@a);
+    \$n = \@ARGV[1];
+    \$f = \"\%0\".length(\$n).\"d\";
+    \$hash = {};
+    \$i = [];
+    
+    \$s %= \$n if (defined(\$s));
+    for (\$k=0; \$k<\$dim; ++\$k) { push(\@{\$i}, 0); }
+    for (\$k=0; \$k<\$dim; ) {
+      my \@f;
+      foreach (\@{\$i}) { \@f[\$_] = 1; }
+      if (defined(\$s) ? defined(\@f[\$s]) : 1) {
+	my \@r = reverse(\@{\$i});
+        my \@index = map({join(\":\", map({sprintf(\$f, \$_)} \@{\$_}))} (\$i, \\\@r));
+	++\$hash->{\@index[defined(\$hash->{\@index[0]}) ? 0 : 1]};
+      }
+      \$k = 0; foreach (\@{\$i}) {
+	last if (++\$_<\$n);
+	\$_ = 0;
+	++\$k;
+      }
+    }
+    print(
+      join(\" \", 
+	map({join(\":\", map({sprintf(\"\%\".\"d\", \$_)} split(\":\", \$_)))} 
+	  sort(keys(\%{\$hash})))), \"\\n\");
+  ' -- \$1 \$2;
+}",
+
+    # pop
+
+    pop => "pop() {
+  local a=(\$\@); echo \"\${a[\@]:0:\${#a[\@]}-1}\";
+}",
+    # replace
+
+    replace => "replace() {
+  perl -e \'
+    for (\$i=1; \$i<scalar(\@ARGV); \$i+=2) {
+      my \$a; foreach(split(\"\", \$ARGV[\$i])) {
+       	\$a .= \$l eq \"@\" && \$_ ne \"{\" ? \"{\$_\" : \$_; \$l = \$_; }
+      \$a .= \"}\" if (\$l ne \"}\");
+      \$h{\$a} = \$ARGV[\$i+1]; \$h{\$a} =~ s/^0+//;
+    }
+    foreach(split(\"\", \$ARGV[0])) {
+      if (\$_ eq \"[\") {
+	++\$brackets;
+      } elsif (\$_ eq \"]\") {
+	--\$brackets;
+      }
+      if (\$_ eq \"@\" && !\$brackets) {
+	if (\$v ne \"\") { 
+	  \$v .= \"}\"; \$r .= (defined(\$h{\$v}) ? \$h{\$v} : \$v);
+	}
+	\$v = \$_.\"{\"; \$f = 1; \$b = 0;
+      } elsif (\$f) {
+	if ((\$_ =~ /[a-zA-Z]/)||(\$_ =~ /[0-9]/)||(\$b && \$_ ne \"}\")) {
+	  \$v .= \$_;
+	} elsif (\$_ eq \"{\" && \$l eq \"@\") {
+	  \$b = 1;
+	} else {
+	  \$v .= \"}\";
+	  \$r .= (defined(\$h{\$v}) ? \$h{\$v} : \$v).(\$b && \$_ eq \"}\" ? \"\" : \$_);
+	  \$v = \"\"; \$f = \$b = 0;
+	}
+      } else {
+	\$r .= \$_;
+      }
+      \$l = \$_;
+    }
+    \$v .= \"}\" if (\$v ne \"\");
+    \$r .= (defined(\$h{\$v}) ? \$h{\$v} : \$v);
+    print(\$r);
+  \' -- \"\$@\";
+}",
+    # run
+
+    run => "run() {
+  echo \"\$@\"; \"\$@\";
+}",
+    # run_analyze
+
+    run_analyze => "run_analyze() {
+  local script=\"\$1\"; shift;
+
+  if [ \"\$(basename \${script})\" == \"\${script}\" -a ! -e \"\${script}\" ]; then
+    if [ -e \"\${ROOT}/scripts/analyze/\${script}\" ]; then
+      script=\"\${ROOT}/scripts/analyze/\${script}\";
+    elif [ -e \"\${ROOT}/scripts/analyze/\${script}.sh\" ]; then
+      script=\"\${ROOT}/scripts/analyze/\${script}.sh\";
+    elif [ -e \"\${WORKDIR}/chemistry/analyze/\${script}\" ]; then
+      script=\"\${WORKDIR}/chemistry/analyze/\${script}\";
+    elif [ -e \"\${WORKDIR}/chemistry/analyze/\${script}.sh\" ]; then
+      script=\"\${WORKDIR}/chemistry/analyze/\${script}.sh\";".
+($analyze->{context}->{user} ne "" ? "
+    if [ -e \"$analyze->{context}->{user}/\${script}\" ]; then
+      script=\"$analyze->{context}->{user}/\${script}\";
+    elif [ -e \"$analyze->{context}->{user}/\${script}.sh\" ]; then
+      script=\"$analyze->{context}->{user}/\${script}.sh\";" : "")."
+    fi;
+  fi;
+  run \"\$script\" \"\$@\";
+}",
+
+    # run_check
+
+    run_check => "run_check() {
+  local dir=\"\$1\";
+  local error=();
+  local file;
+  local stat;
+
+  for file in \"\${dir}/\"*.sh; do
+    if [ -x \"\${file}\" ]; then 
+      stat=\"\$(run_stat.sh \$(\"\${file}\" job))\";
+      case \"\${stat}\" in 
+	Q) error+=(\"queued \\\"\${file}\\\"\");;
+	R) error+=(\"running \\\"\${file}\\\"\");;
+      esac;
+    fi;
+  done;
+  if [ \${#error[@]} -gt 0 ]; then
+    for file in \"\${error[@]}\"; do
+      echo \"ERROR: cannot overwrite \${file}\";
+    done;
+    printf \"\\nERROR: $type script not executed\\n\\n\";
+    exit;
+  fi;
+  run rm -rf \"\${dir}\";
+  run mkdir \"\${dir}\";
+}",
+    # run_emc
+
+    run_emc => "run_emc() {
+  local dir=\"\$1\"; shift;
+
+  printf \"### \${dir}\\n\\n\";
+  if [ ! -e \${dir} ]; then
+    run mkdir -p \${dir};
+  fi;
+
+  local source=\"\$(path \"\${WORKDIR}/\${dir}\")\";
+
+  if [ -e \${dir}/$project->{name}.emc.gz -a \${freplace} = 0 ]; then
+    printf \"# $project->{name}.emc.gz already exists -> skipped\\n\\n\";
+    run_null;
+    return;
+  fi;
+
+  run cd \${dir};
+  run \\
+    \"\${CHEMISTRY}/scripts/$project->{script}.sh\"$options->[0] \\
+      $project->{name};
+  run \\
+    emc.pl$options->[1] \\
+      -preprocess=$preprocess \\
+      -project=$project->{name} \\
+      -md_engine=$md_engine \\
+      -workdir=\"\${WORKDIR}\" \\
+      -emc_execute=false \\
+      $project->{name}$global->{script}->{extension};
+  
+  if [ \${femc} = 1 ]; then
+    WALLTIME=\${BUILD_WALLTIME};
+    run_pack -n 1 -dir \"\${dir}\" \\
+      -walltime \${BUILD_WALLTIME} -starttime \${START_TIME} -queue \${QUEUE} \\
+      -project $project->{name} -output build.out \\
+      $emc -seed=\${SEED} \"\\\"\${source}/build.emc\\\"\"
+    SEED=\$(calc \${SEED}+1);
+  else
+    run_null;
+  fi;
+
+  run cd \"\${WORKDIR}\";
+  echo;
+}",
+
+    # run_init
+
+    run_init => {
+      analyze => "run_init() {
+  femc=0;
+  fpdb=1;
+  fsubmit=1;
+  farchive=$analyze->{flag}->{archive};
+  fdata=$analyze->{flag}->{data};
+  freplace=$analyze->{flag}->{replace};
+  skip=$analyze->{context}->{skip};
+  window=$analyze->{context}->{window};
+  source=\"$analyze->{context}->{source}\";
+
+  while [ \"\$1\" != \"\" ]; do
+    case \"\$1\" in
+      -archive) farchive=1;;
+      -noarchive) farchive=0;;
+      -data) fdata=1;;
+      -nodata) fdata=0;;
+      -submit) fsubmit=1;;
+      -nsubmit) fsubmit=0;;
+      -emc) femc=1;;
+      -noemc) femc=0;;
+      -pdb) fpdb=1;;
+      -nopdb) fpdb=0;;
+      -replace) freplace=1;;
+      -noreplace) freplace=0;;
+      -skip) shift; skip=\$(calc \"\$1\");;
+      -window) shift; window=\$(calc \"\$1\");;
+      -source) shift; source=\"\$1\";;
+      *) help;;
+    esac
+    shift;
+  done;
+}",
+      build => "run_init() {
+  femc=1;
+  fbuild=1;
+  fsubmit=1;
+  freplace=$build->{replace};
+  while [ \"\$1\" != \"\" ]; do
+    case \"\$1\" in
+      -submit) fsubmit=1;;
+      -nosubmit) fsubmit=0;;
+      -emc) femc=1;;
+      -noemc) femc=0;;
+      -replace) freplace=1;;
+      -noreplace) freplace=0;;
+      *) help;;
+    esac
+    shift;
+  done;
+}",
+      run => "run_init() {
+  fbuild=0;
+  femc=1;
+  fsubmit=1;
+  ferror=$lammps->{context}->{error};
+  fnorestart=$flag->{norestart};
+  freplace=$build->{replace};
+  while [ \"\$1\" != \"\" ]; do
+    case \"\$1\" in
+      -build) fbuild=1;;
+      -nobuild) fbuild=0;;
+      -submit) fsubmit=1;;
+      -nosubmit) fsubmit=0;;
+      -emc) femc=1;;
+      -noemc) femc=0;;
+      -error) ferror=1;;
+      -noerror) ferror=0;;
+      -replace) freplace=1; fnorestart=1;;
+      -noreplace) freplace=0; fnorestart=0;;
+      -restart) fnorestart=0;;
+      -norestart) if [ \${freplace} != 1 ]; then fnorestart=1; fi;;
+      *) help;;
+    esac
+    shift;
+  done;
+}"
+    },
+
+    # run_null
+
+    run_null => "run_null() {
+  JOB_IDS+=(0);						# no dependence
+}",
+    # run_pack
+
+    run_pack => "run_pack() {
   local command=\"\$1\"; shift;				# should be -n
   local n=\"\$1\"; shift; 		\t		# ncores to run with
 
@@ -1285,6 +1504,11 @@ run_pack() {
   fi;
   
   if [ \${FLAG_PACK} == 1 ]; then			# execute packing
+    if [ \"\$(calc \"\${NPACK[1]}+\${n}\")\" -gt \"\${NCORES_PER_NODE}\" ]; then
+      echo;
+      pack_exec \"\${WORKDIR}\";
+      echo;
+    fi;
     file=\"\$(pack_file)\";
     echo \"run_pack \${first[@]} \$@\"; 
     if [ ! -e \"\${file}.sh\" ]; then pack_header >\"\${file}.sh\"; fi;
@@ -1298,39 +1522,45 @@ run_pack() {
     echo \"  run run.sh \${first[@]} \${line[@]} \$@ &\" >>\"\${file}.sh\";
     echo \"\${target}\" >>\"\${file}.dirs\";
     NPACK[1]=\$(calc \"\${NPACK[1]}+\${n}\");
-    if [ \"\$(calc \"\${NPACK[1]}+\${n}\")\" -gt \"\${NCORES_PER_NODE}\" ]; then
-      pack_exec \"\${WORKDIR}\";
-    fi;
   else
-    NPACK[1]=1;						# direct execution
+    NPACK[1]=\${n};					# direct execution
     pack_exec \"\$(pwd)\" \${first[@]} \"\$@\";
   fi;
-}
+}",
+    # run_sh
 
-run_null() {
-  JOB_IDS+=(0);						# no dependence
-}
-");
-  }
-  print($stream "
-location() {
-  local home=\"\$(pwd -P)\";
-  cd \"\$1\";
-  pwd -P;
-  cd \"\${home}\";
-}
+    run_sh => "@test[0]run_sh() {
+  local output;
+  local line=(-memory \${MEMORY_PER_CORE} -ppn \${NCORES_PER_NODE});
 
-local_which() {
-  local output=\"\$(which \$1 2>&1)\";
-
-  if [ \"\${output}\" != \"\" ]; then
-    if [ \"\$(echo \"\${output}\" | grep \"no \$1\")\" == \"\" ]; then
-      echo \${output};
-    fi;
+  if [ \"\${QUEUE_ACCOUNT}\" != \"\" ]; then
+    line+=(-account \${QUEUE_ACCOUNT});
   fi;
-}
+  if [ \"\${QUEUE_BIND}\" != \"default\" ]; then
+    line+=(-bind \${QUEUE_BIND});
+  fi;
+  if [ \"\${QUEUE_PROJECT}\" != \"\" ]; then
+    line+=(-queue_project \${QUEUE_PROJECT});
+  fi;
+  if [ \"\${QUEUE_USER}\" != \"\" ]; then
+    line+=(\${QUEUE_USER});
+  fi;
+  if [ \"\${MODULES}\" != \"\" ]; then
+    line+=(-modules \"\${MODULES}\");
+  fi;
+  line+=(\$@);
+  echo \"run.sh \${line[@]}\"; 
+  @test[1]if [ \"\${fsubmit}\" != 1 ]; then JOB_ID=-1; return; fi;
+  while IFS= read -r; do output+=(\"\$REPLY\"); done < <(run.sh \${line[@]});
+  printf \"%s\\n\" \"\${output[@]}\";
+  JOB_ID=\$(perl -e '
+    \$a = (split(\" \", \@ARGV[0]))[-1];
+    \$a =~ s/[<|>]//g; 
+    print(\$a);\' -- \"\${output[\${#output[@]} - 3]}\");
+}",
+    # set_root
 
-set_root() {
+    set_root => "set_root() {
   local emc=\"\$(local_which $emc)\";
   local root=\"\${EMC_ROOT}\";
 
@@ -1343,411 +1573,268 @@ set_root() {
     exit;
   fi;
   ROOT=\"\${root}\";
-}
+}",
+    # shft    
 
-replace() {
-  perl -e \'
-    for (\$i=1; \$i<scalar(\@ARGV); \$i+=2) {
-      my \$a; foreach(split(\"\", \$ARGV[\$i])) {
-       	\$a .= \$l eq \"@\" && \$_ ne \"{\" ? \"{\$_\" : \$_; \$l = \$_; }
-      \$a .= \"}\" if (\$l ne \"}\");
-      \$h{\$a} = \$ARGV[\$i+1]; \$h{\$a} =~ s/^0+//;
-    }
-    foreach(split(\"\", \$ARGV[0])) {
-      if (\$_ eq \"[\") {
-	++\$brackets;
-      } elsif (\$_ eq \"]\") {
-	--\$brackets;
-      }
-      if (\$_ eq \"@\" && !\$brackets) {
-	if (\$v ne \"\") { 
-	  \$v .= \"}\"; \$r .= (defined(\$h{\$v}) ? \$h{\$v} : \$v);
-	}
-	\$v = \$_.\"{\"; \$f = 1; \$b = 0;
-      } elsif (\$f) {
-	if ((\$_ =~ /[a-zA-Z]/)||(\$_ =~ /[0-9]/)||(\$b && \$_ ne \"}\")) {
-	  \$v .= \$_;
-	} elsif (\$_ eq \"{\" && \$l eq \"@\") {
-	  \$b = 1;
-	} else {
-	  \$v .= \"}\";
-	  \$r .= (defined(\$h{\$v}) ? \$h{\$v} : \$v).(\$b && \$_ eq \"}\" ? \"\" : \$_);
-	  \$v = \"\"; \$f = \$b = 0;
-	}
-      } else {
-	\$r .= \$_;
-      }
-      \$l = \$_;
-    }
-    \$v .= \"}\" if (\$v ne \"\");
-    \$r .= (defined(\$h{\$v}) ? \$h{\$v} : \$v);
-    print(\$r);
-  \' -- \"\$@\";
-}
-");
+    shft => "shft() {
+  shift; echo \"\$@\";
+}",
+    # split
 
-  # ANALYZE
+    split => "split() {
+  perl -e '
+    \@a = split(\@ARGV[1], \@ARGV[0]);
+    print(defined(\@ARGV[2]) ? \@a[\@ARGV[2]] : join(\" \", \@a));
+  ' -- \$@;
+}",
+    # start
 
-  if ($type eq "analyze" && defined($analyze->{scripts})) {
-    if ($analyze->{scripts}->{cavity}->{active}) {
-      $analyze->{data} = 0;
-    }
-    printf($stream
-"
-help() {
-  echo \"EMC analyze script created by $identity->{script} v$identity->{version}, $identity->{date}\n\";
-  echo \"Usage:\n  \$script [-option [#]]\n\";
-  echo \"Options:\";
-  echo \"  -help\t\tthis message\";
-  echo \"  -[no]archive\tcontrol creation of exchange tar archive\";
-  echo \"  -[no]data\tcontrol transferral of exchange file list into tar archive\";
-  echo \"  -[no]emc\tcontrol creation of last trajectory structure in EMC format\";
-  echo \"  -[no]pdb\tcontrol creation of last trajectory structure in PDB format\";
-  echo \"  -[no]replace\tcontrol replacement of exiting results\";
-  echo \"  -skip\t\tset number of entries to skip [\${skip}]\";
-  echo \"  -source\tset data source directory [\${source}]\";
-  echo \"  -[no]submit\tcontrol job submission\";
-  echo \"  -window\tset averaging window [\${window}]\";
-  echo;
-  exit;
-}
+    start => "start() {
+  perl -e '
+    \$h = \$ARGV[0]+0; \$m = \$ARGV[1]+\$ARGV[2];
+    if ((\$d = int(\$m/60))) { \$h += \$d; \$m -= 60*\$d; }
+    \$h = \"0\".\$h if (\$h<10); \$m = \"0\".\$m if (\$m<10);
+    print(\"\$h\$m\\n\");
+    ' -- \$(date +\%H) \$(date +\%M) \$1;
+}",
+    # strip
 
-run_init() {
-  femc=0;
-  fpdb=1;
-  fsubmit=1;
-  farchive=$analyze->{flag}->{archive};
-  fdata=$analyze->{flag}->{data};
-  freplace=$analyze->{flag}->{replace};
-  skip=$analyze->{context}->{skip};
-  window=$analyze->{context}->{window};
-  source=\"$analyze->{context}->{source}\";
+    strip => "strip() {
+  local dir=\$(echo \$1 | awk '{split(\$0,a,\"'\$HOME/'\"); print a[2]}');
 
-  while [ \"\$1\" != \"\" ]; do
-    case \"\$1\" in
-      -archive) farchive=1;;
-      -noarchive) farchive=0;;
-      -data) fdata=1;;
-      -nodata) fdata=0;;
-      -submit) fsubmit=1;;
-      -nsubmit) fsubmit=0;;
-      -emc) femc=1;;
-      -noemc) femc=0;;
-      -pdb) fpdb=1;;
-      -nopdb) fpdb=0;;
-      -replace) freplace=1;;
-      -noreplace) freplace=0;;
-      -skip) shift; skip=\$(calc \"\$1\");;
-      -window) shift; window=\$(calc \"\$1\");;
-      -source) shift; source=\"\$1\";;
-      *) help;;
-    esac
-    shift;
-  done;
-}
+  if [ \"\$dir\" = \"\" ]; then dir=\$1; fi;
+  if [ \"\$dir\" = \"\$HOME\" ]; then dir=\"\"; fi;
+  echo \"\$dir\";
+}",
+    # subtr
 
-run_analyze() {
-  local script=\"\$1\"; shift;
+    substr => "substr() {
+  perl -e 'print(substr(\$ARGV[0],eval(\$ARGV[1])));' -- \$@;
+}",
+    # wait_id
 
-  if [ \"\$(basename \${script})\" == \"\${script}\" -a ! -e \"\${script}\" ]; then
-    if [ -e \"\${ROOT}/scripts/analyze/\${script}\" ]; then
-      script=\"\${ROOT}/scripts/analyze/\${script}\";
-    elif [ -e \"\${ROOT}/scripts/analyze/\${script}.sh\" ]; then
-      script=\"\${ROOT}/scripts/analyze/\${script}.sh\";
-    elif [ -e \"\${WORKDIR}/chemistry/analyze/\${script}\" ]; then
-      script=\"\${WORKDIR}/chemistry/analyze/\${script}\";
-    elif [ -e \"\${WORKDIR}/chemistry/analyze/\${script}.sh\" ]; then
-      script=\"\${WORKDIR}/chemistry/analyze/\${script}.sh\";".
-($analyze->{context}->{user} ne "" ? "
-    if [ -e \"$analyze->{context}->{user}/\${script}\" ]; then
-      script=\"$analyze->{context}->{user}/\${script}\";
-    elif [ -e \"$analyze->{context}->{user}/\${script}.sh\" ]; then
-      script=\"$analyze->{context}->{user}/\${script}.sh\";" : "")."
+    wait_id => "wait_id() {
+  local id;
+
+  JOB_ID=0;
+  if [ \${#LAST_JOB_IDS[@]} -gt 0 ]; then
+    JOB_ID=\"\${LAST_JOB_IDS[0]}\";			# determine dependence
+    LAST_JOB_IDS=(\${LAST_JOB_IDS[@]:1});
+    if [ \${#WAIT_IDS[@]} -gt 0 ]; then
+      for id in \${WAIT_IDS[@]}; do
+	if [ \"\${JOB_ID}\" == \"\${id}\" ]; then return; fi;
+      done;
+    fi;
+    if [ \"\${JOB_ID}\" != \"-1\" -a \"\${JOB_ID}\" != \"0\" ]; then
+      if [ \"\${WAIT_IDS}\" == \"\" ]; then WAIT_IDS=\"\${JOB_ID}\";
+      else WAIT_IDS=\"\${WAIT_IDS}:\${JOB_ID}\"; fi;
     fi;
   fi;
-  run \"\$script\" \"\$@\";
+}",
+    # zero
+
+    zero => "zero() {
+  perl -e '
+    \@a = \@ARGV;
+    \$n = eval(shift(\@a));
+    foreach (\@a) { \$n = length(\$_) if (\$n<length(\$_)); }
+    foreach (\@a) { \$_ =~ s/^0+//; \$_ = sprintf(\"\%0\".\$n.\"d\", int(eval(\$_))); }
+    print(join(\" \", \@a));
+    ' -- \$@;
+}",
+  };
+  return $functions;
 }
 
-analyze() {
+
+sub write_functions {
+  my $stream = shift(@_);
+  my $job = shift(@_);
+  my $type = shift(@_);
+
+  my $root = EMC::Common::element($job, "root");
+
+  my $environment = EMC::Common::element($root, "environment");
+  my $loop_variables = EMC::Common::element($environment, "loop_variables");
+  
+  my $global = EMC::Common::element($root, "global");
+  my $flag = EMC::Common::element($global, "flag");
+  my $project = EMC::Common::element($global, "project");
+  my $preprocess = $flag->{environment} ? 0 : $flag->{preprocess};
+
+  my $md = EMC::Common::element($root, "md");
+  my $md_engine = EMC::MD::get_engine($md);
+  my $preprocess = $flag->{environment} ? 0 : $flag->{preprocess};
+
+  my $functions = define_functions($job, $type); 
+  my $general = [
+    "run", "first", "shft", "pop", "join", "last", "start", "substr", "strip",
+    "path", "run_sh", "run_check", "wait_id", "pack_file", "pack_exec",
+    "pack_header", "run_pack", "run_null"
+  ];
+  my $all = [
+    "location", "local_which", "set_root", "calc", "zero", "split", "replace",
+    "create_copies", "create_list"
+  ];
+  my $specific = {
+    analyze => ["help", "run_init", "run_analyze"],
+    build => ["run_emc", "help", "run_init"],
+    run => ["run_emc", "help", "run_init"]
+  };
+
+  if ($type eq "test") {
+    printf($stream 
+"
+# functions
+
+");
+  } else {
+    printf($stream 
+"
+# variables
+
+script=\$(basename \"\$0\");
+
+# functions
+
+");
+    write_sub_functions($stream, $functions, $general, $type);
+  }
+  write_sub_functions($stream, $functions, $all, $type);
+  if (defined($specific->{$type})) {
+    write_sub_functions($stream, $functions, $specific->{$type}, $type);
+  }
+  if ($type eq "analyze") {
+    write_analyze($stream, $job, $type);
+  } elsif ($type eq "run") {
+    EMC::Options::write($stream, $root, "job");
+  }
+  write_sub_functions($stream, $functions, ["permutations"], $type);
+  write_replace_vars($stream, $job);
+  if ($type eq "test") {
+    my $options = write_func_options($job);
+    
+    printf($stream "run() {\n  echo \"\$@\";\n  \"\$@\";\n}\n\n");
+    
+    set_loop_variable_options($options, $loop_variables);
+    
+    write_func($job, $stream, $type, "
+if [ \"\${counter}\" == \"\${TARGET}\" ]; then
+  run \\
+    \"\${CHEMISTRY}/scripts/$project->{script}.sh\"$options->[0] \\
+      $project->{name};
+  run \\
+    emc.pl$options->[1] \\
+      -preprocess=$preprocess \\
+      -project=$project->{name} \\
+      -md_engine=$md_engine \\
+      -workdir=\"\${WORKDIR}\" \\
+      $project->{name}$global->{script}->{extension};
+  printf \"### finished submit at \$(date)\\n\\n\";
+  return;
+fi;"
+    );
+  }
+}
+
+
+sub write_analyze {
+  my $stream = shift(@_);
+  my $job = shift(@_);
+  my $type = shift(@_);
+
+  my $root = EMC::Common::element($job, "root");
+  my $analyze = EMC::Common::element($root, "analyze");
+  my $global = EMC::Common::element($root, "global");
+  my $project = EMC::Common::element($global, "project");
+  
+  printf($stream "analyze() {
   local dir=\"\$1\"; shift;
   local target=\"\$1\"; shift;
   local archive=\"\$1\"; shift;
   local main=\$(dirname \"\${dir}\");
   local project=\"$project->{name}\";
-  local home=\$(pwd);
-
+  local home=\$(pwd);\n
 ");
-    foreach (sort(keys(%{$analyze->{scripts}}))) {
-      my $key = $_;
-      my $hash = $analyze->{scripts}->{$key};
+  foreach (sort(keys(%{$analyze->{scripts}}))) {
+    my $key = $_;
+    my $hash = $analyze->{scripts}->{$key};
 
-      next if (!$hash->{active});
-      
-      my $copy = defined($hash->{options}->{copy}) ? $hash->{options}->{copy}:0;
-      my $script = $hash->{script};
-      my $check = $hash->{check};
-      my %options = (
-	archive => "\${archive}",
-	dir	=> $copy ? "\${main}" : "\${dir}",
-	replace => "\${freplace}",
-	skip	=> "\${skip}".($key eq "green-kubo" ? "+1" : ""),
-	target	=> "\${target}",
-	window	=> "\${window}"
-      );
-      my $lines = "run_analyze $script \\\n";
-      my $line = " ";
-      my $option;
+    next if (!$hash->{active});
+    
+    my $copy = defined($hash->{options}->{copy}) ? $hash->{options}->{copy}:0;
+    my $script = $hash->{script};
+    my $check = $hash->{check};
+    my %options = (
+      archive => "\${archive}",
+      dir	=> $copy ? "\${main}" : "\${dir}",
+      replace => "\${freplace}",
+      skip	=> "\${skip}".($key eq "green-kubo" ? "+1" : ""),
+      target	=> "\${target}",
+      window	=> "\${window}"
+    );
+    my $lines = "run_analyze $script \\\n";
+    my $line = " ";
+    my $option;
 
-      foreach (keys(%{$hash->{options}})) {
-	$options{$_} = $hash->{options}->{$_} if ($_ ne "copy");
-      }
-      foreach (sort(keys(%options))) {
-	$line .= " -$_ \"$options{$_}\"";
-      }
-      $option = " \\\n  $project->{name}";
-      if ($copy) {
-	write_indent($stream, 1, "if \[ \"\${COPY}\" != \"\" -a \$(calc \${COPY}) == 0 \]; then");
-	write_indent($stream, 2, "cd ..;");
-	write_indent($stream, 2, "if [ -e \"\$(first $check)\" ]; then");
-	write_indent($stream, 3, $lines.$line.$option);
-	write_indent($stream, 2, "else");
-	write_indent($stream, 3, "echo \"# $check does not exist -> skipping\";");
-	write_indent($stream, 3, "echo;");
-	write_indent($stream, 2, "fi;");
-	write_indent($stream, 2, "cd \${home};");
-	write_indent($stream, 1, "fi;");
-      } else {
-	write_indent($stream, 1, "if [ -e \"\$(first $check)\" ]; then");
-	write_indent($stream, 2, $lines.$line.$option);
-	write_indent($stream, 1, "else");
-	write_indent($stream, 2, "echo \"# $check does not exist -> skipping\";");
-	write_indent($stream, 2, "echo;");
-	write_indent($stream, 1, "fi");
-      }
+    foreach (keys(%{$hash->{options}})) {
+      $options{$_} = $hash->{options}->{$_} if ($_ ne "copy");
     }
-    printf($stream "}\n");
-  }
-
-  # BUILD
-
-  if ($type eq "build" || ($type eq "run" && !$md->{flag}->{restart})) {
-
-    my $options = write_func_options($job);
-    my $values = "";
-   
-    foreach(@{$loop_variables->{vars}}) {
-      my $var = (split(":"))[0];
-      $options->[0] .= " \\\n      -$var \"\${".uc($var)."}\"";
+    foreach (sort(keys(%options))) {
+      $line .= " -$_ \"$options{$_}\"";
     }
-
-    printf($stream
-"
-run_emc() {
-  local dir=\"\$1\"; shift;$values
-
-  printf \"### \${dir}\\n\\n\";
-  if [ ! -e \${dir} ]; then
-    run mkdir -p \${dir};
-  fi;
-
-  local source=\"\$(path \"\${WORKDIR}/\${dir}\")\";
-
-  if [ -e \${dir}/$project->{name}.emc.gz -a \${freplace} = 0 ]; then
-    printf \"# $project->{name}.emc.gz already exists -> skipped\\n\\n\";
-    run_null;
-    return;
-  fi;
-
-  run cd \${dir};
-  run \\
-    \"\${CHEMISTRY}/scripts/$project->{script}.sh\"$options->[0] \\
-      $project->{name};
-  run \\
-    emc.pl$options->[1] \\
-      -preprocess=$preprocess \\
-      -project=$project->{name} \\
-      -md_engine=$md_engine \\
-      -workdir=\"\${WORKDIR}\" \\
-      -emc_execute=false \\
-      $project->{name}$global->{script}->{extension};
-  
-  if [ \${femc} = 1 ]; then
-    WALLTIME=\${BUILD_WALLTIME};
-    run_pack -n 1 -dir \"\${dir}\" \\
-      -walltime \${BUILD_WALLTIME} -starttime \${START_TIME} -queue \${QUEUE} \\
-      -project $project->{name} -output build.out \\
-      $emc -seed=\${SEED} \"\\\"\${source}/build.emc\\\"\"
-    SEED=\$(calc \${SEED}+1);
-  else
-    run_null;
-  fi;
-
-  run cd \"\${WORKDIR}\";
-  echo;
-}
-");
-  }
-  if ($type eq "build") {
-    printf($stream
-"
-help() {
-  echo \"EMC build script created by $identity->{script} v$identity->{version}, $identity->{date}\n\";
-  echo \"Usage:\n  \$script [-option]\n\";
-  echo \"Options:\";
-  echo \"  -help\t\tthis message\";
-  echo \"  -[no]emc\tcontrol execution of EMC\";
-  echo \"  -[no]replace\tcontrol replacement of emc and lammps scripts\";
-  echo \"  -[no]submit\tcontrol job submission\";
-  echo;
-  exit;
-}
-
-
-run_init() {
-  femc=1;
-  fbuild=1;
-  fsubmit=1;
-  freplace=$build->{replace};
-  while [ \"\$1\" != \"\" ]; do
-    case \"\$1\" in
-      -submit) fsubmit=1;;
-      -nosubmit) fsubmit=0;;
-      -emc) femc=1;;
-      -noemc) femc=0;;
-      -replace) freplace=1;;
-      -noreplace) freplace=0;;
-      *) help;;
-    esac
-    shift;
-  done;
-}
-");
-  }
-
-  # RUN
-
-  if ($type eq "run") {
-    my $restart_name = "$md->{context}->{restart_dir}/*/*.restart?";
-    my $restart_file = $md->{flag}->{restart} ? "\n".
-      "  else\n".
-      "    frestart=1;\n".
-      "    restart=\$(first \$(ls -1t $restart_name));\n".
-      "    if [ ! -e \"\${restart}\" ]; then\n".
-      "      printf \"# $restart_name does not exist -> skipped\\n\\n\";\n".
-      "      run cd \${WORKDIR};\n".
-      "      return;\n".
-      "    fi;\n".
-      "    restart=\"-file \\\"'ls -1td $restart_name'\\\"\";" : "";
-    my $shear_line = $shear->{rate} ? "\n      -var framp ".(
-	$shear->{ramp} eq "" ? 0 : $shear->{ramp} eq "false" ? 0 : 1)." \\" : "";
-    my $run_line = $lammps->{context}->{trun_flag} ?
-	($lammps->{context}->{trun} ne "" ? "\n\t-var trun ".eval($lammps->{context}->{trun})." \\" : "") : "";
-
-    if (!$md->{flag}->{restart}) {
-      printf($stream
-"
-help() {
-  echo \"EMC run script created by $identity->{script} v$identity->{version}, $identity->{date}\n\";
-  echo \"Usage:\n  \$script [-option]\n\";
-  echo \"Options:\";
-  echo \"  -help\t\tthis message\";
-  echo \"  -[no]build\tcontrol inclusion of building initial structures\";
-  echo \"  -[no]emc\tcontrol execution of EMC\";
-  echo \"  -[no]error\tcontrol restart mode upon error\";
-  echo \"  -[no]replace\tcontrol replacement of emc and lammps scripts\";
-  echo \"  -[no]restart\tcontrol restarting already run MD simulations\";
-  echo \"  -[no]submit\tcontrol job submission\";
-  echo;
-  exit;
-}
-
-run_init() {
-  fbuild=0;
-  femc=1;
-  fsubmit=1;
-  ferror=$lammps->{context}->{error};
-  fnorestart=$flag->{norestart};
-  freplace=$build->{replace};
-  while [ \"\$1\" != \"\" ]; do
-    case \"\$1\" in
-      -build) fbuild=1;;
-      -nobuild) fbuild=0;;
-      -submit) fsubmit=1;;
-      -nosubmit) fsubmit=0;;
-      -emc) femc=1;;
-      -noemc) femc=0;;
-      -error) ferror=1;;
-      -noerror) ferror=0;;
-      -replace) freplace=1; fnorestart=1;;
-      -noreplace) freplace=0; fnorestart=0;;
-      -restart) fnorestart=0;;
-      -norestart) if [ \${freplace} != 1 ]; then fnorestart=1; fi;;
-      *) help;;
-    esac
-    shift;
-  done;
-}
-");
+    $option = " \\\n  $project->{name}";
+    if ($copy) {
+      write_indent($stream, 1, "if \[ \"\${COPY}\" != \"\" -a \$(calc \${COPY}) == 0 \]; then");
+      write_indent($stream, 2, "cd ..;");
+      write_indent($stream, 2, "if [ -e \"\$(first $check)\" ]; then");
+      write_indent($stream, 3, $lines.$line.$option);
+      write_indent($stream, 2, "else");
+      write_indent($stream, 3, "echo \"# $check does not exist -> skipping\";");
+      write_indent($stream, 3, "echo;");
+      write_indent($stream, 2, "fi;");
+      write_indent($stream, 2, "cd \${home};");
+      write_indent($stream, 1, "fi;");
+    } else {
+      write_indent($stream, 1, "if [ -e \"\$(first $check)\" ]; then");
+      write_indent($stream, 2, $lines.$line.$option);
+      write_indent($stream, 1, "else");
+      write_indent($stream, 2, "echo \"# $check does not exist -> skipping\";");
+      write_indent($stream, 2, "echo;");
+      write_indent($stream, 1, "fi");
     }
-
-    EMC::Options::write($stream, $root, "job");
   }
+  printf($stream "}\n\n");
+}
 
-  write_permutations($stream, $job, $type);
-  write_replace_vars($stream, $job, $type);
 
-  # TEST
+sub write_sub_functions {
+  my $stream = shift(@_);
+  my $functions = shift(@_);
+  my $selection = shift(@_);
+  my $type = shift(@_);
 
-  if ($type eq "test") {
-    my $dim = 1;
-    my $fpair = 0;
-    my $first = 1;
-    my $options = write_func_options($job);
-  
-    printf($stream "\n# functions\n\n");
-    printf($stream "run() {\n  echo \"\$@\"; \"\$@\"; }\n\n");
-    printf($stream "submit() {\n  local values=();\n");
-    foreach (@{$loop_variables->{active}}) {
-      my @v = (split(":"));
-      my $fpair =
-	@v[1] eq "p" || @v[1] eq "pair" ||
-	@v[1] eq "h" || @v[1] eq "hide" ? 1 : 0;
-      my @a = split(":", @{$environment->{loop}->{$_}}[0]);
-      my $value = @a[0] eq "s" || @a[0] eq "seq" ? @a[1] : @a[0];
-
-      $value = "00" if (@v[0] eq "copy"); 
-
-      $dim =
-	@v[1] eq "2" || @v[1] eq "3" || @v[1] eq "4" ? @v[1] : 
-	$fpair ? $dim : 1;
-
-      for (my $i=1; $i<=$dim; ++$i) {
-	my $var = $dim>1 ? @v[0]."_".$i : @v[0];
-
-	$options->[0] .= " \\\n      -$var \"\${$var}\"";
-	if ($first) {
-	  printf($stream "  local $var=\"$value\"; ");
-	  $first = 0;
-	} else {
-	  printf($stream 
-	    "  local $var=\"\$(replace_vars '$value' \"\${values[\@]}\")\"; ");
-	}
-	printf($stream "values+=(\"\$$var\");\n");
-      }
+  foreach (@{$selection}) {
+    my $function = $functions->{$_};
+    if (!defined($function)) {
+      EMC::Message::error("missing function '$_'\n");
     }
+    $function = $function->{$type} if (ref($function) eq "HASH");
+    printf($stream "%s\n\n", $function);
+  }
+}
 
-    printf($stream "
-  run \\
-    \"\${CHEMISTRY}/scripts/$project->{script}.sh\"$options->[0] \\
-      $project->{name};
-  run \\
-    emc.pl$options->[1] \\
-      -preprocess=$preprocess \\
-      -project=$project->{name} \\
-      -md_engine=$md_engine \\
-      -workdir=\"\${WORKDIR}\" \\
-      $project->{name}$global->{script}->{extension};
-}\n\n");
+
+sub set_loop_variable_options {
+  my $options = shift(@_);
+  my $loop_variables = shift(@_);
+
+  foreach(@{$loop_variables->{active}}) {
+    my @var = (split(":"));
+    my $value = shift(@var);
+    my $eval = 0;
+
+    $options->[0] .= " \\\n      -$value \"\${".uc($value)."}\"";
   }
 }
 
@@ -1755,6 +1842,8 @@ run_init() {
 sub write_indent {				# <= write_job_indent
   my $stream = shift(@_);
   my $nindent = shift(@_);
+  my $break = defined($stream) ? " \\" : "";
+  my @lines;
   my $i;
 
   foreach (split("\n", shift(@_))) {
@@ -1766,13 +1855,15 @@ sub write_indent {				# <= write_job_indent
     my $npars = 0;
     my $first = 1;
     my $s = "";
-    my @words = split(" ", $arg);
-
+    #my @words = split(" ", $arg);
+    my @words = EMC::List::split_line($arg);
+    
     if (scalar(@words)>1) {
       foreach (@words) {
 	my $tmp = $s.(length($s) ? " $_" : $_);
 	if ($indent+length($tmp)+1<=$n-2) { $s = $tmp; next; }
-	EMC::Job::print($stream, $indent+2*$npars, $s." \\");
+	my $r = EMC::Job::print($stream, $indent+2*$npars, $s.$break);
+	push(@lines, $r) if (defined($r));
 	$npars += ($s =~ tr/\(//)-($s =~ tr/\)//)+$first;
 	$first = 0;
 	$s = $_;
@@ -1780,8 +1871,12 @@ sub write_indent {				# <= write_job_indent
     } else {
       $s = @words[0];
     }
-    EMC::Job::print($stream, $indent+2*$npars, $s) if (length($s));
+    if (length($s)) {
+      my $r = EMC::Job::print($stream, $indent+2*$npars, $s);
+      push(@lines, $r) if (defined($r));
+    }
   }
+  return scalar(@lines) ? [@lines] : undef;
 }
 
 
@@ -1828,21 +1923,28 @@ sub write_loop {				# <= write_job_loop
   my $first = shift(@_);
   my $q = shift(@_) ? "" : "\"";
 
+  $q = "";
+  #EMC::Message::spot("name = $name, dim = $dim\n");
   for (my $i=0; $i<$dim; ++$i) {
-    my $list = $first ? 
-      "\${$NAME"."s[\$i_$name]}" :
-      "$q\$(replace_vars \"\${$NAME"."s[\${i_$paired"."[$i]}]}\" \"\${values[\@]}\")$q";
+    my $list = 0 && ${$first} ? 
+      "\${$NAME"."s[\${".($dim>1 ? "j_$name"."[$i]" : "i_$name")."}]}" :
+      "$q\$(replace_vars \"\${$NAME"."s[\${".($dim>1 ? "j_$paired"."[$i]" : "i_$paired")."}]}\" \"\${values[\@]}\")$q";
     my $VAR = $NAME.($dim<2 ? "" : "_".($i+1));
 
     write_indent($stream,
       ${$indent}++, "for $VAR in $list; do");
+    #write_indent($stream,
+    #  ${$indent}, "$VAR=$list;\n");
+    write_indent($stream,
+      ${$indent}, "if [ \"\${$VAR}\" == \"-\" ]; then continue; fi;");
     if (${$index}) {
       write_indent($stream,
-	${$indent}, "values=(\${values[@]:0:${$index}} \"\$$VAR\");");
+	${$indent}, "values=(\${values[@]:0:${$index}} \"\${$VAR}\");");
     } else {
       write_indent($stream,
-	${$indent}, "values=(\"\$".uc($_)."\");");
+	${$indent}, "values=(\"\${".uc($_)."}\");");
     }
+    ${$first} = 0;
     ++${$index};
   }
 }
@@ -1871,6 +1973,9 @@ sub write_loops {				# <= write_job_loops
 
   $nchains = 1 if ($nchains<1);
   EMC::Environment::job_loop_pairing($loop_variables, $pairing, $vars, $index);
+
+  #EMC::Message::dumper("loop = ", $loop);
+  #EMC::Message::dumper("pairing = ", $pairing);
   if ($type eq "run") {
     write_indent(
       $stream, $indent++,
@@ -1905,19 +2010,22 @@ sub write_loops {				# <= write_job_loops
       $perm = $pairing->{$name}->{perm};
       @pairs = @{$pairing->{$name}->{list}};
       write_indent(
-	$stream, $indent, "COPY=\"\";") if ($first && !$copy);
+	$stream, $indent, "COPY=\"\";") if ($first && !$copy && $type ne "test");
       if ($dim>1) {
-	write_indent(
-	  $stream, $indent++, "for v_$name in \$(permutations $perm \${#$NAME"."s[@]}); do");
-	write_indent(
-	  $stream, $indent, "i_$name=(\$(split \$v_$name \":\"));");
+	write_indent($stream,
+	  $indent, "v_$name=(\$(permutations $perm \${#$NAME"."s[@]}));\n");
+	write_indent($stream,
+	  $indent++, "for i_$name in \${!v_$name"."[@]}; do");
+	write_indent($stream,
+	  $indent, "j_$name=(\$(split \"\${v_$name"."[\$i_$name]}\" \":\"));");
       } else {
-	write_indent(
-	  $stream, $indent++, "for i_$name in \${!$NAME"."s[@]}; do");
+	write_indent($stream,
+	  $indent++, "for i_$name in \${!$NAME"."s[@]}; do");
       }
       push(@unset, 0);
       write_loop(
-	$stream, \$indent, \$index, $NAME, $name, $name, $dim, $first, $sequence);
+	$stream, \$indent, \$index, $NAME, $name, $name,
+       	$dim, \$first, $sequence);
       push(@unset, 1);
     }
     my $paired = $name;
@@ -1932,20 +2040,24 @@ sub write_loops {				# <= write_job_loops
 	  "for $NAME in \$(zero 2 \$(create_copies \${$NAME"."s[\$i_$name]})); do");
 	push(@unset, 0);
       } else {
+	my @a = split(":", $name);
 	write_loop(
-	  $stream, \$indent, \$index, $NAME, $name, $paired, $dim, $first, $sequence);
+	  $stream, \$indent, \$index, $NAME, $name, $paired,
+	  scalar(@a)>1 ? @a[1] : 1, \$first, $sequence);
 	push(@unset, 1);
       }
     }
     $first = 0;
   }
-
   write_indent($stream, $indent, $text);		# write text
- 
+  if ($type eq "test") {
+    write_indent($stream, $indent, "let counter++;");
+  } 
   $indent0 += 2 if ($type eq "run"); 
   while ($indent>$indent0) {				# write postamble
     write_indent($stream, --$indent, "done;");
   }
+  return if ($type eq "test");
   write_indent($stream, $indent,
     "pack_exec \"\${WORKDIR}\";\necho;\nLAST_JOB_IDS=(\"\${JOB_IDS[@]}\");");
   write_indent($stream, --$indent, "done;") if ($type eq "run");
@@ -1953,69 +2065,51 @@ sub write_loops {				# <= write_job_loops
 }
 
 
-sub write_permutations {			# <= write_job_permutations
-  my $stream = shift(@_);
-  my $job = shift(@_);
-  my $type = shift(@_);
-
-  printf($stream 
-"
-permutations() {
-  perl -e '
-    \@a = split(\":\", \@ARGV[0]);
-    \$dim = shift(\@a);
-    \$s = shift(\@a);
-    \$n = \@ARGV[1];
-    \$hash = {};
-    \$i = [];
-    
-    \$s %= \$n if (defined(\$s));
-    for (\$k=0; \$k<\$dim; ++\$k) { push(\@{\$i}, 0); }
-    for (\$k=0; \$k<\$dim; ) {
-      my \@f;
-      foreach (\@{\$i}) { \@f[\$_] = 1; }
-      if (defined(\$s) ? defined(\@f[\$s]) : 1) {
-	my \@r = reverse(\@{\$i});
-	my \@index = map({join(\":\", \@{\$_})} (\$i, \\\@r));
-	++\$hash->{\@index[defined(\$hash->{\@index[0]}) ? 0 : 1]};
-      }
-      \$k = 0; foreach (\@{\$i}) {
-	last if (++\$_<\$n);
-	\$_ = 0;
-	++\$k;
-      }
-    }
-    print(join(\" \", sort(keys(\%{\$hash}))), \"\\n\");
-  ' -- \$1 \$2;
-}
-");
-}
-
-
 sub write_replace_vars {			# <= write_job_replace_vars
   my $stream = shift(@_);
   my $job = shift(@_);
+  my $all = shift(@_);
 
   my $environment = EMC::Common::element($job, "root", "environment");
+  my $variables = EMC::Common::element($environment, "variables");
   my $loop_variables = EMC::Common::element($environment, "loop_variables");
 
-  my @replacements = 
-    map({'"@{'.uc((split(":"))[0]).'}"'} @{$loop_variables->{vars}});
-  my $result = 
-    shift(@_) eq "test" ? "\"\${result}\"" : "\"\$(create_list \"\${result}\")\"";
+  my @replacements = @{$loop_variables->{active}};
+  my @values = ();
 
-  printf($stream "\nreplace_vars() {\n");
+  if (defined($variables->{data})) {
+    @replacements = (
+      @replacements, map({$_->[0]} reverse(@{$variables->{data}}))) if ($all);
+    @replacements = map({'"@{'.uc((split(":"))[0]).'}"'} @replacements);
+  }
+
+  printf($stream "replace_vars() {\n");
   write_indent($stream, 1, "local var=(".join(" ", @replacements).");");
+  if ($all) {
+    @values = @{$loop_variables->{active}};		# loop vars
+    @values = map({'"${'.lc((split(":"))[0]).'}"'} @values);
+    if (defined($variables->{data})) {
+      foreach (reverse(@{$variables->{data}})) {	# environment vars
+	my @var = @{$_}; shift(@var);
+	push(@values, '"'.join(" ", @var).'"');
+      }
+    }
+  } else {
+    push(@values, "\"\$@\"");
+  }
+  write_indent($stream, 1, "local value=(".join(" ", @values).");");
   print($stream "
   local result=\"\$1\"; shift;
-  local value=(\"\$@\");
+  local variables=();
   local i;
 
   for i in \${!value[@]}; do
-    result=\$(replace \"\${result}\" \"\${var[\$i]}\" \"\${value[\$i]}\");
-  done;
-  echo $result;
+    variables=(\"\${variables[@]}\" \"\${var[\$i]}\" \"\${value[\$i]}\");
+  done;".($all ? "
+  replace \"\${result}\" \"\${variables[@]}\";" : "
+  echo \"\$(create_list \"\$(replace \"\${result}\" \"\${variables[@]}\")\")\";")."
 }
+
 ");
 }
 
@@ -2080,7 +2174,8 @@ sub write_submit {				# <= write_job_submit
   if ($type eq "analyze") {
     
     # ANALYZE
-
+   
+    #EMC::Message::spot("CALL analyze\n");
     write_func($job, $stream, $type,
 "dir=\"data".write_dir(@{$environment->{loop_variables}->{expand}})."\";
 printf \"# \${dir}\\n\\n\";
@@ -2104,6 +2199,7 @@ echo;
 
     # BUILD
 
+    #EMC::Message::spot("CALL build\n");
     write_func($job, $stream, $type,
       "dir=\"data".write_dir(@{$environment->{loop_variables}->{expand}})."\";\n".
       "run_emc \"\${dir}/build\";");
@@ -2112,6 +2208,7 @@ echo;
 
     # RUN
 
+    #EMC::Message::spot("CALL run\n");
     write_func($job, $stream, $type,
 "dir=\"data".write_dir(@{$environment->{loop_variables}->{expand}})."\";
 serial=0;
@@ -2139,7 +2236,8 @@ esac
 
     # TEST
 
-    write_func($job, $stream, $type, "");
+    #EMC::Message::spot("CALL test\n");
+    #write_func($job, $stream, $type, "");
 
   } else {
 

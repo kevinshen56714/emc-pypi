@@ -1,0 +1,111 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/",
+  field		-> "pcff",
+  templates	-> dir+field+"/"+field+"_templates.dat",
+  parameters	-> dir+field+"/"+field+".frc",
+  output	-> "pcbm",
+
+  seed		-> 2,
+
+  tbuild	-> 300,
+  tequil	-> 1,
+
+  nrelax	-> 500,
+  grace		-> 0.9999,
+  radius	-> 9.5,
+
+  nblocks	-> 100,
+  ncycles	-> 5000,
+  //density	-> 0.87650,
+  //npcbm	-> 500
+
+  density	-> 0.01,
+  npcbm	-> 1
+};
+
+field		= {
+  mode		-> cff,
+  name		-> {parameters, templates},
+  compress	-> false
+};
+
+groups		= {
+  group		-> {
+    id		-> pcbm,
+    depth	-> 6,
+    chemistry	-> "COC(=O)CCCC1(C23C14c5c6c7c8c9c1c%10c%11c%12c%13c%10c%10c9c9c7c5c5c2c2c7c5c9c%10c5c%13c9c%10c%12c%12c%13c%11c%11c1c8c1c6c6c4c4c3c3c2c(c9c57)c2c%10c%12c5c7c%13c%11c1c6c7c4c5c23)c1ccccc1"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> pcbm,
+    system	-> main,
+    n		-> npcbm,
+    group	-> pcbm
+  }
+};
+
+field		= {mode -> apply};
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  },
+  types 	-> {
+    neighbor	-> thread,
+    cff		-> {pair -> {coulomb -> cut, cutoff -> 9.5, mode -> repulsive}},
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+put		= {"test"};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> tbuild,
+    density	-> density
+  },
+  select	-> {
+    progress	-> list,
+    //order	-> sequence,
+    frequency	-> 1,
+    message	-> raw,
+    cluster	-> pcbm,
+    name	-> "error",
+    relax	-> {ncycles -> nrelax, radius -> radius},
+    grow	-> {
+      method	-> energetic,
+      grace	-> {grace, grace},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+simulation	= {
+  systems	-> {
+    properties	-> {
+      id	-> main, t -> tequil
+    }
+  }
+};
+
+run		= {nblocks -> nblocks, ncycles -> ncycles, message -> raw};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+focus		= {clusters -> pcbm};
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> cff, unwrap -> true};
+lammps		= {name -> output, mode -> put, forcefield -> cff, parameters -> true};
+

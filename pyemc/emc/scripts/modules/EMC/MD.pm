@@ -52,7 +52,9 @@ use EMC::GROMACS;
 use EMC::LAMMPS;
 use EMC::Math;
 use EMC::NAMD;
+use EMC::OpenFTS;
 use EMC::PDB;
+use EMC::VTK;
 use EMC::XYZ;
 
 
@@ -71,11 +73,18 @@ sub construct {
   my $parent = shift(@_);
   my $md = EMC::Common::hash(EMC::Common::element($parent));
   my $attr = EMC::Common::attributes(@_);
+
   my $modules = {
     gromacs => [\&EMC::GROMACS::construct, $attr],
     lammps => [\&EMC::LAMMPS::construct, $attr],
     namd => [\&EMC::NAMD::construct, $attr],
+    openfts => [\&EMC::OpenFTS::construct,
+      EMC::Common::attributes(
+	EMC::Element::deep_copy($attr), depricated => 0, indicator => 1)],
     pdb => [\&EMC::PDB::construct, $attr],
+    vtk => [\&EMC::VTK::construct,
+      EMC::Common::attributes(
+	EMC::Element::deep_copy($attr), depricated => 0, indicator => 1)],
     xyz => [\&EMC::XYZ::construct, $attr]
   };
   
@@ -393,6 +402,7 @@ sub set_functions {
   $set->{context} = \&EMC::MD::set_context;
   $set->{defaults} = \&EMC::MD::set_defaults;
   $set->{options} = \&EMC::MD::set_options;
+  $set->{flags} = \&EMC::Options::set_flag;
 
   foreach (keys(%{$flags})) {
     $set->{flag}->{$_} =

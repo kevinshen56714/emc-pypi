@@ -1,0 +1,28 @@
+(* EMC: Script *)
+
+variables	= {
+  input		-> "former",
+  output	-> "current"
+};
+
+former		= {
+  name		-> input,
+  forcefield	-> standard  
+};
+
+force		= {
+  style		-> init,
+  message	-> true
+};
+
+put		= {
+  name		-> output};
+
+pdb		= {
+  name		-> output,
+  system	-> 0,
+  pbc		-> true,
+  cut		-> true,
+  forcefield	-> standard
+};
+

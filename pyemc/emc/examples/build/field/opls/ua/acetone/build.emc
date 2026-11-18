@@ -1,0 +1,103 @@
+(* EMC: Script *)
+
+variables	= {
+  dir		-> $root+"field/opls/2012/",
+  parameters	-> dir+"opls-ua.prm",
+  topology	-> dir+"opls-ua.top",
+
+  output	-> "acetone",
+  nmolecules	-> 100,
+  temperature	-> 500,
+  density	-> 1,
+  seed		-> -1
+};
+
+field		= {
+  mode		-> opls,
+  name		-> {parameters, topology},
+  compress	-> false
+};
+
+field		= {
+  mode		-> put,
+  name		-> "test",
+  compress	-> false
+};
+
+groups		= {
+  group		-> {
+    id		-> molecule,
+    chemistry	-> "HOCCCC(=O)CCC(=O)OH"
+  }
+};
+
+clusters	= {
+  cluster	-> {
+    id		-> molecule,
+    system	-> main,
+    n		-> nmolecules,
+    group	-> molecule
+  }
+};
+
+put		= {name -> output};
+
+field		= {
+  mode		-> apply,
+  error		-> false
+};
+
+simulation	= {
+  units		-> {
+    seed	-> seed
+  },
+  types 	-> {
+    opls	-> {
+      pair 	-> {mode -> repulsive, cutoff -> 9.5},
+      pair14	-> {active -> true},
+      correct	-> {active -> false}
+    },
+    coulomb 	-> {pair -> {active -> false}}
+  }
+};
+
+put		= {name -> output};
+
+build		= {
+  system	-> {
+    id		-> main,
+    temperature	-> temperature,
+    density	-> density,
+    geometry	-> {1, 2, 1}
+  },
+  select	-> {
+    progress	-> list,
+    frequency	-> 1,
+    cluster	-> molecule,
+    relax	-> {ncycles -> 100, radius -> 5.0},
+    name	-> "error",
+    grow	-> {
+      method	-> energetic,
+      grace	-> {0.999, 0.999},
+      nbonded	-> 20,
+      ntrials	-> 20,
+      niterations -> 1000
+    }
+  }
+};
+
+force		= {style -> none, message -> nkt};
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+
+(*
+run		= {ncycles -> 1000, nblocks -> 10};
+
+force		= {style -> none, message -> raw};
+force		= {style -> init, message -> raw};
+*)
+
+put		= {name -> output, compress -> false};
+pdb		= {name -> output, forcefield -> opls, detect -> false, unwrap -> true};
+lammps		= {name -> output, mode -> put, charges -> true, forcefield -> opls, parameters -> true};
+

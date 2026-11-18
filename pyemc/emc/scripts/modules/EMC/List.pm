@@ -57,14 +57,60 @@ sub check {
 }
 
 
+#sub compare {
+#  return undef if (ref(@_[0]) ne "ARRAY" || ref(@_[1]) ne "ARRAY");
+#  my $n = @{@_[0]}<@{@_[1]} ? @{@_[0]} : @{@_[1]};
+#  for (my $i=0; $i<$n; ++$i) {
+#    return -1 if (@_[2] ? @_[0]->[$i] lt @_[1]->[$i] : @_[0]->[$i]<@_[1]->[$i]);
+#    return 1 if (@_[2] ? @_[0]->[$i] gt @_[1]->[$i] : @_[0]->[$i]>@_[1]->[$i]);
+#  }
+#  return @{@_[0]}<@{@_[1]} ? -1 : @{@_[1]}<@{@_[0]} ? 1 : 0;
+#}
+
+
 sub compare {
-  return undef if (ref(@_[0]) ne "ARRAY" || ref(@_[1]) ne "ARRAY");
-  my $n = @{@_[0]}<@{@_[1]} ? @{@_[0]} : @{@_[1]};
-  for (my $i=0; $i<$n; ++$i) {
-    return -1 if (@_[2] ? @_[0]->[$i] lt @_[1]->[$i] : @_[0]->[$i]<@_[1]->[$i]);
-    return 1 if (@_[2] ? @_[0]->[$i] gt @_[1]->[$i] : @_[0]->[$i]>@_[1]->[$i]);
+  my ($a, $b, $order) = @_;
+
+  return ($a cmp $b) if (!defined($order));
+  if (ref($a) eq "ARRAY") {
+    if (ref($b) eq "ARRAY") {
+      if (ref($order) eq "ARRAY") {
+	foreach (@{$order}) {
+	  my $f = ($a->[$_] cmp $b->[$_]);
+	  return $f if ($f);
+	}
+      } else {
+	my $n = scalar(@{$a})<scalar(@{$b}) ? scalar(@{$a}) : scalar(@{$b});
+	for (my $i = 0; $i<$n; ++$i) {
+	  my $f = ($a->[$i] cmp $b->[$i]);
+	  return $f if ($f);
+	}
+      }
+      return 0;
+    }
+    return (ref($a) cmp ref($b));
+  } elsif (ref($a) eq "HASH") {
+    if (ref($b) eq "HASH") {
+      if (ref($order) eq "ARRAY") {
+	foreach (@{$order}) {
+	  my $f = ($a->{$_} cmp $b->{$_});
+	  return $f if ($f);
+	}
+      } else {
+	foreach (sort(keys(%{$a}))) {
+	  if (defined($b->{$_})) {
+	    my $f = ($a->{$_} cmp $b->{$_});
+	    return $f if ($f);
+	  } else {
+	    return -1;
+	  }
+	}
+      }
+      return 0;
+    }
+    return (ref($a) cmp ref($b));
   }
-  return @{@_[0]}<@{@_[1]} ? -1 : @{@_[1]}<@{@_[0]} ? 1 : 0;
+  return ($a cmp $b);
 }
 
 
@@ -222,15 +268,18 @@ sub replace {
 
 
 sub sort {
-  my ($list, $freq, $up) = @_;
+  my ($list, $attr) = @_;
 
   my $list = shift(@_);
-  my $freq = ref(@_[0]) eq "HASH" ? shift(@_) : undef;
-  my $reverse = defined(@_[0]) ? shift(@_)&3 : 0;	# bitwise list & freq
+  my $freq = EMC::Common::element($attr, "frequency");
+  my $reverse = EMC::Common::element($attr, "reverse");	# bitwise list & freq
+  my $order = EMC::Common::element($attr, "order");
 
   return $list if (ref($list) ne "ARRAY");
-  if (defined($freq)) {
-    if ($reverse == 0) {				# standard
+  if (defined($order)) {
+    @{$list} = sort({EMC::List::compare($a, $b, $order)} @{$list});
+  } elsif (defined($freq)) {
+    if (!$reverse) {					# standard
       @{$list} = sort(
 	{$freq->{$a}==$freq->{$b} ? $a cmp $b : $freq->{$a}<=>$freq->{$b}}
 	@{$list});
@@ -252,6 +301,15 @@ sub sort {
   }
   return $list;
 
+}
+
+
+sub text {
+  my $list = shift(@_);
+
+  if (ref($list) eq "ARRAY") {
+    return join(", ", "@{$list}");
+  }
 }
 
 
@@ -540,7 +598,7 @@ sub set_list_oper {
 	  $ptr->[$i] = @arg[$i];
 	}
       } else {
-	$oper->{$key} = @arg[0];
+	$oper->{$key} = join(":", @arg);
       }
     }
     $first = 0;
@@ -550,6 +608,65 @@ sub set_list_oper {
     $phases->[$phase] = $oper;
   }
   return $oper;
+}
+
+
+# Source - https://stackoverflow.com/a/76404839
+# Posted by Martin Quinson, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-06-11, License - CC BY-SA 4.0
+# Altered 2026-06-11, include all quotes, ignore backslash
+
+sub split_line {
+  my ($string) = @_;
+
+  my @result = ();
+  my @quote = ();
+  my $accumulated = "";
+  my $seen_quotes = 0; 
+
+  while ($string =~ s/('|"|\s+|[^"'\s]+)(.*)$/$2/) {
+    my $token = $1;
+
+    if ($token eq "'" || $token eq '"') {
+      $seen_quotes = 1;
+      if (scalar(@quote)>0) {
+	if ($quote[-1] eq $token) {
+	  pop(@quote);
+	} else {
+	  #$accumulated .= $token;
+	}
+      } else {
+	push(@quote, $token);
+      }
+      $accumulated .= $token;
+#    } elsif (0 && $token =~ /\\$/) {
+#      if (defined(my $next_char = substr($string, 0, 1))) {
+#	$token =~ s/.$/$next_char/; 
+#	$string = substr($string, 1);
+#      } else {
+#	die("Error: backslash escape at end of string\n");
+#      }
+#      $accumulated .= $token;
+    } elsif ($token =~ /^\s*$/) {
+      if (scalar @quote>0) {
+	$accumulated .= $token;
+      }
+    } else {
+      $accumulated .= $token;
+    }
+    if (scalar @quote == 0  && 
+	($string eq '' || substr($string, 0, 1) eq ' ')) {
+      if ($accumulated ne '' && $seen_quotes || $accumulated =~ /\S/) {
+	push(@result, $accumulated);            
+      }
+      $accumulated = '';
+      $seen_quotes = 0;
+    }
+  }
+#  if (scalar @quote > 0) {
+#    die("Error: unclosed quote at end of string\n");
+#  }
+  return @result;
 }
 
 

@@ -1,0 +1,59 @@
+(* EMC: Script *)
+
+(* use a standard nonbonded fcc lattice as a starting structure for an lj
+   simulation; view with 'vmd -e fcc00.vmd' *)
+
+variables	= {
+  output	-> "fcc00",
+  la 		-> 2**(5/6),
+  lb 		-> 2**(5/6),
+  lc		-> 2**(5/6)};
+
+(* get fcc unit cell; la, lb, and lc variable definitions in script override
+   definitions in fcc.emc imput file *)
+
+get		= {name -> $root+"lib/fcc.emc"};
+
+(* define simulation properties *)
+
+simulation	= {
+  output	-> {debug -> false},
+  systems	-> {properties -> {t -> 1}},
+  types		-> {
+    skin	-> 0.6,
+    neighbor	-> pair,
+    virial	-> false,
+    stencil	-> standard,
+    standard	-> {correct -> {active -> false}}},
+  moves		-> {ncycles -> 100, seed -> 123456789,
+    displace	-> {frequency -> 1}},
+  blocks	-> {frequency -> 100},
+  profiles	-> {frequency -> 10}
+};
+
+(* build a 4*7^3 particle simulation *)
+
+crystal		= {n -> {7, 7, 7}, miller -> {0, 0, 1}, plane -> m001};
+
+(* calculate initial energies *)
+
+force		= {style -> init, message -> true};
+
+run		= {ncycles -> 1000, nblocks -> 100};
+
+memory		= {style -> full};
+
+(* display resulting energy and recalculate final energies in several ways *)
+
+force		= {style -> none, message -> true};
+force		= {style -> list, message -> true};
+force		= {style -> init, message -> true};
+
+(* output results to several output formats *)
+
+put 		= {name -> output};
+pdb		= {name -> output, system -> 0, cut -> true,
+		    forcefield -> standard};
+lammps		= {name -> output, system -> 0, mode -> put,
+		    units -> lj, types -> true, forcefield -> standard};
+

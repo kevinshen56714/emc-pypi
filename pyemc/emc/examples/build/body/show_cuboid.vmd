@@ -1,0 +1,58 @@
+#!/usr/local/bin/vmd
+# VMD script written by save_state $Revision: 1.41 $
+# VMD version: 1.8.6
+
+# Display settings
+
+display eyesep       0.065000
+display focallength  2.000000
+display height       6.000000
+display distance     -2.000000
+display projection   Perspective
+display nearclip set 0.500000
+display farclip  set 10.000000
+display depthcue     off
+display cuestart     0.500000
+display cueend       10.000000
+display cuedensity   0.400000
+display cuemode      Exp2
+
+# Load file
+
+mol new cuboid.psf type psf first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+mol addfile cuboid.traject type lammpstrj first 0 last -1 step 1 filebonds 1 autobonds 1 waitfor all
+
+# Clear previous
+
+mol delrep 0 top
+
+# Atom representation
+
+mol representation VDW 0.400000 28.000000
+mol color Name
+mol selection {all}
+mol material Opaque
+mol addrep top
+mol selupdate 0 top 0
+mol colupdate 0 top 0
+mol scaleminmax top 0 0.000000 0.000000
+mol smoothrep top 0 0
+mol drawframes top 0 {now}
+mol rename top cuboid.psf
+label textsize 1.0
+
+# Show periodic box
+
+pbc box
+
+set viewplist {}
+
+set viewpoints([molinfo top]) {{{1 0 0 -9.95506} {0 1 0 -9.94333} {0 0 1 -10.0885} {0 0 0 1}} {{0.0120798 0.426707 0.904308 0} {-0.846975 0.485073 -0.217572 0} {-0.531496 -0.7633 0.367268 0} {0 0 0 1}} {{0.0722512 0 0 0} {0 0.0722512 0 0} {0 0 0.0722512 0} {0 0 0 1}} {{1 0 0 0.18} {0 1 0 0.2} {0 0 1 0} {0 0 0 1}}}
+
+lappend viewplist [molinfo top]
+set topmol [molinfo top]
+
+foreach v $viewplist {
+  molinfo $v set {center_matrix rotate_matrix scale_matrix global_matrix} $viewpoints($v)
+}
+

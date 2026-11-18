@@ -1,0 +1,27 @@
+#
+# Amino Acid collection
+#
+# name, short name, neutral smiles, zwitterionic smiles (as defined by CHARMM)
+#
+Alanine,Ala,O=C(O)[C@H](N)C,O:C(:O)[C@H]([N+])C
+Arginine,Arg,NC(CCCNC(N)=N)C(O)=O,[N+]C(CCCNC(N)=[N+])C(:O):O.[Cl-]
+Asparagine,Asn,O=C(N)C[C@H](N)C(=O)O,O=C(N)C[C@H]([N+])C(:O):O
+Aspartic_acid,Asp,O=C(O)CC(N)C(=O)O,O:C(:O)CC([N+])C(:O):O.[Na+]
+Cysteine,Cys,C([C@@H](C(=O)O)N)S,C([C@@H](C(:O):O)[N+])S
+Glutamic_acid,Glu,C(CC(=O)O)C(C(=O)O)N,C(CC(=O)O)C(C(:O):O)[N+]
+Glutamine,Gln,O=C(N)CCC(N)C(=O)O,O=C(N)CCC([N+])C(:O):O
+Glycine,Gly,C(C(=O)O)N,C(C(:O):O)[N+]
+Histidine,His,O=C(O)[C@@H](N)Cc1cncn1,O:C(:O)[C@@H]([N+])Cc1cn(H)cn1
+Isoleucine,Ile,CC[C@H](C)[C@@H](C(=O)O)N,CC[C@H](C)[C@@H](C(:O):O)[N+]
+Leucine,Leu,CC(C)C[C@@H](C(=O)O)N,CC(C)C[C@@H](C(:O):O)[N+]
+Lysine,Lys,C(CCN)CC(C(=O)O)N,C(CC[N+])CC(C(:O):O)[N+].[Cl-]
+Methionine,Met,CSCCC(C(=O)O)N,CSCCC(C(:O):O)[N+]
+Ornithine,Orn,O=C(O)[C@@H](N)CCCN,O:C(:O)[C@@H]([N+])CCC[N+].[Cl-]
+Phenylalanine,Phe,c1ccc(cc1)C[C@@H](C(=O)O)N,c1ccc(cc1)C[C@@H](C(:O):O)[N+]
+Proline,Pro,C1CC(NC1)C(=O)O,C1CC([N+]C1)C(:O):O
+#Selenocysteine,Sec,O=C(O)[C@@H](N)C[Se]H,O:C(:O)[C@@H]([N+])C[Se]H
+Serine,Ser,C([C@@H](C(=O)O)N)O,C([C@@H](C(:O):O)[N+])O
+Threonine,Thr,C[C@H]([C@@H](C(=O)O)N)O,C[C@H]([C@@H](C(:O):O)[N+])O
+Tryptophan,Trp,c1ccc2c(c1)c(c[nH]2)C[C@@H](C(=O)O)N,c1ccc2c(c1)c(c[nH]2)C[C@@H](C(:O):O)[N+]
+Tyrosine,Tyr,N[C@@H](Cc1ccc(O)cc1)C(O)=O,[N+][C@@H](Cc1ccc(O)cc1)C(:O):O
+Valine,Val,CC(C)[C@@H](C(=O)O)N,CC(C)[C@@H](C(:O):O)[N+]

@@ -109,6 +109,9 @@ $EMC::Fields::Guide = {
   auto => {
     equivalence => 1, nonbond => 1, bond => 1, angle => 1, torsion => 1,
     improper => 1},
+  evaluate => {
+    increment => 1, nonbond => 1, bond => 1, angle => 1, torsion => 1,
+    improper => 1},
   ntypes => {
     define => 1, mass => 1, equivalence => 1, rules => 0, nonbond => 2,
     increment => 2, bond => 2, angle => 3, torsion => 4, improper => 4,
@@ -209,6 +212,7 @@ sub set_defaults {
 	bond		=> 0,
 	charge		=> 1,
 	check		=> 1,
+	compress	=> 1,
 	debug		=> "false",
 	emc		=> 0,
 	error		=> 1,
@@ -570,6 +574,11 @@ sub set_commands {
 	  default	=> EMC::Math::boolean($fields->{flag}->{check}),
 	  gui		=> ["option", "chemistry", "field", "advanced"]
 	},
+	field_compress	=> {
+	  comment	=> "set field compression",
+	  default	=> EMC::Math::boolean($fields->{flag}->{compress}),
+	  gui		=> ["option", "chemistry", "field", "advanced"]
+	},
 	field_debug	=> {
 	  comment	=> "set debug field option",
 	  default	=> EMC::Math::boolean($fields->{flag}->{debug}),
@@ -699,6 +708,7 @@ sub set_options {
   my $fields = EMC::Common::element($struct, "module");
   my $define = EMC::Common::hash($fields, "define");
   my $flag = EMC::Common::element($fields, "flag");
+  my $defined = EMC::Common::element($fields, "defined");
   my $flags = EMC::Common::element($fields, "flags");
   my $list = EMC::Common::element($fields, "list");
   my $set = EMC::Common::element($fields, "set");
@@ -707,7 +717,7 @@ sub set_options {
 
   $fields->{global} = \$root->{global};
 
-  if ($flag->{special}) {
+  if ($flag->{special}) {				# ITEM DEFINE
     $indicator = $indicator ? "field_" : "";
     if ($option eq $indicator."angle") {
       return $define->{angle} = EMC::Fields::set_select($struct); }
@@ -736,16 +746,23 @@ sub set_options {
     if ($option eq "field_bond") { 
       return set_flag($fields, "bond", $args->[0]); }
     if ($option eq "field_charge") {
+      $defined->{flag}->{charge} = 1;
       return $flag->{charge} = EMC::Math::flag($args->[0]); }
     if ($option eq "field_check") {
+      $defined->{flag}->{check} = 1;
       return $flag->{check} = EMC::Math::flag($args->[0]); }
+    if ($option eq "field_compress") {
+      $defined->{flag}->{compress} = 1;
+      return $flag->{compress} = EMC::Math::flag($args->[0]); }
     if ($option eq "field_dpd") {
       EMC::Hash::set($line, $fields->{field}->{dpd}, "boolean", "", [], @{$args});
+      $defined->{flag}->{dpd} = 1;
       return 1;
     }
     if ($option eq "field_debug") {
       my $value = EMC::Math::eval($args);
       $flags->{debug} = 1;
+      $defined->{flag}->{debug} = 1;
       if ($args->[0] eq "0" || $args->[0] eq "false") { 
 	$flags->{debug} = 0;
 	$flag->{debug} = "false"; }
@@ -758,6 +775,7 @@ sub set_options {
       return 1;
     }
     if ($option eq "field_error") {
+      $defined->{flag}->{error} = 1;
       return $flag->{error} = EMC::Math::flag($args->[0]) ? "true" : "false";
     }
     if ($option eq "field_format") {
@@ -791,8 +809,10 @@ sub set_options {
     }
     if ($option eq "field_nbonded") {
       my $value = EMC::Math::eval($args->[0])->[0];
+      $defined->{flag}->{nonbonded} = 1;
       return $flag->{nbonded} = $value<0 ? 0 : int($value); }
     if ($option eq "field_reduced") {
+      $defined->{flag}->{reduced} = 1;
       return $flag->{reduced} = EMC::Math::flag($args->[0]); }
     if ($option eq "field_torsion") {
       return set_flag($fields, "torsion", $args->[0]); }
@@ -890,7 +910,8 @@ sub set_item_field {
       $arg->{field} = $a->[0] if (defined($a));
     }
     if (defined($arg->{field})) {
-      $source = EMC::Common::element($fields, $arg->{field});
+      my $result = EMC::Fields::id($root->{fields}, $line, $arg->{field});
+      $source = EMC::Common::element($fields, $result->[0]);
     } else {
       if (scalar(keys(%{$module->{fields}}))>1) {
 	EMC::Message::error_line(
@@ -904,7 +925,11 @@ sub set_item_field {
     $source->{field} = EMC::Fields::item_field(
       EMC::Fields::get("$source->{location}/$source->{name}"),
       {name => $name, line => $line, data => $data});
-    EMC::Fields::put($name.".prm", $source->{field});
+    if ($root->{fields}->{flag}) {
+      EMC::Fields::put($name.".prm.gz", $source->{field});
+    } else {
+      EMC::Fields::put($name.".prm", $source->{field});
+    }
     $source->{location} = $location;
     $source->{name} = $name;
     EMC::Fields::update_locations($fields);
@@ -1399,7 +1424,11 @@ sub from_item {
 
   foreach (@{$guide->{index}}) {
     my $class = $_;
+    my $mass = $class eq "mass";
     my $define = $class eq "define";
+    my $evaluate = 
+      defined($attr->{evaluate}) ? $attr->{evaluate} :
+      defined($guide->{evaluate}->{$class}) ? 1 : 0;
 
     foreach (defined($guide->{auto}->{$class}) ? ("_auto", "") : ("")) {
       my $key = $class.$_;
@@ -1546,8 +1575,14 @@ sub from_item {
 	      } else {					# unindexed data
 		if ($define) {
 		  ${$ptr} = $arg->[0];
+		} elsif ($mass) {
+		  @{$ptr} = @{$arg};
+		  $ptr->[0] = eval($ptr->[0]);
+		  $ptr->[3] = eval($ptr->[3]);
 		} else {
-		  push(@{$ptr}, @{$arg});
+		  my $v;
+		  push(@{$ptr}, $evaluate ? 
+		    map({($v = eval($_)) ? $v : $_} @{$arg}) : @{$arg});
 		}
 	      }
 	    }
@@ -1842,9 +1877,11 @@ sub to_item {
 	my $i;
 
 	$flag->{first} = 1;
-	push(@{$keys}, map([], (1..$ntypes)));
+	push(@{$keys}, map([], (1..$ntypes-1)));
 	while (1) {
-	  last if (!scalar(@{$keys->[0]}));
+	  my $nkeys = 0;
+	  foreach (@{$keys}) { $nkeys += scalar(@{$_}); }
+	  last if (!$nkeys);
 	  for ($i=$ntypes; $i>1; --$i) { 		# advance
 	    last if(scalar(@{$keys->[$i-1]}));
 	  }
@@ -1972,7 +2009,6 @@ sub id {
   my $line = shift(@_);
   my @fld = @_;
   my $list = EMC::Common::element($fields, "list");
-
 
   foreach (@fld) {
     my $f = $_;
@@ -2141,6 +2177,8 @@ sub set_field {
       my %type = ("prm" => $field_type, "frc" => "cff", "field" => "get");
       my %convert = (basf => "cff", pcff => "cff", compass => "cff");
       my $offset = scalar(split("/", $root.$add));
+      my $primary;
+      my $secondary;
 
       $root =~ s/~/$ENV{HOME}/g if ($^O ne "MSWin32");
       
@@ -2158,10 +2196,20 @@ sub set_field {
 		  {$b cmp $a} EMC::IO::find($dir."/", "*.$ext$compress"))) {
 		next if (m/\/src\//);
 		next if (index($_, $field_type.$add)<0);
-		$field_type = EMC::Fields::type($name = $_, $add, $global);
+		$secondary = $_ if ($secondary eq "");
+		next if (index($_, $field_type.$add.".$ext$compress")<0);
+		$primary = $_;
 		last;
 	      }
-	      last if ($name ne "");
+	      if ($primary ne "") {
+		$name = $primary;
+	      } elsif ($secondary ne "") {
+		$name = $secondary;
+	      }
+	      if ($name ne "") {
+		$field_type = EMC::Fields::type($name, $add, $global);
+		last;
+	      }
 	    }
 	    last if ($name ne "");
 	  }
@@ -2183,7 +2231,7 @@ sub set_field {
 				  $convert{$field_type} : $field_type;
 	  $result{name} = (split("\.$ext", substr($name, length($split))))[0];
 	  $result{location} = EMC::IO::scrub_dir($split);
-	  EMC::Message::tdebug(__LINE__.":", "SUCCESS", "$name($result{type})", "\n");
+	  EMC::Message::tdebug(__LINE__.":", "SUCCESS", "$name ($result{type})", "\n");
 	  last;
 	} else {
 	  EMC::Message::tdebug(__LINE__.":", "FAILURE\n");

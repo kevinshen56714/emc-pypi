@@ -14,7 +14,7 @@ FFDEPTH		4
 FFCHARGE	ALL
 FFSTRICT	TRUE
 VERSION		Jan 2007
-CREATED		Apr 2025
+CREATED		Oct 2026
 LENGTH		ANGSTROM
 ENERGY		KCAL/MOL
 DENSITY		G/CC
@@ -1247,7 +1247,7 @@ c	ct	n	ct	-1.737	1	0	1.251	2	0	-3.501	3	0	107
 c	ct	n	h	0	1	0	42.2
 c	n	c	n	2.3	1	0	6.089	2	0	45.12
 c	n	ca	ca	0	1	0	2.1	2	0	207.2
-c	n	ct	ct	1.13	1	0	-1.42	2	0	0.44	3	0	75
+c	n	ct	ct	0	1	0	0.462	2	0	38
 c	n	ct	hc	0	1	0	40
 c	n	oh	ho	5.519	1	0	-6.7	2	0	0.581	3	0	343
 c	nc	oh	ho	3	1	0	3	2	0	231
@@ -1387,7 +1387,7 @@ ct	ca	ca	ha	0	1	0	7.25	2	0	165.31
 ct	co	os	ct	0.65	1	0	-0.25	2	0	0.67	3	0	13.2
 ct	ct	c	f	0	1	0	113
 ct	ct	c	hc	0	1	0	117
-ct	ct	c	n	3.26	1	0	0.44	2	0	0.6	3	0	77
+ct	ct	c	n	1.173	1	0	0.189	2	0	-1.2	3	0	39
 ct	ct	c	o	0	1	0	43.1
 ct	ct	c	oh	1	1	0	0.546	2	0	0.45	3	0	96
 ct	ct	c	os	0	1	0	-0.553	3	0	184
@@ -1401,7 +1401,7 @@ ct	ct	c_5	oh	0	1	0	1.412	2	0	106
 ct	ct	ca	nc	-0.5	1	0	0.5	2	0	-0.5	3	0	382
 ct	ct	cm	hc	0	1	0	-
 ct	ct	co	hc	0	1	0	0.3	3	0	2.2
-ct	ct	ct	ct	6.622	1	0	0.948	2	0	-1.388	3	0	-2.118	4	0	156
+ct	ct	ct	ct	1.3	1	0	-0.05	2	0	0.2	3	0	3
 ct	ct	ct	cz	0	1	0	-0.65	2	0	274
 ct	ct	ct	f	0.3	1	0	-0.4	2	0	0.4	3	0	148
 ct	ct	ct	hc	0	1	0	0.3	3	0	2
@@ -1417,7 +1417,7 @@ ct	ct	ct	s	2.619	1	0	-0.62	2	0	0.258	3	0	52
 ct	ct	ct	sh	1.262	1	0	-0.198	2	0	0.465	3	0	29
 ct	ct	ct	sy	1.262	1	0	-0.198	2	0	0.465	3	0	29.1
 ct	ct	cz	cz	0	1	0	244.1
-ct	ct	n	ct	4.753	1	0	-0.734	2	0	108
+ct	ct	n	ct	2.859	1	0	2.058	2	0	-11.266	3	0	109
 ct	ct	n	h	0	1	0	42.1
 ct	ct	n	sy	2.929	1	0	-2.533	2	0	0.497	3	0	144
 ct	ct	n2	h	-0.19	1	0	-0.417	2	0	0.418	3	0	32.1
@@ -1427,7 +1427,7 @@ ct	ct	n3	h	0	1	0	0.347	3	0	87
 ct	ct	n_1	h	0	1	0	63
 ct	ct	nc	nz	0	1	0	306.2
 ct	ct	nt	ct	0.416	1	0	-0.128	2	0	0.695	3	0	199
-ct	ct	nt	h	1.522	1	0	-0.417	2	0	0.418	3	0	197
+ct	ct	nt	h	0	1	0	4	2	0	192
 ct	ct	oh	ho	2.674	1	0	-2.883	2	0	1.026	3	0	151
 ct	ct	os	ct	0.65	1	0	-0.25	2	0	0.67	3	0	13
 ct	ct	os	p	-1.42	1	0	-0.62	2	0	0.1	3	0	178
@@ -1468,7 +1468,7 @@ ct	os	co	oh	-0.375	1	0	-1.358	2	0	0.004	3	0	153
 ct	os	co	os	-0.375	1	0	-1.358	2	0	0.004	3	0	153.1
 ct	os	nt	h	0	1	0	0.3	3	0	301.2
 ct	os	p	ct	3.5	1	0	-3.3	2	0	1.5	3	0	121
-ct	os	p	o2	0.9	1	0	-2.93	2	0	2.64	3	0	128
+ct	os	p	o2	0	1	0	123
 ct	s	ca	nc	1.6	1	0	5.1	2	0	381
 ct	s	ct	hc	0	1	0	0.647	3	0	51
 ct	s	s	ct	0	1	0	-7.414	2	0	1.705	3	0	23
@@ -1502,7 +1502,7 @@ h3	n3	ct	hc	0	1	0	0.3	3	0	1.5
 ha	ca	ca	ha	0	1	0	7.25	2	0	165.3
 ha	ca	ca	i	0	1	0	7.25	2	0	165.26
 ha	ca	ca	nt	0	1	0	7.25	2	0	165.28
-hc	c	c	hc	0.8	1	0	323
+hc	c	c	hc	0	1	0	0.3	3	0	1.1
 hc	c	c	n	-0.9	1	0	0.3	2	0	327
 hc	c	c	o	0	1	0	67.1
 hc	c	ct	hc	0	1	0	0.36	3	0	112
@@ -1530,7 +1530,7 @@ hc	ct	ct	oh	0	1	0	0.468	3	0	5
 hc	ct	ct	os	0	1	0	0.468	3	0	5.1
 hc	ct	ct	s	0	1	0	0.452	3	0	28.2
 hc	ct	ct	sh	0	1	0	0.452	3	0	28
-hc	ct	ct	sy	0	1	0	0.452	3	0	28.1
+hc	ct	ct	sy	0	1	0	0.35	3	0	239
 hc	ct	n	sy	1.362	1	0	-1.457	2	0	0.149	3	0	142
 hc	ct	oh	ho	0	1	0	0.3524	3	0	8
 hc	ct	os	p	0	1	0	0.3	3	0	122
@@ -1557,7 +1557,7 @@ nt	ct	ct	nt	11.035	1	0	-0.968	2	0	0.27	3	0	198
 nt	ct	ct	oh	8	1	0	15
 o	c	c	o	1.6	1	0	3.2	2	0	331
 o	c	n	oh	0	1	0	6.603	2	0	342
-oh	ct	ct	oh	9.508	1	0	10
+oh	ct	ct	oh	12.234	1	0	11
 oh	ct	ct	os	4.319	1	0	155
 os	co	co	os	-0.55	1	0	-
 os	ct	ct	os	-0.55	1	0	16

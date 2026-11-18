@@ -1,0 +1,172 @@
+(* EMC: Script *)
+
+(* packing of different size particles in a rectangular box; 
+   visualize with 'vmd -e show.vmd' *)
+
+(* variable defitions *)
+
+variables	= {
+  output	-> "packed",			// output name
+
+  (* system size definitions *)
+
+  phiv		-> 0.425,			// total volume fraction
+  temperature	-> 1,
+  seed		-> -1,
+  fdeform	-> (1)^(1/3),			// deform fraction
+
+  lx		-> 1,				// box shape
+  ly		-> 2,
+  lz		-> 1,
+
+  (* particle size definitions *)
+
+  sigma		-> 0.25,			// shell thickness
+  d1		-> 3.0,				// particle sizes
+  d2		-> 1.5,
+  d3		-> 0.75, (* extra *)
+
+  f1		-> 0.25,			// volume fractions
+  f2		-> 0.25,
+  f3		-> 1-f1-f2, (* extra *)
+  nparticles	-> 2000,
+  
+  n1		-> f1/d1^3,			// determination of 
+  n2		-> f2/d2^3,			// individual particle number
+  n3		-> f3/d3^3,
+  norm		-> n1+n2+n3,
+
+  n1		-> int(nparticles*n1/norm+0.5),
+  n2		-> int(nparticles*n2/norm+0.5),
+  n3		-> int(nparticles*n3/norm+0.5),
+  nparticles	-> n1+n2+n3,
+
+  (* system definitions *)
+
+  vsystem	-> lx*ly*lz,			// system volume determination
+  vparticles	-> pi/6*(n1*d1^3+n2*d2^3+n3*d3^3), (* extra *)
+  f		-> fdeform*(vparticles/(phiv*vsystem))^(1/3),
+  lx		-> lx*f,
+  ly		-> ly*f,
+  lz		-> lz*f,
+  
+  cutoff	-> 2^(1/6)*sigma,		// interaction parameters
+  offset	-> sigma,
+  core1		-> d1-offset,
+  core2		-> d2-offset,
+  core3		-> d3-offset,
+
+  grace		-> 0.99,			// build parameters
+  nrelax	-> 100,
+
+  (* simulation definitions *)
+
+  nrun		-> 1000,
+  nblocks	-> 100,
+  ntraject	-> 100
+};
+
+(* site definitions *)
+
+sites		= {
+  site		-> {id -> A, comment -> "A", mass -> 1},
+  site		-> {id -> B, comment -> "B", mass -> 1},
+  site		-> {id -> C, comment -> "C", mass -> 1} (* extra *)
+};
+
+groups		= {
+  group		-> {id -> A, chemistry -> "A"},
+  group		-> {id -> B, chemistry -> "B"},
+  group		-> {id -> C, chemistry -> "C"} (* extra *)
+};
+
+clusters	= {
+  cluster	-> {id -> A, system -> main, group -> A, n -> n1},
+  cluster	-> {id -> B, system -> main, group -> B, n -> n2},
+  cluster	-> {id -> C, system -> main, group -> C, n -> n3} (* extra *)
+};
+
+(* simulation setup: force field interaction definitions *)
+
+simulation	= {
+  units		-> {
+    type	-> reduced,
+    seed	-> seed
+  },
+  types		-> {
+    neighbor	-> sector,
+    stencil	-> multi,
+    skin	-> 0,
+    coarse	-> {
+      lj	-> {
+	active	-> true,
+	shift	-> true,
+	mix	-> berthelot,
+	nbonded	-> 0,
+	data	-> {
+	  {i0	-> A, i1 -> A,
+	    epsilon -> 1, sigma -> sigma, core -> core1, cutoff -> cutoff},
+	  {i0	-> B, i1 -> B,
+	    epsilon -> 1, sigma -> sigma, core -> core2, cutoff -> cutoff},
+	  {i0	-> C, i1 -> C,
+	    epsilon -> 1, sigma -> sigma, core -> core3, cutoff -> cutoff}
+	  (* extra *)
+	}
+      }
+    }
+  }
+};
+
+(* build paragraph *)
+
+build		= {
+  system	-> {
+    id		-> main,			// system id
+    geometry	-> {lx, ly, lz},		// system shape
+    temperature	-> temperature			// system temperature
+  },
+  select	-> {
+    progress	-> list,			// output: list or bar
+    frequency	-> 1,				// output frequency
+    cluster	-> {A, B, C}, (* extra *)	// selection of what to build
+    order	-> sequence,			// order in which to build
+    relax	-> {
+      ncycles	-> 100,				// relaxation during build
+      radius	-> d1},
+    grow	-> {
+      method	-> energetic,			// build method
+      check	-> all,
+      ntrials	-> 20,				// trials per insertion
+      grace	-> {grace, grace},		// initial and subsequent grace
+      niterations -> 10000			// maximum during insertion
+    }
+  }
+};
+
+(* check energetics *)
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+(* set deformation *)
+
+deform		= {geometry -> {lx/fdeform, ly/fdeform, lz/fdeform}};
+traject		= {name -> output, frequency -> ntraject, append -> true};
+
+(* perform a monte carlo simulation *)
+
+run		= {ncycles -> nrun, nblocks -> nblocks};
+
+(* check energetics *)
+
+force		= {style -> none, message -> true};
+force		= {style -> init, message -> true};
+
+(* outcome storage in various formats *)
+
+put		= {name -> output, compress -> true};
+pdb		= {name -> output, forcefield -> standard,
+		   unwrap -> true, pbc -> true};
+lammps		= {name -> output, mode -> put, forcefield -> standard,
+		   parameters -> true, types -> false};
+

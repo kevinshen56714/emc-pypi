@@ -49,6 +49,7 @@ $VERSION = "2.0";
 
 use File::Basename;
 use File::Find;
+use File::Glob qw(bsd_glob);
 use File::Path;
 use IO::Compress::Gzip;
 use IO::Uncompress::Gunzip;
@@ -395,7 +396,7 @@ sub find {					# <= ffind
   File::Find::find( sub{ -d $_ and push @dirs, $File::Find::name; }, $dir );
   for (my $i=0; $i<2; ++$i) {
     foreach (@dirs) {
-      foreach (sort(glob($_."/".$pattern))) {
+      foreach (sort(bsd_glob($_."/".$pattern))) {
 	push(@files, $_) if (-e $_);
       }
     }
@@ -427,6 +428,7 @@ sub open {					# <= fopen
   my @modes = split("", $mode);
   my $suffix = ref(@_[0]) eq "ARRAY" ? shift(@_) : undef;
   my $attr = ref(@_[0]) eq "HASH" ? shift(@_) : undef;
+  my $warn = EMC::Common::element($attr, "warn");
   my $compress = 0;
   my $error = 0;
   my $local = undef;
@@ -469,9 +471,17 @@ sub open {					# <= fopen
     $name = $name.".gz";
     ${$stream} = new IO::Compress::Gzip($name) or $error = 1;
   } else {
+    if ($warn) {
+      EMC::Message::warning("unsupported mode \"$mode\"\n");
+      return undef;
+    }
     EMC::Message::error("unsupported mode \"$mode\"\n");
   }
   if ($compress ? $error : !scalar(stat(${$stream}))) {
+    if ($warn) {
+      EMC::Message::warning("cannot open \"$name\"\n");
+      return undef;
+    }
     EMC::Message::error("cannot open \"$name\"\n");
   }
   $EMC::IO::stream = $stream;
